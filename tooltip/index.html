@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tooltip</title>
+    <style>
+        div[data-tooltip] {
+            display: inline;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .tooltip {
+            display: block;
+            width: 200px;
+            border: 1px solid black;
+            position: absolute;
+            background-color: white;
+            padding: 3px;
+            top: 120%;
+            left: 0;
+        }
+    </style>
+    <script>
+        window.onload = function()  {
+            let divs = document.querySelectorAll("div[data-tooltip]");
+            for (let i =0; i < divs.length; i++) {
+                let div = divs[i];
+                div.onmouseenter  = function() {
+                    div.innerHTML = div.innerHTML + '<div class="tooltip">' +div.getAttribute("data-tooltip") + '</div>';
+                 }
+                div.onmouseleave = function() {
+                    div.querySelector("div").remove();
+                 }
+            }
+        }
+    </script>
+</head>
+    <body>
+        <div class="text">
+            Lorem ipsum dolor sit amet, <div data-tooltip="asdasdas dasdasd asdasdas dasdasdas das dasdasdas da sd as da sd as d">consectetur</div> adipiscing elit. Curabitur tempor leo at urna varius, eget scelerisque
+            arcu interdum. Aliquam et accumsan diam. Mauris <div  data-tooltip="asdasdas dasdasd asdasdas dasdasdas das dasdasdas da sd as da sd as d">tincidunt</div> faucibus fermentum. Vestibulum tempor dui quis erat
+            lobortis suscipit. Ut sit amet rutrum lacus, at <div  data-tooltip="asdasdas dasdasd asdasdas dasdasdas das dasdasdas da sd as da sd as d">blandit</div> nulla.
+        </div>
+    </body>
+</html>
