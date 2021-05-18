@@ -15,9 +15,10 @@ od 1 po 5, kde 5 je najväčšia náročnosť)
 
 ## CSS
 
-## JS
-1 - [Tooltip](tooltip/README.md) (JS, CSS) - obtiažnosť 2
+1. [ShowHide](showhide/readme.md) (JS, CSS) - obtiažnosť 1
+1. [Tooltip](tooltip-js/README.md) (CSS) - obtiažnosť 2
+1. [Tooltip](tooltip-js/README.md) (JS, CSS) - obtiažnosť 2
 
-## PHP
+
 
 

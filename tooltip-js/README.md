@@ -1,4 +1,4 @@
-# Tooltip
+# Tooltip - JS a CSS
 
 Vytvorte skript, ktorý zobrazí doplňujuci text pokiaľ používateľ umiestni kurzor
 nad `<span>` elementy v dokumente. 

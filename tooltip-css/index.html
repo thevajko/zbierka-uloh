@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tooltip</title>
+    <style>
+        div.has-tooltip {
+            display: inline;
+            font-weight: bold;
+            position: relative;
+        }
+
+        div.has-tooltip .tooltip {
+            display: none;
+            width: 200px;
+            border: 1px solid black;
+            position: absolute;
+            background-color: white;
+            padding: 3px;
+            top: 120%;
+            left: 0;
+            z-index: 1;
+        }
+        div.has-tooltip:hover .tooltip {
+            display: block;
+        }
+    </style>
+
+</head>
+    <body>
+        <div class="text">
+            Lorem ipsum dolor sit amet, <div class="has-tooltip">consectetur<span class="tooltip">asdasdas dasdasd asdasdas dasdasdas das dasdasdas da sd as da sd as d</span></div> adipiscing elit. Curabitur tempor leo at urna varius, eget scelerisque
+            arcu interdum. Aliquam et accumsan diam. Mauris <div class="has-tooltip">tincidunt<span class="tooltip">asdasdas dasdasd asdasdas dasdasdas das dasdasdas da sd as da sd as d</span></div> faucibus fermentum. Vestibulum tempor dui quis erat
+            lobortis suscipit. Ut sit amet rutrum lacus, at <div class="has-tooltip">blandit<span class="tooltip">asdasdas dasdasd asdasdas dasdasdas das dasdasdas da sd as da sd as d</span></div> nulla.
+        </div>
+    </body>
+</html>
