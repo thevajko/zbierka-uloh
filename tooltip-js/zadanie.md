@@ -1,3 +1,8 @@
+> ## Rozcestník
+> - [Späť na úvod](../README.md)
+> - Repo: [Štartér](/../../tree/starter/tooltip-js), [Riešenie](/../../tree/main/tooltip-js).
+ 
+
 # Tooltip - JS a CSS
 
 Vytvorte skript, ktorý zobrazí doplňujuci text pokiaľ používateľ umiestni kurzor
