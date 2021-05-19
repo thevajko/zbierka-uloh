@@ -1,3 +1,7 @@
+> ## Rozcestník
+> - [Späť na úvod](../README.md)
+> - Repo: [Štartér](/../../tree/starter/tooltip-css), [Riešenie](/../../tree/main/tooltip-css).
+
 # Tooltip - iba CSS
 
 Vytvorte logiku, _čisto pomocou `CSS`_, ktorá bude zobrazovať tooltip, pokiaľ používateľ umiestni nad daný výraz kurzor.

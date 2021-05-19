@@ -1,3 +1,7 @@
+> ## Rozcestník
+> - [Späť na úvod](../README.md)
+> - Repo: [Štartér](/../../tree/starter/faktorial-php), [Riešenie](/../../tree/main/faktorial-php).
+
 # Faktoriál - PHP
 
 Vytvorte skript v jazyku PHP, ktorý bude schopný zobraziť a vyrátať

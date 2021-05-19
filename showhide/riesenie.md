@@ -1,3 +1,7 @@
+> ## Rozcestník
+> - [Späť na úvod](../README.md)
+> - Repo: [Štartér](/../../tree/starter/showhide), [Riešenie](/../../tree/main/showhide).
+
 # ShowHide - JS a CSS
 
 Vytvorte logiku, ktorá bude po kliknutí na `<h1>` skryje text v `<p>` ak je zobrazený a zobrazí ho
