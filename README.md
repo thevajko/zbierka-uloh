@@ -5,8 +5,8 @@ postupom riešenia a samotné výsledné riešenie (úloha može mať, samozrejm
 riešení).
 
 Repozitár obsahuje dva branche:
-- _master_ - obsahuje funkčné riešenie úloh
-- _starter_ - obsahuje počiatočnú štruktúru súborov danej úlohy
+- [_main_](/../../tree/main) - obsahuje funkčné riešenie úloh
+- [_starter_](/../../tree/starter) - obsahuje počiatočnú štruktúru súborov danej úlohy
 
 # Docker
 V súčasnosti jeden z najpoužívanejších spôsobov virtualizácie, ktorá výrazne zjednošuje vývoj a nasadzovanie rôznych 
