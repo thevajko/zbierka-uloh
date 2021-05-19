@@ -2,7 +2,7 @@
 > - [Späť na úvod](../../README.md)
 > - Repo: [Štartér](/../../tree/main/css/tooltip-css), [Riešenie](/../../tree/solution/css/tooltip-css).
 
-# Tooltip - iba CSS [branch main]
+# Tooltip - iba CSS [branch solution]
 
 Vytvorte logiku, _čisto pomocou `CSS`_, ktorá bude zobrazovať tooltip, pokiaľ používateľ umiestni nad daný výraz kurzor.
 Pokiaľ ho dá preč tooltip zmizne.

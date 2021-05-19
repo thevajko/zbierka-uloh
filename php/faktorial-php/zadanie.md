@@ -2,7 +2,7 @@
 > - [Späť na úvod](../../README.md)
 > - Repo: [Štartér](/../../tree/main/php/faktorial-php), [Riešenie](/../../tree/solution/php/faktorial-php).
 
-# Faktoriál - PHP  [branch main]
+# Faktoriál - PHP  [branch solution]
 
 Vytvorte skript v jazyku PHP, ktorý bude schopný zobraziť a vyrátať
 [faktoriál](https://sk.wikipedia.org/wiki/Faktori%C3%A1l) pre čísla od

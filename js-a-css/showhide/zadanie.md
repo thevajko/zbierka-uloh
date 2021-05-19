@@ -2,7 +2,7 @@
 > - [Späť na úvod](../../README.md)
 > - Repo: [Štartér](/../../tree/main/js-a-css/showhide), [Riešenie](/../../tree/solution/js-a-css/showhide).
 
-# ShowHide - JS a CSS [branch main]
+# ShowHide - JS a CSS [branch solution]
 
 Vytvorte logiku, ktorá bude po kliknutí na `<h1>` skryje text v `<p>` ak je zobrazený a zobrazí ho
 ak je skrytý. 

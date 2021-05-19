@@ -1,4 +1,4 @@
-# Zbierka úloh pre VAII [branch main]
+# Zbierka úloh pre VAII [branch solution]
 Tento repozitár je zbierka úloh pre študentov predmetu VAII 
 [Fakulty riadenia a informatiky (FRI)](https://www.fri.uniza.sk/). Obsahuje úlohy zo zadaním,
 postupom riešenia a samotné výsledné riešenie (úloha može mať, samozrejme viacero správnych 
