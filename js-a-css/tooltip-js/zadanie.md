@@ -1,8 +1,8 @@
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/starter/tooltip-js), [Riešenie](/../../tree/main/tooltip-js).
+> - Repo: [Štartér](/../../tree/main/js-a-css/tooltip-js), [Riešenie](/../../tree/solution/js-a-css/tooltip-js).
 
-# Tooltip - JS a CSS
+# Tooltip - JS a CSS [branch main]
 
 Vytvorte skript, ktorý zobrazí doplňujuci text pokiaľ používateľ umiestni kurzor
 nad `<span>` elementy v dokumente.
