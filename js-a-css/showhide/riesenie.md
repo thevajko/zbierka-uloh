@@ -1,5 +1,5 @@
 > ## Rozcestník
-> - [Späť na úvod](../README.md)
+> - [Späť na úvod](../../README.md)
 > - Repo: [Štartér](/../../tree/starter/showhide), [Riešenie](/../../tree/main/showhide).
 
 # ShowHide - JS a CSS

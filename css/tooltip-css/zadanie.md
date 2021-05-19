@@ -1,5 +1,5 @@
 > ## Rozcestník
-> - [Späť na úvod](../README.md)
+> - [Späť na úvod](../../README.md)
 > - Repo: [Štartér](/../../tree/starter/tooltip-css), [Riešenie](/../../tree/main/tooltip-css).
 
 # Tooltip - iba CSS

@@ -1,5 +1,5 @@
 > ## Rozcestník
-> - [Späť na úvod](../README.md)
+> - [Späť na úvod](../../README.md)
 > - Repo: [Štartér](/../../tree/starter/tooltip-js), [Riešenie](/../../tree/main/tooltip-js).
 
 # Tooltip - JS a CSS

@@ -5,8 +5,8 @@ postupom riešenia a samotné výsledné riešenie (úloha može mať, samozrejm
 riešení).
 
 Repozitár obsahuje dva branche:
-- [_main_](/../../tree/main) - obsahuje funkčné riešenie úloh
-- [_starter_](/../../tree/starter) - obsahuje počiatočnú štruktúru súborov danej úlohy
+- [_main_](/../../tree/main) - obsahuje zadanie a inicializačnú logiku
+- [_solution_](/../../tree/solution) - obsahuje funkgujúce riešenia
 
 # Docker
 V súčasnosti jeden z najpoužívanejších spôsobov virtualizácie, ktorá výrazne zjednošuje vývoj a nasadzovanie rôznych 
@@ -36,15 +36,17 @@ Samozrejme, pre spustenie potrebných služieb môžete použiť lubovoľným sp
 od 1 po 5, kde 5 je najväčšia náročnosť)
 
 ## CSS
-1. [Tooltip](tooltip-js/zadanie.md) (CSS) - obtiažnosť 2
+1. [Tooltip](css/tooltip-css/zadanie.md) (CSS) - obtiažnosť 2
    
 ## JS a CSS
-1. [ShowHide](showhide/zadanie.md) (JS, CSS) - obtiažnosť 1
-1. [Tooltip](tooltip-js/zadanie.md) (JS, CSS) - obtiažnosť 2
+1. [ShowHide](js-a-css/showhide/zadanie.md) (JS, CSS) - obtiažnosť 1
+1. [Tooltip](js-a-css/tooltip-js/zadanie.md) (JS, CSS) - obtiažnosť 2
 
 
 ## PHP
-1. [Faktoriál](faktorial-php/zadanie.md) (PHP) - obtiažnosť 1 
+1. [Faktoriál](php/faktorial-php/zadanie.md) (PHP) - obtiažnosť 1
+
+## Komplexné úlohy
 
 
 

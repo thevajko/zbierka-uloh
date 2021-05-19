@@ -1,5 +1,5 @@
 > ## Rozcestník
-> - [Späť na úvod](../README.md)
+> - [Späť na úvod](../../README.md)
 > - Repo: [Štartér](/../../tree/starter/faktorial-php), [Riešenie](/../../tree/main/faktorial-php).
 
 # Faktoriál - PHP
