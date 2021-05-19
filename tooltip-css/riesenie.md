@@ -19,13 +19,11 @@ Pokiaľ ho dá preč tooltip zmizne.
 </div>
 ```
 
-
-Štruktúru dokumentu môžete upraviť, tak aby bolo možné úlohu vypracovať. Pre vypracovanie použite výlučne `CSS`. 
-
+Štruktúru dokumentu môžete upraviť, tak aby bolo možné úlohu vypracovať. Pre vypracovanie použite výlučne `CSS`.
 # Riešenie
 
 V prvom kroku si musíme upraviť struktúru zdrojového súbora, tak aby nám umožnila vyžiť dosiahnutie stanoveného cieľa
-pomocou CSS. Tu budeme používať [CSS pseudo-triedu](https://www.w3schools.com/css/css_pseudo_classes.asp) `:hover`. 
+pomocou CSS. Tu budeme používať [CSS pseudo-triedu](https://www.w3schools.com/css/css_pseudo_classes.asp) `:hover`.
 Tá je priradená k elementu automaticky, pokiaľ sa nad daným prvkom nachádza kurzor. Logicky chceme docieliť to, že pokiaľ
 hlavný element (ten nad ktorý sa ma umiestniť kurzor) zobrazí sa tooltip, ináč je tooltip nezobrazený. `:hover` sa bude teda
 dopĺňať do neho, nie do elementu s textom tooltipu.
@@ -76,9 +74,9 @@ div.has-tooltip .tooltip {
 
 Teraz potrebujeme vytvotiž CSS selektor a vlastnosti, ktoré budú tooltip zobrazovať a skrývať. Chceme docieliť aby
 sa text tooltipu zobrazil iba ak bude kurzor nad hlavným elementom. Tu použijeme pseudotriehu `:hover` pomocou selektoru
-`div.has-tooltip:hover .tooltip`. 
+`div.has-tooltip:hover .tooltip`.
 
-Predvolene text tootliou skryjeme tým, že mu nastavíme hodnotu `CSS` vlastnosti `display` na hodnotu `none`. Pre opätovné 
+Predvolene text tootliou skryjeme tým, že mu nastavíme hodnotu `CSS` vlastnosti `display` na hodnotu `none`. Pre opätovné
 zobrazenie vložíme, v našom prípade, hodnotu `block`. CSS bude vyzerať nasledovne:
 
 ```css
@@ -93,8 +91,8 @@ div.has-tooltip:hover .tooltip {
     display: block;
 }
 ```
-Aby sa text tooltipov zobrazoval konštatne musíme naprv zadefinovať jeho veľkost, stačí šírka, prídáme preto napr. 
-`width: 200px;`. Element má transparentné pozadie a aby bol lepšie čitatelný je potrebné ho zafarbiť napr. na bielo 
+Aby sa text tooltipov zobrazoval konštatne musíme naprv zadefinovať jeho veľkost, stačí šírka, prídáme preto napr.
+`width: 200px;`. Element má transparentné pozadie a aby bol lepšie čitatelný je potrebné ho zafarbiť napr. na bielo
 `background-color: white;`. Bolo by ďalej dobré pridať nejaký rámik pomocou `border: 1px solid black;`. CSS upravíme na
 následové:
 
@@ -131,10 +129,10 @@ ostatnými elementmi. Teraz potrebujeme element s tooltipom správne umiestniť.
 Pri nastavení `position: absolute;` nejakého elemenut sa za jeho "rodičovský element" určuje hierarchycký vyšší
 najbliží element, ktorý má nastavený CSS atribút `position` na `relative` alebo `absolute`. V našom prípade to je
 prvý element. Tým pádom možeme nastaviť hodnotu `left: 0;` a `top: 120%;`. Tým pádom bude tooltip zarovnaný nalavo
-a bude kúsok pod prvým elementom. 
+a bude kúsok pod prvým elementom.
 
 Aby sa tooltip zobraz oval korektne pridáme ešte nasledovnú CSS vlastnosť `z-index: 1;`. Tým docielime to, že sa element
-s textom tooltipu zobrazí vždy vo vrstve nad aktuálnimi elementmi; t.j. zobrazí sa vždy nad 
+s textom tooltipu zobrazí vždy vo vrstve nad aktuálnimi elementmi; t.j. zobrazí sa vždy nad
 
 Výsledné CSS bude:
 

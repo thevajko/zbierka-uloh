@@ -36,10 +36,15 @@ Samozrejme, pre spustenie potrebných služieb môžete použiť lubovoľným sp
 od 1 po 5, kde 5 je najväčšia náročnosť)
 
 ## CSS
+1. [Tooltip](tooltip-js/zadanie.md) (CSS) - obtiažnosť 2
+   
+## JS a CSS
+1. [ShowHide](showhide/zadanie.md) (JS, CSS) - obtiažnosť 1
+1. [Tooltip](tooltip-js/zadanie.md) (JS, CSS) - obtiažnosť 2
 
-1. [ShowHide](showhide/readme.md) (JS, CSS) - obtiažnosť 1
-1. [Tooltip](tooltip-js/README.md) (CSS) - obtiažnosť 2
-1. [Tooltip](tooltip-js/README.md) (JS, CSS) - obtiažnosť 2
+
+## PHP
+1. [Faktoriál](faktorial-php/zadanie.md) (PHP) - obtiažnosť 1 
 
 
 
