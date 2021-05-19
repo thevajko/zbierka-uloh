@@ -54,6 +54,7 @@ Zadanie určuje, že máme vypísať v danom formáte postupne faktorial od čí
 ktorý sa spustí 10 a práve tu použijeme cyklus for. Kód pre výstup bude vyzerať nasledovne:
 
 ```php
+?>
 <ul>
     <?php for ($i = 0; $i < 10; $i++) { ?>
     <li><?php echo $i . "! = ". fakt($i)?></li>
