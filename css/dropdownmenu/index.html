@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        #menu {
+            background-color: gray;
+            padding: 4px;
+        }
+        span {
+
+            display: block;
+            background-color: aquamarine;
+            padding: 2px 10px;
+        }
+
+        /* formatovanie kostry menu */
+        #menu > ul > li {
+            display: inline-block;
+            position: relative;
+            margin-right: 2px;
+        }
+        li li {
+            position: relative;
+            display: block;
+        }
+        ul ul ul {
+            position: absolute;
+            top: 0;
+            left: 100%;
+        }
+        li:hover > ul {
+            display: block;
+        }
+        li ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: aqua;
+            margin: 0;
+            padding: 0;
+            white-space: nowrap;
+        }
+        ul ul span:not(:only-child):after
+        {
+            color: blue;
+            content: "»";
+            padding: 3px 3px 3px 10px;
+        }
+
+        /* Zafarbenie vyberu */
+        li:hover > span {
+            filter: brightness(60%);
+        }
+
+        /* zafarbenie urovni*/
+        li span {
+            background-color: #e0e0e0;
+        }
+        li li span {
+            filter: brightness(85%);
+        }
+        li li li span {
+            filter: brightness(75%);
+        }
+        li li li li span {
+            filter: brightness(65%);
+        }
+
+    </style>
+</head>
+<body>
+    <div id="menu">
+        <ul>
+
+            <li>
+                <span>Súbor</span>
+                <ul>
+                    <li>
+                        <span>Vytvoriť nový</span>
+                        <ul>
+                            <li><span>PDF</span></li>
+                            <li><span>PPT</span></li>
+                            <li><span>TXT</span></li>
+                            <li><span>HTML</span></li>
+                        </ul>
+                    </li>
+                    <li><span>Uložiť</span></li>
+                    <li>
+                        <span>Exportovať</span>
+                        <ul>
+                            <li>
+                                <span>Web</span>
+                                <ul>
+                                    <li><span>JSON</span></li>
+                                    <li><span>XML</span></li>
+                                    <li><span>SOAP</span></li>
+                                </ul>
+                            </li>
+                            <li><span>HDD</span></li>
+                            <li><span>Blog</span></li>
+                            <li><span>HTML</span></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <span>Nastavenie</span>
+                <ul>
+                    <li>
+                        <span>Zobrazenie</span>
+                        <ul>
+                            <li><span>Iba text</span></li>
+                            <li><span>Iba obrazky</span></li>
+                            <li><span>Text a ramce obrazkov</span></li>
+                            <li><span>Korektor</span></li>
+                            <li><span>Iba zmeny</span></li>
+                        </ul>
+                    </li>
+                    <li><span>Jazyk</span></li>
+                </ul>
+            </li>
+            <li>
+                <span>Akcie</span>
+                <ul>
+                    <li><span>Reset</span></li>
+                    <li>
+                        <span>Resetovat sluzbu</span>
+                            <ul>
+                                <li><span>DB</span></li>
+                                <li><span>Splitter</span></li>
+                                <li><span>Web</span></li>
+                                <li><span>Cron</span></li>
+                            </ul>
+                    </li>
+                    <li>
+                        <span>Log export</span>
+                        <ul>
+                            <li>
+                                <span>Chyby</span>
+                                <ul>
+                                    <li><span>Vsetky</span></li>
+                                    <li><span>Fatal</span></li>
+                                    <li><span>Varovania</span></li>
+                                </ul>
+                            </li>
+                            <li><span>Udalosti</span></li>
+                            <li><span>Vykonnost</span></li>
+                        </ul>
+                    </li>
+                    <li><span>Zaloha</span></li>
+                </ul>
+            </li>
+            <li>
+                <span>Help</span>
+                <ul>
+                    <li><span>O aplikacii</span></li>
+                    <li><span>Manual</span></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
