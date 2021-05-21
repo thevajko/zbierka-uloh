@@ -4,6 +4,6 @@
 
 # DropDown menu - CSS [branch solution]
 
-Cieľom
+Cieľom úlohy je vyt
 
-![](.riesenie_images/d560b5d8.png)
+![](.riesenie_images/menu-fungovanie.gif)
