@@ -22,7 +22,6 @@
             padding: 4px 10px;
             margin: 2px;
             white-space: nowrap;
-
         }
 
         li {
@@ -31,61 +30,13 @@
         }
 
         ul ul {
+            display: block;
             position: absolute;
-            display: none;
-            border: 1px solid black;
-            background-color: #ebebeb;
-            margin-top: -1px;
         }
 
-        /*Druha uroven*/
-        li:hover > ul {
-            display: flex;
-            flex-direction: column;
-        }
-        ul ul ul{
-            top: 0;
-            left: 100%
-        }
-
-        /*indikator*/
-        ul ul span:not(:only-child)::after
-        {
-            color: blue;
-            content: "»";
-            padding: 3px 3px 3px 10px;
-        }
-
-        /* Zafarbenie vyberu */
-        li:hover > span {
-            color: red;
-            background-color: yellow;
-        }
-
-        /* Dodatocne */
-        span {
-            background-color: transparent
-        }
-
-        #menu > ul > li > span {
-            background-color: #ebebeb;
-        }
-
-        #menu > ul > li:hover > span {
-            color: red;
-            background-color: yellow;
-        }
-
-        ul ul {
-            background-color: #ebebeb;
-        }
         ul ul ul {
-            background-color: #bdbdbd;
+            display: none;
         }
-        ul ul ul ul {
-            background-color: #949494;
-        }
-
     </style>
 </head>
 <body>

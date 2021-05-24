@@ -11,13 +11,14 @@ Cieľom úlohy je vytvoriť roletové menu aké obsahujú bežne desktopové apl
 Menu musí spĺňať nasledovné:
 
 1. Prvá úroveň je vždy zobrazená na vrchu stránky
-2. Ďalšie úrovne menu sú viditeľne iba ak ich používateľ aktivuje kuzorom (viď. gif hore)
-3. Vizuálne indikujte či daná položka obsahuje podmenu
-4. Zvýraznite, aké položky menu sú aktivované (viď. gif hore - zvýraznenie na žlto) 
-5. Jednotlivé sub-menu zobrazte s jemne odlišnou farbou pozadia. Napr. stmavovaniem (viď. gif hore).
+2. Ďalšie úrovne menu sú viditeľne iba ak ich používateľ aktivuje kurzorom (viď. gif hore)
+3. Vizuálne indikujte či daná položka obsahuje sub-menu
+4. Zvýraznite, aké položky menu sú aktivované (viď. gif hore – zvýraznenie na žlto) 
+5. Jednotlivé sub-menu zobrazte s jemne odlišnou farbou pozadia. Napr. stmavovaním (viď. gif hore).
 
 
-Počiatočný HTML dokument obsahuje toto menu zadefinované pomocou štruktúry `<ul>` elementov a vyzerá nasledovne:
+Počiatočný `HTML` dokument obsahuje menu zadefinované pomocou štruktúry elementov a vyzerá nasledovne:
+
 ```html
  <div id="menu">
         <ul>
@@ -41,15 +42,19 @@ Počiatočný HTML dokument obsahuje toto menu zadefinované pomocou štruktúry
                                 <span>Web</span>
     ...
 ```
-Všimnite si však, že samotné `<ul>` a `<li>` definujú _iba_ štruktúru a položky samotné sú definované ako `<span>`. Vnorenie jednotlivých `<ul>` v `<li>` teda definuje ktorý `<ul>` je sub-menu ktorého menu.
+
+Všimnite si však, že samotné `<ul>` a `<li>` definujú _iba_ štruktúru. Obsah položky je definované ako obsah `<span>`. Vnorenie jednotlivých `<ul>` v `<li>` definuje ktorý `<ul>` je sub-menu ktorého menu.
 
 Pre riešenie použite výlučne iba CSS.
 
 # Riešenie
 
-> doplnit uvod a vatu #TODO> MM
+Riešenie je rozelené do následovných pod-kapitol:
 
-## Prvá úroveň menu
+1. [Prvá úroveň menu](#prvá-úroveň-menu)
+2. [Záverečné formátovanie](#záverečné-formátovanie)
+
+## Prvá úroveň menu 
 
 Prvý krok spočíva v skrytí všetkých vnorených `<ul>`, teda okrem prvej úrovne. Selektor, ktorým skryjeme všetky vnorené `<ul>` bude `ul ul`. Celkovo CSS bude nasledovné:
 
@@ -147,9 +152,11 @@ Jednú výnimku bude tvoriť formátovanie `<ul>` druhej a ďalšej úrovne, kto
 
 Pre odstránenie problémov s odsadeniami môžeme v našom prípade urobiť tzv. _globálny reset odsadení_ v `CSS`. Ten používa selektor `*` a ako vlastnosti mu dáme vnútorné a vonkajšie odsadenie na hodnotu `0`. Selektor `*` sa následne použije ako hodnota pre všetky štýlovania. Výledok je taký, že teraz musíme definovať odsadenia iba tam, kde ich skutočne chceme.
 
-Následne ešte musíme upraviť zobrazenie `<li>`, tak aby sa nezobrazovali ako položky menu a elementy `<span>` aby sa zobrazovali ako blokové značky (inak im nebude možné zadefinovať rozmer a odsadenia).
+Následne ešte musíme upraviť zobrazenie `<li>`, tak aby sa nezobrazovali ako položky menu a elementy `<span>` aby sa zobrazovali ako blokové značky (inak im nebude možné zadefinovať rozmer a odsadenia). 
+ 
+Vzhľadom na to, že výsledkom úlohy je mnu, bude dobrý nápad zamedziť automatické zalamovanie textu v `<span>`. To urobíme tak, že `<span>` doplníme `CSS` vlastnosť `white-space: nowrap;`.
 
-Vzhľadom na to, že výsledkom úlohy je mnu, bude dobrý nápad zamedziť automatické zalamovanie textu v `<span>`. To urobíme tak, že `<span>` doplníme `CSS` vlastnosť `white-space: nowrap;`. CSS bude teda nasledovné:
+CSS bude teda nasledovné:
 
 ```css
 * {
@@ -180,18 +187,21 @@ ul ul {
     display: none;
 }
 ```
-Menu by sa malo zobrazovať momentálne takto:
+Menu bude vyzerať:
 
-![](.riesenie_images/`menu-prva`-uroven.png)
+![](.riesenie_images/menu-prva-uroven.png)
 
 ## Druhá úroveň
 
 Nasleduje vytvorenie štýlovania pre druhú úroveň. Pre lepší "debug" `CSS` si musíme najprv zobraziť prvú a druhú úroveň. To docielime tým, že upravíme obsah selektoru `ul ul` a doplníme skrytie všetkých `<ul>` úrovňe tri a viac, teda selektorom `ul ul ul`. Upravené `CSS` bude (zobrazené sú iba doplnené a zmenené CSS):
 ```css
+li {
+    position: relative;
+    display: block;
+}
 ul ul {
     display: block;
 }
-
 ul ul ul {
      display: none;
 }
@@ -209,9 +219,11 @@ li {
     position: relative;
     display: block;
 }
-
 ul ul {
-    position: absolute;
+    display: block;
+    position: absolute; 
+}
+ul ul ul {
     display: none;
 }
 ```
@@ -231,8 +243,6 @@ ul ul {
     border: 1px solid black;
     background-color: burlywood;
 }
-/*Druha uroven*/
-
 li:hover > ul {
     display: flex;
     flex-direction: column;
@@ -321,7 +331,7 @@ Zmenu aplikujem vyslovanie na `<span>`, ktorý je priamym potomkom `<li>`, nad k
 Výsledok funguje nasledovne:
 ![](.riesenie_images/menu-fung-04.gif)
 
-## Záverečné formátvanie
+## Záverečné formátovanie
 
 Aby sme menu zobrazili krajšie vykonáme nasledovné úpravy:
 
