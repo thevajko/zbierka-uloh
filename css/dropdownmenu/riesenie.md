@@ -2,7 +2,7 @@
 > - [Späť na úvod](../../README.md)
 > - Repo: [Štartér](/../../tree/main/css/dropdownmenu), [Riešenie](/../../tree/solution/css/dropdownmenu).
 
-# DropDown menu - CSS [branch solution]
+# DropDown a DropUp menu - CSS [branch solution]
 
 Cieľom úlohy je vytvoriť roletové menu aké obsahujú bežne desktopové aplikácie. Ako má menu fungovať demonštruje nasledovný gif:
 
@@ -15,6 +15,7 @@ Menu musí spĺňať nasledovné:
 3. Vizuálne indikujte či daná položka obsahuje sub-menu
 4. Zvýraznite, aké položky menu sú aktivované (viď. gif hore – zvýraznenie na žlto) 
 5. Jednotlivé sub-menu zobrazte s jemne odlišnou farbou pozadia. Napr. stmavovaním (viď. gif hore).
+6. Modifikujt drop-down menu na drop-up menu.
 
 
 Počiatočný `HTML` dokument obsahuje menu zadefinované pomocou štruktúry elementov a vyzerá nasledovne:
@@ -49,10 +50,14 @@ Pre riešenie použite výlučne iba CSS.
 
 # Riešenie
 
-Riešenie je rozelené do následovných pod-kapitol:
+Riešenie je rozdelené do nasledovných pod-kapitol:
 
 1. [Prvá úroveň menu](#prvá-úroveň-menu)
-2. [Záverečné formátovanie](#záverečné-formátovanie)
+2. [Druhá úroveň](#druhá-úroveň)
+3. [Ďalšie úrovne](#ďalšie-úrovne)
+4. [Zobrazenia ikonky o prítomnosti sub-menu](#zobrazenia-ikonky-o-prítomnosti-sub-menu)
+5. [Doplnenie zvýraznenia výberu](doplnenie-zvýraznenia-výberu)
+6. [Záverečné formátovanie](#záverečné-formátovanie)
 
 ## Prvá úroveň menu 
 
@@ -63,13 +68,13 @@ ul ul {
     display: none;
 }
 ```
-Teraz potrebujeme upraviť zobrazenie prvej úrovne, tak aby sa nezobrazovala ako zoznama ale ako menu, teda vedľa seba. To ako sa ktorý prvok zobrazuje definuje CSS vlastnosť `display`([viac tu](https://www.w3schools.com/cssref/pr_class_display.asp)). 
+Teraz potrebujeme upraviť zobrazenie prvej úrovne, tak aby sa nezobrazovala ako zoznam ale ako menu, teda vedľa seba. To ako sa ktorý prvok zobrazuje definuje CSS vlastnosť `display`([viac tu](https://www.w3schools.com/cssref/pr_class_display.asp)). 
 
-Zoznam sa dá v `HTML` definovať dvomi značkami `<ul>` (neočíslovaný zoznam) a `<ol>` (očíslovaný zoznam). V oboch prípadoch sa jedná o obaľovací komponent, ktorého potomkami môžu byť jedine element `<li>`. Značka `<li>` sa zobrazuje ako bloková (má nastavenú hodnotu pre zobrazenie na `display: list-item`) preto sa jednotlivé položky zoznamu zobrazujú pod sebou. Aby sme ich zobrazili veďľa seba, je potrebné toto zobrazenie zmeniť.
+Zoznam sa dá v `HTML` definovať dvomi značkami `<ul>` (neočíslovaný zoznam) a `<ol>` (očíslovaný zoznam). V oboch prípadoch sa jedná o obaľovací komponent, ktorého potomkom môžu byť jedine element `<li>`. Značka `<li>` sa zobrazuje ako bloková (má nastavenú hodnotu pre zobrazenie na `display: list-item`) preto sa jednotlivé položky zoznamu zobrazujú pod sebou. Aby sme ich zobrazili veďľa seba, je potrebné toto zobrazenie zmeniť.
 
-Začiatočníckou chybou je zmenenie hodnoty `display` na `display: inline-block`. Aj keď sa položky zobrazia vedľa seba, vytvára sa medzi nimi prirodzene nežiadúca medzera. Ale prečo? Je to dôsledok toho, akým spôsobom má prehliadač zobrazovať riadkové (`inline`) elementy. Vieme, že prehliadáč ignoruje viacnásobné medzery a zalomenia. V tomto prípade, vzhľadom na štruktúru sí medzi jednotlivými elementmi `<li>` su znaky ako zalomenia, medzery a tabulatori  interpretované ako medzery.
+Začiatočníckou chybou je zmenenie hodnoty `display` na `display: inline-block`. Aj keď sa položky zobrazia vedľa seba, vytvára sa medzi nimi prirodzene nežiadúca medzera. Ale prečo? Je to dôsledok toho, akým spôsobom má prehliadač zobrazovať riadkové (`inline`) elementy. Vieme, že prehliadač ignoruje viacnásobné medzery a zalomenia. V tomto prípade, vzhľadom na štruktúru sú medzi jednotlivými elementmi `<li>` znaky ako zalomenia, medzery a tabulátori  interpretované ako medzery.
 
-Aby sme to názorne predviedli, stačí si niekde do kódu stránky vložiť nasledovný `HTML` kód (otvoriť [fiddle](https://jsfiddle.net/meshosk/Legh36td)):
+Aby sme to názorne predviedli, stačí si niekde do kódu stránky vložiť nasledovný `HTML` kód (alebo otvoriť [fiddle](https://jsfiddle.net/meshosk/Legh36td)):
 
 ```html
 <div>
@@ -87,7 +92,7 @@ Výsledok :
 jeden dva tri styri text text text
 ```
 
-Výsledok tejto štruktúry bude postupnosť jednotlivých textov v riadku oddelených v medzerami. Pokiaľ chceme medzeru odstrániť musíme jednotlivé elementy dať ihneď za sebou nasledovne (otvoriť [fiddle](https://jsfiddle.net/meshosk/p2atzwkd)):
+Výsledok tejto štruktúry bude postupnosť jednotlivých textov v riadku oddelených v medzerami. Pokiaľ chceme medzeru odstrániť musíme jednotlivé elementy dať ihneď za sebou (otvoriť [fiddle](https://jsfiddle.net/meshosk/p2atzwkd)):
 ```html
 <div>
     <span>jeden</span><span>dva</span><span>tri</span><span>styri</span>
@@ -101,9 +106,9 @@ Výsledok:
 jedendvatristyri text text text
 ```
 
-V našom prípade chceme zachovať pôvodnú štruktúru `HTML` a nechceme dopĺňať daľšie elementy, preto zvolíme zobrazenie pomocou [flexboxu](https://css-tricks.com/snippets/css/a-guide-to-flexbox).
+V našom prípade chceme zachovať pôvodnú štruktúru `HTML` a nechceme dopĺňať ďalšie elementy, preto zvolíme zobrazenie pomocou [flexboxu](https://css-tricks.com/snippets/css/a-guide-to-flexbox).
 
-Flexbox potrebuje na svoje fungovanie obaľovací element, tzv. _kontainer_, (v našom prípade `<ul>`) a položky, ktoré sa v ňom majú zobraziť (u nás `<li>`). Ak chceme aplikovať flexbox na náš príklad zo `<span>`, jeho kód bude vyzerať nasledovne (otvoriť [fiddle](https://jsfiddle.net/meshosk/a7Lzsnqh)):
+_Flexbox_ potrebuje na svoje fungovanie obaľovací element, tzv. _kontainer_, (v našom prípade `<ul>`) a položky, ktoré sa v ňom majú zobraziť (u nás `<li>`). Ak chceme aplikovať flexbox na náš príklad zo `<span>`, jeho kód bude vyzerať nasledovne (otvoriť [fiddle](https://jsfiddle.net/meshosk/a7Lzsnqh)):
 
 ```html
 <html>
@@ -131,7 +136,7 @@ Flexbox potrebuje na svoje fungovanie obaľovací element, tzv. _kontainer_, (v 
   </body>
 </html>
 ```
-Ak tento postup aplikujeme na našu úlohu musíme najprv identifikovať _kontajner_ pre _flexbox_. V našom prípade sa jedná o iba prvú úroveň nášho menu. _Kontajner_ preto budeme definovať selektorom `#menu > ul`, teda vyberieme `<ul>` element, ktorý je priamim potomkom elementu `<div>` s hodnotou atribútu `id` `menu`. CSS bude teda vyzerať nasledovne:
+Ak tento postup aplikujeme na našu úlohu musíme najprv identifikovať _kontajner_ pre _flexbox_. V našom prípade sa jedná o iba prvú úroveň nášho menu. _Kontajner_ preto budeme definovať selektorom `#menu > ul`, teda vyberieme element `<div>` s hodnotou atribútu `id` `menu`, ktorý tvorí hlavný element nášho menu. CSS bude teda vyzerať nasledovne:
 
 ```css
 #menu > ul {
@@ -148,9 +153,9 @@ Ako prvé zmeníme farbu pozadia menu, tu ale budeme formátovať element `<div 
 
 Značky `<ul>` a `<li>` by mali definovať iba štruktúru menu. Definujeme preto farbu pozadia a odsadenie iba pre `<span>` tak aby bolo ľahké pre používateľa určiť, ktorý text predstavuje ktorú položku menu.
 
-Jednú výnimku bude tvoriť formátovanie `<ul>` druhej a ďalšej úrovne, ktorým neskôr pridáme formátovanie v podobe rámika a pozadia. Samozrejme, problému sa dá predísť vytvorením obaľovacieho elementu pre ďalšie úrovne. V našom prípade sme ale chceli mať v príklade, čo najjednoduchšiu štruktúru.
+Jednú výnimku bude tvoriť formátovanie `<ul>` druhej a ďalšej úrovne, ktorým neskôr pridáme formátovanie v podobe rámika a pozadia. Samozrejme, problému sa dá predísť vytvorením obaľovacieho elementu pre ďalšie úrovne. V našom prípade sme ale chceli mať v príklade čo najjednoduchšiu štruktúru.
 
-Pre odstránenie problémov s odsadeniami môžeme v našom prípade urobiť tzv. _globálny reset odsadení_ v `CSS`. Ten používa selektor `*` a ako vlastnosti mu dáme vnútorné a vonkajšie odsadenie na hodnotu `0`. Selektor `*` sa následne použije ako hodnota pre všetky štýlovania. Výledok je taký, že teraz musíme definovať odsadenia iba tam, kde ich skutočne chceme.
+Pre odstránenie problémov s odsadeniami môžeme v našom prípade urobiť tzv. _globálny reset odsadení_ v `CSS`. Ten používa selektor `*` a ako vlastnosti mu dáme vnútorné a vonkajšie odsadenie na hodnotu `0`. Selektor `*` sa následne použije ako hodnota pre všetky štýlovania. Dôsledok je taký, že teraz musíme definovať odsadenia iba tam, kde ich skutočne chceme.
 
 Následne ešte musíme upraviť zobrazenie `<li>`, tak aby sa nezobrazovali ako položky menu a elementy `<span>` aby sa zobrazovali ako blokové značky (inak im nebude možné zadefinovať rozmer a odsadenia). 
  
@@ -372,3 +377,66 @@ ul ul ul ul {
 
 Finálny výsledok funguje nasledovne:
 ![](.riesenie_images/menu-fung-00.gif)
+
+## Upravenie na Drop-up menu
+
+Záverečná úprava spočíva čisto iba v úprave toho kde a ako sa majú jednotlivé elementy zobraziť. Začneme teda presunutím celého menu na spodok `viewportu`. To budeme realizovať zmenou hodnoty css vlastnosti `position` na hodnotu `fixed`. Čím docielime to, že menu sa bude umiestňovať nad všetky vykreslené prvky v priestore viewportu a ten tvori aj jeho predka pre výpočet veľkostí.
+
+Aby bolo menu roztiahnuté na celú dĺžku viewpotu musíme mu zadefinovať parameter `width: 100%`. Upravený štýl bude zmeníme na:
+
+```css
+#menu {
+    background-color: gray;
+    padding: 2px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+```
+
+Následne musíme upraviť zobrazenie druhej úrovne tak, aby bola zarovnaná vlavo nad predka `<li>` a aby sa nezobrazovala pod nim ale nad ním. Docielime to pridaním vlastnosti `bottom: 100%;`, čím spodok sub-menu presunieme na vrch nadradeného `<li>`. CSS vlastnosť upravíme nasledovne:
+
+```css
+li:hover > ul {
+    display: flex;
+    flex-direction: column;
+    bottom: 100%;
+}
+```
+Mali by sme dostať nasledovné chovanie:
+![](.riesenie_images/menu-up-01.gif)
+
+Podobne upravíme pozíciu pre menu druhej a ďalšej úrovňe. Budeme však musiet zmeniť selektor ` ul ul ul` na `ul li:hover > ul ul` aby sme predišli nutnosti použiť pravidlo `!important`.  
+
+```css
+ul li:hover > ul ul {
+    bottom: 0px;
+    left: 100%;
+}
+```
+Dôležité je si uvedomiť, že rámik pridá na vonkajšej veľkosti elementu ktorý ho má zadefinovaný. Taktiež sa prvku umietňujú vzhľadom na lavý dolný roh. Aby nám menu pekne sedelo potrebujeme upraviť najprv vonkajšie odsadenie v štýle `ul ul` nasledovne:
+
+```css
+ul ul {
+    position: absolute;
+    display: none;
+    border: 1px solid black;
+    background-color: #ebebeb;
+    margin: 0 0 -1px -1px;
+}
+```
+
+Následne môžeme doplniť upraviť štýl `ul li:hover > ul ul` nasledovne:
+
+```css
+ul li:hover > ul ul {
+    bottom: 0px;
+    left: 100%;
+    margin-left: 0px;
+}
+```
+
+To je všetko čo sme potrebovali zmeniť aby sme dostali drop-up menu. Malo by fungovať nasledovne:
+
+![](.riesenie_images/menu-up-02.gif)
+

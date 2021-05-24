@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        #menu {
+            background-color: gray;
+            padding: 2px;
+        }
+        #menu > ul {
+            display: flex;
+        }
+
+        span {
+            background-color: aqua;
+            display: block;
+            padding: 4px 10px;
+            margin: 2px;
+            white-space: nowrap;
+
+        }
+
+        li {
+            position: relative;
+            display: block;
+        }
+
+        ul ul {
+            position: absolute;
+            display: none;
+            border: 1px solid black;
+            background-color: #ebebeb;
+            margin-top: -1px;
+        }
+
+        /*Druha uroven*/
+        li:hover > ul {
+            display: flex;
+            flex-direction: column;
+        }
+
+        ul ul ul{
+            top: 0;
+            left: 100%
+        }
+
+        /*indikator*/
+        ul ul span:not(:only-child)::after
+        {
+            color: blue;
+            content: "»";
+            padding: 3px 3px 3px 10px;
+        }
+
+        /* Zafarbenie vyberu */
+        li:hover > span {
+            color: red;
+            background-color: yellow;
+        }
+
+        /* Dodatocne */
+        span {
+            background-color: transparent
+        }
+
+        #menu > ul > li > span {
+            background-color: #ebebeb;
+        }
+
+        #menu > ul > li:hover > span {
+            color: red;
+            background-color: yellow;
+        }
+
+        ul ul {
+            background-color: #ebebeb;
+        }
+        ul ul ul {
+            background-color: #bdbdbd;
+        }
+        ul ul ul ul {
+            background-color: #949494;
+        }
+
+    </style>
+</head>
+<body>
+<div id="menu">
+    <ul>
+        <li>
+            <span>Súbor</span>
+            <ul>
+                <li>
+                    <span>Vytvoriť nový</span>
+                    <ul>
+                        <li><span>PDF</span></li>
+                        <li><span>PPT</span></li>
+                        <li><span>TXT</span></li>
+                        <li><span>HTML</span></li>
+                    </ul>
+                </li>
+                <li><span>Uložiť</span></li>
+                <li>
+                    <span>Exportovať</span>
+                    <ul>
+                        <li>
+                            <span>Web</span>
+                            <ul>
+                                <li><span>JSON</span></li>
+                                <li><span>XML</span></li>
+                                <li><span>SOAP</span></li>
+                            </ul>
+                        </li>
+                        <li><span>HDD</span></li>
+                        <li><span>Blog</span></li>
+                        <li><span>HTML</span></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <span>Nastavenie</span>
+            <ul>
+                <li>
+                    <span>Zobrazenie</span>
+                    <ul>
+                        <li><span>Iba text</span></li>
+                        <li><span>Iba obrazky</span></li>
+                        <li><span>Text a ramce obrazkov</span></li>
+                        <li><span>Korektor</span></li>
+                        <li><span>Iba zmeny</span></li>
+                    </ul>
+                </li>
+                <li><span>Jazyk</span></li>
+            </ul>
+        </li>
+        <li>
+            <span>Akcie</span>
+            <ul>
+                <li><span>Reset</span></li>
+                <li>
+                    <span>Resetovat sluzbu</span>
+                    <ul>
+                        <li><span>DB</span></li>
+                        <li><span>Splitter</span></li>
+                        <li><span>Web</span></li>
+                        <li><span>Cron</span></li>
+                    </ul>
+                </li>
+                <li>
+                    <span>Log export</span>
+                    <ul>
+                        <li>
+                            <span>Chyby</span>
+                            <ul>
+                                <li><span>Vsetky</span></li>
+                                <li><span>Fatal</span></li>
+                                <li><span>Varovania</span></li>
+                            </ul>
+                        </li>
+                        <li><span>Udalosti</span></li>
+                        <li><span>Vykonnost</span></li>
+                    </ul>
+                </li>
+                <li><span>Zaloha</span></li>
+            </ul>
+        </li>
+        <li>
+            <span>Help</span>
+            <ul>
+                <li><span>O aplikacii</span></li>
+                <li><span>Manual</span></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
