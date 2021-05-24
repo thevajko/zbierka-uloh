@@ -6,7 +6,9 @@
 
 Cieľom úlohy je vytvoriť roletové menu aké obsahujú bežne desktopové aplikácie. Ako má menu fungovať demonštruje nasledovný gif:
 
-![](.riesenie_images/menu-fungovanie.gif)
+<#p align="center">
+     ![](.riesenie_images/menu-fungovanie.gif)
+</#p>
 
 Počiatočný HTML dokument obsahuje toto menu zadefinované pomocou štruktúry `<ul>` elementov a vyzerá nasledovne:
 ```html
