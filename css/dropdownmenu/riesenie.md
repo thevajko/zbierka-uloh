@@ -6,7 +6,15 @@
 
 Cieľom úlohy je vytvoriť roletové menu aké obsahujú bežne desktopové aplikácie. Ako má menu fungovať demonštruje nasledovný gif:
 
-![](.riesenie_images/menu-fungovanie.gif){align=center}
+![](.riesenie_images/menu-fung-00.gif)
+
+Menu musí spĺňať nasledovné:
+
+1. Prvá úroveň je vždy zobrazená na vrchu stránky
+2. Ďalšie úrovne menu sú viditeľne iba ak ich používateľ aktivuje kuzorom (viď. gif hore)
+3. Vizuálne indikujte či daná položka obsahuje podmenu
+4. Zvýraznite, aké položky menu sú aktivované (viď. gif hore - zvýraznenie na žlto) 
+5. Jednotlivé sub-menu zobrazte s jemne odlišnou farbou pozadia. Napr. stmavovaniem (viď. gif hore).
 
 
 Počiatočný HTML dokument obsahuje toto menu zadefinované pomocou štruktúry `<ul>` elementov a vyzerá nasledovne:
@@ -174,7 +182,7 @@ ul ul {
 ```
 Menu by sa malo zobrazovať momentálne takto:
 
-![](.riesenie_images/menu-prva-uroven.png)
+![](.riesenie_images/`menu-prva`-uroven.png)
 
 ## Druhá úroveň
 
@@ -250,18 +258,107 @@ ul ul ul{
 
 ![](.riesenie_images/menu-fung-02.gif)
 
-Všimnime si však, že jednotlivé sub-menu, nie sú úplne zarovnané. To je dôsledok toho, že pri `<ul>` druhej úrovne sme pridali rámik, ktorý veľkost tohto elementu zväčšil o 1px z každej strany. Aby sa menu zobrazovalo korektne musíme preto veľkosť zredukovať negatívnym odsadením. Bude stačiť ak ak ho zmenšíme iba z vrchu. CSS preto upravime na:
-
-```css
-       ul ul {
-            position: absolute;
-            display: none;
-            border: 1px solid black;
-            background-color: burlywood;
-            margin-top: -1px;
-        }
-```
+Všimnime si však, že jednotlivé sub-menu, nie sú úplne zarovnané. To je dôsledok toho, že pri `<ul>` druhej úrovne sme pridali rámik, ktorý veľkost tohto elementu zväčšil o 1px z každej strany. 
 
 ![](.riesenie_images/menu-dva-03.png)
 
+Aby sa menu zobrazovalo korektne musíme preto veľkosť zredukovať negatívnym odsadením. Bude stačiť ak ak ho zmenšíme iba z vrchu. CSS preto upravime na:
+
+```css
+ul ul {
+    position: absolute;
+    display: none;
+    border: 1px solid black;
+    background-color: burlywood;
+    margin-top: -1px;
+}
+```
+
+
+
 ## Zobrazenia ikonky o prítomnosti sub-menu
+
+Pre zlepšenie UX je veľmi vhodné dať použivateľovi vodítko, ktoré hovorí, že nejaka položka menu obsahuje dodatočné podmenu. Najčastejšie sa to realizuje indikátorom, napr. znakom `»`.
+
+Pre doplnenie tohto indikátora existuje viacero spôsobov. Napríklad:
+
+- Doplnenie elementu, ktorý daný znak doplní
+- Namiesto pridania elementu, stačí vytvoriť CSS pravidlo a následne túto triedu doplnit do atribútu `class` daného elementu
+- Ak máme štruktúru pevne danú, môžeme priamo zadefinovať css selektorom doplnenie tohto znaku
+
+V našom prípade sa pokúsime o aplikovanie poslednej možnosti. Použitím selektora `ul ul span:not(:only-child):after`, ktory môžeme popísať nasledovne:
+
+- `ul ul span` - sa aplikuje na všetky span od druhej úrovne
+- `:not(:only-child)` - je [pseudo-trieda](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes) `:not` urobí nad získanými span filter a vyberie iba tie, ktoré nie sú jedináčik. Teda, majú vedľa seba nejaké surodenecké elementy. V našom prípada sa jedná výlučne o položky menu, ktoré majú sub-menu
+- `:after` - je [pseudo-element](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements), pomocou ktorého vieme definovať nejaký obsah, ktorý sa zobrzí ihned za elementmi, ktoré sú vybrané selektorom.
+
+CSS pravidlo, ktoré nám pridá idndikátor je nasledovné:
+```css
+ul ul span:not(:only-child)::after
+{
+    color: blue;
+    content: "»";
+    padding: 3px 3px 3px 10px;
+}
+```
+
+Výsledok funguje nasledovne:
+![](.riesenie_images/menu-fung-03.gif)
+
+## Doplnenie zvýraznenia výberu
+
+Ďalšia vec, ktorá spríjemní UX je vyznačenie prvkov, ktoré boli inicalizované výberom. To realizejeme nasledovným CSS pravidlom:
+
+```css
+li:hover > span {
+    color: red;
+    background-color: yellow;
+}
+```
+
+Zmenu aplikujem vyslovanie na `<span>`, ktorý je priamym potomkom `<li>`, nad ktorým je aktuálne kurzor. Je potrebné si pamätať, že táto indikácia vyplíva na základe DOM štruktúry a nie toho ako sú prvky reálne vykreslené v okne prehliadača.
+
+Výsledok funguje nasledovne:
+![](.riesenie_images/menu-fung-04.gif)
+
+## Záverečné formátvanie
+
+Aby sme menu zobrazili krajšie vykonáme nasledovné úpravy:
+
+1. Odstránime farbu pozadia ponecháme iba `<span>` prvej úrovňe.
+2. Nastavíme jednotnú farbu pozadia pre `<ul>` druhej a vyššej úrovne.
+3. Každú úroveň jemne farebne odlíšime.
+
+Css pre bod 1. a 2. bude vyzerať nasledovne:
+```css
+span {
+    background-color: transparent
+}
+#menu > ul > li:hover > span {
+    color: red;
+    background-color: yellow;
+}
+#menu > ul > li > span {
+    background-color: #ebebeb;
+}
+ul ul {
+    background-color: #ebebeb;
+}
+```
+
+A ako posledné doplnimé postupne tmavnúcu farbu pozadia `<ul>`: 
+
+```css
+ul ul {
+    background-color: #ebebeb;
+}
+ul ul ul {
+    background-color: #bdbdbd;
+}
+ul ul ul ul {
+    background-color: #949494;
+}
+```
+
+Finálny výsledok funguje nasledovne:
+![](.riesenie_images/menu-fung-00.gif)
