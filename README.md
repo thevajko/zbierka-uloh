@@ -37,7 +37,7 @@ od 1 po 5, kde 5 je najväčšia náročnosť)
 
 ## CSS
 1. [Tooltip](css/tooltip-css/zadanie.md) (CSS) - obtiažnosť 2
-1. [DropDown menu](css/dropdownmenu/riesenie.md) (CSS) - obtiažnosť 3
+1. [Drop-Down a Drop-Up menu](css/dropdownmenu/riesenie.md) (CSS) - obtiažnosť 3
    
 ## JS a CSS
 1. [ShowHide](js-a-css/showhide/zadanie.md) (JS, CSS) - obtiažnosť 1
