@@ -50,7 +50,7 @@ Pre riešenie použite výlučne iba CSS.
 
 # Riešenie
 
-Riešenie je rozdelené do nasledovných pod-kapitol:
+Riešenie je rozdelené do nasledovných pod-kapitol (prekliky nemusia fungovať pre lokálny MD interpreter):
 
 1. [Prvá úroveň menu](#prvá-úroveň-menu)
 2. [Druhá úroveň](#druhá-úroveň)
@@ -58,6 +58,7 @@ Riešenie je rozdelené do nasledovných pod-kapitol:
 4. [Zobrazenia ikonky o prítomnosti sub-menu](#zobrazenia-ikonky-o-prítomnosti-sub-menu)
 5. [Doplnenie zvýraznenia výberu](doplnenie-zvýraznenia-výberu)
 6. [Záverečné formátovanie](#záverečné-formátovanie)
+7. [Upravenie na Drop-up menu](#upravenie-na-drop-up-menu)
 
 ## Prvá úroveň menu 
 
