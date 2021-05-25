@@ -24,8 +24,8 @@ Pokiaľ ho dá preč tooltip zmizne.
 ```
 
 Štruktúru dokumentu môžete upraviť, tak aby bolo možné úlohu vypracovať. Pre vypracovanie použite výlučne `CSS`.
-# Riešenie
 
+# Riešenie
 V prvom kroku si musíme upraviť struktúru zdrojového súbora, tak aby nám umožnila vyžiť dosiahnutie stanoveného cieľa
 pomocou CSS. Tu budeme používať [CSS pseudo-triedu](https://www.w3schools.com/css/css_pseudo_classes.asp) `:hover`.
 Tá je priradená k elementu automaticky, pokiaľ sa nad daným prvkom nachádza kurzor. Logicky chceme docieliť to, že pokiaľ

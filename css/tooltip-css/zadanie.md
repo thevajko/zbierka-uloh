@@ -24,3 +24,5 @@ Pokiaľ ho dá preč tooltip zmizne.
 ```
 
 Štruktúru dokumentu môžete upraviť, tak aby bolo možné úlohu vypracovať. Pre vypracovanie použite výlučne `CSS`.
+
+[Zobraziť riešenie](riesenie.md)
