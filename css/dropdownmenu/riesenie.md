@@ -319,6 +319,7 @@ ul ul span:not(:only-child)::after
 ```
 
 Výsledok funguje nasledovne:
+
 ![](.riesenie_images/menu-fung-03.gif)
 
 ## Doplnenie zvýraznenia výberu
@@ -335,6 +336,7 @@ li:hover > span {
 Zmenu aplikujem vyslovanie na `<span>`, ktorý je priamym potomkom `<li>`, nad ktorým je aktuálne kurzor. Je potrebné si pamätať, že táto indikácia vyplíva na základe DOM štruktúry a nie toho ako sú prvky reálne vykreslené v okne prehliadača.
 
 Výsledok funguje nasledovne:
+
 ![](.riesenie_images/menu-fung-04.gif)
 
 ## Záverečné formátovanie
@@ -377,6 +379,7 @@ ul ul ul ul {
 ```
 
 Finálny výsledok funguje nasledovne:
+
 ![](.riesenie_images/menu-fung-00.gif)
 
 ## Upravenie na Drop-up menu
@@ -405,6 +408,7 @@ li:hover > ul {
 }
 ```
 Mali by sme dostať nasledovné chovanie:
+
 ![](.riesenie_images/menu-up-01.gif)
 
 Podobne upravíme pozíciu pre menu druhej a ďalšej úrovňe. Budeme však musiet zmeniť selektor ` ul ul ul` na `ul li:hover > ul ul` aby sme predišli nutnosti použiť pravidlo `!important`.  
