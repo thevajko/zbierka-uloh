@@ -1,3 +1,6 @@
+> ## Rozcestník
+> - prepnúť na [main](/../../tree/main) alebo [solution](/../../tree/solution)
+
 # Zbierka úloh pre VAII [branch solution]
 Tento repozitár je zbierka úloh pre študentov predmetu VAII 
 [Fakulty riadenia a informatiky (FRI)](https://www.fri.uniza.sk/). Obsahuje úlohy zo zadaním,
