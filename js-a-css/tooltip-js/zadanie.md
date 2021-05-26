@@ -31,4 +31,7 @@ zobrazené.
 Štruktúru dokumentu môžete upraviť, tak aby bolo možné úlohu vypracovať. Pre vypracovanie sa snažte použiť čistý
 javascript a CSS.
 
+> ## Pomôcky: 
+> [Načítanie JS](../../common/js-onload.md ) a [práca zo stringom](../../common/js-praca-zo-stringom.md)
+
 [Zobraziť riešenie](riesenie.md).

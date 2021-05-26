@@ -3,8 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script type="application/javascript" src="products-data.js"></script>
+    <script type="application/javascript" src="users-data.js"></script>
+    <script type="application/javascript" src="jstable.js"></script>
 </head>
 <body>
-
+    <div id="table01"></div>
+    <script>
+        var table = new JsTable(usersData, document.getElementById("table01"));
+    </script>
 </body>
 </html>

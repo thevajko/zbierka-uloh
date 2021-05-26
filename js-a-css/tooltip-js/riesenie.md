@@ -41,15 +41,6 @@ pádom bude HTML kód vyzerať nasledovne:
 <span data-tooltip="Tooltip: asdasd asdasd asd a sd asd asdasda sda">consectetur</span>
 ```
 
-Ďaľším krokom je pripravenie zobrazenia textu, pokiaľ naň používateľ umiestni kurzor a jeho skrytie pokiaľ. Túto časť
-je možné vypracovať jedine použitím javascriptu. Skript, ktorý bude aktivovať logiku sa musí spustiť automaticky
-po načítani dokumentu. To sa tá docieliť nasledovným kódom:
-
-```javascript
-window.onload = function()  {
-    // kod co sa spusti po nacitani dokumentu    
-}
-```
 
 Logika zobrazovanie a skrývania tooltipov je pre všetky `span` elementy v celom dokument rovnaká. Tým pádom musíme najprv
 získať kolekciu všetkých span elementov v celom dokumente a potrebujeme pre každý span element pripojiť logiku. To
