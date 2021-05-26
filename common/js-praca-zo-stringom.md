@@ -25,7 +25,7 @@ let text2 = 'Toto "je" text'; // Toto "je" text
 Použiť sa to dá v prípade ak chceme do textového reťazca vpísať `HTML`. V tom prípade zvolíme za anotačný znak reťazca znak `'`, nakoľko `HTML` používa pre anotáciu hodnôt atribútov znak `"`. Kód bude potom vyzerať:
 
 ```javascript
-// prehladnejší zápis
+// prehľadnejší zápis
 let html = '<a class="red link" title="Späť na úvod">Späť</a>';
 
 // a tu máme ten druhý...
