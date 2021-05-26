@@ -32,6 +32,8 @@ zobrazené.
 javascript a CSS.
 
 > ## Pomôcky: 
-> [Načítanie JS](../../common/js-onload.md ) a [práca zo stringom](../../common/js-praca-zo-stringom.md)
+> - [Načítanie JS](../../common/js-onload.md )
+> - [JS a string](../../common/js-praca-zo-stringom.md)
+> - [CSS pozíciovanie](../../common/css-position.md )
 
 [Zobraziť riešenie](riesenie.md).
