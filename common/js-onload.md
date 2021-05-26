@@ -1,6 +1,6 @@
 # JS a spustenie skriptov
  
-JS skripty sa spúšťaju v takom poradí v akom sú deklarované ich `<script>`
+`JS` skripty sa spúšťajú v takom poradí v akom sú deklarované ich `<script>`
  značky. To znamená, že ak máme takého `HTML`:
 
 ```html
@@ -38,7 +38,7 @@ D
 
 > Online ukážka: [https://jsfiddle.net/meshosk/mxswvkoj](https://jsfiddle.net/meshosk/mxswvkoj/)
 
-V praxi to znamená, že v dobe vykonania skriptov s vypípisom `A`, `B` a `C` v DOM štruktúre neexistuje element `<h1>`. Pre demonštráciu doplníme do funccie `log()` výpis počtu všetkých elementov `<h1>` v dokumente:
+V praxi to znamená, že v dobe vykonania skriptov s výpisom `A`, `B` a `C` v _DOM štruktúre_ neexistuje element `<h1>`. Pre demonštráciu doplníme do funkcie `log()` výpis počtu všetkých elementov `<h1>` v dokumente:
 
 ```html
 <html>
@@ -70,7 +70,7 @@ V praxi to znamená, že v dobe vykonania skriptov s vypípisom `A`, `B` a `C` v
     </body>
 </html>
 ```
-Keď si stránku po úprave otvoríme v konzole prehliadača bude nasledovný výstup:
+Keď si stránku po úprave otvoríme v konzole prehliadača bude výstup nasledovný:
 ```
 A
 0
@@ -86,16 +86,16 @@ D
 
 > Online ukážka: [https://jsfiddle.net/meshosk/t4gLrkf2/](https://jsfiddle.net/meshosk/t4gLrkf2/)
 
-Toto, samozrejme, platí aj pre deklaráciu a inicializáciu premenných. Je preto vždy myslieť na správne poradie vkladania jednotlivých skriptov tvoriacich webovú aplikáciu.
+Toto, samozrejme, platí aj pre deklaráciu a inicializáciu premenných, tried a funkcií. Je preto vždy potrebné myslieť na správne poradie vkladania jednotlivých skriptov tvoriacich webovú aplikáciu.
 
 ## Spustenie logiky po načítaní stránky
 
 Pri použití čistého `JS` existujú dve možnosti ako spustiť logiku až po načítaní stránky:
 
-1. Skript, ktorý spúšťa alebo vykonáva logiku je potrebné umiestniť ako posledný tag pred uzatváracím tagom elementu `<body>`. Prípadne pridať `<script>` ihneď na koniec alebo za požadovaný element.
+1. Skript, ktorý spúšťa alebo vykonáva logiku je potrebné umiestniť ako posledný tag pred uzatváracím tagom elementu `<body>`. Prípadne pridať `<script>` ihneď na koniec alebo za požadovaný element. Tu ale nie je úplne zaručené, že skript spustíte až po "naozajstnej" inicializácií _DOM_.
 2. Využiť udalosť `onload` na objekte `window`
 
-Zápis teda umiestníme do ľubovolného relevantného `<script>` a zápis vyzerá nasledovne:
+Zápis teda umiestníme do ľubovolného relevantného `<script>` a zápis vyzerá následovne:
 
 ```javascript
 window.onload = function()  {
@@ -134,7 +134,7 @@ Náš príklad bude vyzerať takto:
     </body>
 </html>
 ```
-Nakoľko sa udalosť `window.onload` spúšta až po inicializovaní celého DOM, je logické, že bude vykonaná ako posledná. V konzole nájdeme tento výstup:
+Nakoľko sa udalosť `window.onload` spúšťa až po inicializovaní celého _DOM_, je logické, že bude vykonaná ako posledná. V konzole nájdeme tento výstup:
 
 ```html
 A
