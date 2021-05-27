@@ -6,11 +6,13 @@
     <script type="application/javascript" src="products-data.js"></script>
     <script type="application/javascript" src="users-data.js"></script>
     <script type="application/javascript" src="jstable.js"></script>
+    <script>
+        window.onload = function () {
+            let table = new JsTable(usersData, document.getElementById("table01"));
+        }
+    </script>
 </head>
 <body>
-    <div id="table01"></div>
-    <script>
-        var table = new JsTable(usersData, document.getElementById("table01"));
-    </script>
+<div id="table01"></div>
 </body>
 </html>

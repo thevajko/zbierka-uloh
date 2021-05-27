@@ -15,7 +15,7 @@ Menu musí spĺňať nasledovné:
 3. Vizuálne indikujte či daná položka obsahuje sub-menu
 4. Zvýraznite, aké položky menu sú aktivované (viď. gif hore – zvýraznenie na žlto) 
 5. Jednotlivé sub-menu zobrazte s jemne odlišnou farbou pozadia. Napr. stmavovaním (viď. gif hore).
-6. Modifikujt drop-down menu na drop-up menu.
+6. Modifikujte drop-down menu na drop-up menu.
 
 
 Počiatočný `HTML` dokument obsahuje menu zadefinované pomocou štruktúry elementov a vyzerá nasledovne:
@@ -46,7 +46,7 @@ Počiatočný `HTML` dokument obsahuje menu zadefinované pomocou štruktúry el
 
 Všimnite si však, že samotné `<ul>` a `<li>` definujú _iba_ štruktúru. Obsah položky je definované ako obsah `<span>`. Vnorenie jednotlivých `<ul>` v `<li>` definuje ktorý `<ul>` je sub-menu ktorého menu.
 
-Pre riešenie použite výlučne iba CSS.
+__Pre riešenie použite výlučne iba `CSS`.__
 
 # Riešenie
 
@@ -71,9 +71,9 @@ ul ul {
 ```
 Teraz potrebujeme upraviť zobrazenie prvej úrovne, tak aby sa nezobrazovala ako zoznam ale ako menu, teda vedľa seba. To ako sa ktorý prvok zobrazuje definuje CSS vlastnosť `display`([viac tu](https://www.w3schools.com/cssref/pr_class_display.asp)). 
 
-Zoznam sa dá v `HTML` definovať dvomi značkami `<ul>` (neočíslovaný zoznam) a `<ol>` (očíslovaný zoznam). V oboch prípadoch sa jedná o obaľovací komponent, ktorého potomkom môžu byť jedine element `<li>`. Značka `<li>` sa zobrazuje ako bloková (má nastavenú hodnotu pre zobrazenie na `display: list-item`) preto sa jednotlivé položky zoznamu zobrazujú pod sebou. Aby sme ich zobrazili veďľa seba, je potrebné toto zobrazenie zmeniť.
+Zoznam sa dá v `HTML` definovať dvomi značkami `<ul>` (neočíslovaný zoznam) a `<ol>` (očíslovaný zoznam). V oboch prípadoch sa jedná o obaľovací komponent, ktorého potomkom môžu byť jedine element `<li>`. Značka `<li>` sa zobrazuje ako bloková (má nastavenú hodnotu pre zobrazenie na `display: list-item`) preto sa jednotlivé položky zoznamu zobrazujú pod sebou. Aby sme ich zobrazili vedľa seba, je potrebné toto zobrazenie zmeniť.
 
-Začiatočníckou chybou je zmenenie hodnoty `display` na `display: inline-block`. Aj keď sa položky zobrazia vedľa seba, vytvára sa medzi nimi prirodzene nežiadúca medzera. Ale prečo? Je to dôsledok toho, akým spôsobom má prehliadač zobrazovať riadkové (`inline`) elementy. Vieme, že prehliadač ignoruje viacnásobné medzery a zalomenia. V tomto prípade, vzhľadom na štruktúru sú medzi jednotlivými elementmi `<li>` znaky ako zalomenia, medzery a tabulátori  interpretované ako medzery.
+Začiatočníckou chybou je zmenenie hodnoty `display` na `display: inline-block`. Aj keď sa položky zobrazia vedľa seba, vytvára sa medzi nimi prirodzene nežiadúca medzera. Ale prečo? Je to dôsledok toho, akým spôsobom má prehliadač zobrazovať riadkové (`inline`) elementy. Vieme, že prehliadač ignoruje viacnásobné medzery a zalomenia. V tomto prípade, vzhľadom na štruktúru sú medzi jednotlivými elementmi `<li>` znaky ako zalomenia, medzery a tabulátori interpretované ako medzery.
 
 Aby sme to názorne predviedli, stačí si niekde do kódu stránky vložiť nasledovný `HTML` kód (alebo otvoriť [fiddle](https://jsfiddle.net/meshosk/Legh36td)):
 
@@ -137,7 +137,7 @@ _Flexbox_ potrebuje na svoje fungovanie obaľovací element, tzv. _kontainer_, (
   </body>
 </html>
 ```
-Ak tento postup aplikujeme na našu úlohu musíme najprv identifikovať _kontajner_ pre _flexbox_. V našom prípade sa jedná o iba prvú úroveň nášho menu. _Kontajner_ preto budeme definovať selektorom `#menu > ul`, teda vyberieme element `<div>` s hodnotou atribútu `id` `menu`, ktorý tvorí hlavný element nášho menu. CSS bude teda vyzerať nasledovne:
+Ak tento postup aplikujeme na našu úlohu musíme najprv identifikovať _kontajner_ pre [_flexbox_](https://css-tricks.com/snippets/css/a-guide-to-flexbox/). V našom prípade sa jedná o iba prvú úroveň nášho menu. _Kontajner_ preto budeme definovať selektorom `#menu > ul`, teda vyberieme element `<div>` s hodnotou atribútu `id` `menu`, ktorý tvorí hlavný element nášho menu. CSS bude teda vyzerať nasledovne:
 
 ```css
 #menu > ul {
@@ -160,7 +160,7 @@ Pre odstránenie problémov s odsadeniami môžeme v našom prípade urobiť tzv
 
 Následne ešte musíme upraviť zobrazenie `<li>`, tak aby sa nezobrazovali ako položky menu a elementy `<span>` aby sa zobrazovali ako blokové značky (inak im nebude možné zadefinovať rozmer a odsadenia). 
  
-Vzhľadom na to, že výsledkom úlohy je mnu, bude dobrý nápad zamedziť automatické zalamovanie textu v `<span>`. To urobíme tak, že `<span>` doplníme `CSS` vlastnosť `white-space: nowrap;`.
+Vzhľadom na to, že výsledkom úlohy je menu, bude dobrý nápad zamedziť automatické zalamovanie textu v `<span>`. To urobíme tak, že `<span>` doplníme `CSS` vlastnosť `white-space: nowrap;`.
 
 CSS bude teda nasledovné:
 
@@ -199,7 +199,8 @@ Menu bude vyzerať:
 
 ## Druhá úroveň
 
-Nasleduje vytvorenie štýlovania pre druhú úroveň. Pre lepší "debug" `CSS` si musíme najprv zobraziť prvú a druhú úroveň. To docielime tým, že upravíme obsah selektoru `ul ul` a doplníme skrytie všetkých `<ul>` úrovňe tri a viac, teda selektorom `ul ul ul`. Upravené `CSS` bude (zobrazené sú iba doplnené a zmenené CSS):
+Nasleduje vytvorenie štýlovania pre druhú úroveň. Pre lepší _debug_ `CSS` si musíme najprv zobraziť prvú a druhú úroveň. To docielime tým, že upravíme obsah selektoru `ul ul` a doplníme skrytie všetkých `<ul>` úrovne tri a viac, teda selektorom `ul ul ul`. Upravené `CSS` bude (zobrazené sú iba doplnené a zmenené CSS):
+
 ```css
 li {
     position: relative;
@@ -216,9 +217,9 @@ Menu bude zobrazovať staticky prvú a druhú úroveň, nejako takto:
 
 ![](.riesenie_images/menu-dva-01.png)
 
-Teraz potrebujeme upraviť `CSS` vlastnosť `position` pre všekz `<li>` prvej úrovne na `relative` aby sme vytvorili základnú plochu pre prípadne `<ul>` ďalších úrovní. 
+Teraz potrebujeme upraviť `CSS` vlastnosť `position` pre všetky `<li>` prvej úrovne na `relative` aby sme vytvorili základnú plochu pre prípadne `<ul>` ďalších úrovní. 
 
-Všetkým `<ul>` druhej a ďalších úrovní nastavíme vlastnosť `position` na `absolute`. Tým docielime to, že `<ul>` sa zobrazia "plávajúco" nad ostatnými elementmi (viac o [position tu](https://www.w3schools.com/css/css_positioning.asp)). Upravené CSS pravidlá sú nasledovné:
+Všetkým `<ul>` druhej a ďalších úrovní nastavíme vlastnosť `position` na `absolute`. Tým docielime to, že `<ul>` sa zobrazia "plávajúco" nad ostatnými elementmi (viac o [position tu](../../common/css-position.md)). Upravené CSS pravidlá sú nasledovné:
 
 ```css
 li {
@@ -237,10 +238,10 @@ Zobrazenie stránky v tomto kroku bude nasledovné:
 
 ![](.riesenie_images/menu-dva-02.png)
 
-Ako prvé teraz doplňíme zobrazovanie a skrývanie druhej úrovne, pokiaľ používateľ umiestni kuzor nad danú položku `<li>`, ktorá obsahuje priamo podmenu. Zvolenie priameho potomka je v selektore dôležíté, lebo chceme aby sa zobrazil iba priamy potomok a nie všetky `<ul>` v danej vetve DOM. 
-Môžeme ešte pridať formátovanie pre `<ul>` úrovňe dva a viac.
+Ako prvé teraz doplníme zobrazovanie a skrývanie druhej úrovne, pokiaľ používateľ umiestni kurzor nad danú položku `<li>`, ktorá obsahuje priamo _sub-menu_. Zvolenie priameho potomka je v selektore dôležité, lebo chceme aby sa zobrazil iba priamy potomok a nie všetky `<ul>` v danej vetve _DOM_. 
+Môžeme ešte pridať formátovanie pre `<ul>` úrovne dva a viac.
 
-Pre zobrazenie opäť použijeme _flexbox_ a upravíme zobrazenie prvkov na vertikálne pomocou `flex-direction: column;`. Predvolene sú sub-menu skryté. CSS bude teda nasledovne:
+Pre zobrazenie opäť použijeme _flexbox_ a upravíme zobrazenie prvkov na vertikálne pomocou `flex-direction: column;`. Predvolene sú _sub-menu_ skryté. `CSS` bude teda nasledovne:
 
 ```css
 ul ul {
@@ -261,7 +262,7 @@ Ako je vidno na nasledujúcom obrázku menu bude fungovať ako má ale iba po dr
 
 ## Ďalšie úrovne
 
-Aby sa nám správne zobrazili menu druhej úrovne je potrebné upraviť ich poziciovanie. Nasledujúce sub-menu sa má zobraziť výškovo zarovno položkou napravo od nej. To docielime nasledovným pravidlom:
+Aby sa nám správne zobrazili menu druhej úrovne je potrebné upraviť ich poziciovanie. Nasledujúce _sub-menu_ sa má zobraziť výškovo zarovno položkou napravo od nej. To docielime nasledovným `CSS` pravidlom:
 
 ```css
 ul ul ul{
@@ -270,15 +271,15 @@ ul ul ul{
 }
 ```
 
-`top: 0` hovorí o tom, že sa ma sub-menu zobraziť vertikálne zarovno `<li>` v ktorom je a `left: 100%` umiestnuje sub-menu o _100%_ veľkosti `<li>` zľava. Výsledok pridania tohto pravidla je nasledovný:
+`top: 0` hovorí o tom, že sa ma _sub-menu_ zobraziť vertikálne zarovno `<li>` v ktorom je a `left: 100%` umiestňuje _sub-menu_ o _100%_ veľkosti `<li>` zľava. Výsledok pridania tohto pravidla je nasledovný:
 
 ![](.riesenie_images/menu-fung-02.gif)
 
-Všimnime si však, že jednotlivé sub-menu, nie sú úplne zarovnané. To je dôsledok toho, že pri `<ul>` druhej úrovne sme pridali rámik, ktorý veľkost tohto elementu zväčšil o 1px z každej strany. 
+Všimnime si však, že jednotlivé _sub-menu_ nie sú úplne zarovnané. To je dôsledok toho, že pri `<ul>` druhej úrovne sme pridali rámik, ktorý veľkosť tohto elementu zväčšil o 1px z každej strany. 
 
 ![](.riesenie_images/menu-dva-03.png)
 
-Aby sa menu zobrazovalo korektne musíme preto veľkosť zredukovať negatívnym odsadením. Bude stačiť ak ak ho zmenšíme iba z vrchu. CSS preto upravime na:
+Aby sa menu zobrazovalo korektne musíme preto veľkosť zredukovať negatívnym odsadením. Bude stačiť ak ho zmenšíme iba z vrchu. `CSS` preto upravíme na:
 
 ```css
 ul ul {
@@ -289,8 +290,6 @@ ul ul {
     margin-top: -1px;
 }
 ```
-
-
 
 ## Zobrazenia ikonky o prítomnosti sub-menu
 
@@ -305,7 +304,7 @@ Pre doplnenie tohto indikátora existuje viacero spôsobov. Napríklad:
 V našom prípade sa pokúsime o aplikovanie poslednej možnosti. Použitím selektora `ul ul span:not(:only-child):after`, ktory môžeme popísať nasledovne:
 
 - `ul ul span` - sa aplikuje na všetky span od druhej úrovne
-- `:not(:only-child)` - je [pseudo-trieda](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes) `:not` urobí nad získanými span filter a vyberie iba tie, ktoré nie sú jedináčik. Teda, majú vedľa seba nejaké surodenecké elementy. V našom prípada sa jedná výlučne o položky menu, ktoré majú sub-menu
+- `:not(:only-child)` - je [pseudo-trieda](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes) `:not` urobí nad získanými span filter a vyberie iba tie, ktoré nie sú jedináčik. Teda, majú vedľa seba nejaké surodenecké elementy. V našom prípada sa jedná výlučne o položky menu, ktoré majú _sub-menu_
 - `:after` - je [pseudo-element](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements), pomocou ktorého vieme definovať nejaký obsah, ktorý sa zobrzí ihned za elementmi, ktoré sú vybrané selektorom.
 
 CSS pravidlo, ktoré nám pridá idndikátor je nasledovné:
@@ -398,7 +397,7 @@ Aby bolo menu roztiahnuté na celú dĺžku viewpotu musíme mu zadefinovať par
 }
 ```
 
-Následne musíme upraviť zobrazenie druhej úrovne tak, aby bola zarovnaná vlavo nad predka `<li>` a aby sa nezobrazovala pod nim ale nad ním. Docielime to pridaním vlastnosti `bottom: 100%;`, čím spodok sub-menu presunieme na vrch nadradeného `<li>`. CSS vlastnosť upravíme nasledovne:
+Následne musíme upraviť zobrazenie druhej úrovne tak, aby bola zarovnaná vlavo nad predka `<li>` a aby sa nezobrazovala pod nim ale nad ním. Docielime to pridaním vlastnosti `bottom: 100%;`, čím spodok _sub-menu_ presunieme na vrch nadradeného `<li>`. CSS vlastnosť upravíme nasledovne:
 
 ```css
 li:hover > ul {

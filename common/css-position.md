@@ -33,7 +33,7 @@ V prípade, že sa nenájde vhodný predok, berie sa za základ _viewport_, ale 
 
 ## Východzia pozícia `fixed`
 
-Východziu pozíciu predstavuje _viewport_, a tak isto sa hodnoty `%` určujú s jeho veľkosti.
+Východziu pozíciu predstavuje _viewport_, a tak isto sa hodnoty `%` určujú z jeho veľkosti.
 
 ## Východzia pozícia `sticky`
 
