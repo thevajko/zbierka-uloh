@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+
+        function DegToRad(d)
+        {
+            return d * 0.01745;
+        }
+
+        function DrawLineMarker(ctx, uhol, markerLength){
+
+            let angl = DegToRad(uhol);
+            let r = 250 - markerLength;
+
+            let sx = 250  + r * Math.cos(angl);
+            let sy = 250 + r * Math.sin(angl);
+
+            ctx.beginPath();
+            ctx.lineWidth = 1;
+            ctx.moveTo(sx,sy );
+            ctx.lineTo(sx + markerLength * Math.cos(angl), sy + markerLength * Math.sin(angl));
+            ctx.stroke();
+        }
+
+        function DrawWatchHand(ctx, uhol, length, width){
+            let x = 250;
+            let y = 250;
+            let angl = DegToRad(uhol + 270);
+
+            ctx.beginPath();
+            ctx.lineWidth = width;
+            ctx.moveTo(x, y);
+            ctx.lineTo(x + length * Math.cos(angl), y + length * Math.sin(angl));
+            ctx.stroke();
+        }
+
+        function DrawCircle(ctx){
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(250, 250, 250, 0, DegToRad(360));
+            ctx.stroke();
+        }
+        function DrawSmallCircle(ctx){
+
+            ctx.beginPath();
+            ctx.lineWidth = 1;
+            ctx.fillStyle = "black";
+            ctx.arc(250, 250, 10, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+        }
+
+        function MakeTick(ctx, canvas){
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            DrawCircle(ctx);
+            // cifernik
+            for(let i = 0 ; i < (360/6) ; i++) {
+                if (i*6 % 30 == 0) {
+                    DrawLineMarker(ctx, i*6, 30)
+                } else {
+                    DrawLineMarker(ctx, i*6, 10)
+                }
+            }
+
+            // rucicky
+
+            let time = new Date();
+
+            DrawWatchHand(ctx, time.getSeconds()*6, 210,1);
+            DrawWatchHand(ctx, time.getMinutes()*6 + time.getSeconds()*0.1, 180,3);
+            DrawWatchHand(ctx, time.getHours()*30 + time.getMinutes()*0.5, 150,5);
+
+            DrawSmallCircle(ctx);
+        }
+
+        window.onload = function(){
+            let canvas = document.querySelector("canvas");
+            let ctx = canvas.getContext("2d");
+
+
+            setInterval( function() {
+                MakeTick(ctx, canvas);
+            }, 1000);
+            MakeTick(ctx, canvas);
+
+
+
+        }
+
+
+    </script>
+</head>
+<body>
+<canvas width="500" height="500"></canvas>
+</body>
+</html>
