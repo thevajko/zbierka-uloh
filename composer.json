@@ -1,0 +1,18 @@
+{
+  "name": "hrkut/zbierka-uloh",
+  "description": "Zbierka úloh z VAII",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Patrik Hrkút",
+      "email": "Patrik.Hrkut@fri.uniza.sk"
+    },
+    {
+      "name": "Matej Meško",
+      "email": "Matej.Mesko@fri.uniza.sk"
+    }
+  ],
+  "require": {
+  }
+}
