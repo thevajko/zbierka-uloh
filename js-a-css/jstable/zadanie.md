@@ -240,7 +240,7 @@ Pre uľahčenie porovnávania stringov obsahuje `JS` [`String.prototype.localeCo
 
 Pre získanie požadovanej hodnoty atribútu opäť použijeme prístup k atribútu objektu cez index. A ako posledné zavoláme `JsTable.renderTable()` aby došlo k prekresleniu tabuľky a zobrazila sa ako zoradená.
 
-Všimnite si však, že získané hodnoty z objektov v kolekcií sú konvertováne do _stringu_ použitím konverznej globálnej funkcie [`String()`](https://www.w3schools.com/jsref/jsref_string.asp). Bez nej by toto zoraďovanie nefungovalo.
+Všimnite si však, že získané hodnoty z objektov v kolekcií sú konvertované do _stringu_ použitím konverznej globálnej funkcie [`String()`](https://www.w3schools.com/jsref/jsref_string.asp). Bez nej by toto zoraďovanie nefungovalo.
 
 ```javascript
 sortCollection(filterBy){
@@ -251,11 +251,11 @@ sortCollection(filterBy){
 }
 ```
 
-Tabuľka sa nám ale momentálne zoradí iba jedným smerom. Doplníme preto do triedy `JsTable` atribút `lastSortedBy`, ktorý bude uchovávať informáciu o tom, podľa ktorého stĺpca bola tabuľka naposledy zoradená. Zoradovanie by sa dalo popísať nasledovne:
+Tabuľka sa nám ale momentálne zoradí iba jedným smerom. Doplníme preto do triedy `JsTable` atribút `lastSortedBy`, ktorý bude uchovávať informáciu o tom, podľa ktorého stĺpca bola tabuľka naposledy zoradená. Zoraďovanie by sa dalo popísať nasledovne:
 
-1. Skontorluje či sa `lastSortedBy` rovná `null` alebo či je iné ako vstupným parameterom `filterBy`:
+1. Skontroluje či sa `lastSortedBy` rovná `null` alebo či je iné ako vstupným parameterom `filterBy`:
     1. Ak __áno__, tak zoraď stĺpce prvým spôsobom a do `lastSortedBy` vlož hodnotu `filterBy`
-    2. Ak __nie__, tak  zoraď stĺpce druhým spôsobom a do `lastSortedBy` vlož hodnotu `NULL`
+    2. Ak __nie__, tak zoraď stĺpce druhým spôsobom a do `lastSortedBy` vlož hodnotu `NULL`
     
 Celá zmena sa týka iba metódy `JsTable.sortCollection()`, ktorá po popísanej úprave bude vyzerať nasledovne:
 
@@ -278,9 +278,124 @@ sortCollection(filterBy){
 }
 ```
 
+A nesmieme doplniť predvolenú hodnotu do konštruktora:
+
+```javascript
+ constructor(dataCollection, HTMLElement) {
+     this.dataCollection = dataCollection;
+     this.HTMLElement = HTMLElement;
+     this.lastSortedBy = null;
+     this.renderTable();
+}
+```
+
 Tabuľka sa bude teraz dať zoradiť oboma smermi.
 
 ![](.zadanie_images/tabulka-01.gif)
 
 ## Filtrovanie tabuľky
 
+Prvá úprava bude v zmenení toho akým spôsobom sa bude tabuľka prekresľovať. Dôvodom je pridanie elementu `<input>` pomocou ktorého bude môcť používateľ zadávať výraz pre filtrovanie hodnôt v tabuľke. Vyhľadávanie sa bude spúšťať automaticky hneď, ked sa zmení hodnota v `<input>`. Momentálne sa vymaže a nanovo vytvorí celá tabuľka, čo by spôsobilo aj znovu vytvorenie `<input>` a používateľ by tak nemohol zadať celý výraz.
+
+V konštruktore `JsTable` preto upravíme kód tak, aby sa do `JsTable.HTMLElement` pridal nový element a až do neho budeme vykresľovať tabuľku ako predtým.
+
+Aby sme mohli reagovať na zmenu hodnoty v `<input>` pridáme logiku pre udalosť [`oninput`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/input_event), ktorá je vyvolaná vždy keď používateľ zmení jeho hodnotu. 
+
+Pokiaľ táto udalosť nastane, tak dodatočné dáta budú dostupné vo vstupnom parametre `event`. Tieto dáta obsahujú aj referenciu na daný `<input>`, ktorý potrebujeme aby sme vedeli získať používateľom vyplnenú hodnotu. Tá je dostupná cez `event.data.value`;
+
+Vstup následne vložíme do novej metódy `JsTable.filterCollection()`, ktorá bude mať za úlohu vytvoriť vyfiltrovanú kolekciu ktorá sa následne použije vo zvyšku logiky. Týmto nemusíme veľmi modifikovať už existujúci kód, zmeníme len kolekciu na zoradenie a vykreslenie. Upravený konštruktor bude:
+
+```javascript
+ constructor(dataCollection, HTMLElement) {
+
+     this.dataCollection = dataCollection;
+     this.filtedDataCollection = dataCollection;
+
+     this.HTMLElement = HTMLElement;
+
+     this.TableWrapperElement = document.createElement('div');
+     this.HTMLElement.append(this.TableWrapperElement);
+
+     let input = document.createElement("input");
+     input.oninput = (event) => {
+         this.filterCollection(event.data.value);
+     }
+     this.HTMLElement.prepend(input);
+
+     this.lastSortedBy = null;
+     this.renderTable();
+}
+```
+
+Tým pádom musíme vymeniť zdrojovú kolekciu z `dataCollection` na `filtedDataCollection` v metódach `sortCollection()` a `renderRows()` nasledovne:
+
+```javascript
+renderRows(){
+     let bodyText = "";
+     let keys = Object.keys(this.dataCollection[0]);
+     this.filtedDataCollection.forEach( (item, i) => {
+         let rowText = "";
+         keys.forEach((attributeName,i) => {
+             rowText += `<td>${item[attributeName]}</td>`
+         });
+         bodyText += `<tr>${rowText}</tr>`
+     } )
+     return bodyText;
+ }
+
+sortCollection(filterBy){
+   if (this.lastSortedBy == null && this.lastSortedBy != filterBy) {
+      this.filtedDataCollection.sort(function (a,b){
+         return String(a[filterBy]).localeCompare(String(b[filterBy]));
+      });
+      this.lastSortedBy = filterBy;
+   } else {
+      this.filtedDataCollection.sort(function (a,b){
+         return String(b[filterBy]).localeCompare(String(a[filterBy]));
+      });
+      this.lastSortedBy = null;
+   }
+   this.renderTable();
+}
+```
+
+V metóde `renderTable()` upravíme element z `HTMLElement` na `TableWrapperElement` nasledovne:
+
+```javascript
+ renderTable(){
+     this.TableWrapperElement.innerHTML = "";
+     let body = this.renderRows();
+     let table = `<table border="1">${body}</table>`;
+     this.TableWrapperElement.innerHTML = table;
+     this.TableWrapperElement.querySelector("table").prepend(this.renderHeader());
+ }
+```
+
+Teraz môžeme vytvoriť logiku pre samotné filtrovanie, doplníme novú metódu  `filterCollectio()` do našej triedy `JsTable`. Všeobecne platí, že pokiaľ vytvárame filtrovanie dát, je nutné pridať kontrolu na minimálny počet znakov potrebných pre jeho spustenie. V našom prípade budeme filtrovať ak bude vstup väčší ako jeden znak.
+
+V `JS` môžeme pre filtrovanie pola použiť [`Array.prototype.filter()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter). Táto metóda pre každý prvok v poli vykoná filtračnú funkciu, ktorá vracia `bool`. Ak je výsledok `true` daný prvok zaradí do nového výstupného pola. 
+
+Pri samotnej kontole musíme prejsť hodnotu všetkých atribútov objektov v zdrojovej kolekcii `dataCollection`. String v stringu vieme v JS hľadať pomocou [`String.prototype.includes()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes). Tu nepoužijeme [`Array.prototype.forEach()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach), nakoľko chceme vrátiť hodnotu `true` pri prvej zhode a `forEach` používa pre iteráciu __funkciu__. Vymeníme ho preto za obyčajný `for`. Taktiež nesmieme zabudnúť na konverziu na _string_. Logika filtrácie bude vyzerať nasledovne:
+
+```javascript
+filterCollection(expression){
+     if (expression == null || expression.length < 2) {
+         this.filtedDataCollection = this.dataCollection;
+     } else {
+         let keys =  Object.keys(this.dataCollection[0]);
+         this.filtedDataCollection = this.dataCollection.filter((a) => {
+             for (let i= 0;  i < keys.length; i++) {
+                 if (String(a[keys[i]]).includes(expression)) {
+                     return true;
+                 }
+             }
+             return false;
+         });
+     }
+     this.renderTable();
+}
+```
+
+Výsledná logika bude fungovať nasledovne:
+
+![](.zadanie_images/tabulka-02.gif)
