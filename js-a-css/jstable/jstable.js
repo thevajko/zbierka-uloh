@@ -3,6 +3,8 @@ class JsTable {
         this.dataCollection = dataCollection;
         this.HTMLElement = HTMLElement;
 
+        this.lastSortedBy = null;
+
         this.renderTable();
     }
     renderTable(){
@@ -15,9 +17,19 @@ class JsTable {
     }
 
     sortCollection(filterBy){
-        this.dataCollection.sort(function (a,b){
-            return String(a[filterBy]).localeCompare(String(b[filterBy]));
-        });
+
+        if (this.lastSortedBy == null && this.lastSortedBy != filterBy) {
+            this.dataCollection.sort(function (a,b){
+                return String(a[filterBy]).localeCompare(String(b[filterBy]));
+            });
+            this.lastSortedBy = filterBy;
+        } else {
+            this.dataCollection.sort(function (a,b){
+                return String(b[filterBy]).localeCompare(String(a[filterBy]));
+            });
+            this.lastSortedBy = null;
+        }
+
         this.renderTable();
     }
 

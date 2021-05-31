@@ -178,5 +178,105 @@ Tabuľka teraz vypíše celú kolekciu nasledovne:
 
 ## Zoraďovania podla stĺpca
 
+Zoraďovanie stĺpcov bude aktivované kliknutím na hlavičku. Prvým kliknutím sa riadky zoradia podla znakov hodnôt zostupne a pri opätovnom kliku vzostupne. Pre zjednodušenie budeme všetky hodnoty zoraďovať ako _string_.
 
+Samotnú logiku budeme aplikovať budeme aplikovať priamo na HTML elementy, ktoré budeme vytvárať pomocou `document.createElement()` a nie formou vytvorenia pomocou _stringov_, to nam taktiež sprehľadní kód.
+
+Z tohto dôvodu upravimé logiku metódy `JsTable.renderHeader()` tak, že v prvom rade vytvoríme element `<tr>` zápisom `document.createElement("tr")`, ktorý definuje riadok tabuľky a budeme do neho následne pridávať `<th>` podobne ako v logike predtým. Pre pridanie elementu do predka budeme používať metódu `appendChild()`, ktorá vloží element ako posledného potomka. Text, ktorý sa má zobraziť v hlavičke môžeme vložiť cez atribút `innerHTML` alebo `innerText`. Kód bude vyzerať nasledovne:
+
+```javascript
+renderHeader(){
+    let headerRow = document.createElement("tr");
+    let firstItem = this.dataCollection[0];
+    Object.keys(firstItem).forEach((attributeName,i) => {
+        let hr = document.createElement("th");
+        hr.innerText = attributeName;
+        headerRow.appendChild(hr);
+    });
+    return headerRow;
+}
+```
+
+Teraz nám metóda `JsTable.renderHeader()` vracia namiesto stringu `HTMLElement`. Musíme preto upraviť spôsob akým sa tabuľka zostavuje v metóde `JsTable.renderTable()`. Odstránime vloženie premennej `header` do stringu v premennej `table`. Týmto sa nám tabuľka zobrazí bez hlavičky. Aby sme mohli do tabuľky vložiť jej hlavičku v `HTMLElemente` je potrebné získať jej referenciu. To je možné ale až po tom, čo je vytvorená. Referenciu je teda možné získať až po vykonaní priradenia `this.HTMLElement.innerHTML = table;`. Nakoľko sa tabuľka vloží ako potomok nášho obalovacieho elementu uloženom v `this.HTMLElement`, vieme ho prehľadávať pomocou jeho metódy `querySelector()`. Pre získanie referencie na nami vytvorenú tabuľku vieme získať zápisom `this.HTMLElement.querySelector("table")`.
+
+Hlavičku tabuľky pridáme ako prvého potomka pomocou metódy `prepend()`. Následne ešte doplníme na začiatok zmazanie všetkého obsahu nášho obaľovacieho elementu, nakoľko po zoradení prvkov budeme tabuľku vykresľovať nanovo. Nejedná a efektívny spôsob prekresľovania, chceme však vypracovanie udržať jednoduché. Upravený kód metódy `JsTable.renderTable()` bude nasledovný:
+
+```javascript
+renderTable(){
+    this.HTMLElement.innerHTML = "";
+    let header = this.renderHeader();
+    let body = this.renderRows();
+    let table = `<table border="1">${body}</table>`;
+    this.HTMLElement.innerHTML = table;
+    this.HTMLElement.querySelector("table").prepend(header);
+}
+```
+Tabuľka sa teraz zobrazí v tvare aby sme žiadnu úpravu nevykonali.
+
+Teraz potrebujeme pridať akciu, ktorá po kliknutí na `<th>` zoradí a nanovo vykreslí tabuľku. Vytvorenému elementu `<th>` pridáme preto logiku na udalosť `onclick`, ktorá zavolá novú metódu `JsTable.sortCollection()`, ktorá bude mať jeden vstupný parameter, a to meno stĺpca na základe ktorého sa má zoradiť. Doplníme `CSS` pre zmenu kurzora, aby indikoval možnosť kurzora cez `cursor: pointer`. Výsledný kód metódy `JsTable.renderHeader()` bude nasledovný:
+
+```javascript
+renderHeader(){
+    let headerRow = document.createElement("tr");
+    let firstItem = this.dataCollection[0];
+    Object.keys(firstItem).forEach((attributeName,i) => {
+        let hr = document.createElement("th");
+        hr.innerText = attributeName;
+        hr.style.cursor = "pointer";
+        hr.onclick = () => {
+            this.sortCollection(attributeName);
+        }
+        headerRow.appendChild(hr);
+    });
+    return headerRow;
+}
+```
+
+Zoraďovanie bude realizované zavolaním metódy `JsTable.sortCollection()`, kde jej vstupný parameter hovorí o tom, ktorý stĺpec sa použije na zoraďovanie. Zoradenie reálne zoradí priamo obsah kolekcie dát, ktorá je uložená v atribúte `JsTable.dataCollection`.
+
+V `JS` vieme zoradiť pole pomocou [`Array.prototype.sort()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort), kde ako voliteľný parameter vložíme funkciu pre po rovnanie, ktorá musí vrátiť číselný výsledok porovnania.
+
+Pre uľahčenie porovnávania stringov obsahuje `JS` [`String.prototype.localeCompare()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare), ktorá vracia presne výstup vhodný pre naše porovnanie.
+
+Pre získanie požadovanej hodnoty atribútu opäť použijeme prístup k atribútu objektu cez index. A ako posledné zavoláme `JsTable.renderTable()` aby došlo k prekresleniu tabuľky a zobrazila sa ako zoradená.
+
+```javascript
+sortCollection(filterBy){
+    this.dataCollection.sort(function (a,b){
+        return String(a[filterBy]).localeCompare(String(b[filterBy]));
+    });
+    this.renderTable();
+}
+```
+
+Tabuľka sa nám ale momentálne zoradí iba jedným smerom. Doplníme preto do triedy `JsTable` atribút `lastSortedBy`, ktorý bude uchovávať informáciu o tom, podľa ktorého stĺpca bola tabuľka naposledy zoradená. Zoradovanie by sa dalo popísať nasledovne:
+
+1. Skontorluje či sa `lastSortedBy` rovná `null` alebo či je iné ako vstupným parameterom `filterBy`:
+    1. Ak __áno__, tak zoraď stĺpce prvým spôsobom a do `lastSortedBy` vlož hodnotu `filterBy`
+    2. Ak __nie__, tak  zoraď stĺpce druhým spôsobom a do `lastSortedBy` vlož hodnotu `NULL`
+    
+Celá zmena sa týka iba metódy `JsTable.sortCollection()`, ktorá po popísanej úprave bude vyzerať nasledovne:
+
+```javascript
+sortCollection(filterBy){
+    if (this.lastSortedBy == null && this.lastSortedBy != filterBy) {
+        // prvý spôsob zoradenia
+        this.dataCollection.sort(function (a,b){
+            return String(a[filterBy]).localeCompare(String(b[filterBy]));
+        });
+        this.lastSortedBy = filterBy;
+    } else {
+        // druhý spôsob zoradenia
+        this.dataCollection.sort(function (a,b){
+            return String(b[filterBy]).localeCompare(String(a[filterBy]));
+        });
+        this.lastSortedBy = null;
+    }
+    this.renderTable();
+}
+```
+
+Tabuľka sa bude teraz dať zoradiť oboma smermi.
+
+## Filtrovanie tabuľky
 
