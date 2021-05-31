@@ -240,6 +240,8 @@ Pre uľahčenie porovnávania stringov obsahuje `JS` [`String.prototype.localeCo
 
 Pre získanie požadovanej hodnoty atribútu opäť použijeme prístup k atribútu objektu cez index. A ako posledné zavoláme `JsTable.renderTable()` aby došlo k prekresleniu tabuľky a zobrazila sa ako zoradená.
 
+Všimnite si však, že získané hodnoty z objektov v kolekcií sú konvertováne do _stringu_ použitím konverznej globálnej funkcie [`String()`](https://www.w3schools.com/jsref/jsref_string.asp). Bez nej by toto zoraďovanie nefungovalo.
+
 ```javascript
 sortCollection(filterBy){
     this.dataCollection.sort(function (a,b){
@@ -277,6 +279,8 @@ sortCollection(filterBy){
 ```
 
 Tabuľka sa bude teraz dať zoradiť oboma smermi.
+
+![](.zadanie_images/tabulka-01.gif)
 
 ## Filtrovanie tabuľky
 
