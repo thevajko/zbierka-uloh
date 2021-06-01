@@ -6,11 +6,10 @@
 
 [Zobraziť zadanie](zadanie.md)
 
+# Analógové hodinky (JS, CSS)
 </div>
 
-# Analógové hodinky (JS, CSS)
-
-# Riešenie
+## Riešenie
 
 Pri riešení tejto úlohy budeme používať čistý javascript a vykresovanie pomocou [canvasu](https://www.w3schools.com/html/html5_canvas.asp). Vykreslovať budeme do elementu `<canvas>` a nastavíme mu pevný rozmer `500x500`. Preto naše HTML bude vyzerať nasledovne:
 
