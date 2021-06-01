@@ -25,7 +25,7 @@ Pri riešení tejto úlohy budeme používať čistý javascript a vykresľovani
 </html>
 ```
 
-_Canvas_ pre vykreslovanie potrebuje zadávať uhly v __radiánoch__. Samozrejme pre nás bude lepšie pokiaľ to budeme môcť zadávať uhly v stupňoch.
+_Canvas_ pre vykresľovanie potrebuje zadávať uhly v __radiánoch__. Samozrejme pre nás bude lepšie pokiaľ to budeme môcť zadávať uhly v stupňoch.
 
 Konveziu zo stupňov realizujeme nasledovným prepočtom: `uhol v radianoch = uhol v stupňoch * PI / 180`, kde `PI / 180 = 0.01745329251`. Vzhľadom na to, kde prepočet chceme použiť môžeme vytvoriť nasledovnú konverznú funkciu :
 

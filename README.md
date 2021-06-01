@@ -36,7 +36,7 @@ Samozrejme, pre spustenie potrebných služieb môžete použiť ľubovoľným s
 ## JS a CSS
 1. [ShowHide](js-a-css/showhide/zadanie.md) (JS, CSS) - obtiažnosť 1
 1. [Tooltip](js-a-css/tooltip-js/zadanie.md) (JS, CSS) - obtiažnosť 2
-1. [Analógové hodinky](js-a-css/analog-clock/riesenie.md) (JS, CSS) - obtiažnosť 2
+1. [Analógové hodinky](js-a-css/analog-clock/zadanie.md) (JS, CSS) - obtiažnosť 2
 1. [JS Table](js-a-css/jstable/zadanie.md) (JS, CSS) - obtiažnosť 3
 
 
