@@ -5,9 +5,12 @@
 > - Repo: [Štartér](/../../tree/main/js-a-css/jstable), [Riešenie](/../../tree/solution/js-a-css/jstable).
 
 [Zobraziť zadanie](zadanie.md)
+
+# JS Table (JS, CSS)
+
 </div>
 
-# Riešenie JS Table (JS, CSS)
+## Riešenie
 
 Vzhľadom na zadanie riešenia bude najlepšie riešenie vytvoriť JS triedu `JsTable`, ktorej každá inštancia bude spravovať samostatne svoju kolekciu dát. Nutné vstupné parametre konštruktora tejto triedy budú:
 
@@ -94,7 +97,7 @@ Výsledok by sa mal zobraziť takto:
 
 ![](images_jstable/table-01.png)
 
-## Jednoduché zobrazenie
+### Jednoduché zobrazenie
 
 V hlavičke majú byť zobrazené názvy atribútov objektov v kolekcií. `JS` Umožňuje získať zoznam názvov atribútov ľubovoľnej inštancie zavolaním `Object.keys()` ([demonštrácia tu](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys)).  Nakoľko predpokladáme, že kolekcia dát obsahuje rovnaké objekty, pre získanie atribútov stačí vybrať prvý objekt:
 
@@ -170,7 +173,7 @@ Tabuľka teraz vypíše celú kolekciu nasledovne:
 
 ![](images_jstable/table-03.png)
 
-## Zoraďovania podla stĺpca
+### Zoraďovania podla stĺpca
 
 Zoraďovanie stĺpcov bude aktivované kliknutím na hlavičku. Prvým kliknutím sa riadky zoradia podla znakov hodnôt zostupne a pri opätovnom kliku vzostupne. Pre zjednodušenie budeme všetky hodnoty zoraďovať ako _string_.
 
@@ -287,7 +290,7 @@ Tabuľka sa bude teraz dať zoradiť oboma smermi.
 
 ![](images_jstable/tabulka-01.gif)
 
-## Filtrovanie tabuľky
+### Filtrovanie tabuľky
 
 Prvá úprava bude v zmenení toho akým spôsobom sa bude tabuľka prekresľovať. Dôvodom je pridanie elementu `<input>` pomocou ktorého bude môcť používateľ zadávať výraz pre filtrovanie hodnôt v tabuľke. Vyhľadávanie sa bude spúšťať automaticky hneď, ked sa zmení hodnota v `<input>`. Momentálne sa vymaže a nanovo vytvorí celá tabuľka, čo by spôsobilo aj znovu vytvorenie `<input>` a používateľ by tak nemohol zadať celý výraz.
 
