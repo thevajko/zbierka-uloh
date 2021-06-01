@@ -1,55 +1,13 @@
-> ## Rozcestník
+<div class="hidden">
+
+> > ## Rozcestník
 > - [Späť na úvod](../../README.md)
 > - Repo: [Štartér](/../../tree/main/css/dropdownmenu), [Riešenie](/../../tree/solution/css/dropdownmenu).
 
-# DropDown a DropUp menu - CSS [branch solution]
+# DropDown a DropUp menu - CSS
+</div>
 
-Cieľom úlohy je vytvoriť roletové menu aké obsahujú bežne desktopové aplikácie. Ako má menu fungovať demonštruje nasledovný gif:
-
-![](.riesenie_images/menu-fung-00.gif)
-
-Menu musí spĺňať nasledovné:
-
-1. Prvá úroveň je vždy zobrazená na vrchu stránky
-2. Ďalšie úrovne menu sú viditeľne iba ak ich používateľ aktivuje kurzorom (viď. gif hore)
-3. Vizuálne indikujte či daná položka obsahuje sub-menu
-4. Zvýraznite, aké položky menu sú aktivované (viď. gif hore – zvýraznenie na žlto) 
-5. Jednotlivé sub-menu zobrazte s jemne odlišnou farbou pozadia. Napr. stmavovaním (viď. gif hore).
-6. Modifikujte drop-down menu na drop-up menu.
-
-
-Počiatočný `HTML` dokument obsahuje menu zadefinované pomocou štruktúry elementov a vyzerá nasledovne:
-
-```html
- <div id="menu">
-        <ul>
-            <li>
-                <span>Súbor</span>
-                <ul>
-                    <li>
-                        <span>Vytvoriť nový</span>
-                        <ul>
-                            <li><span>PDF</span></li>
-                            <li><span>PPT</span></li>
-                            <li><span>TXT</span></li>
-                            <li><span>HTML</span></li>
-                        </ul>
-                    </li>
-                    <li><span>Uložiť</span></li>
-                    <li>
-                        <span>Exportovať</span>
-                        <ul>
-                            <li>
-                                <span>Web</span>
-    ...
-```
-
-Všimnite si však, že samotné `<ul>` a `<li>` definujú _iba_ štruktúru. Obsah položky je definované ako obsah `<span>`. Vnorenie jednotlivých `<ul>` v `<li>` definuje ktorý `<ul>` je sub-menu ktorého menu.
-
-__Pre riešenie použite výlučne iba `CSS`.__
-
-# Riešenie
-
+## Riešenie
 Riešenie je rozdelené do nasledovných pod-kapitol (prekliky nemusia fungovať pre lokálny MD interpreter):
 
 1. [Prvá úroveň menu](#prvá-úroveň-menu)
@@ -60,7 +18,7 @@ Riešenie je rozdelené do nasledovných pod-kapitol (prekliky nemusia fungovať
 6. [Záverečné formátovanie](#záverečné-formátovanie)
 7. [Upravenie na Drop-up menu](#upravenie-na-drop-up-menu)
 
-## Prvá úroveň menu 
+### Prvá úroveň menu 
 
 Prvý krok spočíva v skrytí všetkých vnorených `<ul>`, teda okrem prvej úrovne. Selektor, ktorým skryjeme všetky vnorené `<ul>` bude `ul ul`. Celkovo CSS bude nasledovné:
 
@@ -195,9 +153,9 @@ ul ul {
 ```
 Menu bude vyzerať:
 
-![](.riesenie_images/menu-prva-uroven.png)
+![](images_dropdownmenu/menu-prva-uroven.png)
 
-## Druhá úroveň
+### Druhá úroveň
 
 Nasleduje vytvorenie štýlovania pre druhú úroveň. Pre lepší _debug_ `CSS` si musíme najprv zobraziť prvú a druhú úroveň. To docielime tým, že upravíme obsah selektoru `ul ul` a doplníme skrytie všetkých `<ul>` úrovne tri a viac, teda selektorom `ul ul ul`. Upravené `CSS` bude (zobrazené sú iba doplnené a zmenené CSS):
 
@@ -215,7 +173,7 @@ ul ul ul {
 ```
 Menu bude zobrazovať staticky prvú a druhú úroveň, nejako takto: 
 
-![](.riesenie_images/menu-dva-01.png)
+![](images_dropdownmenu/menu-dva-01.png)
 
 Teraz potrebujeme upraviť `CSS` vlastnosť `position` pre všetky `<li>` prvej úrovne na `relative` aby sme vytvorili základnú plochu pre prípadne `<ul>` ďalších úrovní. 
 
@@ -236,7 +194,7 @@ ul ul ul {
 ```
 Zobrazenie stránky v tomto kroku bude nasledovné:
 
-![](.riesenie_images/menu-dva-02.png)
+![](images_dropdownmenu/menu-dva-02.png)
 
 Ako prvé teraz doplníme zobrazovanie a skrývanie druhej úrovne, pokiaľ používateľ umiestni kurzor nad danú položku `<li>`, ktorá obsahuje priamo _sub-menu_. Zvolenie priameho potomka je v selektore dôležité, lebo chceme aby sa zobrazil iba priamy potomok a nie všetky `<ul>` v danej vetve _DOM_. 
 Môžeme ešte pridať formátovanie pre `<ul>` úrovne dva a viac.
@@ -258,9 +216,9 @@ li:hover > ul {
 
 Ako je vidno na nasledujúcom obrázku menu bude fungovať ako má ale iba po druhú úroveň.
 
-![](.riesenie_images/menu-fung-01.gif)
+![](images_dropdownmenu/menu-fung-01.gif)
 
-## Ďalšie úrovne
+### Ďalšie úrovne
 
 Aby sa nám správne zobrazili menu druhej úrovne je potrebné upraviť ich poziciovanie. Nasledujúce _sub-menu_ sa má zobraziť výškovo zarovno položkou napravo od nej. To docielime nasledovným `CSS` pravidlom:
 
@@ -273,11 +231,11 @@ ul ul ul{
 
 `top: 0` hovorí o tom, že sa ma _sub-menu_ zobraziť vertikálne zarovno `<li>` v ktorom je a `left: 100%` umiestňuje _sub-menu_ o _100%_ veľkosti `<li>` zľava. Výsledok pridania tohto pravidla je nasledovný:
 
-![](.riesenie_images/menu-fung-02.gif)
+![](images_dropdownmenu/menu-fung-02.gif)
 
 Všimnime si však, že jednotlivé _sub-menu_ nie sú úplne zarovnané. To je dôsledok toho, že pri `<ul>` druhej úrovne sme pridali rámik, ktorý veľkosť tohto elementu zväčšil o 1px z každej strany. 
 
-![](.riesenie_images/menu-dva-03.png)
+![](images_dropdownmenu/menu-dva-03.png)
 
 Aby sa menu zobrazovalo korektne musíme preto veľkosť zredukovať negatívnym odsadením. Bude stačiť ak ho zmenšíme iba z vrchu. `CSS` preto upravíme na:
 
@@ -291,7 +249,7 @@ ul ul {
 }
 ```
 
-## Zobrazenia ikonky o prítomnosti sub-menu
+### Zobrazenia ikonky o prítomnosti sub-menu
 
 Pre zlepšenie UX je veľmi vhodné dať použivateľovi vodítko, ktoré hovorí, že nejaka položka menu obsahuje dodatočné podmenu. Najčastejšie sa to realizuje indikátorom, napr. znakom `»`.
 
@@ -319,9 +277,9 @@ ul ul span:not(:only-child)::after
 
 Výsledok funguje nasledovne:
 
-![](.riesenie_images/menu-fung-03.gif)
+![](images_dropdownmenu/menu-fung-03.gif)
 
-## Doplnenie zvýraznenia výberu
+### Doplnenie zvýraznenia výberu
 
 Ďalšia vec, ktorá spríjemní UX je vyznačenie prvkov, ktoré boli inicalizované výberom. To realizejeme nasledovným CSS pravidlom:
 
@@ -336,9 +294,9 @@ Zmenu aplikujem vyslovanie na `<span>`, ktorý je priamym potomkom `<li>`, nad k
 
 Výsledok funguje nasledovne:
 
-![](.riesenie_images/menu-fung-04.gif)
+![](images_dropdownmenu/menu-fung-04.gif)
 
-## Záverečné formátovanie
+### Záverečné formátovanie
 
 Aby sme menu zobrazili krajšie vykonáme nasledovné úpravy:
 
@@ -379,9 +337,9 @@ ul ul ul ul {
 
 Finálny výsledok funguje nasledovne:
 
-![](.riesenie_images/menu-fung-00.gif)
+![](images_dropdownmenu/menu-fung-00.gif)
 
-## Upravenie na Drop-up menu
+### Upravenie na Drop-up menu
 
 Záverečná úprava spočíva čisto iba v úprave toho kde a ako sa majú jednotlivé elementy zobraziť. Začneme teda presunutím celého menu na spodok `viewportu`. To budeme realizovať zmenou hodnoty css vlastnosti `position` na hodnotu `fixed`. Čím docielime to, že menu sa bude umiestňovať nad všetky vykreslené prvky v priestore viewportu a ten tvori aj jeho predka pre výpočet veľkostí.
 
@@ -408,7 +366,7 @@ li:hover > ul {
 ```
 Mali by sme dostať nasledovné chovanie:
 
-![](.riesenie_images/menu-up-01.gif)
+![](images_dropdownmenu/menu-up-01.gif)
 
 Podobne upravíme pozíciu pre menu druhej a ďalšej úrovňe. Budeme však musiet zmeniť selektor ` ul ul ul` na `ul li:hover > ul ul` aby sme predišli nutnosti použiť pravidlo `!important`.  
 
@@ -442,5 +400,5 @@ ul li:hover > ul ul {
 
 To je všetko čo sme potrebovali zmeniť aby sme dostali drop-up menu. Malo by fungovať nasledovne:
 
-![](.riesenie_images/menu-up-02.gif)
+![](images_dropdownmenu/menu-up-02.gif)
 

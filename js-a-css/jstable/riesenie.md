@@ -1,10 +1,13 @@
-> ## Rozcestník
+<div class="hidden">
+
+> > ## Rozcestník
 > - [Späť na úvod](../../README.md)
 > - Repo: [Štartér](/../../tree/main/js-a-css/jstable), [Riešenie](/../../tree/solution/js-a-css/jstable).
 
 [Zobraziť zadanie](zadanie.md)
+</div>
 
-# Riešenie JS Table - JS a CSS [branch solution]
+# Riešenie JS Table (JS, CSS)
 
 Vzhľadom na zadanie riešenia bude najlepšie riešenie vytvoriť JS triedu `JsTable`, ktorej každá inštancia bude spravovať samostatne svoju kolekciu dát. Nutné vstupné parametre konštruktora tejto triedy budú:
 
@@ -89,7 +92,7 @@ Pri `<table>` je pridané nastavenie atribútu `border="1"` aby bol viditeľný 
 
 Výsledok by sa mal zobraziť takto:
 
-![](.zadanie_images/table-01.png)
+![](images_jstable/table-01.png)
 
 ## Jednoduché zobrazenie
 
@@ -117,7 +120,7 @@ renderHeader() {
 ```
 Pokiaľ teraz spustíme skript tabuľka sa zobrazí doplnená o názvy atribútov v hlavičke tabuľky. Výsledná tabuľka sa zobrazí nasledovne:
 
-![](.zadanie_images/table-02.png)
+![](images_jstable/table-02.png)
 
 Pri generovaní obsahu v metóde `JsTable.renderRows()` iba rozšírime logiku, ktorú sme vložili do metódy `JsTable.renderHeader()`. Generovanie kódu pre jeden riadok je rovnaký ako pri hlavičke s tým rozdielom, že hodnota sa umiestni namiesto do elementu `<th>` do `<td>`.
 
@@ -165,7 +168,7 @@ renderRows() {
 
 Tabuľka teraz vypíše celú kolekciu nasledovne:
 
-![](.zadanie_images/table-03.png)
+![](images_jstable/table-03.png)
 
 ## Zoraďovania podla stĺpca
 
@@ -282,7 +285,7 @@ A nesmieme doplniť predvolenú hodnotu do konštruktora:
 
 Tabuľka sa bude teraz dať zoradiť oboma smermi.
 
-![](.zadanie_images/tabulka-01.gif)
+![](images_jstable/tabulka-01.gif)
 
 ## Filtrovanie tabuľky
 
@@ -389,4 +392,4 @@ filterCollection(expression){
 
 Výsledná logika bude fungovať nasledovne:
 
-![](.zadanie_images/tabulka-02.gif)
+![](images_jstable/tabulka-02.gif)

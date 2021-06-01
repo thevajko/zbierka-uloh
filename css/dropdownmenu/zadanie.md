@@ -1,12 +1,16 @@
-> ## Rozcestník
+<div class="hidden">
+
+> > ## Rozcestník
 > - [Späť na úvod](../../README.md)
 > - Repo: [Štartér](/../../tree/main/css/dropdownmenu), [Riešenie](/../../tree/solution/css/dropdownmenu).
+</div>
 
-# DropDown a DropUp menu - CSS [branch solution]
+# DropDown a DropUp menu (CSS)
 
+## Zadanie
 Cieľom úlohy je vytvoriť roletové menu aké obsahujú bežne desktopové aplikácie. Ako má menu fungovať demonštruje nasledovný gif:
 
-![](.riesenie_images/menu-fung-00.gif)
+![](images_dropdownmenu/menu-fung-00.gif)
 
 Menu musí spĺňať nasledovné:
 
@@ -48,4 +52,7 @@ Všimnite si však, že samotné `<ul>` a `<li>` definujú _iba_ štruktúru. Ob
 
 Pre riešenie použite výlučne iba CSS.
 
+<div class="hidden">
+
 [Zobraziť riešenie](riesenie.md)
+</div>

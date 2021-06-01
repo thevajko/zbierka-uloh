@@ -1,9 +1,13 @@
-> ## Rozcestník
+<div class="hidden">
+
+> > ## Rozcestník
 > - [Späť na úvod](../../README.md)
 > - Repo: [Štartér](/../../tree/main/css/tooltip-css), [Riešenie](/../../tree/solution/css/tooltip-css).
+</div>
 
-# Tooltip - iba CSS [branch solution]
+# Tooltip (CSS)
 
+## Zadanie
 Vytvorte logiku, _čisto pomocou `CSS`_, ktorá bude zobrazovať tooltip, pokiaľ používateľ umiestni nad daný výraz kurzor.
 Pokiaľ ho dá preč tooltip zmizne.
 
@@ -25,4 +29,7 @@ Pokiaľ ho dá preč tooltip zmizne.
 
 Štruktúru dokumentu môžete upraviť, tak aby bolo možné úlohu vypracovať. Pre vypracovanie použite výlučne `CSS`.
 
+<div class="hidden">
+
 [Zobraziť riešenie](riesenie.md)
+</div>

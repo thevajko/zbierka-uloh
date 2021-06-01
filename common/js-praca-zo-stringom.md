@@ -1,4 +1,4 @@
-# String v JS
+## String v JS
 
 Textový reťazec môžeme definovať v `JS` nasledovne:
 
@@ -41,7 +41,7 @@ let pocet = 5;
 let html =  "Celkový počet je " + pocet + " kusov."; // Celkový počet je 5 kusov.
 ```
 
-## Template literals
+### Template literals
 
 Pokiaľ ale chceme docieliť viac prehľadné vkladanie premenných alebo chceme zadať textový reťazec na viacej riadkov, musíme použiť anotáciu pomocou __template literals__ - znaku ``` ` ``` a bude vyzerať následne:
 

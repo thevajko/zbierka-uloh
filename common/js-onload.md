@@ -1,4 +1,4 @@
-# JS a spustenie skriptov
+## JS a spustenie skriptov
  
 `JS` skripty sa spúšťajú v takom poradí v akom sú deklarované ich `<script>`
  značky. To znamená, že ak máme takého `HTML`:
@@ -88,7 +88,7 @@ D
 
 Toto, samozrejme, platí aj pre deklaráciu a inicializáciu premenných, tried a funkcií. Je preto vždy potrebné myslieť na správne poradie vkladania jednotlivých skriptov tvoriacich webovú aplikáciu.
 
-## Spustenie logiky po načítaní stránky
+### Spustenie logiky po načítaní stránky
 
 Pri použití čistého `JS` existujú dve možnosti ako spustiť logiku až po načítaní stránky:
 
@@ -147,7 +147,7 @@ onload
 1
 ```
 
-> ## Upozornenie
+> ### Upozornenie
 > Do `window.onload` __iba priraďujeme__, nejedná sa teda o pridávanie logiky do kontajnera. 
 
 

@@ -1,9 +1,13 @@
-> ## Rozcestník
+<div class="hidden">
+
+> > ## Rozcestník
 > - [Späť na úvod](../../README.md)
 > - Repo: [Štartér](/../../tree/main/php/faktorial-php), [Riešenie](/../../tree/solution/php/faktorial-php).
+</div>
 
-# Faktoriál - PHP  [branch solution]
+# Faktoriál (PHP)
 
+## Zadanie
 Vytvorte skript v jazyku PHP, ktorý bude schopný zobraziť a vyrátať
 [faktoriál](https://sk.wikipedia.org/wiki/Faktori%C3%A1l) pre čísla od
 0 po 10. Výsledky zobrazte nasledovne:
@@ -22,5 +26,7 @@ Vytvorte skript v jazyku PHP, ktorý bude schopný zobraziť a vyrátať
     <li>9! = 362880</li>
 </ul>
 ```
+<div class="hidden">
 
 [Zobraziť riešenie](riesenie.md).
+</div>

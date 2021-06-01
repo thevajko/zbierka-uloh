@@ -1,9 +1,13 @@
-> ## Rozcestník
+<div class="hidden">
+
+> > ## Rozcestník
 > - [Späť na úvod](../../README.md)
 > - Repo: [Štartér](/../../tree/main/js-a-css/tooltip-js), [Riešenie](/../../tree/solution/js-a-css/tooltip-js).
+</div>
 
-# Tooltip - JS a CSS [branch solution]
+# Tooltip (JS, CSS)
 
+## Zadanie 
 Vytvorte skript, ktorý zobrazí doplňujuci text pokiaľ používateľ umiestni kurzor
 nad `<span>` elementy v dokumente.
 
@@ -31,9 +35,12 @@ zobrazené.
 Štruktúru dokumentu môžete upraviť, tak aby bolo možné úlohu vypracovať. Pre vypracovanie sa snažte použiť čistý
 javascript a CSS.
 
-> ## Pomôcky: 
+> ### Pomôcky: 
 > - [Načítanie JS](../../common/js-onload.md )
 > - [JS a string](../../common/js-praca-zo-stringom.md)
 > - [CSS pozíciovanie](../../common/css-position.md )
 
+<div class="hidden">
+
 [Zobraziť riešenie](riesenie.md).
+</div>
