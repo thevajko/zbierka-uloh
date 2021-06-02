@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        :invalid:not(form) {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Základná validácia</h1>
+    <form>
+        <label for="meno" >Meno:</label><br>
+        <input type="text" id="meno" required><br>
+
+        <label for="priezvisko">Priezvisko:</label><br>
+        <input type="text" id="priezvisko" required><br><br>
+
+        <label for="mail">Mail:</label><br>
+        <input type="text" id="mail" pattern="/^\S+@\S+\.\S+$/" required><br>
+        <label for="mobil">Mobil:</label><br>
+        <input type="text" id="mobil" pattern="/^\+421([0-9]{9}|(( {0,1}[0-9]{3}){3}))$/" ><br><br>
+
+        <lable>Vaša správa:</lable><br>
+        <textarea id="sprava" required></textarea>
+
+
+
+        <br><br>
+        <input type="submit" value="Odoslať">
+    </form>
+</body>
+</html>

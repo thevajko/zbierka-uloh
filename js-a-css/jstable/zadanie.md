@@ -3,7 +3,7 @@
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
 > - Repo: [Štartér](/../../tree/main/js-a-css/jstable), [Riešenie](/../../tree/solution/js-a-css/jstable).
-> > - [Zobraziť riešenie](riesenie.md)
+> - [Zobraziť riešenie](riesenie.md)
 </div>
 
 # JS Table (JS, CSS)

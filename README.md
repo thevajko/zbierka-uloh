@@ -37,8 +37,9 @@ Samozrejme, pre spustenie potrebných služieb môžete použiť ľubovoľným s
 1. [ShowHide](js-a-css/showhide/zadanie.md) (JS, CSS) - obtiažnosť 1
 1. [Tooltip](js-a-css/tooltip-js/zadanie.md) (JS, CSS) - obtiažnosť 2
 1. [Analógové hodinky](js-a-css/analog-clock/zadanie.md) (JS, CSS) - obtiažnosť 2
-2. [Univerzal loader](js-a-css/univerzal-loader/zadanie.md) (JS, AJAX, CSS) - obtiažnosť 2
-3. [JS Table](js-a-css/jstable/zadanie.md) (JS, CSS) - obtiažnosť 3
+1. [Univerzal loader](js-a-css/univerzal-loader/zadanie.md) (JS, AJAX, CSS) - obtiažnosť 2
+1. [JS Table](js-a-css/jstable/zadanie.md) (JS, CSS) - obtiažnosť 3
+1. [Kontrola formulára](js-a-css/form-check/zadanie.md) (JS, CSS) - obtiažnosť 2
 
 
 ## PHP

@@ -61,7 +61,7 @@ window.onload = function(){
 ```
 Výsledkom skriptu je nasledovný kruh:
 
-![](images_analog_clock/aclock-one.png)
+![](images_analog_clock/aclock-01.png)
 
 ### Vykreslenie ručičiek
 
@@ -164,7 +164,7 @@ Vykreslí sa:
 ![](images_analog_clock/aclock-03.png)
 
 
-## Vykreslenie ciferníka
+### Vykreslenie ciferníka
 
 Samotné vykreslenie ciferníka budeme vytvárať v samostatnej funkcií `MakeTick()`. Jej úlohou bude vykresliť aktuálny lokálny čas na ciferník.
 

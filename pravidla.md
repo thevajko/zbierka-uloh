@@ -6,5 +6,4 @@
    knihy. Skrývajú sa rozcestníky a odkazy na ostatné časti zbierky.
 1. Zadanie a riešenie je v samostatných súboroch a neopakuje sa!
 1. Obrázky sa ukladajú do podadresárov, ale každý príklad musí mať unikátny názov svojho adresára s obrázkami v 
-   celej zbierke.   
-   
+   celej zbierke.
