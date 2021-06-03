@@ -1,6 +1,6 @@
 <div class="hidden">
 
-> > ## Rozcestník
+> ## Rozcestník
 > - [Späť na úvod](../../README.md)
 > - Repo: [Štartér](/../../tree/main/js-a-css/form-check), [Riešenie](/../../tree/solution/js-a-css/form-check).
 > - [Zobraziť zadanie](zadanie.md)
@@ -74,3 +74,186 @@ Týmto sme vyčerpali možnosti, ktoré máme pre validáciu použitím výlučn
 
 
 ### Javascript riešenie
+
+Aby sme mohli vytvoriť vlastnú logiku pre validáciu musíme najprv navrhnúť spôsob akým budeme overovať používateľom zadané hodnoty. Najjednoduchším spôsobom je vytvoriť funkciu do ktorej ako vstupný paramater príde aktuálne zadaná hodnota používateľom. Tá sa následne vyhodnotí podľa potreby. V prípade, že hodnota nevyhovuje vráti na výstup chybovú hlášku v _stringu_ ak sa žiadna chyba nenájde funkcia vráti `null`.
+
+Pri všetkých elementoch `<input>` a `<textarea>` je pri zmene ich hodnoty spustená udalosť `oninput`. Objekt, ktorý nesie informáciu o udalosťi obsahuje referenciu na element na ktorom nastala v atribúte `target` a aktuálnu hodnotu elementu vieme získať z jeho atribútu `value`. Ak teda budú dáta udalosťi v premenej `event` získame aktuálnu hodnotu elementu ako `event.target.data`.
+
+Logika získavania dát z _vstupných elementov_ `<form>` bude teda rovnaká. Z tohto dôvodu vytvoríme funkciu `validateInput()`, ktorej vstupné parametre budú:
+
+1. `element` - Priamo `HTMLElement` na ktorý chceme zapojiť validačnú logiku
+2. `validationFunction` - _validačná funkcia_, ktorá ma jeden _vstupný parameter_, a to aktuálnu hodnotu daného _vstupného elementu_ a jej návratová hodnota bude v prípade, že je vstup v poriadku `null` a ak nastane chyba tak vráti chybovú hlášku v podobe _textového reťazca_. 
+
+Ako prvé pridáme _vstupnému elementu_ _callback_ funkciu, ktorej úlohou bude momentálne iba predať s dát udalosti `event` aktuálnu hodnotu _vstupného elementu_ do _validačnej funkcie_ v `validationFunction` a odchytiť návratovú hodnotu do lokálnej premennej `result`. Kód vyzerá nasledovne:
+
+```javascript
+function validateInput(element, validationFunction){
+    element.oninput = function (event) {
+        let result = validationFunction(event.target.value);
+    }
+}
+```
+
+Doplníme podmienku, ktorá bude zisťovať, čo validačná funkcia vrátila. Ak nastala chyba používateľ potrebuje vidieť spätnú väzbu. Vytvoríme nový element `<div>`, ktorý zaradíme priamo po daný _vstupný element_.
+
+Validačná funkcia sa ale bude spúšťať pri každej zmene daného _vstupného elementu_. Je preto dôležíte skontorlovať:
+
+- Ak došlo k nájdeniu chyby a _vstupný element_ nemá zobrazenú hlášku je potrebné ju vytvoriť a zobraziť.
+- Ak má _vstupný element_ chybu a došlo k zmenenou hlášky, je potrebné iba upraviť jeho obsah, nie vytvoriť ďalší.
+- Ak už je chyba používateľom opravená je potrebné chybovú hlášku zmazať.
+
+Z týchto dôvodov si musíme nejako zabezpečiť ľahké a jednoznačné získanie referencie na element s hláškou. Najjednoduchšie riešene bude vygenerovať hláskam `id` v stanovenom formáte. 
+
+Po prebehnutí _validačnej funckií_ zostavíme `id` pre element s textom chybovej hlášky ako `"er-"+element.id` a pokúsime sa zíkať z DOM element s týmto `id` pomocou `document.getElementById()`. Táto metóda vráti buď nájdený element alebo `null`. 
+
+Doplnená logika:
+
+```javascript
+function validateInput(element, validationFunction){
+    element.oninput = function (event) {
+        let result = validationFunction(event.target.value);
+
+        let erId = "er-"+element.id;
+        let errorEle =  document.getElementById(erId);
+    }
+}
+```
+
+Teraz pridáme podmienku pre kontrolu hodnoty výstupu z validačnej funkcie uloženú v premennej `result` a budeme ju testovať na hodnotu `null`:
+
+```javascript
+function validateInput(element, validationFunction){
+    element.oninput = function (event) {
+        let result = validationFunction(event.target.value);
+
+        let erId = "er-"+element.id;
+        let errorEle =  document.getElementById(erId);
+
+        if (result != null) {
+            // nastala chyba
+        } else {
+            // ziadna chyba 
+        }
+    }
+}
+```
+
+V prípade, že chyba nenastala, môžeme element `errorEle` vymazať z DOM `errorEle.remove()`. Musíme však skontrolovať, či vôbec existuje (táto situácia nastane ked používateľ zadá viac krát po sebe správny vstup).
+
+Normálne by sme kontrolu, či je nejaká premenná `null` robili nasledovne:
+```javascript
+if (nieco == null) {
+    nieco.ahoj();
+}
+```
+
+Tento zápis ale vieme zjednodušit na `nieco?.ahoj()` pomocou [__optional chaining__ operátora](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining). 
+
+Zmazanie elementu s chybovou hláškou bude teda vyzerať následovne:
+
+```javascript
+function validateInput(element, validationFunction){
+    element.oninput = function (event) {
+        let result = validationFunction(event.target.value);
+
+        let erId = "er-"+element.id;
+        let errorEle =  document.getElementById(erId);
+
+        if (result != null) {
+            // nastala chyba
+        } else {
+            // ziadna chyba 
+            errorEle?.remove();
+        }
+    }
+}
+```
+
+V prípade ak nastala chyba vykonáme:
+1. Skontolujeme či exituje element `errorEle` a ak nie, tak ho vytvoríme a pridáme mu CSS triedu `error`.
+2. Doplníme do neho chybovú hlášku nachádzajúcu sa v `result` pomocou ` errorEle.innerText = result`.
+3. Pridáme `errorEle` hneď za `element`. Pokiaľ element existuje, nič sa nestane, lebo už je pripojený za `element`.
+
+Kód bude po doplnení vyzerať nasledovne:
+
+```javascript
+function validateInput(element, validationFunction){
+    element.oninput = function (event) {
+        let result = validationFunction(event.target.value);
+
+        let erId = "er-"+element.id;
+        let errorEle =  document.getElementById(erId);
+
+        if (result != null) {
+            // nastala chyba
+            if (errorEle == null) {
+                errorEle = document.createElement("div")
+                errorEle.classList.add("error");
+                errorEle.id = erId;
+            }
+            errorEle.innerText = result;
+            element.after(errorEle);
+        } else {
+            // ziadna chyba 
+            errorEle?.remove();
+        }
+    }
+}
+```
+CSS pre chybovú hlašku bude nasledovné:
+```css
+.error {
+    color: red;
+    padding: 5px;
+    background-color: #ffaaaa;
+}
+```
+
+Terez musíme po načítaní HTML pridať validačne funkcie, ako prvú pridáme validáciu toho, či je __meno__ zadané. V nej budeme kontrolovať či je hodnota tohto vstupného elemntu `null` alebo väčšia ako 0 znakov. Tu je HTML a javascript:
+
+```html
+<label for="meno" >Meno:</label><br>
+<input type="text" id="meno" ><br>
+```
+
+```javascript
+  window.onload = () => {
+    validateInput(document.getElementById("meno"), function (value = null) {
+            if (value == null || value.length == 0) {
+                return "Meno musí byť zadané";
+            }
+        });
+    }
+```
+
+Validácia sa ale nebude chovať úplne podľa našeho zámeru, nakoľko ku kontrole dôjde až pri zmene hodnoty daného _vstupného elementu_. Fungovanie bude nasledovné:
+
+ ![](.form-check-images/form-check-01.gif)
+ 
+Najjednoduchším spôsobom ako spustiť validáciu po jej pridanú je __umelo vyvolať `oninput`__ udalosť. To zrealizujeme pridaním `element.dispatchEvent(new Event('input'));` ihned po pridaní logiky zavedenej na túto udalosť. Kód funkcie `validateInput()` bude upravený na následovný:
+
+```javascript
+function validateInput(element, validationFunction){
+    element.oninput = function (event) {
+        let result = validationFunction(event.target.value);
+
+        let erId = "er-"+element.id;
+        let errorEle =  document.getElementById(erId);
+
+        if (result != null) {
+            // nastala chyba
+            if (errorEle == null) {
+                errorEle = document.createElement("div")
+                errorEle.classList.add("error");
+                errorEle.id = erId;
+            }
+            errorEle.innerText = result;
+            element.after(errorEle);
+        } else {
+            // ziadna chyba 
+            errorEle?.remove();
+        }
+    }
+    element.dispatchEvent(new Event('input'));
+}
+```
