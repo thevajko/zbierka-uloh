@@ -39,14 +39,14 @@
                     }
                     errorEle.innerText = result;
                     element.after(errorEle);
-                    // element.parentElement.classList.add("has-error");
+                    element.parentElement.classList.add("has-error");
                 } else {
                     errorEle?.remove()
-                    // element.parentElement.classList.remove("has-error");
+                    element.parentElement.classList.remove("has-error");
                 }
                // checkFormState();
             }
-          //  element.dispatchEvent(new Event('input'));
+            element.dispatchEvent(new Event('input'));
         }
 
         function checkFormState(){

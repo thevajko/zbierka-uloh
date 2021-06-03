@@ -257,3 +257,60 @@ function validateInput(element, validationFunction){
     element.dispatchEvent(new Event('input'));
 }
 ```
+
+Pre vytvorenie lepšie UX našej validácie doplníme vizuálne označenie, ktoré zmení farbu `<label>` a rámik `<input>` na červenú. Budeme musiet ale upraviť HTML. Každú skupinku teda `<label>` a `<input>` vložíme do `<div>` elementu. Budeme tak mať kontrolu nad tým, pre ktoré elementy chceme zobrazenie upraviť.
+
+```html
+<div>
+    <label for="meno" >Meno:</label><br>
+    <input type="text" id="meno" ><br>
+</div>
+```
+
+Pokiaľ bude mat daný `<input>` chybu, pridáme do `<div>` elementu CSS triedu `has-error`. K tomu pridáme nasledovné CSS štýly:
+
+```css
+.has-error {
+    color: red;
+}
+.has-error textarea,
+.has-error input {
+    border-color: red;
+}
+```
+
+`<div>` je otec našeho `<input>` preto sa vieme k nemu dostať cez atribút `element.parentElement`. CSS triedy sa pridávajú HTMLElementu cez atribút `classList`, čo je kolekcia stringov. Pridanie realizujeme pomocou `classList.add()` a odobratie cez `lassList.remove()`. Triedu `has-error` pridáme ak `<input>` obsahuje chybu a zmažeme ak ju nemá. Upravený kód funkcie `validateInput()` bude vyzerať:
+
+```javascript
+function validateInput(element, validationFunction){
+    element.oninput = function (event) {
+        let result = validationFunction(event.target.value);
+
+        let erId = "er-"+element.id;
+        let errorEle =  document.getElementById(erId);
+
+        if (result != null) {
+            // nastala chyba
+            if (errorEle == null) {
+                errorEle = document.createElement("div")
+                errorEle.classList.add("error");
+                errorEle.id = erId;
+            }
+            errorEle.innerText = result;
+            element.after(errorEle);
+            element.parentElement.classList.add("has-error");
+        } else {
+            // ziadna chyba 
+            errorEle?.remove();
+            element.parentElement.classList.remove("has-error");
+        }
+    }
+    element.dispatchEvent(new Event('input'));
+}
+```
+
+Formulár sa bude správať následovne:
+
+
+![](.form-check-images/form-check-02.gif)
+ 
