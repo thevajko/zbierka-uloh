@@ -22,6 +22,7 @@
         .has-error input {
             border-color: red;
         }
+
     </style>
     <script>
         function validateInput(element, validationFunction){
@@ -44,7 +45,7 @@
                     errorEle?.remove()
                     element.parentElement.classList.remove("has-error");
                 }
-               // checkFormState();
+                checkFormState();
             }
             element.dispatchEvent(new Event('input'));
         }

@@ -311,6 +311,146 @@ function validateInput(element, validationFunction){
 
 Formulár sa bude správať následovne:
 
-
 ![](.form-check-images/form-check-02.gif)
+
+Aby sme mohli zablokovať tlačidlo pre odoslanie formulára pri nájdení chyby musíme najprv zistiť, či má formulár chybu. Najjednoduchším riešením bude vybrať všetky HTML elementy, ktoré majú CSS triedu `error` (vieme, že keď nastane chyba elementy s touto triedou sa pridajú do DOM).
+
+Ako ďaľšie doplníme nad tlačidlo odoslať hlášku informujúcu používateľa o tom, že formulár obsahuje chyby a nie je možné ho odoslať. Je to veľmi dôležitý malý detail, ktorý výrazne spriemnuje a uľahčuje použivateľovi prácu s aplikáciou (zvlášt ak bz bol formulár tak veľky, že by bolo nutné scrollovať). Samozrejme, na začiatku je potrebné hlášku skryť a vizuálne ho oddeliť od okolia, preto pridáme nasledovné HTML:
+
+```html
+<div id="submit-info">
+    Formulár obsahuje chyby a nie je možné ho odoslať.
+</div>
+<input type="submit" value="Odoslať" id="submit">
+```
+
+a CSS:
+
+```css
+#submit-info {
+    display: none;
+    padding: 5px;
+    background-color: #ffaaaa;
+    color: red;
+}
+```
+
+Kontorlu stavu formulára budeme kontrolvať po každej ropoznanej zmene vstupu s validáciou, preto pre túto logiku a lepšiu prehľadnosť kódu vytvorime novú funkciu `checkFormState()`. Ta najprv skontroluje, či `<form>` obsahuje chybové hlášky a ak áno tak zablokuje tlačítko pre odoslanie a zobrazí hlášku. V opäčnom prípade tlačítko odblokuje a skryje hlášku.
+
+Element sa dá zablokovať/odblokovať nastavením jeho atribútu `disabled` `bool` hodnotou. 
+
+Funkcia `checkFormState()` bude obsahovať nasledovné:
+
+```javascript
+function checkFormState(){
+    if (document.querySelectorAll(".error").length == 0) {
+        document.getElementById("submit").disabled = false;
+        document.getElementById("submit-info").style.display = "none";
+    } else {
+        document.getElementById("submit").disabled = true;
+        document.getElementById("submit-info").style.display = "block";
+    }
+}
+```
  
+a nesmieme ju zabudnúť doplniť do funkcie `validateInput()` :
+
+```javascript
+function validateInput(element, validationFunction){
+    element.oninput = function (event) {
+        let result = validationFunction(event.target.value);
+
+        let erId = "er-"+element.id;
+        let errorEle =  document.getElementById(erId);
+
+        if (result != null) {
+            if (errorEle == null) {
+                errorEle = document.createElement("div")
+                errorEle.classList.add("error");
+                errorEle.id = erId;
+            }
+            errorEle.innerText = result;
+            element.after(errorEle);
+            element.parentElement.classList.add("has-error");
+        } else {
+            errorEle?.remove()
+            element.parentElement.classList.remove("has-error");
+        }
+        checkFormState(); // TU ------------- !!!
+    }
+    element.dispatchEvent(new Event('input'));
+}
+```
+
+### Validačné pravidlá pre ostatné vstupy
+
+Ako posledné doplníme validačné pravidlá pre všetky vstupy, ktoré náš formulár obsahuje.
+
+#### Meno a priezvisko
+
+Pri týchto vstupoch je žiadaná iba jedna podmienka a to, že tieto vstupy musia obsahovať hodnotu - nesmú byť prázdne. Preto stačí ich hodnotu skontrolať či nebsahuje `null` alebo jej dĺžka je väčšia ako `0`. Oba obsahujú rovnakú logiku a líšia sa iba v chybovej hláške:
+
+```javascript
+validateInput(document.getElementById("meno"), function (value = null){
+    if (value == null || value.length == 0) {
+        return "Meno musí byť zadané";
+    }
+});
+validateInput(document.getElementById("priezvisko"), function (value = null){
+    if (value == null || value.length == 0) {
+        return "Priezvisko musí byť zadané";
+    }
+});
+```
+
+
+#### email
+
+Email je opäť povinná položka, ktorá navyše musí obsahovať hodnotu v špecifickom formáte. Podobne ako pri použítí validáce pomocou HTML atribútu pattern použijeme regulárny výraz. Pri použítí v týchto výrazov priamov javascripte musíme tento jeho zadenie v textovom reťazci vložiť ako paramter pri vytvárani inštancie triedy  [`RegExp`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions).
+
+Následne testujeme, či sa hodnota má žiadaný tvar pomocou metódy [`RegExp.prototype.test()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test). Tá vracia bool podľa toho, či vstup vyhovuje predpisu alebo nie. Kód validácie emailu bude teda nasledovný: 
+
+```javascript
+validateInput(document.getElementById("mail"), function (value = null){
+    if (value == null || value.length == 0) {
+        return "Mail musí byť zadaný";
+    }
+    let re = new RegExp('^\\S+@\\S+\\.\\S+$');
+    if (!re.test(value)) {
+        return "Zadaný email nemá platný formát."
+    }
+});
+```
+
+#### mobil
+
+Mobil nie je povinna položka ale keď je zadaná, musí mať predpísaný tvar. V tomto prípade spúšťame kontorlu pomocou regulárne výrazu iba v tedy, keď vstupného elementu používateľ zadá nejakú hodnotu. Kód validácie je:
+
+```javascript
+validateInput(document.getElementById("mobil"), function (value = null){
+    if (value != null && value.length > 0) {
+        let re = new RegExp('^\\+421([0-9]{9}|(( {0,1}[0-9]{3}){3}))$');
+        if (!re.test(value)) {
+            return "Zadané telefónne číslo nie je v správnom tvare"
+        }
+    }
+});
+```
+
+#### Správa
+
+Správa je opäť povinná a je potrebné aby mala aspoň 6 znakov. Validačné chyby sa zobrazujú a aktualizujú ihneď počas ich zadávania, preto si môžeme dovoliť validáciu správy rozdeliť do dvoch podmienok nasledovne: 
+
+```javascript
+validateInput(document.getElementById("sprava"), function (value = null){
+    if (value == null || value.length == 0) {
+        return "Správa musí byť zadaná.";
+    }
+    if (value.length  < 6) {
+        return "Správa musí byť dlšia.";
+    }
+});
+```
+Výsledok bude fungovať nasledovne:
+
+![](.form-check-images/form-check-03.gif)
