@@ -1,6 +1,6 @@
 <div class="hidden">
 
-> > ## Rozcestník
+> ## Rozcestník
 > - [Späť na úvod](../../README.md)
 > - Repo: [Štartér](/../../tree/main/css/tooltip-css), [Riešenie](/../../tree/solution/css/tooltip-css).
 
