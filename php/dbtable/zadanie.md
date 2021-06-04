@@ -8,3 +8,5 @@
 # Faktoriál (PHP)
 
 ## Zadanie
+
+Vytvorte PHP triedu, ktoré bude schopná zobraziť obsah ľubovolnej tabuľky a bude vedieť:

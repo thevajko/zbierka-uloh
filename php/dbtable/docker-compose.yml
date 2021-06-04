@@ -1,7 +1,7 @@
 version: '3'
 services:
   web:
-    image: php:8.0-apache
+    build: .
     container_name: php_web
     volumes:
       - ./:/var/www/html/
@@ -9,3 +9,23 @@ services:
       - "80:80"
     stdin_open: true
     tty: true
+  db:
+    image: mariadb
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: heslo
+      MYSQL_DATABASE: app_db
+      MYSQL_USER: db_user
+      MYSQL_PASSWORD: db_user_pass
+  phpmyadmin:
+    links:
+      - db
+    depends_on:
+      - db
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8080:8080"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: root
