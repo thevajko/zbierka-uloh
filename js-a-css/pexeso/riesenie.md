@@ -1,6 +1,6 @@
 <div class="hidden">
 
-> > ## Rozcestník
+> ## Rozcestník
 > - [Späť na úvod](../../README.md)
 > - Repo: [Štartér](/../../tree/main/js-a-css/pexeso), [Riešenie](/../../tree/solution/js-a-css/pexeso).
 > - [Zobraziť riešenie](riesenie.md)
