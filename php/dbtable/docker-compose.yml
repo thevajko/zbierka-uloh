@@ -17,6 +17,8 @@ services:
       MYSQL_DATABASE: app_db
       MYSQL_USER: db_user
       MYSQL_PASSWORD: db_user_pass
+    ports:
+      - "3306:3306"
   phpmyadmin:
     links:
       - db
@@ -24,8 +26,9 @@ services:
       - db
     image: phpmyadmin/phpmyadmin
     ports:
-      - "8080:8080"
+      - "8080:80"
     environment:
+      MYSQL_ROOT_PASSWORD: heslo
       PMA_HOST: db
-      PMA_PORT: 3306
-      PMA_USER: root
+      PMA_USER: db_user
+      PMA_PASSWORD: db_user_pass
