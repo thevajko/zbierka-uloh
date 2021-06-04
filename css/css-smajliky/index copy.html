@@ -25,11 +25,35 @@
             left: 25%;
             top: 25%;
         }
+
+        .smajlik .oko:first-child {
+            left: 65%;
+        }
+
+        .smajlik .usta {
+            box-sizing: border-box;
+            background-color: transparent;
+            width: 60%;
+            height: 60%;
+            border: 2px solid transparent;
+            border-bottom: 2px solid black;
+            border-radius: 50%;
+            display: block;
+            position: absolute;
+            top: 15%;
+            left: 20%;
+        }
+
+        .smajlik.smutny .usta {
+            border: 2px solid transparent;
+            border-top: 2px solid black;
+            top: 60%;
+        }
     </style>
 </head>
 <body>
 
-    <div class="smajlik size-250">
+    <div class="smajlik smutny size-250">
         <i class="oko"></i>
         <i class="oko"></i>
         <span class="usta"></span>
