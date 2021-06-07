@@ -46,7 +46,7 @@ Samozrejme, pre spustenie potrebných služieb môžete použiť ľubovoľným s
 ## PHP
 1. [Faktoriál](php/faktorial-php/zadanie.md) (PHP) - obtiažnosť 1
 1. [Generovanie štvorčekov](php/generovanie-stvorcekov/zadanie.md) (PHP, CSS) - obtiažnosť 1
-1. [Jednoduchá tabuľka y Db](php/dbtable/zadanie.md) (DB, PHP, CSS) - obtiažnosť 2
+1. [Jednoduchá tabuľka z Db](php/dbtable/zadanie.md) (DB, PHP, CSS) - obtiažnosť 2
 
 ## Komplexné úlohy
 

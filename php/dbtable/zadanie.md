@@ -57,7 +57,7 @@ try {
 
 Funkcia  [`die()`](https://www.php.net/manual/en/function.die.php) ukončí okamžite beh skriptu a ako výstup vráti vloženú hodnotu. Jej ekvivalentom a správnejším pre použite je [`exit()`](https://www.php.net/manual/en/function.exit.php). Jediným rozdielom je strata "poetickosti" kódu pri použití `exit()`.
 
-Použitie `try-catch` bloku je potrebné pre prípadne odchytenie chyby, ktorá môže nastať pri vytváraní pripojenia na _databázu_. V prípade ak nastane, tak sa výnimka odchytí a používateľovi sa vypíše chybová hláška.
+Použitie [`try-catch`](https://www.php.net/manual/en/language.exceptions.php) bloku je potrebné pre prípadne odchytenie chyby, ktorá môže nastať pri vytváraní pripojenia na _databázu_. V prípade ak nastane, tak sa výnimka odchytí a používateľovi sa vypíše chybová hláška.
 
 Naša databáza obsahuje tabuľku `users` v ktorej je pridaných _100_ záznamov. Najjednoduchším spôsobom ako ich získať pre použitie v našom _PHP_ skripte bude použiť metódu [`PDO::query()`](https://www.php.net/manual/en/pdo.query.php), ktorá vyžaduje vstupný parameter ktorý predstavuje __SQL dotaz__ v podobe textového reťazca. V našom prípade chceme získať naraz všetky dáta tabuľky `users`. Naš _SQL dotaz_ bude preto veľmi jednoduchý: `SELECT * FROM users`.
 
@@ -111,11 +111,15 @@ Skúsme teraz navrhnúť lepšiu štruktúru riešenia. Vytvoríme preto ako prv
 
 Implementujeme do nej návrhový vzor __signleton__. Nakoľko nepoužívame dômyselnejší framework alebo knižnice, implementujeme __singleton__ pomocou statických metód. To z dôvodu, že _PHP_ nepodporuje statický konštruktor. 
 
-Naša trieda `Db` bude obsahovať _privátny statický atribút_ `$db`, ktorý nie je možné inicializovat pri jeho definícií. Musíme preto vytvoriť statickú metódu, ktorá bude slúžiť ako jeho  _getter_.  Pred vrátením hodnoty statického atribútu `Db::$db` métoda najpr overí či existuje a ak nie tak vytvorí novú inštanciu a priradí ju doň. Implementácia _singleton_ bude v _PHP_ vyzerať nasledovne:
+Naša trieda `Db` bude obsahovať _privátny statický atribút_ `$db`, ktorý nie je možné inicializovat pri jeho definícií. Musíme preto vytvoriť statickú metódu, ktorá bude slúžiť ako jeho  _getter_.  Pred vrátením hodnoty statického atribútu `Db::$db` métoda najpr overí či existuje a ak nie tak vytvorí novú inštanciu a priradí ju doň. 
+
+Je ale potrebné všetky ešte statický atribút inicializovať priradením hodnoty `null` a označit jeho typ ako [`nullable`](https://www.php.net/manual/en/migration71.new-features.php).
+
+Implementácia _singleton_ bude v _PHP_ vyzerať nasledovne:
 
 ```php 
 class Db {
-    private static Db $db;
+    private static ?Db $db = null;
     public static function i()
     {
         if (Db::$db == null) {
@@ -123,5 +127,96 @@ class Db {
         }
         return Db::$db;
     }
+}
+```
+
+Teraz vytvoríme konštruktor triedy pridaním metódy `__construct()` do triedy `Db`. V konštruktore budeme vytvárať novú inštanciu triedy `PDO`, ktorú priradíme do privátneho atribútu `$pdo`. Taktiež z _connection stringu_ vyberieme dáta pre pripojenie do databázy a umiestnime ich, tiež, do privátnych atribútov.
+
+Úprava triedy `Db`  bude vyzerať nasledovne:
+
+```php
+class Db {
+    
+    // ... 
+    
+    private PDO $pdo;
+
+    private string $dbHost = "db:3306";
+    private string $dbName = "dbtable";
+    private string $dbUser = "db_user";
+    private string $dbPass = "db_user_pass";
+
+    public function __construct()
+    {
+        try {
+            $this->pdo = new PDO("mysql:host={$this->dbHost};dbname={$this->dbName}", $this->dbUser, $this->dbPass);
+        } catch (PDOException $e) {
+            die("Error!: " . $e->getMessage());
+        }
+    }
+}
+```
+
+Teraz vytvríme triedu `User`, ktorá bude reprezentovať jednotlivé dátove riadky a následne ju budeme používať pri práci s databázov. Táto trieda bude obsahovať iba verejne atribúty pomenované rovnako ako sú stĺpce tabuľky `users` v databáze. Trieda bude nasledovná:
+
+```php 
+class User
+{
+    public int $id;
+    public string $name;
+    public string $surname;
+    public string $mail;
+    public string $country;
+}
+```
+
+Do triedy `Db` teraz pridáme metódu `Db->getAllUsers()`, ktorej úlohou bude vybrať všetky záznamy z tabuľky `users` a vrátiť ich v poli, kde každý riadok bude predstavovať jedna inštancia triedy `User`.
+
+To docielime tým, že metódu `PDOStatement::fetchAll()`, zavoláme s dvoma parametrami a to s prvou hodnotou `PDO::FETCH_CLASS` a následne s názvom triedy, na ktorú sa budú mapovať dáta jednotlivých riadkov (preto sa musia atribúty triedy volať rovnako ako stĺpce riadkov). 
+
+Tu doporučujeme vkladať názov pomocou atribútu [`::class`](https://www.php.net/manual/en/language.oop5.basic.php), ktorý sa bude meniť podla toho ako budeme presúvať trie bu v mennom priestore alebo ju premenujeme. Kód metódy môžeme zapísať nasledovne:
+
+```php 
+class Db {
+    
+    // ... 
+    
+    /**
+     * @return User[]
+     */
+    public function getAllUsers(): array
+    {
+        try {
+            return $this->pdo
+                ->query("SELECT * FROM users")
+                ->fetchAll(PDO::FETCH_CLASS, User::class);
+        }  catch (\PDOException $e) {
+            die($e->getMessage());
+        }
+    }
+}
+```
+
+Problém pri _PHP_ a iných dynamicko-typovaných jazykoch sa skrýva v komplikovanom získavaní toho, čo nam čo vracia a čo za typ parametrov funkcie alebo metódy potrebujú. PHP postupne túto medzeru vypĺňa ale nie úplne dobre. Naša metóda `getAllUsers()` síce hovorí, že jej výstup je pole ale nemôžeme už zadefinovať čo konkrétne je v poli (aj keď v php podporuje nehomogénne polia...).
+
+Na pomoc nám tu prichádza [_PHPDoc_](https://www.phpdoc.org/), ktorý sa definuje v komentáre metódy a ten hovorí, že metóda vracia pole inštancií typu `User`. Aj keď je tento zápis zdĺhavejší, poskytuje ohromnú výhodu v tom, že vaše _IDE_ vie následné použiť tiet informácie pri automatickom dopĺňaní atribútom a hlavne bude poriadne fungovať _refaktoring_ a to za tu trošku námahy rozhodne stojí.  
+
+
+Následne potrebujeme upraviť náš `index.php`. Ako prvé potrebujeme pridať skrtipty `user.php` a `db.php`, ktoré obsahujú definície našich novo vytvorených tried. Následne si od našej triedy `Db` vypítame pole všetkých používateľov a vypíšeme ich tak ako predtým, akurať už k jednotlivým záznamom budeme pristupivať ako k objektom typu `User`. Kód v `index.php` bude nasledovný:
+
+```php
+<?php
+
+require "User.php";
+require "Db.php";
+
+$users = Db::i()->getAllUsers();
+
+if ($users) {
+    echo "<ul>";
+    foreach ($users as $user) {
+        echo "<li>{$user->name}</li>";
+    }
+    echo "</ul>";
 }
 ```
