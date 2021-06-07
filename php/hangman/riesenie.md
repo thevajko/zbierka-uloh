@@ -428,4 +428,4 @@ pokusov, zabezpečíme v hernom *engine*. Výsledný HTML súbor bude vyzerať t
 </div>
 ```
 
-![]()
+![](images_hangman/game_in_progress.png)
