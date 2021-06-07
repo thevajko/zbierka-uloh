@@ -1,3 +1,7 @@
+<?php
+require 'Game.php';
+$game = new Game();
+?>
 <!DOCTYPE html>
 <html lang="sk">
 <head>
@@ -7,29 +11,31 @@
 </head>
 <body>
 <h1>Hra Obesenec</h1>
-<?php
-require 'Game.php';
-$game = new Game();
-?>
 <h2>Hracie pole</h2>
-<div class="playGround">
+<div class="play_ground">
     <?= $game->play(); ?>
 </div>
-<div>
-    Počet neúspešných pokusov: <?= $game->getFailedAttempts() ?>.
+<div class="attempts">
+    Počet neúspešných pokusov: <?= $game->getFailedAttempts() ?>
 </div>
-<div>
-    <img src="img/<?=$game->getFailedAttempts()?>.png" alt="Obesenec">
+<div class="hangman_picture">
+    <img src="img/<?= $game->getFailedAttempts() ?>.png" alt="Obesenec">
 </div>
-<div>
-    <?=$game->getGameResult()?>
+<div class="results">
+    <?= $game->getGameResult() ?>
 </div>
-<h2>Klávesnica</h2>
+<?php
+if ($game->getGameResult() == '') {
+?>
+    <h2>Klávesnica</h2>
+    <div class="keyboard_container">
+        <?= $game->getKeyboard("7")->getKeyboardLayout(); ?>
+    </div>
+<?php
+}
+?>
 <div>
-    <?= $game->getKeyboard('7')->getKeyboardLayout(); ?>
-</div>
-<div>
-    <br><a href="#">Začať znovu</a>
+    <br><a href="?">Začať znovu</a>
 </div>
 </body>
 </html>

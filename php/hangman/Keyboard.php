@@ -11,15 +11,18 @@ class Keyboard
      * @var int
      */
     private $cols;
+    private $hangman;
     const KEYS_NUMBER = 26;
 
     /**
      * Keyboard konštruktor
      * @param int $cols Počet stĺpcov, v ktorých sa klávesnica zobrazí
+     * @param Hangman $hangman Odkaz na inštanciu triedu Hangman
      */
-    public function __construct(int $cols = 6)
+    public function __construct(int $cols = 6, Hangman $hangman)
     {
         $this->cols = $cols;
+        $this->hangman = $hangman;
     }
 
     /**
@@ -35,9 +38,11 @@ class Keyboard
             $result .= '<tr>' . PHP_EOL;
             for ($j = 1; $j <= $this->cols; $j++) {
                 $char = chr(65 + $counter++);
-                $result .= '<td>' .
-                    ($counter <= self::KEYS_NUMBER ? '<a href="?char=' . $char . '">' . $char . '</a>' : '&nbsp;') .
-                    '</td>';
+                if ($counter > self::KEYS_NUMBER or in_array($char, $this->hangman->getUsedChars())) {
+                    $result .= '<td>&nbsp;</td>';
+                } else {
+                    $result .= '<td><a href="?char=' . $char . '">' . $char . '</a></td>';
+                }
             }
             $result .= PHP_EOL . '</tr>' . PHP_EOL;
         }

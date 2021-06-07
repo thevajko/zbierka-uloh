@@ -2,14 +2,9 @@
 
 require "User.php";
 require "Db.php";
+require "Table.php";
 
 
-$users = Db::i()->getAllUsers();
+$usersTable = new Table();
 
-if ($users) {
-    echo "<ul>";
-    foreach ($users as $user) {
-        echo "<li>{$user->name}</li>";
-    }
-    echo "</ul>";
-}
+echo $usersTable->Render();

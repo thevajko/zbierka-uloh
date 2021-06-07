@@ -28,7 +28,7 @@ class Game
      */
     function getKeyboard(int $cols): Keyboard
     {
-        return new Keyboard($cols);
+        return new Keyboard($cols, $this->hangman);
     }
 
     /**
