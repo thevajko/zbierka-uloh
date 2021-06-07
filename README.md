@@ -41,11 +41,13 @@ Samozrejme, pre spustenie potrebných služieb môžete použiť ľubovoľným s
 1. [Univerzal loader](js-a-css/univerzal-loader/zadanie.md) (JS, AJAX, CSS) - obtiažnosť 2
 1. [JS Table](js-a-css/jstable/zadanie.md) (JS, CSS) - obtiažnosť 3
 1. [Kontrola formulára](js-a-css/form-check/zadanie.md) (JS, CSS) - obtiažnosť 2
-
+1. [Pexeso](js-a-css/pexeso/zadanie.md) (JS, CSS) - obtiažnosť 2
+1. [Hra mucha](js-a-css/fly/zadanie.md) (JS, CSS) - obtiažnosť 4
 
 ## PHP
 1. [Faktoriál](php/faktorial-php/zadanie.md) (PHP) - obtiažnosť 1
 1. [Generovanie štvorčekov](php/generovanie-stvorcekov/zadanie.md) (PHP, CSS) - obtiažnosť 1
+1. [Jednoduchá tabuľka z Db](php/dbtable/zadanie.md) (DB, PHP, CSS) - obtiažnosť 2
 
 ## Komplexné úlohy
 

@@ -12,9 +12,11 @@ services:
   db:
     image: mariadb
     container_name: db
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
     environment:
       MYSQL_ROOT_PASSWORD: heslo
-      MYSQL_DATABASE: app_db
+      MYSQL_DATABASE: dbtable
       MYSQL_USER: db_user
       MYSQL_PASSWORD: db_user_pass
     ports:

@@ -5,12 +5,16 @@
   "license": "MIT",
   "authors": [
     {
+      "name": "Michal Ďuračik",
+      "email": "michal.duracik@fri.uniza.sk"
+    },
+    {
       "name": "Patrik Hrkút",
-      "email": "Patrik.Hrkut@fri.uniza.sk"
+      "email": "patrik.hrkut@fri.uniza.sk"
     },
     {
       "name": "Matej Meško",
-      "email": "Matej.Mesko@fri.uniza.sk"
+      "email": "matej.mesko@fri.uniza.sk"
     }
   ],
   "require": {

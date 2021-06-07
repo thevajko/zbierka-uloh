@@ -3,6 +3,7 @@
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
 > - Repo: [Štartér](/../../tree/main/php/faktorial-php), [Riešenie](/../../tree/solution/php/faktorial-php).
+> - [Zobraziť zadanie](zadanie.md)
 
 # Faktoriál - PHP
 </div>

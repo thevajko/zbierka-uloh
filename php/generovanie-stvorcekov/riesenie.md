@@ -9,3 +9,8 @@
 
 ## Riešenie
 
+Riešenie sa skladá z HTML súboru s hracou plochou, jednoduchého CSS súboru so štýlom a PHP skriptov.  
+
+
+
+
