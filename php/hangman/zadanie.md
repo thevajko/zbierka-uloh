@@ -8,15 +8,17 @@
 # Hra Obesenec (PHP)
 
 ## Zadanie
-Vytvorte jednoduchú hru v jazyku PHP, ktorá bude umožňovať hádať písmená v slove. Ak hráč uhádne, písmeno sa zobrazí 
-na správnom mieste, ak neuhádne, započíta sa mu pokus. Hra končí, keď hráč uhádne celé slovo, alebo keď minie 10 
-pokusov. Po každom pokuse sa  postupne zobrazí obrázok obesenca:
+
+Vytvorte jednoduchú hru v jazyku PHP, ktorá bude umožňovať hádať písmená v slove. Ak hráč uhádne, písmeno sa zobrazí na
+správnom mieste, ak neuhádne, započíta sa mu pokus a písmeno zmizne z klávesnice. Hra končí, keď hráč uhádne celé slovo,
+alebo keď minie 10 pokusov. Po každom pokuse sa postupne zobrazí obrázok obesenca:
 
 ![](images_hangman/hangman_pictures.png)
 
-### Cieľ príkladu 
-Cieľom príkladu je vyskúšať si generovanie HTML obsahu pomocou PHP skriptov, precvičiť si objektový návrh aplikácie 
-pomocou jazyka PHP. V príklade ju nutné takisto použiť SESSION. 
+### Cieľ príkladu
+
+Cieľom príkladu je vyskúšať si generovanie HTML obsahu pomocou PHP skriptov, precvičiť si objektový návrh aplikácie
+pomocou jazyka PHP. V príklade ju nutné takisto použiť SESSION.
 
 <div class="hidden">
 
