@@ -20,7 +20,7 @@
             color: white;
         }
     
-        .loader {
+        .spinner {
             border: 12px solid #f3f3f3;
             border-top: 12px solid #1970aa;
             border-radius: 50%;
@@ -37,40 +37,40 @@
 
     </style>
     <script>
-        let requestCounter = 0;
+        (function() {
+            let originalFetch = window.fetch;
+            let requestCounter = 0;
 
-        const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
-
-        let updateRequestCounter = (n) => {
-            document.getElementById("request_counter").innerHTML = "Ostáva " + n;
-        }
-
-        let origFetch = window.fetch;
-        window.fetch = async (...args) => {
-            requestCounter++;
-            if (requestCounter == 1) {
-                let loader = document.createElement("div");
-                loader.id = "ajaxLoader";
-                loader.innerHTML = `<div class="loader"></div><span id="request_counter"></span>`;
-                document.getElementsByTagName("body")[0].append(loader);
+            function updateRequestCounter() {
+                document.getElementById("requestCounter").innerText = "Ostáva " + requestCounter;
             }
-            updateRequestCounter(requestCounter);
-            console.log("fetch called with args:", args);
-            try {
-                const response = await origFetch(...args);
-                console.log("fetch done");
-                requestCounter--;
-                updateRequestCounter(requestCounter);
-                if (requestCounter == 0) {
-                    document.getElementById("ajaxLoader").remove();
+
+            async function loaderFetch(...args) {
+                //First ajax request
+                if (++requestCounter == 1) {
+                    let loader = document.createElement("div");
+                    loader.id = "ajaxLoader";
+                    loader.innerHTML = `<div class="spinner"></div><span id="requestCounter"></span>`;
+                    document.getElementsByTagName("body")[0].append(loader);
                 }
-                return response;
-            }
-            catch (error) {
-                console.log("fetch done with error");
-                throw error;
-            }
-        };
+                updateRequestCounter();
+                try {
+                    return await originalFetch(...args);
+                }
+                finally {
+                    //Remove ajax loader from DOM
+                    if (--requestCounter == 0) {
+                        document.getElementById("ajaxLoader").remove();
+                    }
+                    else {
+                        updateRequestCounter();
+                    }
+                }
+            };
+
+            //Replace original fetch
+            window.fetch = loaderFetch;
+        })();
 
         function nacitajZdroj(url) {
             fetch(url, {cache: "no-store"})
@@ -80,21 +80,14 @@
                 });
         }
 
-        async function nacitajData() {
-            let zdroje = [
-                'https://jsonplaceholder.typicode.com/posts', 
-                'https://jsonplaceholder.typicode.com/todos',
-                'https://jsonplaceholder.typicode.com/users',
-                'https://jsonplaceholder.typicode.com/albums',];
-            for (let url of zdroje) {
-                nacitajZdroj(url);
-                await delay(200);
-            }
+        function nacitajData() {
+            nacitajZdroj('https://run.mocky.io/v3/93096a26-6f6b-462b-81da-91512a2c4888?mocky-delay=2500ms');
+            nacitajZdroj('https://run.mocky.io/v3/93096a26-6f6b-462b-81da-91512a2c4888?mocky-delay=4000ms');
         }
     </script>   
 </head>
 <body>
-    
+
 <button onclick="nacitajData()">Načítaj dáta</button>
 <pre id="vysledok"></pre>
 
