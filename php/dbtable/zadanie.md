@@ -157,7 +157,7 @@ class Db {
 }
 ```
 
-Teraz vytvríme triedu `User`, ktorá bude reprezentovať jednotlivé dátove riadky a následne ju budeme používať pri práci s databázov. Táto trieda bude obsahovať iba verejne atribúty pomenované rovnako ako sú stĺpce tabuľky `users` v databáze. Trieda bude nasledovná:
+Teraz vytvoríme triedu `User` (v samostatnom súbore), ktorá bude reprezentovať jednotlivé dátové riadky a následne ju budeme používať pri práci s databázou. Táto trieda bude obsahovať iba verejne atribúty pomenované rovnako ako sú stĺpce tabuľky `users` v databáze. Trieda bude nasledovná:
 
 ```php 
 class User
@@ -220,3 +220,76 @@ if ($users) {
     echo "</ul>";
 }
 ```
+
+### Výpis do tabuľky
+
+Aby sme dodržali rozdelenie logiky po logických celkoch vytvoríme novú triedu `Table` ktorej zmyslom bude vykreslenie dát tabuľky z databázy do HTML tabuľky a dopĺňať podpornú logiku pre zoraďovanie, stránkovanie a správu jednotlivých záznamov.
+
+Ako prvé vytvoríme zobrazenie všetkých dát vo forme HTML tabuľky. Na to budeme potrebovať získať názvy stĺpcov tabuľky v databáze.  My však pre mapovanie dát používame triedu `User`, stačí nám preto zístak zoznam atribútov tejto triedy.
+
+PHP má funkciu [`get_object_vars()`](https://www.php.net/manual/en/function.get-object-vars.php), ktorá vie získať tieto údaje vo forme pola. Index výsledku je názov verejných inicializovaných atribútov a hodnota je hodnota daného atribútu aktuálnej inštancie. Musíme preto upraviť triedu `User` a doplniť predvolené hodnoty nasledovne:
+
+```php
+class User
+{
+    public int $id = 0;
+    public string $name = "";
+    public string $surname = "";
+    public string $mail = "";
+    public string $country = "";
+}
+```
+
+Do triedy `Table` pridáme privátnu metódu `RenderHead()` ktorej účelom bude vytvoriť čisto iba hlavičku HTML tabuľky. Ako prvé získame pole atribútov z inštancie triedy `User`. Následne vytvoríme a inicializujeme premennú `$header`, ktorá slúži ako "zberač" generovaného výstupu.
+
+Následne v cykle `foreach` prechádzame pole atribútov a index vkladamé ako obsah `<th>` elementu. Výsledok pred vrátením zabalíme do `<tr>` elementu. Kód metódy `RenderHead()` bude nasledovný:
+
+```php
+class Table
+{
+    private function RenderHead() : string {
+        
+        $attribs = get_object_vars(new User());
+
+        $header = "";
+
+        foreach ($attribs as $attribName => $value) {
+            $header .= "<th>{$attribName}</th>";
+        }
+
+        return "<tr>{$header}</tr>";
+    }
+}
+```
+
+Pridáme ďaľšiu verejnú metódu `Render()`, ktorá ma zostaviť celkovú konštrukciu HTML tabuľky vo forme textového reťazca. Aktuálne iba zabalí výsledok metódy `RenderHead()` do elementov `<table>`. Kód bude vyzerať:
+
+```php
+class Table
+{
+    public function Render() : string
+    {
+        return "<table border=\"1\">{$this->RenderHead()}</table>";
+    }
+
+    private function RenderHead() : string {
+        // ... 
+    }
+}
+```
+
+Teraz upravíme náš skript `index.php`, pridáme načítanie skriptu `Table.php` a upravíme kód nasledovne:
+
+```php
+<?php
+
+require "User.php";
+require "Db.php";
+require "Table.php";
+
+$usersTable = new Table();
+
+echo $usersTable->Render();
+```
+
+Výsledom skriptu je HTML tablky momentálne iba s hlavičkou. Do triedy `Table` pridáme privátnu metódu  `RenderBody()`, ktorá bude generovať samotné riadky s dátami, opäť vo forme stringu pre jej výstup. 
