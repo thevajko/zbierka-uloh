@@ -11,6 +11,7 @@ class Hangman
     private $wantedWord; // hľadané slovo
     private $playedWord; // aktuálny stav hry
     private $failedAttempts; // počet pokusov
+    private $usedChars = []; // zoznam už hadáných písmen
 
     /**
      * Hangman konštruktor
@@ -22,10 +23,12 @@ class Hangman
             $this->wantedWord = $_SESSION['wantedWord'];
             $this->playedWord = $_SESSION['playedWord'];
             $this->failedAttempts = $_SESSION['attempts'];
+            $this->usedChars = $_SESSION['usedChars'];
         } else {
             $this->failedAttempts = $_SESSION['attempts'] = 0;
             $this->wantedWord = $_SESSION['wantedWord'] = $this->selectWord();
             $this->playedWord = $_SESSION['playedWord'] = str_repeat('-', strlen($_SESSION['wantedWord']));
+            $this->usedChars = $_SESSION['usedChars'] = [];
         }
     }
 
@@ -45,16 +48,18 @@ class Hangman
      */
     public function testChar(string $testedChar): void
     {
-        $found = false;
-        for ($i = 0; $i < strlen($this->wantedWord); $i++) {
-            if ($testedChar == $this->wantedWord[$i]) {
-                $this->playedWord[$i] = $testedChar;
-                $found = true;
-            }
-        }
-        $_SESSION['playedWord'] = $this->playedWord;
         if ($this->gameStatus() == 'in progress') {
+            $found = false;
+            for ($i = 0; $i < strlen($this->wantedWord); $i++) {
+                if ($testedChar == $this->wantedWord[$i]) {
+                    $this->playedWord[$i] = $testedChar;
+                    $found = true;
+                }
+            }
+            $_SESSION['playedWord'] = $this->playedWord;
             $_SESSION['attempts'] = $found ? $this->failedAttempts : ++$this->failedAttempts;
+            array_push($_SESSION['usedChars'], $testedChar);
+            $this->usedChars = $_SESSION['usedChars'];
         }
     }
 
@@ -66,7 +71,7 @@ class Hangman
     {
         if ($this->playedWord == $this->wantedWord) {
             return 'won';
-        } else if ($this->failedAttempts >= 10 ) {
+        } else if ($this->failedAttempts >= 10) {
             return 'lost';
         } else {
             return 'in progress';
@@ -89,5 +94,14 @@ class Hangman
     public function getFailedAttempts(): int
     {
         return $this->failedAttempts;
+    }
+
+    /**
+     * Getter pre už hádané znaky
+     * @return array|mixed
+     */
+    public function getUsedChars(): array
+    {
+        return $this->usedChars;
     }
 }

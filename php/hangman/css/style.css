@@ -7,19 +7,32 @@
     letter-spacing: 0.5em;
 }
 
+.attempts, .results {
+    font-size: 120%;
+}
+
+.hangman_picture {
+    padding: 10px;
+}
+
+.keyboard {
+    border-collapse: collapse;
+}
+
+.keyboard tr td {
+    text-align: center;
+    border: 1px solid black;
+    padding: 5px;
+    width: 15px;
+}
+
 .keyboard a:active {
     border: 1px solid blue;
     background-color: deepskyblue;
-    text-decoration: none;
 }
 
 .keyboard a:visited {
     color: blue;
-    text-decoration: none;
-}
-
-.keyboard tr td{
-    text-align: center;
 }
 
 .keyboard tr td a {
