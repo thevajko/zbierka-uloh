@@ -1,0 +1,47 @@
+<?php
+//declare(strict_types=1);
+
+/**
+ * Class Keyboard
+ * Klávenica
+ */
+class Keyboard
+{
+    /**
+     * @var int
+     */
+    private $cols;
+    const KEYS_NUMBER = 26;
+
+    /**
+     * Keyboard konštruktor
+     * @param int $cols Počet stĺpcov, v ktorých sa klávesnica zobrazí
+     */
+    public function __construct(int $cols = 6)
+    {
+        $this->cols = $cols;
+    }
+
+    /**
+     * Vráti klávesnicu maticového tvaru
+     * @return string - HTML tabuľka s klávesnicou
+     */
+    public function getKeyboardLayout(): string
+    {
+        $rows = ceil(self::KEYS_NUMBER / $this->cols);
+        $counter = 0;
+        $result = '<table class="keyboard">' . PHP_EOL;
+        for ($i = 1; $i <= $rows; $i++) {
+            $result .= '<tr>' . PHP_EOL;
+            for ($j = 1; $j <= $this->cols; $j++) {
+                $char = chr(65 + $counter++);
+                $result .= '<td>' .
+                    ($counter <= self::KEYS_NUMBER ? '<a href="?char=' . $char . '">' . $char . '</a>' : '&nbsp;') .
+                    '</td>';
+            }
+            $result .= PHP_EOL . '</tr>' . PHP_EOL;
+        }
+        $result .= '</table>' . PHP_EOL;
+        return $result;
+    }
+}

@@ -1,0 +1,27 @@
+.play_ground {
+    border: 1px solid black;
+    display: inline-block;
+    font-size: 150%;
+    padding: 10px;
+    margin-bottom: 10px;
+    letter-spacing: 0.5em;
+}
+
+.keyboard a:active {
+    border: 1px solid blue;
+    background-color: deepskyblue;
+    text-decoration: none;
+}
+
+.keyboard a:visited {
+    color: blue;
+    text-decoration: none;
+}
+
+.keyboard tr td{
+    text-align: center;
+}
+
+.keyboard tr td a {
+    text-decoration: none;
+}
