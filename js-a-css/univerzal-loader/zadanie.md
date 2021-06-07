@@ -11,7 +11,7 @@
 Vytvorte skript, ktorý počaš načítavania AJAX požiadavky zobrazí cez celú stránku loading bar. V prípade viacerích súbežných dotazov bude zobrazovať ich počet.
 Implementujte riešenie pre AJAX dotazy, ktoré používajú funkciu `fetch`. 
 
-Štartér verzia obsahuje v `HTML` kód, ktorý vytvorí tlačidlo. Tlačidlo po sltlačení načíta pomocou metódy `fetch` dáta zo vzdialeného API a zobrazí ich.
+Štartér verzia obsahuje v `HTML` kód, ktorý vytvorí tlačidlo. Tlačidlo po sltlačení načíta pomocou metódy `fetch` dáta zo vzdialeného API a zobrazí ich. Načítanie dát určitú dobu trvá. Počas tejto doby sa bude zobrazovať loading bar.
 
 ```html
 <button onclick="nacitajData()">Načítaj dáta</button>
@@ -21,30 +21,21 @@ Implementujte riešenie pre AJAX dotazy, ktoré používajú funkciu `fetch`.
 Funkcia `nacitajData` je definovaná nasledovne:
 
 ```javascript
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
-
 function nacitajZdroj(url) {
   fetch(url, {cache: "no-store"})
     .then(response => response.json())
     .then(json => {
       document.getElementById("vysledok").append(url + " - Načítaných: " + json.length + " záznamov\n");
     });
-}
 
-async function nacitajData() {
-  let zdroje = [
-    'https://jsonplaceholder.typicode.com/posts', 
-    'https://jsonplaceholder.typicode.com/todos',
-    'https://jsonplaceholder.typicode.com/users',
-    'https://jsonplaceholder.typicode.com/albums',];
-    for (let url of zdroje) {
-      nacitajZdroj(url);
-      //Počká 200ms medzi načítaním jednotlivých zdrojov
-      await delay(200);
-    }
+function nacitajData() {
+  nacitajZdroj('https://run.mocky.io/v3/93096a26-6f6b-462b-81da-91512a2c4888?mocky-delay=2500ms');
+  nacitajZdroj('https://run.mocky.io/v3/93096a26-6f6b-462b-81da-91512a2c4888?mocky-delay=4000ms');
 }
 ```
 
+### Cieľ príkladu
+Cieľom príkladu je vytvorenie kódu, ktorý dokáže zachytávať AJAX požiadavky, využíva asynchrónne funkcie, nahrádza funkciu `fetch` z objektu `window`. Z css ukazuje jednoduché animácie.
 
 <div class="hidden">
 
