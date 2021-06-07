@@ -6,26 +6,22 @@ function nahodnaPozicia() {
 function nahodnaFarba() {
     //$farby = ["red", "green", "blue", "yellow", "pink", "cyan", "purple", "black", "grey", "violet"];
     //return $farby[rand(0, count($farby))];
-    return rand_color();
-}
-
-function rand_color() {
     return sprintf('#%06X', rand(0, 0xFFFFFF));
 }
-
 ?>
 
 <html>
     <head>
         <style type="text/css">
-            .stvorceky {
-                position: relative;
+            body {
                 width: 100%;
                 height: 100%;
                 overflow: hidden;
+                padding: 0;
+                margin: 0;
             }
 
-            .stvorceky div {
+            div {
                 position: absolute;
                 width: 50px;
                 height: 50px;
@@ -33,10 +29,8 @@ function rand_color() {
         </style>
     </head>
     <body>
-        <div class="stvorceky">
-            <?php for ($i = 0; $i < 2000; $i++) { ?>
-            <div style="top: <?=nahodnaPozicia()?>; left: <?=nahodnaPozicia()?>; background: <?=nahodnaFarba()?>"></div>
-            <?php } ?>
-        </div>
+        <?php for ($i = 0; $i < 2000; $i++) { ?>
+        <div style="top: <?=nahodnaPozicia()?>; left: <?=nahodnaPozicia()?>; background: <?=nahodnaFarba()?>"></div>
+        <?php } ?>
     </body>
 </html>

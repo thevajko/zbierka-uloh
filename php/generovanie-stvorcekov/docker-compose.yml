@@ -1,8 +1,7 @@
 version: '3'
 services:
   web:
-    image: php:8.0-apache
-    container_name: php_web
+    build: .
     volumes:
       - ./:/var/www/html/
     ports:
