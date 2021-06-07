@@ -1,7 +1,7 @@
 version: '3'
 services:
   web:
-    image: php:8.0-apache
+    build: .
     container_name: php_web
     volumes:
       - ./:/var/www/html/

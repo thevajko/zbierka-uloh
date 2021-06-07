@@ -3,6 +3,7 @@
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
 > - Repo: [Štartér](/../../tree/main/php/faktorial-php), [Riešenie](/../../tree/solution/php/faktorial-php).
+> - [Zobraziť riešenie](riesenie.md)
 </div>
 
 # Faktoriál (PHP)
@@ -29,4 +30,12 @@ Vytvorte skript v jazyku PHP, ktorý bude schopný zobraziť a vyrátať
 <div class="hidden">
 
 [Zobraziť riešenie](riesenie.md).
+</div>
+
+
+<div class="hidden">
+
+> Toto riešenie obsahuje všetky potrebné služby v `docker-compose.yml`. Po ich spustení sa vytvorí:
+> - webový server, ktory do __document root__ namapuje adresár tejto úlohy s modulom __PDO__. Port __80__ a bude dostupný na adrese [http://localhost/](http://localhost/). Server má pridaný modul pre ladenie [__Xdebug 3__](https://xdebug.org/) nastavený na port __9000__.
+
 </div>
