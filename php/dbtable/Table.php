@@ -1,6 +1,5 @@
 <?php
 
-
 class Table
 {
 
@@ -9,36 +8,35 @@ class Table
         return "<table border=\"1\">{$this->RenderHead()}{$this->RenderBody()}</table>";
     }
 
+    private ?array $columnAttribs = null;
+    private function GetColumnAttributes() :  array
+    {
+        if ($this->columnAttribs == null) {
+            $this->columnAttribs = get_object_vars(new User());
+        }
+        return $this->columnAttribs;
+    }
+
     private function RenderHead() : string {
-
-        $attribs = get_object_vars(new User());
-
         $header = "";
-
-        foreach ($attribs as $attribName => $value) {
+        foreach ($this->GetColumnAttributes() as $attribName => $value) {
             $header .= "<th>{$attribName}</th>";
         }
-
         return "<tr>{$header}</tr>";
     }
 
-    private function RenderBody()
+    private function RenderBody() : string
     {
-
-        $attribs = get_object_vars(new User());
-
         $body = "";
-
         $users = DB::i()->getAllUsers();
 
         foreach ($users as $user) {
             $tr = "";
-            foreach ($attribs as $attribName => $value) {
+            foreach ($this->GetColumnAttributes() as $attribName => $value) {
                 $tr .= "<td>{$user->$attribName}</td>";
             }
             $body .= "<tr>$tr</tr>";
         }
-
         return $body;
     }
 }

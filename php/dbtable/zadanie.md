@@ -117,7 +117,7 @@ Je ale potrebné všetky ešte statický atribút inicializovať priradením hod
 
 Implementácia _singleton_ bude v _PHP_ vyzerať nasledovne:
 
-```php 
+```php
 class Db {
     private static ?Db $db = null;
     public static function i()
@@ -159,7 +159,7 @@ class Db {
 
 Teraz vytvoríme triedu `User` (v samostatnom súbore), ktorá bude reprezentovať jednotlivé dátové riadky a následne ju budeme používať pri práci s databázou. Táto trieda bude obsahovať iba verejne atribúty pomenované rovnako ako sú stĺpce tabuľky `users` v databáze. Trieda bude nasledovná:
 
-```php 
+```php
 class User
 {
     public int $id;
@@ -176,7 +176,7 @@ To docielime tým, že metódu `PDOStatement::fetchAll()`, zavoláme s dvoma par
 
 Tu doporučujeme vkladať názov pomocou atribútu [`::class`](https://www.php.net/manual/en/language.oop5.basic.php), ktorý sa bude meniť podla toho ako budeme presúvať trie bu v mennom priestore alebo ju premenujeme. Kód metódy môžeme zapísať nasledovne:
 
-```php 
+```php
 class Db {
     
     // ... 
@@ -292,4 +292,95 @@ $usersTable = new Table();
 echo $usersTable->Render();
 ```
 
-Výsledom skriptu je HTML tablky momentálne iba s hlavičkou. Do triedy `Table` pridáme privátnu metódu  `RenderBody()`, ktorá bude generovať samotné riadky s dátami, opäť vo forme stringu pre jej výstup. 
+Výsledkom skriptu je HTML tabuľky momentálne iba s hlavičkou. Do triedy `Table` pridáme privátnu metódu  `RenderBody()`, ktorá bude generovať samotné riadky s dátami, opäť vo forme stringu pre jej výstup. 
+
+Ako prvé opäť potrebujeme získať zoznam atribútov. Nakoľko túto logiku budeme používať na dvoch miestach extrahujeme ju a umiestnime ju do samostatnej metódy `GetColumnAttributes()`. Túto metódu budeme volať veľmi často a jej výstup bude vždy rovnaký. Preto si pri jej prvom zavolaní uložíme výsledok do privátneho atribútu `$columnAttribs` a ak bude mať hodnotu, budeme vracať tú. Kód bude vyzerať:
+
+```php
+class Table {
+ 
+     // ...
+ 
+    private ?array $columnAttribs = null;
+    private function GetColumnAttributes() :  array
+    {
+        if ($this->columnAttribs == null) {
+            $this->columnAttribs = get_object_vars(new User());
+        }
+        return $this->columnAttribs;
+    }
+    
+    // ...
+}
+```
+
+Teraz musíme upraviť metódu `RenderHead()` tak aby používala novo vytvorenú metódu `GetColumnAttributes()` následovne:
+
+```php
+class Table {
+    // ...
+    
+    private function RenderHead() : string {
+        $header = "";
+        foreach ($this->GetColumnAttributes() as $attribName => $value) {
+            $header .= "<th>{$attribName}</th>";
+        }
+        return "<tr>{$header}</tr>";
+    }
+
+    // ...
+}
+```
+
+V metóde `RenderBody()` si najprv inicializujeme lokálnu premennú `$body` do ktorej budeme postupne zberať jednotlivé riadky tabuľky. V ďaľšom kroku vyberieme všetky dáta z tabuľky `users` vo forme pola do premennej `$users`, ktoré budeme prechádzať v cykle.
+
+Na začiatku každej iterácie priradíme do premennej `$tr` do ktorej budeme postupne pridávať hodnoty jednotlivých riadkov. Následne budeme prechádzať pole s atribútmi z `$this->GetColumnAttributes()`. 
+
+V nasledovnom cykle sa ukladá pri iterácií do premennej `$attribName` hodnote indexu, ktorý predstavuje názov parametra. V php je možné použiť hodnotu v premennej pri odkazovaní sa na atríbút objektu. Jednoduchá ukážka:
+
+```php
+class Test { 
+    public int $hodnota = 5;
+}
+
+$o = new Test();
+$a = "hodnota";
+echo $o->$a; // 5
+```
+
+Tento princíp použijeme pri vypisovaní dát z objektov, ktoré dostaneme z databázy. Po prejdení všetkých atribútov umiestnime obsah premennej `$tr` do `$body`. Pro prejdení všetkých dát z databázy vrátime obsah `$body` ako výsledok metódy.
+
+```php
+class Table
+{
+    // ...
+    private function RenderBody() : string
+    {
+        $body = "";
+        $users = DB::i()->getAllUsers();
+        foreach ($users as $user) {
+            $tr = "";
+            foreach ($this->GetColumnAttributes() as $attribName => $value) {
+                $tr .= "<td>{$user->$attribName}</td>";
+            }
+            $body .= "<tr>$tr</tr>";
+        }
+        return $body;
+    }
+    // ...
+}
+```
+
+Následne pridáme do metódy `Render()` metódu `RenderBody()` následovne:
+
+```php
+class Table
+{
+    // ...
+    public function Render() : string
+    {
+        return "<table border=\"1\">{$this->RenderHead()}{$this->RenderBody()}</table>";
+    }
+    // ...
+}
+```
