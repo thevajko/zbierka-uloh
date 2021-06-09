@@ -12,7 +12,7 @@ Vytvorte pomocou CSS animáciu loptičky, ktorá sa pohybuje po stole a odráža
 ![](images_css-lopticka/zadanie.png)
 
 ### Cieľ príkladu
-Clieľom príkladu je oboznámenie sa so základnými animáciami v CSS.
+Clieľom príkladu je oboznámenie sa so základnými animáciami v CSS. Ukážeme si jednoduché animácie na zmenu polohy elementu. Vyskúšame skombinovať viacero animácií pre jeden element.
 
 <div class="hidden">
 
