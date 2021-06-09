@@ -3,6 +3,13 @@
 class Table
 {
 
+    private string $orderBy = "";
+
+    public function __construct()
+    {
+        $this->orderBy = ($_GET['order'] ?? "");
+    }
+
     public function Render() : string
     {
         return "<table border=\"1\">{$this->RenderHead()}{$this->RenderBody()}</table>";
@@ -20,7 +27,7 @@ class Table
     private function RenderHead() : string {
         $header = "";
         foreach ($this->GetColumnAttributes() as $attribName => $value) {
-            $header .= "<th>{$attribName}</th>";
+            $header .= "<th><a href=\"?order={$attribName}\">{$attribName}</a></th>";
         }
         return "<tr>{$header}</tr>";
     }
@@ -28,7 +35,7 @@ class Table
     private function RenderBody() : string
     {
         $body = "";
-        $users = DB::i()->getAllUsers();
+        $users = DB::i()->getAllUsers($this->orderBy);
 
         foreach ($users as $user) {
             $tr = "";

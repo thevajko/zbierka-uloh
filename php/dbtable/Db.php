@@ -30,11 +30,17 @@ class Db {
     /**
      * @return User[]
      */
-    public function getAllUsers(): array
+    public function getAllUsers($sortedBy = ""): array
     {
+        $sql = "SELECT * FROM users";
+
+        if ($sortedBy) {
+            $sql = $sql . " ORDER BY {$sortedBy} ASC" ;
+        }
+
         try {
             return $this->pdo
-                ->query("SELECT * FROM users")
+                ->query($sql)
                 ->fetchAll(PDO::FETCH_CLASS, User::class);
         }  catch (\PDOException $e) {
             die($e->getMessage());
