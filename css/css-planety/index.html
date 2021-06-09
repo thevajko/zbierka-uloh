@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style type="text/css">
+    
+        .table {
+            position: relative;
+            width: 500px;
+            height: 300px;
+            background: darkgreen;
+            border: 5px solid black;
+        }
+
+        .ball {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: red;
+            border: 1px solid black;
+            border-radius: 50%;
+            animation: x-axis 2s linear alternate infinite, y-axis 3.3s linear alternate infinite;
+        }
+
+        @keyframes x-axis {
+            from {
+                left: 0px;
+            }
+            to {
+                left: 470px; 
+            }
+        }
+
+        @keyframes y-axis {
+            from {
+                top: 0px;
+            }
+            to {
+                top: 270px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="table">
+        <div class="ball"></div>
+    </div>
+
+</body>
+</html>

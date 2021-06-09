@@ -31,7 +31,9 @@ Samozrejme, pre spustenie potrebných služieb môžete použiť ľubovoľným s
 
 ## CSS
 1. [Tooltip](css/tooltip-css/zadanie.md) (CSS) - obtiažnosť 2
-1. [Animácie](css/css-animacie/zadanie.md) (CSS) - obtiažnosť 2
+1. [Gulečník](css/css-lopticka/zadanie.md) (CSS) - obtiažnosť 1
+1. [Slnečna sústava](css/css-planety/zadanie.md) (CSS) - obtiažnosť 1
+1. [Galéria](css/galeria/zadanie.md) (CSS) - obtiažnosť 2
 1. [Drop-Down a Drop-Up menu](css/dropdownmenu/zadanie.md) (CSS) - obtiažnosť 3
 1. [CSS Smajlíky](css/css-smajliky/zadanie.md) (CSS) - obtiažnosť 3
    
