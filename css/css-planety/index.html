@@ -15,71 +15,49 @@
         position: absolute;
         left: calc(50% - (var(--size) / 2));
         top: calc(50% - (var(--size) / 2));
+        background-size: cover;
+        transform: translateX(var(--orbitRadius));
     }
 
     .slnko {
         --size: 120px;
+        --orbitRadius: 0;
         background-image: url("images_planety/sun.png");
-        background-size: cover;
     }
 
     .zem {
         --size: 80px;
+        --orbitRadius: 300px;
         background-image: url("images_planety/earth.png");
-        background-size: cover;
-        transform: translateX(300px);
-        animation: zemOrbit 5s linear infinite;
+        animation: kruhovaOrbita 5s linear infinite;
     }
 
     .mesiac {
         --size: 40px;
+        --orbitRadius: 80px;
         background-image: url("images_planety/moon.png");
-        background-size: cover;
-        transform: translateX(80px);
-        animation: mesiacOrbit 2s linear infinite;
+        animation: kruhovaOrbita 2s linear infinite;
     }
 
     .saturn {
         --size: 150px;
+        --orbitRadius: 450px;
         background-image: url("images_planety/saturn.png");
-        background-size: cover;
-        transform: translateX(450px);
-        animation: saturnOrbit 8s cubic-bezier(.75,.32,.54,.77) infinite;
+        animation: kruhovaOrbita 8s cubic-bezier(.61,.11,.41,.91) infinite;
     }
 
-    @keyframes zemOrbit {
-        from { transform: rotate(0deg) translateX(300px) rotate(0deg); }
-        to   { transform: rotate(360deg) translateX(300px) rotate(-360deg); }
+    @keyframes kruhovaOrbita {
+        from { transform: rotate(0deg) translateX(var(--orbitRadius)) rotate(0deg); }
+        to   { transform: rotate(360deg) translateX(var(--orbitRadius)) rotate(-360deg); }
     }
-
-    @keyframes mesiacOrbit {
-        from { transform: rotate(0deg) translateX(80px); }
-        to   { transform: rotate(-360deg) translateX(80px); }
-    }
-
-    @keyframes saturnOrbit {
-        0% { transform: rotate(0deg) translateX(450px) rotate(0deg); }
-        50% { transform: rotate(180deg) translateX(450px) rotate(-180deg); }
-        100%   { transform: rotate(360deg) translateX(450px) rotate(-360deg); }
-    }
-
-    /*.zem-orbit {
-        --size: 600px;
+    .sustava .orbit {
+        --size: calc(var(--orbitRadius) * 2);
         border: 1px dotted black;
         border-radius: 50%;
+        animation: none;
+        transform: none;
+        background: none;
     }
-
-    .saturn-orbit {
-        --size: 900px;
-        border: 1px dotted black;
-        border-radius: 50%;
-    }
-
-    .mesiac-orbit {
-        --size: 160px;
-        border: 1px dotted black;
-        border-radius: 50%;
-    }*/
 
     </style>
 </head>
@@ -87,12 +65,12 @@
 
     <div class="sustava">
 
-        <div class="zem-orbit"></div>
-        <div class="saturn-orbit"></div>
+        <div class="zem orbit"></div>
+        <div class="saturn orbit"></div>
 
         <div class="slnko"></div>
         <div class="zem">
-            <div class="mesiac-orbit"></div>
+            <div class="mesiac orbit"></div>
             <div class="mesiac"></div>
         </div>
         <div class="saturn"></div>

@@ -2,10 +2,10 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/css/css-lopticka), [Riešenie](/../../tree/solution/css/css-lopticka).
+> - Repo: [Štartér](/../../tree/main/css/css-planety), [Riešenie](/../../tree/solution/css/css-planety).
 </div>
 
-# Gulečník (CSS)
+# Slnečná sústava (CSS)
 
 ## Zadanie
 Vytvorte jednoduchú animáciu slnečnej sústavy. Slnko bude v strede, okolo neho budú objehať po kružnici aspoň dve planéty. Jednej planéte pridajte mesiac.
