@@ -117,7 +117,7 @@ Je ale potrebné všetky ešte statický atribút inicializovať priradením hod
 
 Implementácia _singleton_ bude v _PHP_ vyzerať nasledovne:
 
-```php 
+```php
 class Db {
     private static ?Db $db = null;
     public static function i()
@@ -159,7 +159,7 @@ class Db {
 
 Teraz vytvoríme triedu `User` (v samostatnom súbore), ktorá bude reprezentovať jednotlivé dátové riadky a následne ju budeme používať pri práci s databázou. Táto trieda bude obsahovať iba verejne atribúty pomenované rovnako ako sú stĺpce tabuľky `users` v databáze. Trieda bude nasledovná:
 
-```php 
+```php
 class User
 {
     public int $id;
@@ -176,7 +176,7 @@ To docielime tým, že metódu `PDOStatement::fetchAll()`, zavoláme s dvoma par
 
 Tu doporučujeme vkladať názov pomocou atribútu [`::class`](https://www.php.net/manual/en/language.oop5.basic.php), ktorý sa bude meniť podla toho ako budeme presúvať trie bu v mennom priestore alebo ju premenujeme. Kód metódy môžeme zapísať nasledovne:
 
-```php 
+```php
 class Db {
     
     // ... 
@@ -292,4 +292,198 @@ $usersTable = new Table();
 echo $usersTable->Render();
 ```
 
-Výsledom skriptu je HTML tablky momentálne iba s hlavičkou. Do triedy `Table` pridáme privátnu metódu  `RenderBody()`, ktorá bude generovať samotné riadky s dátami, opäť vo forme stringu pre jej výstup. 
+Výsledkom skriptu je HTML tabuľky momentálne iba s hlavičkou. Do triedy `Table` pridáme privátnu metódu  `RenderBody()`, ktorá bude generovať samotné riadky s dátami, opäť vo forme stringu pre jej výstup. 
+
+Ako prvé opäť potrebujeme získať zoznam atribútov. Nakoľko túto logiku budeme používať na dvoch miestach extrahujeme ju a umiestnime ju do samostatnej metódy `GetColumnAttributes()`. Túto metódu budeme volať veľmi často a jej výstup bude vždy rovnaký. Preto si pri jej prvom zavolaní uložíme výsledok do privátneho atribútu `$columnAttribs` a ak bude mať hodnotu, budeme vracať tú. Kód bude vyzerať:
+
+```php
+class Table {
+ 
+     // ...
+ 
+    private ?array $columnAttribs = null;
+    private function GetColumnAttributes() :  array
+    {
+        if ($this->columnAttribs == null) {
+            $this->columnAttribs = get_object_vars(new User());
+        }
+        return $this->columnAttribs;
+    }
+    
+    // ...
+}
+```
+
+Teraz musíme upraviť metódu `RenderHead()` tak aby používala novo vytvorenú metódu `GetColumnAttributes()` následovne:
+
+```php
+class Table {
+    // ...
+    
+    private function RenderHead() : string {
+        $header = "";
+        foreach ($this->GetColumnAttributes() as $attribName => $value) {
+            $header .= "<th>{$attribName}</th>";
+        }
+        return "<tr>{$header}</tr>";
+    }
+
+    // ...
+}
+```
+
+V metóde `RenderBody()` si najprv inicializujeme lokálnu premennú `$body` do ktorej budeme postupne zberať jednotlivé riadky tabuľky. V ďaľšom kroku vyberieme všetky dáta z tabuľky `users` vo forme pola do premennej `$users`, ktoré budeme prechádzať v cykle.
+
+Na začiatku každej iterácie priradíme do premennej `$tr` do ktorej budeme postupne pridávať hodnoty jednotlivých riadkov. Následne budeme prechádzať pole s atribútmi z `$this->GetColumnAttributes()`. 
+
+V nasledovnom cykle sa ukladá pri iterácií do premennej `$attribName` hodnote indexu, ktorý predstavuje názov parametra. V php je možné použiť hodnotu v premennej pri odkazovaní sa na atríbút objektu. Jednoduchá ukážka:
+
+```php
+class Test { 
+    public int $hodnota = 5;
+}
+
+$o = new Test();
+$a = "hodnota";
+echo $o->$a; // 5
+```
+
+Tento princíp použijeme pri vypisovaní dát z objektov, ktoré dostaneme z databázy. Po prejdení všetkých atribútov umiestnime obsah premennej `$tr` do `$body`. Pro prejdení všetkých dát z databázy vrátime obsah `$body` ako výsledok metódy.
+
+```php
+class Table
+{
+    // ...
+    private function RenderBody() : string
+    {
+        $body = "";
+        $users = DB::i()->getAllUsers();
+        foreach ($users as $user) {
+            $tr = "";
+            foreach ($this->GetColumnAttributes() as $attribName => $value) {
+                $tr .= "<td>{$user->$attribName}</td>";
+            }
+            $body .= "<tr>$tr</tr>";
+        }
+        return $body;
+    }
+    // ...
+}
+```
+
+Následne pridáme do metódy `Render()` metódu `RenderBody()` následovne:
+
+```php
+class Table
+{
+    // ...
+    public function Render() : string
+    {
+        return "<table border=\"1\">{$this->RenderHead()}{$this->RenderBody()}</table>";
+    }
+    // ...
+}
+```
+
+### Pridanie zoraďovania
+
+Aby sme mohli tabuľku zoraďovať, musíme vedieť podľa ktorého tak máme urobiť. Túto informáciu najčastejšie prostredkuvávajú "klikacie odkazy" - elementy `<a>`, tieto parametre sa volajú __GET parametre__ a pridávajú sa na koniec samotnej URL a oddelujú sa znakom `?`.
+
+Ak máme napríklad URL `http://localhost/?order=country`, tak tá obsahuje parameter `order` s hodnotou `country`. V pripade viacerých parametrov ich oddeľujeme znakom `&` napríklad `http://localhost/?order=country&color=red`.
+
+Pre prenos informácie o tom, podľa ktorého stĺpca budeme zaradovať, budeme používať GET parameter `order`. Musíme preto upraviť metódu `RenderHead()`, kde upravíme zostavovanie jednolistových elementov `<th>` tak, že samotný názov hlavičky umiestnime do  elementu `<a>`. Tomu do parametra `href` pridáme _GET parameter_ `order` ktorého hodnota bude jeho názov. Upravený kód je:
+
+```php
+class Table
+{
+    // ...
+    private function RenderHead() : string {
+        $header = "";
+        foreach ($this->GetColumnAttributes() as $attribName => $value) {
+            $header .= "<th><a href=\"?order={$attribName}\">{$attribName}</a></th>";
+        }
+        return "<tr>{$header}</tr>";
+    }
+    // ...
+}
+```
+
+Teraz sa nám tabuľka zobrazí s "klikateľnymi" názvami stĺpcov v hlavičke. Teraz musíme doplniť logiku na strane servera o samotné zoraďovanie. Predtým ale potrebujeme získať odoslané parametre. Odchytávanie umiestnime do triedy `Table`, nakoľko sa parametre týkajú výlučne tabuľky samotnej a tá preto potrebné dáta musí získať sama. Na úroveň databázy ich potom budeme predávať pomocou parametrov metód. Umiestnením do konštruktora docielime nastavenie parametrov ešte pred spustením samotnej logiky.
+
+Informácia o tom ako sa má tabuľka zoradiť bude uložená v privatnom atribúte `$orderBy`, ktorý inicializujeme hodnotou prázdneho stringu, táto hodnota bude znamenať, že tabuľka nie je nijako zoradená.
+
+_Parametre GET_ _PHP_ automaticky ukladá do _super globálnej premennej_ [$_GET](https://www.php.net/manual/en/reserved.variables.get.php). Tú tvorí asociatívne pole, kde index je názov parametru a jeho hodnota je jeho hodnota. My očakávame, že v tomto poli bude prítomný index `order`, ktorý tam ale byť nemusí. Z tohto dôvodu použijeme [_Null coalescing operator_](https://www.php.net/manual/en/migration70.new-features.php), ktorý vracia prvý parameter ak existuje a druhý ak nie. 
+
+Úprava triedy `Table` bude nasledovná:
+
+```php
+class Table
+{
+    private string $orderBy = "";
+    public function __construct()
+    {
+        $this->orderBy = ($_GET['order'] ?? "");
+    }
+    
+    // ...
+}
+```
+
+Teraz musíme upraviť metódu `Table->getAllUsers()` a doplniť do nej vstupný parameter `$sortedBy`, ktorý bude mať prevolenú hodnotu opäť nastavenú ako prázdny string. Momentálne vyberáme všetky dáta pomocou SQL `SELECT * FROM users` a ak chceme pridať zoradenie musíme pridať zápis `ORDER BY` s názvom stĺpca a smerom akým chceme dáta zoradiť.
+
+Názov stĺpca budeme mať vo vstupnej premennej `$sortedBy` a zaradovať budeme zatiaľ iba jedným smerom `ASC`. Zoradenie sa pridáva na koniec pôvodného SQL a musíme overiť, či sa zoraďovať vôbec má. Preto najprv skontrolujeme či vstupná premenná `$sortedBy` obsahuje hodnotu a zoradenie do SQL pridáme iba ak áno. Upravený kód bude nasledovný:  
+
+```php
+class Db
+{
+    // ...
+   /**
+     * @return User[]
+     */
+    public function getAllUsers($sortedBy = ""): array
+    {
+        $sql = "SELECT * FROM users";
+
+        if ($sortedBy) {
+            $sql = $sql . " ORDER BY {$sortedBy} ASC" ;
+        }
+
+        try {
+            return $this->pdo
+                ->query($sql)
+                ->fetchAll(PDO::FETCH_CLASS, User::class);
+        }  catch (\PDOException $e) {
+            die($e->getMessage());
+        }
+    }
+    
+    // ...
+}
+```
+
+Teraz potrebujeme upraviť metódu `Table->RenderBody()`, tak aby sa pri volaní metódy `Db->getAllUsers()` do nej vkladal parameter `$this->orderBy`. Po úprave bude jej kód nasledovný:
+
+```php
+class Table
+{
+    // ...
+    
+    private function RenderBody() : string
+    {
+        $body = "";
+        $users = DB::i()->getAllUsers($this->orderBy);
+
+        foreach ($users as $user) {
+            $tr = "";
+            foreach ($this->GetColumnAttributes() as $attribName => $value) {
+                $tr .= "<td>{$user->$attribName}</td>";
+            }
+            $body .= "<tr>$tr</tr>";
+        }
+        return $body;
+    }
+}
+```
+Zoraďovanie tabuľky by malo fungovať nasledovne:
+
+![](.dbtable-images/dbtable-01.gif)

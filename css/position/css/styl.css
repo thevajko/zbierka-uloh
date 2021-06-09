@@ -1,0 +1,50 @@
+body {
+    background-image: url("../img/sky.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+.slnko {
+    background-image: url("../img/sun.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 300px;
+    height: 300px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    left: 50%;
+}
+
+.bird{
+    background-image: url("../img/bird.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 150px;
+    height: 150px;
+    position: absolute;
+}
+
+.flip {
+    transform: scaleX(-1);
+}
+
+.top{
+    top: 0;
+}
+
+.bottom {
+    bottom: 0;
+}
+
+.left{
+    left: 0;
+}
+
+.right{
+    right: 0;
+}
