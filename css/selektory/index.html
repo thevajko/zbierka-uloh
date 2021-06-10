@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>CSS Stylovanie</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style type="text/css">
+        .data {
+            display: table;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        .data ol, .data ul {
+            display: table-row;
+
+        }
+
+        .data li {
+            display: table-cell;
+            padding: 2px;
+            border: 1px solid black;
+        }
+
+        /*hlavička*/
+        .data ol li {
+            background-color: #16a085;
+            font-weight: bold;
+            color: white;
+            padding: 5px;
+        }
+
+        /*prve pismenko v hlavičke inou farbou*/
+        .data ol li::first-letter {
+            color: #f1c40f;
+        }
+
+        /*Vyfarbenie párnych riadkov*/
+        .data ul:nth-child(2n + 1) li {
+            background-color: #ecf0f1;
+        }
+
+        /*Hover riadkov*/
+        .data ul:hover li {
+            background-color: #bdc3c7;
+        }
+
+        /*Meno červenou ak budem myšou nad daným riadkom, ale nebudem nad menom*/
+        .data ul:hover li:first-child:not(:hover) {
+            color: #e74c3c;
+        }
+
+        /*Zarovnanie čísel na stred*/
+        .data ul li:nth-child(n+4):nth-child(-n+6) {
+            text-align: center;
+        }
+
+        /*Zafarbenie hovernutého čísla*/
+        .data ul:hover li:nth-child(n+4):nth-child(-n+6) {
+            background-color: #3498db;
+        }
+
+        /*Zafarbenie hovernutého čísla*/
+        .data ul li:hover:nth-child(n+4):nth-child(-n+6) {
+            background-color: #2ecc71;
+        }
+
+        /*Zafarbenie čísel, ktoré sú za hovernutým*/
+        .data ul li:hover:nth-child(n+4) ~ li:nth-child(-n+6) {
+            background-color: #f1c40f;
+        }
+
+        /*Priezvisko uppercase*/
+        .data ul li:nth-child(2) {
+            text-transform: uppercase;
+        }
+
+        /*Skrytie predposledného stĺpca*/
+        .data li:nth-last-child(2) {
+            display: none;
+        }    
+
+        .data li a[href^="http"] {
+            color: red;
+        }
+
+        .data li a[href^="https"] {
+            color: green;
+        }
+
+        .data li a:not([href^="http"]) {
+            color: blue;
+        }
+
+        .data li a[href$=".pdf"]::after {
+            content: "(pfd)";
+        }
+    </style>
+</head>
+<body>
+    
+
+    <div class="data">
+        <ol>
+            <li>Meno</li>
+            <li>Priezvisko</li>
+            <li>Mesto</li>
+            <li>Číslo 1</li>
+            <li>Číslo 2</li>
+            <li>Číslo 3</li>
+            <li>Výsledok</li>
+            <li></li>
+        </ol>
+        <ul>
+            <li>Hynek</li>
+            <li>Borkovec</li>
+            <li>Praha</li>
+            <li>2453</li>
+            <li>3546</li>
+            <li>235</li>
+            <li>1</li>
+            <li><a href="https://google.sk">Https Link</a></li>
+        </ul>
+        <ul>
+            <li>Svatopluk</li>
+            <li>Polanský</li>
+            <li>Plzeň</li>
+            <li>56</li>
+            <li>4564</li>
+            <li>35464</li>
+            <li>0</li>
+            <li><a href="http://google.sk">Http Link</a></li>
+        </ul>
+        <ul>
+            <li>Pavel</li>
+            <li>Vondruška</li>
+            <li>Hradec Králové</li>
+            <li>243</li>
+            <li>457</li>
+            <li>234</li>
+            <li>0</li>
+            <li><a href="index.html">Relativny link</a></li>
+        </ul>
+        <ul>
+            <li>Herbert</li>
+            <li>Babka</li>
+            <li>Olomouc</li>
+            <li>86</li>
+            <li>23</li>
+            <li>22</li>
+            <li>0</li>
+            <li><a href="index.html">Relativny link</a></li>
+        </ul>
+        <ul>
+            <li>Svatoslav</li>
+            <li>Koželuh</li>
+            <li>Třinec</li>
+            <li>463</li>
+            <li>975</li>
+            <li>8</li>
+            <li>1</li>
+            <li><a href="/subor.pdf">Relativny link</a></li>
+        </ul>
+        <ul>
+            <li>Michal</li>
+            <li>Tkadlec</li>
+            <li>Karvinná</li>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>1</li>
+            <li><a href="https://stranka.sk/subor.pdf">Https Link</a></li>
+        </ul>
+        <ul>
+            <li>Miloslav</li>
+            <li>Vít</li>
+            <li>Praha</li>
+            <li>0</li>
+            <li>242</li>
+            <li>245</li>
+            <li>1</li>
+            <li><a href="https://google.sk">Https Link</a></li>
+        </ul>
+    </div>
+
+</body>
+</html>
