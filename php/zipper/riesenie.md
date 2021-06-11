@@ -281,8 +281,8 @@ Nakoniec pridáme volanie `$this->setUniqueId()` na koniec konštruktora.
     }
 ```
 
-Vygenerovaný identifikátor može vyzerať napr. takto: `3ee22b7b69591e19406b001137397953ac882d5e`. Je možné si ho 
-pozrieť v prehliadači po stlačení klávesy F12 (*Vývojárske nástroje*) v záložke `Úložisko` pod položkou Cookies.   
+Vygenerovaný identifikátor može vyzerať napr. takto: `3ee22b7b69591e19406b001137397953ac882d5e`. Je možné si ho pozrieť
+v prehliadači po stlačení klávesy F12 (*Vývojárske nástroje*) v záložke `Úložisko` pod položkou Cookies.
 
 Ďalšou úlohou bude vyriešiť to, aby sme vedeli, ktoré súbory patria používateľovi. Toto jednoducho vyriešime tak, že k
 názvu súboru prilepíme predponu pozostávajúcu z identifikátora a pomlčky. Identifikátor bude mať fixnú dĺžku, preto bude
@@ -324,7 +324,9 @@ Pretože sme si oddelili prístup k názvom súborov do samostanej metódy `getF
 Na začiatok súboru (pred definíciu `<!doctype html>`) umiestnime PHP časť kódu, ktorá bude našu aplikáciu riadiť. Vždy
 budeme potrebovať vytvoriť inštanciu triedy `Uploader`. Ak používateľ poslal súbor, bude nastavená
 premenná `$_FILES['userfile']` a súbor uložíme volaním metódy `saveUploadedFile()`. Ak používateľ stačil tlačidlo
-*Zipuj*, súbory zazipujeme a výstup mu ponúkneme na stiahnutie.
+*Zipuj*, súbory zazipujeme a výstup mu ponúkneme na stiahnutie (volaním metódy `zipAndDownload()`). Nesmieme zabudnúť
+ukončiť celý PHP skript (funkciou `die()`) za týmto príkazom, pretože zvyšný HTML kód už nie je ani nesmie byť súčasťou
+posielaného archívu.
 
 ```php
  <?php
@@ -407,11 +409,11 @@ Tým je aplikácia hotová. Na nasledovnom obrázku je možné vidieť jej vzhľ
 
 ![](images_zipper/1.png)
 
-Používateľ postupne pridal 5 súborov do archívu: 
+Používateľ postupne pridal 5 súborov do archívu:
 
 ![](images_zipper/2.png)
 
-Na tomto obrázku je aplikácia v stave, keď používateľ klikol na tladičidlo **Zipuj!** a môže sa
-rozhodnúť, či archív uloží na lokálny disk, alebo rovno otvorí. 
+Na tomto obrázku je aplikácia v stave, keď používateľ klikol na tladičidlo **Zipuj!** a môže sa rozhodnúť, či archív
+uloží na lokálny disk, alebo rovno otvorí.
 
 ![](images_zipper/3.png)
