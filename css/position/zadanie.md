@@ -14,7 +14,7 @@ každom rohu obrazovky umiestnite nejaký obrázok vtáčika. Ak budete zmenšov
 obrázky musia zostať na svojom mieste a pri hocijakej veľkosti okno musia vždy zostať v strede (slnko) a na okrajoch 
 (vtáčiky.) Vtáčiky budú otočený smerom k slnku. Výsledný vzhľad dokumentu bude:
 
-1[](images_sky/task.jpg)
+![](images_position/task.jpg)
 
 ### Cieľ príkladu
 Cieľom príkladu je precvičiť si CSS vlastnosť `position`, ktorý je veľmi dôležitým nástrojom pri umiestňovaní prvkov v 

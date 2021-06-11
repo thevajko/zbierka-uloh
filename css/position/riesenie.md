@@ -90,7 +90,7 @@ takto:
 
 Po aplikovaní tohto pravidla bude čiastkové riešenie vyzerať nasledovne:
 
-![](images_sky/sun.jpg)
+![](images_position/sun.jpg)
 
 Teraz do riešenia doplníme vtáčiky. Pri definovaní štýlu vtáčika využijeme všetky postupy, ako sme použili pri 
 obrázku slnka. Keďže obrázok budeme potrebovať na viacerých miestach, nebudeme v tomto pravidle žiadne umiestňovanie,
