@@ -2,10 +2,10 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/css/css-animacie), [Riešenie](/../../tree/solution/css/css-animacie).
+> - Repo: [Štartér](/../../tree/main/css/galeria), [Riešenie](/../../tree/solution/css/galeria).
 </div>
 
-# Animácie (CSS)
+# Galéria (CSS)
 
 ## Zadanie
 
