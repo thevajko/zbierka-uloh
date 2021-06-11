@@ -7,70 +7,85 @@
         .galeria {
             display: flex;
             flex-wrap: wrap;
-            padding: 5px 0 0 5px;
+            justify-content: space-evenly;
         }
 
         .fotka {
             position: relative;
-            display: inline-block;
-            width: 100%;
+            width: calc(100%/3 - 5px);
+            padding-top: calc(75%/3 - 5px);
+            flex-grow: 1;
+            margin: 2.5px;
             color: white;
-            padding: 0 5px 0 0;
-            box-sizing: border-box;
+            background-color: black;
             overflow: hidden;
         }
 
-        .fotka::before {
+        @media (max-width: 1000px) {
+            .fotka {
+                width: calc(100%/2 - 5px);
+                padding-top: calc(75%/2 - 5px);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .fotka {
+                width: calc(100% - 5px);
+                padding-top: calc(75% - 5px);
+            }
+        }
+
+        /* Ukážka naštýlovania pomocou konštantnej výšky a flexboxu*/
+        /*
+        .fotka {
+            position: relative;
+            min-width: 400px;
+            height: 300px;
+            flex-grow: 1;
+            margin: 2.5px;
+        }
+        */
+
+        .fotka > * {
             position: absolute;
             top: 0;
             left: 0;
-            content: "";
-            width: calc(100% - 5px);
-            height: calc(100% - 5px);
-            display: block;
-            background: rgba(0, 0, 0, 0);
-            transition: background-color 1s;
-        }
-
-        .fotka:hover:before {
-            background: rgba(0, 0, 0, 0.6);
-        }
-
-        @media (min-width: 650px) {
-            .fotka {
-                width: 50%;
-            }
-        }
-        
-        @media (min-width: 960px) {
-            .fotka {
-                width: 33.3%;
-            }
         }
 
         .fotka img {
             width: 100%;
-        }
-
-        .fotka h3, .fotka p {
-            display: none;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.5s;
         }
 
         .fotka h3 {
-            position: absolute;
             top: 0;
             left: 15px;
         }
 
         .fotka p {
-            position: absolute;
+            top: auto;
             bottom: 30px;
             width: 100%;
             text-align: center;
         }
 
-        .fotka:hover h3, .fotka:hover p {
+        .fotka h3 {
+            top: 0;
+            left: 15px;
+        }
+
+        .fotka p, .fotka h3 {
+            display: none;
+        }
+
+        .fotka:hover p, .fotka:hover h3 {
             display: block;
+        }
+
+        .fotka:hover img {
+            opacity: 0.4;
         }
 
         .fotka:hover p {
@@ -80,7 +95,7 @@
 
         @keyframes popis-in {
             from {
-                transform: translateY(300px);
+                transform: translateY(1000%);
             }
             to {
                 transform: translateY(0);
@@ -90,7 +105,6 @@
     </style>
 </head>
 <body>
-
     <div class="galeria">
         <div class="fotka">
             <img src="images_galeria/fotka.jpg" />
