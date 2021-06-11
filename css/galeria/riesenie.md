@@ -47,9 +47,11 @@ Vo fotke sa nachádza obrázok a dva textové elementy. Tieto pre zachovanie pom
 V poslednom rade sme roztiahli obrázok na celú šírku príslušného elementu `fotka`. Po aplikovaní tohto kódu dostaneme stránku, kde budú jednotlivé fotky roztiahnuté na celú šírku stránky a zobrazené budu vždy bez ohľadu na veľkosť okna v pomere 4:3.
 
 Tento kód má ale ešte jednu vadu:
+
 ![](images_galeria/riesenie1.png)
 
 Ako môžme vidieť na obrázku, fotka sa nám zdeformovala. Pôvodný obrázok bol totižto fotený "na výšku" a keď obrázku nastavíme rozmery na 100% tak sa roztiahne a zdeformuje. Túto deformáciu môžme našťastie jednoducho vyriešiť pomocou vlastnosti `object-fit: cover`, ktorá definuje spôsob, akým sa obrázok prispôsobí pri zmene veľkosti. Po aplikovaní tejto vlastnosti na obrázok dostaneme:
+
 ![](images_galeria/riesenie2.png)
 
 ### Zobrazenie obrázkov v gride
@@ -70,7 +72,9 @@ Prvým spôsobom je využitie toho, že element môžme zobraziť ako `inline-bl
 Okrem pridania vlastnosti display sme zmenili aj šírku elementov - ak chceme 3 tak potrebujeme 33%. Využuli sme tu funkciu calc, pretože 1/3 zo 100 je v skutočnosti 33.3333 periodických a calc nám to spočíta presne. **Ako si môžte všimnuť, aj `padding-top` bolo potrebné zmenšiť na 1/3 pôvodnej hodnoty**.
 
 Po aplikovaní tohto štýlu ale ostaneme prekvapený:
+
 ![](images_galeria/riesenie3.png)
+
 Namiesto troch obrázkov na riadok máme len dva. Navyše oproti pôvodnému prípadu máme okolo obrázkov medzery. Po ďalšom skúmaní zistíme že práve tieto medzery spôsobili že sa nezmesia 3 obrázky na riadok. Pri zobrazení `inline-block` sú tieto medzery spôsobené novým riadkom v html kóde medzi obrázkami.
 
 Ak v pôvodnom html kóde odstránime medzery medzi fotkami tak tento problém zmizne. Toto ale nieje správne riešenie, nakoľko by sme sa pri deklarácii css pravidel nemali spolihať na medzery medzi html elementami.
@@ -96,6 +100,7 @@ Druhým spôsobom je ponechanie blokového zobrazenia fotky. Blokovým elementom
 ```
 
 Výsledkom bude správne zobrazenie 3 fotiek na jednom riadku:
+
 ![](images_galeria/riesenie4.png)
 
 #### Riešenie cez flexbox
@@ -115,9 +120,11 @@ Okrem `display: flex` musíme nastaviť aj vlastnosť `flex-wrap` na hodnotu `wr
 Po nastavení `flex-wrap: wrap;` je už všetko v poriadku. Výhodou flexboxu oproti riešeniu s obtekaním je to, že flexbox má veľké množstvo ďalších možností. Predstavte si že nemáme presný počet obrázkov tak, aby sme vyplnili všetky riadky. V prípade riešenia s obtekaním nám posledný obrázok zostane na ľavom okraji. Ak použijeme flexbox, môžme pomocou vlastnosti `justify-content` nastaviť, čo sa má stať v prípade, že nebude dostatok fotiek v riadku.
 
 Ak nastavíme `justify-content` na `center` tak sa nám fotky vycentrujú do stredu:
+
 ![](images_galeria/riesenie6.png)
 
 Môžme ale vyskúšať aj hodnotu `space-between`, ktorá nám fotky rozhodí do krajov:
+
 ![](images_galeria/riesenie7.png)
 
 Alebo hodnotu `space-evenly`, ktorá nám ich umiestni s rovnomernými medzerami:
@@ -299,7 +306,8 @@ Posledným problémom, ktorý musíme vyriešiť je to, že akonáhle sme posunu
 
 Na obrázku vyššie môžme vidieť ako sa v pravom dolnom obrázku postupne nasúva text a počas tejto animácie vidíme zobrazený scroolbar na pravo. Po skončení animácie sa scroolbar stratí.
 
-Ak nastavíme pozadie stránky na tmavú farbu, môžme vidieť presne čo sa deje
+Ak nastavíme pozadie stránky na tmavú farbu, môžme vidieť presne čo sa deje:
+
 ![](images_galeria/riesenie15.png)
 
 Text sa zobrazuje v skutočnosti mimo elementu fotky. Tento problém môžme vyriešiť tak, že elementu `fotka` nastavíme hodnotu parametra `overflow` na `hidden`, čo spôsobí že hoc aký obsah, ktorý by sa mal vykresliť mimo elementu fotka bude skritý.
@@ -311,4 +319,5 @@ Text sa zobrazuje v skutočnosti mimo elementu fotky. Tento problém môžme vyr
 ```
 
 Výsledná galeria bude vyzerať nasledovne:
+
 ![](images_galeria/zadanie-final.png)
