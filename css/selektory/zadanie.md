@@ -17,12 +17,13 @@ Podmienky:
 2. Hlavička bude mať zelenú farbu pozadia, text bude boldom a bude centrovaný, prvé písmeno bude mať žltú farbu.
 3. Riadky každý nepárny riadok tabuľky bude mať bledosivé pozadie.
 4. Stĺpec s priezviskami bude napísaný veľkými písmenami.
-5. Po prejdení myškou nad riadkom tabuľky:
+5. Pri umiestnení myšky nad riadkom tabuľky:
    1. Celý riadok bude mať sivé pozadie
    2. Text v kolónke `Meno` bude mať červenú farbu, ale iba kým nebude myš v bunke s menom, ak bude myš v bunke s menom, text bude mať štandartnú čiernu farbu.
    3. Políčka v stĺpcoch Číslo 1 až Číslo 3 budú mať nasledovné správanie:
-      1. Ak na nich nebude myš, tak budú mať modré pozadie.
-      2. Ak bude myš na niektorom z nich, tak dané políčko bude mať zelené pozadie a políčko (políčka) s číslami za ním budú mať pozadie žlté. Pozor, políčku s odkazom nemeníme farbu pozadia.
+      1. Vždy budú zamerané na stred.
+      2. Ak na nich nebude myš, tak budú mať modré pozadie.
+      3. Ak bude myš na niektorom z nich, tak dané políčko bude mať zelené pozadie a políčko (políčka) s číslami za ním budú mať pozadie žlté. Pozor, políčku s odkazom nemeníme farbu pozadia.
 6. V html je definovaný aj stĺpec `Výsledok`, ten vo výslednej tabuľke nezobrazte.
 7. Odkazy v stĺpci `Link` sa budú správať nasledovne:
    1. Ak bude odkaz zabezpečený (protokol https) zobrazte ho zelenou farbou.

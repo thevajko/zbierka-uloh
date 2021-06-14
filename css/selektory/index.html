@@ -21,8 +21,6 @@
             font-weight: bold;
             color: white;
             padding: 5px;
-            position: sticky;
-            top: -1px;
         }
 
         /*prve pismenko v hlavičke inou farbou*/
@@ -31,8 +29,13 @@
         }
 
         /*Vyfarbenie párnych riadkov*/
-        .data tr:nth-child(2n + 1) td {
+        .data tr:nth-child(odd) td {
             background-color: #ecf0f1;
+        }
+
+        /*Hover riadkov*/
+        .data tr:hover td {
+            background-color: #bdc3c7;
         }
 
         /*Hover riadkov*/
@@ -65,21 +68,16 @@
             background-color: #f1c40f;
         }
 
-        /*Priezvisko uppercase*/
-        .data tr td:nth-child(2) {
-            text-transform: uppercase;
-        }
-
         /*Skrytie predposledného stĺpca*/
         .data tr > *:nth-last-child(2) {
             display: none;
-        }    
+        } 
 
-        .data td a[href^="http"] {
+        .data td a[href^="http:"] {
             color: red;
         }
 
-        .data td a[href^="https"] {
+        .data td a[href^="https:"] {
             color: green;
         }
 
@@ -89,6 +87,11 @@
 
         .data td a[href$=".pdf"]::after {
             content: "(PDF)";
+        }
+
+        .data th {
+            position: sticky;
+            top: -1px;
         }
     </style>
 </head>
