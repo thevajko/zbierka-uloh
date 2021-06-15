@@ -27,7 +27,7 @@ class Db {
         }
     }
 
-    public function pages()
+    public function UsersCount() : int
     {
         return $this->pdo->query("SELECT count(*) FROM users")->fetchColumn();
     }
@@ -35,7 +35,7 @@ class Db {
     /**
      * @return User[]
      */
-    public function getAllUsers($sortedBy = "", $sortDirection = ""): array
+    public function getAllUsers($sortedBy = "", $sortDirection = "", $page = 0, $pageSize = 10): array
     {
         $sql = "SELECT * FROM users";
 
@@ -43,6 +43,9 @@ class Db {
             $direc = $sortDirection == "DESC" ? "DESC" : "ASC";
             $sql = $sql . " ORDER BY {$sortedBy} {$direc}" ;
         }
+
+        $page *= $pageSize;
+        $sql .= " LIMIT {$pageSize} OFFSET {$page}";
 
         try {
             return $this->pdo

@@ -22,7 +22,7 @@ class Table
 
     private function GetPageNumber(): int
     {
-        $this->itemsCount = DB::i()->pages();
+        $this->itemsCount = DB::i()->UsersCount();
         $page =  intval($_GET['page'] ?? 0);
         $this->totalPages = ceil($this->itemsCount / $this->pageSize);
         if (($page < 0) || $page > $this->totalPages){
@@ -52,7 +52,10 @@ class Table
         $header = "";
         foreach ($this->GetColumnAttributes() as $attribName => $value) {
 
-            $hrefParams = ['order' => $attribName];
+            $hrefParams = [
+                'order' => $attribName,
+                'page' => 0
+            ];
 
             if ($this->orderBy == $attribName && $this->direction == ""){
                 $hrefParams['direction'] = "DESC";
@@ -67,7 +70,7 @@ class Table
     private function RenderBody() : string
     {
         $body = "";
-        $users = DB::i()->getAllUsers($this->orderBy, $this->direction);
+        $users = DB::i()->getAllUsers($this->orderBy, $this->direction, $this->page, $this->pageSize);
 
         foreach ($users as $user) {
             $tr = "";
@@ -92,15 +95,13 @@ class Table
     }
     private function RenderPaginator() : string {
 
-        $totalCount = DB::i()->pages();
-        $pagesCount = $totalCount / $this->pageSize;
-
         $r = "";
-        for ($i = 0; $i < $pagesCount; $i++){
+        for ($i = 0; $i < $this->totalPages; $i++){
             $href = $this->GetHREF(['page' => $i]);
-            $r .= "<li><a href=\"{$href}\">{$i}</a></li>";
+            $active = $this->page == $i ? "active" : "";
+            $r .= "<a href=\"{$href}\" class=\"{$active}\">{$i}</a>";
         }
 
-        return "<ul>$r</ul>";
+        return "<div>$r</div>";
     }
 }
