@@ -9,11 +9,26 @@ class Table
 
     private int $pageSize = 10;
     private int $page = 0;
+    private int $itemsCount = 0;
+    private int $totalPages = 0;
 
     public function __construct()
     {
         $this->orderBy = ($this->IsColumnNameValid(@$_GET['order']) ? $_GET['order'] : "");
         $this->direction = $_GET['direction'] ?? "";
+        $this->page = $this->GetPageNumber();
+
+    }
+
+    private function GetPageNumber(): int
+    {
+        $this->itemsCount = DB::i()->pages();
+        $page =  intval($_GET['page'] ?? 0);
+        $this->totalPages = ceil($this->itemsCount / $this->pageSize);
+        if (($page < 0) || $page > $this->totalPages){
+            return 0;
+        }
+        return $page;
     }
 
     private function IsColumnNameValid($name) : bool {
@@ -36,8 +51,16 @@ class Table
     private function RenderHead() : string {
         $header = "";
         foreach ($this->GetColumnAttributes() as $attribName => $value) {
-            $direction = $this->orderBy == $attribName && $this->direction == "DESC" ? "" : "DESC";
-            $header .= "<th><a href=\"?order={$attribName}&direction={$direction}\">{$attribName}</a></th>";
+
+            $hrefParams = ['order' => $attribName];
+
+            if ($this->orderBy == $attribName && $this->direction == ""){
+                $hrefParams['direction'] = "DESC";
+            } else {
+                $hrefParams['direction'] = "";
+            }
+
+            $header .= "<th><a href=\"{$this->GetHREF($hrefParams)}\">{$attribName}</a></th>";
         }
         return "<tr>{$header}</tr>";
     }

@@ -593,7 +593,7 @@ class Table
 }
 ```
 
-Posledná úpravu vykonáme v metóde  `Table->RenderHead() `, kde musíme nastaviť hodnotu _GET parametre_ `direciton` na `DESC` iba v prípade ak bol daný stĺpec už zoradení, ináč nastavíme hodnotu tohto parametra na prázdny textový reťazec. Úprava bude nasledovná: 
+Posledná úpravu vykonáme v metóde  `Table->RenderHead()`, kde musíme nastaviť hodnotu _GET parametre_ `direciton` na `DESC` iba v prípade ak bol daný stĺpec už zoradení, ináč nastavíme hodnotu tohto parametra na prázdny textový reťazec. Úprava bude nasledovná: 
 
 ```php
 class Table
@@ -621,4 +621,72 @@ Stránkovanie môžeme implementovať jednoducho pomocou [_SQL limit_](https://w
 
 1. Koľko záznamov sa má zobraziť na jednej stránke
 2. Ktorá stránka sa aktuálne zobrazuje.
+
+Budeme preto používať ďalší _GET parametre_ `page`, ktorého hodnota bude predstavovať `offet` hodnotu pre `limit` v SQL dopyte. Vzhľadom na zväčšujúci sa počet parametrov, bude najlepšie vytvoriť metódu v triede `Table`, ktorá nám uľahčí generovanie URL pre `<a>` elementy.
+
+Vytvorime si preto v triede `Table` novú privátnu metódu `GEtHREF()`. Táto metóda bude mať vstupný parameter, ktorý bude pole. Index tohto pola bude predstavovať názov _GET parametra_ a jeho hodnota jeho hodnotu. Toto pole bude predstavovať parametre ktorých hodnota sa má upraviť alebo pridať ak nebudú existovať.
+
+V prvom kroku si vytvoríme kópiu super-globálnej premennej `$_GET` do lokálnej premennej `$a`, nakoľko toto pole budeme pravdepodobne modifikovať. Následne prechádzame vstupnú premennú `$params`, kde v cykle `foreach` používame ako index tak a hodnotu. Ak má táto premenná nejaké hodnoty priradíme ich do lokálnej premennej `$a`.
+
+Samotný reťazec _GET parametrov_ zostavíme zavolaním funkcie [http_build_query()](https://www.php.net/manual/en/function.http-build-query.php) a doplníme ešte oddelenie _GET parametrov_ v _URL_ pomocou zanaku `?`. Kód metódy je nasledovný:
+
+
+```php
+class Table
+{
+    // ...
+
+    private function GetHREF($params = []): string
+    {
+        $a = $_GET;
+        if ($params){
+            foreach ($params as $paramName => $paramValue){
+                $a[$paramName] = $paramValue;
+            }
+        }
+        return "?".http_build_query($a);
+    }
+  
+    // ... 
+}
+```
+
+Teraz upravíme generovanie hlavičky v metóde `Table->RenderHead()`. Tu v cykle najprv inicializujeme pole s a doplnime do neho parameter `order` aj s hodnotou. Ako druhé budeme kontrolovať, či je už tabuľka zoradená podľa aktuálne stĺpca ak áno pridáme do pola index `direction` s hodnotou `DESC` ináč mu pridáme prázdny textový reťazec.
+
+Upravíme ešte generovanie `href` parametra pre element `<a>`, tak aby používal metódu `Table->GetHREF()`. Úprava bude nasledovná:
+
+```php
+class Table
+{
+    // ...
+
+    private function RenderHead() : string {
+        $header = "";
+        foreach ($this->GetColumnAttributes() as $attribName => $value) {
+
+            $hrefParams = ['order' => $attribName];
+
+            if ($this->orderBy == $attribName && $this->direction == ""){
+                $hrefParams['direction'] = "DESC";
+            } else {
+                $hrefParams['direction'] = "";
+            }
+
+            $header .= "<th><a href=\"{$this->GetHREF($hrefParams)}\">{$attribName}</a></th>";
+        }
+        return "<tr>{$header}</tr>";
+    }
+  
+    // ... 
+}
+```
+
+Môžeme pokračovať v pridávaní stránkovania. Do triedy `Table` pridáme privátne atribúty a to:
+
+1. `$pageSize` - hovorí o tom koľko záznamov sa bude zobrazovať na jednej stránke
+2. `$page` - na ktorej stránke sa aktuálne nachádzame, predvolená hodnota bude 0 - na prvej.
+3. `$itemsCount` - koľko záznamov dokopy obsahuje tabuľka
+4. `$totalPages` - koľko strán obsahuje tabuľka
+
+Teraz vytvoríme 
 
