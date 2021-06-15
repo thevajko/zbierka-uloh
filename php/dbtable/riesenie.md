@@ -453,6 +453,38 @@ class Db
 }
 ```
 
+Touto úpravou však zanášame bezpečnostnú zneužiteľnosť tým, že do _SQL dopytu_ vkladáme priamo hodnotu s _GET parametra_ `order`. Naša aplikácia je momentálne napadnuteľná útokom [_SQL injection_](https://www.w3schools.com/sql/sql_injection.asp).
+
+Pokiaľ vkladáme hodnoty, vieme zabezpečiť hodnoty pomocou [_PDO preprare statement_](https://code.tutsplus.com/tutorials/why-you-should-be-using-phps-pdo-for-database-access--net-12059). To sa však týka iba hodnôt a nie je možné ich použiť na pridávanie názvov tabuliek alebo názvov stĺpcov. To si budeme musieť ošetriť sami.
+
+Najjednoduchším spôsobom bude preto overiť, či hodnota z _GET parametra_ `order` zodpovedá jednému z názvov stĺpcov, ktoré nám vie vrátiť metóda `Table->GetColumnAttributes()`. Pridáme preto do triedy `Table` novú privátnu metódu `IsColumnNameValid()`, ktorá bude overovať správnosť hodnoty. Jej kód bude nasledovný:
+
+```php
+class Table
+{
+    // ...
+
+    private function IsColumnNameValid($name) : bool {
+        return array_key_exists($name, $this->GetColumnAttributes());
+    }
+    
+    // ...
+}
+````
+
+Následne pridáme overenie do konštruktora triedy `Table` tak, že v prípade nesprávnej hodnoty sa pre zoradenie použije prázdny textový reťazec:
+
+```php
+class Table
+{
+    public function __construct()
+    {
+        $this->orderBy = ($this->IsColumnNameValid(@$_GET['order']) ? $_GET['order'] : "");
+    }
+    // ...
+}
+````
+
 Teraz potrebujeme upraviť metódu `Table->RenderBody()`, tak aby sa pri volaní metódy `Db->getAllUsers()` do nej vkladal parameter `$this->orderBy`. Po úprave bude jej kód nasledovný:
 
 ```php
@@ -479,3 +511,114 @@ class Table
 Zoraďovanie tabuľky by malo fungovať nasledovne:
 
 ![](images_dbtable/dbtable-01.gif)
+
+### Obojstranné zoraďovanie
+
+Objstranné zoradovanie bude fungovať tak, že prvým kliknutím na hlavičku stĺpca sa najprv zoradí jedným smerom a následne keď naň klikneme opäť zoradí sa v opačnom poradí. Budeme musieť preto pridať nový _GET parameter_ `direction`, ktorý:
+
+1. V prípade, že nebude prítomný alebo bude obsahovať inú hodnotu ako `DESC` zoradí tabuľku podľa daného stĺpca vzostupne.
+2. Ak bude prítomný a bude obsahovať hodnotu `DESC` zoradí danú tabuľku zostupne.
+
+Do triedy `Table` pridáme nový privátny atribút `direction` a v konštruktore budeme zisťovať jeho prítomnosť v `$_GET` :
+
+```php
+class Table
+{
+     private string $orderBy = "";
+     private string $direction = "";
+
+    public function __construct()
+    {
+        $this->orderBy = ($this->IsColumnNameValid(@$_GET['order']) ? $_GET['order'] : "");
+        $this->direction = $_GET['direction'] ?? "";
+    }
+   
+    // ... 
+}
+```
+
+Teraz pridáme do metódy `Db->getAllUsers()` nový vstupný parameter `$sortDirection` a nastavíme mu predvolenú hodnotu vstupu na prázdny textový reťazec. Následne doplníme kontrolu či vstupný  parameter `$sortDirection` obsahuje hodnotu `DESC` a až vtedy do lokálnej premennej `$direc` pridáme hodnotu `DESC` a opačnom prípade do nej priradíme `ASC` (zabránime tak možnému zneužitiu hodnoty _GET parametre_ `direction`). Upravený kód tejto metódy bude vyzerať nasledovne:
+
+```php
+class Db
+{
+    // ... 
+    /**
+     * @return User[]
+     */
+    public function getAllUsers($sortedBy = "", $sortDirection = ""): array
+    {
+        $sql = "SELECT * FROM users";
+
+        if ($sortedBy) {
+            $direc = $sortDirection == "DESC" ? "DESC" : "ASC";
+            $sql = $sql . " ORDER BY {$sortedBy} {$direc}" ;
+        }
+
+        try {
+            return $this->pdo
+                ->query($sql)
+                ->fetchAll(PDO::FETCH_CLASS, User::class);
+        }  catch (\PDOException $e) {
+            die($e->getMessage());
+        }
+    }
+   
+    // ... 
+}
+```
+
+Do metódy `Table->RenderBody()` doplníme parameter pre zoradovanie:
+
+```php
+class Table
+{
+    // ...
+    private function RenderBody() : string
+    {
+        $body = "";
+        $users = DB::i()->getAllUsers($this->orderBy, $this->direction);
+
+        foreach ($users as $user) {
+            $tr = "";
+            foreach ($this->GetColumnAttributes() as $attribName => $value) {
+                $tr .= "<td>{$user->$attribName}</td>";
+            }
+            $body .= "<tr>$tr</tr>";
+        }
+        return $body;
+    }
+   
+    // ... 
+}
+```
+
+Posledná úpravu vykonáme v metóde  `Table->RenderHead() `, kde musíme nastaviť hodnotu _GET parametre_ `direciton` na `DESC` iba v prípade ak bol daný stĺpec už zoradení, ináč nastavíme hodnotu tohto parametra na prázdny textový reťazec. Úprava bude nasledovná: 
+
+```php
+class Table
+{
+    // ...
+    private function RenderHead() : string {
+        $header = "";
+        foreach ($this->GetColumnAttributes() as $attribName => $value) {
+            $direction = $this->orderBy == $attribName && $this->direction == "DESC" ? "" : "DESC";
+            $header .= "<th><a href=\"?order={$attribName}&direction={$direction}\">{$attribName}</a></th>";
+        }
+        return "<tr>{$header}</tr>";
+    }
+  
+    // ... 
+}
+```
+Tabuľa sa bude zoradovať nasledovne:
+
+![](images_dbtable/dbtable-02.gif)
+
+### Stránkovanie výsledkov
+
+Stránkovanie môžeme implementovať jednoducho pomocou [_SQL limit_](https://www.w3schools.com/php/php_mysql_select_limit.asp). Pre zostavenie potrebujeme vedieť dve veci:
+
+1. Koľko záznamov sa má zobraziť na jednej stránke
+2. Ktorá stránka sa aktuálne zobrazuje.
+

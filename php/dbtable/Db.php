@@ -27,15 +27,21 @@ class Db {
         }
     }
 
+    public function pages()
+    {
+        return $this->pdo->query("SELECT count(*) FROM users")->fetchColumn();
+    }
+
     /**
      * @return User[]
      */
-    public function getAllUsers($sortedBy = ""): array
+    public function getAllUsers($sortedBy = "", $sortDirection = ""): array
     {
         $sql = "SELECT * FROM users";
 
         if ($sortedBy) {
-            $sql = $sql . " ORDER BY {$sortedBy} ASC" ;
+            $direc = $sortDirection == "DESC" ? "DESC" : "ASC";
+            $sql = $sql . " ORDER BY {$sortedBy} {$direc}" ;
         }
 
         try {
