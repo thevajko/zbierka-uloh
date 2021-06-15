@@ -1,0 +1,19 @@
+version: '3'
+services:
+  web:
+    build: .
+    volumes:
+      - ./:/var/www/html/
+    ports:
+      - "80:80"
+    links:
+      - mailhog:mailhog
+    depends_on:
+      - mailhog
+    stdin_open: true
+    tty: true
+
+  mailhog:
+    image: mailhog/mailhog:v1.0.1
+    ports:
+      - "8025:8025"
