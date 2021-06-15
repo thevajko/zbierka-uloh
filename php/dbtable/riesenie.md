@@ -453,6 +453,38 @@ class Db
 }
 ```
 
+Touto úpravou však zanášame bezpečnostnú zneužiteľnosť tým, že do _SQL dopytu_ vkladáme priamo hodnotu s _GET parametra_ `order`. Naša aplikácia je momentálne napadnuteľná útokom [_SQL injection_](https://www.w3schools.com/sql/sql_injection.asp).
+
+Pokiaľ vkladáme hodnoty, vieme zabezpečiť hodnoty pomocou [_PDO preprare statement_](https://code.tutsplus.com/tutorials/why-you-should-be-using-phps-pdo-for-database-access--net-12059). To sa však týka iba hodnôt a nie je možné ich použiť na pridávanie názvov tabuliek alebo názvov stĺpcov. To si budeme musieť ošetriť sami.
+
+Najjednoduchším spôsobom bude preto overiť, či hodnota z _GET parametra_ `order` zodpovedá jednému z názvov stĺpcov, ktoré nám vie vrátiť metóda `Table->GetColumnAttributes()`. Pridáme preto do triedy `Table` novú privátnu metódu `IsColumnNameValid()`, ktorá bude overovať správnosť hodnoty. Jej kód bude nasledovný:
+
+```php
+class Table
+{
+    // ...
+
+    private function IsColumnNameValid($name) : bool {
+        return array_key_exists($name, $this->GetColumnAttributes());
+    }
+    
+    // ...
+}
+````
+
+Následne pridáme overenie do konštruktora triedy `Table` tak, že v prípade nesprávnej hodnoty sa pre zoradenie použije prázdny textový reťazec:
+
+```php
+class Table
+{
+    public function __construct()
+    {
+        $this->orderBy = ($this->IsColumnNameValid(@$_GET['order']) ? $_GET['order'] : "");
+    }
+    // ...
+}
+````
+
 Teraz potrebujeme upraviť metódu `Table->RenderBody()`, tak aby sa pri volaní metódy `Db->getAllUsers()` do nej vkladal parameter `$this->orderBy`. Po úprave bude jej kód nasledovný:
 
 ```php
@@ -479,3 +511,392 @@ class Table
 Zoraďovanie tabuľky by malo fungovať nasledovne:
 
 ![](images_dbtable/dbtable-01.gif)
+
+### Obojstranné zoraďovanie
+
+Objstranné zoradovanie bude fungovať tak, že prvým kliknutím na hlavičku stĺpca sa najprv zoradí jedným smerom a následne keď naň klikneme opäť zoradí sa v opačnom poradí. Budeme musieť preto pridať nový _GET parameter_ `direction`, ktorý:
+
+1. V prípade, že nebude prítomný alebo bude obsahovať inú hodnotu ako `DESC` zoradí tabuľku podľa daného stĺpca vzostupne.
+2. Ak bude prítomný a bude obsahovať hodnotu `DESC` zoradí danú tabuľku zostupne.
+
+Do triedy `Table` pridáme nový privátny atribút `direction` a v konštruktore budeme zisťovať jeho prítomnosť v `$_GET` :
+
+```php
+class Table
+{
+     private string $orderBy = "";
+     private string $direction = "";
+
+    public function __construct()
+    {
+        $this->orderBy = ($this->IsColumnNameValid(@$_GET['order']) ? $_GET['order'] : "");
+        $this->direction = $_GET['direction'] ?? "";
+    }
+   
+    // ... 
+}
+```
+
+Teraz pridáme do metódy `Db->getAllUsers()` nový vstupný parameter `$sortDirection` a nastavíme mu predvolenú hodnotu vstupu na prázdny textový reťazec. Následne doplníme kontrolu či vstupný  parameter `$sortDirection` obsahuje hodnotu `DESC` a až vtedy do lokálnej premennej `$direc` pridáme hodnotu `DESC` a opačnom prípade do nej priradíme `ASC` (zabránime tak možnému zneužitiu hodnoty _GET parametre_ `direction`). Upravený kód tejto metódy bude vyzerať nasledovne:
+
+```php
+class Db
+{
+    // ... 
+    /**
+     * @return User[]
+     */
+    public function getAllUsers($sortedBy = "", $sortDirection = ""): array
+    {
+        $sql = "SELECT * FROM users";
+
+        if ($sortedBy) {
+            $direc = $sortDirection == "DESC" ? "DESC" : "ASC";
+            $sql = $sql . " ORDER BY {$sortedBy} {$direc}" ;
+        }
+
+        try {
+            return $this->pdo
+                ->query($sql)
+                ->fetchAll(PDO::FETCH_CLASS, User::class);
+        }  catch (\PDOException $e) {
+            die($e->getMessage());
+        }
+    }
+   
+    // ... 
+}
+```
+
+Do metódy `Table->RenderBody()` doplníme parameter pre zoradovanie:
+
+```php
+class Table
+{
+    // ...
+    private function RenderBody() : string
+    {
+        $body = "";
+        $users = DB::i()->getAllUsers($this->orderBy, $this->direction);
+
+        foreach ($users as $user) {
+            $tr = "";
+            foreach ($this->GetColumnAttributes() as $attribName => $value) {
+                $tr .= "<td>{$user->$attribName}</td>";
+            }
+            $body .= "<tr>$tr</tr>";
+        }
+        return $body;
+    }
+   
+    // ... 
+}
+```
+
+Posledná úpravu vykonáme v metóde  `Table->RenderHead()`, kde musíme nastaviť hodnotu _GET parametre_ `direciton` na `DESC` iba v prípade ak bol daný stĺpec už zoradení, ináč nastavíme hodnotu tohto parametra na prázdny textový reťazec. Úprava bude nasledovná: 
+
+```php
+class Table
+{
+    // ...
+    private function RenderHead() : string {
+        $header = "";
+        foreach ($this->GetColumnAttributes() as $attribName => $value) {
+            $direction = $this->orderBy == $attribName && $this->direction == "DESC" ? "" : "DESC";
+            $header .= "<th><a href=\"?order={$attribName}&direction={$direction}\">{$attribName}</a></th>";
+        }
+        return "<tr>{$header}</tr>";
+    }
+  
+    // ... 
+}
+```
+Tabuľa sa bude zoradovať nasledovne:
+
+![](images_dbtable/dbtable-02.gif)
+
+### Stránkovanie výsledkov
+
+Stránkovanie môžeme implementovať jednoducho pomocou [_SQL limit_](https://www.w3schools.com/php/php_mysql_select_limit.asp). Pre zostavenie potrebujeme vedieť dve veci:
+
+1. Koľko záznamov sa má zobraziť na jednej stránke
+2. Ktorá stránka sa aktuálne zobrazuje.
+
+Budeme preto používať ďalší _GET parametre_ `page`, ktorého hodnota bude predstavovať `offet` hodnotu pre `limit` v SQL dopyte. Vzhľadom na zväčšujúci sa počet parametrov, bude najlepšie vytvoriť metódu v triede `Table`, ktorá nám uľahčí generovanie URL pre `<a>` elementy.
+
+Vytvorime si preto v triede `Table` novú privátnu metódu `GEtHREF()`. Táto metóda bude mať vstupný parameter, ktorý bude pole. Index tohto pola bude predstavovať názov _GET parametra_ a jeho hodnota jeho hodnotu. Toto pole bude predstavovať parametre ktorých hodnota sa má upraviť alebo pridať ak nebudú existovať.
+
+V prvom kroku si vytvoríme kópiu super-globálnej premennej `$_GET` do lokálnej premennej `$a`, nakoľko toto pole budeme pravdepodobne modifikovať. Následne prechádzame vstupnú premennú `$params`, kde v cykle `foreach` používame ako index tak a hodnotu. Ak má táto premenná nejaké hodnoty priradíme ich do lokálnej premennej `$a`.
+
+Samotný reťazec _GET parametrov_ zostavíme zavolaním funkcie [http_build_query()](https://www.php.net/manual/en/function.http-build-query.php) a doplníme ešte oddelenie _GET parametrov_ v _URL_ pomocou zanaku `?`. Kód metódy je nasledovný:
+
+
+```php
+class Table
+{
+    // ...
+
+    private function GetHREF($params = []): string
+    {
+        $a = $_GET;
+        if ($params){
+            foreach ($params as $paramName => $paramValue){
+                $a[$paramName] = $paramValue;
+            }
+        }
+        return "?".http_build_query($a);
+    }
+  
+    // ... 
+}
+```
+
+Teraz upravíme generovanie hlavičky v metóde `Table->RenderHead()`. Tu v cykle najprv inicializujeme pole s a doplnime do neho parameter `order` aj s hodnotou. Ako druhé budeme kontrolovať, či je už tabuľka zoradená podľa aktuálne stĺpca ak áno pridáme do pola index `direction` s hodnotou `DESC` ináč mu pridáme prázdny textový reťazec.
+
+Upravíme ešte generovanie `href` parametra pre element `<a>`, tak aby používal metódu `Table->GetHREF()`. Úprava bude nasledovná:
+
+```php
+class Table
+{
+    // ...
+
+    private function RenderHead() : string {
+        $header = "";
+        foreach ($this->GetColumnAttributes() as $attribName => $value) {
+
+            $hrefParams = ['order' => $attribName];
+
+            if ($this->orderBy == $attribName && $this->direction == ""){
+                $hrefParams['direction'] = "DESC";
+            } else {
+                $hrefParams['direction'] = "";
+            }
+
+            $header .= "<th><a href=\"{$this->GetHREF($hrefParams)}\">{$attribName}</a></th>";
+        }
+        return "<tr>{$header}</tr>";
+    }
+  
+    // ... 
+}
+```
+
+Môžeme pokračovať v pridávaní stránkovania. Do triedy `Table` pridáme privátne atribúty a to:
+
+1. `$pageSize` - hovorí o tom koľko záznamov sa bude zobrazovať na jednej stránke
+2. `$page` - na ktorej stránke sa aktuálne nachádzame, predvolená hodnota bude 0 - na prvej.
+3. `$itemsCount` - koľko záznamov dokopy obsahuje tabuľka
+4. `$totalPages` - koľko strán obsahuje tabuľka
+
+Ako prvé získame dáta z _GET parametru_ `page`. Pre získanie hodnoty vytvoríme novú privátnu metódu `GetPageNumber()` v ktorej budeme hodnotu tohto parametra aj validovať. Kontrolovať budeme nasledovné:
+
+1. Hodnota je typu `int` ak nie vrátime hodnotu `0`.
+2. Hodnota nesmie byť menšia ako `0`, ak je vrátime hodnotu `0`.
+3. Hodnota nesmie byť väčšia ako _maximálny počet stránok_, ak je vrátime hodnotu `0`.
+
+Pred samotným získaním a overovaním dát stránkovania musíme doplniť do triedz `Db` metódu `UsersCount()`, ktorá nám vráti celkový počet záznamov v databázovej tabuľke `users`. To zrealizujeme dopytom `SELECT count(*) FROM users` nasledovne:
+
+```php
+class Db
+{
+    // ...
+    public function UsersCount() : int
+    {
+        return $this->pdo->query("SELECT count(*) FROM users")->fetchColumn();
+    }
+    // ... 
+}
+```
+
+Nasleduje získanie aktuálnej stránky:
+
+```php
+class Table
+{
+    // ...
+
+    private int $pageSize = 10;
+    private int $page = 0;
+    private int $itemsCount = 0;
+    private int $totalPages = 0;
+    // ...
+   private function GetPageNumber(): int
+    {
+        $this->itemsCount = DB::i()->UsersCount()();
+        $page =  intval($_GET['page'] ?? 0);
+        $this->totalPages = ceil($this->itemsCount / $this->pageSize);
+        if (($page < 0) || $page > $this->totalPages){
+            return 0;
+        }
+        return $page;
+    }
+  
+    // ... 
+}
+```
+
+Daľším krokom je vytvorenie metódy, ktorá generovať _HTML_ kód s klikatelnými linkami pre zmenu zobrazenej stranky. V triede `Table` vytvoríme novú privátnu metódu `RenderPaginator()`.
+
+V nej vytvorime pre každú stránku pomocou cyklu element `<a>` s patričnou hodnotu _GET parametru_ `page` nasledovne: 
+
+```php
+class Table
+{
+    // ...
+
+    private function RenderPaginator() : string {
+
+        $r = "";
+        for ($i = 0; $i < $this->totalPages; $i++){
+            $href = $this->GetHREF(['page' => $i]);
+            $r .= "<a href=\"{$href}\">{$i}</a>";
+        }
+
+        return "<div>$r</div>";
+    }
+    // ... 
+}
+```
+
+Teraz upravíme metódu `Db->getAllUsers()`, ak aby bolo do nej možné vložiť parametre definujúce z ktorej stránky sa majú záznamy zobraziť. Pridáme dva vstupné parametre `$page` a `$pageSize` s predvolenými hodnotami `0` a `10`. Následne rozšírime _SQL dopyt_ o časť [`LIMIT` a `OFFSET`](https://www.sqltutorial.org/sql-limit/).  `Offest` definuje koľko záznamov sa ma preskočiť a ich počet získame vynásobením `$page` a `$pageSize`. Upravený kód bude:
+
+```php
+class Db
+{
+    // ...
+    /**
+     * @return User[]
+     */
+    public function getAllUsers($sortedBy = "", $sortDirection = "", $page = 0, $pageSize = 10): array
+    {
+        $sql = "SELECT * FROM users";
+
+        if ($sortedBy) {
+            $direc = $sortDirection == "DESC" ? "DESC" : "ASC";
+            $sql = $sql . " ORDER BY {$sortedBy} {$direc}" ;
+        }
+
+        $page *= $pageSize;
+        $sql .= " LIMIT {$pageSize} OFFSET {$page}";
+
+        try {
+            return $this->pdo
+                ->query($sql)
+                ->fetchAll(PDO::FETCH_CLASS, User::class);
+        }  catch (\PDOException $e) {
+            die($e->getMessage());
+        }
+    }
+}
+```
+
+Teraz môžeme doplniť predanie parametrov o stránke pre zobrazenie do `Table->RenderBody()` nasledovne:
+
+```php
+class Table
+{
+    // ...
+
+  private function RenderBody() : string
+    {
+        $body = "";
+        $users = DB::i()->getAllUsers($this->orderBy, $this->direction, $this->page, $this->pageSize);
+
+        foreach ($users as $user) {
+            $tr = "";
+            foreach ($this->GetColumnAttributes() as $attribName => $value) {
+                $tr .= "<td>{$user->$attribName}</td>";
+            }
+            $body .= "<tr>$tr</tr>";
+        }
+        return $body;
+    }
+    // ... 
+}
+```
+
+Pri zmene zoradenia je dobré nastaviť zobrazenú stránku na prvú. To urobíme jednoducho, tým že v metóde `Table->RenderHead()` pridáme do lokálnej premennej `$hrefParams` index `page` s hodnotou `0` nasledovne:
+
+
+```php
+class Table
+{
+    // ...
+
+    private function RenderHead() : string {
+        $header = "";
+        foreach ($this->GetColumnAttributes() as $attribName => $value) {
+
+            $hrefParams = [
+                'order' => $attribName,
+                'page' => 0
+            ];
+
+            if ($this->orderBy == $attribName && $this->direction == ""){
+                $hrefParams['direction'] = "DESC";
+            } else {
+                $hrefParams['direction'] = "";
+            }
+
+            $header .= "<th><a href=\"{$this->GetHREF($hrefParams)}\">{$attribName}</a></th>";
+        }
+        return "<tr>{$header}</tr>";
+    }
+    // ... 
+}
+```
+
+Ako posledné pridáme štýlovanie k tlačítkam stránkovača aby sme vedeli používateľovi zobraziť ktorú stránku ma aktuálne zobrazenú. Upravíme preto metódu `Table->RenderPaginator()` tak aby elementu `<a>` aktuálne zobrazenej stránky pridal do atribútu `class` triedu `active` nasledovne:
+
+```php
+class Table
+{
+    // ...
+    private function RenderPaginator() : string {
+
+        $r = "";
+        for ($i = 0; $i < $this->totalPages; $i++){
+            $href = $this->GetHREF(['page' => $i]);
+            $active = $this->page == $i ? "active" : "";
+            $r .= "<a href=\"{$href}\" class=\"{$active}\">{$i}</a>";
+        }
+
+        return "<div>$r</div>";
+    }
+}
+```
+
+Upravime ešte súbor `index.php` tak aby sme modli doplniť CSS pre stránkovač nasledovne:
+
+```php
+<?php
+
+require "User.php";
+require "Db.php";
+require "Table.php";
+
+$usersTable = new Table();
+?><html>
+<head>
+    <style>
+        div a {
+            display: inline-block;
+            margin: 4px;
+            padding: 4px;
+            border: 1px solid black;
+        }
+        a.active {
+            background-color: #949494;
+        }
+    </style>
+</head>
+    <body>
+        <?php echo $usersTable->Render(); ?>
+    </body>
+</html>
+```
+
+Tabuľka sa nám bude zobrazovať nasledovne:
+
+![](images_dbtable/dbtable-03.gif)
+
