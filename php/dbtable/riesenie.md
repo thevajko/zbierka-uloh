@@ -900,3 +900,198 @@ Tabuľka sa nám bude zobrazovať nasledovne:
 
 ![](images_dbtable/dbtable-03.gif)
 
+### Filtrovanie
+
+Ako prvé budeme možnosť filtrovania pridávať do triedy `db`. Filtrovanie sa do _SQL_ pridáva podmienky `LIKE` do časti `WHERE`. Tu musíme špecifikovať presne čo chceme vyhľadávať a v ktorom stĺpci. Taktiež rovnakú filtráciu musíme pridať pri získavaní celkového počtu záznamov, aby sa nám zobrazoval adekvátny počet strán v stránkovači.
+
+Z tohto dôvodu ako prvé vytvoríme v triede `Db` novú privátnu metódu `getFilter()`, ktorej úlohou bude vytvorenie podmienky pre filtrovanie a tú následne pridáme ako do získania celkového počtu záznamov v metóde `Db->UsersCount()` tak aj do získavania samotných dát v metóde `Db->getAllUsers()`.
+
+Metóda `getFilter()` bude obsahovať jeden vstupný parameter, a to hodnotu podľa ktorej chceme výsledky filtrovať a samotnú podmienku na filtrovanie zostaví iba ak nebude táto vstupná premenná prázdna.
+
+Nakoľko musíme pre každý stĺpec v ktorom chceme vyhľadávať uviesť samostatnú podmienku, môžeme si vytvoriť pole v ktorom budú názvy stĺpcov pre vyhľadávanie a následne v cykle postupne podmienku zostavovať.
+
+Zoznam stĺcov je umiestnený v premenej `$searchableColumns` a jednotlivé podmienky budeme ukladat ako pole stringov do premennej `$search`. To pospajame do jedného textového reťazca pomocou funkcie [`implode()`](https://www.php.net/manual/en/function.implode.php) doplníme slovo `WHERE` a s každej strany doplníme medzeru aby sme sa vyhli nevhodnému pospájaniu vo výsledom _SQL dopyte_. 
+
+_SQL dopyt_ umožňuje za znakom `%` definovať ľubovolnú postupnosť znakov medzi pevne stanovenými znakmi v hľadanom výraze. Používatelia sú ale zvyknutý skôr použiť znak `*`. Z tohto dôvodu môžeme v premennej `$filter` vymeniť všetky znaky `*` za znak `%` pomocou PHP funkcie [`str_replace()`](https://www.php.net/manual/en/function.str-replace.php). 
+
+Kód metódy bude nasledovný:
+
+```php
+class Db
+{
+    // ...
+    private function getFilter($filter = ""){
+
+        if ($filter){
+             $filter = str_replace("*","%", $filter);
+            $searchableColumns = ["name", "surname", "mail"];
+            $search = [];
+            foreach ($searchableColumns as $columnName) {
+                $search[] = " {$columnName} LIKE '%{$filter}%' ";
+            }
+            return " WHERE ". implode(" OR ", $search). " ";
+        }
+        return "";
+    }
+    // ...
+}
+```
+
+Najprv filtráciu doplníme do metódy `Db->UsersCount()` a doplníme vstupnú premennú pre filtrovanie nasledovne:
+
+```php
+class Db
+{
+    // ...
+    public function UsersCount($filter = "") : int
+    {
+        return $this->pdo
+            ->query("SELECT count(*) FROM users" . $this->getFilter($filter))
+            ->fetchColumn();
+    }
+    // ...
+}
+```
+
+Teraz modifikujeme metódu `Db->UsersCount()` a doplníme ju na správne miesto, tak ako to určuje predpis pre zostavenie _SQL dopytu:
+
+
+```php
+class Db
+{
+    // ...
+
+    /**
+     * @return User[]
+     */
+    public function getAllUsers($sortedBy = "", $sortDirection = "", $page = 0, $pageSize = 10, $filter = ""): array
+    {
+        $sql = "SELECT * FROM users";
+
+        $sql .= $this->getFilter($filter);
+
+        if ($sortedBy) {
+            $direc = $sortDirection == "DESC" ? "DESC" : "ASC";
+            $sql = $sql . " ORDER BY {$sortedBy} {$direc}" ;
+        }
+
+        $page *= $pageSize;
+        $sql .= " LIMIT {$pageSize} OFFSET {$page}";
+
+        try {
+            return $this->pdo
+                ->query($sql)
+                ->fetchAll(PDO::FETCH_CLASS, User::class);
+        }  catch (\PDOException $e) {
+            die($e->getMessage());
+        }
+    }
+}
+```
+
+Teraz potrebujeme upraviť triedu `Table` tak, že jej pridáme nový privátny atribút `$filter` a do jej konštruktora pridáme získanie hodnoty _GET parametra_ `filter`.
+
+Aby sme predišli možnému zneužitiu _SQL injection_ bude stačiť ak v hodnote _GET parametra_ `filter` vymažeme všetky znaky `'`, nakoľko hľadaný výraz je zadávaný ako string medzi znakmi `'` v _SQL dopyte_. Upravený konštruktor bude:
+
+```php
+class Table
+{
+    // ...
+    private string $filter = "";
+    
+    public function __construct()
+    {
+        $this->orderBy = ($this->IsColumnNameValid(@$_GET['order']) ? $_GET['order'] : "");
+        $this->direction = $_GET['direction'] ?? "";
+        $this->filter =  str_replace( "'", "",$_GET['filter'] ?? "");
+
+        $this->page = $this->GetPageNumber();
+
+    }
+    //..
+}
+```
+
+Teraz ako prvú upravíme metódu `Table->GetPageNumber()`. Jediné čo v nej vykonáme je pridanie parametra podla ktorého budeme filtrovať do volania metódy `DB::i()->UsersCount()` nasledovne:
+
+```php
+class Table
+{
+    // ...
+    private function GetPageNumber(): int
+    {
+        $this->itemsCount = DB::i()->UsersCount($this->filter);
+        $page =  intval($_GET['page'] ?? 0);
+        $this->totalPages = ceil($this->itemsCount / $this->pageSize);
+        if (($page < 0) || $page > $this->totalPages){
+            return 0;
+        }
+        return $page;
+    }
+    //..
+}
+```
+
+To istú úpravu vykonáme v metóde  `Table->RenderBody()` :
+
+```php
+class Table
+{
+    // ...
+    private function RenderBody() : string
+    {
+        $body = "";
+        $users = DB::i()->getAllUsers($this->orderBy, $this->direction, $this->page, $this->pageSize, $this->filter);
+
+        foreach ($users as $user) {
+            $tr = "";
+            foreach ($this->GetColumnAttributes() as $attribName => $value) {
+                $tr .= "<td>{$user->$attribName}</td>";
+            }
+            $body .= "<tr>$tr</tr>";
+        }
+        return $body;
+    }
+    //..
+}
+```
+
+Tým pádom máme logiku pripravenú pre filtrovanie. Teraz vytvoríme novú privátnu metódu `Table->RenderFilter()`, ktorá vráti _HTML formulár_ pre zadanie filtrovaného výrazu.
+
+Formuláru nedopĺňame žiadne extra atribúty ani nastavenia _GET parametrov_ nakoľko chceme aby sa tabuľka po odoslaní filtrovaného výrazu zobrazila na prvej stránke a nezoradená. Jedíné čo je potrebné doplniť je hodnota atribútu `value` elementu `<input>` preto, aby používateľ vedel, podla čoho sa filtrujú výsledky. Metóda bude:
+
+```php
+class Table
+{
+   //..
+    private function RenderFilter() : string{
+        return '<form>
+        <input name="filter" type="text" value="'.$this->filter.'">
+        <button type="submit">Filtrovať</button>
+        </form>';
+    }
+ 
+}
+```
+
+Formulár sa má zobraziť nad tabuľkou, preto ho následovne doplníme do metódy `Table->Render()`:
+
+
+```php
+class Table
+{
+   //..
+
+    public function Render() : string
+    {
+        return $this->RenderFilter()
+        ."<table border=\"1\">{$this->RenderHead()}{$this->RenderBody()}</table>"
+        . $this->RenderPaginator();
+    }
+    //...
+}
+```
+
+Dáta v tabuľke sa budú dať zoraďovať:
+
+![](images_dbtable/dbtable-04.gif)

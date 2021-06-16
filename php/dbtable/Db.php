@@ -27,17 +27,33 @@ class Db {
         }
     }
 
-    public function UsersCount() : int
+    public function UsersCount($filter = "") : int
     {
-        return $this->pdo->query("SELECT count(*) FROM users")->fetchColumn();
+        return $this->pdo->query("SELECT count(*) FROM users" . $this->getFilter($filter))->fetchColumn();
+    }
+
+    private function getFilter($filter = ""){
+
+        if ($filter){
+            $filter = str_replace("*","%", $filter);
+            $searchableColumns = ["name", "surname", "mail"];
+            $search = [];
+            foreach ($searchableColumns as $columnName) {
+                $search[] = " {$columnName} LIKE '%{$filter}%' ";
+            }
+            return " WHERE ". implode(" OR ", $search). " ";
+        }
+        return "";
     }
 
     /**
      * @return User[]
      */
-    public function getAllUsers($sortedBy = "", $sortDirection = "", $page = 0, $pageSize = 10): array
+    public function getAllUsers($sortedBy = "", $sortDirection = "", $page = 0, $pageSize = 10, $filter = ""): array
     {
         $sql = "SELECT * FROM users";
+
+        $sql .= $this->getFilter($filter);
 
         if ($sortedBy) {
             $direc = $sortDirection == "DESC" ? "DESC" : "ASC";
