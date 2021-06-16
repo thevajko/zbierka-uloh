@@ -10,11 +10,17 @@
 
 ## Zadanie
 
-Vytvorte kontaktný formulár, ktorý po vyplnení odošle otázku na email.
+Vytvorte kontaktný formulár, ktorý po vyplnení odošle správu na email. Kontaktný formulár umožní zadať meno a emailovú adresu poúživateľa. Okrem toho bude obsahovať pole, do ktorého je možné napísať text správy, ako viac riadkový text. Formulár bude mať implementované základné validačné pravidlá na strane servera:
+- Meno a správa nemôžu byť prázdne
+- Emailová adresa musí obsahovať email
+
+Formulár by mohol vyzerať nasledovne:
+
+![](images_contact-form/zadanie.jpg)
 
 ### Cieľ príkladu
 
-Cieľom príkladu je vyskúšať si tvorbu a spracovanie formulárov a odosielanie emailov.
+Cieľom príkladu je vyskúšať si tvorbu, spracovanie formulárov a odosielanie emailov.
 
 <div class="hidden">
 
