@@ -12,17 +12,21 @@ class Table
     private int $itemsCount = 0;
     private int $totalPages = 0;
 
+    private string $filter = "";
+
     public function __construct()
     {
         $this->orderBy = ($this->IsColumnNameValid(@$_GET['order']) ? $_GET['order'] : "");
         $this->direction = $_GET['direction'] ?? "";
+        $this->filter =  str_replace( "'", "",$_GET['filter'] ?? "");
+
         $this->page = $this->GetPageNumber();
 
     }
 
     private function GetPageNumber(): int
     {
-        $this->itemsCount = DB::i()->UsersCount();
+        $this->itemsCount = DB::i()->UsersCount($this->filter);
         $page =  intval($_GET['page'] ?? 0);
         $this->totalPages = ceil($this->itemsCount / $this->pageSize);
         if (($page < 0) || $page > $this->totalPages){
@@ -37,7 +41,7 @@ class Table
 
     public function Render() : string
     {
-        return "<table border=\"1\">{$this->RenderHead()}{$this->RenderBody()}</table>". $this->RenderPaginator();
+        return $this->RenderFilter()."<table border=\"1\">{$this->RenderHead()}{$this->RenderBody()}</table>". $this->RenderPaginator();
     }
 
     private ?array $columnAttribs = null;
@@ -70,7 +74,7 @@ class Table
     private function RenderBody() : string
     {
         $body = "";
-        $users = DB::i()->getAllUsers($this->orderBy, $this->direction, $this->page, $this->pageSize);
+        $users = DB::i()->getAllUsers($this->orderBy, $this->direction, $this->page, $this->pageSize, $this->filter);
 
         foreach ($users as $user) {
             $tr = "";
@@ -82,7 +86,6 @@ class Table
         return $body;
     }
 
-
     private function GetHREF($params = []): string
     {
         $a = $_GET;
@@ -93,6 +96,7 @@ class Table
         }
         return "?".http_build_query($a);
     }
+
     private function RenderPaginator() : string {
 
         $r = "";
@@ -103,5 +107,9 @@ class Table
         }
 
         return "<div>$r</div>";
+    }
+
+    private function RenderFilter() : string{
+        return '<form><input name="filter" type="text" value="'.$this->filter.'"><button type="submit">Filtrovať</button></form>';
     }
 }
