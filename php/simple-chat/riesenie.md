@@ -162,5 +162,5 @@ Ak teraz navštívime naše _API_ a nezadáme žiadne parametre, dostaneme chybo
 
 Ak však pridáme _GET parameter_  `method=get-messages` dostaneme normálnu dopoveď aj keď momentálne v podobe prázdneho pola, nakoľko v databáze nemáme žiadne záznamy.
 
-![](images_simplechat/api-02.png
+![](images_simplechat/api-02.png)
 
