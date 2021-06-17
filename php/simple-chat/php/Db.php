@@ -36,7 +36,7 @@ class Db {
     {
         try {
             return $this->pdo
-                ->query("SELECT * FROM messages ORDER by created DESC  LIMIT 50")
+                ->query("SELECT * FROM messages ORDER by created ASC LIMIT 50")
                 ->fetchAll(PDO::FETCH_CLASS, Message::class);
         }  catch (\PDOException $e) {
             throw new Exception($e->getMessage(), 500);
@@ -45,7 +45,7 @@ class Db {
 
     public function StoreMessage(Message $message){
         try {
-            $sql = "INSERT INTO users (message, created) VALUES (?)";
+            $sql = "INSERT INTO messages (message, created) VALUES (?, ?)";
             $this->pdo->prepare($sql)->execute([$message->message, $message->created]);
         }  catch (\PDOException $e) {
             throw new Exception($e->getMessage(), 500);

@@ -123,7 +123,7 @@ class Db {
     {
         try {
             return $this->pdo
-                ->query("SELECT * FROM messages ORDER by created DESC LIMIT 50")
+                ->query("SELECT * FROM messages ORDER by created ASC LIMIT 50")
                 ->fetchAll(PDO::FETCH_CLASS, Message::class);
         }  catch (\PDOException $e) {
             throw new Exception($e->getMessage(), 500);
@@ -197,20 +197,26 @@ window.onload = function (){
 
 Trieda `Chat` bude obsahovať momentálne iba jednú metódu `GetMessages()`, ktorá pomocou [_FETCH API_](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) získavať pole správ zo servera. Ako url doplníme `api.php?method=get-messages`. 
 
-Pre jednoduchosť budeme používať callbackové spracovanie asynchrónnych volaní pomocou metódy `fetch()`. Pri prvom volaní vrátime z odpovede deserializované pole správ zo servera.
+Pre jednoduchosť budeme používať callbackové spracovanie asynchrónnych volaní pomocou metódy `fetch()`. 
 
-Správy budeme vypisovať do elementu `<div>` s `id` `messages`. Tento element nebude slúžiť na nič iné. Jednotlivé elementy správ budeme zostavovať pomcou textvoého reťazca. 
+Pri prvom volaní vrátime z odpovede deserializované pole správ zo servera. Taktiež tu kontorolujeme, či sa kód HTTP statusu rovná inej hodnote ako `200`, pokiaľ áno, vytvoríme a vyhodíme novú chybovú výnimku. Tú odchytí `catch()`, ktorú zadefinujeme ako poslednú. Tá ju momentálne iba vypíše do konzolového výstupu.
+
+Správy budeme vypisovať do elementu `<div>` s `id` `messages`. Tento element nebude slúžiť na nič iné. Jednotlivé elementy správ budeme zostavovať pomocou textového reťazca. 
 
 Každá správa bude samostatne zabalená do elementu `<div class="message">` a dátum vytvorenia s textom bude v samostatnom `<span>` elemente. Každému `<span>` elementu pridáme vlastnú _CSS triedu_ aby ich bolo možné naštýlovať.
 
 HTML kód každej správy sa pridáva do lokálnej premennej `messagesHTML`, ktorú po prejdení všetkých správ priamo pridáme do `innerHTML` elementu. Zobrazené správu sa tak prekreslia.
 
 ```javascript
-
 class Chat {
     GetMessages(){
         fetch("api.php?method=get-messages")
-            .then(response => response.json())
+            .then(response => {
+                response.json()
+                if (response.status != 200) {
+                    throw new Error("ERROR:"  + response.status + " " + response.statusText);
+                }
+            })
             .then(messages => {
                 let messagesHTML = "";
                 messages.forEach(message => {
@@ -221,8 +227,106 @@ class Chat {
                     </div>`;
                 })
                 document.getElementById("messages").innerHTML = messagesHTML;
-            });
+            })
+            .catch(err => console.log('Request Failed', err));
+        ;
     }
+}
+export default Chat;
+```
+
+Do triedy `Chat` môžeme pridať konštruktor, ktorým nastavíme prvotné a následne aj periodické volanie metódy `Chat.GetMessages()`. Konštruktor bude vyzerať nasledovne:
+
+
+```javascript
+class Chat {
+    
+    constructor() {
+        setInterval(this.GetMessages, 1000);
+        this.GetMessages();
+    }
+    
+    // ...
+}
+export default Chat;
+```
+
+Teraz do `index.html` pridáme pod element `<div id=messages>` nový element `<div>` do ktorého umiestníme element `<input>`, ktorý zobrzí textové pole a element `<button>` pre odoslanie napísanej správy.  Súbor `index.html` bude po úprave vyzerať nasledovne:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jednoduchý chat</title>
+    <script type="module" src="js/main.js"></script>
+</head>
+<body>
+    <div id="messages">
+    </div>
+    <div>
+        <input type="text" id="message">
+        <button id="send-button">Odoslať</button>
+    </div>
+</body>
+</html>
+```
+
+Teraz v do javascript triedy `Chat` pridáme metódu `PostMessage()` ktorej zavolaním odošleme dáta novej správy na server. Aby sme požiadavku zaslali asynchrónne pomocou `fetch()` doplníme druhý parameter, ktorý nám umožnuje lepšie špecifikovať HTTP dopyt.
+
+V prvom rade doplníme informáciu o metóde _HTTP požiadavky_ na post pomocou `method: "POST"`. Doplníme hlavičku, kde povieme, že telo _HTTP požiadavky_ bude obsahovať dáta pomocou `'Content-Type': 'application/x-www-form-urlencoded'`. Nakoniec do tela pridáme _POST parameter_ `body` a naplníme ho hodnotou z nášho `<input>` elementu.
+
+V prvom `then()` skontrolujeme kód _HTTP odpovede_. Ak nasne chyba vyhodíme a spracujeme výnimku podobne ako v metóde `GetMessages()`. Pokiaľ je všetko v poriadku druhým `then()` vymažeme vpísanú hodnotu. Kód metódy je nasledovný:
+
+```javascript
+class Chat {
+    // ...
+    PostMessage(){
+        fetch(
+            "api.php?method=post-message",
+            {
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                method: "POST",
+                body: "message=" +  document.getElementById("message").value
+            })
+            .then(response => {
+                if (response.status != 200) {
+                    throw new Error("ERROR:"  + response.status + " " + response.statusText);
+                }
+            })
+            .then( () => {
+                document.getElementById("message").value = "";
+            })
+            .catch(err => console.log('Request Failed', err));
+    }
+    
+    // ...
+}
+export default Chat;
+```
+
+Teraz musíme logiku aktivovať. Upravíme
+
+```javascript
+class Chat {
+    constructor() {
+        setInterval(this.GetMessages, 1000);
+        this.GetMessages();
+
+        document.getElementById("send-button").onclick = () => {
+            this.PostMessage();
+        }
+
+        document.getElementById("message").onkeyup = (event) => {
+            if (event.code === "Enter") {
+                this.PostMessage();
+            }
+        }
+    }
+    
+    // ...
 }
 export default Chat;
 ```
