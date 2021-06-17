@@ -14,7 +14,7 @@ try {
 
         case 'get-messages':
             $messages = Db::i()->GetMessages();
-            json_encode($messages);
+            echo json_encode($messages);
             break;
 
         case 'post-message':

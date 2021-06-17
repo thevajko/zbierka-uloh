@@ -59,7 +59,6 @@ try {
 }
 ```
 
-
 Ako ďalšie si vytvoríme dve _PHP triedy_. Prvá bude predstavovať dátový objekt reprezentujúci jeden riadok v databáze. Nazveme ju `Message` a bude vyzerať nasledovne:
 
 ```php
@@ -71,7 +70,13 @@ class Message
 }
 ```
 
-Trieda pre pripojenie sa bude volať `Db`, bude implementovať _singleton_ a v jej konštruktore inicializujeme spojenie s databázov pomocou `PDO`. Trieda bude vyzerať nasledovne:
+Trieda pre pripojenie sa bude volať `Db`, bude implementovať _singleton_ a v jej konštruktore inicializujeme spojenie s databázou pomocou `PDO`. 
+
+Vzhľadom na to, že chybové výnimky musí odchytávať súbor `api.php` upravíme chovanie `PDO` tak, aby pri nastaní chyby s databázou bola vyhodená výnimka. Čo urobíme ihneď po vytvorení jej inštancie nastavením `  $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);` (toto [nastavenie je predvolené](https://www.php.net/manual/en/pdo.error-handling.php#:~:text=PDO%3A%3AERRMODE_EXCEPTION&text=0%2C%20this%20is%20the%20default,error%20code%20and%20error%20information.) až od verzie PHP 8.0).
+
+Následne si ešte musíme upraviť chybový kód, tak aby zodpovedal _HTTP kódom_. Preto po odchytení výnimky vytvoríme novú výnimku, nastavíme jej rovnakú správu a upravíme jej kód na [`500 Internal Server Error`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500).
+
+Trieda bude vyzerať nasledovne:
 
 ```php
 class Db {
@@ -103,3 +108,59 @@ class Db {
     }
 }
 ```
+
+Teraz do triedy `Db` pridáme verejnú metódu, ktorej výstup bude posledných 50 záznamov z databázovej tabuľky `messages` v podobe pola inštancií triedy `Message`.
+
+```php
+class Db {
+
+    // ...
+    /**
+     * @return Message[]
+     * @throws Exception
+     */
+    public function GetMessages(): array
+    {
+        try {
+            return $this->pdo
+                ->query("SELECT * FROM messages ORDER by created DESC LIMIT 50")
+                ->fetchAll(PDO::FETCH_CLASS, Message::class);
+        }  catch (\PDOException $e) {
+            throw new Exception($e->getMessage(), 500);
+        }
+    }
+}
+```
+
+Teraz pridáme v súbore `api.php` do bloku `switch` reakciu na hodnotu `get-messages` v _HTTP parametre_ `method`. V nej získame pole správ zavolaním ` Db::i()->GetMessages()` a následne ho serializujeme do formátu _JSON_ a vypíšeme do tela odpovede. Nesmieme zabudnúť doplniť pomocou `require` naše definície tried `Message` a `Db`. Pridanie logiky bude vyzerať následovne:
+
+```php
+
+require "php/Message.php";
+require "php/Db.php";
+
+try {
+    switch (@$_GET['method']) {
+
+        // ...
+
+        case 'get-messages':
+            $messages = Db::i()->GetMessages();
+            echo json_encode($messages);
+            break;
+            
+       // ...     
+    }
+} catch (Exception $exception) {
+    // ...    
+}
+```
+
+Ak teraz navštívime naše _API_ a nezadáme žiadne parametre, dostaneme chybovú spolu aj rozpoznaním _HTTP kódu_.
+
+![](images_simplechat/api-01.png)
+
+Ak však pridáme _GET parameter_  `method=get-messages` dostaneme normálnu dopoveď aj keď momentálne v podobe prázdneho pola, nakoľko v databáze nemáme žiadne záznamy.
+
+![](images_simplechat/api-02.png
+

@@ -36,7 +36,7 @@ class Db {
     {
         try {
             return $this->pdo
-                ->query("SELECT * FROM messages LIMIT 50 ORDER by created DESC ")
+                ->query("SELECT * FROM messages ORDER by created DESC  LIMIT 50")
                 ->fetchAll(PDO::FETCH_CLASS, Message::class);
         }  catch (\PDOException $e) {
             throw new Exception($e->getMessage(), 500);
