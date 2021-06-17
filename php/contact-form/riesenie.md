@@ -188,3 +188,57 @@ V prípade poľa na písanie správy, ktoré využíva element `textarea` bude s
 
 ### Odosielanie E-Mailu
 
+Po úspešnej validácii môžme odoslať Email. V php nám na to poslúži funkcia [`mail`](https://www.php.net/manual/en/function.mail). Na to, aby bolo možné odosielať emaily, musí byť aj server správne nakonfigurovaný. Na lokálnom serveri to nemusí vždy fungovať. V prípade využitia priloženého docker-compose sa nám na lokálnom serveri sprístupní aplikácia MailHog, ktorá bude všetky odoslané emaily z php odchytávať a zobrazovať v prehľadnom GUI, vďaka čomu nám umožní rýchlejší vývoj aplikácie.
+
+Samotné odoslanie emailu spravíme vtedy, keď odošleme formulár a prebehne validácia. Ak nenarazíme na žiadne chyby, odošleme e-mail.
+
+```php
+if ($isPost) {
+  ...
+  
+  if (empty($errors)) {
+    mail("kontaktna.adresa@mojmail.sk", "Sprava z kontaktneho formulara", $content, "From: {$name}<{$email}>");
+  }
+}
+```
+
+Prvým parametrom tejto funkcie je adresa príjemcu. V našom prípade chceme, aby správa z kontaktného formulára prišla na náš mail, tak tam vyplníme svoju adresu. Druhým parametrom je predmet správy. Tretím telo a posledným sú hlavičky emailu. V našom príklade tam nastavíme hlavičku From, pomocou ktorej sa nastavuje odosielateľ emailu.
+
+Výsledný email vyzerá po zachytení aplikáciou MailHog nasledovne:
+
+![](images_contact-form/mail.png)
+
+V aktuálnom stave aplikácia po odoslaní emailu opäť zobrazí formulár. Chceli by sme to upraviť tak, aby po úspešnom odoslaní emailu sme dostali informáciu, že správa bola odoslaná.
+
+Túto úpravu spravíme jednoducho tak, že formulár zaobalíme do príkazu `if`.
+
+```php
+<?php if ($isPost && empty($errors)) { ?>
+  Ďakujeme za vašu správu.
+<?php } else { ?>
+  <div class="contact-form">
+    ...
+  </div>
+<?php } ?>
+```
+
+Ak sme odoslali formulár a nemáme žiadnú validačnú chybu tak zobrazíme správu "Ďakujeme za vašu správu." v opačnom prípade zobrazíme opäť kontaktný formulár.
+
+### Rady na záver
+Prezentovaný HTML formulár obsahuje len jednoduchú validáciu. Pre reálne nasadenie by bolo možno vhodné pridať ďalšie validačné pravidlá na napr. obsah správy. Aktuálny formulár neobsahuje žiadnú ochranu proti robotom (botom) takže takýto formulár môže spôsobiť záplavu spamu v emailovej schránke. Bolo by pre to vhodné implementovať nejakú ochranu proti robotom - napríklad zobrazenie formuláru až po prihlásení alebo použitie systému [reCAPTCHA](https://www.google.com/recaptcha/about/) od google.
+
+V našom príklade sme nastavili mail tak, že u príjemcu to vyzerá tak, že mail bol odoslaný z adresy, ktorú zadal použivateľ v kontaktnom formulári. Takéto emaily ale v dnešnej dobe väčšina hostingových providerov nepodporuje, a vyžadujú aby maily boli odosielané z domény, na ktorej daný web beží. V tomto prípade vieme upraviť odosielanie tak, aby mail odišiel z adresy, ktorá patrí danému webu, ale aby sme nestratili kontakt na nášho použivateľa.
+
+```php
+mail(
+  "kontaktna.adresa@mojmail.sk", 
+  "Sprava z kontaktneho formulara", 
+  "Odosielateľ: $name<$email>\n$content", 
+  "From: my@myserver.sk\r\nReply-To: $name<$email>");
+```
+
+Takto odoslaná správa bude vyzerať nasledovne:
+
+![](images_contact-form/mail2.png)
+
+Do tela správy sme doplnili meno odosielateľa a pomocou hlavičky `Reply-To` sme špecifikovali adresu pre odpoveď. Vďaka tomu, keď nám príde správa z kontaktného formulára a v mail klientovi dáme odpoveď, tak táto odpoveď pôjde automaticky na adresu nášho poúživateľa a nie na adresu nášho servera (`my@myserver.sk`), ktorý je špecifikovaný ako odosielateľ.

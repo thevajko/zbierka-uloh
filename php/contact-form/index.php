@@ -27,7 +27,11 @@ if ($isPost) {
     }
 
     if (empty($errors)) {
-        mail("kontaktna.adresa@mojmail.sk", "Sprava z kontaktneho formulara", $content, "From: {$name}<{$email}>");
+        mail(
+            "kontaktna.adresa@mojmail.sk", 
+            "Sprava z kontaktneho formulara", 
+            "Odosielateľ: $name<$email>\n$content", 
+            "From: my@myserver.sk\r\nReply-To: $name<$email>");
     }
 }
 
