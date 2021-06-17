@@ -164,3 +164,65 @@ Ak však pridáme _GET parameter_  `method=get-messages` dostaneme normálnu dop
 
 ![](images_simplechat/api-02.png)
 
+Teraz vytvoríme logiku, ktorá bude vedieť zobraziť získane dáta. Ako prvé si vytvoríme súbor `index.html` a do elementu `<body>` umiestnime element `<div>`, ktorému pridáme atribút `id` s hodnotou `messages`.
+
+Pre lepšiu prehladnosť budeme pre písanie javascript kódu klienta používať _moduly_. Vytvoríme dva súbory. Prvý bude `main.js`, ktorý bude slúžiť ako zostavovač logiky a `chat.js` do ktorého vytvoríme triedu `Chat`.
+
+Súbor `index.html` bude obsahovať:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jednoduchý chat</title>
+    <script type="module" src="js/main.js"></script>
+</head>
+<body>
+    <div id="messages">
+    </div>
+</body>
+</html>
+````
+
+Súbor `main.js` vytvorí po plnej inicializácií stránky v prehliadači inštanciu triedy `Chat` a pridá ju do `window.chat`. Obsah súboru `main.js` bude nasledovný:
+
+```javascript
+import Chat from "./chat.js";
+
+window.onload = function (){
+    window.chat = new Chat();
+}
+```
+
+Trieda `Chat` bude obsahovať momentálne iba jednú metódu `GetMessages()`, ktorá pomocou [_FETCH API_](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) získavať pole správ zo servera. Ako url doplníme `api.php?method=get-messages`. 
+
+Pre jednoduchosť budeme používať callbackové spracovanie asynchrónnych volaní pomocou metódy `fetch()`. Pri prvom volaní vrátime z odpovede deserializované pole správ zo servera.
+
+Správy budeme vypisovať do elementu `<div>` s `id` `messages`. Tento element nebude slúžiť na nič iné. Jednotlivé elementy správ budeme zostavovať pomcou textvoého reťazca. 
+
+Každá správa bude samostatne zabalená do elementu `<div class="message">` a dátum vytvorenia s textom bude v samostatnom `<span>` elemente. Každému `<span>` elementu pridáme vlastnú _CSS triedu_ aby ich bolo možné naštýlovať.
+
+HTML kód každej správy sa pridáva do lokálnej premennej `messagesHTML`, ktorú po prejdení všetkých správ priamo pridáme do `innerHTML` elementu. Zobrazené správu sa tak prekreslia.
+
+```javascript
+
+class Chat {
+    GetMessages(){
+        fetch("api.php?method=get-messages")
+            .then(response => response.json())
+            .then(messages => {
+                let messagesHTML = "";
+                messages.forEach(message => {
+                    messagesHTML += `
+                    <div class="message">
+                        <span class="date">${message.created}</span>
+                        <span class="text">${message.message}</span>
+                    </div>`;
+                })
+                document.getElementById("messages").innerHTML = messagesHTML;
+            });
+    }
+}
+export default Chat;
+```
