@@ -1,0 +1,63 @@
+@startuml
+title Dynamický formulár - Class Diagram
+
+class Form {
+  -AFormElement[] $formFields
+  +array getData()
+  +bool isValid()
+  +bool isSubmitted()
+  +void render()
+  +TextInputField addText(string $name, string $label)
+  +TextInputField addNumber(string $name, string $label)
+  +AFormElement addSubmit()
+}
+
+class AFormElement {
+  +{abstract} void render()
+}
+
+class AFormField {
+  -mixed $value
+  +bool isValid()
+  +mixed getValue()
+  +void render()
+  +self addRule(AValidator $validator)
+  +self required()
+  #void renderElement()
+}
+
+
+class TextInputField {
+  #void renderElement()
+}
+
+class FormSubmit {
+  +void render()
+}
+
+class AValidator {
+  -string $errorMessage
+  +{abstract} bool validate(&$value)
+  +string getMessage()
+}
+
+class RequiredValidator {
+  +bool validate(&$value)
+}
+
+class NumberValidator {
+  +bool validate(&$value)
+}
+
+
+AValidator <|-- RequiredValidator
+AValidator <|-- NumberValidator
+
+AFormElement <|-- AFormField
+AFormElement <|-- FormSubmit
+AFormField <|-- TextInputField
+
+Form *-- AFormElement
+AFormField *-- AValidator
+
+@enduml

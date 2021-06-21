@@ -7,11 +7,7 @@ class NumberValidator extends AValidator
 {
     public function validate(&$value): bool
     {
-        if (is_int($value)) {
-            $value = (int) $value;
-            return true;
-        }
-        else if (is_float($value)) {
+        if (is_numeric($value)) {
             $value = (float) $value;
             return true;
         }

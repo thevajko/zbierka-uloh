@@ -38,6 +38,7 @@ class Form {
      * Vráti informáciu o tom, či formulár obsahuje validačné chyby
      */
     public function isValid(): bool {
+        if (!$this->isSubmitted()) return false;
         foreach ($this->formFields as $field) {
             if ($field instanceof AFormField && !$field->isValid()) {
                 return false;

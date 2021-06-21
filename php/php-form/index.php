@@ -14,11 +14,10 @@
 
 require_once 'Form/Form.php';
 
-$form = new Form([
-    "meno" => "Test"
-]);
+$form = new Form(["meno" => "test"]);
 
-$form->addText("meno", "Meno");
+$form->addText("meno", "Meno")
+    ->required();
 $form->addText("priezvisko", "Priezvisko")
     ->required();
 $form->addText("mail", "Emailová adresa", "email")
@@ -30,5 +29,9 @@ $form->addTextArea("poznamka", "Poznámka");
 $form->addSelect("oci", "Farba očí", ["g" => "Zelená", "r" => "Červená", "b" => "Modrá"]);
 
 $form->addSubmit("Odošli");
+
+if ($form->isSubmitted() && $form->isValid()) {
+    $data = $form->getData();
+}
 
 $form->render();
