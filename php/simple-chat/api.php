@@ -7,8 +7,8 @@ require "php/Db.php";
 try {
     switch (@$_GET['method']) {
 
-        case `logged` :
-            echo json_encode(!empty($_SESSION['user']));
+        case 'is-logged' :
+            echo json_encode(empty($_SESSION['user']) ? false : $_SESSION['user']);
             break;
 
         case 'logout' :

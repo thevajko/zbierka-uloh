@@ -1,7 +1,15 @@
+import UIHelper from "./UIHelper.js";
 
 class Chat {
 
+    /**
+     *
+     * @type {UIHelper}
+     */
+    UI = new UIHelper();
+
     constructor() {
+
         setInterval(this.GetMessages, 1000);
         this.GetMessages();
 
@@ -14,17 +22,37 @@ class Chat {
                 this.PostMessage();
             }
         }
+        this.CheckLoggedState();
     }
 
-    Login() {
+    CheckLoggedState(){
+        fetch("api.php?method=is-logged")
+            .then(response => {
+                if (response.status != 200) {
+                    throw new Error("ERROR:"  + response.status + " " + response.statusText);
+                }
+                return response.json()
+            })
+            .then( isLogged => {
+                if (!isLogged) {
+                    this.UI.DisableMessageSubmit();
+                    this.UI.ShowLoginForm();
+                } else {
+                    this.UI.EnableMessageSubmit();
+                    this.UI.ShowLogoutForm(isLogged)
+                }
+            })
+            .catch(err => console.log('Request Failed', err))
+    }
+
+    MakeLogin(){
 
     }
 
     PostMessage(){
 
         document.getElementById("send-button").innerHTML = `<span class="loader"></span> Posielam...`;
-        document.getElementById("send-button").disabled = true;
-        document.getElementById("message").disabled = true;
+        this.UI.DisableMessageSubmit();
 
         fetch(
             "api.php?method=post-message",
@@ -46,8 +74,7 @@ class Chat {
             .catch(err => console.log('Request Failed', err))
             .finally( () => {
                 document.getElementById("send-button").innerHTML = `Odoslať`;
-                document.getElementById("send-button").disabled = false;
-                document.getElementById("message").disabled = false;
+                this.UI.EnableMessageSubmit();
             });
     }
 

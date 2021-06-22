@@ -20,12 +20,42 @@
             100% { transform: rotate(360deg); }
         }
 
+        #status-bar {
+            top: 0;
+            left: 0;
+            position: fixed;
+            width: 100%;
+            background-color: black;
+            margin: 0;
+            text-align: right;
+        }
+
+        #chat-bar {
+            border-top: 3px solid gray;
+            padding: 10px 0;
+            margin: 0;
+            text-align: right;
+        }
+
+        .hidden {
+            display: none;
+        }
+
     </style>
 </head>
 <body>
+    <div id="status-bar" class="">
+        <div id="logout-form" class="hidden">
+            <span>Prihlásený ako: </span><span id="user-name"></span>
+            <button>Odhlásiť</button>
+        </div>
+        <div id="login-form">
+            <input type="text" id="login"> <button id="login-button">Prihlásiť</button>
+        </div>
+    </div>
     <div id="messages">
     </div>
-    <div>
+    <div id="chat-bar">
         <input type="text" id="message">
         <button id="send-button">Odoslať</button>
     </div>
