@@ -16,7 +16,16 @@ class Chat {
         }
     }
 
+    Login() {
+
+    }
+
     PostMessage(){
+
+        document.getElementById("send-button").innerHTML = `<span class="loader"></span> Posielam...`;
+        document.getElementById("send-button").disabled = true;
+        document.getElementById("message").disabled = true;
+
         fetch(
             "api.php?method=post-message",
             {
@@ -34,7 +43,12 @@ class Chat {
             .then( () => {
                 document.getElementById("message").value = "";
             })
-            .catch(err => console.log('Request Failed', err));
+            .catch(err => console.log('Request Failed', err))
+            .finally( () => {
+                document.getElementById("send-button").innerHTML = `Odoslať`;
+                document.getElementById("send-button").disabled = false;
+                document.getElementById("message").disabled = false;
+            });
     }
 
 // https://stackoverflow.com/questions/6396101/pure-javascript-send-post-data-without-a-form

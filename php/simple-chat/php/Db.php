@@ -52,5 +52,39 @@ class Db {
         }
     }
 
+    /**
+     * @return User[]
+     * @throws Exception
+     */
+    public function GetUsers() : array
+    {
+        try {
+            return $this->pdo
+                ->query("SELECT * FROM users")
+                ->fetchAll(PDO::FETCH_CLASS, User::class);
+        }  catch (\PDOException $e) {
+            throw new Exception($e->getMessage(), 500);
+        }
+    }
+
+    public function AddUser($name)
+    {
+        try {
+            $sql = "INSERT INTO users (name) VALUES (?)";
+            $this->pdo->prepare($sql)->execute([$name]);
+        } catch (\PDOException $e) {
+            throw new Exception($e->getMessage(), 500);
+        }
+    }
+
+    public function RemoveUser($name)
+    {
+        try {
+            $sql = "DELETE FROM users WHERE name = ?";
+            $this->pdo->prepare($sql)->execute([$name]);
+        }  catch (\PDOException $e) {
+            throw new Exception($e->getMessage(), 500);
+        }
+    }
 
 }
