@@ -4,11 +4,62 @@
     <meta charset="UTF-8">
     <title>Jednoduchý chat</title>
     <script type="module" src="js/main.js"></script>
+    <style>
+        .loader {
+            border: 4px solid #f3f3f3; /* Light grey */
+            border-top: 4px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 12px;
+            height: 12px;
+            animation: spin 2s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #status-bar {
+            top: 0;
+            left: 0;
+            position: fixed;
+            width: 100%;
+            background-color: black;
+            margin: 0;
+            text-align: right;
+        }
+
+        #chat-bar {
+            border-top: 3px solid gray;
+            padding: 10px 0;
+            margin: 0;
+            text-align: right;
+        }
+
+        .user {
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+    </style>
 </head>
 <body>
+    <div id="status-bar" class="">
+        <div id="logout-form" class="hidden">
+            <span>Prihlásený ako: </span><span id="user-name"></span>
+            <button  id="logout-button">Odhlásiť</button>
+        </div>
+        <div id="login-form">
+            <input type="text" id="login"> <button id="login-button">Prihlásiť</button>
+        </div>
+    </div>
     <div id="messages">
     </div>
-    <div>
+    <div id="chat-bar">
         <input type="text" id="message">
         <button id="send-button">Odoslať</button>
     </div>

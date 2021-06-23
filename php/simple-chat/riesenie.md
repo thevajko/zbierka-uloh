@@ -307,7 +307,7 @@ class Chat {
 export default Chat;
 ```
 
-Teraz musíme logiku aktivovať. Upravíme
+Teraz potrebujeme aktivovať ovládacie prvky pre odosielanie správ na server. V prvom rade spustíme odoslanie správy na server kliknutím na `<button>` element, tým že zavoláme metódu `PostMessage()` v udalosti `onclick`. Odoslanie stlačením klávesy `enter` pridáme tak, že v udalosti `<input>` elementu `onkeyup` najprv skontrolujeme, či bola stlačená klávesa enter pomocou `event.code === "Enter"` a ak áno spúšťame opäť metódu `PostMessage()`.
 
 ```javascript
 class Chat {
@@ -330,3 +330,119 @@ class Chat {
 }
 export default Chat;
 ```
+
+### Ajax progress
+
+Pri odoslaní správy na server, naša aplikácia používateľovi nijako neoznamuje, že sa na pozadí vykonáva nejaká logika. Bude preto dobré pridať toto oznámenie do kódu našej aplikácie. Ako prvé vytvoríme _CSS_  štýlovanie, ktoré vyobrazovať [_spinner_](https://projects.lukehaas.me/css-loaders/). Jedná sa vizuálny animovaný prvok, ktorý používateľovi hovorí, že ním spusténá akcia sa vykonáva na pozadí.
+
+Pridáme preto do našej aplikácie nasledovné _CSS_ ([zdroj](https://www.w3schools.com/howto/howto_css_loader.asp)):
+
+```css
+.loader {
+    border: 4px solid #f3f3f3; /* Light grey */
+    border-top: 4px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    animation: spin 2s linear infinite;
+    display: inline-block;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+```
+Toto css vytvorí kruhový šedý rámik, kde jedna jeho štvrtina je modrá. Následne je ešte doplnená animácia, ktorá ho za dve sekundy otočí okolo svojej osi o 360 stupňov.
+
+Nakoľko naša aplikácia používa _AJAX_, bude dobré používateľovi vizuálne oznámiť. Momentálne zobrazíme informáciu o prebiehajúcom procese na pozadí pri odoslaní správy. Aktivovaním metódy `PostMessage()` musíme zablokovať prvok `<input>` a `<button>` tak túto metódu mohlo byť možné spustiti znovu iba ak už spustená logika skončí. Taktiež zmeníme text elementu `<button>` z `Odoslať` na `Posielam...`.
+
+Na začiatok metódy `PostMessage()` umiestnime, ako prvé, zmenu jeho vnútorného _HTML_ `<button>` a následne nastavíme elementom `<input>` a `<button>` atribút `disabled` na hodnotu `true`. K `fetch()` pridáme [`finally()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/finally), ktorého logika sa spustí keď _ajaxové_ volanie skončí. V ňom opäť zmeníme _HTML_ obsah elementu `<button>` a následne nastavíme elementom `<input>` a `<button>` atribút `disabled` na hodnotu `false`. Kód metódy `PostMessage()` bude po úprave nasledovný:
+
+```javascript
+class Chat {
+    PostMessage(){
+
+        document.getElementById("send-button").innerHTML = `<span class="loader"></span> Posielam...`;
+        document.getElementById("send-button").disabled = true;
+        document.getElementById("message").disabled = true;
+
+        fetch(
+            "api.php?method=post-message",
+            {
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                method: "POST",
+                body: "message=" +  document.getElementById("message").value
+            })
+            .then(response => {
+                if (response.status != 200) {
+                    throw new Error("ERROR:"  + response.status + " " + response.statusText);
+                }
+            })
+            .then( () => {
+                document.getElementById("message").value = "";
+            })
+            .catch(err => console.log('Request Failed', err))
+            .finally( () => {
+                document.getElementById("send-button").innerHTML = `Odoslať`;
+                document.getElementById("send-button").disabled = false;
+                document.getElementById("message").disabled = false;
+            });
+    }
+    // ...
+}
+export default Chat;
+```
+
+### Podmienenie chatovania prihlásením
+
+Teraz upravíme posielanie správ tak, aby sa používateľ musel "prihlásiť" pre ich odosielanie. Ináč ich bude môcť iba čítať. Prihlasovanie bude spočívať v tom, že bude musieť zadať meno pod ktorým bude v chate vystupovať. 
+
+Ďalej nebude možné aby chatovali dvaja používatelia s rovnakým menom. Z tohto dôvodu vytvoríme v databáze novú tabuľku `users`, ktorá bude obsahovať iba meno aktuálne prihlásených používateľov. _DDL_ pre tabuľu je nasledovné:
+
+```sql
+create table users
+(
+	id int auto_increment
+		primary key,
+	name varchar(100) not null
+);
+```
+
+Táto tabuľka bude obsahovať zoznam aktuálne chatujúcich použivateľov. Do existujúcej tabuľky `messages` pridáme stĺpec `user`, ktorý bude obsahovať meno používateľa, ktorý správu odoslal. Nepoužijeme tu _FK_, a to z dôvodu zachovania jednoduchosti riešenia. _DDL_ upravenej tabuľky `messages` je nasledovné:
+
+```sql
+create table messages
+(
+	id int auto_increment
+		primary key,
+	message text not null,
+	created datetime default current_timestamp() null,
+	user varchar(100) null
+);
+```
+Do _PHP_ triedy `Message` doplníme atribút `$user`, tak aby reflektovala upravenie databázovej tabuľky `messages` nasledovne:
+
+```php
+class Message
+{
+    public int $id;
+    public string $message;
+    public string $created;
+    public string $user;
+}
+```
+
+Vytvoríme novú _PHP_ triedu `User` a doplníme do nej atribúty, tak aby zodpovedala jej databázovej verzií:
+
+```php
+class User
+{
+    public int $id;
+    public string $name;
+}
+```
+
+Teraz rozšírime skript `api.php` tak aby umožňoval prihlásenie používateľa. 

@@ -49,7 +49,7 @@ class Db {
     /**
      * @return User[]
      */
-    public function getAllUsers($sortedBy = "", $sortDirection = "", $page = 0, $pageSize = 10, $filter = ""): array
+    public function getAllUsers($sortedBy = "", $sortDirection = "", $page = 0, $pageSize = 10, $filter = "") : array
     {
         $sql = "SELECT * FROM users";
 

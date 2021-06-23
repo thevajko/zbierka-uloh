@@ -45,12 +45,46 @@ class Db {
 
     public function StoreMessage(Message $message){
         try {
-            $sql = "INSERT INTO messages (message, created) VALUES (?, ?)";
-            $this->pdo->prepare($sql)->execute([$message->message, $message->created]);
+            $sql = "INSERT INTO messages (message, created, user) VALUES (?, ?, ?)";
+            $this->pdo->prepare($sql)->execute([$message->message, $message->created, $message->user]);
         }  catch (\PDOException $e) {
             throw new Exception($e->getMessage(), 500);
         }
     }
 
+    /**
+     * @return User[]
+     * @throws Exception
+     */
+    public function GetUsers() : array
+    {
+        try {
+            return $this->pdo
+                ->query("SELECT * FROM users")
+                ->fetchAll(PDO::FETCH_CLASS, User::class);
+        }  catch (\PDOException $e) {
+            throw new Exception($e->getMessage(), 500);
+        }
+    }
+
+    public function AddUser($name)
+    {
+        try {
+            $sql = "INSERT INTO users (name) VALUES (?)";
+            $this->pdo->prepare($sql)->execute([$name]);
+        } catch (\PDOException $e) {
+            throw new Exception($e->getMessage(), 500);
+        }
+    }
+
+    public function RemoveUser($name)
+    {
+        try {
+            $sql = "DELETE FROM users WHERE name = ?";
+            $this->pdo->prepare($sql)->execute([$name]);
+        }  catch (\PDOException $e) {
+            throw new Exception($e->getMessage(), 500);
+        }
+    }
 
 }
