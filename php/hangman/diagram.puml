@@ -1,0 +1,39 @@
+@startuml
+title Hangman - Class Diagram
+
+class Game {
+  -Hangman $hangman
+  +__construct()
+  +Keyboard getKeyboard(int $cols)
+  +string play()
+  +int getFailedAttempts()
+  +string getGameResult()
+}
+
+class Hangman {
+  -array $words
+  -string $wantedWord
+  -string $playedWord
+  -int $failedAttempts
+  -array $usedChars
+  +__construct(bool $initialized)
+  +string selectWord()
+  +void testChar(string $testedChar)
+  +string gameStatus()
+  +string getPlayedWord()
+  +int getFailedAttempts()
+  +array getUsedChars()
+}
+
+class Keyboard {
+  -int $cols
+  -Hangman $hangman
+  +__construct(int $cols = 6, Hangman $hangman)
+  +string getKeyboardLayout()
+}
+
+Game *-- Hangman
+Keyboard o-- Hangman
+Game --> Keyboard
+
+@enduml

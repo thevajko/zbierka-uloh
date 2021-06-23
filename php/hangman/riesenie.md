@@ -98,6 +98,9 @@ Hru budeme navrhovať a implementovať pomocou objektovo-orientovaného prístup
 `Hangman` a `Keyboard`. Úlohou objektu `Game` bude riadiť celú hru, herný *engine* sa bude nachádzať v triede
 `Hangman` a trieda `Keyboard` bude mať za úlohu vykreslenie klávesnice na obrazovku.
 
+![UML diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/thevajko/zbierka-uloh/solution/php/hangman/diagram.puml)
+
+
 #### Trieda `Keyboard`
 
 Triedy budeme umiestňovať do súboru s rovnakým názvom ako je názov triedy. Trieda `Keyboard` bude umiestnená v
