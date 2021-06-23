@@ -8,7 +8,7 @@ class NumberValidator extends AValidator
     public function validate(&$value): bool
     {
         if (is_numeric($value)) {
-            $value = (float) $value;
+            $value = (int) $value;
             return true;
         }
         return false;

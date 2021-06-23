@@ -20,7 +20,7 @@ class TextInputField extends AFormField {
         <input type="<?=$this->type?>"
                name="<?=$this->name?>"
                id="<?=$this->name?>"
-               value="<?=htmlentities($this->getValue(), ENT_QUOTES)?>">
+               value="<?=htmlentities("".$this->getValue(), ENT_QUOTES)?>">
         <?php
     }
 }

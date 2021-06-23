@@ -5,7 +5,7 @@ require_once 'AFormField.php';
 require_once 'TextInputField.php';
 require_once 'TextareaField.php';
 require_once 'SelectField.php';
-require_once 'FormSubmit.php';
+require_once 'SubmitButton.php';
 
 /**
  * Trieda reprezentujúca formulár
@@ -30,8 +30,8 @@ class Form {
      * Vráti hodnoty z formulára
      */
     public function getData(): array {
-        return array_map((x) -> x.getValue(),
-            array_filter($this->formFields, (x) -> x instanceof AFormField));
+        return array_map(fn($x) => $x->getValue(),
+            array_filter($this->formFields, fn($x) => $x instanceof AFormField));
     }
 
     /**
@@ -114,9 +114,9 @@ class Form {
         return $field;
     }
 
-    public function addSubmit(string $label)
+    public function addSubmit(string $label): SubmitButton
     {
-        $field = new FormSubmit(self::FORM_SUBMIT_NAME, $label);
+        $field = new SubmitButton(self::FORM_SUBMIT_NAME, $label);
         $this->formFields[self::FORM_SUBMIT_NAME] = $field;
         return $field;
     }

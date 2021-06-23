@@ -14,5 +14,5 @@ abstract class AFormElement
         $this->name = $name;
     }
 
-    public abstract function render();
+    public abstract function render(): void;
 }

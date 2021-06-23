@@ -31,7 +31,7 @@ class TextInputField {
   #void renderElement()
 }
 
-class FormSubmit {
+class SubmitButton {
   +void render()
 }
 
@@ -54,7 +54,7 @@ AValidator <|-- RequiredValidator
 AValidator <|-- NumberValidator
 
 AFormElement <|-- AFormField
-AFormElement <|-- FormSubmit
+AFormElement <|-- SubmitButton
 AFormField <|-- TextInputField
 
 Form *-- AFormElement
