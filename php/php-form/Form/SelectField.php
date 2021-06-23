@@ -9,29 +9,20 @@ class SelectField extends AFormField {
 
     public function __construct($name, string $label, $defaultValue, $form, $values)
     {
-        $this->values = $values;
         parent::__construct($name, $label, $defaultValue, $form);
-    }
-
-    protected function parseValue($value)
-    {
-        $value = parent::parseValue($value);
-        if (!isset($this->values[$value])){
-            $value = "";
+        $this->values = $values;
+        if (!isset($this->values[$this->value])){
+            $this->value = "";
         }
-        return $value;
     }
-
-
     protected function renderElement(): void
     {
         ?>
         <select name="<?=$this->name?>"
-               id="<?=$this->name?>"
-               value="<?=htmlentities($this->getValue(), ENT_QUOTES)?>">
+               id="<?=$this->name?>">
             <option value=""> - </option>
         <?php foreach ($this->values as $key => $val) { ?>
-            <option value="<?=htmlentities($key, ENT_QUOTES)?>" <?=($this->getValue() == $key) ? "selected" : ""?>><?=htmlentities($val)?></option>
+            <option value="<?=htmlentities($key, ENT_QUOTES)?>" <?=($this->value == $key) ? "selected" : ""?>><?=htmlentities($val)?></option>
         <?php } ?>
         </select>
         <?php

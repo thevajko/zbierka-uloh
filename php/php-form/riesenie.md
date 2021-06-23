@@ -541,3 +541,43 @@ class NumberValidator extends AValidator
 }
 ```
 
+#### Ďalšie typy formulárových prvkov
+Nakoniec si ukáže ešte jeden formulárový prvok - Selectbox.
+
+Selectbox komponent má fungovať tak, že ako parameter dostane pole dostupných hodnôt, ktoré bude môcť používateľ vybrať. Takéto pole je štandardne typu `"klúč" => "hodnota"` kde kľúčom môže byť napr. `id` záznamu z databázy a hodnota bude text, ktorý sa bude zobrazovať používateľovi. Základnou validáciou pri každom selectboxe je kontrola prípustných hodnôt - použivateľ nemôže odoslať hodnotu, ktorá nieje medzi prípustnými. Celú túto požiadavku implementujeme jednoduchou kontrolov prípustných hodnôt v konštruktore triedy `SelectField`.
+
+```php 
+class SelectField extends AFormField {
+  private $values;
+
+  public function __construct($name, string $label, $defaultValue, $form, $values)
+  {
+    parent::__construct($name, $label, $defaultValue, $form);
+    $this->values = $values;
+    if (!isset($this->values[$this->value])){
+      $this->value = "";
+    }
+  }
+  protected function renderElement(): void
+  {
+    ?>
+    <select name="<?=$this->name?>"
+            id="<?=$this->name?>">
+      <option value=""> - </option>
+      <?php foreach ($this->values as $key => $val) { ?>
+        <option value="<?=htmlentities($key, ENT_QUOTES)?>" <?=($this->value == $key) ? "selected" : ""?>><?=htmlentities($val)?></option>
+      <?php } ?>
+    </select>
+    <?php
+  }
+}
+```
+
+Nakoniec ešte pridáme do triedy `Form` pomocnú metódu na pridanie selectboxu.
+```php
+public function addSelect($name, $label, $values): SelectField {
+  $field = new SelectField($name, $label, $this->getDefaultValue($name), $this, $values);
+  $this->formFields[$name] = $field;
+  return $field;
+}
+```
