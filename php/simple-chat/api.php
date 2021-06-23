@@ -2,6 +2,7 @@
 session_start();
 
 require "php/Message.php";
+require "php/User.php";
 require "php/Db.php";
 
 try {
@@ -12,16 +13,12 @@ try {
             break;
 
         case 'logout' :
-            if (!empty($_POST['name'])) {
-                if (!empty($_SESSION['user']) && $_SESSION['user'] == $_POST['name']){
-                    DB::i()->RemoveUser($_POST['name']);
+                if (!empty($_SESSION['user'])){
+                    DB::i()->RemoveUser($_SESSION['user']);
                     session_destroy();
                 } else {
                     throw new Exception("Invalid API call", 400);
                 }
-            } else {
-                throw new Exception("Invalid API call", 400);
-            }
             break;
 
         case 'login':
@@ -32,18 +29,20 @@ try {
                     throw new Exception("User already logged", 400);
                 }
 
-                $users = DB::i()->getAllUsers();
+                $users = DB::i()->GetUsers();
                 $foundUser = array_filter($users, function (User $user){
                     return $user->name == $_POST['name'];
                 });
 
                 if (!empty($foundUser)) {
-                    throw new Exception("User already exists", 400);
+                    throw new Exception("User already exists", 455);
                 };
 
                 DB::i()->AddUser($_POST['name']);
 
                 $_SESSION['user'] = $_POST['name'];
+
+                echo json_encode($_SESSION['user']);
 
             } else {
                 throw new Exception("Invalid API call", 400);
@@ -56,8 +55,14 @@ try {
             break;
 
         case 'post-message':
+
+            if (empty($_SESSION['user'])){
+                throw new Exception("Must be logged to post messages.", 400);
+            }
+
             if (!empty($_POST['message'])) {
                 $m = new Message();
+                $m->user = $_SESSION['user'];
                 $m->message = $_POST['message'];
                 $m->created = date('Y-m-d H:i:s');
                 Db::i()->StoreMessage($m);

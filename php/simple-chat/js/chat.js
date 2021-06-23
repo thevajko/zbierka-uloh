@@ -13,9 +13,10 @@ class Chat {
         setInterval(this.GetMessages, 1000);
         this.GetMessages();
 
-        document.getElementById("send-button").onclick = () => {
-            this.PostMessage();
-        }
+        document.getElementById("login-button").onclick = () => this.MakeLogin();
+        document.getElementById("logout-button").onclick = () => this.MakeLogout();
+        document.getElementById("send-button").onclick = () => this.PostMessage();
+
 
         document.getElementById("message").onkeyup = (event) => {
             if (event.code === "Enter") {
@@ -46,7 +47,37 @@ class Chat {
     }
 
     MakeLogin(){
+        fetch(
+            "api.php?method=login",
+            {
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                method: "POST",
+                body: "name=" +  document.getElementById("login").value
+            })
+            .then(response => {
+                if (response.status != 200) {
+                    if (response.status == 455) {
+                        alert("Meno '"+document.getElementById("login").value+"' už používa iný používateľ. Zadajte iné meno.")
+                    }
+                    throw new Error("ERROR:"  + response.status + " " + response.statusText);
+                }
+                return response.json();
+            })
+            .then( name => {
+                this.CheckLoggedState();
+            })
+            .catch(err => {
+                console.log('Request Failed', err);
+            });
+    }
 
+    MakeLogout(){
+        fetch("api.php?method=logout")
+            .finally( () => this.CheckLoggedState())
+            .catch(err => console.log('Request Failed', err));
+        ;
     }
 
     PostMessage(){
