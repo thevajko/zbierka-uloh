@@ -148,6 +148,8 @@ starať o časovače potrebné pri rôznych situáciách v hre. Ďalej si vytvor
 správanie sa muchy počas hry. A celú hru bude riadiť trieda `Game`, ktorej zodpovednosťou bude spúšťanie a ukončovanie
 hry ako aj rátanie bodov hráča. Všetky tieto triedy uložíme do jedného súboru skript.js.
 
+![UML diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/thevajko/zbierka-uloh/solution/js-a-css/fly/diagram.puml)
+
 ### Trieda Timer
 
 Začneme pomocou triedou Timer, ktorá bude mať na starosti spúštanie časovačov v hre. Časovač budeme potrebovať v hre na

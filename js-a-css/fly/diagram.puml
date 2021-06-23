@@ -1,0 +1,43 @@
+@startuml
+title Fly - Class Diagram
+
+class Fly {
+ -HTMLElement element
+ +constructor(number interval)
+ +void changePosition()
+ +void showElement()
+ +void hideElement()
+ +void createElement()
+ +void setOnClick(function callback)
+}
+
+class Game {
+ -number gameDuration
+ -number gameSeconds
+ -number numOfFlies
+ -number score
+ -Timer timer
+ -number totalAttempts
+ -Fly[] flies
+ +constructor()
+ +void redrawScore()
+ +void gameTick()
+ +void flyHit()
+ +void start()
+}
+
+class Timer {
+ -number interval
+ -timerId
+ -function callback
+ +constructor(number interval)
+ +void start()
+ +void stop()
+ +void setCallback(function callback)
+}
+
+Fly *-left- Timer
+Timer -left-* Game
+Game *-right- Fly
+
+@enduml

@@ -32,7 +32,7 @@ class Keyboard {
   +string getKeyboardLayout()
 }
 
-Game *-- Hangman
+Game *-left- Hangman
 Keyboard o-- Hangman
 Game --> Keyboard
 
