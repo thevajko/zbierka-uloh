@@ -45,8 +45,8 @@ class Db {
 
     public function StoreMessage(Message $message){
         try {
-            $sql = "INSERT INTO messages (message, created) VALUES (?, ?)";
-            $this->pdo->prepare($sql)->execute([$message->message, $message->created]);
+            $sql = "INSERT INTO messages (message, created, user) VALUES (?, ?, ?)";
+            $this->pdo->prepare($sql)->execute([$message->message, $message->created, $message->user]);
         }  catch (\PDOException $e) {
             throw new Exception($e->getMessage(), 500);
         }

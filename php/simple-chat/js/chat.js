@@ -124,6 +124,7 @@ class Chat {
                     messagesHTML += `
                         <div class="message">
                             <span class="date">${message.created}</span>
+                            <span class="user">${message.user} &gt; </span>
                             <span>${message.message}</span>
                         </div>`;
                 })
