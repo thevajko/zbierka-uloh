@@ -146,7 +146,7 @@ try {
         // ...
 
         case 'get-messages':
-            $messages = Db::i()->GetMessages();
+            $messages = Db::i()->getMessages();
             echo json_encode($messages);
             break;
             
@@ -455,4 +455,130 @@ class User
 }
 ```
 
-Teraz rozšírime skript `api.php` tak aby umožňoval prihlásenie používateľa. 
+Do _PHP_ triedy `Db` doplníme metódy pre získanie všetkých používateľov a pridanie a vymazanie používateľa. Získanie všetkých používateľov je rovnaké ako pri získavaní správ a bude vyzerať nasledovne:
+
+```php
+class Db {
+
+    // ...
+    /**
+     * @return User[]
+     * @throws Exception
+     */
+    public function getUsers() : array
+    {
+        try {
+            return $this->pdo
+                ->query("SELECT * FROM users")
+                ->fetchAll(PDO::FETCH_CLASS, User::class);
+        }  catch (\PDOException $e) {
+            throw new Exception($e->getMessage(), 500);
+        }
+    }
+}
+```
+
+Pridávanie používateľa ma tak isto rovnakú logiku ako pridávanie správy a vyzerá nasledovne:
+
+```php
+class Db {
+
+    // ...
+    public function addUser($name)
+    {
+        try {
+            $sql = "INSERT INTO users (name) VALUES (?)";
+            $this->pdo->prepare($sql)->execute([$name]);
+        } catch (\PDOException $e) {
+            throw new Exception($e->getMessage(), 500);
+        }
+    }
+}
+```
+
+A ako posledné pridáme metódu, ktorou budeme na základe mena mazať používateľov:
+
+```php
+class Db {
+
+    // ...
+    public function removeUser($name)
+    {
+        try {
+            $sql = "DELETE FROM users WHERE name = ?";
+            $this->pdo->prepare($sql)->execute([$name]);
+        }  catch (\PDOException $e) {
+            throw new Exception($e->getMessage(), 500);
+        }
+    }
+}
+```
+
+
+
+
+
+
+Teraz rozšírime skript `api.php` tak aby umožňoval prihlásenie používateľa. Aby server vedel, ktoré meno používatelia je platné pre aktuálne sedenie budeme ukladať do [`session`](https://www.php.net/manual/en/book.session.php). Dáta pre dané sedenie _PHP_ umožňuje uložiť do špeciálnej super-globálnej premennej [`$_SESSION`](https://www.php.net/manual/en/reserved.variables.session.php). Aby sme ho mohli použiť potrebujeme _PHP_ povedať, že túto súčasť naša aplikácia bude používať. Preto ako prvý riadok v skripte `api.php` bude volanie funkcie [`session_start()`](https://www.php.net/manual/en/function.session-start.php).
+
+`$_SESSION` je pole, kde si pod index `user` budeme ukladať informáciu o mene aktuálne "prihláseného" používateľa pre dané sedenie. Pokiaľ tento index nebude existovať alebo bude obsahovať prázdnu hodnotu (`null` alebo prázdny textovy reťazec) bude logika vedieť, že používateľ sa "neprihlásil". Do tohto príkladu nebudeme pridávať používateľské prihlasovanie pomocou hesla aby sme jeho implementáciu udržali čo najjednoduchšiu.
+
+Samotné prihlásenie bude prebiehať tak, že pošleme _HTTP POST_ požiadavku na adresu `api.php?method=login`, kde meno používateľa pošleme v jej tele ako _POST parameter_. Nesmieme zabudnúť, že pokiaľ už je používateľ prihlásený, exituje hodnota v `$_SESSION['user']`, nesmieme v procese prihlasovania pokračovať. Následne skontrolujeme, či tabuľka `users` neobsahuje dané meno. Ak ho bude obsahovať server vráti odpoveď s chybou, že je používateľ s rovnakým menom už chatuje. V tomto prípade si prehlasujúci používateľ bude musieť zvoliť iné meno. Ak nie, tak sa meno používateľa uloží do databázy a v `$_SESSION` vytvoríme index `user` kde túto hodnotu uložíme tiež. Následne v odpovedi s _HTTP kódom_ `200` vrátime túto hodnotu.
+
+Do súboru `api.php` v bloku `switch` pridáme nový `case` pre hodnotu `login`, ktorého kód bude nasledovný:
+
+```php
+// ...
+switch (@$_GET['method']) {
+
+        // ...
+
+        case 'login':
+
+            if (!empty($_POST['name'])){
+
+                if (!empty($_SESSION['user'])) {
+                    throw new Exception("User already logged", 400);
+                }
+
+                $users = DB::i()->getUsers();
+                $foundUser = array_filter($users, function (User $user){
+                    return $user->name == $_POST['name'];
+                });
+
+                if (!empty($foundUser)) {
+                    throw new Exception("User already exists", 455);
+                };
+
+                DB::i()->addUser($_POST['name']);
+
+                $_SESSION['user'] = $_POST['name'];
+
+                echo json_encode($_SESSION['user']);
+
+            } else {
+                throw new Exception("Invalid API call", 400);
+            }
+            break;
+        // ...
+}
+```
+
+Kontrolu, či je používateľ prihlásený pridáme aj do časti, ktorá je zodpovedná za pridávanie správ:
+
+```php
+// ...
+switch (@$_GET['method']) {
+
+        // ...
+   case 'post-message':
+
+            if (empty($_SESSION['user'])){
+                throw new Exception("Must be logged to post messages.", 400);
+            }
+        //...
+            break;
+
+        // ...
+}
+```
