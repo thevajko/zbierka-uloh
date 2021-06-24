@@ -50,6 +50,7 @@ try {
             break;
 
         case 'get-messages':
+//            throw new Exception("Invalid API call", 400);
             $messages = Db::i()->GetMessages();
             echo json_encode($messages);
             break;
