@@ -573,12 +573,36 @@ switch (@$_GET['method']) {
         // ...
    case 'post-message':
 
-            if (empty($_SESSION['user'])){
+        if (empty($_SESSION['user'])){
                 throw new Exception("Must be logged to post messages.", 400);
             }
         //...
-            break;
+        break;
 
-        // ...
+    // ...
 }
 ```
+
+Teraz pridáme logiku pre odhlásenie, ktorá sa bude spúšťať pomocou `api.php?method=logout`. Pri spustení odhlasovania musime najskôr overiť, či je používateľ prihlásený. Pokiaľ je najprv ho vymažeme z databázy a následne vymažeme dáta v _PHP session_ pomocou spustenia [`session_destroy()`](https://www.php.net/manual/en/function.session-destroy.php).
+
+```php
+// ...
+switch (@$_GET['method']) {
+
+        // ...
+  case 'logout' :
+        if (!empty($_SESSION['user'])){
+            DB::i()->removeUser($_SESSION['user']);
+            session_destroy();
+        } else {
+            throw new Exception("Invalid API call", 400);
+        }
+    break;
+
+    // ...
+}
+```
+
+A
+
+
