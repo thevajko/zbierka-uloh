@@ -32,7 +32,7 @@ class Db {
      * @return Message[]
      * @throws Exception
      */
-    public function GetMessages(): array
+    public function getMessages(): array
     {
         try {
             return $this->pdo
@@ -43,7 +43,7 @@ class Db {
         }
     }
 
-    public function StoreMessage(Message $message){
+    public function storeMessage(Message $message){
         try {
             $sql = "INSERT INTO messages (message, created, user) VALUES (?, ?, ?)";
             $this->pdo->prepare($sql)->execute([$message->message, $message->created, $message->user]);
@@ -56,7 +56,7 @@ class Db {
      * @return User[]
      * @throws Exception
      */
-    public function GetUsers() : array
+    public function getUsers() : array
     {
         try {
             return $this->pdo
@@ -67,7 +67,7 @@ class Db {
         }
     }
 
-    public function AddUser($name)
+    public function addUser($name)
     {
         try {
             $sql = "INSERT INTO users (name) VALUES (?)";
@@ -77,7 +77,7 @@ class Db {
         }
     }
 
-    public function RemoveUser($name)
+    public function removeUser($name)
     {
         try {
             $sql = "DELETE FROM users WHERE name = ?";

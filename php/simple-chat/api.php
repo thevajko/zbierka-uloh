@@ -14,7 +14,7 @@ try {
 
         case 'logout' :
                 if (!empty($_SESSION['user'])){
-                    DB::i()->RemoveUser($_SESSION['user']);
+                    DB::i()->removeUser($_SESSION['user']);
                     session_destroy();
                 } else {
                     throw new Exception("Invalid API call", 400);
@@ -29,7 +29,7 @@ try {
                     throw new Exception("User already logged", 400);
                 }
 
-                $users = DB::i()->GetUsers();
+                $users = DB::i()->getUsers();
                 $foundUser = array_filter($users, function (User $user){
                     return $user->name == $_POST['name'];
                 });
@@ -38,7 +38,7 @@ try {
                     throw new Exception("User already exists", 455);
                 };
 
-                DB::i()->AddUser($_POST['name']);
+                DB::i()->addUser($_POST['name']);
 
                 $_SESSION['user'] = $_POST['name'];
 
@@ -50,7 +50,8 @@ try {
             break;
 
         case 'get-messages':
-            $messages = Db::i()->GetMessages();
+//            throw new Exception("Invalid API call", 400);
+            $messages = Db::i()->getMessages();
             echo json_encode($messages);
             break;
 
@@ -65,7 +66,7 @@ try {
                 $m->user = $_SESSION['user'];
                 $m->message = $_POST['message'];
                 $m->created = date('Y-m-d H:i:s');
-                Db::i()->StoreMessage($m);
+                Db::i()->storeMessage($m);
             } else {
                 throw new Exception("Invalid API call", 400);
             }

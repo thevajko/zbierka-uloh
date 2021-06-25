@@ -1,5 +1,6 @@
 import Chat from "./chat.js";
 
-window.onload = function (){
+window.onload = async function (){
     window.chat = new Chat();
+    await window.chat.run();
 }

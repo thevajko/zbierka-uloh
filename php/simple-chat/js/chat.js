@@ -10,128 +10,136 @@ class Chat {
 
     constructor() {
 
-        setInterval(this.GetMessages, 1000);
-        this.GetMessages();
-
-        document.getElementById("login-button").onclick = () => this.MakeLogin();
-        document.getElementById("logout-button").onclick = () => this.MakeLogout();
-        document.getElementById("send-button").onclick = () => this.PostMessage();
-
+        document.getElementById("login-button").onclick = () => this.makeLogin();
+        document.getElementById("logout-button").onclick = () => this.makeLogout();
+        document.getElementById("send-button").onclick = () => this.postMessage();
 
         document.getElementById("message").onkeyup = (event) => {
             if (event.code === "Enter") {
-                this.PostMessage();
+                this.postMessage();
             }
         }
-        this.CheckLoggedState();
     }
 
-    CheckLoggedState(){
-        fetch("api.php?method=is-logged")
-            .then(response => {
-                if (response.status != 200) {
-                    throw new Error("ERROR:"  + response.status + " " + response.statusText);
+    async run(){
+        await this.checkLoggedState();
+        setInterval(this.getMessages, 1000);
+        await this.getMessages()
+    }
+
+    async checkLoggedState(){
+
+        try {
+            let response = await fetch("api.php?method=is-logged").catch(this.LogError);
+
+            if (response.status != 200) {
+                throw new Error("ERROR:" + response.status + " " + response.statusText);
+            }
+            let isLogged = await response.json();
+
+            if (!isLogged) {
+                throw new Error("User not logged.")
+            } else {
+                this.UI.enableMessageSubmit();
+                this.UI.showLogoutForm(isLogged);
+            }
+        } catch (er) {
+            this.UI.disableMessageSubmit();
+            this.UI.showLoginForm();
+        }
+
+    }
+
+    async makeLogin(){
+        try {
+            this.UI.showLoginLoading();
+            let response = await fetch(
+                "api.php?method=login",
+                {
+                    headers : {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    method: "POST",
+                    body: "name=" +  document.getElementById("login").value
+                });
+
+            if (response.status != 200) {
+                if (response.status == 455) {
+                    alert("Meno '"+document.getElementById("login").value+"' už používa iný používateľ. Zadajte iné meno.")
                 }
-                return response.json()
-            })
-            .then( isLogged => {
-                if (!isLogged) {
-                    this.UI.DisableMessageSubmit();
-                    this.UI.ShowLoginForm();
-                } else {
-                    this.UI.EnableMessageSubmit();
-                    this.UI.ShowLogoutForm(isLogged)
-                }
-            })
-            .catch(err => console.log('Request Failed', err))
+                throw new Error("ERROR:"  + response.status + " " + response.statusText);
+            }
+            await this.checkLoggedState();
+        } catch (e) {
+            console.log('Request Failed', e);
+        }
     }
 
-    MakeLogin(){
-        fetch(
-            "api.php?method=login",
-            {
-                headers : {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                method: "POST",
-                body: "name=" +  document.getElementById("login").value
-            })
-            .then(response => {
-                if (response.status != 200) {
-                    if (response.status == 455) {
-                        alert("Meno '"+document.getElementById("login").value+"' už používa iný používateľ. Zadajte iné meno.")
-                    }
-                    throw new Error("ERROR:"  + response.status + " " + response.statusText);
-                }
-                return response.json();
-            })
-            .then( name => {
-                this.CheckLoggedState();
-            })
-            .catch(err => {
-                console.log('Request Failed', err);
-            });
+    async makeLogout(){
+        try {
+            this.UI.showLoginLoading();
+            let result = await fetch("api.php?method=logout");
+        } catch (err){
+            console.log('Request Failed', err);
+        } finally {
+            await this.checkLoggedState();
+        }
     }
-
-    MakeLogout(){
-        fetch("api.php?method=logout")
-            .finally( () => this.CheckLoggedState())
-            .catch(err => console.log('Request Failed', err));
-        ;
-    }
-
-    PostMessage(){
+    
+    async postMessage(){
 
         document.getElementById("send-button").innerHTML = `<span class="loader"></span> Posielam...`;
-        this.UI.DisableMessageSubmit();
+        document.getElementById("send-button").disabled = true;
+        document.getElementById("message").disabled = true;
 
-        fetch(
-            "api.php?method=post-message",
-            {
-                headers : {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                method: "POST",
-                body: "message=" +  document.getElementById("message").value
-            })
-            .then(response => {
-                if (response.status != 200) {
-                    throw new Error("ERROR:"  + response.status + " " + response.statusText);
-                }
-            })
-            .then( () => {
-                document.getElementById("message").value = "";
-            })
-            .catch(err => console.log('Request Failed', err))
-            .finally( () => {
-                document.getElementById("send-button").innerHTML = `Odoslať`;
-                this.UI.EnableMessageSubmit();
-            });
+        try {
+          let response =  await fetch(
+                "api.php?method=post-message",
+                {
+                    headers : {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    method: "POST",
+                    body: "message=" +  document.getElementById("message").value
+                });
+
+            if (response.status != 200) {
+                throw new Error("ERROR:"  + response.status + " " + response.statusText);
+            }
+
+            document.getElementById("message").value = "";
+
+        } catch (err) {
+            console.log('Request Failed', err);
+        } finally {
+            document.getElementById("send-button").innerHTML = `Odoslať`;
+            document.getElementById("send-button").disabled = false;
+            document.getElementById("message").disabled = false;
+        }
+
     }
+    async getMessages(){
+        try {
 
-// https://stackoverflow.com/questions/6396101/pure-javascript-send-post-data-without-a-form
-    GetMessages(){
-        fetch("api.php?method=get-messages")
-            .then(response => {
-                if (response.status != 200) {
-                    throw new Error("ERROR:"  + response.status + " " + response.statusText);
-                }
-                return response.json()
-            })  // convert to json
-            .then(messages => {
-                let messagesHTML = "";
-                messages.forEach(message => {
-                    messagesHTML += `
+            let response = await fetch("api.php?method=get-messages");
+
+            if (response.status != 200) {
+                throw new Error("ERROR:"  + response.status + " " + response.statusText);
+            }
+            let messages = await response.json();
+            let messagesHTML = "";
+            messages.forEach(message => {
+                messagesHTML += `
                         <div class="message">
                             <span class="date">${message.created}</span>
                             <span class="user">${message.user} &gt; </span>
                             <span>${message.message}</span>
                         </div>`;
-                })
-                document.getElementById("messages").innerHTML = messagesHTML;
             })
-            .catch(err => console.log('Request Failed', err));
-        ;
+            document.getElementById("messages").innerHTML = messagesHTML;
+        } catch (e) {
+            document.getElementById("messages").innerHTML = `<h2>Nastala chyba na strane servera.</h2><p>${e.message}</p>`;
+        }
     }
 
 }
