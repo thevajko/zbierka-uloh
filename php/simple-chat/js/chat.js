@@ -12,11 +12,12 @@ class Chat {
 
         document.getElementById("login-button").onclick = () => this.makeLogin();
         document.getElementById("logout-button").onclick = () => this.makeLogout();
+
         document.getElementById("send-button").onclick = () => this.postMessage();
 
-        document.getElementById("message").onkeyup = (event) => {
+        document.getElementById("message").onkeyup = async (event) => {
             if (event.code === "Enter") {
-                this.postMessage();
+                await this.postMessage();
             }
         }
     }
@@ -30,7 +31,7 @@ class Chat {
     async checkLoggedState(){
 
         try {
-            let response = await fetch("api.php?method=is-logged").catch(this.LogError);
+            let response = await fetch("api.php?method=is-logged");
 
             if (response.status != 200) {
                 throw new Error("ERROR:" + response.status + " " + response.statusText);
@@ -88,9 +89,7 @@ class Chat {
     
     async postMessage(){
 
-        document.getElementById("send-button").innerHTML = `<span class="loader"></span> Posielam...`;
-        document.getElementById("send-button").disabled = true;
-        document.getElementById("message").disabled = true;
+        this.UI.disableMessageSubmit();
 
         try {
           let response =  await fetch(
@@ -112,9 +111,7 @@ class Chat {
         } catch (err) {
             console.log('Request Failed', err);
         } finally {
-            document.getElementById("send-button").innerHTML = `Odoslať`;
-            document.getElementById("send-button").disabled = false;
-            document.getElementById("message").disabled = false;
+            this.UI.enableMessageSubmit()
         }
 
     }

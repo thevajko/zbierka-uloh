@@ -325,11 +325,11 @@ class Chat {
     
     constructor() {
         
-        document.getElementById("send-button").onclick = () => this.PostMessage();
+        document.getElementById("send-button").onclick = () => this.postMessage();
         
-        document.getElementById("message").onkeyup = (event) => {
+        document.getElementById("message").onkeyup = async (event) => {
             if (event.code === "Enter") {
-                this.PostMessage();
+                await this.postMessage();
             }
         }
     }
@@ -523,7 +523,7 @@ Teraz rozšírime skript `api.php` tak aby umožňoval prihlásenie používate�
 
 `$_SESSION` je pole, kde si pod index `user` budeme ukladať informáciu o mene aktuálne "prihláseného" používateľa pre dané sedenie. Pokiaľ tento index nebude existovať alebo bude obsahovať prázdnu hodnotu (`null` alebo prázdny textovy reťazec) bude logika vedieť, že používateľ sa "neprihlásil". Do tohto príkladu nebudeme pridávať používateľské prihlasovanie pomocou hesla aby sme jeho implementáciu udržali čo najjednoduchšiu.
 
-Samotné prihlásenie bude prebiehať tak, že pošleme _HTTP POST_ požiadavku na adresu `api.php?method=login`, kde meno používateľa pošleme v jej tele ako _POST parameter_. Nesmieme zabudnúť, že pokiaľ už je používateľ prihlásený, exituje hodnota v `$_SESSION['user']`, nesmieme v procese prihlasovania pokračovať. Následne skontrolujeme, či tabuľka `users` neobsahuje dané meno. Ak ho bude obsahovať server vráti odpoveď s chybou, že je používateľ s rovnakým menom už chatuje. V tomto prípade si prehlasujúci používateľ bude musieť zvoliť iné meno. Ak nie, tak sa meno používateľa uloží do databázy a v `$_SESSION` vytvoríme index `user` kde túto hodnotu uložíme tiež. Následne v odpovedi s _HTTP kódom_ `200` vrátime túto hodnotu.
+Samotné prihlásenie bude prebiehať tak, že pošleme _HTTP POST_ požiadavku na adresu `api.php?method=login`, kde meno používateľa pošleme v jej tele ako _POST parameter_. Nesmieme zabudnúť, že pokiaľ už je používateľ prihlásený, exituje hodnota v `$_SESSION['user']`, nesmieme v procese prihlasovania pokračovať. Následne skontrolujeme, či tabuľka `users` neobsahuje dané meno. Ak ho bude obsahovať server vráti odpoveď s chybou, že je používateľ s rovnakým menom už chatuje. Pre zjednodšenie logiky na strane klienta v tomto špecifickom prípade vrátime _HTTP kód_ s vlastnou hodnotou `455`. V tomto prípade si prehlasujúci používateľ bude musieť zvoliť iné meno. Ak nie, tak sa meno používateľa uloží do databázy a v `$_SESSION` vytvoríme index `user` kde túto hodnotu uložíme tiež. Následne v odpovedi s _HTTP kódom_ `200` vrátime túto hodnotu.
 
 Do súboru `api.php` v bloku `switch` pridáme nový `case` pre hodnotu `login`, ktorého kód bude nasledovný:
 
@@ -603,6 +603,293 @@ switch (@$_GET['method']) {
 }
 ```
 
-A
+Klient bude dodatočne overovať, či je používateľ prihlásený. Buď či prihlásenie a odhlásenie prebehlo ako malo alebo používateľ zatvorí stránku a následne ju navšívi opätovne ešte predtým než jeho sedenie vyprší. Preto pridáme do servera ďalšiu volateľnú metódu, ktorá vratí hodnotu `false` ak nie je používateľ prihlásený a jeho meno aj prihlásený je. Táto metóda bude dostupná na url `?method=is-logged` a bude iba kontrolvať či je v `$_SESSION` index `user` a ak áno, či obsahuje nejakú hodnotu. Kód bude vyzerať nasledovne:
 
+```php
+// ...
+switch (@$_GET['method']) {
 
+    // ...
+    case 'is-logged' :
+        echo json_encode(empty($_SESSION['user']) ? false : $_SESSION['user']);
+        break;
+
+    // ...
+}
+```
+
+Do nášeho klienta, teda do súbora `index.html`, vložíme prvky, ktoré budú predstavovať jednoduché menu. Toto menu bude obsahovať formulár na prihlásenie alebo čast zobrazujúca meno aktuálne prihlasného používateľa s tlačítkom pre odhlásenie. 
+
+Vytvoríme preto element `<div id="status-bar">`. Ten bude slúžiť ako obalovací prvko, ktorý zobrazí vnútorne komponenty pomocou `possition: fixed` na vrchu viewportu. Ak nebude používateľ zobrazený, zobrazí sa element `<div id="login-form">` obsahujúci prvky formulára pre prihlásenie. V opäčnomo prípade alebo po úspešnom prihlásení, bude zobrazený prvok `<div id="logout-form">` zobrazujúci informáciu o mene aktuálneho používateľa a  tlačítko pre odhlásenie. HTML bude doplnené následovne:
+
+```html
+<!DOCTYPE html>
+    // ...
+<body>
+    <div id="status-bar">
+        <div id="logout-form" class="hidden">
+            <span>Prihlásený ako: </span><span id="user-name"></span>
+            <button  id="logout-button">Odhlásiť</button>
+        </div>
+        <div id="login-form">
+            <input type="text" id="login"> <button id="login-button">Prihlásiť</button>
+        </div>
+    </div>
+    <div id="messages">
+    </div>
+    <div id="chat-bar">
+        <input type="text" id="message">
+        <button id="send-button">Odoslať</button>
+    </div>
+</body>
+</html>
+```
+
+Doplníme ešte CSS pre doplnené elementy. V ďalšom JS kóde budeme používať CSS triedu `.hidden` pre skrývanie elementov, ktoré nechceme používateľovi zobraziť. Pridáme nasledovné CSS:
+
+```css        
+#status-bar {
+    top: 0;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    background-color: black;
+    margin: 0;
+    text-align: right;
+}
+
+.user {
+    font-weight: bold;
+}
+
+.hidden {
+    display: none;
+}
+```
+Prvá a najjednoduchšia úprava bude v metóde pre výpis správ získaných od servera. Pridali sme do dát informáciu o používateľovi, ktorý správu napísal, preto ju doplníme do výpisu:
+
+```javascript
+class Chat {
+    //...
+    async getMessages(){
+        try {
+    
+            let response = await fetch("api.php?method=get-messages");
+    
+            if (response.status != 200) {
+                throw new Error("ERROR:"  + response.status + " " + response.statusText);
+            }
+            let messages = await response.json();
+            let messagesHTML = "";
+            messages.forEach(message => {
+                messagesHTML += `
+                        <div class="message">
+                            <span class="date">${message.created}</span>
+                            <span class="user">${message.user} &gt; </span>
+                            <span>${message.message}</span>
+                        </div>`;
+            })
+            document.getElementById("messages").innerHTML = messagesHTML;
+        } catch (e) {
+            document.getElementById("messages").innerHTML = `<h2>Nastala chyba na strane servera.</h2><p>${e.message}</p>`;
+        }
+    }
+    //...
+}
+```
+
+Nakoľko chceme aby naš javascript bol, čo najprehľadnejší vytvoríme novú triedu `UIHelper`, ktorá bude obsahovať čisto logiku zahŕňajúcu operácie modifikácie HTML. Ako prvú tu presunieme logiku, ktorou povolíme alebo zablokujeme odoslanie správy. Vzhľadom na to, že nechceme neprihlásenému používateľovi umožniť odosielať správy a prihlásenému použivatelovi chceme zobraziť "loader" doplníme do metódy pre zablokovanie formulára správy parameter pre zobrazenie loadera. Trieda `UIHelper` bude mať nasledovný obsah:
+
+```javascript
+class UIHelper {
+    enableMessageSubmit(){
+        document.getElementById("send-button").innerHTML = `Odoslať`;
+        document.getElementById("send-button").disabled = false;
+        document.getElementById("message").disabled = false;
+    }
+
+    disableMessageSubmit(showLoading = true){
+        let sendB = document.getElementById("send-button");
+        if (showLoading) {
+            sendB.innerHTML = `<span class="loader"></span> Posielam...`;
+        }
+        sendB.disabled = true;
+        document.getElementById("message").value = "";
+        document.getElementById("message").disabled = true;
+    }
+}
+
+export default  UIHelper;
+```
+Inštanciu triedy `UIHelper` vložíme do triedy `Chat` ako atribút `UI` následovne: 
+```javascript
+import UIHelper from "./UIHelper.js";
+
+class Chat {
+
+    /**
+     *
+     * @type {UIHelper}
+     */
+    UI = new UIHelper();
+    // ...
+}
+```
+Upravíme logiku metódy `Chat.postMessage()`, tak aby zmena v HTML bola vykonaná logikou triedy `UIHelper` nasledovne:
+
+```javascript
+import UIHelper from "./UIHelper.js";
+
+class Chat {
+    // ...
+    async postMessage() {
+        this.UI.disableMessageSubmit();
+        try {
+            let response = await fetch(
+                "api.php?method=post-message",
+                {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    method: "POST",
+                    body: "message=" + document.getElementById("message").value
+                });
+
+            if (response.status != 200) {
+                throw new Error("ERROR:" + response.status + " " + response.statusText);
+            }
+
+            document.getElementById("message").value = "";
+
+        } catch (err) {
+            console.log('Request Failed', err);
+        } finally {
+            this.UI.enableMessageSubmit()
+        }
+    }
+    // ...
+}
+```
+
+Následne si predpripravíme v triede `UIHelper` metódy pre zobrazovanie formulára pre prihlásenie alebo čast pre odhlásenie. Metóda pre zobrazenie odhlásenia má parameter, ktorým zobrazíme aktuálne prihlásenému používateľovi meno pod ktorým píše správy. Metódy budú nasledovne: 
+
+```javascript
+class UIHelper {
+    // ...
+    showLoginForm(){
+        document.getElementById("logout-form").classList.add("hidden");
+        document.getElementById("login-form").classList.remove("hidden");
+    }
+
+    showLogoutForm(userName){
+        document.getElementById("logout-form").classList.remove("hidden");
+        document.getElementById("login-form").classList.add("hidden");
+        document.getElementById("user-name").innerText = userName;
+    }
+}
+```
+
+Do triedy `Chat` pridáme ako prvú metódu `checkLoggedState()` pre overenie toho, či je po v aktuálnom sedení použivateľ prihlásený. Tá sa bude ajaxom dopytovať na URL `api.php?method=is-logged` pokiaľ odpoveď bude mať _HTTP kod_ `200` a bude obsahovať hodnotu inú ako bool `false` povolí sa odosielania správ a zobrazí sa časť pre odhlásnie. V opačnom prípade sa vyhodí výnimka. Pri nastaní výnimky pri behu metódy `checkLoggedState()` nastane výnimka v jej odchytení sa zablokuje odosielanie správ a zobrazí sa formulár pre prihásenie. Teba aplikácia sa bude chovať ako by bol používateľ neprihlásený. Kód metódy `checkLoggedState()` bude nasledovný:
+
+```javascript
+class Chat {
+    // ...
+    async checkLoggedState(){
+
+        try {
+            let response = await fetch("api.php?method=is-logged");
+
+            if (response.status != 200) {
+                throw new Error("ERROR:" + response.status + " " + response.statusText);
+            }
+            let isLogged = await response.json();
+
+            if (!isLogged) {
+                throw new Error("User not logged.")
+            } else {
+                this.UI.enableMessageSubmit();
+                this.UI.showLogoutForm(isLogged);
+            }
+        } catch (er) {
+            this.UI.disableMessageSubmit();
+            this.UI.showLoginForm();
+        }
+
+    }
+    // ...
+}
+export default Chat;
+```
+Metódu  `checkLoggedState()` pridáme do spúšťacej metódy logiky chatu `run()`, tak aby bola spustená ako prvá:
+
+```javascript
+class Chat {
+    // ...
+    async run(){
+        await this.checkLoggedState();
+        setInterval(this.getMessages, 1000);
+        await this.getMessages()
+    }
+    // ...
+}
+export default Chat;
+```
+
+Vytvoríme novú metódu `makeLogin()`, ktorou budeme odosielať potrebné dáta pre prihlásenie. Informácia o mene sa bude odosielať v _POST parametre_ `name` a jeho hodnotu získame z `<input id="login">`.
+
+Pokiaľ server vráti _HTTP kód_ `200` vieme, že login prebehol úspešne a spustíme overenie prihlásenia pomocou metódy `checkLoggedState()` (tá sa postará aj o správe upravenie GUI klienta). V prípade  _HTTP kódu_ `455` (klient s rovnakým menom už exituje a chatuje) zobrazíme použivatelovi dialóg o tom, že musí zvoliť iné meno pomcou [`Window.alert()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/alert).
+
+Kód prihlasovacej metódy `makeLogin()` bude nasledovný:
+
+```javascript
+class Chat {
+    // ...
+    async makeLogin(){
+        try {
+            let response = await fetch(
+                "api.php?method=login",
+                {
+                    headers : {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    method: "POST",
+                    body: "name=" +  document.getElementById("login").value
+                });
+
+            if (response.status != 200) {
+                if (response.status == 455) {
+                    alert(
+                        "Meno '" 
+                        + document.getElementById("login").value
+                        + "' už používa iný používateľ. Zadajte iné meno."
+                    )
+                }
+                throw new Error("ERROR:"  + response.status + " " + response.statusText);
+            }
+            await this.checkLoggedState();
+        } catch (e) {
+            console.log('Request Failed', e);
+        }
+    }
+    // ...
+}
+export default Chat;
+```
+Po prihlásení pridáme odhlásenie. V triede `Chat` vytvoríme metódu `makeLogout()`, ktorej logika iba pošle ajax dopyt na URL `api.php?method=logout` a následne zavolá metódu `checkLoggedState()`, ktorá overí stav prihlásenia a upraví GUI na klientovi:
+
+```javascript
+class Chat {
+    // ...
+    async makeLogout(){
+        try {
+            let result = await fetch("api.php?method=logout");
+        } catch (err){
+            console.log('Request Failed', err);
+        } finally {
+            await this.checkLoggedState();
+        }
+    }
+    // ...
+}
+export default Chat;
+```

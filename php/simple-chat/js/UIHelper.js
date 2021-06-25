@@ -1,22 +1,27 @@
 class UIHelper {
 
+    enableMessageSubmit(){
+        document.getElementById("send-button").innerHTML = `Odoslať`;
+        document.getElementById("send-button").disabled = false;
+        document.getElementById("message").disabled = false;
+    }
+
+    disableMessageSubmit(showLoading = true){
+        let sendB = document.getElementById("send-button");
+        if (showLoading) {
+            sendB.innerHTML = `<span class="loader"></span> Posielam...`;
+        }
+        sendB.disabled = true;
+        document.getElementById("message").value = "";
+        document.getElementById("message").disabled = true;
+    }
+
     showLoginLoading(){
         let loader = document.createElement("div");
         loader.classList.add("loader");
         document.getElementById("logout-form").classList.add("hidden");
         document.getElementById("login-form").classList.add("hidden");
         document.getElementById("status-bar").append(loader);
-    }
-
-    enableMessageSubmit(){
-        document.getElementById("send-button").disabled = false;
-        document.getElementById("message").disabled = false;
-    }
-
-    disableMessageSubmit(){
-        document.getElementById("send-button").disabled = true;
-        document.getElementById("message").value = "";
-        document.getElementById("message").disabled = true;
     }
 
     showLoginForm(){
@@ -31,7 +36,6 @@ class UIHelper {
         document.getElementById("user-name").innerText = userName;
         document.querySelector("#status-bar > .loader")?.remove();
     }
-
 
 }
 
