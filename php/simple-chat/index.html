@@ -28,6 +28,7 @@
             background-color: black;
             margin: 0;
             text-align: right;
+            color: white;
         }
 
         #chat-bar {
@@ -45,6 +46,24 @@
             display: none;
         }
 
+        #frame {
+            margin-top: 25px;
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+        }
+
+        #chat-content {
+            flex-grow: 1;
+        }
+        #users-list {
+            width: 200px;
+        }
+
+        .private {
+            background-color: #ffc83d;
+        }
+
     </style>
 </head>
 <body>
@@ -57,11 +76,21 @@
             <input type="text" id="login"> <button id="login-button">Prihlásiť</button>
         </div>
     </div>
-    <div id="messages">
-    </div>
-    <div id="chat-bar">
-        <input type="text" id="message">
-        <button id="send-button">Odoslať</button>
+    <div id="frame">
+        <div id="users-list">
+        </div>
+        <div id="chat-content">
+            <div id="messages">
+            </div>
+            <div id="chat-bar">
+                <span id="private-area" class="hidden">
+                    <button id="cancel-private">x</button>
+                    Skromná pre <span id="private"></span>
+                </span>
+                <input type="text" id="message">
+                <button id="send-button">Odoslať</button>
+            </div>
+        </div>
     </div>
 </body>
 </html>

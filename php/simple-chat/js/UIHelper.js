@@ -12,11 +12,10 @@ class UIHelper {
             sendB.innerHTML = `<span class="loader"></span> Posielam...`;
         }
         sendB.disabled = true;
-        document.getElementById("message").value = "";
         document.getElementById("message").disabled = true;
     }
 
-    showLoginLoading(){
+    showStatusBarLoading(){
         let loader = document.createElement("div");
         loader.classList.add("loader");
         document.getElementById("logout-form").classList.add("hidden");
@@ -27,6 +26,7 @@ class UIHelper {
     showLoginForm(){
         document.getElementById("logout-form").classList.add("hidden");
         document.getElementById("login-form").classList.remove("hidden");
+        document.getElementById("message").value = "";
         document.querySelector("#status-bar > .loader")?.remove();
     }
 
@@ -37,6 +37,15 @@ class UIHelper {
         document.querySelector("#status-bar > .loader")?.remove();
     }
 
+    addPrivate(name){
+        document.getElementById("private-area").classList.remove("hidden");
+        document.getElementById("private").innerText = name;
+    }
+
+    removePrivate(){
+        document.getElementById("private-area").classList.add("hidden");
+        document.getElementById("private").innerText = "";
+    }
 }
 
 export default  UIHelper;

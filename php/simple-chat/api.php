@@ -50,8 +50,7 @@ try {
             break;
 
         case 'get-messages':
-//            throw new Exception("Invalid API call", 400);
-            $messages = Db::i()->getMessages();
+            $messages = Db::i()->getMessages(@$_SESSION['user']);
             echo json_encode($messages);
             break;
 
@@ -65,11 +64,22 @@ try {
                 $m = new Message();
                 $m->user = $_SESSION['user'];
                 $m->message = $_POST['message'];
+                $m->private_for = @$_POST['private'];
                 $m->created = date('Y-m-d H:i:s');
                 Db::i()->storeMessage($m);
             } else {
                 throw new Exception("Invalid API call", 400);
             }
+            break;
+
+        case 'users' :
+            if (empty($_SESSION['user'])){
+                throw new Exception("Must be logged to get active users list", 400);
+            }
+            $users = array_filter(Db::i()->getUsers(), function (User $user) {
+                return $user->name != $_SESSION['user'];
+            });
+            echo json_encode(array_values($users));
             break;
 
         default:

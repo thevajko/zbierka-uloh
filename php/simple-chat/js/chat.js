@@ -20,11 +20,15 @@ class Chat {
                 await this.postMessage();
             }
         }
+
+        document.getElementById("cancel-private").onclick = () => this.UI.removePrivate();
+
     }
 
     async run(){
         await this.checkLoggedState();
         setInterval(this.getMessages, 1000);
+        setInterval(this.getUsers, 1000);
         await this.getMessages()
     }
 
@@ -45,7 +49,7 @@ class Chat {
                 this.UI.showLogoutForm(isLogged);
             }
         } catch (er) {
-            this.UI.disableMessageSubmit();
+            this.UI.disableMessageSubmit(false);
             this.UI.showLoginForm();
         }
 
@@ -53,7 +57,7 @@ class Chat {
 
     async makeLogin(){
         try {
-            this.UI.showLoginLoading();
+            this.UI.showStatusBarLoading();
             let response = await fetch(
                 "api.php?method=login",
                 {
@@ -78,7 +82,7 @@ class Chat {
 
     async makeLogout(){
         try {
-            this.UI.showLoginLoading();
+            this.UI.showStatusBarLoading();
             let result = await fetch("api.php?method=logout");
         } catch (err){
             console.log('Request Failed', err);
@@ -90,8 +94,11 @@ class Chat {
     async postMessage(){
 
         this.UI.disableMessageSubmit();
-
         try {
+
+          let pEle = document.getElementById("private");
+          let priv = ( pEle.innerText == "" ? "" : '&private=' + pEle.innerText );
+
           let response =  await fetch(
                 "api.php?method=post-message",
                 {
@@ -99,7 +106,7 @@ class Chat {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     },
                     method: "POST",
-                    body: "message=" +  document.getElementById("message").value
+                    body: "message=" +  document.getElementById("message").value + priv
                 });
 
             if (response.status != 200) {
@@ -107,13 +114,12 @@ class Chat {
             }
 
             document.getElementById("message").value = "";
-
         } catch (err) {
             console.log('Request Failed', err);
         } finally {
-            this.UI.enableMessageSubmit()
+            this.UI.enableMessageSubmit();
+            document.getElementById("message").focus();
         }
-
     }
     async getMessages(){
         try {
@@ -126,16 +132,45 @@ class Chat {
             let messages = await response.json();
             let messagesHTML = "";
             messages.forEach(message => {
+                let p = message.private_for != null ? "private" : "";
+                let userNames =  message.private_for != null ? `${message.user} > ${message.private_for}` : message.user;
                 messagesHTML += `
-                        <div class="message">
+                        <div class="message ${p}">
                             <span class="date">${message.created}</span>
-                            <span class="user">${message.user} &gt; </span>
+                            <span class="user">${userNames} : </span>
                             <span>${message.message}</span>
                         </div>`;
             })
             document.getElementById("messages").innerHTML = messagesHTML;
         } catch (e) {
             document.getElementById("messages").innerHTML = `<h2>Nastala chyba na strane servera.</h2><p>${e.message}</p>`;
+        }
+    }
+
+    async getUsers(){
+        try {
+
+            let response = await fetch("api.php?method=users");
+
+            if (response.status != 200) {
+                throw new Error("ERROR:"  + response.status + " " + response.statusText);
+            }
+
+            let users = await response.json();
+
+
+            let userList = document.getElementById("users-list");
+            userList.innerHTML = "";
+            users.forEach(user => {
+                let btn = document.createElement("button");
+                btn.innerText = user.name;
+                btn.onclick = () => window.chat.UI.addPrivate(user.name);
+                userList.append(btn);
+            })
+
+        } catch (e) {
+            document.getElementById("users-list").innerHTML = "";
+           // console.log('Request Failed', e);
         }
     }
 
