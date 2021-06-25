@@ -56,6 +56,7 @@ Samozrejme, pre spustenie potrebných služieb môžete použiť ľubovoľným s
 
 ## Komplexné úlohy
 1. [Jednoduchá Db tabuľka](php/dbtable/zadanie.md) (DB, PHP) - obtiažnosť 3
+1. [Operácie nad tabuľkou](php/crud/zadanie.md) (DB, PHP) - obtiažnosť 3
 1. [Jednoduchý chat](php/simple-chat/zadanie.md) (DB, PHP, JS, AJAX, CSS) - obtiažnosť 4
 
 ___
