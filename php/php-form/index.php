@@ -37,16 +37,3 @@ if ($form->isSubmitted() && $form->isValid()) {
 
 $form->render();
 
-
-$connection = ssh2_connect('co5storage.uniza.sk', 22);
-ssh2_auth_password($connection, 'mamoscreen', 'b5RuBqSpL');
-
-$sftp = ssh2_sftp($connection);
-
-$handle = opendir("ssh2.sftp://$connection");
-echo "Directory handle: $handle\n";
-echo "Entries:\n";
-while (false != ($entry = readdir($handle))){
-    echo "$entry\n";
-}
-
