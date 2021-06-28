@@ -947,8 +947,7 @@ class UIHelper {
 
 Do triedy `Chat` pridáme ako prvú metódu `checkLoggedState()` pre overenie toho, či je po v aktuálnom sedení používateľ prihlásený. Tá sa bude dopytovať na URL `api.php?method=is-logged` a pokiaľ bude mať odpoveď _HTTP kod_ `200` a bude obsahovať hodnotu inú ako bool `false` povolí sa odosielania správ a zobrazí sa časť pre odhlásenie. V opačnom prípade sa vyhodí výnimka.
 
-Pokial pri behu metódy `checkLoggedState()` nastane výnimka v jej odchytení sa zablokuje odosielanie správ a zobrazí sa formulár pre prihlásenie. Teba aplikácia sa bude chovať ako by bol používateľ neprihlásený. Kód
-metódy `checkLoggedState()` bude nasledovný:
+Pokial pri behu metódy `checkLoggedState()` nastane výnimka v jej odchytení sa zablokuje odosielanie správ a zobrazí sa formulár pre prihlásenie. Teba aplikácia sa bude chovať ako by bol používateľ neprihlásený. Nesmieme zabudnúť volať `this.UI.disableMessageSubmit(false)` s hodnotou false, nakoľko nechcem zobraziť _spinner_. Kód metódy `checkLoggedState()` bude nasledovný:
 
 ```javascript
 class Chat {
@@ -970,7 +969,7 @@ class Chat {
                 this.UI.showLogoutForm(isLogged);
             }
         } catch (er) {
-            this.UI.disableMessageSubmit();
+            this.UI.disableMessageSubmit(false);
             this.UI.showLoginForm();
         }
     }
@@ -998,12 +997,10 @@ class Chat {
 export default Chat;
 ```
 
-Vytvoríme novú metódu `makeLogin()`, ktorou budeme odosielať potrebné dáta pre prihlásenie. Informácia o mene sa bude odosielať v _POST parametre_ `name` a jeho
-hodnotu získame z `<input id="login">`.
+Do triedy `Chat` pridáme novú metódu `makeLogin()`, ktorou budeme odosielať potrebné dáta pre prihlásenie. Informácia o mene sa bude odosielať v _POST parametre_ `name` a jeho hodnotu získame z `<input id="login">`.
 
-Pokiaľ server vráti _HTTP kód_ `200` vieme, že login prebehol úspešne a spustíme overenie prihlásenia pomocou metódy `checkLoggedState()` (tá sa postará aj o
-správe upravenie GUI klienta). V prípade  _HTTP kódu_ `455` (klient s rovnakým menom už exituje a chatuje) zobrazíme použivatelovi dialóg o tom, že musí zvoliť
-iné meno pomcou [`Window.alert()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/alert).
+Pokiaľ server vráti _HTTP kód_ `200` vieme, že login prebehol úspešne a spustíme overenie prihlásenia pomocou metódy `checkLoggedState()` (tá sa postará aj o správe upravenie GUI klienta). V prípade _HTTP kódu_ `455` (klient s rovnakým menom už exituje a chatuje) zobrazíme používateľovi dialóg o tom, že musí zvoliť
+iné meno pomocou [`Window.alert()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/alert).
 
 Kód prihlasovacej metódy `makeLogin()` bude nasledovný:
 
@@ -1044,8 +1041,7 @@ class Chat {
 export default Chat;
 ```
 
-Po prihlásení pridáme odhlásenie. V triede `Chat` vytvoríme metódu `makeLogout()`, ktorej logika iba pošle ajax dopyt na URL `api.php?method=logout` a následne
-zavolá metódu `checkLoggedState()`, ktorá overí stav prihlásenia a upraví GUI na klientovi:
+Po prihlásení pridáme odhlásenie. V triede `Chat` vytvoríme metódu `makeLogout()`, ktorej logika iba pošle ajax dopyt na URL `api.php?method=logout` a následne zavolá metódu `checkLoggedState()`, ktorá overí stav prihlásenia a upraví GUI na klientovi:
 
 ```javascript
 class Chat {
@@ -1090,11 +1086,7 @@ class Chat {
 }
 ```
 
-Teraz pridáme indikáciu vykonávania logiky na pozadí pridaním _loadera_ pri prihlasovaní a odhlasovaní na klientovi. Do triedy `UIHelper` pridáme
-metódu `showStatusBarLoading()`. Jej úlohou bude skryť ako prihlasovací formulár tak aj čast pre odhlásenie a zobraziť načitávajúcu animáciu. Element s
-animáciou budeme musiet vytvoriť ako nový element a pridať ho do elementu `<input id="status-bar">`. Tento vytvorený element zobrazujúci _loader_ budeme musieť
-následne pri zobrazení prihlasenia alebo odchlásenia vymazať. Jeho zmazanie prevedieme príkazom `document.querySelector("#status-bar > .loader")?.remove();`.
-Nakoľko element s loaderom nemusí byť vytvorený metódu `remove()` uvedieme za anotáciu s `?`:
+Teraz pridáme indikáciu vykonávania logiky na pozadí pridaním _spinnera_ pri prihlasovaní a odhlasovaní na klientovi. Do triedy `UIHelper` pridáme metódu `showStatusBarLoading()`. Jej úlohou bude skryť ako _prihlasovací formulár_ tak aj _čast pre odhlásenie_ a zobraziť načitávajúcu animáciu. Element s animáciou budeme musieť vytvoriť ako nový element a pridať ho do elementu `<input id="status-bar">`. Tento vytvorený element zobrazujúci _loader_ budeme musieť následne pri _zobrazení prihlásenia_ alebo _odhlásenia_ vymazať. Jeho zmazanie prevedieme príkazom `document.querySelector("#status-bar > .loader")?.remove();`. Nakoľko element so _spinnerom_ nemusí byť vytvorený metódu `remove()` uvedieme za anotáciu s `?`:
 
 ```javascript
 class UIHelper {
@@ -1169,7 +1161,7 @@ create table messages
 );
 ```
 
-Nesmieme zabudnút doplniť _PHP_ triedu `User`:
+Nesmieme zabudnúť doplniť _PHP_ triedu `User`:
 
 ```php
 class Message
@@ -1182,9 +1174,7 @@ class Message
 }
 ```
 
-V prvom rade musíme doplniť štruktúru `index.html`, tak že existujúce elementy chatu `<div id="messages">` a `<div id="chat-bar">` vložíme do nového
-elementu `<div id="chat-content">` ten umiestnime ako potomka do nového elementu `<div id="frame">`. Do neho pridáme ako prvého potomka ďaľší
-element `<div id="users-list">`. _HTML_ bude po úprav vyzerať nasledovne:
+V prvom rade musíme doplniť štruktúru `index.html`, tak že existujúce elementy chatu `<div id="messages">` a `<div id="chat-bar">` vložíme do nového elementu `<div id="chat-content">` ten umiestnime ako potomka do nového elementu `<div id="frame">`. Do neho pridáme ako prvého potomka ďaľší element `<div id="users-list">`. _HTML_ bude po úprav vyzerať nasledovne:
 
 ```html
 <!DOCTYPE html>
@@ -1211,8 +1201,7 @@ element `<div id="users-list">`. _HTML_ bude po úprav vyzerať nasledovne:
 </html>
 ```
 
-Ďalej doplníme elementy, ktoré budú používateľovi zobrazovať informáciu o tom, že píše súkromnú správu a taktiež tlačítko, ktorým bude možné písanie súkromnej
-správy zrušiť.
+Ďalej doplníme elementy, ktoré budú používateľovi zobrazovať informáciu o tom, že píše súkromnú správu a taktiež tlačítko, ktorým bude možné písanie súkromnej správy zrušiť.
 
 ```html
 <!DOCTYPE html>
