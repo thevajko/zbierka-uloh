@@ -109,7 +109,7 @@ class Chat {
                     body: "message=" +  document.getElementById("message").value + priv
                 });
 
-            if (response.status != 200) {
+            if (response.status != 204) {
                 throw new Error("ERROR:"  + response.status + " " + response.statusText);
             }
 

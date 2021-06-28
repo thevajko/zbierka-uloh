@@ -44,7 +44,7 @@ Percentuálne hodnoty sa odvíjajú od veľkosti rodiča. Pri hodnotách `left` 
 Nevhodná hodnota pre `top` spôsobí, že sa sticky prvok zobrazí nepoužiteľné.
 
 ### Z-index
-To v akom poradí sa prekrývajúce prvky zobrazia predvolene určuje ich poradie v akom su uvedené v `HTML` kóde. Pokiaľ chceme nejaký prvok zobraziť nad ostatnými, stačí pokiaľ mu zmeníme hodnotu `CSS` vlastnosti `z-index` na takú aby sa zobrazil nad ostatnými.
+To v akom poradí sa prekrývajúce prvky zobrazia predvolene určuje ich poradie v akom su uvedené v `HTML` kóde. Pokiaľ chceme nejaký prvok zobraziť nad ostatnými, stačí pokiaľ mu zmeníme hodnotu CSS vlastnosti `z-index` na takú aby sa zobrazil nad ostatnými.
 
 Ako hodnotu nastavujeme celé číslo, ktoré môže byť aj záporne. Predvolene majú všetky zobrazené elementy túto hodnotu nastavenú na `0`.
 

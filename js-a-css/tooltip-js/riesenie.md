@@ -61,7 +61,7 @@ for (let i = 0; i < divs.length; i++) {
 }
 ```
 
-Ak používateľ dá z prvého div kurzor preč tooltip skryjeme zmazaním vnoreného elementu div pomocou logiky umiestnenej do udalosti. Pokiaľ máme referenciu na nejaký element, môžeme pomocou `CSS` _selektoru_ vyberať jeho sub-elementy. Kód bude nasledovný:
+Ak používateľ dá z prvého div kurzor preč tooltip skryjeme zmazaním vnoreného elementu div pomocou logiky umiestnenej do udalosti. Pokiaľ máme referenciu na nejaký element, môžeme pomocou CSS _selektoru_ vyberať jeho sub-elementy. Kód bude nasledovný:
 
 ```javascript
 let divs = document.querySelectorAll("div[data-tooltip]");
@@ -76,7 +76,7 @@ for (let i = 0; i < divs.length; i++) {
 }
 ```
 
-Ako posledná časť ostáva správne doplniť `CSS`. Ako prvé musíme upraviť zobrazenie tooltipu. Naša upráva ich zmení na `<div>`, ktoré sa chovajú ako blokové značky. Taktiež pridáme nejaké vizuálne oddelenie od okolitého textu. _Selektor_ stýlu pre `<div>` s tooltipom opäť použije _selektor_, ktorý sme použili v skripte:
+Ako posledná časť ostáva správne doplniť CSS. Ako prvé musíme upraviť zobrazenie tooltipu. Naša upráva ich zmení na `<div>`, ktoré sa chovajú ako blokové značky. Taktiež pridáme nejaké vizuálne oddelenie od okolitého textu. _Selektor_ stýlu pre `<div>` s tooltipom opäť použije _selektor_, ktorý sme použili v skripte:
 
 ```css
 div[data-tooltip] {
@@ -101,14 +101,14 @@ div[data-tooltip] {
 }
 ```
 
-Pre zobrazenie tooltipu budeme používať `CSS` vlastnosť `possition`. Ako prvé musíme nastaviť v prvom elemente tento atribút na hodnotu `possition: relative;` pre prvý div. To preto aby sme ho mohli použiť ako plochu pre pozíciovanie samotného tooltipu.
+Pre zobrazenie tooltipu budeme používať CSS vlastnosť `possition`. Ako prvé musíme nastaviť v prvom elemente tento atribút na hodnotu `possition: relative;` pre prvý div. To preto aby sme ho mohli použiť ako plochu pre pozíciovanie samotného tooltipu.
 
-Pre umiestnenie tooltipu mu nastavíme `position: absolute;`. To spôsobí, že element s tooltipom začne "plávať" nad ostatnými elementmi. Teraz potrebujeme element s tooltipom správne umiestniť. To docielime nastavením `CSS` atribútov`left` a `top`.
+Pre umiestnenie tooltipu mu nastavíme `position: absolute;`. To spôsobí, že element s tooltipom začne "plávať" nad ostatnými elementmi. Teraz potrebujeme element s tooltipom správne umiestniť. To docielime nastavením CSS atribútov`left` a `top`.
 
 - `left` definuje vzdialenosť elementu od ľavej strany rodičovského elementu.
 - `top` definuje vzdialenosť elementu od vrchu rodičovského elementu.
 
-Pri nastavení `position: absolute;` nejakého element sa za jeho "rodičovský element" určuje hierarchicky vyšší najbližší element, ktorý má nastavený `CSS` atribút `position` na `relative` alebo `absolute`. V našom prípade to je prvý element. Tým pádom môžeme nastaviť hodnotu `left: 0;` a `top: 120%;`. Tým pádom bude tooltip zarovnaný naľavo a bude kúsok pod prvým elementom ([podrobnejšie o CSS position](../../common/css-position.md)). Výsledné `CSS` bude:
+Pri nastavení `position: absolute;` nejakého element sa za jeho "rodičovský element" určuje hierarchicky vyšší najbližší element, ktorý má nastavený CSS atribút `position` na `relative` alebo `absolute`. V našom prípade to je prvý element. Tým pádom môžeme nastaviť hodnotu `left: 0;` a `top: 120%;`. Tým pádom bude tooltip zarovnaný naľavo a bude kúsok pod prvým elementom ([podrobnejšie o CSS position](../../common/css-position.md)). Výsledné CSS bude:
 
 ```CSS
 div[data-tooltip] {

@@ -8,26 +8,31 @@
 # Tooltip (CSS)
 
 ## Zadanie
-Vytvorte logiku, _čisto pomocou `CSS`_, ktorá bude zobrazovať tooltip, pokiaľ používateľ umiestni nad daný výraz kurzor.
-Pokiaľ ho dá preč tooltip zmizne.
 
-Štartér verzia obsahuje v `HTML` podobný kód ako je tento:
+Pomocou CSS štýlov (bez použitia JavaScriptu) vytvorte možnosť pridávania popiskov (*tooltips*) do textu. Pokiaľ 
+používateľ umiestni nad definovaný úsek textu kurzor myši, popisok sa objaví, ak kurzor myši text opustí, 
+popisok zmizne.
+
+Vstupný HTML súbor by mal vyzerať takto:
+
 ```html
+
 <div>
-    Lorem ipsum dolor sit amet, 
+    Lorem ipsum dolor sit amet,
     <span>consectetur</span>
-    <span class="tooltip">Tooltip: asdasd asdasd asd a sd asd asdasda sda</span> 
-    adipiscing elit. In 
+    <span class="tooltip">Tooltip: asdasd asdasd asd a sd asd asdasda sda</span>
+    adipiscing elit. In
     <span>hendrerit</span>
-    <span class="tooltip">Tooltip: asdasd asdasd asd a sd asd asdasda sda</span> 
-    adipiscing elit. ac ex eu aliquam. Etiam lacus orci, egestas et tempor at, 
+    <span class="tooltip">Tooltip: asdasd asdasd asd a sd asd asdasda sda</span>
+    adipiscing elit. ac ex eu aliquam. Etiam lacus orci, egestas et tempor at,
     <span>rutrum</span>
-    <span class="tooltip">Tooltip: asdasd asdasd asd a sd asd asdasda sda</span> 
+    <span class="tooltip">Tooltip: asdasd asdasd asd a sd asd asdasda sda</span>
     adipiscing elit. vitae nulla.
 </div>
 ```
 
-Štruktúru dokumentu môžete upraviť, tak aby bolo možné úlohu vypracovať. Pre vypracovanie použite výlučne `CSS`.
+V prípade potreby si môžete štruktúru dokumentu upraviť tak, aby sa vám lepšie pracovalo. Pri riešení úlohy použite 
+výhradne CSS.
 
 <div class="hidden">
 
