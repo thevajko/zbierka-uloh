@@ -12,7 +12,7 @@
 
 Na riešenie úlohy budeme potrebovať vytvoriť HTML a CSS súbor. V HTMl súbore budú základné elementy, ktoré budeme
 potrebovať pre riešenie úlohy a CSS súbor bude obsahovať všetky štýlové pravidlá. CSS súbor umiestnime do adresára
-`css`, aj keď tento príklad nie je rozsiahly, je dobré dodržiavať štandardné umiestnenie súborov. Obrázky umiestnime do
+CSS, aj keď tento príklad nie je rozsiahly, je dobré dodržiavať štandardné umiestnenie súborov. Obrázky umiestnime do
 adresára `img`.
 
 ## HTML súbor

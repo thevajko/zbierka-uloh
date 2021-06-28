@@ -48,7 +48,7 @@ abstract class AFormElement
 }
 ```
 
-Okrem samotnej metódy `render()` obsahuje aj konštrukor a jeden atribút - `$name`. Každý prvok vo formulári musí byť nejakým spôsobom pomenovaný, aby sme sa k nemu prípade vedeli neskôr dostať. Aj nie priamo formulárové prvky (tlačidla, dodatočný text) budú mať v našej implementácii svoj názov. Ak to bude potrebné, je možnosť pridať getter pre atribút `$name`. My sme ho ale označili ako `protected` takže každý z potomkov bude mať prístup k názvu elementu. Môžme si všimnúť, že celá triede ale aj metóda `render()` sú označené kľúčovým slovom `abstract`.
+Okrem samotnej metódy `render()` obsahuje aj konštrukor a jeden atribút - `$name`. Každý prvok vo formulári musí byť nejakým spôsobom pomenovaný, aby sme sa k nemu prípade vedeli neskôr dostať. Aj nie priamo formulárové prvky (tlačidla, dodatočný text) budú mať v našej implementácii svoj názov. Ak to bude potrebné, je možnosť pridať getter pre atribút `$name`. My sme ho ale označili ako `protected` takže každý z potomkov bude mať prístup k názvu elementu. môžeme si všimnúť, že celá triede ale aj metóda `render()` sú označené kľúčovým slovom `abstract`.
 
 #### Tlačidlo na odoslanie formulára
 Ďalšou triedou, na ktorú sa pozrieme je trieda `SubmitButton`. Táto trieda reprezentuje submit tlačidlo.
@@ -279,7 +279,7 @@ abstract class AValidator
 
 Táto trieda obsahuje atribút a getter na chybovú správu, ktorú validátor vypíše v prípade, že neprejde validácia. Túto správu je možné nastaviť cez konštruktor. Druhým spôsobom definície chybovej správy je abstraktná metóda `getDefaultMessage` ktorú musí prekryť každý potomok a pomocou nej definovať defaultnú správu, ktorá sa použije ak pri vytváraní validátora nedefinujeme žiadnú špeciálnu správu.
 
-Okrem toho validátor obsahuje metódu `validate`, v ktorej jednotlivé validátory (potomkovia `AValidator`) budú kontrolovať vstup. Táto metóda má návratovú hodnotu typu `boolean`. Ak validácia prebehne v poriadku, metóda vráti `true`. V prípade chyby vrátime `false`. Ďalšou špecilitou tejto metódy je deklarácia parametra. Môžme si všimnúť že pred názov parametra sme pridali znak `&`. Takto deklarovaný parameter je vstupno-výstupný parameter, takže metóda `validate` môže v prípade potreby modifikovať spracovávanú hodnotu. Typickým príkladom môže byť číselný vstup, kedy je potrebné transformovať textový reťazec na číselnú hodnotu. Tento princíp je prebratý zo spôsobu filtrovania vstupných dát v php pomocou funkcie [`filter-var`](https://www.php.net/manual/en/function.filter-var.php).
+Okrem toho validátor obsahuje metódu `validate`, v ktorej jednotlivé validátory (potomkovia `AValidator`) budú kontrolovať vstup. Táto metóda má návratovú hodnotu typu `boolean`. Ak validácia prebehne v poriadku, metóda vráti `true`. V prípade chyby vrátime `false`. Ďalšou špecilitou tejto metódy je deklarácia parametra. môžeme si všimnúť že pred názov parametra sme pridali znak `&`. Takto deklarovaný parameter je vstupno-výstupný parameter, takže metóda `validate` môže v prípade potreby modifikovať spracovávanú hodnotu. Typickým príkladom môže byť číselný vstup, kedy je potrebné transformovať textový reťazec na číselnú hodnotu. Tento princíp je prebratý zo spôsobu filtrovania vstupných dát v php pomocou funkcie [`filter-var`](https://www.php.net/manual/en/function.filter-var.php).
 
 #### Validátor povinnej položky
 Najzákladnejším validátorom je validácia vyplnenie položky. Pre tento účel si implementujeme validátor s názvom `RequiredValudator`.
@@ -316,7 +316,7 @@ private bool $validated = false;
 
 Atribút `$validators` bude obsahovať pole zo všetkými validátormi, ktoré sa vzťahujú na daný formulárový prvok. Pole `$errors` bude obsahovať zoznam chýb po validácii a atribút `$validated` je pomocný a budeme ho používať ako ochranu pred viacnásobnou validáciou toho istého formulárového prvku.
 
-Hlavným problémom validácie je to, že ju nemôžme vykonať priamo v konštruktore z toho dôvodu, že formulárový prvok najskôr vznike a až potom mu priradíme validačné pravidlá. Validovať bude potrebné - v metóde `isValid`, pri získavaní dát pomocou metódy `getValue` a pri vykresľovaní prvku, aby sme vedeli vypísať prípadné chyby.
+Hlavným problémom validácie je to, že ju nemôžeme vykonať priamo v konštruktore z toho dôvodu, že formulárový prvok najskôr vznike a až potom mu priradíme validačné pravidlá. Validovať bude potrebné - v metóde `isValid`, pri získavaní dát pomocou metódy `getValue` a pri vykresľovaní prvku, aby sme vedeli vypísať prípadné chyby.
 Aby sme sa vykli duplicite dát, pripravíme si pomocnú  metódu `validate`.
 
 ```php
@@ -334,7 +334,7 @@ protected function validate()
 
 Táto metóda využíva atribút `$validated` a v prípade, že validácia už prebehla tak rovno na prvom riadku ukončí metódu. Následne iterujeme cez zoznam všetkých validátorov a pustupne validujeme vstupnú hodnotu voči každému jednému. 
 
-Vďaka tejto metóde môžme pridať metódu `isValid` a upraviť metódu na získanie hodnoty - `getValue`.
+Vďaka tejto metóde môžeme pridať metódu `isValid` a upraviť metódu na získanie hodnoty - `getValue`.
 
 ```php
 public function isValid(): bool {
@@ -364,7 +364,7 @@ public function render(): void {
 }
 ```
 
-Oproti pôvodnej implementácii nám pribudli dve veci. Na začiatok metódy sme pridali validáciu a do vykreslenia sme pridali `span` element, do ktorého vložíme jednotlivé chyby z validácie. Zaujímavá je aj podmienka na vykreslenie chýb. Táto sa skladá z dvoch častí. Chyby vypisujeme len v prípade, že nejaké sú a zároveň bol formulár odoslaný. Podmienku `$this->form->isSubmitted()` sme použili preto, aby sa validačné chyby nezobrazili hneď pri prvom vykreslení formulára, ale až po odoslaní. To je z toho dôvodu, lebo z používateľského hľadiska nieje dobré, aby prázdny formulár ešte pred vyplnením obsahoval množstvo chybových správ.
+Oproti pôvodnej implementácii nám pribudli dve veci. Na začiatok metódy sme pridali validáciu a do vykreslenia sme pridali `span` element, do ktorého vložíme jednotlivé chyby z validácie. Zaujímavá je aj podmienka na vykreslenie chýb. Táto sa skladá z dvoch častí. Chyby vypisujeme len v prípade, že nejaké sú a zároveň bol formulár odoslaný. Podmienku `$this->form->isSubmitted()` sme použili preto, aby sa validačné chyby nezobrazili hneď pri prvom vykreslení formulára, ale až po odoslaní. To je z toho dôvodu, lebo z používateľského hľadiska CSS dobré, aby prázdny formulár ešte pred vyplnením obsahoval množstvo chybových správ.
 
 Metóda `isSubmitted` v triede `Form` vyzerá nasledovne:
 ```php
@@ -385,7 +385,7 @@ public function addRule(AValidator $validator): self {
 }
 ```
 
-Táto metóda len pridá validátor, ktorý dostane ako parameter, do zoznamu validátorov. Čo je na tejto metóde zaujímavé je to, že ako návratovú hodnotu má `self` - tj. metoda vráti objekt, na ktorom bola táto metóda volaná. Toto sa využíva pri zjednodušenom volaní metód, kde pridávanie validátorov môžme pekne zreťaziť.
+Táto metóda len pridá validátor, ktorý dostane ako parameter, do zoznamu validátorov. Čo je na tejto metóde zaujímavé je to, že ako návratovú hodnotu má `self` - tj. metoda vráti objekt, na ktorom bola táto metóda volaná. Toto sa využíva pri zjednodušenom volaní metód, kde pridávanie validátorov môžeme pekne zreťaziť.
 ```php
 $form->addText("meno", "Krstné meno")
   ->addRule(new Validator1())
@@ -408,11 +408,11 @@ $form->addText("meno", "Krstné meno")
   ->addRule(new Validator2());
 ```
 
-Ako môžme vidieť, metóda `required` umožňuje definovať vlastnú chybovú správu, takže namiesto východzieho `Položka musí byť vyplnená` sa pri nevyplnení položky vypíše `Položka krstné meno je vyžadovaná`.
+Ako môžeme vidieť, metóda `required` umožňuje definovať vlastnú chybovú správu, takže namiesto východzieho `Položka musí byť vyplnená` sa pri nevyplnení položky vypíše `Položka krstné meno je vyžadovaná`.
 
 #### Validácia formulára
 
-Keď máme definovaný mechanizmus na validáciu jednotlivých položiek, môžme pristúpiť k implementácii metódy na validáciu celého formulára. Na to, aby bol formulár validny, musí byť v prvom rade odoslaný a v druhom rade všetky jeho položky musia byť validne. Túto kontrolu môžme implementovať nasledovne:
+Keď máme definovaný mechanizmus na validáciu jednotlivých položiek, môžeme pristúpiť k implementácii metódy na validáciu celého formulára. Na to, aby bol formulár validny, musí byť v prvom rade odoslaný a v druhom rade všetky jeho položky musia byť validne. Túto kontrolu môžeme implementovať nasledovne:
 ```php 
 class Form {
   //...
@@ -435,7 +435,7 @@ Opäť, ako aj v prípade metódy `getData` kontrolujeme validitu len pri polož
 ### Rozšírenie základnej funkcionality
 
 #### Pridanie ďalších validátorov, validácia na klientovi
-Pre ukážku môžme demonštrovať niekoľko ďalších základných validátorov.
+Pre ukážku môžeme demonštrovať niekoľko ďalších základných validátorov.
 Začneme klasickou validáciou emailových adries.
 
 Na zažiatok si pripravíme triedu `EmailValidator`, ktorá môže vyzerať nasledovne:
@@ -449,7 +449,7 @@ class EmailValidator extends AValidator
 
   protected function getDefaultMessage(): string
   {
-    return "Položka nieje platný email";
+    return "Položka CSS platný email";
   }
 }
 ```
@@ -489,7 +489,7 @@ class TextInputField extends AFormField {
 
 Pridali sme atribút `$type`, ktorý bude uchovávať typ `input` prvku. Tento atribút nastavíme v konštruktore a v metóde `renderElement` zmeníme pôvodné `type="text"` na `type="<?=$this->type?>"`.
 
-Pre lepšie pridávanie týchto elementov môžme upraviť triedu `Form` nasledovne:
+Pre lepšie pridávanie týchto elementov môžeme upraviť triedu `Form` nasledovne:
 ```php
 public function addText($name, $label, $type = "text"): TextInputField {
   $field = new TextInputField($name, $label, $this->getDefaultValue($name), $this, $type);
@@ -519,7 +519,7 @@ public function addNumber($name, $label): TextInputField {
 }
 ```
 
-Metóda `addText` umožnuje pridať typ textového elementu. Ďalej môžme na základe typu pridať určité validačné pravidlá - ak máme email, tak sa môže automaticky validovať ako email. Ďalej sme si pripravili pomocné metódy `addEmail`, `addPassword` a `addNumber`, ktoré nám zjednodušia pridávanie ďalších typov elementov.
+Metóda `addText` umožnuje pridať typ textového elementu. Ďalej môžeme na základe typu pridať určité validačné pravidlá - ak máme email, tak sa môže automaticky validovať ako email. Ďalej sme si pripravili pomocné metódy `addEmail`, `addPassword` a `addNumber`, ktoré nám zjednodušia pridávanie ďalších typov elementov.
 
 Pre úplnosť `NumberValidator` vyzerá nasledovne:
 ```php 
@@ -544,7 +544,7 @@ class NumberValidator extends AValidator
 #### Ďalšie typy formulárových prvkov
 Nakoniec si ukáže ešte jeden formulárový prvok - Selectbox.
 
-Selectbox komponent má fungovať tak, že ako parameter dostane pole dostupných hodnôt, ktoré bude môcť používateľ vybrať. Takéto pole je štandardne typu `"klúč" => "hodnota"` kde kľúčom môže byť napr. `id` záznamu z databázy a hodnota bude text, ktorý sa bude zobrazovať používateľovi. Základnou validáciou pri každom selectboxe je kontrola prípustných hodnôt - použivateľ nemôže odoslať hodnotu, ktorá nieje medzi prípustnými. Celú túto požiadavku implementujeme jednoduchou kontrolov prípustných hodnôt v konštruktore triedy `SelectField`.
+Selectbox komponent má fungovať tak, že ako parameter dostane pole dostupných hodnôt, ktoré bude môcť používateľ vybrať. Takéto pole je štandardne typu `"klúč" => "hodnota"` kde kľúčom môže byť napr. `id` záznamu z databázy a hodnota bude text, ktorý sa bude zobrazovať používateľovi. Základnou validáciou pri každom selectboxe je kontrola prípustných hodnôt - použivateľ nemôže odoslať hodnotu, ktorá CSS medzi prípustnými. Celú túto požiadavku implementujeme jednoduchou kontrolov prípustných hodnôt v konštruktore triedy `SelectField`.
 
 ```php 
 class SelectField extends AFormField {

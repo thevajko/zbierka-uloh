@@ -65,7 +65,7 @@ Výsledný spinner vyzerá nasledovne:
 ![](images_univerzal_loader/spinner.png)
 
 ### Javascript
-Keď sa pozrieme do zadania a kódu v štartéri, môžme vidieť že AJAX dotazy sa posielajú pomocou funkcie `fetch`. Našou úlohou teda bude vytvoriť jednoduchý wrapper, ktorý nahradí funkciu `fetch`.
+Keď sa pozrieme do zadania a kódu v štartéri, môžeme vidieť že AJAX dotazy sa posielajú pomocou funkcie `fetch`. Našou úlohou teda bude vytvoriť jednoduchý wrapper, ktorý nahradí funkciu `fetch`.
 
 ```javascript
 async function loaderFetch(...args) {
@@ -95,9 +95,9 @@ Vo vetne `finally` odstránime elemement z DOMu.
 
 Ak chceme našu funkciu otestovať, nahradíme vo funkcii `nacitajZdroj` volanie `fetch` za `loaderFetch`.
 
-Po spustení ukážkového príkladu si môžme všimnúť, že po stlačení tlačidla nám cela obrazovka stmavne a zobrazí sa spinner. Problém je ale v tom, že ak náš kód načítava 2 zdroje súčastne tak sa tento ajax loading bar zobrazí 2x. Na ukážke môžme pozorovať že po skončení prvého requestu sa obrazovka trochu zosvetlí a loader čaká na skončenie aj druhého requestu.
+Po spustení ukážkového príkladu si môžeme všimnúť, že po stlačení tlačidla nám cela obrazovka stmavne a zobrazí sa spinner. Problém je ale v tom, že ak náš kód načítava 2 zdroje súčastne tak sa tento ajax loading bar zobrazí 2x. Na ukážke môžeme pozorovať že po skončení prvého requestu sa obrazovka trochu zosvetlí a loader čaká na skončenie aj druhého requestu.
 
-Túto situáciu môžme vyriešiť pridaním počítadla bežiacich requestov a zobrazovať / skrývať budeme tento ajax loading bar len v prípade potreby. 
+Túto situáciu môžeme vyriešiť pridaním počítadla bežiacich requestov a zobrazovať / skrývať budeme tento ajax loading bar len v prípade potreby. 
 
 ```javascript
 let requestCounter = 0;
@@ -134,7 +134,7 @@ function updateRequestCounter() {
 
 ### Univerzálny loader pre všetky AJAX dotazy
 
-Pokiaľ by sme chceli aby sa náš ajax loader používal pri všetkých requestoch, môžme funkciu `load` z objektu `window` nahradiť tou našou. Na to, aby sme to spravili potrebujeme spraviť dve veci.
+Pokiaľ by sme chceli aby sa náš ajax loader používal pri všetkých requestoch, môžeme funkciu `load` z objektu `window` nahradiť tou našou. Na to, aby sme to spravili potrebujeme spraviť dve veci.
 
 1. Musíme si zapamätať pôvodnú funkciu do lokálnej premennej
 2. Nahradiť funkciu `load` tou našou.
@@ -151,7 +151,7 @@ async function loaderFetch(...args) {
 window.fetch = loaderFetch;
 ```
 
-Vďaka tomuto kódu už nemusíme používať funkciu `loaderFetch` ale môžme používať priamo `fetch`. Ďalšou výhodou tohto prítupu je to, že aj iné knižnice, ktoré obsahujú ajaxové volania pomocou funkcie `fetch` budú používať náš univerzálny loader.
+Vďaka tomuto kódu už nemusíme používať funkciu `loaderFetch` ale môžeme používať priamo `fetch`. Ďalšou výhodou tohto prítupu je to, že aj iné knižnice, ktoré obsahujú ajaxové volania pomocou funkcie `fetch` budú používať náš univerzálny loader.
 
 ### Best practices
 
@@ -161,9 +161,9 @@ Aktuálny kód má jeden veľajší efekt. Do objektu `window` nám pridal nasle
 - `requestCounter`
 - `updateRequestCounter`
 
-Ani jeden z týchto atribútov v princípe nemá čo robiť medzi globalnými premennými. Riešení tohto problému je niekoľko. Môžme napríklad použiť OOP.
+Ani jeden z týchto atribútov v princípe nemá čo robiť medzi globalnými premennými. Riešení tohto problému je niekoľko. môžeme napríklad použiť OOP.
 
-V prípade takýchto menších skriptov môže byť OOP zbytočné prehnané riešenie. V javascripte sa zvykne používať koncept tzv. `Immediately Invoked Function Expression (IIFE)`. Táto IIFE slúži na vytvorenie lokálneho prostredia, v ktorom si môžme deklarovať vlastné "globálne" premenné, ktoré ale nebudú dostupné mimo nášho kódu.
+V prípade takýchto menších skriptov môže byť OOP zbytočné prehnané riešenie. V javascripte sa zvykne používať koncept tzv. `Immediately Invoked Function Expression (IIFE)`. Táto IIFE slúži na vytvorenie lokálneho prostredia, v ktorom si môžeme deklarovať vlastné "globálne" premenné, ktoré ale nebudú dostupné mimo nášho kódu.
 
 Hlavnou myšlienkou tohto prístupu je zaobalenie celého kódu do anonymnej funkcie, ktorá sa hneď vykoná.
 ```javascript
@@ -174,7 +174,7 @@ Hlavnou myšlienkou tohto prístupu je zaobalenie celého kódu do anonymnej fun
 })();
 ```
 
-Všetky premenné definované v rámci funkcie budú k dispozícií len v danej funkcii. Tento príncíp môžte nájsť použitý vo veľkom množstve JS knižníc. Výsledný kód nášho loadera môže vyzerať nasledovne:
+Všetky premenné definované v rámci funkcie budú k dispozícií len v danej funkcii. Tento príncíp môžete nájsť použitý vo veľkom množstve JS knižníc. Výsledný kód nášho loadera môže vyzerať nasledovne:
 ```javascript
 (function() {
   let originalFetch = window.fetch;

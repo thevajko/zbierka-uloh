@@ -209,7 +209,7 @@ renderTable(){
 ```
 Tabuľka sa teraz zobrazí v tvare aby sme žiadnu úpravu nevykonali.
 
-Teraz potrebujeme pridať akciu, ktorá po kliknutí na `<th>` zoradí a nanovo vykreslí tabuľku. Vytvorenému elementu `<th>` pridáme preto logiku na udalosť `onclick`, ktorá zavolá novú metódu `JsTable.sortCollection()`, ktorá bude mať jeden vstupný parameter, a to meno stĺpca na základe ktorého sa má zoradiť. Doplníme `CSS` pre zmenu kurzora, aby indikoval možnosť kurzora cez `cursor: pointer`. Výsledný kód metódy `JsTable.renderHeader()` bude nasledovný:
+Teraz potrebujeme pridať akciu, ktorá po kliknutí na `<th>` zoradí a nanovo vykreslí tabuľku. Vytvorenému elementu `<th>` pridáme preto logiku na udalosť `onclick`, ktorá zavolá novú metódu `JsTable.sortCollection()`, ktorá bude mať jeden vstupný parameter, a to meno stĺpca na základe ktorého sa má zoradiť. Doplníme CSS pre zmenu kurzora, aby indikoval možnosť kurzora cez `cursor: pointer`. Výsledný kód metódy `JsTable.renderHeader()` bude nasledovný:
 
 ```javascript
 renderHeader(){

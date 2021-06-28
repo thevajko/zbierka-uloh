@@ -5,97 +5,130 @@
 > - Repo: [Štartér](/../../tree/main/css/galeria), [Riešenie](/../../tree/solution/css/galeria).
 
 # Galéria (CSS)
+
 </div>
 
 ## Riešenie
 
-Pri riešení tohto príkladu budeme postupovať po jednotlivých krokoch
-1. Zobrazenie obrázkov v správnom pomere strán
-2. Zobrazenie obrázkov v gride
-3. Zobrazenie rôzneho počtu obrázkov v riadku podľa veľkosti obrazovky
+Pri riešení tohto príkladu budeme postupovať po jednotlivých krokoch:
+
+1. Zobrazenie obrázkov v správnom pomere strán.
+2. Zobrazenie obrázkov v mriežke.
+3. Zobrazenie rôzneho počtu obrázkov v riadku podľa veľkosti obrazovky.
 4. Zobrazenie popisu obrázku
 
 ### Správne zobrazenie obrázkov
-Vo všeobecnoti môžme predpokladať že obrázky v galérii môžu mať ľubovolné rozmery. Niektoré môžu byť fotené na výšku, iné na šírku. Niektoré môžu byť širokouhlé iné normálne. Tento problém sa dá riešiť dvoma spôsobmi - buďto na strane servera vygenerujeme "náhľady" ktoré všetky budú mať rovnaké rozmery, alebo si ich prispôsobíme pomocou CSS. V tomto príklade si ukážeme riešenie čisto pomocou CSS.
 
-Najskôr si ukážeme "trik" ako môžme určitému elementu predpísať pomer strán. Pokiaľ by sme mali elementy s pevnou šírkou, tak toto by nemal byť problém, lebo môžme nastaviť rozmery priamo v pixeloch. V našom prípade ale požadujeme, aby sa obrázok roztiahol na celú obrazovku takže bude mať nastavenú `width: 100%`. Pokiaľ by sme skúsili nastaviť `height: 75%` tak by sme nedostali konštatný pomer, pretože výška v percentách určuje pomer výšky elementu a jeho rodiča. Takže pri zmene veľkosti rodičovského elementu by sa nám menila aj výška fotky. Ak chceme konštantný pomer, môžme nastaviť `padding-top: 75%;`. Pokiaľ by sme chceli iný pomer ako 4:3 tak je potrebné vypočítať príslušnu percentuálnu hodnotu a zmeniuť hodnotu vlastnosti `padding-top`.
+Vo všeobecnoti môžeme predpokladať že obrázky v galérii môžu mať ľubovolné rozmery. Niektoré môžu byť fotené na výšku,
+iné na šírku. Niektoré môžu byť širokouhlé iné normálne. Tento problém sa dá riešiť dvoma spôsobmi - buďto na strane
+servera vygenerujeme "náhľady" ktoré všetky budú mať rovnaké rozmery, alebo si ich prispôsobíme pomocou CSS. V tomto
+príklade si ukážeme riešenie čisto pomocou CSS.
+
+Najskôr si ukážeme "trik" ako môžeme určitému elementu predpísať pomer strán. Pokiaľ by sme mali elementy s pevnou
+šírkou, tak toto by nemal byť problém, lebo môžeme nastaviť rozmery priamo v pixeloch. V našom prípade ale požadujeme,
+aby sa obrázok roztiahol na celú obrazovku takže bude mať nastavenú `width: 100%`. Pokiaľ by sme skúsili
+nastaviť `height: 75%` tak by sme nedostali konštatný pomer, pretože výška v percentách určuje pomer výšky elementu a
+jeho rodiča. Takže pri zmene veľkosti rodičovského elementu by sa nám menila aj výška fotky. Ak chceme konštantný pomer,
+môžeme nastaviť `padding-top: 75%;`. Pokiaľ by sme chceli iný pomer ako 4:3 tak je potrebné vypočítať príslušnu
+percentuálnu hodnotu a zmeniuť hodnotu vlastnosti `padding-top`.
 
 ```css
 .fotka {
-  position: relative;
-  width: 100%;
-  padding-top: 75%;
+    position: relative;
+    width: 100%;
+    padding-top: 75%;
 }
 
 .fotka > * {
-  position: absolute;
-  top: 0;
-  left: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .fotka img {
-  display: block;
-  width: 100%;
-  height: 100%;
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 ```
 
-Elementom `fotka` sme nastavili šírku na 100% a `padding-top` na 75%. Okrem toho sme museli nastaviť pozíciu na `relative` aby sme mohli správne vo vnútri zobraziť obrázok.
+Elementom `fotka` sme nastavili šírku na 100% a `padding-top` na 75%. Okrem toho sme museli nastaviť pozíciu
+na `relative` aby sme mohli správne vo vnútri zobraziť obrázok.
 
-Vo fotke sa nachádza obrázok a dva textové elementy. Tieto pre zachovanie pomeru strán musia mať nastavenú absolútnu pozíciu. Pre výber všetkých priamých potomkov elementu `fotka` sme použili selektor `.fotka > *`.
+Vo fotke sa nachádza obrázok a dva textové elementy. Tieto pre zachovanie pomeru strán musia mať nastavenú absolútnu
+pozíciu. Pre výber všetkých priamých potomkov elementu `fotka` sme použili selektor `.fotka > *`.
 
-V poslednom rade sme roztiahli obrázok na celú šírku príslušného elementu `fotka`. Po aplikovaní tohto kódu dostaneme stránku, kde budú jednotlivé fotky roztiahnuté na celú šírku stránky a zobrazené budu vždy bez ohľadu na veľkosť okna v pomere 4:3.
+V poslednom rade sme roztiahli obrázok na celú šírku príslušného elementu `fotka`. Po aplikovaní tohto kódu dostaneme
+stránku, kde budú jednotlivé fotky roztiahnuté na celú šírku stránky a zobrazené budu vždy bez ohľadu na veľkosť okna v
+pomere 4:3.
 
 Tento kód má ale ešte jednu vadu:
 
 ![](images_galeria/riesenie1.png)
 
-Ako môžme vidieť na obrázku, fotka sa nám zdeformovala. Pôvodný obrázok bol totižto fotený "na výšku" a keď obrázku nastavíme rozmery na 100% tak sa roztiahne a zdeformuje. Túto deformáciu môžme našťastie jednoducho vyriešiť pomocou vlastnosti `object-fit: cover`, ktorá definuje spôsob, akým sa obrázok prispôsobí pri zmene veľkosti. Po aplikovaní tejto vlastnosti na obrázok dostaneme:
+Ako môžeme vidieť na obrázku, fotka sa nám zdeformovala. Pôvodný obrázok bol totižto fotený "na výšku" a keď obrázku
+nastavíme rozmery na 100% tak sa roztiahne a zdeformuje. Túto deformáciu môžeme našťastie jednoducho vyriešiť pomocou
+vlastnosti `object-fit: cover`, ktorá definuje spôsob, akým sa obrázok prispôsobí pri zmene veľkosti. Po aplikovaní
+tejto vlastnosti na obrázok dostaneme:
 
 ![](images_galeria/riesenie2.png)
 
 ### Zobrazenie obrázkov v gride
-Aktuálne sme v stave, keď sa nám na stránke obrázky zobrazujú pod sebou. My by sme ale potrebovali, aby sme zobrazili 3 obrázky vedľa seba.
+
+Aktuálne sme v stave, keď sa nám na stránke obrázky zobrazujú pod sebou. My by sme ale potrebovali, aby sme zobrazili 3
+obrázky vedľa seba.
 
 #### Riešenie cez `inline-block`
-Prvým spôsobom je využitie toho, že element môžme zobraziť ako `inline-block` čo znamená že sa bude v určitých okolnostiach správať ako `inline` element (nebude za ním nový riadok) a v iných ako blokový element (môžme mu nastaviť rozmery).
+
+Prvým spôsobom je využitie toho, že element môžeme zobraziť ako `inline-block` čo znamená že sa bude v určitých
+okolnostiach správať ako `inline` element (nebude za ním nový riadok) a v iných ako blokový element (môžeme mu nastaviť
+rozmery).
 
 ```css
 .fotka {
-  display: inline-block;
-  position: relative;
-  width: calc(100%/3);
-  padding-top: calc(75%/3);
+    display: inline-block;
+    position: relative;
+    width: calc(100% / 3);
+    padding-top: calc(75% / 3);
 }
 ```
 
-Okrem pridania vlastnosti display sme zmenili aj šírku elementov - ak chceme 3 tak potrebujeme 33%. Využuli sme tu funkciu calc, pretože 1/3 zo 100 je v skutočnosti 33.3333 periodických a calc nám to spočíta presne. **Ako si môžte všimnuť, aj `padding-top` bolo potrebné zmenšiť na 1/3 pôvodnej hodnoty**.
+Okrem pridania vlastnosti display sme zmenili aj šírku elementov - ak chceme 3 tak potrebujeme 33%. Využuli sme tu
+funkciu calc, pretože 1/3 zo 100 je v skutočnosti 33.3333 periodických a calc nám to spočíta presne. **Ako si môžete
+všimnuť, aj `padding-top` bolo potrebné zmenšiť na 1/3 pôvodnej hodnoty**.
 
 Po aplikovaní tohto štýlu ale ostaneme prekvapený:
 
 ![](images_galeria/riesenie3.png)
 
-Namiesto troch obrázkov na riadok máme len dva. Navyše oproti pôvodnému prípadu máme okolo obrázkov medzery. Po ďalšom skúmaní zistíme že práve tieto medzery spôsobili že sa nezmesia 3 obrázky na riadok. Pri zobrazení `inline-block` sú tieto medzery spôsobené novým riadkom v html kóde medzi obrázkami.
+Namiesto troch obrázkov na riadok máme len dva. Navyše oproti pôvodnému prípadu máme okolo obrázkov medzery. Po ďalšom
+skúmaní zistíme že práve tieto medzery spôsobili že sa nezmesia 3 obrázky na riadok. Pri zobrazení `inline-block` sú
+tieto medzery spôsobené novým riadkom v html kóde medzi obrázkami.
 
-Ak v pôvodnom html kóde odstránime medzery medzi fotkami tak tento problém zmizne. Toto ale nieje správne riešenie, nakoľko by sme sa pri deklarácii css pravidel nemali spolihať na medzery medzi html elementami.
+Ak v pôvodnom html kóde odstránime medzery medzi fotkami tak tento problém zmizne. Toto ale CSS správne riešenie,
+nakoľko by sme sa pri deklarácii css pravidel nemali spolihať na medzery medzi html elementami.
 
 ```html
+
 <div class="fotka">
-  ...
-</div><div class="fotka">
-  ...
+    ...
+</div>
+<div class="fotka">
+    ...
 </div>
 ```
 
 #### Riešenie cez `float: left`
-Druhým spôsobom je ponechanie blokového zobrazenia fotky. Blokovým elementom môžme nastaviť obtekanie pomocou vlastnosti `float`. Môžme teda uvažovať nasledovný kód:
+
+Druhým spôsobom je ponechanie blokového zobrazenia fotky. Blokovým elementom môžeme nastaviť obtekanie pomocou
+vlastnosti `float`. môžeme teda uvažovať nasledovný kód:
 
 ```css
 .fotka {
-  float: left;
-  position: relative;
-  width: calc(100%/3 - 5px);
-  padding-top: calc(75%/3);
+    float: left;
+    position: relative;
+    width: calc(100% / 3 - 5px);
+    padding-top: calc(75% / 3);
 }
 ```
 
@@ -104,26 +137,32 @@ Výsledkom bude správne zobrazenie 3 fotiek na jednom riadku:
 ![](images_galeria/riesenie4.png)
 
 #### Riešenie cez flexbox
-Posledným spôsobom je riešenie pomcou flexboxu. Najskôr potrebujeme elementu galéria nastaviť že má byť tzv. "flex kontajner" a zobrazenie fotiek už následne bude automatické.
+
+Posledným spôsobom je riešenie pomcou flexboxu. Najskôr potrebujeme elementu galéria nastaviť že má byť tzv. "flex
+kontajner" a zobrazenie fotiek už následne bude automatické.
 
 ```css
 .galeria {
-  display: flex;
-  flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
 }
 ```
 
-Okrem `display: flex` musíme nastaviť aj vlastnosť `flex-wrap` na hodnotu `wrap` aby sa flexbox nepokúšal o zobrazenie všekých elementov v jednom riadku, ako môžme vidieť v nasledovnom obrázku.
+Okrem `display: flex` musíme nastaviť aj vlastnosť `flex-wrap` na hodnotu `wrap` aby sa flexbox nepokúšal o zobrazenie
+všekých elementov v jednom riadku, ako môžeme vidieť v nasledovnom obrázku.
 
 ![](images_galeria/riesenie5.png)
 
-Po nastavení `flex-wrap: wrap;` je už všetko v poriadku. Výhodou flexboxu oproti riešeniu s obtekaním je to, že flexbox má veľké množstvo ďalších možností. Predstavte si že nemáme presný počet obrázkov tak, aby sme vyplnili všetky riadky. V prípade riešenia s obtekaním nám posledný obrázok zostane na ľavom okraji. Ak použijeme flexbox, môžme pomocou vlastnosti `justify-content` nastaviť, čo sa má stať v prípade, že nebude dostatok fotiek v riadku.
+Po nastavení `flex-wrap: wrap;` je už všetko v poriadku. Výhodou flexboxu oproti riešeniu s obtekaním je to, že flexbox
+má veľké množstvo ďalších možností. Predstavte si že nemáme presný počet obrázkov tak, aby sme vyplnili všetky riadky. V
+prípade riešenia s obtekaním nám posledný obrázok zostane na ľavom okraji. Ak použijeme flexbox, môžeme pomocou
+vlastnosti `justify-content` nastaviť, čo sa má stať v prípade, že nebude dostatok fotiek v riadku.
 
 Ak nastavíme `justify-content` na `center` tak sa nám fotky vycentrujú do stredu:
 
 ![](images_galeria/riesenie6.png)
 
-Môžme ale vyskúšať aj hodnotu `space-between`, ktorá nám fotky rozhodí do krajov:
+môžeme ale vyskúšať aj hodnotu `space-between`, ktorá nám fotky rozhodí do krajov:
 
 ![](images_galeria/riesenie7.png)
 
@@ -133,7 +172,9 @@ Alebo hodnotu `space-evenly`, ktorá nám ich umiestni s rovnomernými medzerami
 
 Týchto vlastností je veľké množstvo a stačí si vybrať podľa potreby.
 
-Ak nám nevyhovuje prázdne miesto v spodnom riadku, môžme nastaviť fotke vlastnoť `flex-grow` vďka ktorej sa obrázoky v poslednom riadku roztiahnú tak, aby vyplnili celý priestor
+Ak nám nevyhovuje prázdne miesto v spodnom riadku, môžeme nastaviť fotke vlastnoť `flex-grow` vďka ktorej sa obrázoky v
+poslednom riadku roztiahnú tak, aby vyplnili celý priestor
+
 ```css 
 .fotka {
   position: relative;
@@ -146,61 +187,76 @@ Ak nám nevyhovuje prázdne miesto v spodnom riadku, môžme nastaviť fotke vla
 ![](images_galeria/riesenie9.png)
 
 #### Pridanie medzier medzi obrázky
-V ďalšom kroku by sme mali nastaviť medzery medzi jednotlivými fotkami, nech niesu tak strašne nalepené na sebe. 
 
-Najjednoduhším spôsobom je pridanie marginu fotke. Problém je, že margin rozširuje element, takže margin musíme odpočítať od šírky samotného elementu. S využitím funkcie `calc` to ale nieje žiaden problém.
+V ďalšom kroku by sme mali nastaviť medzery medzi jednotlivými fotkami, nech niesu tak strašne nalepené na sebe.
+
+Najjednoduhším spôsobom je pridanie marginu fotke. Problém je, že margin rozširuje element, takže margin musíme
+odpočítať od šírky samotného elementu. S využitím funkcie `calc` to ale CSS žiaden problém.
 
 ```css
 .fotka {
-  position: relative;
-  width: calc(100%/3 - 5px);
-  padding-top: calc(75%/3 - 5px);
-  flex-grow: 1;
-  margin: 2.5px;
+    position: relative;
+    width: calc(100% / 3 - 5px);
+    padding-top: calc(75% / 3 - 5px);
+    flex-grow: 1;
+    margin: 2.5px;
 }
 ```
+
 ![](images_galeria/riesenie10.png)
 
 ### Definícia rôzneho počtu obrázkov v riadku, na základe veľkosti zariadenia
 
-Pokiaľ trváme na zachovaní pomeru strán musíme využiť tzv "media queries". Tie nám umožnujú aplikovať štýl na základe určitej vlastnosti klienta. V našom prípade potrebujeme kontrolovať celkovu šírku stránky. Použijeme pre to media query `max-width`. V zadaní požadujeme 3 spôsoby zobrazenie. Jedno z nich bude východzie a ostatné sa budu meniť na základe šírky okna. 
-Za východzie môžme považovať zobrazenie 3 fotiek v jednom riadku. Potrebujeme pre to definovať 2 body zlomu, v ktorých sa bude meniť počet obrázkov na riadku. Prvý z nich bude 1000px a druhý 600px.
+Pokiaľ trváme na zachovaní pomeru strán musíme využiť tzv "media queries". Tie nám umožnujú aplikovať štýl na základe
+určitej vlastnosti klienta. V našom prípade potrebujeme kontrolovať celkovu šírku stránky. Použijeme pre to media
+query `max-width`. V zadaní požadujeme 3 spôsoby zobrazenie. Jedno z nich bude východzie a ostatné sa budu meniť na
+základe šírky okna. Za východzie môžeme považovať zobrazenie 3 fotiek v jednom riadku. Potrebujeme pre to definovať 2
+body zlomu, v ktorých sa bude meniť počet obrázkov na riadku. Prvý z nich bude 1000px a druhý 600px.
 
 Nasledujúce riadky dopíšeme za definicíciu `.fotka`.
+
 ```css
 @media (max-width: 1000px) {
-  .fotka {
-    width: calc(100%/2 - 5px);
-    padding-top: calc(75%/2 - 5px);
-  }
+    .fotka {
+        width: calc(100% / 2 - 5px);
+        padding-top: calc(75% / 2 - 5px);
+    }
 }
 
 @media (max-width: 600px) {
-  .fotka {
-    width: calc(100% - 5px);
-    padding-top: calc(75% - 5px);
-  }
+    .fotka {
+        width: calc(100% - 5px);
+        padding-top: calc(75% - 5px);
+    }
 }
 ```
 
-Prvé pravidlo prepíše "defaultnu" šírku fotky z cca 33% na 50% v prípade že obrazovka má maximálnu širku 1000px. Druhé zas prepíše šírku fotky na 100% v prípade že šírka zariadenia bude menej, nanajvýš rovná 600px.
+Prvé pravidlo prepíše "defaultnu" šírku fotky z cca 33% na 50% v prípade že obrazovka má maximálnu širku 1000px. Druhé
+zas prepíše šírku fotky na 100% v prípade že šírka zariadenia bude menej, nanajvýš rovná 600px.
 
 #### Automatická zmena veľkosti pomocou flexboxu.
-V prípade, že nebudeme trvať na konštantnom pomere výšky a šírky obrázku, môžme využiť flexboxové automatické prispôsobovanie elementov.
 
-Môžte si vyskúšať nasledovné:
+V prípade, že nebudeme trvať na konštantnom pomere výšky a šírky obrázku, môžeme využiť flexboxové automatické
+prispôsobovanie elementov.
+
+môžete si vyskúšať nasledovné:
+
 ```css
 .fotka {
-  position: relative;
-  min-width: 400px;
-  height: 300px;
-  flex-grow: 1;
-  margin: 2.5px;
+    position: relative;
+    min-width: 400px;
+    height: 300px;
+    flex-grow: 1;
+    margin: 2.5px;
 }
 ```
-V tomto príklade sme pevne určili výšku obrázka na 300px a minimálnu šírku na 400px. Flexbox následne tieto obrázky zobrazí tak, že každý z nich bude mať výšku presne 300px a šírka bude podľa potreby tak, aby sa ich do riadku zmestilo čo najviac.
+
+V tomto príklade sme pevne určili výšku obrázka na 300px a minimálnu šírku na 400px. Flexbox následne tieto obrázky
+zobrazí tak, že každý z nich bude mať výšku presne 300px a šírka bude podľa potreby tak, aby sa ich do riadku zmestilo
+čo najviac.
 
 ### Popis obrázku
+
 V aktuálnej verzii ešte nemáme naštýlovaný popis obrázku. Popis sa v súčastnosi prelýna s obrázkom.
 
 ![](images_galeria/riesenie11.png)
@@ -209,37 +265,42 @@ Začneme zo správnym umiestnením textov, a nastavením správnej farby. Farbu 
 
 ```css
 .fotka {
-  color: white;
+    color: white;
 }
 ```
 
 A jednotlivé prvky správne umiestnime.
+
 ```css
 .fotka h3 {
-  top: 0;
-  left: 15px;
+    top: 0;
+    left: 15px;
 }
 
 .fotka p {
-  top: auto;
-  bottom: 30px;
-  width: 100%;
-  text-align: center;
+    top: auto;
+    bottom: 30px;
+    width: 100%;
+    text-align: center;
 }
 ```
-Pri nastavovani popisu sme museli prepísať vlastnosť `top`, pretože túto sme nastavili všetkým elementom vo fotke pomocou selektoru `.fotka > *`.
+
+Pri nastavovani popisu sme museli prepísať vlastnosť `top`, pretože túto sme nastavili všetkým elementom vo fotke
+pomocou selektoru `.fotka > *`.
 
 ![](images_galeria/riesenie12.png)
 
-Ďalším krokom bude stmavenie celého obrázku. To sa dá urobiť viacerími spôsobmi. Najjednoduhšie bude použitie vlastnosti opacity, ktorá umožní spriehľadniť ľubovolný element. Ak to navyše skombinujeme s tmavou farbou pozadia fotky dostaneme efekt stmavnutého pozadia.
+Ďalším krokom bude stmavenie celého obrázku. To sa dá urobiť viacerími spôsobmi. Najjednoduhšie bude použitie vlastnosti
+opacity, ktorá umožní spriehľadniť ľubovolný element. Ak to navyše skombinujeme s tmavou farbou pozadia fotky dostaneme
+efekt stmavnutého pozadia.
 
 ```css
 .fotka {
-  background-color: black;
+    background-color: black;
 }
 
 .fotka:hover img {
-  opacity: 0.4;
+    opacity: 0.4;
 }
 ```
 
@@ -251,11 +312,11 @@ Pokiľ chceme, aby sa aj texty zobrazili až po premiestnení myši na obrázok 
 
 ```css
 .fotka p, .fotka h3 {
-  display: none;
+    display: none;
 }
 
 .fotka:hover p, .fotka:hover h3 {
-  display: block;
+    display: block;
 }
 ```
 
@@ -263,18 +324,23 @@ Pomocou prvého pravidla skryjeme oba elementy a pomocou druhého ich zobrazíme
 
 ### Animácie pri prechode myši
 
-Aktuálne riešenie funguje, ale nieje "príjemné" na pozeranie. Skúsime teda pridať zopár animácií.
-Začneme tým, aby obrázok stmavol postupne a nie nárazovo. Na to by sme mohli napísať vlastnú animáciu, ktorá by menila vlastnosť `opacity`. Jednoduchší spôsob bude využitie vlastnosti `transition`. Túto vlastnosť definujeme pre obrázok. Výhoda `transition` oproti vlastnej animácii je v jednoduchšom zápise. Pri `transition` definujeme len vlastnosť, ktorej sa to týka a dobu "prechodu".
+Aktuálne riešenie funguje, ale CSS "príjemné" na pozeranie. Skúsime teda pridať zopár animácií. Začneme tým, aby obrázok
+stmavol postupne a nie nárazovo. Na to by sme mohli napísať vlastnú animáciu, ktorá by menila vlastnosť `opacity`.
+Jednoduchší spôsob bude využitie vlastnosti `transition`. Túto vlastnosť definujeme pre obrázok. Výhoda `transition`
+oproti vlastnej animácii je v jednoduchšom zápise. Pri `transition` definujeme len vlastnosť, ktorej sa to týka a dobu "
+prechodu".
 
 ```css
 .fotka img {
-  transition: opacity 0.5s;
+    transition: opacity 0.5s;
 }
 ```
 
-Táto definícia zebezpečí, že vždy keď sa bude meniť `opacity` (napríklad po prechode myšou) tak táto zmena nebude okamžitá, ale bude trvať 0.5 sekundy.
+Táto definícia zebezpečí, že vždy keď sa bude meniť `opacity` (napríklad po prechode myšou) tak táto zmena nebude
+okamžitá, ale bude trvať 0.5 sekundy.
 
-Druhu animáciu, ktorú pridáme je "prílet popisu" z dola. Tento prílet budeme animovať pomocou transformácie y-pozície. Najskôr si pripravíme `keyframes`.
+Druhu animáciu, ktorú pridáme je "prílet popisu" z dola. Tento prílet budeme animovať pomocou transformácie y-pozície.
+Najskôr si pripravíme `keyframes`.
 
 ```css 
 @keyframes popis-in {
@@ -287,34 +353,40 @@ Druhu animáciu, ktorú pridáme je "prílet popisu" z dola. Tento prílet budem
 }
 ```
 
-Táto animácie na začiatku umiestni element o 1000% nižšie. Použili sme 1000% preto, aby element bol skutočne mimo obrázku. Ak by sme dali len 100% tak by animácia začala už z obrázku.
+Táto animácie na začiatku umiestni element o 1000% nižšie. Použili sme 1000% preto, aby element bol skutočne mimo
+obrázku. Ak by sme dali len 100% tak by animácia začala už z obrázku.
 
 Pre aplikovanie animácie následne stačí použiť:
 
 ```css
 .fotka:hover p {
-  animation-delay: 0.5s;
-  animation: popis-in 40s;
+    animation-delay: 0.5s;
+    animation: popis-in 40s;
 }
 ```
 
-Celková animácia bude trvať 1 sekundu, s tým že sme jej začiatok posunuli o pol sekundy, aby sme dosiahli krajší efekt príletu.
+Celková animácia bude trvať 1 sekundu, s tým že sme jej začiatok posunuli o pol sekundy, aby sme dosiahli krajší efekt
+príletu.
 
-Posledným problémom, ktorý musíme vyriešiť je to, že akonáhle sme posunuli popis o 1000% v smere osi Y tak počas animácie sa nám môže stať, že nám na stránku "skočí scroolbar".
+Posledným problémom, ktorý musíme vyriešiť je to, že akonáhle sme posunuli popis o 1000% v smere osi Y tak počas
+animácie sa nám môže stať, že nám na stránku "skočí scroolbar".
 
 ![](images_galeria/riesenie14.png)
 
-Na obrázku vyššie môžme vidieť ako sa v pravom dolnom obrázku postupne nasúva text a počas tejto animácie vidíme zobrazený scroolbar na pravo. Po skončení animácie sa scroolbar stratí.
+Na obrázku vyššie môžeme vidieť ako sa v pravom dolnom obrázku postupne nasúva text a počas tejto animácie vidíme
+zobrazený scroolbar na pravo. Po skončení animácie sa scroolbar stratí.
 
-Ak nastavíme pozadie stránky na tmavú farbu, môžme vidieť presne čo sa deje:
+Ak nastavíme pozadie stránky na tmavú farbu, môžeme vidieť presne čo sa deje:
 
 ![](images_galeria/riesenie15.png)
 
-Text sa zobrazuje v skutočnosti mimo elementu fotky. Tento problém môžme vyriešiť tak, že elementu `fotka` nastavíme hodnotu parametra `overflow` na `hidden`, čo spôsobí že hoc aký obsah, ktorý by sa mal vykresliť mimo elementu fotka bude skritý.
+Text sa zobrazuje v skutočnosti mimo elementu fotky. Tento problém môžeme vyriešiť tak, že elementu `fotka` nastavíme
+hodnotu parametra `overflow` na `hidden`, čo spôsobí že hoc aký obsah, ktorý by sa mal vykresliť mimo elementu fotka
+bude skritý.
 
 ```css
 .fotka {
-  overflow: hidden;
+    overflow: hidden;
 }
 ```
 

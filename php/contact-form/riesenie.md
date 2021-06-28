@@ -60,7 +60,7 @@ Meno je textové pole. Email je tiež textové pole, ktorému sme nastavili typ 
 Každému prvku tohto nášho formulára sme nastavili `display: block` preto, aby sme mali jednotlivé elementy zobrazeme pekne pod sebou. Okrem toho sme pridali ďalšie štýlovanie, nastavili sme pomocou `margin-top` rozostup medzi prvkami a pomocou `height` sme nastavili defaultnú výšku poľa na text správy.
 
 ### Validácia formulára na strane PHP
-Pri nesprávnych hodnotách je potrebné preskočiť posielanie emailu a vrátiť poúživateľovi formulár späť, aj s informáciou o chybách. Keďže formulár odosielame na rovnakú adresu, kde sa aktuálne nachádza, môžme pridať validáciu na začiatok tohto skritu.
+Pri nesprávnych hodnotách je potrebné preskočiť posielanie emailu a vrátiť poúživateľovi formulár späť, aj s informáciou o chybách. Keďže formulár odosielame na rovnakú adresu, kde sa aktuálne nachádza, môžeme pridať validáciu na začiatok tohto skritu.
 
 > Pre jednoduchosť príkladu budeme uvažovať, že nasledovný kód je v súbore `index.php`, v ktorom sa aktuálne nachádza aj HTML kód formuláru. Pri zložitejšej aplikácii je vhodné určité spoločné funkcionality oddeliť do samostaných súborov, a tieto vkladať do našej stránky pomocou príkazov `include` alebo `require`. 
 
@@ -76,7 +76,7 @@ if ($isPost) {
   }
   $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
   if (!$email) {
-    $errors['email'] = "Emailová adresa nieje platná.";
+    $errors['email'] = "Emailová adresa CSS platná.";
   }
   $content = trim($_POST['content']);
   if (empty($content)) {
@@ -85,7 +85,7 @@ if ($isPost) {
 }
 ```
 
-Samotná validácia pozostáva z nasledovných krokov. Na načiatku si deklarujeme premennú, do ktorej bude ukladať validačné chyby. Túto premennú sme si deklarovali ako pole. V ďalšom kroku overíme, či sa jedná o `POST` request. Na overenie môžme použiť viacero možností. V závislosti od použitého servera a konfigurácie nemusia všetky fungovať. Superglobálna premenná `$_SERVER` obsahuje pod kľúčom `REQUEST_METHOD` typ http požiadavky. Tento spôsob bude fungovať vždy. V našom prípade overíme, či `$_SERVER['REQUEST_METHOD']` obsahuje hodnotu `POST`.
+Samotná validácia pozostáva z nasledovných krokov. Na načiatku si deklarujeme premennú, do ktorej bude ukladať validačné chyby. Túto premennú sme si deklarovali ako pole. V ďalšom kroku overíme, či sa jedná o `POST` request. Na overenie môžeme použiť viacero možností. V závislosti od použitého servera a konfigurácie nemusia všetky fungovať. Superglobálna premenná `$_SERVER` obsahuje pod kľúčom `REQUEST_METHOD` typ http požiadavky. Tento spôsob bude fungovať vždy. V našom prípade overíme, či `$_SERVER['REQUEST_METHOD']` obsahuje hodnotu `POST`.
 
 Ďalej nasleduje validácia hodnôt jednitlivých časti formulára. Pri všetých validáciach poúživame rovnaký pattern. Najskôr si zo superglobalného poľa `$_POST` načítame hodnotu nášho parametra a vyfiltrujeme ju. Pri mene a obsahu používame funkciu [`trim`](https://www.php.net/manual/en/function.trim.php), ktorá odstráni začiatočné a koncové prázdne znaky. Následne overíme či meno, alebo správa niesu prázdne pomocou funkcie [`empty`](https://www.php.net/manual/en/function.empty.php). Ak takáto je prázdne, tak do poľa chýb `$errors` uložíme pod kľúčom danej premennej textový popis chyby.
 
@@ -96,9 +96,9 @@ if (empty($name)) {
 }
 ```
 
-Takýmto spôsobom môžme postupne validovať aj ďalšie požiadavky. Ak by sme napíklad chceli, aby meno začínalo veľkým písmenom, môžme dopísať ďalšiu podmienku ktorá pomocou funkcie [`ctype-upper`](https://www.php.net/manual/en/function.ctype-upper.php) skontroluje prvý znak mena, a ak to nieje veľké písmeno, tak priradí chybovú hlášku.
+Takýmto spôsobom môžeme postupne validovať aj ďalšie požiadavky. Ak by sme napíklad chceli, aby meno začínalo veľkým písmenom, môžeme dopísať ďalšiu podmienku ktorá pomocou funkcie [`ctype-upper`](https://www.php.net/manual/en/function.ctype-upper.php) skontroluje prvý znak mena, a ak to CSS veľké písmeno, tak priradí chybovú hlášku.
 
-Validácia emailovej adresy je trochu komplikovanejšia. V tomto prípade sme potrebovali overiť, či sa jedná o skutočný email. Možností je niekoľko. Môžme využiť napríklad regulárne výrazy. V php existuje funkcia [`preg_match`](https://www.php.net/manual/en/function.preg-match.php), pomocou ktorej vieme skontrolovať, či náš reťazec spĺňa regulárny výraz. Samotný regulárny výraz na kontrolu emailovej adresy by mohol vyzerať nasledovne:  
+Validácia emailovej adresy je trochu komplikovanejšia. V tomto prípade sme potrebovali overiť, či sa jedná o skutočný email. Možností je niekoľko. môžeme využiť napríklad regulárne výrazy. V php existuje funkcia [`preg_match`](https://www.php.net/manual/en/function.preg-match.php), pomocou ktorej vieme skontrolovať, či náš reťazec spĺňa regulárny výraz. Samotný regulárny výraz na kontrolu emailovej adresy by mohol vyzerať nasledovne:  
 ```
 /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/`
 ```
@@ -136,7 +136,7 @@ Pre úplnosť uvedieme ešte CSS pravidlo pre naštýlovanie tejto chybovej hlá
 Toto riešenie nám zobrazí chyby v nasledovnom formáte:
 ![](images_contact-form/riesenie-errorMessages.png)
 
-Veľkým problémom tohto riešenia je to, že po odoslaní formuláru sa nám stratia vyplnené údaje, to znamená že ak náhodou zle vyplním emailovu adresu tak prídem nie len o tú, ale aj o celú správu. Takéto správanie aplikácie je neprípustné. Tento problém sa ale dá celkom jednoducho vyriešiť. Html `input` element má atribút `value` pomocou korého môžme nastaviť hodnotu tomuto inputu. Základný pseudokód by tým pádom mohol vyzerať nasledovne:
+Veľkým problémom tohto riešenia je to, že po odoslaní formuláru sa nám stratia vyplnené údaje, to znamená že ak náhodou zle vyplním emailovu adresu tak prídem nie len o tú, ale aj o celú správu. Takéto správanie aplikácie je neprípustné. Tento problém sa ale dá celkom jednoducho vyriešiť. HTML `input` element má atribút `value` pomocou korého môžeme nastaviť hodnotu tomuto inputu. Základný pseudokód by tým pádom mohol vyzerať nasledovne:
 
 ```html
 <input type="text" id="name" name="name" placeholder="Vaše meno" value="<?=$_POST['name']?>">
@@ -154,7 +154,7 @@ Celý input pre meno je aktuálne rozbitý. Ak chceme vedieť prečo, pozrieme s
 ">
 ```
 
-Ako môžme vidieť, do atribútu `value` sa nám vygenerovala php chybová hláška
+Ako môžeme vidieť, do atribútu `value` sa nám vygenerovala php chybová hláška
 ```
 Warning: Undefined array key "name" in /var/www/html/index.php on line 74
 ```
@@ -173,7 +173,7 @@ function getParam($name) : string|null {
 }
 ```
 
-Táto funkcia rieši oba spomenuté problémy. Kontrolujeme v nej pomocou funkcie [`isset`](https://www.php.net/manual/en/function.isset) či danú hodnotu máme k dispozícii. Ak máme, tak pomocou funkcie [`htmlspecialchars`](https://www.php.net/manual/en/function.htmlspecialchars) escapujeme všetky html značky. Môžme si všimnúť že sme funkciu použili s parametrom `ENT_QUOTES`, ktorý podľa dokumentácie okrem HTML escapuje aj uvodzovky, čo je v prípade HTML atribútov potrebné.
+Táto funkcia rieši oba spomenuté problémy. Kontrolujeme v nej pomocou funkcie [`isset`](https://www.php.net/manual/en/function.isset) či danú hodnotu máme k dispozícii. Ak máme, tak pomocou funkcie [`htmlspecialchars`](https://www.php.net/manual/en/function.htmlspecialchars) escapujeme všetky html značky. môžeme si všimnúť že sme funkciu použili s parametrom `ENT_QUOTES`, ktorý podľa dokumentácie okrem HTML escapuje aj uvodzovky, čo je v prípade HTML atribútov potrebné.
 
 Následné použitie už bude veľmi jednoduché:
 ```html
@@ -188,7 +188,7 @@ V prípade poľa na písanie správy, ktoré využíva element `textarea` bude s
 
 ### Odosielanie E-Mailu
 
-Po úspešnej validácii môžme odoslať Email. V php nám na to poslúži funkcia [`mail`](https://www.php.net/manual/en/function.mail). Na to, aby bolo možné odosielať emaily, musí byť aj server správne nakonfigurovaný. Na lokálnom serveri to nemusí vždy fungovať. V prípade využitia priloženého docker-compose sa nám na lokálnom serveri sprístupní aplikácia MailHog, ktorá bude všetky odoslané emaily z php odchytávať a zobrazovať v prehľadnom GUI, vďaka čomu nám umožní rýchlejší vývoj aplikácie.
+Po úspešnej validácii môžeme odoslať Email. V php nám na to poslúži funkcia [`mail`](https://www.php.net/manual/en/function.mail). Na to, aby bolo možné odosielať emaily, musí byť aj server správne nakonfigurovaný. Na lokálnom serveri to nemusí vždy fungovať. V prípade využitia priloženého docker-compose sa nám na lokálnom serveri sprístupní aplikácia MailHog, ktorá bude všetky odoslané emaily z php odchytávať a zobrazovať v prehľadnom GUI, vďaka čomu nám umožní rýchlejší vývoj aplikácie.
 
 Samotné odoslanie emailu spravíme vtedy, keď odošleme formulár a prebehne validácia. Ak nenarazíme na žiadne chyby, odošleme e-mail.
 
