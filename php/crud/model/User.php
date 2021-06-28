@@ -6,4 +6,8 @@ class User
     public string $surname = "";
     public string $mail = "";
     public string $country = "";
+
+    public function getFullname(): string {
+        return $this->name . " " . $this->surname;
+    }
 }

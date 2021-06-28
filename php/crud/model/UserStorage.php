@@ -1,5 +1,6 @@
 <?php
 require_once 'Db.php';
+require_once 'User.php';
 
 class UserStorage {
 
@@ -14,7 +15,7 @@ class UserStorage {
     }
 
     public function getUser($id): ?User {
-        $statement =  Db::conn()->prepare("SELECT * FROM users WHERE id = ?");
+        $statement = Db::conn()->prepare("SELECT * FROM users WHERE id = ?");
         $statement->execute([$id]);
         $statement->setFetchMode(PDO::FETCH_CLASS, User::class);
         $user = $statement->fetch();
@@ -24,7 +25,7 @@ class UserStorage {
         return $user;
     }
 
-    public function storeUser(User $user) {
+    public function storeUser(User $user): void {
         //Insert
         if ($user->id == 0) {
             $sql = "INSERT INTO users (name, surname, mail, country) VALUES (?, ?, ?, ?)";
@@ -37,7 +38,7 @@ class UserStorage {
         }
     }
 
-    public function deleteUser(User $user) {
+    public function deleteUser(User $user): void {
         $sql = "DELETE FROM users WHERE id = ?";
         Db::conn()->prepare($sql)->execute([$user->id]);
     }
