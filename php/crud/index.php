@@ -1,42 +1,34 @@
 <?php
 
-require "User.php";
-require "Db.php";
-
-$users = Db::i()->getAllUsers();
-?><html>
+require "classes/User.php";
+require "classes/Db.php";
+?>
+<!DOCTYPE html>
+<html lang="sk">
 <head>
+    <meta charset="UTF-8">
+    <title>Zoznam osôb</title>
     <style>
-        div a {
-            display: inline-block;
-            margin: 4px;
-            padding: 4px;
-            border: 1px solid black;
-        }
-        a.active {
-            background-color: #949494;
+        a:visited {
+            color: blue;
         }
     </style>
 </head>
     <body>
-        <table border="1">
-            <tr>
-                <th>Meno</th>
-                <th>Priezvisko</th>
-                <th>Email</th>
-                <th>Krajina</th>
-                <th>Akcie</th>
-            </tr>
-            <?php foreach ($users as $user) { ?>
-                <tr>
-                    <td><?=$user->name?></td>
-                    <td><?=$user->surname?></td>
-                    <td><?=$user->mail?></td>
-                    <td><?=$user->country?></td>
-                    <td></td>
-                </tr>
-            <?php } ?>
-        </table>
+        <?php
+        $path = $_GET['p'] ?? "";
+        switch ($path) {
+            case "users/add":
+            case "users/edit":
+                require "pages/users/form.php";
+                break;
+            case "users/delete":
+                require "pages/users/delete.php";
+                break;
+            default:
+                require "pages/users/list.php";
+        }
+        ?>
     </body>
 </html>
 
