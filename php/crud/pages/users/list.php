@@ -9,7 +9,7 @@
         <th>Krajina</th>
         <th>Akcie</th>
     </tr>
-    <?php foreach (Db::i()->getAllUsers() as $user) { ?>
+    <?php foreach (UserStorage::getAllUsers() as $user) { ?>
         <tr>
             <td><?=$user->name?></td>
             <td><?=$user->surname?></td>

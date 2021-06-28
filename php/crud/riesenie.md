@@ -16,9 +16,8 @@
 > Toto riešenie obsahuje všetky potrebné služby v `docker-compose.yml`. Po ich spustení sa vytvorí:
 > - webový server, ktory do __document root__ namapuje adresár tejto úlohy s modulom __PDO__. Port __80__ a bude dostupný na adrese [http://localhost/](http://localhost/). Server má pridaný modul pre ladenie [__Xdebug 3__](https://xdebug.org/) nastavený na port __9000__.
 > - databázový server s vytvorenou _databázov_ a tabuľkou `users` s dátami na porte __3306__ a bude dostupný na `localhost:3306`. Prihlasovacie údaje sú:
-    >   - MYSQL_ROOT_PASSWORD: heslo
-    >
-- MYSQL_DATABASE: crud
+>   - MYSQL_ROOT_PASSWORD: db_user_pass
+>   - MYSQL_DATABASE: crud
 >   - MYSQL_USER: db_user
 >   - MYSQL_PASSWORD: db_user_pass
 > - phpmyadmin server, ktorý sa automatický nastevený na databázový server na porte __8080__ a bude dostupný na adrese [http://localhost:8080/](http://localhost:8080/)
@@ -27,7 +26,7 @@
 
 Samotné riešenie si rozdelíme na niekoľko častí.
 
-### Príprava dát
+### Príprava databázovej schémy a dát
 
 Na úvod si pripravíme databázovú entitu, nad ktorou budeme robiť zadané operácie. Pripravíme si tabuľku `users`, ktorá
 bude obsahovať atribúty `name`, `surname`, `mail` a `country`.
@@ -48,202 +47,108 @@ CREATE TABLE `users`
 ) AUTO_INCREMENT=1;
 ```
 
-### Jednoduché pripojenie a čítanie dát z databázy
+Do databázy pre testovacie účely vložíme niekoľko záznamov.
+![Ukážka záznamov v tabuľke `users`](images_crud/users-data.png)
 
-Ako prvé je potrebné mať v PHP zapnutý modul [PDO](https://www.php.net/manual/en/pdo.installation.php). Ten dopĺňa do PHP funkcionalitu pre prácu s relačnou databázou. Pokiaľ chceme komunikovať s databázou musíme najprv vytvoriť inštanciu triedy `PDO`, ktorá bude následne predstavovať jej prístupový bod.
 
-Pre jej vytvorenie potrebujeme zadať nutné parametre jej [konštrukora](https://www.php.net/manual/en/pdo.construct.php),
-ktoré sú:
+### Pripojenie k databáze
+Pre čítanie dát z databázy existuje v jazyku PHP niekoľko prístupov. Každý DB systém môže mať vlastnú sadu tried (napr. [`mysqli`](https://www.php.net/manual/en/book.mysqli.php) pre MySQL / MariaDB alebo [`pgsql`](https://www.php.net/manual/en/book.pgsql.php) pre PostgreSQL). Okrem toho v PHP existuje unifikované rozhranie PHP Data Objects ([`PDO`](https://www.php.net/manual/en/book.pdo.php)), ktoré sa používa ako unifikovaná nadstavba nad rôznymi DBS.
 
-1. __connection string__ - textový reťazec, ktorý obsahuje informácie o tom, kde sa nachádza databázový server
-2. __meno__ - textový reťazec obsahujúci názov používateľského konta pre databázu
-3. __heslo__ - textový reťazec obsahujúci heslo používateľského konta pre databázu
+V našom príklade si ukážeme prístup cez PDO, ktoré je v súčastnosti odporúčané využívať, pretože na rozdiel od ostatných prístupov plne podporuje objektový prístup.
 
-Pripojenie v našom prípade bude vytvorenie inštancie `PDO` vyzerať nasledovne:
+Hlavným prístupovým bodom k databáze je trieda [`PDO`](https://www.php.net/manual/en/class.pdo.php). Táto trieda umožní vytvoriť pripojenie k databáze a následne vykonávanie SQL príkazov. Pre vytvorenie jej inštancie potrebujeme zadať parametre [konštrukora](https://www.php.net/manual/en/pdo.construct.php).
+
+1. __connection string__ - textový reťazec, ktorý obsahuje informácie o tom, kde sa nachádza databázový server, typ servera a názov použitej databázovej schémy.
+2. __meno__ - textový reťazec obsahujúci názov používateľského konta pre databázu.
+3. __heslo__ - textový reťazec obsahujúci heslo používateľského konta pre databázu.
 
 ```php
 try {
     $pdo = new PDO('mysql:host=db:3306;dbname=crud', "db_user", "db_user_pass");
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    die("Error!: " . $e->getMessage());
+    exit("Error!: " . $e->getMessage());
 }
 ```
 
-V prípade, že sa pripojenie nepodarí ukončíme bez celého skriptu pomocou funkcie  [`exit()`](https://www.php.net/manual/en/function.exit.php)
+Takto vytvorená inštancia PDO nás pripojí na `mysql` databázový server na servery `db` bežiacom na porte `3306` s prihlasovacím menom "db_user" a heslom "db_user_pass". V prípade, že sa pripojenie podarí (nesprávne meno heslo, nedostupný db server) ukončíme bez celého skriptu pomocou funkcie  [`exit()`](https://www.php.net/manual/en/function.exit.php).
 
-Použitie [`try-catch`](https://www.php.net/manual/en/language.exceptions.php) bloku je potrebné pre prípadne odchytenie chyby, ktorá môže nastať pri vytváraní pripojenia na databázu. V prípade ak nastane, tak sa výnimka odchytí a používateľovi sa vypíše chybová hláška.
+Pre pohodlnejšiu prácu ešte nastavíme správanie PDO tak, že pri chybe dostaneme výnimku. Od PHP 8 je toto správanie predvolené, takže na PHP8 už `$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);` nieje potrebné.
 
-Pre získanie dát z databázy môžeme použiť metódu [`PDO::query()`](https://www.php.net/manual/en/pdo.query.php), ktorá dostane ako parameter SQL príkaz, ktorý vykoná. V našom prípade chceme získať všetky dáta tabuľky `users`, preto môžme použiť jednoduchý select: `SELECT * FROM users`.
-
-Metóda `PDO::query()` vracia výsledok operácie z databázy v podobe inštancie
-triedy [`PDOStatement`](https://www.php.net/manual/en/class.pdostatement.php) ak databáza nájde výsledok alebo `false` ak nenájde nič.
-
-Ak chceme získať dáta v iterovaťelnej podobe, musíme použiť metódu [`PDOStatement::fetchAll()`](https://www.php.net/manual/en/pdostatement.fetchall.php). Tá má vstupný parameter,
-ktorý upresňuje spôsob akým su jednotlivé riadky tabuľky transformované na dáta použiteľné v _PHP_. Na začiatok
-použijeme hodnotu `PDO::FETCH_ASSOC`, ktorá vráti riadky v podobe asociatívnych polí.
-
-Následne stačí iba overiť či nám `PDOStatement::fetchAll()` nevrátila hodnotu `false`. A nie, výsledkom je pole polí z
-celým obsahom tabuľky `users`, ktoré vieme v _PHP_ prechádzať pomocou
-cyklu [`foreach`](https://www.php.net/manual/en/control-structures.foreach.php). Jednotlivé riadky sú predstavané polom,
-kde index v danom poli má prestne taký istý názov ako v _databáze_. Ukažka obsahu jedného riadku:
-
-```
-Array
-(
-    [id] => 1
-    [name] => Samuel
-    [surname] => Hamilton
-    [mail] => ornare@sitametante.co.uk
-    [country] => Bahrain
-)
-```
-
-Kód pre jednoduché vypísanie obsahu bude vyzerať nasledovne:
-
-```php
-try {
-    $pdo = new PDO('mysql:host=db:3306;dbname=dbtable', "db_user", "db_user_pass");
-} catch (PDOException $e) {
-    die("Error!: " . $e->getMessage());
-}
-
-try {
-    $sql = 'SELECT * FROM users';
-    $result = $pdo->query($sql);
-
-    $users = $result->fetchAll(PDO::FETCH_ASSOC);
-
-    if ($users) {
-        echo "<ul>";
-        foreach ($users as $user) {
-            echo "<li>{$user['name']}</li>";
-        }
-        echo "</ul>";
-    }
-} catch (\PDOException $e) {
-    die($e->getMessage());
-}
-```
-
-### Pokročilejšia implementácia
-
-Skúsme teraz navrhnúť lepšiu štruktúru riešenia. Vytvoríme preto ako prvé objekt, ktorý bude predstavovať prístupový bod
-čisto pre komunikáciu s databázou. Preto v samostatnom súbor vytvoríme triedu `Db`. K tejto triede budeme chcieť
-pristupovať z rôznych častí kódu a budeme chcieť aby bola pre celu našu aplikáciu vytvorená a používaná jedna jediná jej
-inštancia.
-
-Implementujeme do nej návrhový vzor __signleton__. Nakoľko nepoužívame dômyselnejší framework alebo knižnice,
-implementujeme __singleton__ pomocou statických metód. To z dôvodu, že _PHP_ nepodporuje statický konštruktor.
-
-Naša trieda `Db` bude obsahovať _privátny statický atribút_ `$db`, ktorý nie je možné inicializovat pri jeho definícií.
-Musíme preto vytvoriť statickú metódu, ktorá bude slúžiť ako jeho  _getter_. Pred vrátením hodnoty statického
-atribútu `Db::$db` métoda najpr overí či existuje a ak nie tak vytvorí novú inštanciu a priradí ju doň.
-
-Je ale potrebné všetky ešte statický atribút inicializovať priradením hodnoty `null` a označit jeho typ
-ako [`nullable`](https://www.php.net/manual/en/migration71.new-features.php).
-
-Implementácia _singleton_ bude v _PHP_ vyzerať nasledovne:
+V aplikácii často pracujeme s rôznymi entitami ale pripájame sa na rovnakú databázu. Dobrou praxou je pre to oddelenie pripojenia k databáze do vlastnej triedy, ktorú môžme implementovať ako singleton, aby sme mali len jedno spoločné pripojenie k databáze. Spravíme si pre to triedu `Db`, ktorá bude zaobaľovať túto funkcionalitu.
 
 ```php
 class Db {
-    private static ?Db $db = null;
-    public static function i()
+    private const DB_HOST = "db:3306";
+    private const DB_NAME = "crud";
+    private const DB_USER = "db_user";
+    private const DB_PASS = "db_user_pass";
+
+    private static ?PDO $connection = null;
+
+    public static function conn(): PDO
     {
-        if (Db::$db == null) {
-            Db::$db = new Db();
+        if (Db::$connection == null) {
+            self::connect();
         }
-        return Db::$db;
+        return Db::$connection;
     }
-}
-```
 
-Teraz vytvoríme konštruktor triedy pridaním metódy `__construct()` do triedy `Db`. V konštruktore budeme vytvárať novú
-inštanciu triedy `PDO`, ktorú priradíme do privátneho atribútu `$pdo`. Taktiež z _connection stringu_ vyberieme dáta pre
-pripojenie do databázy a umiestnime ich, tiež, do privátnych atribútov.
-
-Úprava triedy `Db`  bude vyzerať nasledovne:
-
-```php
-class Db {
-    
-    // ... 
-    
-    private PDO $pdo;
-
-    private string $dbHost = "db:3306";
-    private string $dbName = "dbtable";
-    private string $dbUser = "db_user";
-    private string $dbPass = "db_user_pass";
-
-    public function __construct()
-    {
+    private static function connect() {
         try {
-            $this->pdo = new PDO("mysql:host={$this->dbHost};dbname={$this->dbName}", $this->dbUser, $this->dbPass);
+            Db::$connection = new PDO("mysql:host=".self::DB_HOST.";dbname=".self::DB_NAME, self::DB_USER, self::DB_PASS);
+            Db::$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
-            die("Error!: " . $e->getMessage());
+            die("Databáza nedostupná: " . $e->getMessage());
         }
     }
 }
 ```
 
-Teraz vytvoríme triedu `User` (v samostatnom súbore), ktorá bude reprezentovať jednotlivé dátové riadky a následne ju
-budeme používať pri práci s databázou. Táto trieda bude obsahovať iba verejne atribúty pomenované rovnako ako sú stĺpce
-tabuľky `users` v databáze. Trieda bude nasledovná:
+Trieda obsahuje jeden statický atribút `$connection` typu `PDO`, v ktorom sa uchováva inštancia pripojenia k databáze. Pripojenie k databáze z predchádzajúceho príkladu sme umiestnili do statickej metódy `Db::connect()`.
 
+Pre prístup k pripojeniu využijeme statickú metódu `Db::conn()`, ktorá vráti (prípadne vytvorí) inštanciu `PDO`.
+
+### Návrh objektovej štruktúry
+Pre lepšiu organizáciu kódu si vytvoríme triedu na prácu s databázou (`UserStorage`) a entitnú triedu (`User`). Trieda `User` bude kopírovať dáta v databáze:
 ```php
 class User
 {
-    public int $id;
-    public string $name;
-    public string $surname;
-    public string $mail;
-    public string $country;
+    public int $id = 0;
+    public string $name = "";
+    public string $surname = "";
+    public string $mail = "";
+    public string $country = "";
 }
 ```
 
-Do triedy `Db` teraz pridáme metódu `Db->getAllUsers()`, ktorej úlohou bude vybrať všetky záznamy z tabuľky `users` a
-vrátiť ich v poli, kde každý riadok bude predstavovať jedna inštancia triedy `User`.
+Trieda `UserStorage` bude mať metódy na:
+- Získanie zoznamu používateľov
+- Uloženie používateľa
+- Odstránenie používateľa
 
-To docielime tým, že metódu `PDOStatement::fetchAll()`, zavoláme s dvoma parametrami a to s prvou
-hodnotou `PDO::FETCH_CLASS` a následne s názvom triedy, na ktorú sa budú mapovať dáta jednotlivých riadkov (preto sa
-musia atribúty triedy volať rovnako ako stĺpce riadkov).
+Vzťahy medzi jednotlivými triedami budú vyzerať nasledovne:
+![UML diagram UserStorage](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/thevajko/zbierka-uloh/solution/php/crud/diagram.puml)
 
-Tu doporučujeme vkladať názov pomocou atribútu [`::class`](https://www.php.net/manual/en/language.oop5.basic.php), ktorý
-sa bude meniť podla toho ako budeme presúvať trie bu v mennom priestore alebo ju premenujeme. Kód metódy môžeme zapísať
-nasledovne:
+### Implementácia UserStorage
+Začneme implementáciou metódy `UserStorage::getAllUsers()`. Pre získanie dát z databázy môžeme použiť metódu [`PDO::query()`](https://www.php.net/manual/en/pdo.query.php), ktorá dostane ako parameter SQL príkaz, ktorý vykoná. V našom prípade chceme získať všetky dáta tabuľky `users`, preto môžme použiť jednoduchý select: `SELECT * FROM users`.
 
+Metóda `PDO::query()` vracia výsledok operácie z databázy v podobe inštancie
+triedy [`PDOStatement`](https://www.php.net/manual/en/class.pdostatement.php), v prípade ak databáza nájde výsledok alebo `false` ak nenájde nič.
+
+Ak chceme získať dáta v iterovaťelnej podobe, musíme použiť metódu [`PDOStatement::fetchAll()`](https://www.php.net/manual/en/pdostatement.fetchall.php). Tá má vstupný parameter,
+ktorý upresňuje spôsob akým su jednotlivé riadky tabuľky transformované. PDO podporuje rôzne módy, napríklad štandardne používaný `PDO::FETCH_ASSOC` vráti dáta v asociatívnom poli, kde kľúčom bude názov stĺpa a hodnotou príslušná hodnota v danom riadku. V našom prípade ale môžme využiť to, že máme k dispozícii entitnú triedu, a prinútiť PDO aby nám dáta vrátilo v týchto entitných triedach použitím módu `PDO::FETCH_CLASS` a uvedením príslušnej triedy `User::class`.
+
+Výsledná metóda na získanie všetkých používateľov bude vyzerať nasledovne:
 ```php
-class Db {
-    
-    // ... 
-    
-    /**
-     * @return User[]
-     */
-    public function getAllUsers(): array
-    {
-        try {
-            return $this->pdo
-                ->query("SELECT * FROM users")
-                ->fetchAll(PDO::FETCH_CLASS, User::class);
-        }  catch (\PDOException $e) {
-            die($e->getMessage());
-        }
-    }
+/**
+* @return User[]
+*/
+public function getAllUsers(): array
+{
+    return Db::conn()
+        ->query("SELECT * FROM users")
+        ->fetchAll(PDO::FETCH_CLASS, User::class);
 }
 ```
 
-Problém pri _PHP_ a iných dynamicko-typovaných jazykoch sa skrýva v komplikovanom získavaní toho, čo nam čo vracia a čo
-za typ parametrov funkcie alebo metódy potrebujú. PHP postupne túto medzeru vypĺňa ale nie úplne dobre. Naša
-metóda `getAllUsers()` síce hovorí, že jej výstup je pole ale nemôžeme už zadefinovať čo konkrétne je v poli (aj keď v
-php podporuje nehomogénne polia...).
-
-Na pomoc nám tu prichádza [_PHPDoc_](https://www.phpdoc.org/), ktorý sa definuje v komentáre metódy a ten hovorí, že
-metóda vracia pole inštancií typu `User`. Aj keď je tento zápis zdĺhavejší, poskytuje ohromnú výhodu v tom, že vaše _
-IDE_ vie následné použiť tiet informácie pri automatickom dopĺňaní atribútom a hlavne bude poriadne fungovať _
-refaktoring_ a to za tu trošku námahy rozhodne stojí.
-
-Následne potrebujeme upraviť náš `index.php`. Ako prvé potrebujeme pridať skrtipty `user.php` a `db.php`, ktoré obsahujú
-definície našich novo vytvorených tried. Následne si od našej triedy `Db` vypítame pole všetkých používateľov a vypíšeme
-ich tak ako predtým, akurať už k jednotlivým záznamom budeme pristupivať ako k objektom typu `User`. Kód v `index.php`
-bude nasledovný:

@@ -1,7 +1,7 @@
 <?php
 $user = null;
 if (isset($_GET["id"])) {
-    $user = Db::i()->getUser($_GET["id"]);
+    $user = UserStorage::getUser($_GET["id"]);
 }
 
 if ($user == null) {
@@ -9,7 +9,7 @@ if ($user == null) {
     return;
 }
 
-Db::i()->deleteUser($user);
+UserStorage::deleteUser($user);
 echo "Uživateľ {$user->name} {$user->surname} ostránený.<br><a href='?'>Späť</a>";
 
 ?>
