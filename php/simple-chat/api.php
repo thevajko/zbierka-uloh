@@ -1,11 +1,17 @@
 <?php
 session_start();
+// aplikacia pouziva session, preto ju musime najprv inicializovat
 
+
+// potrebne pripojenie suborov s pouzivanimi triedami
 require "php/Message.php";
 require "php/User.php";
 require "php/Db.php";
+require "php/MessageStorage.php";
+require "php/UserStorage.php";
 
 try {
+
     switch (@$_GET['method']) {
 
         case 'is-logged' :
@@ -14,7 +20,7 @@ try {
 
         case 'logout' :
                 if (!empty($_SESSION['user'])){
-                    DB::i()->removeUser($_SESSION['user']);
+                    UserStorage::removeUser($_SESSION['user']);
                     session_destroy();
                 } else {
                     throw new Exception("Invalid API call", 400);
@@ -29,7 +35,7 @@ try {
                     throw new Exception("User already logged", 400);
                 }
 
-                $users = DB::i()->getUsers();
+                $users = UserStorage::getUsers();
                 $foundUser = array_filter($users, function (User $user){
                     return $user->name == $_POST['name'];
                 });
@@ -38,7 +44,7 @@ try {
                     throw new Exception("User already exists", 455);
                 };
 
-                DB::i()->addUser($_POST['name']);
+                UserStorage::addUser($_POST['name']);
 
                 $_SESSION['user'] = $_POST['name'];
 
@@ -50,7 +56,7 @@ try {
             break;
 
         case 'get-messages':
-            $messages = Db::i()->getMessages(@$_SESSION['user']);
+            $messages = MessageStorage::getMessages(@$_SESSION['user']);
             echo json_encode($messages);
             break;
 
@@ -66,7 +72,7 @@ try {
                 $m->message = $_POST['message'];
                 $m->private_for = @$_POST['private'];
                 $m->created = date('Y-m-d H:i:s');
-                Db::i()->storeMessage($m);
+                MessageStorage::storeMessage($m);
             } else {
                 throw new Exception("Invalid API call", 400);
             }
@@ -76,7 +82,7 @@ try {
             if (empty($_SESSION['user'])){
                 throw new Exception("Must be logged to get active users list", 400);
             }
-            $users = array_filter(Db::i()->getUsers(), function (User $user) {
+            $users = array_filter(UserStorage::getUsers(), function (User $user) {
                 return $user->name != $_SESSION['user'];
             });
             echo json_encode(array_values($users));

@@ -29,75 +29,11 @@ class Db {
     }
 
     /**
-     * @return Message[]
-     * @throws Exception
+     * @return PDO
      */
-    public function getMessages($userName = ""): array
+    public function getPDO(): PDO
     {
-        try {
-            if (empty($userName)){
-                return $this->pdo
-                ->query("SELECT * FROM messages WHERE private_for IS null ORDER by created ASC LIMIT 50")
-                ->fetchAll(PDO::FETCH_CLASS, Message::class);
-            } else {
-                $stat = $this->pdo
-                    ->prepare("SELECT * FROM messages  WHERE private_for IS null OR private_for LIKE ? ORDER by created ASC LIMIT 50");
-                $stat->execute([$userName]);
-                    return $stat->fetchAll(PDO::FETCH_CLASS, Message::class);
-            }
-        }  catch (\PDOException $e) {
-            throw new Exception($e->getMessage(), 500);
-        }
-    }
-
-    public function storeMessage(Message $message){
-        try {
-            if (empty($message->private_for)) {
-                $sql = "INSERT INTO messages (message, created, user) VALUES (?, ?, ?)";
-                $this->pdo->prepare($sql)->execute([$message->message, $message->created, $message->user]);
-            } else {
-                $sql = "INSERT INTO messages (message, created, user, private_for) VALUES (?, ?, ?, ?)";
-                $this->pdo->prepare($sql)->execute([$message->message, $message->created, $message->user, $message->private_for]);
-            }
-
-        }  catch (\PDOException $e) {
-            throw new Exception($e->getMessage(), 500);
-        }
-    }
-
-    /**
-     * @return User[]
-     * @throws Exception
-     */
-    public function getUsers() : array
-    {
-        try {
-            return $this->pdo
-                ->query("SELECT * FROM users")
-                ->fetchAll(PDO::FETCH_CLASS, User::class);
-        }  catch (\PDOException $e) {
-            throw new Exception($e->getMessage(), 500);
-        }
-    }
-
-    public function addUser($name)
-    {
-        try {
-            $sql = "INSERT INTO users (name) VALUES (?)";
-            $this->pdo->prepare($sql)->execute([$name]);
-        } catch (\PDOException $e) {
-            throw new Exception($e->getMessage(), 500);
-        }
-    }
-
-    public function removeUser($name)
-    {
-        try {
-            $sql = "DELETE FROM users WHERE name = ?";
-            $this->pdo->prepare($sql)->execute([$name]);
-        }  catch (\PDOException $e) {
-            throw new Exception($e->getMessage(), 500);
-        }
+        return $this->pdo;
     }
 
 }
