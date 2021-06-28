@@ -22,6 +22,7 @@ try {
                 if (!empty($_SESSION['user'])){
                     UserStorage::removeUser($_SESSION['user']);
                     session_destroy();
+                    throw new Exception("No Content", 204);
                 } else {
                     throw new Exception("Invalid API call", 400);
                 }
@@ -73,6 +74,7 @@ try {
                 $m->private_for = @$_POST['private'];
                 $m->created = date('Y-m-d H:i:s');
                 MessageStorage::storeMessage($m);
+                throw new Exception("No Content", 204);
             } else {
                 throw new Exception("Invalid API call", 400);
             }
