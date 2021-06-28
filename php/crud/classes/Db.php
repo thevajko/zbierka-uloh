@@ -1,32 +1,27 @@
 <?php
 
 class Db {
+    private const DB_HOST = "db:3306";
+    private const DB_NAME = "crud";
+    private const DB_USER = "db_user";
+    private const DB_PASS = "db_user_pass";
 
-    private static ?Db $db = null;
+    private static ?PDO $connection = null;
 
     public static function conn(): PDO
     {
-        if (Db::$db == null) {
-            Db::$db = new Db();
+        if (Db::$connection == null) {
+            self::connect();
         }
-        return Db::$db->pdo;
+        return Db::$connection;
     }
 
-    private PDO $pdo;
-
-    private string $dbHost = "db:3306";
-    private string $dbName = "crud";
-    private string $dbUser = "db_user";
-    private string $dbPass = "db_user_pass";
-
-    public function __construct()
-    {
+    private static function connect() {
         try {
-            $this->pdo = new PDO("mysql:host={$this->dbHost};dbname={$this->dbName}", $this->dbUser, $this->dbPass);
-            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            Db::$connection = new PDO("mysql:host=".self::DB_HOST.";dbname=".self::DB_NAME, self::DB_USER, self::DB_PASS);
+            Db::$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
             die("Databáza nedostupná: " . $e->getMessage());
         }
     }
-
 }
