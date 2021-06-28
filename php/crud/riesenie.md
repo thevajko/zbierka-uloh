@@ -5,7 +5,7 @@
 > - Repo: [Štartér](/../../tree/main/php/crud), [Riešenie](/../../tree/solution/php/crud).
 > - [Zobraziť zadanie](zadanie.md)
 
-# CRUD (PHP)
+# Operácie nad tabuľkou (PHP)
 
 </div>
 

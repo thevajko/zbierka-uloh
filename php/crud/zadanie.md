@@ -6,7 +6,7 @@
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 
-# CRUD (PHP)
+# Operácie nad tabuľkou (PHP)
 
 ## Zadanie
 
