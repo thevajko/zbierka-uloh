@@ -1,7 +1,7 @@
 <?php
 $user = new User();
 if (isset($_GET["id"])) {
-    $user = Db::i()->getUser($_GET["id"]);
+    $user = UserStorage::getUser($_GET["id"]);
 }
 
 if ($user == null) {
@@ -14,7 +14,7 @@ if (isset($_POST['save'])) {
     $user->surname = $_POST['surname'];
     $user->mail = $_POST['mail'];
     $user->country = $_POST['country'];
-    Db::i()->storeUser($user);
+    UserStorage::storeUser($user);
     echo "Užívateľ {$user->name} {$user->surname} bol uložený.<br><a href='?'>Späť</a>";
     return;
 }

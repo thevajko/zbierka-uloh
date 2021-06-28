@@ -1,7 +1,7 @@
 <?php
 
 require "classes/User.php";
-require "classes/Db.php";
+require "classes/UserStorage.php";
 ?>
 <!DOCTYPE html>
 <html lang="sk">
