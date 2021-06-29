@@ -13,7 +13,7 @@
 
 Vzhľadom na zadanie riešenia bude najlepšie riešenie vytvoriť JS triedu `JsTable`, ktorej každá inštancia bude spravovať samostatne svoju kolekciu dát. Nutné vstupné parametre konštruktora tejto triedy budú:
 
-1. Kolekcia dát s homogénnou štruktúrov
+1. Kolekcia dát s homogénnou štruktúrou
 2. Kontajnerový element, kde sa ma tabuľka zobraziť
 
 Návrh triedy bude vyzerať:
@@ -71,6 +71,7 @@ class JsTable {
 Ako kolekciu dát použijeme pole definované v súbore `users-data.js`, ktoré sa uloží do globálnej premennej `usersData`.
 
 Pri `<table>` je pridané nastavenie atribútu `border="1"` aby bol viditeľný okraj tabuľky. V HTML vytvoríme logiku, ktorá ked sa spustí, tak vytvorí novú inštanciu triedy `JsTable` a doplní správne parametre:
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -374,7 +375,7 @@ V `JS` môžeme pre filtrovanie pola použiť [`Array.prototype.filter()`](https
 Pri samotnej kontole musíme prejsť hodnotu všetkých atribútov objektov v zdrojovej kolekcii `dataCollection`. String v stringu vieme v JS hľadať pomocou [`String.prototype.includes()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes). Tu nepoužijeme [`Array.prototype.forEach()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach), nakoľko chceme vrátiť hodnotu `true` pri prvej zhode a `forEach` používa pre iteráciu __funkciu__. Vymeníme ho preto za obyčajný `for`. Taktiež nesmieme zabudnúť na konverziu na _string_. Logika filtrácie bude vyzerať nasledovne:
 
 ```javascript
-filterCollection(expression){
+filterCollection(expression) {
      if (expression == null || expression.length < 2) {
          this.filtedDataCollection = this.dataCollection;
      } else {

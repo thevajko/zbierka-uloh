@@ -18,8 +18,7 @@ Základným prvkom používateľského vstupu predstavuje element `<input>` ktor
 Ďalším jeho dôležitým atribútom je `pattern` v ktorom sa ako hodnota uvádza regulárny výraz. Ten sa následne používa pre validáciu vstupu, ktorý zadal používateľ.
 
 
-Ako prvé budeme kontrolovať, či majú vstupy hodnotu v správnom tvare. V prípade __mailu__ 
-môžeme použiť rovno typ zadefinovať vstupné pole ako typ `email`, teda:
+Ako prvé budeme kontrolovať, či majú vstupy hodnotu v správnom tvare. V prípade __mailu__ môžeme použiť rovno typ zadefinovať vstupné pole ako typ `email`, teda:
 
 ```html
 <input type="email" id="mail">

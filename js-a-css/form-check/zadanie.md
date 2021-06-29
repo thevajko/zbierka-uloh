@@ -17,3 +17,8 @@ Nedovoľte formulár odoslať pokiaľ:
 - __Vaša správa__ musím obsahovať minimálne 6 znakov.
 - Pri nájdení chyby vypíšte používateľovi pod príslušným vstupom chybovú hlášku.
 - Zablokujte tlačítko __Odoslať__ pokiaľ formulár obsahuje chyby.
+
+
+### Cieľ príkladu
+
+Cieľom príkladu je ukázať možnosti a spôsoby akými sa dá doplniť jednoduchá validácia údajov formulára na strane klienta.

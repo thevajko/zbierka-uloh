@@ -19,3 +19,6 @@ Vytvorte skript, ktorý dokáže kolekciu ľubovolných JS objektov zobraziť v 
 
 Logiku vytvorte v čistom JS.
 
+### Cieľ príkladu
+
+Cieľom príkladu je ukážka pokročilejšej práce s dátami pomocou javasctipu a manipulácie DOM.

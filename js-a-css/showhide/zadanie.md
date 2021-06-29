@@ -3,6 +3,7 @@
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
 > - Repo: [Štartér](/../../tree/main/js-a-css/showhide), [Riešenie](/../../tree/solution/js-a-css/showhide).
+> - [Zobraziť riešenie](riesenie.md)
 </div>
 
 # ShowHide (JS, CSS)
@@ -34,7 +35,6 @@ Skript by mal fungovať na takejto štruktúre HTML kódu:
 
 </body>
 ```
-<div class="hidden">
+### Cieľ príkladu
 
-[Riešenie úlohy s postupom](riesenie.md).
-</div>
+Cieľom príkladu je demonštrácia jednoduchej manipulácie DOM s použitím javascriptu.
