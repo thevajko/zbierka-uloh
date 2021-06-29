@@ -16,3 +16,8 @@ Vytvorte jednoduchý chat, ktorý:
 - Chat si môže pozerať hocikto. Zobrazte vždy 50 najnovších správ.
 - Aby používateľ mohol chatovať musí zadať svoje heslo, t.j. "prihlásiť sa ním"
 - Prihlásenému používateľovi bude možné posielať privátne správy a iba "prihlásený" používateľ bude vidieť svoje súkromné správy.
+- Ideálne zapracujte:
+  - vytvorte samostatného klienta, ktorý bude komunikovať zo serverom pomocou _API_ asynchrónne
+  - komunikácia výlučne volaním _API_ servera, JSON a HTTP kódmi
+  
+Aj ked má táto úloha názov _"Jednoduchý chat"_ je tým myslená jednoduchá funkcionalita, ktorú ponúka. Samotná implementácia, tak aby splnila všetky zadané podmienky jednoduchá rozhodne nie je.
