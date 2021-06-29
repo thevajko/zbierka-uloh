@@ -11,6 +11,20 @@
 
 ## Riešenie
 
+
+<div class="hidden">
+
+> Toto riešenie obsahuje všetky potrebné služby v `docker-compose.yml`. Po ich spustení sa vytvorí:
+> - webový server, ktory do __document root__ namapuje adresár tejto úlohy s modulom __PDO__. Port __80__ a bude dostupný na adrese [http://localhost/](http://localhost/). Server má pridaný modul pre ladenie [__Xdebug 3__](https://xdebug.org/) nastavený na port __9000__ v "auto-štart móde" (`xdebug.start_with_request=yes`).
+> - databázový server s vytvorenou _databázou_ a tabuľkou `users` s dátami na porte __3306__ a bude dostupný na `localhost:3306`. Prihlasovacie údaje sú: 
+>   - MYSQL_ROOT_PASSWORD: db_user_pass
+>   - MYSQL_DATABASE: dbchat
+>   - MYSQL_USER: db_user
+>   - MYSQL_PASSWORD: db_user_pass
+> - phpmyadmin server, ktorý sa automatický nastevený na databázový server na porte __8080__ a bude dostupný na adrese [http://localhost:8080/](http://localhost:8080/)
+
+</div>
+
 Na začiatok si ujasníme návrh a architektúru celého riešenia. Aplikáciu rozdelíme na dve samostatné časti. Serverová časť bude reprezentovaná dvomi súbormi: 
 
 1. `index.html` - statická stránka s klientom
