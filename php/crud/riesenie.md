@@ -125,6 +125,7 @@ class User
     }
 }
 ```
+Jednotlivým atribútom je potrebné nastaviť východzie hodnoty. V našom prípade to budú prázdne reťazce, a hodnota 0 pre atribút `id`.
 
 Trieda `UserStorage` bude mať metódy na:
 - Získanie zoznamu používateľov
@@ -146,7 +147,20 @@ Metóda `PDO::query()` vracia výsledok operácie z databázy v podobe inštanci
 triedy [`PDOStatement`](https://www.php.net/manual/en/class.pdostatement.php), v prípade ak databáza nájde výsledok alebo `false` ak nenájde nič.
 
 Ak chceme získať dáta v iterovaťelnej podobe, musíme použiť metódu [`PDOStatement::fetchAll()`](https://www.php.net/manual/en/pdostatement.fetchall.php). Tá má vstupný parameter,
-ktorý upresňuje spôsob akým su jednotlivé riadky tabuľky transformované. PDO podporuje rôzne módy, napríklad štandardne používaný `PDO::FETCH_ASSOC` vráti dáta v asociatívnom poli, kde kľúčom bude názov stĺpa a hodnotou príslušná hodnota v danom riadku. V našom prípade ale môžme využiť to, že máme k dispozícii entitnú triedu, a prinútiť PDO aby nám dáta vrátilo v týchto entitných triedach použitím módu `PDO::FETCH_CLASS` a uvedením príslušnej triedy `User::class`.
+ktorý upresňuje spôsob akým su jednotlivé riadky tabuľky transformované. PDO podporuje rôzne módy, napríklad štandardne používaný `PDO::FETCH_ASSOC` vráti dáta v asociatívnom poli, kde kľúčom bude názov stĺpa a hodnotou príslušná hodnota v danom riadku. Výstup by mohol vyzerať nasledovne:
+```
+Array
+(
+ [id] => 1
+ [name] => Samuel
+ [surname] => Hamilton
+ [mail] => ornare@sitametante.co.uk
+ [country] => Bahrain
+)
+```
+
+
+V našom prípade ale môžme využiť to, že máme k dispozícii entitnú triedu, a prinútiť PDO aby nám dáta vrátilo v týchto entitných triedach použitím módu `PDO::FETCH_CLASS` a uvedením príslušnej triedy `User::class`.
 
 Výsledná metóda na získanie všetkých používateľov bude vyzerať nasledovne:
 ```php
@@ -160,6 +174,10 @@ public function getAllUsers(): array
         ->fetchAll(PDO::FETCH_CLASS, User::class);
 }
 ```
+
+Problém pri PHP a iných dynamicko-typovaných jazykoch sa skrýva v komplikovanom získavaní toho, čo nam čo vracia a čo za typ parametrov funkcie alebo metódy potrebujú. PHP postupne túto medzeru vypĺňa ale nie úplne dobre. Naša metóda `getAllUsers()` síce hovorí, že jej výstup je pole ale nemôžeme už zadefinovať čo konkrétne je v poli (aj keď v php podporuje nehomogénne polia...).
+
+Na pomoc nám tu prichádza [_PHPDoc_](https://www.phpdoc.org/), ktorý sa definuje v komentáre metódy a ten hovorí, že metóda vracia pole inštancií typu `User`. Aj keď je tento zápis zdĺhavejší, poskytuje ohromnú výhodu v tom, že vaše _IDE_ vie následné použiť tiet informácie pri automatickom dopĺňaní atribútom a hlavne bude poriadne fungovať refaktoring a to za tu trošku námahy rozhodne stojí.
 
 V ďalšom kroku potrebujeme získať jedného používateľa pomocou metódy `UserStorage::getUser($id)`. Mohli by sme síce využiť metódu z predchádzajúceho príkladu, kde by sme získali všetkých používateľov a následne medzi nimi našli podľa `id` toho správneho, ale tento prístup by bol neefektívny. Ná nájdenie konkrétneho používateľa použijeme priamo SQL, kde pridáme podmienku. SQL na nájdenie používateľa s id `5` by mohlo vyzerať nasledovne: 
 ```sql
