@@ -70,7 +70,7 @@ V tomto prípade sme si deklarovali pole dostupných farieb. Výslednú farbu vy
 
 Výhodou tohto riešenia je to, že si vieme dopredu špecifikovať aké farby chceme. V prípade že by sme potrebovali plne náhodné spektrum farieb potrebujeme si danú farbu nejakým spôsobom vygenerovať.
 
-> Existuje niekoľko spôsobov, ako môžme  reprezentovať farby.
+> Existuje niekoľko spôsobov, ako môžeme  reprezentovať farby.
 > - RGB
 > - HSB
 > - HSL
@@ -82,7 +82,7 @@ Výhodou tohto riešenia je to, že si vieme dopredu špecifikovať aké farby c
 >
 > **Desiatkový** - ten sa v CSS zapisuje nasledovne `rgb(red, green, blue);`
 
-Pokiaľ chceme jednoducho vygenerovať farbu, môžme vygenerovať náhodné číslo z rozsahu 0 - 2^24 (0xFFFFFF). Táto hodnota musí mať aj úvodné nuly - takže ak vygenerujeme hodnotu 0xFF musíme ju doplniť nulami - `0000FF`. PHP kód by mal vyzerať nasledovne:
+Pokiaľ chceme jednoducho vygenerovať farbu, môžeme vygenerovať náhodné číslo z rozsahu 0 - 2^24 (0xFFFFFF). Táto hodnota musí mať aj úvodné nuly - takže ak vygenerujeme hodnotu 0xFF musíme ju doplniť nulami - `0000FF`. PHP kód by mal vyzerať nasledovne:
 
 ```php
 function nahodnaFarba() {

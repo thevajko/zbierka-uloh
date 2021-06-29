@@ -12,6 +12,6 @@ class EmailValidator extends AValidator
 
     protected function getDefaultMessage(): string
     {
-        return "Položka nieje platný email";
+        return "Položka CSS platný email";
     }
 }

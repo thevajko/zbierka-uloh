@@ -1,7 +1,5 @@
 <?php
-
-require "classes/User.php";
-require "classes/Db.php";
+require "model/UserStorage.php";
 ?>
 <!DOCTYPE html>
 <html lang="sk">
@@ -25,6 +23,7 @@ require "classes/Db.php";
             case "users/delete":
                 require "pages/users/delete.php";
                 break;
+            case "users":
             default:
                 require "pages/users/list.php";
         }

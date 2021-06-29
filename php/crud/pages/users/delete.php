@@ -1,7 +1,8 @@
 <?php
+$userStorage = new UserStorage();
 $user = null;
 if (isset($_GET["id"])) {
-    $user = Db::i()->getUser($_GET["id"]);
+    $user = $userStorage->getUser($_GET["id"]);
 }
 
 if ($user == null) {
@@ -9,7 +10,15 @@ if ($user == null) {
     return;
 }
 
-Db::i()->deleteUser($user);
-echo "Uživateľ {$user->name} {$user->surname} ostránený.<br><a href='?'>Späť</a>";
-
+if (isset($_POST['delete'])) {
+    $userStorage->deleteUser($user);
+    echo "Uživateľ {$user->getFullname()} ostránený.<br><a href='?'>Späť</a>";
+    return;
+}
 ?>
+
+Skutočne chcete odstrániť používateľa <?=$user->getFullname()?>?
+<form method="post">
+    <input type="submit" name="delete" value="Áno">
+</form>
+<a href="?">Späť</a>

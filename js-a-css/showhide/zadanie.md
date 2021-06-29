@@ -8,10 +8,10 @@
 # ShowHide (JS, CSS)
 
 ## Zadanie
-Vytvorte logiku, ktorá bude po kliknutí na `<h1>` skryje text v `<p>` ak je zobrazený a zobrazí ho
-ak je skrytý. 
+Vytvorte skript, ktorý po kliknutí na element `h1` skryje text v elemente `p`, a naopak, ak je text zobrazený, tak ho 
+skryje. 
 
-Štartér verzia obsahuje v `HTML` podobný kód ako je tento:
+Skript by mal fungovať na takejto štruktúre HTML kódu:
 ```html
 <body>
     <div>
