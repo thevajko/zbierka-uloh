@@ -11,3 +11,7 @@
 
 ## Zadanie
 Zobrazte analógové hodinky, ktoré budú zobrazovať hodiny, minúty a sekundy naživo; t.j. ich zobrazenie sa bude po sekunde obnovovať, tak aby vytvorili dojem, že hodinky idú.
+
+
+### Cieľ príkladu
+Príklad má oboznámiť riešiteľa s možnosťami, ktoré _HTML5_ a _javascript_ poskytujú pre vykresľovanie dynamickej grafiky na klientskej strane.

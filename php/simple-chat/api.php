@@ -10,6 +10,11 @@ require "php/Db.php";
 require "php/MessageStorage.php";
 require "php/UserStorage.php";
 
+function sendResponse($httpCode, $httpStatus, $body = ""){
+    header($_SERVER["SERVER_PROTOCOL"] . " {$httpCode} {$httpStatus}");
+    echo $body;
+}
+
 try {
 
     switch (@$_GET['method']) {
@@ -20,9 +25,10 @@ try {
 
         case 'logout' :
                 if (!empty($_SESSION['user'])){
-                    UserStorage::removeUser($_SESSION['user']);
+                    $userStorage = new UserStorage();
+                    $userStorage->removeUser($_SESSION['user']);
                     session_destroy();
-                    throw new Exception("No Content", 204);
+                    sendResponse(204, 'No Content');
                 } else {
                     throw new Exception("Invalid API call", 400);
                 }
@@ -36,7 +42,8 @@ try {
                     throw new Exception("User already logged", 400);
                 }
 
-                $users = UserStorage::getUsers();
+                $userStorage = new UserStorage();
+                $users = $userStorage->getUsers();
                 $foundUser = array_filter($users, function (User $user){
                     return $user->name == $_POST['name'];
                 });
@@ -45,7 +52,7 @@ try {
                     throw new Exception("User already exists", 455);
                 };
 
-                UserStorage::addUser($_POST['name']);
+                $userStorage->addUser($_POST['name']);
 
                 $_SESSION['user'] = $_POST['name'];
 
@@ -57,7 +64,8 @@ try {
             break;
 
         case 'get-messages':
-            $messages = MessageStorage::getMessages(@$_SESSION['user']);
+            $messageStorage = new MessageStorage();
+            $messages = $messageStorage->getMessages(@$_SESSION['user']);
             echo json_encode($messages);
             break;
 
@@ -73,8 +81,9 @@ try {
                 $m->message = $_POST['message'];
                 $m->private_for = @$_POST['private'];
                 $m->created = date('Y-m-d H:i:s');
-                MessageStorage::storeMessage($m);
-                throw new Exception("No Content", 204);
+                $messageStorage = new MessageStorage();
+                $messageStorage->storeMessage($m);
+                sendResponse(204, 'No Content');
             } else {
                 throw new Exception("Invalid API call", 400);
             }
@@ -84,7 +93,8 @@ try {
             if (empty($_SESSION['user'])){
                 throw new Exception("Must be logged to get active users list", 400);
             }
-            $users = array_filter(UserStorage::getUsers(), function (User $user) {
+            $userStorage = new UserStorage();
+            $users = array_filter($userStorage->getUsers(), function (User $user) {
                 return $user->name != $_SESSION['user'];
             });
             echo json_encode(array_values($users));
@@ -95,9 +105,12 @@ try {
             break;
     }
 } catch (Exception $exception) {
-    header($_SERVER["SERVER_PROTOCOL"] . " {$exception->getCode()} {$exception->getMessage()}");
-    echo json_encode([
-        "error-code" => $exception->getCode(),
-        "error-message" => $exception->getMessage()
-    ]);
+    sendResponse(
+        $exception->getCode(),
+        $exception->getMessage(),
+        json_encode([
+            "error-code" => $exception->getCode(),
+            "error-message" => $exception->getMessage()
+        ])
+    );
 }

@@ -7,10 +7,10 @@ class UserStorage
      * @return User[]
      * @throws Exception
      */
-    public static function getUsers() : array
+    public function getUsers(): array
     {
         try {
-            return Db::i()->getPDO()
+            return Db::conn()
                 ->query("SELECT * FROM users")
                 ->fetchAll(PDO::FETCH_CLASS, User::class);
         }  catch (\PDOException $e) {
@@ -18,21 +18,21 @@ class UserStorage
         }
     }
 
-    public static function addUser($name)
+    public function addUser($name): void
     {
         try {
             $sql = "INSERT INTO users (name) VALUES (?)";
-            Db::i()->getPDO()->prepare($sql)->execute([$name]);
+            Db::conn()->prepare($sql)->execute([$name]);
         } catch (\PDOException $e) {
             throw new Exception($e->getMessage(), 500);
         }
     }
 
-    public static function removeUser($name)
+    public function removeUser($name): void
     {
         try {
             $sql = "DELETE FROM users WHERE name = ?";
-            Db::i()->getPDO()->prepare($sql)->execute([$name]);
+            Db::conn()->prepare($sql)->execute([$name]);
         }  catch (\PDOException $e) {
             throw new Exception($e->getMessage(), 500);
         }
