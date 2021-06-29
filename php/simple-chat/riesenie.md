@@ -615,7 +615,7 @@ A ako poslednú, pridáme metódu, ktorou budeme na základe mena mazať použí
 class UserStorage {
 
     // ...
-    public function removeUser($name)
+    public static function removeUser($name)
     {
         try {
             $sql = "DELETE FROM users WHERE name = ?";
@@ -796,6 +796,9 @@ Vytvoríme preto element `<div id="status-bar">`. Ten bude slúžiť ako obaľov
 Doplníme ešte CSS pre doplnené elementy. V ďalšom JS kóde budeme používať CSS triedu `.hidden` pre skrývanie elementov, ktoré nechceme používateľovi zobraziť. Pridáme nasledovné CSS:
 
 ```css
+body {
+   padding-top: 20px;
+}
 #status-bar {
     top: 0;
     left: 0;
@@ -888,7 +891,7 @@ class Chat {
 }
 ```
 
-Upravíme logiku metódy `Chat.postMessage()`, tak aby zmena v HTML bola vykonaná logikou triedy `UIHelper` nasledovne:
+Upravíme logiku metódy `Chat.postMessage()`, tak aby zmena v _HTML_ bola vykonaná logikou triedy `UIHelper` nasledovne:
 
 ```javascript
 import UIHelper from "./UIHelper.js";
@@ -947,7 +950,7 @@ class UIHelper {
 
 Do triedy `Chat` pridáme ako prvú metódu `checkLoggedState()` pre overenie toho, či je po v aktuálnom sedení používateľ prihlásený. Tá sa bude dopytovať na URL `api.php?method=is-logged` a pokiaľ bude mať odpoveď _HTTP kod_ `200` a bude obsahovať hodnotu inú ako bool `false` povolí sa odosielania správ a zobrazí sa časť pre odhlásenie. V opačnom prípade sa vyhodí výnimka.
 
-Pokial pri behu metódy `checkLoggedState()` nastane výnimka v jej odchytení sa zablokuje odosielanie správ a zobrazí sa formulár pre prihlásenie. Teba aplikácia sa bude chovať ako by bol používateľ neprihlásený. Nesmieme zabudnúť volať `this.UI.disableMessageSubmit(false)` s hodnotou false, nakoľko nechcem zobraziť _spinner_. Kód metódy `checkLoggedState()` bude nasledovný:
+Pokiaľ pri behu metódy `checkLoggedState()` nastane výnimka v jej dochytení sa zablokuje odosielanie správ a zobrazí sa formulár pre prihlásenie. Teba aplikácia sa bude chovať ako by bol používateľ neprihlásený. Nesmieme zabudnúť volať `this.UI.disableMessageSubmit(false)` s hodnotou false, nakoľko nechcem zobraziť _spinner_. Kód metódy `checkLoggedState()` bude nasledovný:
 
 ```javascript
 class Chat {
@@ -980,7 +983,7 @@ class Chat {
 export default Chat;
 ```
 
-Metódu  `checkLoggedState()` pridáme do spúšťacej metódy logiky chatu `run()`, tak aby bola spustená ako prvá:
+Metódu `checkLoggedState()` pridáme do spúšťacej metódy logiky chatu `run()`, tak aby bola spustená ako prvá:
 
 ```javascript
 class Chat {
@@ -1146,8 +1149,7 @@ class UIHelper {
 
 ### Privátne správy
 
-Posledná časť, ktorú do nášho chatu pridáme bude posielanie privátnych správ. Ako prvé upravíme tabuľku `Users` a pridáme do nej stĺpec `for`, ktorý bude
-hovoriť pre koho je daná správa určena. _DDL_ pre tabuľku `Users` bude po pridaní nasledovné:
+Posledná časť, ktorú do nášho chatu pridáme bude posielanie privátnych správ. Ako prvé upravíme tabuľku `Users` a pridáme do nej stĺpec `private_for`, ktorý bude hovoriť pre koho je daná správa určena. _DDL_ pre tabuľku `Users` bude po pridaní nasledovné:
 
 ```sql
 create table messages
@@ -1174,7 +1176,7 @@ class Message
 }
 ```
 
-V prvom rade musíme doplniť štruktúru `index.html`, tak že existujúce elementy chatu `<div id="messages">` a `<div id="chat-bar">` vložíme do nového elementu `<div id="chat-content">` ten umiestnime ako potomka do nového elementu `<div id="frame">`. Do neho pridáme ako prvého potomka ďaľší element `<div id="users-list">`. _HTML_ bude po úprav vyzerať nasledovne:
+V prvom rade musíme doplniť a upraviť štruktúru `index.html`, tak že existujúce elementy chatu `<div id="messages">` a `<div id="chat-bar">` vložíme do nového elementu `<div id="chat-content">`. Ten následne umiestnime ako potomka do nového elementu `<div id="frame">`. Do neho pridáme ako prvého potomka ďaľší element `<div id="users-list">`. _HTML_ bude po úprav vyzerať nasledovne:
 
 ```html
 <!DOCTYPE html>
@@ -1228,11 +1230,10 @@ V prvom rade musíme doplniť štruktúru `index.html`, tak že existujúce elem
 </html>
 ```
 
-Zoznam používateľov a chat zobrazíme vedľa seba pomocou  `css flexbox` a doplníme nasledovne CSS:
+Zoznam používateľov a chat zobrazíme vedľa seba pomocou `css flexbox` a doplníme nasledovne CSS:
 
 ```css
-#frame {
-    margin-top: 25px;
+#frame {    
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -1247,31 +1248,27 @@ Zoznam používateľov a chat zobrazíme vedľa seba pomocou  `css flexbox` a do
 }
 ```
 
-Následne do servera v súbore `api.php` pridáme metódu pre získanie zoznamu všekých použíateľov okrem aktuálneho použivatela sedenia iba ak je používateľ
-prihlásený. Zoznam používateľov prefiltrujeme pomocou [`array_filter`](https://www.php.net/manual/en/function.array-filter.php). Výstup tejto funkcie ale
-neupraví čísla indexov, preto pre ich reset pouźijeme [`array_values()`](https://www.php.net/manual/en/function.array-values.php). Doplnený kód bude nasledovný:
+Následne do servera v súbore `api.php` pridáme do bloku `switch` časť `users`. V nej si na začiatku vytvoríme lokálnu premennú do ktorej priradím prázdne pole. V prípade ak je používateľ prihlásený pridáme do tejto premennej pole aktívnych používateľov. Zoznam používateľov prefiltrujeme pomocou [`array_filter`](https://www.php.net/manual/en/function.array-filter.php). Výstup tejto funkcie ale neupraví čísla indexov, preto pre ich reset použijeme [`array_values()`](https://www.php.net/manual/en/function.array-values.php). Následne ho posielame na výstup v JSON formáte. V prípade ak použiviateľ nie je prihlásený obdrží klient prázdne pole. Doplnený kód bude nasledovný:
 
 ```php
 // ...
 switch (@$_GET['method']) {
     // ...
     case 'users' :
-        if (empty($_SESSION['user'])){
-            throw new Exception("Must be logged to get active users list", 400);
-        }
-        $users = array_filter(Db::i()->getUsers(), function (User $user) {
-            return $user->name != $_SESSION['user'];
-        });
-        echo json_encode(array_values($users));
+         $out = [];
+         if (!empty($_SESSION['user'])) {
+             $out = array_filter(UserStorage::getUsers(), function (User $user) {
+                 return $user->name != $_SESSION['user'];
+             });
+         }
+         echo json_encode(array_values($out));
         break;
         //...
 }
 // ...
 ```
 
-Do `JS` triedy `UIHelper` doplníme metódy, ktoré budú zobrazovať a skrývať element ` <span id="private-area">` obsahujúci informáciu o písani súkromnej správy.
-Samotnú hodnotu `innerText` elementu `<span id="private">` budeme používať na získanie mena používateľa, ktorému je správa určená. Z tohto dôvodu ho musísme ako
-správne naplniť ta aj vymazať. Pridaný kód je:
+Do `JS` triedy `UIHelper` doplníme metódy, ktoré budú zobrazovať a skrývať element `<span id="private-area">` obsahujúci informáciu o písaní súkromnej správy. Samotnú hodnotu `innerText` elementu `<span id="private">` budeme používať na získanie mena používateľa, ktorému je správa určená. Z tohto dôvodu ho musíme ako správne naplniť tak aj vymazať. Pridaný kód je:
 
 ```javascript
 
@@ -1290,12 +1287,9 @@ class UIHelper {
 }
 ```
 
-Teraz v `JS` triede `Chat` doplníme metódu `getUsers()`, ktorej úlohou bude získať zo servera zoznam používateľov. Pokiaľ nastane chyba v zozname používateľov
-sa nezobrazí nič. Ak všetko prejde tak budeme získaný zoznam aktívnych používateľov iterovať a každému vytvoríme tlačítko.
+Teraz v `JS` triede `Chat` doplníme metódu `getUsers()`, ktorej úlohou bude získať zo servera zoznam používateľov a zobraziť ho ak je používateľ prihlásený. Pokiaľ nastane chyba v zozname používateľov sa nezobrazí nič. Ak všetko prejde tak budeme získaný zoznam aktívnych používateľov iterovať a každému vytvoríme tlačítko.
 
-Nakoľko budeme získavanie používateľov dopytovať previdelne podobne ako správy, nastáva problem s referenciou na `this`. setInterval sa spúšta v contexte,
-kde `this` bude obshahovať hodnotu `window`, čím na úrovni iterácie `users.forEach` nebude this definovane. Z tohto dôvodu máme v stkripte `main.js` priradenie
-vytvorenej inštancie nášho chatu do `window.chat`, ktoru teraz použijeme. Kód bude nasledovný:
+Nakoľko budeme získavanie používateľov dopytovať pravidelne, podobne ako správy, nastáva problem s referenciou na `this` nakoľko `setInterval()` sa spúšťa v inom kontexte a bude obsahovať hodnotu `window`, čím na úrovni iterácie `users.forEach` bude referencia `this` nedefinovaná. Z tohto dôvodu máme v `main.js` priradenie vytvorenej inštancie nášho chatu do `window.chat`, ktorú teraz použijeme. Kód bude nasledovný:
 
 ```javascript
 class Chat {
@@ -1328,9 +1322,7 @@ class Chat {
 }
 ```
 
-Uprávíme metódu `postMessage()`, tak aby v pripade písania súkromnej správu poslala dáta o tom komu je správa určená. Túto informáciu získame z
-elementu `<span id="private">`. Pokiaľ tento element bude obsahovať hodnotu v atribúte `innerText` dáme ju _POST parametru_ `private`. Úprava tejto metódy bude
-nasledovná:
+Upravíme metódu `postMessage()`, tak aby v prípade písania súkromnej správu poslala dáta o tom komu je správa určená. Túto informáciu získame z elementu `<span id="private">`. Pokiaľ tento element bude obsahovať hodnotu v atribúte `innerText` dáme ju _POST parametru_ `private`. Úprava tejto metódy bude nasledovná:
 
 ```javascript
 class Chat {
@@ -1371,8 +1363,7 @@ class Chat {
 }
 ```
 
-V skripte `api.php` upravíme časť pre `post-message`, tak aby sa vložila hodnota z _POST parametra_ `private` do `Message->private_for`. Ak neexistuje priradi
-sa prázdna hodnota:
+V skripte `api.php` upravíme časť pre `post-message`, tak aby sa vložila hodnota z _POST parametra_ `private` do `Message->private_for`. Ak neexistuje priradi sa prázdna hodnota:
 
 ```php
 // ...
@@ -1400,22 +1391,22 @@ switch (@$_GET['method']) {
 // ...
 ```
 
-Následne upravíme ukladanie novej správy v _PHP_ triede `Db` v jej metóde `storeMessage()`. Tu bude najjednoeduchšie overiť, či `$message->private_for` obsahuje
-hodnotu, ak áno vytvorýme špecifické _SQL_. Ak nie použijeme už existujúce:
+Následne upravíme ukladanie novej správy v _PHP_ triede `MessageStorage` v jej statickej metóde `storeMessage()`. Tu bude najjednoduchšie overiť, či `$message->private_for` obsahuje hodnotu, ak áno vytvoríme špecifické _SQL_. Ak nie použijeme už existujúce:
 
 ```php
-class Db {
+class MessageStorage {
     // ...
-    public function storeMessage(Message $message){
+    public static function storeMessage(Message $message){
         try {
             if (empty($message->private_for)) {
                 $sql = "INSERT INTO messages (message, created, user) VALUES (?, ?, ?)";
-                $this->pdo->prepare($sql)->execute([$message->message, $message->created, $message->user]);
+                DB::i()->getPDO()->prepare($sql)
+                    ->execute([$message->message, $message->created, $message->user]);
             } else {
                 $sql = "INSERT INTO messages (message, created, user, private_for) VALUES (?, ?, ?, ?)";
-                $this->pdo->prepare($sql)->execute([$message->message, $message->created, $message->user, $message->private_for]);
+                DB::i()->getPDO()->prepare($sql)
+                    ->execute([$message->message, $message->created, $message->user, $message->private_for]);
             }
-
         }  catch (\PDOException $e) {
             throw new Exception($e->getMessage(), 500);
         }
@@ -1424,34 +1415,38 @@ class Db {
 }
 ```
 
-Podobne upravíme metódu, ktorá vracia zoznam správ. Každému použivateľovi musíme zobraziť správy, ktoré nemajú definovaného príjemcu, teda
-kde `private_for = null`. To ktorého pouźivatela privátne správy možeme vzvrať tiež bude určovať vstupný parameter `$userName`. Upravený kód bude nasledovny:
+Podobne upravíme metódu, ktorá vracia zoznam správ. Každému používateľovi musíme zobraziť správy, ktoré nemajú definovaného príjemcu, teda kde `private_for = null` a tiež správy ktoré boli adresované nemu alebo ich napísal. To ktorého použivatela privátne správy môžeme vybrať bude určovať vstupný parameter `$userName`. Upravený ked bude následovný:
 
 ```php
-class Db {
+class MessageStorage {
     // ...
-    public function getMessages($userName = ""): array
+    /**
+     * @return Message[]
+     * @throws Exception
+     */
+    public static function getMessages($userName = ""): array
     {
         try {
             if (empty($userName)){
-                return $this->pdo
-                ->query("SELECT * FROM messages WHERE private_for IS null ORDER by created ASC LIMIT 50")
-                ->fetchAll(PDO::FETCH_CLASS, Message::class);
+                return Db::i()->getPDO()
+                    ->query("SELECT * FROM messages WHERE private_for IS null ORDER by created ASC LIMIT 50")
+                    ->fetchAll(PDO::FETCH_CLASS, Message::class);
             } else {
-                $stat = $this->pdo
-                    ->prepare("SELECT * FROM messages  WHERE private_for IS null OR private_for LIKE ? ORDER by created ASC LIMIT 50");
-                $stat->execute([$userName]);
-                    return $stat->fetchAll(PDO::FETCH_CLASS, Message::class);
+                $stat = Db::i()->getPDO()
+                    ->prepare("SELECT * FROM messages  WHERE private_for IS null OR private_for LIKE ? OR user LIKE ? ORDER by created ASC LIMIT 50");
+                $stat->execute([$userName,$userName ]);
+                return $stat->fetchAll(PDO::FETCH_CLASS, Message::class);
             }
         }  catch (\PDOException $e) {
             throw new Exception($e->getMessage(), 500);
         }
     }
+
     // ...
 }
 ```
 
-Následne v súbore `api.php` upravime logiku pre získavanie správ a doplníme do získavania hodnotu z `$_SESSION['user']` nasledovne:
+Následne v súbore `api.php` upravíme logiku pre získavanie správ a doplníme do získavania hodnotu z `$_SESSION['user']` nasledovne:
 
 ```php
 // ...
@@ -1466,8 +1461,7 @@ switch (@$_GET['method']) {
 // ...
 ```
 
-Na klienstkej strane musíme upraviť logiku `Chat.getMessages()`, tak aby privátnim správam pridala triedu `private` a doplnila informáciu o tom, kto správu komu
-poslal. Jej upravený kód bude nasledovný:
+Na klienstkej strane musíme upraviť logiku `Chat.getMessages()`, tak aby privátnym správam pridala triedu `private` a doplnila informáciu o tom, kto správu komu poslal. Jej upravený kód bude nasledovný:
 
 ```javascript
 class Chat {
@@ -1503,10 +1497,26 @@ class Chat {
 }
 ```
 
-Nakoniec doplníme do _CSS_ triedu `.private`, ktorá iba zmení pozadnie privátnej správy aby bola lepšie vidieľná:
+Nakoniec doplníme do _CSS_ triedu `.private`, ktorá iba zmení pozadie privátnej správy aby bola lepšie viditeľná:
 
 ```css
 .private {
     background-color: #ffc83d;
 }
+```
+V metóde `run()` ju nastavíme do časovača `setInterval()` podobne ako metódu `getMessages()`: 
+
+```javascript
+// ...
+class Chat {
+    // ...
+   async run() {
+      await this.checkLoggedState();
+      setInterval(this.getMessages, 1000);
+      setInterval(this.getUsers, 1000);
+      await this.getMessages()
+   }
+   // ...
+}
+// ...
 ```
