@@ -21,3 +21,6 @@ Vytvorte jednoduchý chat, ktorý:
   - komunikácia výlučne volaním _API_ servera, JSON a HTTP kódmi
   
 Aj ked má táto úloha názov _"Jednoduchý chat"_ je tým myslená jednoduchá funkcionalita, ktorú ponúka. Samotná implementácia, tak aby splnila všetky zadané podmienky jednoduchá rozhodne nie je.
+
+### Cieľ príkladu
+Cieľom príkladu je vytvorenie robustnejšieho klienta v čistom javascripte, ktorý je zameraný na asynchrónnu komunikáciu pomocou technológie AJAX. Príklad prechádza od celkového ošetrenia komunikácie s webovým API, manipuláciou DOM, navrhnutím komunikácie pomocou _HTTP kódov a JSONom, serverovou časť a databázovou vrstvou. 

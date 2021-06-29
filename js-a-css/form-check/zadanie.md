@@ -10,10 +10,12 @@
 
 ## Zadanie
 
-Nedovoľte formulár odoslať pokiaľ:
-- Nie je vyplnená hodnota pre __meno__, __priezvisko__, __mail__ a __vaša správa__.
-- __Mail__ musí obsahovať mail v platnom formáte.
-- __telefónne číslo__ môže aj nemusí mat hodnotu. Ak ju má, je potrebné aby malo slovenky medzinárodný tvar `+421 912 345 678` (zadávať je ho možne s medzerami).
-- __Vaša správa__ musím obsahovať minimálne 6 znakov.
-- Pri nájdení chyby vypíšte používateľovi pod príslušným vstupom chybovú hlášku.
-- Zablokujte tlačítko __Odoslať__ pokiaľ formulár obsahuje chyby.
+Vytvorte skript v jazyku JavaScript, ktorý bude kontrolovať správne vyplnenie formulára. Riešenie musí spĺňať nasledovné podmienky:
+
+1. Hodnoty polí `Meno`, `Priezvisko`, `Mail` a `Vaša správa` nesmú byť pri odoslaní prázdna.
+1. Pole `Mail` musí obsahovať e-mailovú adresu v platnom formáte.
+1. Pole `Telefónne číslo` môže, ale nemusí mať hodnotu. Ak ju má, je potrebné, aby malo formát mobilného čísla a  
+   medzinárodný tvar so slovenskou predvoľbou, napr. `+421 912 345 678` (zadávať je ho možné s medzerami).
+1. Pole `Vaša správa` musí obsahovať minimálne 6 znakov.
+1. Pri nájdení chyby vypíšte používateľovi pod príslušným vstupom chybovú hlášku.
+1. Zablokujte tlačidlo `Odoslať`, ak formulár obsahuje chyby.

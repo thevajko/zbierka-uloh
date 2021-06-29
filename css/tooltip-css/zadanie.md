@@ -3,15 +3,14 @@
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
 > - Repo: [Štartér](/../../tree/main/css/tooltip-css), [Riešenie](/../../tree/solution/css/tooltip-css).
+> - [Zobraziť riešenie](riesenie.md)
 </div>
 
 # Tooltip (CSS)
 
 ## Zadanie
 
-Pomocou CSS štýlov (bez použitia JavaScriptu) vytvorte možnosť pridávania popiskov (*tooltips*) do textu. Pokiaľ 
-používateľ umiestni nad definovaný úsek textu kurzor myši, popisok sa objaví, ak kurzor myši text opustí, 
-popisok zmizne.
+Pomocou CSS štýlov (bez použitia JavaScriptu) vytvorte možnosť pridávania popiskov (*tooltips*) do textu. Pokiaľ používateľ umiestni nad definovaný úsek textu kurzor myši, popisok sa objaví, ak kurzor myši text opustí, popisok zmizne.
 
 Vstupný HTML súbor by mal vyzerať takto:
 
@@ -31,10 +30,7 @@ Vstupný HTML súbor by mal vyzerať takto:
 </div>
 ```
 
-V prípade potreby si môžete štruktúru dokumentu upraviť tak, aby sa vám lepšie pracovalo. Pri riešení úlohy použite 
-výhradne CSS.
+V prípade potreby si môžete štruktúru dokumentu upraviť tak, aby sa vám lepšie pracovalo. Pri riešení úlohy použite výhradne CSS.
 
-<div class="hidden">
-
-[Zobraziť riešenie](riesenie.md)
-</div>
+### Cieľ príkladu
+Príklad je zameraný na precvičenie použitia _CSS selektorov_ a _CSS vlastnosti_ `possition`.

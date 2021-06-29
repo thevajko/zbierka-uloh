@@ -3,14 +3,14 @@
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
 > - Repo: [Štartér](/../../tree/main/css/dropdownmenu), [Riešenie](/../../tree/solution/css/dropdownmenu).
+> - [Zobraziť riešenie](riesenie.md)
 </div>
 
 # DropDown a DropUp menu (CSS)
 
 ## Zadanie
 
-Cieľom úlohy je vytvoriť roletové menu, aké bežne obsahujú desktopové aplikácie. Menu bude možné rozbaliť smerom dolu (*
-drop-down menu*) alebo smerom hore (*drop-up menu*). Fungovanie menu ukazuje nasledovný obrázok:
+Cieľom úlohy je vytvoriť roletové menu, aké bežne obsahujú desktopové aplikácie. Menu bude možné rozbaliť smerom dolu (*drop-down menu*) alebo smerom hore (*drop-up menu*). Fungovanie menu ukazuje nasledovný obrázok:
 
 ![](images_dropdownmenu/menu-fung-00.gif)
 
@@ -50,12 +50,9 @@ Počiatočný `HTML` dokument obsahuje menu zadefinované pomocou štruktúry el
                             ...
 ```
 
-Všimnite si však, že samotné elementy `ul` a `li` definujú *iba* štruktúru. Obsah položky je definované ako obsah 
-elementu `span`. Vnorenie jednotlivých elementov `ul` v `li` definuje hierarchiu menu.
+Všimnite si však, že samotné elementy `ul` a `li` definujú *iba* štruktúru. Obsah položky je definované ako obsah elementu `span`. Vnorenie jednotlivých elementov `ul` v `li` definuje hierarchiu menu.
 
 Pre riešenie použite výlučne iba CSS.
 
-<div class="hidden">
-
-[Zobraziť riešenie](riesenie.md)
-</div>
+### Cieľ príkladu
+Tento príklad ma za hlavný cieľ demonštráciu toho, čo všetko možné je dosiahnuť použitím výlučne _CSS_ bez nutnosti použiť _javascript_. Príklad sa zameriava na správne formátovanie prvkov a predovšetkým na použitie _CSS vlastnosti_ `possition`.

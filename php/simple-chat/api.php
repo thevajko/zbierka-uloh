@@ -10,6 +10,11 @@ require "php/Db.php";
 require "php/MessageStorage.php";
 require "php/UserStorage.php";
 
+function sendResponse($httpCode, $httpStatus, $body = ""){
+    header($_SERVER["SERVER_PROTOCOL"] . " {$httpCode} {$httpStatus}");
+    echo $body;
+}
+
 try {
 
     switch (@$_GET['method']) {
@@ -23,9 +28,7 @@ try {
                     $userStorage = new UserStorage();
                     $userStorage->removeUser($_SESSION['user']);
                     session_destroy();
-
-                    //No content
-                    http_response_code(204);
+                    sendResponse(204, 'No Content');
                 } else {
                     throw new Exception("Invalid API call", 400);
                 }
@@ -80,8 +83,7 @@ try {
                 $m->created = date('Y-m-d H:i:s');
                 $messageStorage = new MessageStorage();
                 $messageStorage->storeMessage($m);
-                //No content
-                http_response_code(204);
+                sendResponse(204, 'No Content');
             } else {
                 throw new Exception("Invalid API call", 400);
             }
@@ -103,9 +105,12 @@ try {
             break;
     }
 } catch (Exception $exception) {
-    header($_SERVER["SERVER_PROTOCOL"] . " {$exception->getCode()} {$exception->getMessage()}");
-    echo json_encode([
-        "error-code" => $exception->getCode(),
-        "error-message" => $exception->getMessage()
-    ]);
+    sendResponse(
+        $exception->getCode(),
+        $exception->getMessage(),
+        json_encode([
+            "error-code" => $exception->getCode(),
+            "error-message" => $exception->getMessage()
+        ])
+    );
 }

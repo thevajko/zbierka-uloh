@@ -3,6 +3,7 @@
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
 > - Repo: [Štartér](/../../tree/main/js-a-css/tooltip-js), [Riešenie](/../../tree/solution/js-a-css/tooltip-js).
+> - [Zobraziť riešenie](riesenie.md)
 </div>
 
 # Tooltip (JS, CSS)
@@ -29,23 +30,20 @@ Skript by mal fungovať na HTML kóde, ako je tento:
 </div>
 ```
 
-Kód obsahuje element `div`, ktorého obsah je tvorený textom generovaným pomocou [*Lorem ipsum generátora*](https://www.
-lipsum.com/). V tomto texte sa ďalej nachádzajú elementy `span`, kde prvý `span` označuje výraz a druhý `span` s
-triedou `tooltip` obsahuje text popisku, ktorý sa má používateľovi zobraziť, ak nad prvý `span` umiestni kurzor myši.
-Akonáhle používateľ kurzor z prvého `span` premiestni preč, popisok sa skryje. Samozrejme, pri otvorení
-dokumentu nesmú byť popisky zobrazené.
+Kód obsahuje element `div`, ktorého obsah je tvorený textom generovaným pomocou [*Lorem ipsum generátora*](https://www.lipsum.com/). V tomto texte sa ďalej nachádzajú elementy `span`, kde prvý `span` označuje výraz a druhý `span` s triedou `tooltip` obsahuje text popisku, ktorý sa má používateľovi zobraziť, ak nad prvý `span` umiestni kurzor myši. Akonáhle používateľ kurzor z prvého `span` premiestni preč, popisok sa skryje. Samozrejme, pri otvorení dokumentu nesmú byť popisky zobrazené.
+
+### Cieľ príkladu
+Cieľom príkladu je demonštrácia manupulácie DOM pomocou javasctiptu.
 
 <div class="hidden">
 
-Štruktúru dokumentu môžete upraviť, tak aby bolo možné úlohu vypracovať. Pre vypracovanie sa snažte použiť čistý
-javascript a CSS.
+Štruktúru dokumentu môžete upraviť, tak aby bolo možné úlohu vypracovať. Pre vypracovanie sa snažte použiť čistý javascript a CSS.
 
 > ### Pomôcky:
 > - [Načítanie JS](../../common/js-onload.md )
 > - [JS a string](../../common/js-praca-zo-stringom.md)
 > - [CSS pozíciovanie](../../common/css-position.md )
 
-
-
-[Zobraziť riešenie](riesenie.md).
 </div>
+
+
