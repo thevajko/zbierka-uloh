@@ -13,7 +13,7 @@ $userStorage = new UserStorage();
         <th>Krajina</th>
         <th>Akcie</th>
     </tr>
-    <?php foreach ($userStorage->getAllUsers() as $user) { ?>
+    <?php foreach ($userStorage->getAll() as $user) { ?>
         <tr>
             <td><?=htmlentities($user->name)?></td>
             <td><?=htmlentities($user->surname)?></td>

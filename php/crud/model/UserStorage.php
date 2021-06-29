@@ -7,14 +7,14 @@ class UserStorage {
     /**
      * @return User[]
      */
-    public function getAllUsers(): array
+    public function getAll(): array
     {
         return Db::conn()
             ->query("SELECT * FROM users")
             ->fetchAll(PDO::FETCH_CLASS, User::class);
     }
 
-    public function getUser($id): ?User {
+    public function get($id): ?User {
         $statement = Db::conn()->prepare("SELECT * FROM users WHERE id = ?");
         $statement->execute([$id]);
         $statement->setFetchMode(PDO::FETCH_CLASS, User::class);
@@ -25,7 +25,7 @@ class UserStorage {
         return $user;
     }
 
-    public function storeUser(User $user): void {
+    public function store(User $user): void {
         //Insert
         if ($user->id == 0) {
             $sql = "INSERT INTO users (name, surname, mail, country) VALUES (?, ?, ?, ?)";
@@ -38,7 +38,7 @@ class UserStorage {
         }
     }
 
-    public function deleteUser(User $user): void {
+    public function delete(User $user): void {
         $sql = "DELETE FROM users WHERE id = ?";
         Db::conn()->prepare($sql)->execute([$user->id]);
     }

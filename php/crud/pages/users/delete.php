@@ -2,7 +2,7 @@
 $userStorage = new UserStorage();
 $user = null;
 if (isset($_GET["id"])) {
-    $user = $userStorage->getUser($_GET["id"]);
+    $user = $userStorage->get($_GET["id"]);
 }
 
 if ($user == null) {
@@ -11,7 +11,7 @@ if ($user == null) {
 }
 
 if (isset($_POST['delete'])) {
-    $userStorage->deleteUser($user);
+    $userStorage->delete($user);
     echo "Uživateľ {$user->getFullname()} ostránený.<br><a href='?'>Späť</a>";
     return;
 }

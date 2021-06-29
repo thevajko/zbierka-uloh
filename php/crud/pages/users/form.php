@@ -2,7 +2,7 @@
 $userStorage = new UserStorage();
 $user = new User();
 if (isset($_GET["id"])) {
-    $user = $userStorage->getUser($_GET["id"]);
+    $user = $userStorage->get($_GET["id"]);
 }
 
 if ($user == null) {
@@ -15,7 +15,7 @@ if (isset($_POST['save'])) {
     $user->surname = $_POST['surname'];
     $user->mail = $_POST['mail'];
     $user->country = $_POST['country'];
-    $userStorage->storeUser($user);
+    $userStorage->store($user);
     echo "Užívateľ ".htmlentities($user->getFullname())." bol uložený.<br><a href='?'>Späť</a>";
     return;
 }
