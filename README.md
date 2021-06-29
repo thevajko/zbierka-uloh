@@ -30,9 +30,9 @@ Samozrejme, pre spustenie potrebných služieb môžete použiť ľubovoľným s
 Úlohy sú rozdelené podľa toho, ktorú technológiu používajú a obsahujú označenie náročnosti (stupnica od 1 po 5, kde 5 je najväčšia náročnosť)
 
 ## CSS
+1. [Gulečník](css/css-lopticka/zadanie.md) (CSS) - obtiažnosť 1
 1. [Selektory](css/selektory/zadanie.md) (CSS) - obtiažnosť 2
 1. [Tooltip](css/tooltip-css/zadanie.md) (CSS) - obtiažnosť 2
-1. [Gulečník](css/css-lopticka/zadanie.md) (CSS) - obtiažnosť 1
 1. [Slnečna sústava](css/css-planety/zadanie.md) (CSS) - obtiažnosť 2
 1. [Galéria](css/galeria/zadanie.md) (CSS) - obtiažnosť 2
 1. [Drop-Down a Drop-Up menu](css/dropdownmenu/zadanie.md) (CSS) - obtiažnosť 3
@@ -43,9 +43,9 @@ Samozrejme, pre spustenie potrebných služieb môžete použiť ľubovoľným s
 1. [Tooltip](js-a-css/tooltip-js/zadanie.md) (JS, CSS) - obtiažnosť 2
 1. [Analógové hodinky](js-a-css/analog-clock/zadanie.md) (JS, CSS) - obtiažnosť 2
 1. [Univerzal loader](js-a-css/univerzal-loader/zadanie.md) (JS, AJAX, CSS) - obtiažnosť 2
-1. [JS Table](js-a-css/jstable/zadanie.md) (JS, CSS) - obtiažnosť 3
 1. [Kontrola formulára](js-a-css/form-check/zadanie.md) (JS, CSS) - obtiažnosť 2
 1. [Pexeso](js-a-css/pexeso/zadanie.md) (JS, CSS) - obtiažnosť 2
+1. [JS Table](js-a-css/jstable/zadanie.md) (JS, CSS) - obtiažnosť 3
 1. [Hra mucha](js-a-css/fly/zadanie.md) (JS, CSS) - obtiažnosť 4
 
 ## PHP
@@ -55,9 +55,9 @@ Samozrejme, pre spustenie potrebných služieb môžete použiť ľubovoľným s
 1. [PHP formulár](php/php-form/zadanie.md) (PHP, CSS) - obtiažnosť 2 
 
 ## Komplexné úlohy
-1. [Jednoduchá Db tabuľka](php/dbtable/zadanie.md) (DB, PHP) - obtiažnosť 3
-1. [Operácie nad tabuľkou](php/crud/zadanie.md) (DB, PHP) - obtiažnosť 3
-1. [Jednoduchý chat](php/simple-chat/zadanie.md) (DB, PHP, JS, AJAX, CSS) - obtiažnosť 4
+1. [Jednoduchá Db tabuľka](php/dbtable/zadanie.md) (DB, PHP) - obtiažnosť 4
+1. [Operácie nad tabuľkou](php/crud/zadanie.md) (DB, PHP) - obtiažnosť 4
+1. [Jednoduchý chat](php/simple-chat/zadanie.md) (DB, PHP, JS, AJAX, CSS) - obtiažnosť 5
 
 ___
 

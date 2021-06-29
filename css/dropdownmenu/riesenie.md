@@ -3,6 +3,7 @@
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
 > - Repo: [Štartér](/../../tree/main/css/dropdownmenu), [Riešenie](/../../tree/solution/css/dropdownmenu).
+> - [Zobraziť riešenie](riesenie.md)
 
 # DropDown a DropUp menu - CSS
 
@@ -28,8 +29,7 @@ Riešenie je rozdelené do nasledovných podkapitol
 
 ### Prvá úroveň menu
 
-Prvý krok spočíva v skrytí všetkých vnorených elementov `ul` okrem prvej úrovne. Na skrytie všetkých vnorených `ul`
-elementov použijeme potomkový selektor: `ul ul`. CSS pravidlo bude vyzerať nasledovne:
+Prvý krok spočíva v skrytí všetkých vnorených elementov `ul` okrem prvej úrovne. Na skrytie všetkých vnorených `ul` elementov použijeme potomkový selektor: `ul ul`. CSS pravidlo bude vyzerať nasledovne:
 
 ```css
 ul ul {
@@ -37,23 +37,13 @@ ul ul {
 }
 ```
 
-Teraz potrebujeme upraviť zobrazenie prvej úrovne tak, aby sa nezobrazovala ako zoznam ale ako menu, teda vedľa seba.
-To, ako sa ktorý prvok zobrazuje, definuje CSS
-vlastnosť [`display`](https://www.w3schools.com/cssref/pr_class_display.asp)).
+Teraz potrebujeme upraviť zobrazenie prvej úrovne tak, aby sa nezobrazovala ako zoznam ale ako menu, teda vedľa seba. To, ako sa ktorý prvok zobrazuje, definuje CSS vlastnosť [`display`](https://www.w3schools.com/cssref/pr_class_display.asp)).
 
-Zoznam sa dá v HTML definovať dvomi značkami `ul` (neočíslovaný zoznam) a `ol` (očíslovaný zoznam). V oboch prípadoch
-ide o obaľovací komponent, ktorého potomkom môžu byť jedine element `li`. Značka `li` sa zobrazuje ako bloková (má
-nastavenú hodnotu pre zobrazenie na `display: list-item`), preto sa jednotlivé položky zoznamu zobrazujú pod sebou. Toto
-zobrazenie je potrebné zmeniť, aby sme ich zobrazili vedľa seba.
+Zoznam sa dá v HTML definovať dvomi značkami `ul` (neočíslovaný zoznam) a `ol` (očíslovaný zoznam). V oboch prípadoch ide o obaľovací komponent, ktorého potomkom môžu byť jedine element `li`. Značka `li` sa zobrazuje ako bloková (má nastavenú hodnotu pre zobrazenie na `display: list-item`), preto sa jednotlivé položky zoznamu zobrazujú pod sebou. Toto zobrazenie je potrebné zmeniť, aby sme ich zobrazili vedľa seba.
 
-Začiatočníckou chybou je zmena hodnoty `display` na `display: inline-block`. Aj keď sa položky zobrazia vedľa seba,
-vytvára sa medzi nimi prirodzene nežiadúca medzera. Ale prečo? Je to dôsledok toho, akým spôsobom má prehliadač
-zobrazovať riadkové (*inline*) elementy. Vieme, že prehliadač ignoruje viacnásobné medzery a zalomenia. V tomto prípade,
-vzhľadom na štruktúru sú medzi jednotlivými elementmi `li` znaky ako zalomenia, medzery a tabulátory interpretované ako
-medzery.
+Začiatočníckou chybou je zmena hodnoty `display` na `display: inline-block`. Aj keď sa položky zobrazia vedľa seba, vytvára sa medzi nimi prirodzene nežiadúca medzera. Ale prečo? Je to dôsledok toho, akým spôsobom má prehliadač zobrazovať riadkové (*inline*) elementy. Vieme, že prehliadač ignoruje viacnásobné medzery a zalomenia. V tomto prípade, vzhľadom na štruktúru sú medzi jednotlivými elementmi `li` znaky ako zalomenia, medzery a tabulátory interpretované ako medzery.
 
-Aby sme to názorne predviedli, stačí si niekde do kódu stránky vložiť nasledovný HTML kód <span class="hidden">(alebo
-otvoriť [fiddle](https://jsfiddle.net/meshosk/Legh36td))</span>:
+Aby sme to názorne predviedli, stačí si niekde do kódu stránky vložiť nasledovný HTML kód <span class="hidden"> (alebo otvoriť [fiddle](https://jsfiddle.net/meshosk/Legh36td)) </span>:
 
 ```html
 
