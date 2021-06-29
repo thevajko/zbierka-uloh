@@ -97,7 +97,7 @@ class Message
 }
 ```
 
-Druhá trieda, ktorá bude sprostredkovať pripojenie na databázu sa bude volať `Db`, bude implementovať _singleton_ a v jej konštruktore inicializujeme spojenie s databázou pomocou `PDO`.
+Druhá trieda, ktorá bude sprostredkovať pripojenie na databázu sa bude volať `Db`. Táto trieda bude mať statickú metódu, ktorá nám vráti inštanciu `PDO`.
 
 Vzhľadom na to, že chybové výnimky musí odchytávať súbor `api.php` upravíme chovanie `PDO` tak, aby pri nastaví chyby s databázou bola vyhodená výnimka. Čo
 urobíme ihneď po vytvorení jej inštancie nastavením `  $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);` (toto [nastavenie je predvolené](https://www.php.net/manual/en/pdo.error-handling.php#:~:text=PDO%3A%3AERRMODE_EXCEPTION&text=0%2C%20this%20is%20the%20default,error%20code%20and%20error%20information.)
@@ -110,44 +110,34 @@ upravíme jej kód na [`500 Internal Server Error`](https://developer.mozilla.or
 
 ```php
 class Db {
+    private const DB_HOST = "db:3306";
+    private const DB_NAME = "dbchat";
+    private const DB_USER = "db_user";
+    private const DB_PASS = "db_user_pass";
 
-    private static ?Db $db = null;
-    public static function i()
+    private static ?PDO $connection = null;
+
+    public static function conn(): PDO
     {
-        if (Db::$db == null) {
-            Db::$db = new Db();
+        if (Db::$connection == null) {
+            self::connect();
         }
-        return Db::$db;
+        return Db::$connection;
     }
 
-    private PDO $pdo;
-
-    private string $dbHost = "db:3306";
-    private string $dbName = "dbchat";
-    private string $dbUser = "db_user";
-    private string $dbPass = "db_user_pass";
-
-    public function __construct()
-    {
+    private static function connect() {
         try {
-            $this->pdo = new PDO("mysql:host={$this->dbHost};dbname={$this->dbName}", $this->dbUser, $this->dbPass);
-            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            Db::$connection = new PDO("mysql:host=".self::DB_HOST.";dbname=".self::DB_NAME, self::DB_USER, self::DB_PASS);
+            Db::$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
-           throw new Exception($e->getMessage(), 500);
+            throw new Exception($e->getMessage(), 500);
         }
-    }
-    
-    public function getPDO(): PDO
-    {
-        return $this->pdo;
     }
 }
 ```
 Posledná trieda `MessageStorage` bude obsahovať logiku výlučne pokrývajúcu logiku týkajúcu sa _PHP triedy_ `Message`. Aj ked sa to sprvu nezdá, umiestniť túto logiku do triedy `Db` by nebolo vhodné nakoľko by sa nám v nej zmiešavali viaceré logické celky.
 
-Nakoľko si trieda `MessageStorage` nepotrebuje pamätať svoj stav a všetky potrebné dáta budú predávané ako vstupné parametra, nemusíme vytvárať jej inštanciu a budeme môcť všetky jej metódy definovať ako _statické_.
-
-Jej prvá verejná statická metóda bude `getMessages()`, ktorej výstup bude posledných 50 záznamov z databázovej tabuľky `messages` v podobe pola inštancií triedy `Message`.
+Jej prvá metóda bude `getMessages()`, ktorej výstup bude posledných 50 záznamov z databázovej tabuľky `messages` v podobe pola inštancií triedy `Message`.
 
 ```php
 class MessageStorage
@@ -156,10 +146,10 @@ class MessageStorage
      * @return Message[]
      * @throws Exception
      */
-    public static function getMessages(): array
+    public function getMessages(): array
     {
         try {
-            return DB::i()->getPDO()
+            return Db::conn()
                 ->query("SELECT * FROM messages ORDER by created ASC LIMIT 50")
                 ->fetchAll(PDO::FETCH_CLASS, Message::class);
         }  catch (\PDOException $e) {
@@ -169,7 +159,7 @@ class MessageStorage
 }
 ```
 
-Ak bude chcieť klient získať kolekciu posledných 50 správ, bude musieť na server odoslať _HTTP dopyt_ s _HTTP GET parametrom_, ktorého hodnota bude musieť byť presne `get-messages`. V súbore `api.php` do bloku `switch` prídáme reakciu na hodnotu `get-messages` _HTTP parametra_ `method`. V nej získame pole správ zavolaním `UserStorage::getMessages()` a následne ho serializujeme do formátu _JSON_ a vypíšeme do tela odpovede. Nesmieme zabudnúť doplniť pomocou `require` naše definície tried `Message`, `Db` a `MessageStorage`. Pridanie logiky bude vyzerať následovne:
+Ak bude chcieť klient získať kolekciu posledných 50 správ, bude musieť na server odoslať _HTTP dopyt_ s _HTTP GET parametrom_, ktorého hodnota bude musieť byť presne `get-messages`. V súbore `api.php` do bloku `switch` prídáme reakciu na hodnotu `get-messages` _HTTP parametra_ `method`. V nej získame pole správ zavolaním metódy `UserStorage::getMessages()` a následne ho serializujeme do formátu _JSON_ a vypíšeme do tela odpovede. Nesmieme zabudnúť doplniť pomocou `require` naše definície tried `Message`, `Db` a `MessageStorage`. Pridanie logiky bude vyzerať následovne:
 
 ```php
 require "php/Message.php";
@@ -180,7 +170,8 @@ try {
     switch (@$_GET['method']) {
 
         case 'get-messages':
-            $messages = MessageStorage::getMessages();
+            $messageStorage = new MessageStorage();
+            $messages = $messageStorage->getMessages();
             echo json_encode($messages);
             break;
             
@@ -398,7 +389,7 @@ class Chat {
 export default Chat;
 ```
 
-Odoslaná správa sa nám ešte neuloží do databázy. Do triedy `MessageStorage` pridáme novú statickú metódu `storeMessage()`, ktorej jediný vstupný parameter bude ištancia triedy `Message`. V nej si vytovíme _SQL INSERT_ s použitím [`PDO statement`](https://www.php.net/manual/en/class.pdostatement.php), náslende vložíme potrebné hodnoty pre vytvorenie záznamu v databáze a _SQL dopyt_ spustíme. Pridaná metóda bude nasledovná:
+Odoslaná správa sa nám ešte neuloží do databázy. Do triedy `MessageStorage` pridáme novú metódu `storeMessage()`, ktorej jediný vstupný parameter bude ištancia triedy `Message`. V nej si vytovíme _SQL INSERT_ s použitím [`PDO statement`](https://www.php.net/manual/en/class.pdostatement.php), náslende vložíme potrebné hodnoty pre vytvorenie záznamu v databáze a _SQL dopyt_ spustíme. Pridaná metóda bude nasledovná:
 
 ```php
 
@@ -407,10 +398,10 @@ class MessageStorage
     
     // ...
     
-    public static function storeMessage(Message $message){
+    public function storeMessage(Message $message){
         try {
             $sql = "INSERT INTO messages (message, created) VALUES (?, ?)";
-            Db::i()->getPDO()->prepare($sql)->execute([$message->message, $message->created]);
+            Db::conn()->prepare($sql)->execute([$message->message, $message->created]);
         }  catch (\PDOException $e) {
             throw new Exception($e->getMessage(), 500);
         }
@@ -420,7 +411,7 @@ class MessageStorage
 
 V súbore `api.php` do `switch` bloku pridáme reakciu na hodnotu `post-message`. Samotný text správy bude prenášaný v tele _HTTP POST_ požiadavky v _POST parametre_ s názvom `message`. Preto vyhodíme výnimku ak tento parameter nebude existovať alebo bude obsahovať prázdnu hodnotu. Následne si vytvoríme novú inštanciu triedy `Message` a jej jednotlive atribúty naplníme hodnotami. Následne túto inštanciu uložíme pomocou `MessageStorage::storeMessage()`.
 
-Po úspešnom vykonaní uloženia vrátime stavový kód vrátime _HTTP kód_ `204` pomocou vyhodenia výnimky. Kód bude nasledovný: 
+Po úspešnom vykonaní uloženia vrátime stavový kód vrátime _HTTP kód_ `204`. Kód bude nasledovný: 
 
 ```php
 // ..
@@ -433,8 +424,11 @@ switch (@$_GET['method']) {
           $m = new Message();          
           $m->message = $_POST['message'];          
           $m->created = date('Y-m-d H:i:s');
-          MessageStorage::storeMessage($m);
-          throw new Exception("Invalid API call", 204);
+          
+          $messageStorage = new MessageStorage();
+          $messageStorage->storeMessage($m);
+          //No content
+          http_response_code(204);
       } else {
           throw new Exception("Invalid API call", 400);
       }
@@ -531,11 +525,9 @@ export default Chat;
 
 ### Podmienenie chatovania prihlásením
 
-Teraz upravíme posielanie správ tak, aby sa používateľ musel "prihlásiť" pre ich odosielanie, ináč ich bude môcť iba čítať. Prihlasovanie bude spočívať v tom,
-že používateľ bude musieť zadať meno pod ktorým bude v chate vystupovať.
+Teraz upravíme posielanie správ tak, aby sa používateľ musel "prihlásiť" pre ich odosielanie, ináč ich bude môcť iba čítať. Prihlasovanie bude spočívať v tom, že používateľ bude musieť zadať meno pod ktorým bude v chate vystupovať.
 
-Ďalej nebude možné aby chatovali súčasne dvaja používatelia s rovnakým menom. Z tohto dôvodu vytvoríme v databáze novú tabuľku `users`, ktorá bude obsahovať iba meno
-aktuálne prihlásených používateľov. _DDL_ pre tabuľu je nasledovné:
+Ďalej nebude možné aby chatovali súčasne dvaja používatelia s rovnakým menom. Z tohto dôvodu vytvoríme v databáze novú tabuľku `users`, ktorá bude obsahovať iba meno aktuálne prihlásených používateľov. _DDL_ pre tabuľu je nasledovné:
 
 ```sql
 create table users
@@ -572,7 +564,7 @@ class Message
 }
 ```
 
-Vytvoríme novú _PHP_ triedu `User` a doplníme do nej atribúty, tak aby zodpovedala jej databázovej verzií:
+Vytvoríme novú _PHP_ triedu `User` a doplníme do nej atribúty, tak aby zodpovedala jej databázovej verzii:
 
 ```php
 class User
@@ -581,7 +573,7 @@ class User
     public string $name;
 }
 ```
-Podobne ako sme vytvorili triedu `MessageStorage`, obsahujúcu logiku obsluhujúcu ukladanie správ, vytvoríme triedu `UserStorage`. Tá bude obsahovať tri verejné a statické metódy: získanie všetkých používateľov (pre overenie, či sa meno používa) a pridanie(používateľ sa úspešne prihlásil) a vymazanie používateľa (používateľ sa odhlásil).
+Podobne ako sme vytvorili triedu `MessageStorage`, obsahujúcu logiku obsluhujúcu ukladanie správ, vytvoríme triedu `UserStorage`. Tá bude obsahovať tri verejné metódy: získanie všetkých používateľov (pre overenie, či sa meno používa) a pridanie(používateľ sa úspešne prihlásil) a vymazanie používateľa (používateľ sa odhlásil).
 
 Metóda pre prihlásenie bude vyzerať nasledovne:
 
@@ -592,10 +584,10 @@ class UserStorage
      * @return User[]
      * @throws Exception
      */
-    public static function getUsers() : array
+    public function getUsers() : array
     {
         try {
-            return Db::i()->getPDO()
+            return Db::conn()
                 ->query("SELECT * FROM users")
                 ->fetchAll(PDO::FETCH_CLASS, User::class);
         }  catch (\PDOException $e) {
@@ -611,11 +603,11 @@ Pridávanie používateľa ma tak isto rovnakú logiku ako pridávanie správy a
 class UserStorage {
 
     // ...
-    public static function addUser($name)
+    public function addUser($name)
     {
         try {
             $sql = "INSERT INTO users (name) VALUES (?)";
-            Db::i()->getPDO()->prepare($sql)->execute([$name]);
+            Db::conn()->prepare($sql)->execute([$name]);
         } catch (\PDOException $e) {
             throw new Exception($e->getMessage(), 500);
         }
@@ -629,11 +621,11 @@ A ako poslednú, pridáme metódu, ktorou budeme na základe mena mazať použí
 class UserStorage {
 
     // ...
-    public static function removeUser($name)
+    public function removeUser($name)
     {
         try {
             $sql = "DELETE FROM users WHERE name = ?";
-            Db::i()->getPDO()->prepare($sql)->execute([$name]);
+            Db::conn()->prepare($sql)->execute([$name]);
         }  catch (\PDOException $e) {
             throw new Exception($e->getMessage(), 500);
         }
@@ -671,7 +663,8 @@ switch (@$_GET['method']) {
                     throw new Exception("User already logged", 400);
                 }
 
-                $users = DB::i()->getUsers();
+                $userStorage = new UserStorage();
+                $users = $userStorage->getUsers();
                 $foundUser = array_filter($users, function (User $user){
                     return $user->name == $_POST['name'];
                 });
@@ -680,7 +673,7 @@ switch (@$_GET['method']) {
                     throw new Exception("User already exists", 455);
                 };
 
-                DB::i()->addUser($_POST['name']);
+                $userStorage->addUser($_POST['name']);
 
                 $_SESSION['user'] = $_POST['name'];
 
@@ -712,8 +705,11 @@ switch (@$_GET['method']) {
             $m->user = $_SESSION['user'];
             $m->message = $_POST['message'];
             $m->created = date('Y-m-d H:i:s');
-            MessageStorage::storeMessage($m);           
-            throw new Exception("No Content", 204);
+            
+            $messageStorage = new MessageStorage();
+            $messageStorage->storeMessage($m);      
+            //No content
+            http_response_code(204);
         } else {
             throw new Exception("Invalid API call", 400);
         }
@@ -728,11 +724,11 @@ Nesmieme zabudnúť pridanie mena používatela pri ukladaní novej správy v `M
 ```php
 class MessageStorage {
     // ...
-    public static function storeMessage(Message $message){
+    public function storeMessage(Message $message){
         try {
             $sql = "INSERT INTO messages (message, created, user) VALUES (?, ?, ?)";
-             Db::i()->getPDO()->prepare($sql)
-            ->execute([$message->message, $message->created, $message->user]);
+            Db::conn()->prepare($sql)
+                ->execute([$message->message, $message->created, $message->user]);
         }  catch (\PDOException $e) {
             throw new Exception($e->getMessage(), 500);
         }
@@ -741,7 +737,7 @@ class MessageStorage {
 }
 ```
 
-Teraz pridáme logiku pre odhlásenie, ktorá sa bude spúšťať pomocou `api.php?method=logout`. Pri spustení odhlasovania musíme najskôr overiť, či je používateľprihlásený. Pokiaľ je najprv ho vymažeme z databázy a následne vymažeme dáta v _PHP session_ pomocouspustenia [`session_destroy()`](https://www.php.net/manual/en/function.session-destroy.php) a vyhadzujeme výnimku s _HTTP kódom_ `204`.
+Teraz pridáme logiku pre odhlásenie, ktorá sa bude spúšťať pomocou `api.php?method=logout`. Pri spustení odhlasovania musíme najskôr overiť, či je používateľprihlásený. Pokiaľ je najprv ho vymažeme z databázy a následne vymažeme dáta v _PHP session_ pomocouspustenia [`session_destroy()`](https://www.php.net/manual/en/function.session-destroy.php) a vrátime _HTTP kód_ `204`.
 
 ```php
 // ...
@@ -750,9 +746,11 @@ switch (@$_GET['method']) {
         // ...
      case 'logout' :
            if (!empty($_SESSION['user'])){
-               UserStorage::removeUser($_SESSION['user']);
+               $userStorage = new UserStorage();
+               $userStorage->removeUser($_SESSION['user']);
                session_destroy();
-               throw new Exception("No Content", 204);
+               //No content
+               http_response_code(204);
            } else {
                throw new Exception("Invalid API call", 400);
            }
@@ -1271,7 +1269,8 @@ switch (@$_GET['method']) {
     case 'users' :
          $out = [];
          if (!empty($_SESSION['user'])) {
-             $out = array_filter(UserStorage::getUsers(), function (User $user) {
+             $userStorage = new UserStorage();
+             $out = array_filter($userStorage->getUsers(), function (User $user) {
                  return $user->name != $_SESSION['user'];
              });
          }
@@ -1395,7 +1394,12 @@ switch (@$_GET['method']) {
                 $m->message = $_POST['message'];
                 $m->private_for = @$_POST['private'];
                 $m->created = date('Y-m-d H:i:s');
-                Db::i()->storeMessage($m);
+                
+                $messageStorage = new MessageStorage();
+                $messageStorage->storeMessage($m);
+                
+                //No content
+                http_response_code(204);
             } else {
                 throw new Exception("Invalid API call", 400);
             }
@@ -1405,20 +1409,20 @@ switch (@$_GET['method']) {
 // ...
 ```
 
-Následne upravíme ukladanie novej správy v _PHP_ triede `MessageStorage` v jej statickej metóde `storeMessage()`. Tu bude najjednoduchšie overiť, či `$message->private_for` obsahuje hodnotu, ak áno vytvoríme špecifické _SQL_. Ak nie použijeme už existujúce:
+Následne upravíme ukladanie novej správy v _PHP_ triede `MessageStorage` v jej metóde `storeMessage()`. Tu bude najjednoduchšie overiť, či `$message->private_for` obsahuje hodnotu, ak áno vytvoríme špecifické _SQL_. Ak nie použijeme už existujúce:
 
 ```php
 class MessageStorage {
     // ...
-    public static function storeMessage(Message $message){
+    public function storeMessage(Message $message){
         try {
             if (empty($message->private_for)) {
                 $sql = "INSERT INTO messages (message, created, user) VALUES (?, ?, ?)";
-                DB::i()->getPDO()->prepare($sql)
+                DB::conn()->prepare($sql)
                     ->execute([$message->message, $message->created, $message->user]);
             } else {
                 $sql = "INSERT INTO messages (message, created, user, private_for) VALUES (?, ?, ?, ?)";
-                DB::i()->getPDO()->prepare($sql)
+                DB::conn()->prepare($sql)
                     ->execute([$message->message, $message->created, $message->user, $message->private_for]);
             }
         }  catch (\PDOException $e) {
@@ -1438,15 +1442,15 @@ class MessageStorage {
      * @return Message[]
      * @throws Exception
      */
-    public static function getMessages($userName = ""): array
+    public function getMessages($userName = ""): array
     {
         try {
             if (empty($userName)){
-                return Db::i()->getPDO()
+                return Db::conn()
                     ->query("SELECT * FROM messages WHERE private_for IS null ORDER by created ASC LIMIT 50")
                     ->fetchAll(PDO::FETCH_CLASS, Message::class);
             } else {
-                $stat = Db::i()->getPDO()
+                $stat = Db::conn()
                     ->prepare("SELECT * FROM messages  WHERE private_for IS null OR private_for LIKE ? OR user LIKE ? ORDER by created ASC LIMIT 50");
                 $stat->execute([$userName,$userName ]);
                 return $stat->fetchAll(PDO::FETCH_CLASS, Message::class);
@@ -1467,7 +1471,8 @@ Následne v súbore `api.php` upravíme logiku pre získavanie správ a doplním
 switch (@$_GET['method']) {
     // ...
         case 'get-messages':
-            $messages = Db::i()->getMessages(@$_SESSION['user']);
+            $messageStorage = new MessageStorage();
+            $messages = $messageStorage->getMessages(@$_SESSION['user']);
             echo json_encode($messages);
             break;
     // ...
