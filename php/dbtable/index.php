@@ -2,6 +2,7 @@
 
 require "User.php";
 require "Db.php";
+require "UserStorage.php";
 require "Table.php";
 
 $usersTable = new Table();

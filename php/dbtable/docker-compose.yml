@@ -2,7 +2,6 @@ version: '3'
 services:
   web:
     build: .
-    container_name: php_web
     volumes:
       - ./:/var/www/html/
     ports:
@@ -11,7 +10,6 @@ services:
     tty: true
   db:
     image: mariadb
-    container_name: db
     volumes:
       - ./sql:/docker-entrypoint-initdb.d
     environment:

@@ -14,8 +14,12 @@ class Table
 
     private string $filter = "";
 
+    private UserStorage $storage;
+
     public function __construct()
     {
+        $this->storage = new UserStorage();
+
         $this->orderBy = ($this->IsColumnNameValid(@$_GET['order']) ? $_GET['order'] : "");
         $this->direction = $_GET['direction'] ?? "";
         $this->filter =  str_replace( "'", "",$_GET['filter'] ?? "");
@@ -26,7 +30,7 @@ class Table
 
     private function GetPageNumber(): int
     {
-        $this->itemsCount = DB::i()->UsersCount($this->filter);
+        $this->itemsCount = $this->storage->UsersCount($this->filter);
         $page =  intval($_GET['page'] ?? 0);
         $this->totalPages = ceil($this->itemsCount / $this->pageSize);
         if (($page < 0) || $page > $this->totalPages){
@@ -74,7 +78,7 @@ class Table
     private function RenderBody() : string
     {
         $body = "";
-        $users = DB::i()->getAllUsers($this->orderBy, $this->direction, $this->page, $this->pageSize, $this->filter);
+        $users = $this->storage->getAllUsers($this->orderBy, $this->direction, $this->page, $this->pageSize, $this->filter);
 
         foreach ($users as $user) {
             $tr = "";

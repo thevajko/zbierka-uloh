@@ -1,75 +1,27 @@
 <?php
 
 class Db {
+    private const DB_HOST = "db:3306";
+    private const DB_NAME = "dbtable";
+    private const DB_USER = "db_user";
+    private const DB_PASS = "db_user_pass";
 
-    private static ?Db $db = null;
-    public static function i()
+    private static ?PDO $connection = null;
+
+    public static function conn(): PDO
     {
-        if (Db::$db == null) {
-            Db::$db = new Db();
+        if (Db::$connection == null) {
+            self::connect();
         }
-        return Db::$db;
+        return Db::$connection;
     }
 
-    private PDO $pdo;
-
-    private string $dbHost = "db:3306";
-    private string $dbName = "dbtable";
-    private string $dbUser = "db_user";
-    private string $dbPass = "db_user_pass";
-
-    public function __construct()
-    {
+    private static function connect() {
         try {
-            $this->pdo = new PDO("mysql:host={$this->dbHost};dbname={$this->dbName}", $this->dbUser, $this->dbPass);
+            Db::$connection = new PDO("mysql:host=".self::DB_HOST.";dbname=".self::DB_NAME, self::DB_USER, self::DB_PASS);
+            Db::$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
-            die("Error!: " . $e->getMessage());
+            die("Databáza nedostupná: " . $e->getMessage());
         }
     }
-
-    public function UsersCount($filter = "") : int
-    {
-        return $this->pdo->query("SELECT count(*) FROM users" . $this->getFilter($filter))->fetchColumn();
-    }
-
-    private function getFilter($filter = ""){
-
-        if ($filter){
-            $filter = str_replace("*","%", $filter);
-            $searchableColumns = ["name", "surname", "mail"];
-            $search = [];
-            foreach ($searchableColumns as $columnName) {
-                $search[] = " {$columnName} LIKE '%{$filter}%' ";
-            }
-            return " WHERE ". implode(" OR ", $search). " ";
-        }
-        return "";
-    }
-
-    /**
-     * @return User[]
-     */
-    public function getAllUsers($sortedBy = "", $sortDirection = "", $page = 0, $pageSize = 10, $filter = "") : array
-    {
-        $sql = "SELECT * FROM users";
-
-        $sql .= $this->getFilter($filter);
-
-        if ($sortedBy) {
-            $direc = $sortDirection == "DESC" ? "DESC" : "ASC";
-            $sql = $sql . " ORDER BY {$sortedBy} {$direc}" ;
-        }
-
-        $page *= $pageSize;
-        $sql .= " LIMIT {$pageSize} OFFSET {$page}";
-
-        try {
-            return $this->pdo
-                ->query($sql)
-                ->fetchAll(PDO::FETCH_CLASS, User::class);
-        }  catch (\PDOException $e) {
-            die($e->getMessage());
-        }
-    }
-
 }
