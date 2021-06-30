@@ -26,7 +26,7 @@ Telo HTML dokumentu bude tvorené kontajnermi pre jednotlivé elementy. V zadan�
 ```html
 
 <body>
-<div class="slnko"></div>
+<div class="sun"></div>
 <div class="bird"></div>
 <div class="bird"></div>
 <div class="bird"></div>
@@ -61,7 +61,7 @@ Vlastnosť `background-size` využijeme na to, aby sa zmenšený obrázok zobraz
 Ak však máme byť úplne presný, v strede bude pravý horný roh obrázku. Ak by sme chceli, aby v strede okna bol stred obrázku slnka, potrebujeme obrázok posunúť o polovicu jeho veľkosti vľavo a hore. Pomôžeme si CSS vlastnosťou `transform` a obrázok pomocou `translate` posunieme o `50%` jeho výšky, resp. šírky. Pravidlo bude vyzerať takto:
 
 ```css
-.slnko {
+.sun {
     background-image: url("../img/sun.png");
     background-size: cover;
     width: 300px;
@@ -131,7 +131,7 @@ A opäť triedu pripojíme len k elementom, ktoré potrebujeme otočiť. Výsled
 
 ```html
 
-<div class="slnko"></div>
+<div class="sun"></div>
 <div class="bird top left"></div>
 <div class="bird top flip right"></div>
 <div class="bird bottom left"></div>
