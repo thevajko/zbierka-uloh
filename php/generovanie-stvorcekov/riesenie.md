@@ -55,22 +55,22 @@ Každý štvorček bude mať nastavenú pozíciu na `absolute`, aby sme ho mohli
 
 Implementáciu PHP časti začneme deklarovaním niekoľkých pomocných funkcií.
 
-Vzhľadom na to, že štvorčeky chceme umiestňovať náhodne na základe súradnic v percentách, definujeme si funkciu `nahodnaPozicia()`, ktorú umiestnime medzi značky `<?php` a `?>`.
+Vzhľadom na to, že štvorčeky chceme umiestňovať náhodne na základe súradnic v percentách, definujeme si funkciu `randPosition()`, ktorú umiestnime medzi značky `<?php` a `?>`.
 
 ```php
-function nahodnaPozicia() 
+function randPosition() 
 {
     return rand(0, 100) . "%";
 }
 ```
 
-Ďalšou pomocnou funkciou bude funkcia na generovanie náhodnej farby - `nahodnaFarba()`. Pri jej implementácii máme niekoľko možností. Prvá možnosť je generovať farbu pomocou jej mena - `red`, `green`, `blue`, `cyan`, ...
+Ďalšou pomocnou funkciou bude funkcia na generovanie náhodnej farby - `randColor()`. Pri jej implementácii máme niekoľko možností. Prvá možnosť je generovať farbu pomocou jej mena - `red`, `green`, `blue`, `cyan`, ...
 
 ```php
-function nahodnaFarba() 
+function randColor() 
 {
-    $farby = ["red", "green", "blue", "yellow", "pink", "cyan", "purple", "black", "grey", "violet"];
-    return $farby[rand(0, count($farby))];
+    $colors = ["red", "green", "blue", "yellow", "pink", "cyan", "purple", "black", "grey", "violet"];
+    return $colors[rand(0, count($colors))];
 }
 ```
 
@@ -93,21 +93,21 @@ Vo webových aplikáciach najčastejšie využívame RGB farebné spektrum. RGB 
 Pokiaľ chceme jednoducho vygenerovať farbu, môžeme vygenerovať náhodné číslo z rozsahu 0 - 2^24 (`0xFFFFFF`). Táto hodnota musí mať aj úvodné nuly - takže, ak vygenerujeme hodnotu `0xFF` musíme ju doplniť nulami - `0000FF`. Jej kód bude vyzerať nasledovne:
 
 ```php
-function nahodnaFarba()
+function randColor()
 {
     return sprintf('#%06X', rand(0, 0xFFFFFF));
 }
 ```
-Keď sa rozhodneme pre jednu z týchto funkcií, jej kód umiestnime za kód funkcie `nahodnaPozicia()`, tak aby zostala v bloku `<?php` a `?>`.
+Keď sa rozhodneme pre jednu z týchto funkcií, jej kód umiestnime za kód funkcie `randPosition()`, tak aby zostala v bloku `<?php` a `?>`.
 
 Samotný PHP kód na vygenerovanie štvorčekov bude obsahovať jeden cyklus, ktorý 2000 krát vygeneruje element `div` a nastaví mu pozíciu a farbu.
 
 ```php
 <?php for ($i = 0; $i < 2000; $i++) { ?>
   <div style="
-    top: <?=nahodnaPozicia()?>;
-    left: <?=nahodnaPozicia()?>;
-    background: <?=nahodnaFarba()?>">
+    top: <?=randPosition()?>;
+    left: <?=randPosition()?>;
+    background: <?=randColor()?>">
   </div>
 <?php } ?>
 ```

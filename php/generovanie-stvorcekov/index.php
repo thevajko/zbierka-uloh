@@ -1,13 +1,13 @@
 <?php
-function nahodnaPozicia()
+function randPosition()
 {
     return rand(0, 100) . "%";
 }
 
-function nahodnaFarba()
+function randColor()
 {
-    //$farby = ["red", "green", "blue", "yellow", "pink", "cyan", "purple", "black", "grey", "violet"];
-    //return $farby[rand(0, count($farby))];
+    //$colors = ["red", "green", "blue", "yellow", "pink", "cyan", "purple", "black", "grey", "violet"];
+    //return $colors[rand(0, count($colors))];
     return sprintf('#%06X', rand(0, 0xFFFFFF));
 }
 
@@ -36,7 +36,7 @@ function nahodnaFarba()
 </head>
 <body>
 <?php for ($i = 0; $i < 2000; $i++) { ?>
-    <div style="top: <?= nahodnaPozicia() ?>; left: <?= nahodnaPozicia() ?>; background: <?= nahodnaFarba() ?>"></div>
+    <div style="top: <?= randPosition() ?>; left: <?= randPosition() ?>; background: <?= randColor() ?>"></div>
 <?php } ?>
 </body>
 </html>
