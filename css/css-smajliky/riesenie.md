@@ -18,10 +18,10 @@ V zadaní máme základnú kostru smajlíka, do ktorej si môžeme pridať ďal�
 
 ```html
 
-<div class="smajlik">
-    <span class="oko"></span>
-    <span class="oko"></span>
-    <span class="usta"></span>
+<div class="smiley">
+    <span class="eye"></span>
+    <span class="eye"></span>
+    <span class="mouth"></span>
 </div>
 ```
 
@@ -40,7 +40,7 @@ Pokiaľ chceme, aby element mal definovanú pevnú veľkosť bez ohľadu na obsa
 Okrem veľkosti nastavíme elementu aj farbu pozadia.
 
 ```css
-.smajlik {
+.smiley {
     display: inline-block;
     width: 50px;
     height: 50px;
@@ -63,7 +63,7 @@ selektor {
 
 Vlastnosť `border-radius` nastavuje veľkosť zaoblenia elementu. Táto veľkosť môže byť uvedená v pixeloch alebo v relatívnych hodnotách vzhľadom na veľkosť elementu. V našom prípade nastavením tejto hodnoty na `50%` dosiahneme požadované zobrazenie elementu `div` ako kruhu.
 
-![](images_css_smajliky/kruh.png)
+![](images_css_smileyy/kruh.png)
 
 ### Zobrazenie očí
 
@@ -71,7 +71,7 @@ Po tom, ako sme vytvorili kruh, sa pustíme do štýlovania očí smajlíka. Pre
 Začneme tým, že ich zobrazíme.
 
 ```css
-.smajlik .oko {
+.smiley .eye {
     display: block;
     background-color: black;
     width: 10%;
@@ -110,26 +110,26 @@ Po aplikovaní bude náš smajlík vyzerať nasledovne:
 
 ![](images_css_smajliky/kruh_oci2.png)
 
-Ako môžeme vidieť, na obrázku máme zobrazené len jedno oko. Je to z toho dôvodu, že obe oči majú rovnakú CSS triedu a sú umiestnené pomocou absolútneho poziciovania - takže sa prekrývajú. Aby sme oči zobrazili správne, musíme jedno z nich posunúť doprava. Možností máme niekoľko, buď druhému oku pridáme ďalšiu CSS triedu, alebo použijeme niektorý zo selektorov `:last-child`, `:nth-child(n)`, `:first-child`, a pod.
+Ako môžeme vidieť, na obrázku máme zobrazené len jedno eye. Je to z toho dôvodu, že obe oči majú rovnakú CSS triedu a sú umiestnené pomocou absolútneho poziciovania - takže sa prekrývajú. Aby sme oči zobrazili správne, musíme jedno z nich posunúť doprava. Možností máme niekoľko, buď druhému oku pridáme ďalšiu CSS triedu, alebo použijeme niektorý zo selektorov `:last-child`, `:nth-child(n)`, `:first-child`, a pod.
 
 V našom prípade môžeme pomocou selektoru `:last-child` vybrať druhé oko a posunúť ho viac doprava. Výsledný kód bude vyzerať nasledovne:
 
 ```css
-.smajlik .oko:first-child {
+.smiley .eye:first-child {
     left: 65%;
 }
 ```
 
-Pomocou selektoru `.smajlik .oko:first-child` sme zvolili posledný element s triedou `oko`, ktorý sa nachádza ľubovolne zanorený v elemente s triedou `smajlik`. Tento selektor len dopĺňa (prepisuje) už doteraz definované vlasnosti pre element s triedou `oko`, takže nemusíme opakovať nastavenie veľkosti farby atď. Jediná zmena, ktorú sme urobili oproti pôvodnému nastaveniu elementu `oko` bola pozícia zľava, ktorú sme v tomto prípade nastavili na 75%. Výsledný smajlík bude vyzerať nasledovne:
+Pomocou selektoru `.smajlik .eye:first-child` sme zvolili posledný element s triedou `eye`, ktorý sa nachádza ľubovolne zanorený v elemente s triedou `smiley`. Tento selektor len dopĺňa (prepisuje) už doteraz definované vlasnosti pre element s triedou `eye`, takže nemusíme opakovať nastavenie veľkosti farby atď. Jediná zmena, ktorú sme urobili oproti pôvodnému nastaveniu elementu `eye` bola pozícia zľava, ktorú sme v tomto prípade nastavili na 75%. Výsledný smajlík bude vyzerať nasledovne:
 
 ![](images_css_smajliky/kruh_oci3.png)
 
 ### Zobrazenie úst
 
-Pre zobrazenie úst máme k dispozícii HTML element s triedou `usta`. Začneme tým, že si tento element zobrazíme, nastavíme mu veľkosť a pozíciu:
+Pre zobrazenie úst máme k dispozícii HTML element s triedou `mouth`. Začneme tým, že si tento element zobrazíme, nastavíme mu veľkosť a pozíciu:
 
 ```css
-.smajlik .usta {
+.smiley .mouth {
     background-color: black;
     width: 60%;
     height: 60%;
@@ -147,7 +147,7 @@ Veľkosť sme nastavili na `60%` z rozmeru smajlíka. Následne sme element umie
 Ústa na vzorovom obrázku získame tak, že z tohto elementu spravíme kruh pomocou `border-radius`, zobrazíme spodný rámček a zrušíme výplň.
 
 ```css
-.smajlik .usta {
+.smiley .mouth {
     background-color: transparent;
     border-bottom: 2px solid black;
     border-radius: 50%;
@@ -178,7 +178,7 @@ Tento kód naštýluje zelený obdĺžnik o rozmeroch `50px` x `50px`. Tento obd
 V našom smajlíkovi potrebujeme nastaviť zvyšné rámčeky na rovnakú šírku ako má spodný, ale s tým, že tieto budú priesvitné:
 
 ```css
-.smajlik .usta {
+.smiley .mouth {
     border: 2px solid transparent;
     border-bottom: 2px solid black;
 }
@@ -193,7 +193,7 @@ Po úprave týchto pravidiel vznikne ešte jeden problém.
 Výsledné CSS hotového smajlíka bude vyzerať nasledovne:
 
 ```css
-.smajlik .usta {
+.smiley .mouth {
     box-sizing: border-box;
     background-color: transparent;
     width: 70%;
@@ -217,7 +217,7 @@ Okrem pridania vlastnosti `box-sizing` sme upravili pozíciu tak, že ústa sme 
 Smutný smajlík sa od toto základného líši len v tom, že má ústa obrátené naopak. Táto zmena bude veľmi jednoduchá, pretože nám stačí namiesto spodného rámčeka úst zobraziť horné, a posunúť ústa na správne miesto.
 
 ```css
-.smajlik.smutny .usta {
+.smiley.sad .mouth {
     border: 2px solid transparent;
     border-top: 2px solid black;
     top: 60%;
@@ -227,7 +227,7 @@ Smutný smajlík sa od toto základného líši len v tom, že má ústa obráte
 Druhou možnosťou je využitie CSS transformácií, kde je potrebné element zrotovať o 180 stupňov a presunúť ho na správne miesto.
 
 ```css
-.smajlik.smutny .usta {
+.smiley.sad .mouth {
     transform: rotate(180deg) translateY(-80%);
 }
 ```
@@ -240,14 +240,14 @@ HTML kód pre zobrazenie tohto smajlíka je podľa zadania nasledovný:
 
 ```html
 
-<div class="smajlik smutny">
-    <span class="oko"></span>
-    <span class="oko"></span>
-    <span class="usta"></span>
+<div class="smiley sad">
+    <span class="eye"></span>
+    <span class="eye"></span>
+    <span class="mouth"></span>
 </div>
 ```
 
-Na to, aby sme upravili ústa len pri smajlíkovi, ktorý má aj triedu `smutny`, sme použili selektor `.smajlik.smutny . usta`. Všimnite si, že medzi `.smajlik` a `.smutny` nie je medzera, takže tento selektor sa aplikuje len na smajlíka, ktorý bude mať nastavené obe tieto triedy.
+Na to, aby sme upravili ústa len pri smajlíkovi, ktorý má aj triedu `sad`, sme použili selektor `.smiley.sad .mouth`. Všimnite si, že medzi `.smiley` a `.sad` nie je medzera, takže tento selektor sa aplikuje len na smajlíka, ktorý bude mať nastavené obe tieto triedy.
 
 ### Vytvorenie smajlíka s líčkami
 
@@ -259,10 +259,10 @@ HTML kód nášho smajlíka s líčkami musí vyzerať nasledovne:
 
 ```html
 
-<div class="smajlik licka">
-    <span class="oko"></span>
-    <span class="oko"></span>
-    <span class="usta"></span>
+<div class="smiley cheeks">
+    <span class="eye"></span>
+    <span class="eye"></span>
+    <span class="mouth"></span>
 </div>
 ```
 
@@ -271,7 +271,7 @@ Pre zobrazenie líčok môžeme využiť pseudoselektory `::before` a `::after`,
 Líčko naľavo zobrazíme cez selektor `::before` a nastavíme mu veľkosť rovnú `30%` z veľkosti úst. Okrem toho mu nastavíme farbu, `border-radius` a pozíciu podobne, ako pri ostatných prvkoch.
 
 ```css
-.smajlik.licka .usta::before {
+.smiley.cheeks .mouth::before {
     position: absolute;
     content: "";
     background-color: #f7894a;
@@ -290,23 +290,23 @@ Problémom tohto riešenia je to, že líčko nám prekrýva ústa, preto by sme
 
 ```html
 
-<div class="smajlik licka">
-    <i class="oko"></i>
-    <i class="oko"></i>
-    <span class="usta">
+<div class="smiley cheeks">
+    <i class="eye"></i>
+    <i class="eye"></i>
+    <span class="mouth">
     ::before
   </span>
 </div>
 ```
 
-Na zmenu poradia poradia elementov môžeme využiť CSS vrstvy - vlastnosť `z-index`. Pre správne fungovanie musíme nastaviť nášmu líčku hodnotu `z-index: -1`. Po pridaní tejto vlastnosti sa nám celé líčko stratí. Aby bolo správne zobrazené, musíme nastaviť `z-index` aj nadradenému prvku. V tomto prípade nepomôže nastavenie hodnoty `z-index` prvku `usta`, ale musíme ju nastaviť celému smajlíku.
+Na zmenu poradia poradia elementov môžeme využiť CSS vrstvy - vlastnosť `z-index`. Pre správne fungovanie musíme nastaviť nášmu líčku hodnotu `z-index: -1`. Po pridaní tejto vlastnosti sa nám celé líčko stratí. Aby bolo správne zobrazené, musíme nastaviť `z-index` aj nadradenému prvku. V tomto prípade nepomôže nastavenie hodnoty `z-index` prvku `mouth`, ale musíme ju nastaviť celému smajlíku.
 
 ```css
-.smajlik {
+.smiley {
     z-index: 1;
 }
 
-.smajlik.licka .usta::before {
+.smiley.cheeks .mouth::before {
     z-index: -1;
 }
 ```
@@ -318,7 +318,7 @@ Po aplikovaní týchto pravidiel dosiahneme správne zobrazenie líčka.
 Posledným krokom bude zobrazenie druhého líčka pomocou `::after`. Obe líčka majú veľa spoločných pravidiel. Výsledný kód upravíme tak, že spoločné pravidlá definujeme len raz a pozíciu nastavíme každému samostatne.
 
 ```css
-.smajlik.licka .usta::before, .smajlik.licka .usta::after {
+.smiley.cheeks .mouth::before, .smiley.cheeks .mouth::after {
     position: absolute;
     content: "";
     background-color: #f7894a;
@@ -329,11 +329,11 @@ Posledným krokom bude zobrazenie druhého líčka pomocou `::after`. Obe líčk
     z-index: -1;
 }
 
-.smajlik.licka .usta::before {
+.smiley.cheeks .mouth::before {
     left: -5%
 }
 
-.smajlik.licka .usta::after {
+.smiley.cheeks .mouth::after {
     right: -5%
 }
 ```
@@ -351,7 +351,7 @@ Pri vytváraní veselého smajlíka musíme zmeniť viacero vecí. Prvou z nich 
 Začneme teda s CSS kódom, ktorý vyzerá nasledovne:
 
 ```css
-.smajlik.vesely .usta {
+.smiley.happy .mouth {
     background: black;
     height: 20%;
     width: 50%;
@@ -374,7 +374,7 @@ Ako vidíme, ústa sú zaoblené aj zvrchu. Toto zaoblenie je spôsobené pravid
 V ďalšom kroku sa pokúsime smajlíkovi pridať zuby. Na to môžeme použiť opäť pseudoelementy `::before` a `::after`.
 
 ```css
-.smajlik.vesely .usta::before {
+.smiley.happy .mouth::before {
     position: absolute;
     display: block;
     content: "";
@@ -388,14 +388,14 @@ V ďalšom kroku sa pokúsime smajlíkovi pridať zuby. Na to môžeme použiť 
 Po aplikovaní štýlu bude náš smajlík vyzerať nasledovne:
 ![](images_css_smajliky/smajlik_stastny_3.png)
 
-Smajlík síce zuby má, ale tie sa vykreslujú nad ústami. Pokiaľ chceme, aby boli zuby "vo vnútri", môžeme použiť vlastnosť `overflow`, ktorú pre `.smajlik.vesely .usta` nastavíme na `hidden`.
+Smajlík síce zuby má, ale tie sa vykreslujú nad ústami. Pokiaľ chceme, aby boli zuby "vo vnútri", môžeme použiť vlastnosť `overflow`, ktorú pre `.smiley.happy .mouth` nastavíme na `hidden`.
 
 ![](images_css_smajliky/smajlik_stastny_4.png)
 
 Posledným krokom je pridanie jazyka. Jazyk môžeme implementovať ako polkruh, ktorý umiestnime na spodnú stranu. Pri jazyku môžeme využiť to, že celé ústa majú nastavené `overflow` na `hidden` a nemusíme sa tak trápiť s polkruhom, ale môžeme použiť plný kruh, ktorého spodná čas bude skrytá.
 
 ```css
-.smajlik.vesely .usta::after {
+.smiley.happy .mouth::after {
     position: absolute;
     display: block;
     content: "";
@@ -415,7 +415,7 @@ Posledným krokom je pridanie jazyka. Jazyk môžeme implementovať ako polkruh,
 Ďalšie rozmery smajlíka budeme definovať pomocou CSS tried `s-100`, `s-250` a `s-500`. Na pri vytváraní smajlíkov sme využívali relatívne rozmery, tak by mohlo stačiť jednotlivé triedy deklarovať nasledovne:
 
 ```css
-.smajlik.s-250 {
+.smiley.s-250 {
     width: 250px;
     height: 250px;
 }
@@ -428,7 +428,7 @@ Výsledok vyzerá takto:
 Veľkosť smajlíka je v poriadku, ale veľký smajlík má tenké rámčeky. Keď sa bližšie pozrieme na CSS pravidlá, ktoré deklarujú rámčeky, môžeme vidieť nasledovné:
 
 ```css
-.smajlik {
+.smiley {
     border: black 2px solid;
 }
 ```
@@ -438,7 +438,7 @@ Pri vlastnosti `border` sme nepoužili relatívne jednotky, ale pixely. Je to z 
 Namiesto zmeny rozmerov môžeme použiť CSS transformácie. Konkrétne transformáciu `scale`.
 
 ```css
-.smajlik.s-100 {
+.smiley.s-100 {
     transform: scale(2);
 }
 ```
@@ -453,7 +453,7 @@ Najväčší smajlík má správnu veľkosť rámčeka, ale ako môžeme vidieť
 CSS transformácie síce menia výzor elementu, ale nemenia jeho pozíciu a rozmer vzhľadom na iné elementy. To znamená, že ak aj zmeníme veľkosť druhého smajlíka dvakrát, tak z pohľadu tretieho sa javí nezmenený, a preto ho prekryje. Tento problém sa dá vyriešiť pridaním okrajov.
 
 ```css
-.smajlik.s-100 {
+.smiley.s-100 {
     transform: scale(2);
     margin: 25px;
 }
@@ -470,7 +470,7 @@ Riešenie viacerých rozmerov cez transformácie nie je jediným spôsobom. CSS 
 Definíciu základného smajlíka môžeme upraviť nasledovne:
 
 ```css
-.smajlik {
+.smiley {
     --size: 50px;
     display: inline-block;
     position: relative;
@@ -486,12 +486,12 @@ Definíciu základného smajlíka môžeme upraviť nasledovne:
 Do deklarácie sme pridali CSS premennú `--size`, ktorej hodnotu sme nastavili na `50px`. Pokiaľ chceme použiť túto premennú ako hodnotu nejakej vlastnosti, musíme použiť funkciu `var`. Ďalšia zaujímavá funkcia, ktorú sme v tomto príklade použili je funkcia `calc`. Táto funkcia slúži na výpočet hodnoty. V našom prípade bude šírka rámčeka vypočítaná ako veľkosť elementu vydelená 25. Rovnakú premennú môžeme používať vo všetkých potomkoch smajlíka, takže upravíme veľkosť rámčeka aj pre ústa nasledovne:
 
 ```css
-.smajlik .usta {
+.smiley .mouth {
     border: calc(var(--size) / 25) solid transparent;
     border-bottom: calc(var(--size) / 25) solid black;
 }
 
-.smajlik.smutny .usta {
+.smiley.sad .mouth {
     border: calc(var(--size) / 25) solid transparent;
     border-top: calc(var(--size) / 25) solid black;
 }
@@ -500,7 +500,7 @@ Do deklarácie sme pridali CSS premennú `--size`, ktorej hodnotu sme nastavili 
 Definícia jednotlivých veľkostí bude spočívať v jednoduchom prepísaní hodnoty tejto premennej.
 
 ```css
-.smajlik.s-100 {
+.smiley.s-100 {
     --size: 100px;
 }
 ```
@@ -509,9 +509,9 @@ Dokonca môžeme spraviť smajlíka ľubovolnej veľkosti aj priamo v HTML kóde
 
 ```html
 
-<div class="smajlik" style="--size: 25px">
-    <i class="oko"></i>
-    <i class="oko"></i>
-    <span class="usta"></span>
+<div class="smiley" style="--size: 25px">
+    <i class="eye"></i>
+    <i class="eye"></i>
+    <span class="mouth"></span>
 </div>
 ```
