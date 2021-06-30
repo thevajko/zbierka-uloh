@@ -72,24 +72,24 @@
             window.fetch = loaderFetch;
         })();
 
-        function nacitajZdroj(url) {
+        function loadUrl(url) {
             fetch(url, {cache: "no-store"})
                 .then(response => response.json())
                 .then(json => {
-                    document.getElementById("vysledok").append(url + " - Načítaných: " + json.length + " záznamov\n");
+                    document.getElementById("results").append(url + " - Načítaných: " + json.length + " záznamov\n");
                 });
         }
 
-        function nacitajData() {
-            nacitajZdroj('https://run.mocky.io/v3/93096a26-6f6b-462b-81da-91512a2c4888?mocky-delay=2500ms');
-            nacitajZdroj('https://run.mocky.io/v3/93096a26-6f6b-462b-81da-91512a2c4888?mocky-delay=4000ms');
+        function loadData() {
+            loadUrl('https://run.mocky.io/v3/93096a26-6f6b-462b-81da-91512a2c4888?mocky-delay=2500ms');
+            loadUrl('https://run.mocky.io/v3/93096a26-6f6b-462b-81da-91512a2c4888?mocky-delay=4000ms');
         }
     </script>   
 </head>
 <body>
 
-<button onclick="nacitajData()">Načítaj dáta</button>
-<pre id="vysledok"></pre>
+<button onclick="loadData()">Načítaj dáta</button>
+<pre id="results"></pre>
 
 </body>
 </html>
