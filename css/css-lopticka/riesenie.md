@@ -95,7 +95,7 @@ Pokiaľ chceme jednému elementu pridať viacero animácií, tak ich oddeľujeme
 ```css 
 .ball {
     ... 
-    animation: x-axis 2 s linear alternate infinite, y-axis 3.3 s linear alternate infinite;
+    animation: x-axis 2s linear alternate infinite, y-axis 3.3s linear alternate infinite;
 }
 ```
 
