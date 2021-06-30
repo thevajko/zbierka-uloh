@@ -24,6 +24,12 @@ class Table
     public function __construct(ITableSource $dataSource)
     {
         $this->dataSource = $dataSource;
+        $this->orderBy = $_GET['order'] ?? "";
+        $this->direction = $_GET['direction'] ?? "";
+        $this->filter =  str_replace( "'", "",$_GET['filter'] ?? "");
+
+        $this->page = $this->getPageNumber();
+
     }
 
     public function addColumn(string $field, string $title, ?Closure $renderer = null): self {
@@ -36,11 +42,6 @@ class Table
 
     public function render() : string
     {
-        $this->orderBy = ($this->isColumnNameValid(@$_GET['order']) ? $_GET['order'] : "");
-        $this->direction = $_GET['direction'] ?? "";
-        $this->filter =  str_replace( "'", "",$_GET['filter'] ?? "");
-
-        $this->page = $this->getPageNumber();
         return $this->renderFilter()."<table border=\"1\">{$this->renderHead()}{$this->renderBody()}</table>". $this->renderPaginator();
     }
 
@@ -55,8 +56,11 @@ class Table
         return $page;
     }
 
-    private function isColumnNameValid($name) : bool {
-        return !empty($name) && in_array($name, array_map(fn(Column $c) => $c->getField(), $this->columns));
+    private function filterColumn($name): string {
+        if (!empty($name) && in_array($name, array_map(fn(Column $c) => $c->getField(), $this->columns))) {
+            return $name;
+        }
+        return "";
     }
 
     private function prepareUrl($params = []): string
@@ -91,7 +95,7 @@ class Table
     private function renderBody() : string
     {
         $body = "";
-        $rows = $this->dataSource->getAll($this->orderBy, $this->direction, $this->page, $this->pageSize, $this->filter);
+        $rows = $this->dataSource->getAll($this->filterColumn($this->orderBy), $this->direction, $this->page, $this->pageSize, $this->filter);
 
         foreach ($rows as $row) {
             $tr = "";

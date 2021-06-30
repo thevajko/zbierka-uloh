@@ -24,6 +24,8 @@ class UserStorage implements ITableSource
         $page *= $pageSize;
         $sql .= " LIMIT {$pageSize} OFFSET {$page}";
 
+        var_dump($sql);
+
         try {
             return Db::conn()
                 ->query($sql)
