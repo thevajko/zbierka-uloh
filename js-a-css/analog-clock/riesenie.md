@@ -30,7 +30,7 @@ Kreslenie na plátne používa uhly v radiánoch. Pre nás bude lepšie, ak bude
 Konveziu zo stupňov realizujeme nasledovným prepočtom: `uhol v radianoch = uhol v stupňoch * PI / 180`, kde `PI / 180 = 0.01745329251`. Môžeme si na to vytvoriť nasledovnú konverznú funkciu:
 
 ```javascript
-function DegToRad(d)
+function degToRad(d)
 {
     return d * 0.01745;
 }
@@ -55,7 +55,7 @@ window.onload = function(){
   let ctx = canvas.getContext("2d");
 
   ctx.beginPath();
-  ctx.arc(250, 250, 250, 0, DegToRad(360));
+  ctx.arc(250, 250, 250, 0, degToRad(360));
   ctx.stroke();
 }
 ```
@@ -76,10 +76,10 @@ Hrúbku čiary upravíme nastavením atribútu [`CanvasRenderingContext2D.lineWi
 Zostáva ešte posunúť uhol vykreslenia ručičiek, tak aby hodnota `0` zodpovedala pozícii na 12. hodine. To realizujeme jednoducho prirátaním hodnoty `270` k pôvodne zadanému uhlu: 
 
 ```javascript
-function DrawWatchHand(ctx, uhol, length, width){
+function drawWatchHand(ctx, uhol, length, width){
     let x = 250;
     let y = 250;
-    let angl = DegToRad(uhol + 270);
+    let angl = degToRad(uhol + 270);
 
     ctx.beginPath();
     ctx.lineWidth = width;
@@ -89,13 +89,13 @@ function DrawWatchHand(ctx, uhol, length, width){
 }
 ```
 
-Kód vykreslenia ciferníka presunieme do funkcie `DrawCircle()`:
+Kód vykreslenia ciferníka presunieme do funkcie `drawCircle()`:
 
 ```javascript
-function DrawCircle(ctx){
+function drawCircle(ctx){
     ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.arc(250, 250, 250, 0, DegToRad(360));
+    ctx.arc(250, 250, 250, 0, degToRad(360));
     ctx.stroke();
 }
 ```
@@ -107,10 +107,10 @@ window.onload = function(){
   let canvas = document.querySelector("canvas");
   let ctx = canvas.getContext("2d");
 
-  DrawCircle(ctx);
-  DrawWatchHand(ctx, 0, 200, 5);
-  DrawWatchHand(ctx, 90, 210, 1);
-  DrawWatchHand(ctx, 190, 100, 15);
+  drawCircle(ctx);
+  drawWatchHand(ctx, 0, 200, 5);
+  drawWatchHand(ctx, 90, 210, 1);
+  drawWatchHand(ctx, 190, 100, 15);
 }
 ```
 
@@ -120,18 +120,18 @@ Výsledná kresba by mala vyzerať nasledovne:
 
 ### Vykreslenie ciferníka 
 
-Pre vykreslenie hodinových a minútových značiek vytvoríme novú funkciu `DrawLineMarker()`. Tá bude obsahovať mierne upravený kód funkcie `DrawWatchHand()`.
+Pre vykreslenie hodinových a minútových značiek vytvoríme novú funkciu `drawLineMarker()`. Tá bude obsahovať mierne upravený kód funkcie `drawWatchHand()`.
 
 Rozdiel bude v tom, kde sa bude daná značka začínať vykreslovať. Minútová alebo hodinová značka je čiara okolo ciferníka, ktorá smeruje smerom do jeho stredu, pričom jej dĺžka je kratšia ako sekundová.
 
 Pri vykreslovaní teda začíname v strede, následne sa pod daným uhlom posunieme a až následne kreslíme čiaru v danej dĺžke až po okraj ciferníka. 
 
-Funkcia `DrawLineMarker()` bude vyzerať nasledovne:
+Funkcia `drawLineMarker()` bude vyzerať nasledovne:
 
 ```javascript
-function DrawLineMarker(ctx, uhol, markerLength){
+function drawLineMarker(ctx, uhol, markerLength){
 
-    let angl = DegToRad(uhol + 270);
+    let angl = degToRad(uhol + 270);
     let r = 250 - markerLength;
 
     let sx = 250  + r * Math.cos(angl);
@@ -152,11 +152,11 @@ window.onload = function(){
   let canvas = document.querySelector("canvas");
   let ctx = canvas.getContext("2d");
 
-  DrawCircle(ctx);
-  DrawLineMarker(ctx, 0, 10);
-  DrawLineMarker(ctx, 10, 20);
-  DrawLineMarker(ctx, 20, 30);
-  DrawLineMarker(ctx, 40, 40);
+  drawCircle(ctx);
+  drawLineMarker(ctx, 0, 10);
+  drawLineMarker(ctx, 10, 20);
+  drawLineMarker(ctx, 20, 30);
+  drawLineMarker(ctx, 40, 40);
 }
 ```
 Vykreslí sa:
@@ -166,9 +166,9 @@ Vykreslí sa:
 
 ### Vykreslenie ciferníka
 
-Samotné vykreslenie ciferníka budeme vytvárať v samostatnej funkcii `MakeTick()`. Jej úlohou bude vykresliť aktuálny lokálny čas na ciferník.
+Samotné vykreslenie ciferníka budeme vytvárať v samostatnej funkcii `makeTick()`. Jej úlohou bude vykresliť aktuálny lokálny čas na ciferník.
 
-Začneme najprv vykreslením hranice ciferníka zavolaním funkcie `DrawCircle()`. Následne vytvoríme cyklus, ktorým budeme vykresľovať jednotlivé hodinové a minútové značky. Vieme, že kruh má 360 stupňov. Má *12 hodinových značiek* a každý hodinový úsek je rozdelený na *5 minútových úsekov*. Tým pádom kreslíme značku každých `360 / 12 / 5 = 6` stupňov.
+Začneme najprv vykreslením hranice ciferníka zavolaním funkcie `drawCircle()`. Následne vytvoríme cyklus, ktorým budeme vykresľovať jednotlivé hodinové a minútové značky. Vieme, že kruh má 360 stupňov. Má *12 hodinových značiek* a každý hodinový úsek je rozdelený na *5 minútových úsekov*. Tým pádom kreslíme značku každých `360 / 12 / 5 = 6` stupňov.
 
 Môžeme to pre prehľadnosť zapísať ako nasledujúci `for` cyklus: `for(let i = 0 ; i < (360/6) ; i++)`. 
 
@@ -177,15 +177,15 @@ Zostáva nám už iba oddeliť hodinové značky od minútových pomocou rôznej
 Celý kód bude vyzerať následovne:
 
 ```javascript
-function MakeTick(ctx){
+function makeTick(ctx){
    
-    DrawCircle(ctx);
+    drawCircle(ctx);
     // cifernik
     for(let i = 0 ; i < (360 / 6) ; i++) {
         if (i * 6 % 30 == 0) {
-            DrawLineMarker(ctx, i*6, 30)
+            drawLineMarker(ctx, i*6, 30)
         } else {
-            DrawLineMarker(ctx, i*6, 10)
+            drawLineMarker(ctx, i*6, 10)
         }
     }
 }
@@ -204,54 +204,54 @@ V JavaScripte získame aktuálny čast vytvorením novej inštancie triedy [`Dat
 
 `Date.getHours()` síce vracia hodnotu v 24 hodinovom formáte, ale kedže sa táto hodnota preratúva na uhol nebude to mať žiaden vplyv na výsledne zobrazenie. 
 
-Funkcia `MakeTick()` bude po doplnení: 
+Funkcia `makeTick()` bude po doplnení: 
 
 ```javascript
-function MakeTick(ctx){
+function makeTick(ctx){
    
-    DrawCircle(ctx);
+    drawCircle(ctx);
     // cifernik
     for(let i = 0 ; i < (360 / 6); i++) {
         if (i * 6 % 30 == 0) {
-            DrawLineMarker(ctx, i * 6, 30)
+            drawLineMarker(ctx, i * 6, 30)
         } else {
-            DrawLineMarker(ctx, i * 6, 10)
+            drawLineMarker(ctx, i * 6, 10)
         }
     }
     let time = new Date();
-    DrawWatchHand(ctx, time.getSeconds() * 6, 210, 1);
-    DrawWatchHand(ctx, time.getMinutes() * 6 + time.getSeconds() * 0.1, 180, 3);
-    DrawWatchHand(ctx, time.getHours() * 30 + time.getMinutes() * 0.5, 150, 5);
+    drawWatchHand(ctx, time.getSeconds() * 6, 210, 1);
+    drawWatchHand(ctx, time.getMinutes() * 6 + time.getSeconds() * 0.1, 180, 3);
+    drawWatchHand(ctx, time.getHours() * 30 + time.getMinutes() * 0.5, 150, 5);
 }
 ```
 Hodiny sa zobrazia nasledovne:
 
 ![](images_analog_clock/aclock-05.png)
 
-Ako posledné potrebujeme, aby sa funkcia `MakeTick()` spúšťala každú sekundu a vytvoril sa tak dojem, že sa hodiny idú. To docielime periodickým spúštaním za pomoci metódy [`setInterval()`](https://www.w3schools.com/jsref/met_win_setinterval.asp) každú sekundu.
+Ako posledné potrebujeme, aby sa funkcia `makeTick()` spúšťala každú sekundu a vytvoril sa tak dojem, že sa hodiny idú. To docielime periodickým spúštaním za pomoci metódy [`setInterval()`](https://www.w3schools.com/jsref/met_win_setinterval.asp) každú sekundu.
 
 Budeme však musieť `canvas` pred každým prekreslením vyčistiť (celý premaľovať na bielo) pomocou [`CanvasRenderingContext2D.clearRect()`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/clearRect), inak by na ňom zostávali pôvodné čiary.
 
-Upravená funkcia `MakeTick()`:
+Upravená funkcia `makeTick()`:
 
 ```javascript
-function MakeTick(ctx){
+function makeTick(ctx){
 
     ctx.clearRect(0, 0, 500, 500);
     
-    DrawCircle(ctx);
+    drawCircle(ctx);
     // cifernik
     for(let i = 0 ; i < (360 / 6); i++) {
         if (i * 6 % 30 == 0) {
-            DrawLineMarker(ctx, i * 6, 30)
+            drawLineMarker(ctx, i * 6, 30)
         } else {
-            DrawLineMarker(ctx, i * 6, 10)
+            drawLineMarker(ctx, i * 6, 10)
         }
     }
     let time = new Date();
-    DrawWatchHand(ctx, time.getSeconds() * 6, 210, 1);
-    DrawWatchHand(ctx, time.getMinutes() * 6 + time.getSeconds() * 0.1, 180, 3);
-    DrawWatchHand(ctx, time.getHours() * 30 + time.getMinutes() * 0.5, 150, 5);
+    drawWatchHand(ctx, time.getSeconds() * 6, 210, 1);
+    drawWatchHand(ctx, time.getMinutes() * 6 + time.getSeconds() * 0.1, 180, 3);
+    drawWatchHand(ctx, time.getHours() * 30 + time.getMinutes() * 0.5, 150, 5);
 }
 ```
 
@@ -263,9 +263,9 @@ window.onload = function(){
     let ctx = canvas.getContext("2d");
     
     setInterval( function() {
-        MakeTick(ctx);
+        makeTick(ctx);
     }, 1000);
-    MakeTick(ctx);
+    makeTick(ctx);
 }
 ```
 
