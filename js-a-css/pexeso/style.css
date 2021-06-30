@@ -1,0 +1,20 @@
+#board td {
+    width: 90px;
+    height: 120px;
+    text-align: center;
+    background-color: BlueViolet;
+}
+
+#board td i {
+    opacity: 0;
+    color: Indigo;
+}
+
+#score {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+#start {
+    margin-top: 10px;
+}
