@@ -1,11 +1,19 @@
 <?php
 
-require "User.php";
-require "Db.php";
-require "UserStorage.php";
-require "Table.php";
+require "table/Table.php";
+require "model/User.php";
+require "model/Db.php";
+require "model/UserStorage.php";
 
-$usersTable = new Table();
+$userStorage = new UserStorage();
+$usersTable = new Table($userStorage);
+$usersTable->addColumn("name", "Meno")
+    ->addColumn("surname", "Priezvisko")
+    ->addColumn("mail", "Emailová adresa")
+    ->addColumn("country", "Krajina")
+    ->addColumn("", "Akcie", function (User $user) {
+        return '<button onclick="alert(' . $user->id . ')">Tlacidko</button>';
+    });
 ?><html>
 <head>
     <style>

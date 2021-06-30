@@ -1,5 +1,10 @@
 <?php
 
+use JetBrains\PhpStorm\Pure;
+
+require_once "ITableSource.php";
+require_once "Column.php";
+
 class Table
 {
     private string $orderBy = "";
@@ -13,22 +18,29 @@ class Table
     private string $filter = "";
 
     private ITableSource $dataSource;
-    private array $columns;
+    /** @var Column[] */
+    private array $columns = [];
 
-    public function __construct(ITableSource $dataSource, array $columns)
+    public function __construct(ITableSource $dataSource)
     {
         $this->dataSource = $dataSource;
-        $this->columns = $columns;
+    }
+
+    public function addColumn(string $field, string $title, ?Closure $renderer = null): self {
+        if ($renderer == null) {
+            $renderer = fn($row) => htmlentities($row->$field);
+        }
+        $this->columns[] = new Column($field, $title, $renderer);
+        return $this;
+    }
+
+    public function render() : string
+    {
         $this->orderBy = ($this->isColumnNameValid(@$_GET['order']) ? $_GET['order'] : "");
         $this->direction = $_GET['direction'] ?? "";
         $this->filter =  str_replace( "'", "",$_GET['filter'] ?? "");
 
         $this->page = $this->getPageNumber();
-
-    }
-
-    public function render() : string
-    {
         return $this->renderFilter()."<table border=\"1\">{$this->renderHead()}{$this->renderBody()}</table>". $this->renderPaginator();
     }
 
@@ -44,7 +56,7 @@ class Table
     }
 
     private function isColumnNameValid($name) : bool {
-        return in_array($name, $this->columns);
+        return !empty($name) && in_array($name, array_map(fn(Column $c) => $c->getField(), $this->columns));
     }
 
     private function prepareUrl($params = []): string
@@ -54,25 +66,23 @@ class Table
 
     private function renderHead() : string {
         $header = "";
-        foreach ($this->columns as $columnName => $value) {
-
-            if ($value instanceof Closure) {
-                $header .= "<th>{$columnName}</th>";
+        foreach ($this->columns as $column) {
+            if (empty($column->getField())) {
+                $header .= "<th>{$column->getTitle()}</th>";
             }
             else {
-
                 $hrefParams = [
-                    'order' => $value,
+                    'order' => $column->getField(),
                     'page' => 0
                 ];
 
-                if ($this->orderBy == $value && $this->direction == "") {
+                if ($this->orderBy == $column->getField() && $this->direction == "") {
                     $hrefParams['direction'] = "DESC";
                 } else {
                     $hrefParams['direction'] = "";
                 }
 
-                $header .= "<th><a href=\"{$this->prepareUrl($hrefParams)}\">{$columnName}</a></th>";
+                $header .= "<th><a href=\"{$this->prepareUrl($hrefParams)}\">{$column->getTitle()}</a></th>";
             }
         }
         return "<tr>{$header}</tr>";
@@ -85,13 +95,8 @@ class Table
 
         foreach ($rows as $row) {
             $tr = "";
-            foreach ($this->columns as $columnName => $value) {
-                if ($value instanceof Closure) {
-                    $tr .= "<td>{$value($row)}</td>";
-                }
-                else {
-                    $tr .= "<td>{$row->$value}</td>";
-                }
+            foreach ($this->columns as $column) {
+                $tr .= "<td>{$column->render($row)}</td>";
             }
             $body .= "<tr>$tr</tr>";
         }

@@ -10,14 +10,14 @@
 
 ## Riešenie
 
-Predpokladáme, že databázový server je spustený a obsahuje tabuľku s dátami, ktoré sú v súbore `data.sql`.
-
 <div class="hidden">
+
+Predpokladáme, že databázový server je spustený a obsahuje tabuľku s dátami, ktoré sú v súbore `data.sql`.
 
 > Toto riešenie obsahuje všetky potrebné služby v `docker-compose.yml`. Po ich spustení sa vytvorí:
 > - webový server, ktory do __document root__ namapuje adresár tejto úlohy s modulom __PDO__. Port __80__ a bude dostupný na adrese [http://localhost/](http://localhost/). Server má pridaný modul pre ladenie [__Xdebug 3__](https://xdebug.org/) nastavený na port __9000__.
 > - databázový server s vytvorenou _databázov_ a tabuľkou `users` s dátami na porte __3306__ a bude dostupný na `localhost:3306`. Prihlasovacie údaje sú:
-    >   - MYSQL_ROOT_PASSWORD: heslo
+>   - MYSQL_ROOT_PASSWORD: heslo
 >   - MYSQL_DATABASE: dbtable
 >   - MYSQL_USER: db_user
 >   - MYSQL_PASSWORD: db_user_pass
