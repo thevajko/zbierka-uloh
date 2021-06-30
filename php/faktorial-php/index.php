@@ -1,11 +1,11 @@
 <?php
-function fakt($cislo)
+function factorial($number)
 {
-    $vysledok = 1;
-    while (--$cislo > 0) {
-        $vysledok *= $cislo + 1;
+    $result = 1;
+    while (--$number > 0) {
+        $result *= $number + 1;
     }
-    return $vysledok;
+    return $result;
 }
 ?>
 <!DOCTYPE html>
@@ -17,7 +17,7 @@ function fakt($cislo)
 <body>
 <ul>
     <?php for ($i = 0; $i < 10; $i++) { ?>
-        <li><?php echo $i . "! = " . fakt($i) ?></li>
+        <li><?php echo $i . "! = " . factorial($i) ?></li>
     <?php } ?>
 </ul>
 </body>

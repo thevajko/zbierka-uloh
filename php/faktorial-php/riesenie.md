@@ -20,7 +20,7 @@ Ako prvé je potrebné zistiť, ako sa počíta faktoriál. Na webe, napr. mna s
 Na stránkach Wikipédie nájdeme dva *pseudokódy* s cyklom a použitím rekurzie. V tomto riešení si vyberieme nerekurzívny pseudo-kód, ktorý vyzerá nasledovne:
 
 ```c
-long double faktorial (int n) {
+long double factorial (int n) {
     long double b = 1;
     while (n--)
         b*=n+1;
@@ -31,14 +31,13 @@ long double faktorial (int n) {
 V prvom kroku prepíšeme pseudokód do jazyka PHP, začneme deklaráciou funkcie, ktorej kód umiestnime na začiatok súboru. Pozor, súbor musí mať koncovku `.php`. Na výpočet použijeme cyklus `while`, v ktorom postupne zmenšujeme hodnotu parametra `$cislo` dekrementáciou, výsledok vzniká postupným násobením:
 
 ```php
-
-function fakt($cislo)
+function factorial($number)
 {
-    $vysledok = 1;
-    while (--$cislo  > 0 ) {
-        $vysledok *= $cislo+1;
+    $result = 1;
+    while (--$number > 0) {
+        $result *= $number + 1;
     }
-    return $vysledok;
+    return $result;
 }
 ```
 
@@ -48,7 +47,7 @@ V zadaní je uvedené, že máme vypísať v danom formáte postupne faktoriál 
 <?php // formater corrector ?>
 <ul>
     <?php for ($i = 0; $i < 10; $i++) { ?>
-    <li><?php echo $i . "! = ". fakt($i)?></li>
+    <li><?php echo $i . "! = ". factorial($i)?></li>
     <?php } ?>
 </ul>
 ```
@@ -57,13 +56,13 @@ Na záver, keď všetko spojíme dokopy a pridáme štandardnú HTML kostru, cel
 
 ```php
 <?php
-function fakt($cislo)
+function factorial($number)
 {
-    $vysledok = 1;
-    while (--$cislo > 0) {
-        $vysledok *= $cislo + 1;
+    $result = 1;
+    while (--$number > 0) {
+        $result *= $number + 1;
     }
-    return $vysledok;
+    return $result;
 }
 ?>
 <!DOCTYPE html>
@@ -75,7 +74,7 @@ function fakt($cislo)
 <body>
 <ul>
     <?php for ($i = 0; $i < 10; $i++) { ?>
-    <li><?php echo $i . "! = " . fakt($i) ?></li>
+    <li><?php echo $i . "! = " . factorial($i) ?></li>
     <?php } ?>
 </ul>
 </body>
