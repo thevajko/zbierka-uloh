@@ -243,7 +243,7 @@ Ak by sme chceli získať informáciu, či sa daná sql operácia podarila, mohl
 Metóda na mazanie záznamov z databázy bude opäť využívať metódu [`PDO::prepare()`](https://www.php.net/manual/en/pdostatement.prepare.php). Tentokrát použijeme SQL príkaz `DELETE FROM`.
 
 ```php
-public function delete(User $user): void {
+public function deleteUser(User $user): void {
     $sql = "DELETE FROM users WHERE id = ?";
     Db::conn()->prepare($sql)->execute([$user->id]);
 }
@@ -325,7 +325,7 @@ $userStorage = new UserStorage();
         <th>Krajina</th>
         <th>Akcie</th>
     </tr>
-    <?php foreach ($userStorage->getAll() as $user) { ?>
+    <?php foreach ($userStorage->getAllUsers() as $user) { ?>
         <tr>
             <td><?=$user->name?></td>
             <td><?=$user->surname?></td>
@@ -349,7 +349,7 @@ Mazanie použivateľov budeme implementovať v súbore `pages/users/delete.php`.
 $userStorage = new UserStorage();
 $user = null;
 if (isset($_GET["id"])) {
-    $user = $userStorage->get($_GET["id"]);
+    $user = $userStorage->getUser($_GET["id"]);
 }
 
 if ($user == null) {
@@ -357,7 +357,7 @@ if ($user == null) {
     return;
 }
 
-$userStorage->delete($user);
+$userStorage->deleteUser($user);
 echo "Uživateľ {$user->getFullname()} ostránený.<br><a href='?'>Späť</a>";
 ```
 
@@ -377,7 +377,7 @@ Prvým spôsobom je úprava komponentu `pages/users/delete.php` tak, že je potr
 $userStorage = new UserStorage();
 $user = null;
 if (isset($_GET["id"])) {
-    $user = $userStorage->get($_GET["id"]);
+    $user = $userStorage->getUser($_GET["id"]);
 }
 
 if ($user == null) {
@@ -386,7 +386,7 @@ if ($user == null) {
 }
 
 if (isset($_POST['delete'])) {
-    $userStorage->delete($user);
+    $userStorage->deleteUser($user);
     echo "Uživateľ {$user->getFullname()} ostránený.<br><a href='?'>Späť</a>";
     return;
 }
@@ -422,7 +422,7 @@ Samotná implementácia formulára bude nasledovná:
 $userStorage = new UserStorage();
 $user = new User();
 if (isset($_GET["id"])) {
-    $user = $userStorage->get($_GET["id"]);
+    $user = $userStorage->getUser($_GET["id"]);
     if ($user == null) {
         echo "Užívateľ nenájdený.<br><a href='?'>Späť</a>";
         return;
@@ -434,7 +434,7 @@ if (isset($_POST['save'])) {
     $user->surname = $_POST['surname'];
     $user->mail = $_POST['mail'];
     $user->country = $_POST['country'];
-    $userStorage->store($user);
+    $userStorage->storeUser($user);
     echo "Užívateľ ".htmlentities($user->getFullname())." bol uložený.<br><a href='?'>Späť</a>";
     return;
 }
@@ -472,7 +472,7 @@ Aktuálna verzia neobsahuje takmer žiadnu validáciu formulára. V prípade že
 
 Môžme si všimnúť, že na vloženie hodnoty do formulárového poľa a výpis upraveného použivateľa sme použili funkciu [`htmlentities()`](https://www.php.net/manual/en/function.htmlentities.php). Táto funkcia slúži na escapovanie zadanej hodnoty. Využili sme ju preto, aby sme zabránili útoku typu XSS. Rovnakú funkciu by sme mali použiť aj na ostatných miestach, kde vypisujeme nejakú hodnotu z php premennej. Napríklad výpis tabuľky zo zoznamom používateľov by mohol vyzerať nasledovne:
 ```php
-<?php foreach ($userStorage->getAll() as $user) { ?>
+<?php foreach ($userStorage->getAllUsers() as $user) { ?>
     <tr>
         <td><?=htmlentities($user->name)?></td>
         <td><?=htmlentities($user->surname)?></td>

@@ -10,15 +10,11 @@
 
 ## Zadanie
 
-Vytvorte PHP skrípt ktorý umožní postupne užívateľovi pridávať súbory do svojho počítača na server a potom tieto súbory
-zastupuje a umožní stiahnuť. Aplikáciu najskôr implementujte tak že komprimovať sa budú všetky súbory naraz bez ohľadu
-na to kto súbor nahral. neskôr implementujte vlastnosť aby aby výsledný komprimovaný súbor obsahoval len súbory ktoré
-nahral daný používateľ.
+Vytvorte PHP skript, ktorý umožní postupne používateľovi pridávať súbory zo svojho počítača na server a potom tieto súbory komprimuje a umožní stiahnuť. Aplikáciu najskôr implementujte tak, že komprimovať sa budú všetky súbory naraz bez ohľadu na to, kto súbor nahral. Neskôr implementujte funkciu aplikácie, aby výsledný komprimovaný súbor obsahoval len súbory, ktoré nahral daný používateľ.
 
 ### Cieľ príkladu
 
-Cieľom príkladu je vyskúšať si upload súborov na server a ich spracovanie okrem toho si takisto vyskúšame použitie
-externých rozšírený pre PHP a ich využitie neposlednom rade využijeme cookies na identifikáciu používateľa.
+Cieľom príkladu je vyskúšať si nahrávanie (*upload*) súborov na server a ich spracovanie. Okrem toho si takisto vyskúšame použitie externých rozšírení pre jazyk PHP a ich využitie. V neposlednom rade využijeme *cookies* na identifikáciu používateľa.
 
 <div class="hidden">
 

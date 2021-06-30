@@ -9,8 +9,7 @@
 # ShowHide (JS, CSS)
 
 ## Zadanie
-Vytvorte skript, ktorý po kliknutí na element `h1` skryje text v elemente `p`, a naopak, ak je text zobrazený, tak ho 
-skryje. 
+Vytvorte skript, ktorý po kliknutí na element `h1` skryje text v elemente `p`, a naopak, ak je text zobrazený, tak ho skryje. 
 
 Skript by mal fungovať na takejto štruktúre HTML kódu:
 ```html
@@ -37,4 +36,4 @@ Skript by mal fungovať na takejto štruktúre HTML kódu:
 ```
 ### Cieľ príkladu
 
-Cieľom príkladu je demonštrácia jednoduchej manipulácie DOM s použitím javascriptu.
+Cieľom príkladu je demonštrácia jednoduchej manipulácie DOM s použitím JavaScriptu.

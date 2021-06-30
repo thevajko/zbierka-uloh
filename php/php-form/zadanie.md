@@ -8,8 +8,7 @@
 # PHP formulár (PHP)
 
 ## Zadanie
-Vytvorte PHP triedu, ktorá umožní programovo (z php) deklarovať ľubovolný formulár. 
-Formulár sa bude vedieť vykresliť a automaticky spracovať a zvalidovať.
+Vytvorte PHP triedu, ktorá umožní programovo (z PHP) deklarovať ľubovolný formulár. Formulár sa bude vedieť vykresliť a automaticky spracovať a vykonať validáciu.
 
 Trieda umožní:
 - definovať formulár
@@ -18,7 +17,8 @@ Trieda umožní:
 - získať vyplnené hodnoty
 
 
-Použitie formuláru by mohlo byť nasledovné
+Použitie formuláru by mohlo byť nasledovné:
+
 ```php
 
 // Deklarácia

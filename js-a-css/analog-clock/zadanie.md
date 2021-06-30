@@ -14,4 +14,4 @@ Zobrazte analógové hodinky, ktoré budú zobrazovať hodiny, minúty a sekundy
 
 
 ### Cieľ príkladu
-Príklad má oboznámiť riešiteľa s možnosťami, ktoré _HTML5_ a _javascript_ poskytujú pre vykresľovanie dynamickej grafiky na klientskej strane.
+Príklad má oboznámiť riešiteľa s možnosťami, ktoré *HTML5* a *JavaScript* poskytujú pre vykresľovanie dynamickej grafiky na klientskej strane.

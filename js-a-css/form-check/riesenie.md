@@ -18,8 +18,7 @@ Ako už vieme, formulár je definovaný pomocou elementu `form`, do ktorého sa 
 
 Základným prvkom používateľského vstupu predstavuje element `input`, ktorého atribút [`type`](https://www.w3schools.com/html/html_form_input_types.asp) bližšie definuje druh očakávaného vstupu a jeho vzhľad.
 
-Ďalším dôležitým atribútom je `pattern`
-, v ktorom sa ako hodnota uvádza regulárny výraz. Ten sa následne používa pre validáciu vstupu, ktorý zadal používateľ.
+Ďalším dôležitým atribútom je `pattern`, v ktorom sa ako hodnota uvádza regulárny výraz. Ten sa následne používa pre validáciu vstupu, ktorý zadal používateľ.
 
 Ako prvé budeme kontrolovať, či majú vstupy hodnotu v správnom tvare. V prípade mailu môžeme použiť rovno typ zadefinovať vstupné pole typu `email`, teda:
 
@@ -127,8 +126,7 @@ function validateInput(element, validationFunction) {
 }
 ```
 
-Teraz pridáme podmienku pre kontrolu hodnoty výstupu z validačnej funkcie uloženú v premennej `result`
-a budeme ju testovať na hodnotu `null`:
+Teraz pridáme podmienku pre kontrolu hodnoty výstupu z validačnej funkcie uloženú v premennej `result` a budeme ju testovať na hodnotu `null`:
 
 ```javascript
 function validateInput(element, validationFunction) {
@@ -275,8 +273,7 @@ function validateInput(element, validationFunction) {
 }
 ```
 
-Pre vytvorenie lepšie používateľského komfortu našej validácie doplníme vizuálne označenie, ktoré zmení farbu elementu `label`
-a rámčeka `input` na červenú farbu. Budeme musiet ale upraviť HTML. Každú dvojicu `label` a `input` vložíme do `div` elementu. Budeme tak mať kontrolu nad tým, pre ktoré elementy chceme zobrazenie upraviť:
+Pre vytvorenie lepšie používateľského komfortu našej validácie doplníme vizuálne označenie, ktoré zmení farbu elementu `label` a rámčeka `input` na červenú farbu. Budeme musieť ale upraviť HTML. Každú dvojicu `label` a `input` vložíme do `div` elementu. Budeme tak mať kontrolu nad tým, pre ktoré elementy chceme zobrazenie upraviť:
 
 ```html
 
@@ -341,19 +338,9 @@ Ako ďaľšie doplníme nad tlačidlo `Odoslať` hlášku informujúcu používa
 ```html
 
 <div id="submit-info">
-    Formulár
-    obsahuje
-    chyby
-    a
-    nie
-    je
-    možné
-    ho
-    odoslať.
+    Formulár obsahuje chyby a nie je možné ho odoslať.
 </div>
-<input type="submit"
-       value="Odoslať"
-       id="submit">
+<input type="submit" value="Odoslať" id="submit">
 ```
 
 a CSS:

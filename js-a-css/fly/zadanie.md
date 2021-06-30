@@ -11,10 +11,8 @@
 
 ## Zadanie
 
-Vytvorte hru, kde bude úlohou hráča triafať muchy, ktoré sa budú meniť svoju pozíciu na obrazovke. Hra bude mať časový
-limit a skóre hráča bude určené počtom múch, ktoré trafil. Aplikácia by mala byť vytvorená v jazyku JavaScript.
+Vytvorte hru, kde bude úlohou hráča triafať muchy, ktoré sa budú meniť svoju pozíciu na obrazovke. Hra bude mať časový limit a skóre hráča bude určené počtom múch, ktoré trafil. Aplikácia by mala byť vytvorená v jazyku JavaScript.
 
 ### Cieľ príkladu
 
-Cieľom tohto príkladu je ukážka použitia objektovo orientovaného prístupu pri tvorbe aplikácií v Javascripte rovnako
-využitie modulov na sprehľadnenie kódu.
+Cieľom tohto príkladu je ukážka použitia objektovo orientovaného prístupu pri tvorbe aplikácií v JavaScripte rovnako využitie modulov na sprehľadnenie kódu.

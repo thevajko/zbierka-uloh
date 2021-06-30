@@ -59,8 +59,7 @@ Naštýlujte pomocou CSS túto galériu nasledovne:
 
 ### Cieľ príkladu
 
-Cieľom príkladu je základná demonštrácia `flexbox` rozloženia, pokročilejšie spôsoby zobrazovania obrázkov, *media 
-queries* a animácie.
+Cieľom príkladu je základná demonštrácia `flexbox` rozloženia, pokročilejšie spôsoby zobrazovania obrázkov, *media queries* a animácie.
 
 <div class="hidden">
 

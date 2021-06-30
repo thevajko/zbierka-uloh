@@ -6,16 +6,18 @@
 > - [Zobraziť zadanie](zadanie.md)
 
 # Faktoriál - PHP
+
 </div>
 
 ## Riešenie
-Ako prvé je potrebné zistiť ako má výpočet faktoriálu prebiehať. Pokiaľ sa pozrieme na stránky
-[Wikipédie](https://sk.wikipedia.org/wiki/Faktori%C3%A1l), zistíme, že výpočet prebieha následovne:
+
+Ako prvé je potrebné zistiť, ako sa počíta faktoriál. Na webe, napr. mna stránkach [Wikipédie](https://sk.wikipedia.org/wiki/Faktori%C3%A1l), je možné nájsť tento vzorec pre výpočet faktoriálu čísla 5:
+
 ```
 5! = 5 * 4 * 3 * 2 * 1 = 120
 ```
-Vo Wikipédií máme popísane dva pseudokódy s cyklom a rekurzívny. V tomto riešení vyberáme nerekurzívny
-pseudo-kód, ktorý vyzerá nasledovne:
+
+Na stránkach Wikipédie nájdeme dva *pseudokódy* s cyklom a použitím rekurzie. V tomto riešení si vyberieme nerekurzívny pseudo-kód, ktorý vyzerá nasledovne:
 
 ```c
 long double faktorial (int n) {
@@ -25,11 +27,13 @@ long double faktorial (int n) {
     return b;
 }
 ```
-V prvom kroku prepíšeme pseudo-kód do jazyka PHP, začneme deklaráciou funkcie:
+
+V prvom kroku prepíšeme pseudokód do jazyka PHP, začneme deklaráciou funkcie, ktorej kód umiestnime na začiatok súboru. Pozor, súbor musí mať koncovku `.php`. Na výpočet použijeme cyklus `while`, v ktorom postupne zmenšujeme hodnotu parametra `$cislo` dekrementáciou, výsledok vzniká postupným násobením:
 
 ```php
 
-function fakt($cislo){
+function fakt($cislo)
+{
     $vysledok = 1;
     while (--$cislo  > 0 ) {
         $vysledok *= $cislo+1;
@@ -38,8 +42,7 @@ function fakt($cislo){
 }
 ```
 
-Zadanie určuje, že máme vypísať v danom formáte postupne faktorial od čísla 0 po 10. To vieme urobiť vytvorením cyklu,
-ktorý sa spustí 10 a práve tu použijeme cyklus for. Kód pre výstup bude vyzerať nasledovne:
+V zadaní je uvedené, že máme vypísať v danom formáte postupne faktoriál od čísla 0 po 10. To vieme urobiť vytvorením cyklu, ktorý sa spustí 11x a práve tu použijeme cyklus `for`. Všimnite si, ako sa nazvájom mixuje HTML a PHP kód. Táto časť kódu bude vyzerať nasledovne:
 
 ```php
 <?php // formater corrector ?>
@@ -48,4 +51,33 @@ ktorý sa spustí 10 a práve tu použijeme cyklus for. Kód pre výstup bude vy
     <li><?php echo $i . "! = ". fakt($i)?></li>
     <?php } ?>
 </ul>
+```
+
+Na záver, keď všetko spojíme dokopy a pridáme štandardnú HTML kostru, celé riešenie bude vyzerať:
+
+```php
+<?php
+function fakt($cislo)
+{
+    $vysledok = 1;
+    while (--$cislo > 0) {
+        $vysledok *= $cislo + 1;
+    }
+    return $vysledok;
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Faktoriál</title>
+</head>
+<body>
+<ul>
+    <?php for ($i = 0; $i < 10; $i++) { ?>
+    <li><?php echo $i . "! = " . fakt($i) ?></li>
+    <?php } ?>
+</ul>
+</body>
+</html>
 ```

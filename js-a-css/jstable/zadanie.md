@@ -26,4 +26,4 @@ Logiku vytvorte v čistom JS.
 
 ### Cieľ príkladu
 
-Cieľom príkladu je ukážka pokročilejšej práce s dátami pomocou javasctipu a manipulácie DOM.
+Cieľom príkladu je ukážka pokročilejšej práce s dátami pomocou JavaScriptu a manipulácie DOM.
