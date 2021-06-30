@@ -12,16 +12,16 @@
 
 ### HTML časť
 
-Riešenie začneme prípravou HTML dokumentu. Na každú z planét vytvoríme vlastný HTML element. Pre lepšiu prehľadnosť a zjednodušenie zápisu CSS pravidiel ich umiesnime do spoločného elementu s triedou `sustava`. HTML kód bude vyzerať nasledovne:
+Riešenie začneme prípravou HTML dokumentu. Na každú z planét vytvoríme vlastný HTML element. Pre lepšiu prehľadnosť a zjednodušenie zápisu CSS pravidiel ich umiestnime do spoločného elementu s triedou `system`. HTML kód bude vyzerať nasledovne:
 
 ```html
 <!DOCTYPE html>
 <html>
 <body>
-<div class="sustava">
-    <div class="slnko"></div>
-    <div class="zem">
-        <div class="mesiac"></div>
+<div class="system">
+    <div class="sun"></div>
+    <div class="earth">
+        <div class="moon"></div>
     </div>
     <div class="saturn"></div>
 </div>
@@ -30,14 +30,14 @@ Riešenie začneme prípravou HTML dokumentu. Na každú z planét vytvoríme vl
 </html>
 ```
 
-Element `sustava` obsahuje všetky prvky slnečnej sústavy. Mesiac sme umiestnili ako potomka elementu `zem`, pretože mesiac sa bude otáčať okolo zeme.
+Element `system` obsahuje všetky prvky slnečnej sústavy. Mesiac sme umiestnili ako potomka elementu `earth`, pretože mesiac sa bude otáčať okolo zeme.
 
 ### Umiestnenie planét
 
 Začneme s deklaráciou štýlu pre slnko. Pokiaľ chceme slnko umiestniť do stredu obrazovky, máme niekoľko možností. Buď použijeme *flexbox*, alebo pomocou nastavenia typu pozície (`absolute`) umiestníme prvok do stredu. V našom príklade *flexbox* potrebovať nebudeme a vystačíme si z absolútnym poziciovaním.
 
 ```css 
-.slnko {
+.sun {
   width: 120px;
   height: 120px;
   position: absolute;
@@ -54,7 +54,7 @@ Pomocou tohto štýlu sme nastavili veľkosť, pozíciu, pozadie a posunuli sme 
 Ďalej budeme pokračovať zo štýlmi pre jednotlivé planéty. Začneme zo zemou:
 
 ```css
-.zem {
+.earth {
     width: 80px;
     height: 80px;
     position: absolute;
@@ -68,14 +68,14 @@ Pomocou tohto štýlu sme nastavili veľkosť, pozíciu, pozadie a posunuli sme 
 
 Pomocou tohto kódu sme nastavili zem veľmi podobným spôsobom ako slnko, jediný rozdiel v týchto deklaráciach je zmena veľkosti, obrázku a zem sme ešte navyše posunuli o `300px` doprava, aby sa zobrazila ďalej od slnka.
 
-CSS kód pre ostatné planéty by bol veľmi podobný, tak môžeme skúsiť tento zápis zoptimalizovať. Určité vlastnosti môžeme nastaviť rovnako pre všetky elementy v našej sústave. Využijeme preto selektor `.sustava div`. Keď však skúsime napísať spoločné pravidlá pre všetky elementy, zistíme, že to budú vlastne len štyri - `position`, `left`, `top` a `background-size`. Veľkosti a transformácie sa budú meniť.
+CSS kód pre ostatné planéty by bol veľmi podobný, tak môžeme skúsiť tento zápis zoptimalizovať. Určité vlastnosti môžeme nastaviť rovnako pre všetky elementy v našej sústave. Využijeme preto selektor `.system div`. Keď však skúsime napísať spoločné pravidlá pre všetky elementy, zistíme, že to budú vlastne len štyri - `position`, `left`, `top` a `background-size`. Veľkosti a transformácie sa budú meniť.
 
 Pomocou CSS premenných by sme si mohli ešte viac zovšeobecniť tento zápis, pretože naše prvky majú rovnakú výšku a šírku, takže konkrétny prvok slnečnej sústavy by mohol zadeklarovať len tento rozmer.
 
 Upravený kód pomocou CSS premenných by mohol vyzerať nasledovne:
 
 ```css
-.sustava div {
+.system div {
     width: var(--size);
     height: var(--size);
     position: absolute;
@@ -85,13 +85,13 @@ Upravený kód pomocou CSS premenných by mohol vyzerať nasledovne:
     transform: translateX(var(--orbitRadius));
 }
 
-.slnko {
+.sun {
     --size: 120px;
     --orbitRadius: 0;
     background-image: url("images_planety/sun.png");
 }
 
-.zem {
+.earth {
     --size: 80px;
     --orbitRadius: 300px;
     background-image: url("images_planety/earth.png");
@@ -131,7 +131,7 @@ Planétka je síce otočená okolo slnka o 45 stupňov, ale pribudol ďalší pr
 Pre animáciu pohybu nám stačí jednoducho meniť uhol planétky postupne od 0 do 360 stupňov. Napíšeme si jednoduchú animáciu:
 
 ```css
-@keyframes kruhovaOrbita {
+@keyframes circularOrbit {
     from {
         transform: rotate(0deg) translateX(var(--orbitRadius)) rotate(0deg);
     }
@@ -150,18 +150,18 @@ Finálna definícia elementu, napríklad pre saturn s aplikovanou animáciou mô
     --size: 150px;
     --orbitRadius: 450px;
     background-image: url("images_planety/saturn.png");
-    animation: kruhovaOrbita 8s linear infinite;
+    animation: circularOrbit 8s linear infinite;
 }
 ```
 
 Vzhľadom na univerzálnosť celého návrhu bude pridanie mesiaca úplne rovnaké:
 
 ```css
-.mesiac {
+.moon {
     --size: 40px;
     --orbitRadius: 80px;
     background-image: url("images_planety/moon.png");
-    animation: kruhovaOrbita 2s linear infinite;
+    animation: circularOrbit 2s linear infinite;
 }
 ```
 
@@ -179,14 +179,14 @@ Pre lepšiu grafickú predstavu si môžeme pridať vykreslenie orbitálnych dr�
 
 ```html
 
-<div class="sustava">
-    <div class="zem orbit"></div>
+<div class="system">
+    <div class="earth orbit"></div>
     <div class="saturn orbit"></div>
 
-    <div class="slnko"></div>
-    <div class="zem">
-        <div class="mesiac orbit"></div>
-        <div class="mesiac"></div>
+    <div class="sun"></div>
+    <div class="earth">
+        <div class="moon orbit"></div>
+        <div class="moon"></div>
     </div>
     <div class="saturn"></div>
 </div>
@@ -195,7 +195,7 @@ Pre lepšiu grafickú predstavu si môžeme pridať vykreslenie orbitálnych dr�
 Do pôvodného kódu sme pridali nové elementy, ktoré budú použité na vykreslenie dráh. Samotné CSS na vykreslenie dráhy bude nasledovné:
 
 ```css
-.sustava .orbit {
+.system .orbit {
     --size: calc(var(--orbitRadius) * 2);
     border: 1px dotted black;
     border-radius: 50%;
