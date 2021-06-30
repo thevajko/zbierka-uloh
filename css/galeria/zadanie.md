@@ -13,14 +13,14 @@ Máme definované HTML, ktoré vyzerá nasledovne:
 
 ```html
 
-<div class="galeria">
-    <div class="fotka">
+<div class="gallery">
+    <div class="photo">
         <img src="images_galeria/fotka.jpg"/>
         <h3>Včelín</h3>
         <p>Popisok fotky, na ktorej je včelín.</p>
     </div>
 
-    <div class="fotka">
+    <div class="photo">
         <img src="images_galeria/fotka2.jpg"/>
         <h3>Včela</h3>
         <p>Popisok fotky, na ktorej je včela.</p>
