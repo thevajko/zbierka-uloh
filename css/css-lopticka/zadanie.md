@@ -11,7 +11,7 @@
 
 Vytvorte pomocou CSS animáciu loptičky, ktorá sa pohybuje po stole a odráža sa od stien.
 
-![](images_css-lopticka/zadanie.png)
+![Zadanie príkladu Gulečník](images_css-lopticka/zadanie.png)
 
 ### Cieľ príkladu
 

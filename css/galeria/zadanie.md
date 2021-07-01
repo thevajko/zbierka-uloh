@@ -43,19 +43,19 @@ Naštýlujte pomocou CSS túto galériu nasledovne:
 
 #### Zobrazenie na malom zariadení
 
-![](images_galeria/zadanie-s.png)
+![](images_galeria/zadanie-s.jpg)
 
 #### Zobrazenie na strednom zariadení
 
-![](images_galeria/zadanie-m.png)
+![](images_galeria/zadanie-m.jpg)
 
 #### Zobrazenie na veľkom zariadení
 
-![](images_galeria/zadanie-l.png)
+![](images_galeria/zadanie-l.jpg)
 
 #### Zobrazenie informácie o obrázku
 
-![](images_galeria/zadanie-hover.png)
+![](images_galeria/zadanie-hover.jpg)
 
 ### Cieľ príkladu
 

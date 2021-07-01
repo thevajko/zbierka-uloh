@@ -11,7 +11,7 @@
 
 Vytvorte jednoduchú animáciu slnečnej sústavy. Slnko bude v strede, okolo neho budú obiehať po kružnici aspoň dve planéty. Jednej planéte pridajte mesiac.
 
-![](images_planety/zadanie.png)
+![Zadanie príkladu Slnečná sústava](images_planety/zadanie.png)
 
 ### Cieľ príkladu
 

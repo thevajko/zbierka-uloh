@@ -44,7 +44,7 @@ Okrem farby sme elementom nastavili aj pozície. Gulička má nastavenú pozíci
 
 Výsledok bude vyzerať nasledovne.
 
-![](images_css-lopticka/riesenie1.png)
+![Zobrazenie guličky a stola](images_css-lopticka/riesenie1.png)
 
 Pre pohyb loptičky v zvislom smere pripravíme animáciu:
 
