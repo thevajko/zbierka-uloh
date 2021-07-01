@@ -112,11 +112,11 @@ V našom konkrétnom príklade sme použili na prvý pohľad komplikovaný výpo
 
 Pre animáciu otáčania už máme pripravené všetko potrebné. Poďme sa pozrieť, akým spôsobom vieme nejakú planétu - napr. saturn otočiť okolo slnka. Začali sme s tým, že všetky planéty a slnko sú umiestnené na stred obrazovky a potom pomocou `translateX` sme ich posunuli smerom napravo na svoju orbitu.
 
-![](images_planety/step1-translate.png)
+![Posun planéty v smere osi X](images_planety/step1-translate.png)
 
 Pokiaľ pred posun planéty vložíme otočenie, môžeme tým kontrolovať uhol, pod ktorým sa naša planéta vzdiali od slnka. Napríklad, ak vložíme pred `translateX(450px)` otočenie o 45 stupňov - `rotate(45deg)`, tak dostaneme:
 
-![](images_planety/step2-translate.png)
+![Otočenie planéty o 45 stupňov](images_planety/step2-translate.png)
 
 Planétka je síce otočená okolo slnka o 45 stupňov, ale pribudol ďalší problém. Planétka sa otočila okolo svojej osi. Ak to chceme vrátiť späť, tak za posun (`translateX(450px)`) doplníme rotáciu v opačnom smere, ktorá otočí planétu na aktuálnej pozícii o 45 stupňov späť. Celkový zápis otočenia planétky presne o 45 stupňov bude nasledovný:
 
@@ -124,7 +124,7 @@ Planétka je síce otočená okolo slnka o 45 stupňov, ale pribudol ďalší pr
     transform: rotate(45deg) translateX(450px) rotate(-45deg);
 ```
 
-![](images_planety/step3-translate.png)
+![Otočenie planéty do pôvodnej pozície](images_planety/step3-translate.png)
 
 #### Animácia obehu planétky
 
@@ -171,7 +171,7 @@ Mesiac využíva rovnaké vlastnosti ako ostatné planéty, len centrum jeho obe
 
 V zápise animácie môžeme definovať tzv. *timing* funkciu. V uvedenom príklade bola ako *timing* funkcia zvolená funkcia `linear`, ktorá sa správa tak, že planétky sa pohybujú rovnako rýchlo po celý čas obehu. Tieto *timing* funkcie sa definujú pomocou kubických bezierových kriviek. Našťastie si tieto krivky nemusíme počítať manuálne, ale môžeme využiť online nástroj - napríklad [cubic-bezier.com](https://cubic-bezier.com). Môžeme napríklad vyskúšať funkciu `cubic-bezier(.61,.11,.41,.91)`, ktorá spôsobí, že zo začiatku planétka pôjde veľmi pomaly, postupne bude zrýchlovať, v polovici otáčky pôjde najrýchlejšie a na konci zas spomalí. Spomenutá *timing* funkcia vyzerá nasledovne:
 
-![](images_planety/timing-funckia.png)
+![Ukážka timing funkcie](images_planety/timing-funckia.png)
 
 ### Vykreslenie orbitálnych dráh
 

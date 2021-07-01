@@ -11,7 +11,7 @@
 
 Vytvorte pomocou CSS bez použitia grafiky (obrázky, `svg`) nasledujúce smajlíky.
 
-![](images_css_smajliky/zadanie.png)
+![Zadanie príkladu Smajlíky](images_css_smajliky/zadanie.png)
 
 Každý smajlík bude dostupný vo veľkostiach `50px`, `100px`, `250px` a `500px`.
 
