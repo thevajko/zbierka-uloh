@@ -95,7 +95,7 @@ Pri použití čistého `JS` existujú dve možnosti ako spustiť logiku až po 
 1. Skript, ktorý spúšťa alebo vykonáva logiku je potrebné umiestniť ako posledný tag pred uzatváracím tagom elementu `<body>`. Prípadne pridať `<script>` ihneď na koniec alebo za požadovaný element. Tu ale nie je úplne zaručené, že skript spustíte až po "naozajstnej" inicializácií _DOM_.
 2. Využiť udalosť `onload` na objekte `window`
 
-Zápis teda umiestníme do ľubovolného relevantného `<script>` a zápis vyzerá následovne:
+Zápis teda umiestníme do ľubovolného relevantného `<script>` a zápis vyzerá nasledovne:
 
 ```javascript
 window.onload = function()  {

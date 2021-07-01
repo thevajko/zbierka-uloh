@@ -174,7 +174,7 @@ Môžeme to pre prehľadnosť zapísať ako nasledujúci `for` cyklus: `for(let 
 
 Zostáva nám už iba oddeliť hodinové značky od minútových pomocou rôznej veľkosti. Hodinová značka má byť vykreslená každých `360 / 12 = 30` stupňov. To môžeme kontrolovať podmienkou, či je aktuálna hodnota premennej `i` deliteľná hodnotou `30` bezo zvyšku podmienkou `if (i*6 % 30 == 0)` a ak áno, nakreslíme značku dlhšiu.
 
-Celý kód bude vyzerať následovne:
+Celý kód bude vyzerať nasledovne:
 
 ```javascript
 function makeTick(ctx){

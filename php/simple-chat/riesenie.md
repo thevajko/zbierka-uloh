@@ -5,19 +5,19 @@
 > - Repo: [Štartér](/../../tree/main/php/simple-chat), [Riešenie](/../../tree/solution/php/simple-chat).
 > - [Zobraziť zadanie](zadanie.md)
 
-# Jednoduchý chat  (DB, PHP, JS, AJAX, CSS)
+# *Chat* aplikácia (DB, PHP, JS, AJAX, CSS)
 
 </div>
 
 ## Riešenie
 
-
 <div class="hidden">
 
 > Toto riešenie obsahuje všetky potrebné služby v `docker-compose.yml`. Po ich spustení sa vytvorí:
 > - webový server, ktory do __document root__ namapuje adresár tejto úlohy s modulom __PDO__. Port __80__ a bude dostupný na adrese [http://localhost/](http://localhost/). Server má pridaný modul pre ladenie [__Xdebug 3__](https://xdebug.org/) nastavený na port __9000__ v "auto-štart móde" (`xdebug.start_with_request=yes`).
-> - databázový server s vytvorenou _databázou_ a tabuľkami `messages` a `users` na porte __3306__ a bude dostupný na `localhost:3306`. Prihlasovacie údaje sú: 
->   - MYSQL_ROOT_PASSWORD: db_user_pass
+> - databázový server s vytvorenou _databázou_ a tabuľkami `messages` a `users` na porte __3306__ a bude dostupný na `localhost:3306`. Prihlasovacie údaje sú:
+    >
+- MYSQL_ROOT_PASSWORD: db_user_pass
 >   - MYSQL_DATABASE: dbchat
 >   - MYSQL_USER: db_user
 >   - MYSQL_PASSWORD: db_user_pass
@@ -25,17 +25,16 @@
 
 </div>
 
-Na začiatok si ujasníme návrh a architektúru celého riešenia. Aplikáciu rozdelíme na dve samostatné časti. Serverová časť bude reprezentovaná dvomi súbormi: 
+Na začiatok si navrhneme architektúru celého riešenia. Aplikáciu rozdelíme na dve samostatné časti. Serverová časť bude reprezentovaná dvomi súbormi:
 
-1. `index.html` - statická stránka s klientom
-2. `api.php` - predstavuje vstupný bod, ktorý bude slúžiť čisto ako _webové API_
+1. `index.html` - statická stránka s klientom *chat* aplikácie.
+2. `api.php` - predstavuje vstupný bod, ktorý bude slúžiť ako _webové API_.
 
-Klient našej aplikácie bude úplne samostatná časť, napísaná vo __vanilla javascripte__. Všetky dáta pre chod chatu bude získavať klient z _webové API_. Klient bude zo serverom komunikovať pomocou dát v _JSON_ formáte.
-
+Klient aplikácie bude úplne nezávislý od servera, napísaný vo *Vanilla JavaScript* (skript, ktorý nepoužíva žiadne externé knižnice ako napr. *jQuery*). Všetky dáta pre fungovanie *chatu* bude získavať klient z webového API. Klient bude zo serverom komunikovať pomocou výmeny dát v JSON formáte.
 
 ### Vytvorenie anonymného chatu
 
-V prvom kroku vytvoríme verziu "anonymného" chatu, kde môže pridať príspevok hocikto. Perzistentné úložisku dát bude predstavovať databáza, preto si v nej vytvoríme tabuľku pre správy s menom `messages`. _DDL_ pre jej vytvorenie bude:
+V prvom kroku vytvoríme verziu "anonymného" chatu, kde môže pridať príspevok hocikto. Perzistentné úložisku dát bude predstavovať databáza, preto si v nej vytvoríme tabuľku pre správy s názvom `messages`. DDL pre jej vytvorenie bude:
 
 ```sql
 create table messages
@@ -47,28 +46,30 @@ create table messages
         primary key (id)
 );
 ```
-Súčasťou odpovede servera je [_HTTP kód_](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) ten je súčasť hlavičky odosielanej serverom v _HTTP odpovedi_. V jej tele by sme mali posielať, ako kód, tak aj chybovú hlášku, ktorú spracuje naša aplikácia.
 
-Každá natívna _PHP výnimka_ má svoje číslo a popis, tie však nemusia a nebudú sa zhodovať z definovanými _HTTP kódmi_. Preto v niektorých častiach budeme musieť natívne výnimky odchytávať a transformovať aby ich bolo možné použiť s _HTTP_. 
+Súčasťou odpovede servera je [_HTTP stavový kód_](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status). Ten je súčasť hlavičky odosielanej serverom v HTTP odpovedi. V jej tele by sme mali posielať kód a chybovú hlášku (ak nastala chyba), ktorú spracuje klient.
 
-Prečo to implementovať? Aby komunikácia klienta používala štandard a vedel tak reagovať na prípadné problémy. Pri posielaní asynchrónnych dopytov tak vie klient následne správne vyhodnotiť a vykonať adekvátnu reakciu bez nutnosti odpovede ručne kontrolovať. Framewroky a knižnice tretích strán vedia niektoré statusy ošetriť auztomaticky.
+Každá PHP výnimka má svoje číslo a popis, tie však nemusia a nebudú sa zhodovať z definovanými HTTP kódmi. Preto v niektorých častiach budeme musieť PHP výnimky odchytávať a transformovať, aby ich bolo možné posielať pomocou HTTP.
 
-Vytvoríme si _PHP súbor_ `api.php`. Celá logika bude  obalená do jedného `try-catch` bloku, ktorý bude vyhodené výnimky transformovať na _HTTP odpoveď_ a do jej tela vo formáte JSON.
+Prečo implementovať komunikáciu s klientom pomocou HTTP stavových kódov? Dôleťžité je, aby klient používal komunikačný štandard (HTTP protokol) a vedel tak reagovať na prípadné problémy hlásené serverom. Pri posielaní asynchrónnych dopytov klient vie následne správne vyhodnotiť a vykonať adekvátnu reakciu bez nutnosti odpovede sprovovávať vlastným kódom. Niektoré frameworky a knižnice tretích strán vedia statusové kódy ošetriť automaticky.
 
-To, ktorá metóda _API_ sa zavolá budeme rozhodovať na základe _HTTP GET_ parametra `method`. Vetvenie budeme realizovať pomocou bloku `switch`, kde čast `default` bude odchytávať nehodné alebo nepoužité hodnoty _HTTP GET_ parametra `method`. Teda všetko, čo padne do `default` budeme považovať za chybný _HTTP dopyt_. V prípade, že sa tak stane budeme chcieť na klienta poslať _HTTP kód_ [`400 Bad Request`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400), vyhodíme preto nasledovnú výnimku:
+Vytvoríme si PHP súbor `api.php`. Celý kód bude obalený do jedného `try-catch` bloku, ktorý bude vyhodené výnimky transformovať na HTTP odpoveď a jej telo vytvárať vo formáte JSON.
+
+To, ktorá metóda API sa zavolá, budeme rozhodovať na základe GET parametra `method`. Vetvenie budeme realizovať pomocou bloku `switch`, kde čast `default` bude odchytávať nehodné alebo nepoužité hodnoty parametra. Teda všetko, čo skončí v vetve `default`, budeme považovať za chybnú HTTP žiadosť. V prípade, že sa tak stane, na klienta pošleme HTTP kód [`400 Bad Request`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400), vyhodíme preto nasledovnú výnimku:
 
 ```php
 throw new Exception("Invalid API call", 400);
 ```
 
-Na vytvorenie odpovede si vytvoríme globálnu funkciu v `sendResponse()`, ktorú budeme v komplentom riešení volať na viacerých miestach. Táto funkcia má tri vstupné argumenty: _HTTP kód_, _HTTP status_ a textový reťazec, ktorý bude vypísaný do tela _HTTP odpovede_.
+Na vytvorenie odpovede si vytvoríme globálnu funkciu `sendResponse()`, ktorú budeme v kompletnom riešení volať na viacerých miestach. Táto funkcia má tri vstupné argumenty: *HTTP kód*, *HTTP status* a textový reťazec, ktorý bude vypísaný do tela HTTP odpovede.
 
-Pri odchytení výnimky upravíme hlavičku _HTTP odpovede_ pomocou _PHP_ funkcie [`header()`](https://www.php.net/manual/en/function.header.php). Pripájame do nej ako _HTTP kód_ kód z výnimky tak aj jej text. Následne pridávame do tela odpovede kód aj text chyby v podobe pola, ktoré serializujeme do formátu [_JSON_](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON) pomocou _PHP funkcie_ [`json_encode()`](https://www.php.net/manual/en/function.json-encode.php).
+Pri odchytení výnimky upravíme hlavičku HTTP odpovede pomocou PHP funkcie [`header()`](https://www.php.net/manual/en/function.header.php). Pripájame do nej HTTP kód, kód z výnimky a jej text. Následne pridávame do tela odpovede kód a text chyby v podobe poľa, ktoré serializujeme do formátu [JSON](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON) pomocou PHP funkcie [`json_encode()`](https://www.php.net/manual/en/function.json-encode.php).
 
 Kód v súbore `api.php` bude vyzerať nasledovne:
 
 ```php
-function sendResponse($httpCode, $httpStatus, $body = ""){
+function sendResponse($httpCode, $httpStatus, $body = "")
+{
     header($_SERVER["SERVER_PROTOCOL"] . " {$httpCode} {$httpStatus}");
     echo $body;
 }
@@ -92,7 +93,7 @@ try {
 }
 ```
 
-Ako ďalšie si vytvoríme tri _PHP triedy_. Prvá bude predstavovať dátový objekt reprezentujúci jeden riadok v databáze. Nazveme ju `Message` a bude vyzerať nasledovne:
+Ďalej si vytvoríme tri PHP triedy. Prvá bude predstavovať dátový objekt reprezentujúci jeden riadok v databáze. Nazveme ju `Message` a bude vyzerať nasledovne:
 
 ```php
 class Message
@@ -103,13 +104,13 @@ class Message
 }
 ```
 
-Druhá trieda, ktorá bude sprostredkovať pripojenie na databázu sa bude volať `Db`. Táto trieda bude mať statickú metódu, ktorá nám vráti inštanciu `PDO`.
+Druhá trieda, ktorá bude sprostredkúvať pripojenie na databázu sa bude volať `Db`. Táto trieda bude mať statickú metódu, ktorá nám vráti inštanciu `PDO`.
 
-Vzhľadom na to, že chybové výnimky musí odchytávať súbor `api.php` upravíme chovanie `PDO` tak, aby pri nastaví chyby s databázou bola vyhodená výnimka. Čo urobíme ihneď po vytvorení jej inštancie nastavením `  $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);` (toto [nastavenie je predvolené](https://www.php.net/manual/en/pdo.error-handling.php#:~:text=PDO%3A%3AERRMODE_EXCEPTION&text=0%2C%20this%20is%20the%20default,error%20code%20and%20error%20information.) až od verzie PHP 8.0).
+Vzhľadom na to, že chybové výnimky musí odchytávať súbor `api.php` upravíme chovanie `PDO` tak, aby pri vzniku chyby s práci databázou bola vyhodená výnimka. To urobíme ihneď po vytvorení jej inštancie nastavením `  $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);` (toto [nastavenie je predvolené](https://www.php.net/manual/en/pdo.error-handling.php#:~:text=PDO%3A%3AERRMODE_EXCEPTION&text=0%2C%20this%20is%20the%20default,error%20code%20and%20error%20information.) až od verzie PHP8).
 
-Následne si ešte musíme transformovať chybový kód, tak aby zodpovedal _HTTP kódom_. Preto po dochytení výnimky vytvoríme novú výnimku, nastavíme jej rovnakú správu a upravíme jej kód na [`500 Internal Server Error`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500).
+Následne si ešte musíme transformovať chybový kód tak, aby zodpovedal HTTP stavovým kódom. Preto po odchytení výnimky vytvoríme novú výnimku, nastavíme jej rovnakú správu a upravíme jej kód na [`500 Internal Server Error`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500).
 
-Účelom tejto triedy je iba vždy sprostredkovať tú istú inštanciu `PDO` pre komunikáciu s databázou, nič iné. Trieda bude vyzerať nasledovne:
+Účelom tejto triedy je iba vrátiť tú istú inštanciu `PDO` pre komunikáciu s databázou, nič iné. Trieda bude vyzerať nasledovne:
 
 ```php
 class Db {
@@ -138,9 +139,10 @@ class Db {
     }
 }
 ```
-Posledná trieda `MessageStorage` bude obsahovať logiku výlučne pokrývajúcu logiku týkajúcu sa _PHP triedy_ `Message`. Aj ked sa to sprvu nezdá, umiestniť túto logiku do triedy `Db` by nebolo vhodné nakoľko by sa nám v nej zmiešavali viaceré logické celky.
 
-Jej prvá metóda bude `getMessages()`, ktorej výstup bude posledných 50 záznamov z databázovej tabuľky `messages` v podobe pola inštancií triedy `Message`.
+Posledná trieda `MessageStorage` bude obsahovať kód pokrývajúcu výlučne aplikačnú logiku týkajúcu sa PHP triedy `Message`. Aj keď sa to sprvu nezdá, umiestniť túto logiku do triedy `Db` by nebolo vhodné, nakoľko by sa nám v nej zmiešavali viaceré navzájom nesúvisiace programové celky.
+
+Jej prvá metóda bude `getMessages()`, ktorej výstup bude posledných 50 záznamov z databázovej tabuľky `messages` v podobe poľa inštancií triedy `Message`.
 
 ```php
 class MessageStorage
@@ -162,7 +164,7 @@ class MessageStorage
 }
 ```
 
-Ak bude chcieť klient získať kolekciu posledných 50 správ, bude musieť na server odoslať _HTTP dopyt_ s _HTTP GET parametrom_, ktorého hodnota bude musieť byť presne `get-messages`. V súbore `api.php` do bloku `switch` prídáme reakciu na hodnotu `get-messages` _HTTP parametra_ `method`. V nej získame pole správ zavolaním metódy `UserStorage::getMessages()` a následne ho serializujeme do formátu _JSON_ a vypíšeme do tela odpovede. Nesmieme zabudnúť doplniť pomocou `require` naše definície tried `Message`, `Db` a `MessageStorage`. Pridanie logiky bude vyzerať následovne:
+Ak bude chcieť klient získať kolekciu posledných 50 správ, bude musieť na server odoslať HTTP žiadosť s GET parametrom `method`, ktorého hodnota bude  `get-messages`. V súbore `api.php` do bloku `switch` pridáme vetvu pre hodnotu `get-messages`. V nej získame pole správ zavolaním metódy `UserStorage::getMessages()` a následne ho serializujeme do formátu JSON_a vypíšeme do tela odpovede. Nesmieme zabudnúť doplniť pomocou `require` definície tried `Message`, `Db` a `MessageStorage`. Kód bude vyzerať nasledovne:
 
 ```php
 require "php/Message.php";
@@ -185,17 +187,17 @@ try {
 }
 ```
 
-Ak teraz navštívime naše _API_ a nezadáme žiadne _HTTP parametre_, dostaneme chybovú spolu aj rozpoznaním _HTTP kódu_.
+Ak teraz zavoláme naše API a nepošleme žiadne GET parametre, dostaneme chybovú hlášku spolu s HTTP stavovým kódom.
 
 ![](images_simplechat/api-01.png)
 
-Ak však pridáme _GET parameter_  `method=get-messages` dostaneme normálnu odpoveď aj keď momentálne v podobe prázdneho pola, nakoľko v databáze nemáme žiadne záznamy.
+Ak však pridáme GET parameter `method=get-messages` dostaneme odpoveď bez chyby, aj keď v podobe prázdneho poľa, nakoľko v databáze nemáme žiadne záznamy.
 
 ![](images_simplechat/api-02.png)
 
-Základom klienta je súbor _index.html_ obsahujúci statickú webovú stránku. Ten bude načítavať súbor _main.js_, ako _javascript modul_, a bude obsahovať inicializačnú logiku. 
+Základným súborom klienta je súbor `index.html` obsahujúci statickú webovú stránku. Ten bude načítavať súbor `main.js`, ako *JavaScript modul*, a bude obsahovať inicializáciu klienta aplikácie.
 
-Do elementu `<body>` vložíme element `<div>`, ktorému pridáme atribút `id` s hodnotou `messages` a bude slúžiť pre zobrazovanie získaných správ. Súbor `index.html` bude obsahovať:
+Do elementu `body` vložíme element `div`, ktorému pridáme atribút `id` s hodnotou `messages` a bude slúžiť pre zobrazovanie získaných správ. Súbor `index.html` bude obsahovať:
 
 ```html
 <!DOCTYPE html>
@@ -206,27 +208,27 @@ Do elementu `<body>` vložíme element `<div>`, ktorému pridáme atribút `id` 
     <script type="module" src="js/main.js"></script>
 </head>
 <body>
-   <div id="messages">
-   </div>
+<div id="messages">
+</div>
 </body>
 </html>
 ```
 
-Odosielanie a spracovanie asynchrónnych dopytov budeme realizovať pomocou [`fetch()`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). `Fetch API` používa pre spracovanie asynchrónnych volaní [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then). My namiesto vytvárania reťazenia pomocou callbackov použijeme [`async/await`](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Async_await). To značne zjednoduší a sprehľadní kód.
+Odosielanie a spracovanie asynchrónnych žiadostí budeme realizovať pomocou JavaScript funkcie [`fetch()`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). `Fetch API` používa pre spracovanie asynchrónnych volaní [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then) (prísľub). Namiesto reťazenia *callback* funkcií použijeme kľúčové slová [`async/await`](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Async_await). To značne zjednoduší a sprehľadní kód.
 
-Teraz vytvoríme súbor `chat.js` v ktorom vytvoríme triedu `Chat`. Tejto triede pridáme metódu `getMessages()`, ktorá pomocou `fetch()` získa pole posledných 50 správ zo servera. Nakoľko budeme používať `async/await` musíme tú metódu označiť `async`. `fetch()` však vyhadzuje výnimky, ktoré nastanú iba v prípade problémov pri komunikácií so serverom, teda v prípade sieťovej chyby. 
+Teraz vytvoríme súbor `chat.js`, v ktorom vytvoríme triedu `Chat`. Tejto triede pridáme metódu `getMessages()`, ktorá pomocou `fetch()` získa pole posledných 50 správ zo servera. Nakoľko budeme používať `async/await` musíme tú metódu označiť `async`. `fetch()` však vyhadzuje výnimky, ktoré nastanú iba v prípade problémov pri komunikácii so serverom, teda v prípade sieťovej chyby.
 
-Pokiaľ teda klient obdrží odpoveď s ľubovolným _HTTP kódom_ žiadna výnimka nebude vyhodená. Samotné vyhodnotenie kódu odpovede budeme musieť implementovať manuálne. Z tohto dôvodu bude celá logika metódy `getMessages()` umiestnená do `try-catch` bloku.
+Pokiaľ klient obdrží odpoveď s ľubovolným HTTP kódom (aj chybovým) žiadna výnimka nebude vyhodená. Vyhodnotenie, či nastala chyba, budeme musieť implementovať sami. Z tohto dôvodu bude kód metódy `getMessages()` umiestnený do `try-catch` bloku.
 
-V prvom rade zavoláme `fetch()`, kde ako parameter doplníme _url_ `api.php?method=get-messages` a výsledok umiestnime do lokálnej premennej `response`. Nakoľko sa jedná o asynchrónne spustenú logiku vložíme pred `fetch()` slovo `await`.
+Najskôr zavoláme `fetch()`, kde ako parameter doplníme URL `api.php?method=get-messages` a výsledok umiestnime do lokálnej premennej `response`. Nakoľko ide o asynchrónne volaniue, vložíme pred `fetch()` kľúčové slovo `await`.
 
-Následne overíme, či má odpoveď _HTTP kód_ `200`. Pokiaľ nie, vytvoríme a vyhodíme chybu. Správy budeme postupne vypisovať do elementu `<<div id="messages">`.Jednotlivé elementy správ budeme zostavovať pomocou textového reťazca.
+Potom overíme, či má odpoveď HTTP stavový kód `200`. Pokiaľ nie, vytvoríme a vyhodíme výnimku. Ak chyba nenastala, načítame správy. Správy budeme postupne vypisovať do elementu `div` s atribútom `id="messages"`.Jednotlivé elementy správ budeme zostavovať pomocou textového reťazca.
 
-Každá správa bude samostatne zabalená do elementu `<div class="message">` a dátum vytvorenia s textom bude v samostatnom `<span>` elemente. Každému `<span>` elementu pridáme vlastnú _CSS triedu_ aby ich bolo možné neskôr naštýlovať.
+Každá správa bude samostatne zabalená do elementu `div` s atribútom `class="message"`. Dátum vytvorenia a text správy bude v samostatnom `span` elemente. Každému `span` elementu pridáme vlastnú CSS triedu, aby ich bolo možné neskôr pridať štýl.
 
-_HTML_ kód každej správy sa pridáva do lokálnej premennej `messagesHTML`, ktorú po prejdení všetkých správ priamo pridáme do `innerHTML` elementu. Zobrazené správy sa tak zakaždým prekreslia.
+HTML kód každej správy pridávame do lokálnej premennej `messagesHTML`, ktorú po spracovaní všetkých správ pridáme do `innerHTML` daného elementu. Zobrazené správy sa tak zakaždým nanovo zobrazia.
 
-Kód v bloku `catch()` vloží do elementu `<div class="message">` text o chybe s jej detailom. Výsledná metóda bude obsahovať nasledovný kód:
+Kód v bloku `catch` vloží do elementu `div` s atribútom `class="message"` text o chybe s jej detailným popisom. Výsledná metóda bude obsahovať nasledovný kód:
 
 ```javascript
 class Chat {
@@ -259,8 +261,7 @@ class Chat {
 export default Chat;
 ```
 
-Súbor `main.js` vytvorí po plnej inicializácií stránky v prehliadači inštanciu triedy `Chat` a pridá ju do `window.chat`. Klient má každú sekundu získavať správy, čo implementujeme vytvorením periodického časovača
-pomocou [`setInterval()`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval) ktoré bude volať metódu `Chat.getMessages()`. Časovač sa však prvý krát nespustí ihneď ale až po uplynutí 1 sekundy. Aby používateľ nečakal na spustenie zavoláme po nastavení intervalu metódu `getMessages()`. Asynchrónnu logiku nemôžeme umiestniť do konštruktora, nakoľko konštruktor vracia novú inštanciu danej triedy a nie `promise`. Preto vytvoríme novú asynchrónnu metódu `Chat.run()`, ktorá bude obsahovať:
+Súbor `main.js` vytvorí po inicializácií stránky v prehliadači inštanciu triedy `Chat` a pridá ju do `window.chat`. Klient má za úlohu každú sekundu získavať správy, čo implementujeme vytvorením periodického časovača pomocou funkcie [`setInterval()`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval) ktorá bude volať metódu `Chat.getMessages()`. Časovač sa však prvýkrát nespustí ihneď, ale až po uplynutí 1 sekundy. Aby používateľ nečakal spustení aplikácie, zavoláme po nastavení intervalu metódu `getMessages()`. Asynchrónne volania nemôžeme umiestniť do konštruktora, pretože konštruktor vracia novú inštanciu danej triedy a nie príslub (`promise`). Preto vytvoríme novú asynchrónnu metódu `Chat.run()`, ktorá bude obsahovať:
 
 ```javascript
 class Chat {
@@ -276,7 +277,7 @@ class Chat {
 export default Chat;
 ```
 
-Logika v skripte `main.js`, teda najprv vytvorí inštanciu triedy `Chat` a následne zavolá jej metódu `Chat.init()`:
+Skript teda najprv vytvorí inštanciu triedy `Chat` a následne zavolá jej metódu `Chat.init()`:
 
 ```javascript
 import Chat from "./chat.js";
@@ -287,7 +288,7 @@ window.onload = async function () {
 }
 ```
 
-V tomto momente bude _chat_ zobrazovať iba dáta, ktoré sú v databáze. Aby sme dáta mohli na server odosielať musíme upraviť `index.html`. Najprv pridáme pod element `<div id=messages>` nový element `<div>` do ktorého umiestníme element `<input id="message">`, ktorý zobrazí textové pole a element `<button id="send-button">` pre odoslanie napísanej správy. Súbor `index.html` bude po úprave vyzerať nasledovne:
+V tomto momente bude *chat* zobrazovať iba dáta, ktoré sú v databáze. Aby sme dáta mohli na server odosielať, musíme upraviť `index.html`. Najprv pridáme pod element `div` s `id="messages"` nový element `div`, do ktorého umiestníme element `input` s atribútom `id="message"`, ktorý zobrazí textové pole a element `button` s atribútom `id="send-button"` pre odoslanie napísanej správy. Súbor `index.html` bude po úprave vyzerať nasledovne:
 
 ```html
 <!DOCTYPE html>
@@ -298,25 +299,25 @@ V tomto momente bude _chat_ zobrazovať iba dáta, ktoré sú v databáze. Aby s
     <script type="module" src="js/main.js"></script>
 </head>
 <body>
-   <div id="messages">
-   </div>
-   <div>
-       <input type="text" id="message">
-       <button id="send-button">Odoslať</button>
-   </div>
+<div id="messages">
+</div>
+<div>
+    <input type="text" id="message">
+    <button id="send-button">Odoslať</button>
+</div>
 </body>
 </html>
 ```
 
-Teraz do _javascript triedy_ `Chat` pridáme metódu `postMessage()` ktorej zavolaním odošleme dáta novej správy na server. Zasielanie parametrov pomocou _HTTP POST_ je trošičku komplikovanejšie ako pomocou _HTTP GET_, nakoľko je potrebné pridať zopár doplňujúcich informácií. Tie pridáme metóde `fetch()` ako druhý parameter:
+Teraz do triedy `Chat` pridáme metódu `postMessage()`, ktorej zavolaním odošleme dáta novej správy na server. Zasielanie parametrov pomocou HTTP POST je trochu komplikovanejšie ako pomocou HTTP GET, pretože je potrebné pridať zopár doplňujúcich informácií. Tie pridáme metóde `fetch()` ako druhý parameter:
 
-1. Aby `fetch()` poslal dopyt ako _HTTP POST_ musíme doplniť nastavenie `method: "POST"`.
-2. Doplníme hlavičku, kde povieme, že telo _HTTP požiadavky_ bude obsahovať dáta pomocou `'Content-Type': 'application/x-www-form-urlencoded'`.
-3. Nakoniec do tela pridáme _POST parameter_ `body` a naplníme ho hodnotou z nášho `<input>` elementu.
+1. Aby `fetch()` poslal žiadosť typu HTTP POST, musíme doplniť nastavenie `method: "POST"`.
+2. Doplníme HTTP hlavičku, ktorá bude informovať server, že telo HTTP požiadavky bude obsahovať dáta: `'Content-Type': 'application/x-www-form-urlencoded'`.
+3. Nakoniec do tela pridáme POST parameter `body` a naplníme ho hodnotou z `input` elementu správy.
 
-Teraz skontrolujeme, _HTTP kód_ odpovede. Nakoľko server nepotrebuje odoslať po uložení na klienta zaide dáta budeme očakávať návratový  _HTTP kód_ [`204 No Content`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/204).
+Teraz skontrolujeme HTTP kód odpovede. Nakoľko server nepotrebuje odoslať po uložení na klienta zaide dáta budeme očakávať návratový HTTP kód [`204 No Content`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/204).
 
-Ako posledný krok nastavíme obsah elementu `<input id="message>` ako prázdny. Takto bude používateľ môcť ihneď po odoslaní správy začať písať novú. Metóda `postMessage()` bude obsahovať nasledujúcu logiku:
+Ako posledný krok nastavíme obsah elementu `input` s  id="message>` ako prázdny. Takto bude používateľ môcť ihneď po odoslaní správy začať písať novú. Metóda `postMessage()` bude obsahovať nasledujúcu logiku:
 
 ```javascript
 class Chat {
@@ -398,7 +399,7 @@ class MessageStorage
 
 V súbore `api.php` do `switch` bloku pridáme reakciu na hodnotu `post-message`. Samotný text správy bude prenášaný v tele _HTTP POST_ požiadavky v _POST parametre_ s názvom `message`. Preto vyhodíme výnimku ak tento parameter nebude existovať alebo bude obsahovať prázdnu hodnotu. Následne si vytvoríme novú inštanciu triedy `Message` a jej jednotlive atribúty naplníme hodnotami. Následne túto inštanciu uložíme pomocou `MessageStorage::storeMessage()`.
 
-Po úspešnom vykonaní uloženia vrátime stavový kód vrátime _HTTP kód_ `204`. Kód bude nasledovný: 
+Po úspešnom vykonaní uloženia vrátime stavový kód vrátime _HTTP kód_ `204`. Kód bude nasledovný:
 
 ```php
 // ..
@@ -550,6 +551,7 @@ class User
     public string $name;
 }
 ```
+
 Podobne ako sme vytvorili triedu `MessageStorage`, obsahujúcu logiku obsluhujúcu ukladanie správ, vytvoríme triedu `UserStorage`. Tá bude obsahovať tri verejné metódy: získanie všetkých používateľov (pre overenie, či sa meno používa) a pridanie(používateľ sa úspešne prihlásil) a vymazanie používateľa (používateľ sa odhlásil).
 
 Metóda pre prihlásenie bude vyzerať nasledovne:
@@ -612,7 +614,7 @@ class UserStorage {
 
 Teraz rozšírime skript `api.php`, tak aby umožňoval prihlásenie používateľa. Aby server vedel, ktoré meno používatelia je platné pre aktuálne sedenie, budeme toto meno ukladať do [`session`](https://www.php.net/manual/en/book.session.php). Dáta pre dané sedenie _PHP_ umožňuje uložiť do špeciálnej super-globálnej premennej [`$_SESSION`](https://www.php.net/manual/en/reserved.variables.session.php). Aby sme ho mohli použiť potrebujeme _PHP_ povedať, že túto súčasť naša aplikácia bude používať. Preto ako prvý riadok v skripte `api.php` bude volanie funkcie [`session_start()`](https://www.php.net/manual/en/function.session-start.php).
 
-`$_SESSION` je pole, kde si pod index `user` budeme ukladať informáciu o mene aktuálne "prihláseného" používateľa pre dané sedenie. Pokiaľ tento index nebude existovať alebo bude obsahovať prázdnu hodnotu (`null` alebo prázdny textový reťazec) bude logika vedieť, že používateľ sa "neprihlásil". 
+`$_SESSION` je pole, kde si pod index `user` budeme ukladať informáciu o mene aktuálne "prihláseného" používateľa pre dané sedenie. Pokiaľ tento index nebude existovať alebo bude obsahovať prázdnu hodnotu (`null` alebo prázdny textový reťazec) bude logika vedieť, že používateľ sa "neprihlásil".
 
 Za proces prihlásenia, budeme v tom príklade, považovať keď používateľ odošle na server meno, ktoré nikto z prihlásených používateľov nepoužíva (implementáciu chceme udržať čo najjednoduchšiu, preto nevytvoríme prihlasovanie menom a heslom).
 
@@ -753,7 +755,7 @@ switch (@$_GET['method']) {
 
 Do klienta, do súbora `index.html`, vložíme prvky, ktoré budú predstavovať jednoduché menu. Toto menu bude obsahovať buď _formulár na prihlásenie_ alebo _čast zobrazujúca meno aktuálne prihlasného používateľa s tlačítkom pre odhlásenie_.
 
-Vytvoríme preto element `<div id="status-bar">`. Ten bude slúžiť ako obaľovací prvok, ktorý zobrazí vnútorne komponenty pomocou `possition: fixed` na vrchu _viewportu_. Ak nebude používateľ prihlásený, zobrazí sa element `<div id="login-form">` obsahujúci prvky formulára pre prihlásenie. V opačnom prípade po úspešnom prihlásení, bude zobrazený prvok `<div id="logout-form">` zobrazujúci informáciu o mene aktuálneho používateľa a tlačítko pre odhlásenie. HTML bude doplnené následovne:
+Vytvoríme preto element `<div id="status-bar">`. Ten bude slúžiť ako obaľovací prvok, ktorý zobrazí vnútorne komponenty pomocou `possition: fixed` na vrchu _viewportu_. Ak nebude používateľ prihlásený, zobrazí sa element `<div id="login-form">` obsahujúci prvky formulára pre prihlásenie. V opačnom prípade po úspešnom prihlásení, bude zobrazený prvok `<div id="logout-form">` zobrazujúci informáciu o mene aktuálneho používateľa a tlačítko pre odhlásenie. HTML bude doplnené nasledovne:
 
 ```html
 <!DOCTYPE html>
@@ -783,8 +785,9 @@ Doplníme ešte CSS pre doplnené elementy. V ďalšom JS kóde budeme používa
 
 ```css
 body {
-   padding-top: 20px;
+    padding-top: 20px;
 }
+
 #status-bar {
     top: 0;
     left: 0;
@@ -861,7 +864,7 @@ class UIHelper {
 export default UIHelper;
 ```
 
-Inštanciu triedy `UIHelper` vložíme do triedy `Chat` ako atribút `UI` následovne:
+Inštanciu triedy `UIHelper` vložíme do triedy `Chat` ako atribút `UI` nasledovne:
 
 ```javascript
 import UIHelper from "./UIHelper.js";
@@ -1218,7 +1221,7 @@ V prvom rade musíme doplniť a upraviť štruktúru `index.html`, tak že exist
 Zoznam používateľov a chat zobrazíme vedľa seba pomocou `css flexbox` a doplníme nasledovne CSS:
 
 ```css
-#frame {    
+#frame {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -1496,19 +1499,22 @@ Nakoniec doplníme do _CSS_ triedu `.private`, ktorá iba zmení pozadie privát
     background-color: #ffc83d;
 }
 ```
-V metóde `run()` ju nastavíme do časovača `setInterval()` podobne ako metódu `getMessages()`: 
+
+V metóde `run()` ju nastavíme do časovača `setInterval()` podobne ako metódu `getMessages()`:
 
 ```javascript
 // ...
 class Chat {
     // ...
-   async run() {
-      await this.checkLoggedState();
-      setInterval(this.getMessages, 1000);
-      setInterval(this.getUsers, 1000);
-      await this.getMessages()
-   }
-   // ...
+    async run() {
+        await this.checkLoggedState();
+        setInterval(this.getMessages, 1000);
+        setInterval(this.getUsers, 1000);
+        await this.getMessages()
+    }
+
+    // ...
 }
+
 // ...
 ```

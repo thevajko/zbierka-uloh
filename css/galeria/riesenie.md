@@ -85,10 +85,9 @@ Po aplikovaní tohto štýlu ale zostaneme prekvapený:
 
 Namiesto troch obrázkov na riadok máme len dva. Navyše oproti pôvodnému prípadu máme okolo obrázkov medzery. Po ďalšom skúmaní zistíme, že práve tieto medzery spôsobili, že sa nezmesia tri obrázky na riadok. Pri zobrazení `inline-block` sú tieto medzery spôsobené novým riadkom v HTML kóde medzi obrázkami.
 
-Ak v pôvodnom HTML kóde odstránime medzery medzi fotkami, tak tento problém zmizne. Toto ale nie je správne riešenie, nakoľko by sme sa pri deklarácii CSS pravidel nemali spoliehať na medzery medzi HTML elementami.
+Ak v pôvodnom HTML kóde odstránime medzery medzi fotkami, tak tento problém zmizne. Toto ale nie je správne riešenie, nakoľko by sme sa pri deklarácii CSS pravidel nemali spoliehať na medzery medzi HTML elementmi.
 
 ```html
-
 <div class="photo">
     ...
 </div>

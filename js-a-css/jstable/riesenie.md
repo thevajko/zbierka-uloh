@@ -128,7 +128,7 @@ poľa [`Array.prototype.forEach()`](https://www.w3schools.com/jsref/jsref_foreac
 
 Pre dynamickú tvorbu elementov hlavičky použijeme vytváranie elementov pomocou reťazca. Pre definovanie reťazcov
 použijeme tzv. [*template Literals*](https://developer.mozilla.
-org/en-US/docs/Web/JavaScript/Reference/Template_literals). Metódu `JsTable.renderHeader()` upravíme následovne:
+org/en-US/docs/Web/JavaScript/Reference/Template_literals). Metódu `JsTable.renderHeader()` upravíme nasledovne:
 
 ```javascript
 renderHeader()
@@ -449,7 +449,7 @@ však budeme filtrovať, ak bude vstup väčší ako jeden znak.
 V JavaScripte môžeme pre filtrovanie poľa
 použiť [`Array.prototype.filter()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
 . Táto metóda pre každý prvok v poli vykoná filtračnú funkciu, ktorá vracia hodnotu typu `bool`. Ak je výsledok `true`,
-daný prvok zaradí do nového výstupného pola.
+daný prvok zaradí do nového výstupného poľa.
 
 Pri samotnej kontole musíme prejsť hodnotu všetkých atribútov objektov v zdrojovej kolekcii `dataCollection`. Podreťazec
 v reťazci vieme hľadať pomocou [`String.prototype.includes()`](https://developer.mozilla.

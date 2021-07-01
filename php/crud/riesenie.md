@@ -52,7 +52,7 @@ Do databázy pre testovacie účely vložíme niekoľko záznamov.
 
 ### Pripojenie k databáze
 
-Pre čítanie dát z databázy existuje v jazyku PHP niekoľko prístupov. Každý DB systém môže mať vlastnú sadu tried (napr. [`mysqli()`](https://www.php.net/manual/en/book.mysqli.php) pre MySQL/MariaDB alebo [`pgsql()`](https://www.php.net/manual/en/book.pgsql.php) pre PostgreSQL). Okrem toho v PHP existuje unifikované rozhranie PHP Data Objects ([`PDO`](https://www.php.net/manual/en/book.pdo.php)), ktoré sa používa ako unifikovaná nadstavba nad rôznymi DBS.
+Pre čítanie dát z databázy existuje v jazyku PHP niekoľko prístupov. Každý DB systém môže mať vlastnú sadu tried (napr. [`mysqli()`](https://www.php.net/manual/en/book.mysqli.php) pre MySQL/MariaDB alebo [`pgsql()`](https://www.php.net/manual/en/book.pgsql.php) pre PostgreSQL). Okrem toho v PHP existuje unifikované rozhranie *PHP Data Objects* ([`PDO`](https://www.php.net/manual/en/book.pdo.php)), ktoré sa používa ako unifikovaná nadstavba nad rôznymi DBS.
 
 V našom príklade si ukážeme prístup cez PDO, ktoré je v súčasnosti odporúčané využívať, pretože na rozdiel od ostatných prístupov, plne podporuje objektový prístup.
 
@@ -71,11 +71,11 @@ try {
 }
 ```
 
-Takto vytvorená inštancia PDO nás pripojí na `mysql` databázový server s názvom `db` bežiacom na porte `3306` s prihlasovacím menom `"db_user"` a heslom `"db_user_pass"`. V prípade, že sa pripojenie nepodarí (nesprávne meno heslo, nedostupný db server), ukončíme beh celého skriptu pomocou funkcie  [`exit()`](https://www.php.net/manual/en/function.exit.php).
+Takto vytvorená inštancia PDO nás pripojí na `mysql` databázový server s názvom `db` bežiacom na porte `3306` s prihlasovacím menom `"db_user"` a heslom `"db_user_pass"`. V prípade, že sa pripojenie nepodarí (nesprávne meno heslo, nedostupný DB server), ukončíme beh celého skriptu pomocou funkcie  [`exit()`](https://www.php.net/manual/en/function.exit.php).
 
-Pre pohodlnejšiu prácu ešte nastavíme správanie PDO tak, že pri chybe dostaneme výnimku. Od PHP 8 je toto správanie predvolené, takže na PHP8 už `$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);` nieje potrebné.
+Pre pohodlnejšiu prácu ešte nastavíme správanie PDO tak, že pri chybe dostaneme výnimku. Od PHP8 je toto správanie predvolené, takže na PHP8 už `$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);` nie je potrebné.
 
-V aplikácii často pracujeme s rôznymi entitami, ale pripájame sa na rovnakú databázu. Dobrou praxou je pre to oddelenie pripojenia k databáze do vlastnej triedy, ktorú môžeme implementovať ako *singleton*, aby sme mali len jedno spoločné pripojenie k databáze. Spravíme pre to triedu `Db`, ktorá bude zaobaľovať túto funkcionalitu.
+V aplikácii často pracujeme s rôznymi entitami, ale pripájame sa na rovnakú databázu. Dobrou praxou je preto oddelenie pripojenia k databáze do vlastnej triedy, ktorú môžeme implementovať ako *singleton*, aby sme mali len jedno spoločné pripojenie k databáze. Vytvoríme triedu `Db`, ktorá bude zaobaľovať túto funkcionalitu.
 
 ```php
 class Db 
@@ -132,9 +132,9 @@ class User
 
 Trieda `UserStorage` bude mať metódy na:
 
-- Získanie zoznamu používateľov
-- Uloženie používateľa
-- Odstránenie používateľa
+- získanie zoznamu používateľov,
+- uloženie používateľa,
+- odstránenie používateľa.
 
 Vzťahy medzi jednotlivými triedami budú vyzerať nasledovne:
 
@@ -150,7 +150,7 @@ Začneme implementáciou metódy `UserStorage::getAll()`. Pre získanie dát z d
 
 Metóda `PDO::query()` vracia výsledok operácie z databázy v podobe inštancie triedy [`PDOStatement`](https://www.php.net/manual/en/class.pdostatement.php), v prípade ak databáza nájde výsledok, alebo `false`, ak nenájde nič.
 
-Ak chceme získať dáta v podobe, ktorú je možné ľahko iterovať, musíme použiť metódu [`PDOStatement::fetchAll()`](https://www.php.net/manual/en/pdostatement.fetchall.php). Tá má vstupný parameter, ktorý upresňuje spôsob, akým sú jednotlivé riadky tabuľky transformované. PDO podporuje rôzne módy, napríklad štandardne používaný `PDO::FETCH_ASSOC` vráti dáta v asociatívnom poli, kde kľúčom bude názov stĺpca a hodnotou príslušná hodnota v danom riadku. V našom prípade ale môžeme využiť to, že máme k dispozícii entitnú triedu, a prinútiť PDO aby nám dáta vrátilo v týchto entitných triedach použitím módu `PDO::FETCH_CLASS` a uvedením príslušnej triedy `User::class`.
+Ak chceme získať dáta v podobe, ktorú je možné ľahko iterovať, musíme použiť metódu [`PDOStatement::fetchAll()`](https://www.php.net/manual/en/pdostatement.fetchall.php). Tá má vstupný parameter, ktorý upresňuje spôsob, akým sú jednotlivé riadky tabuľky transformované. PDO podporuje rôzne módy, napríklad štandardne používaný `PDO::FETCH_ASSOC` vráti dáta v asociatívnom poli, kde kľúčom bude názov stĺpca a hodnotou príslušná hodnota v danom riadku. V našom prípade ale môžeme využiť to, že máme k dispozícii entitnú triedu a prinútiť PDO aby nám dáta vrátilo v týchto entitných triedach použitím módu `PDO::FETCH_CLASS` a uvedením príslušnej triedy `User::class`.
 
 Výsledná metóda na získanie všetkých používateľov bude vyzerať nasledovne:
 
@@ -166,7 +166,7 @@ public function getAll(): array
 }
 ```
 
-V ďalšom kroku potrebujeme získať záznam jedného používateľa pomocou metódy `UserStorage::get($id)`. Mohli by sme síce využiť metódu z predchádzajúceho príkladu, kde by sme získali všetkých používateľov a následne medzi nimi našli podľa `id` toho správneho, ale tento prístup by bol neefektívny. Na nájdenie konkrétneho používateľa použijeme priamo SQL, kde pridáme podmienku. SQL na nájdenie používateľa s id `5` by mohlo vyzerať nasledovne:
+V ďalšom kroku potrebujeme získať záznam jedného používateľa pomocou metódy `UserStorage::get($id)`. Mohli by sme síce využiť metódu z predchádzajúceho príkladu, kde by sme získali všetkých používateľov a následne medzi nimi našli podľa `id` toho správneho, ale tento prístup by bol neefektívny. Na nájdenie konkrétneho používateľa použijeme priamo SQL, kde pridáme podmienku. SQL na nájdenie používateľa s `id=5` by mohlo vyzerať nasledovne:
 
 ```sql
 SELECT * FROM users WHERE id = 5

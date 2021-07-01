@@ -77,7 +77,7 @@ class SubmitButton extends AFormElement
 }
 ```
 
-V konštruktore definujeme atribút `label`, čo predstavuje text, ktorý bude zobrazený na tlačidle. V metóde `render()` sme definovali HTML kód daného tlačidla. Atribút `name` sme nastavili podľa názvu komponentu (deklarovaný v predkovi) a atribút `value` obsahuje text, ktorý bude na tlačidle. Dôležité na tomto príklade je to, že nesmieme zabudnúť zavolať konštruktor predka - `parent::__construct($name);`.
+V konštruktore definujeme atribút `$label`, čo predstavuje text, ktorý bude zobrazený na tlačidle. V metóde `render()` sme definovali HTML kód daného tlačidla. Atribút `$name` sme nastavili podľa názvu komponentu (deklarovaný v predkovi) a atribút `$value` obsahuje text, ktorý bude na tlačidle. Dôležité na tomto príklade je to, že nesmieme zabudnúť zavolať konštruktor predka - `parent::__construct($name);`.
 
 #### Základný formulárový prvok
 
@@ -105,9 +105,9 @@ abstract class AFormField extends AFormElement {
 }
 ```
 
-Trieda si pamätá hodnotu formulárového prvku v atribúte `value`. Ak bol formulár odoslaný, tak nastavíme túto hodnotu z poľa `$_POST`. V opačnom prípade tam nastavíme východziu hodnotu, ktorú sme dostali ako parameter konštruktora. Okrem konštrukora si deklarujeme abstraktnú metódu `renderElement`, pomocou ktorej budú potomkovia definovať konkrétny formulárový prvok.
+Trieda si pamätá hodnotu formulárového prvku v atribúte `value`. Ak bol formulár odoslaný, tak nastavíme túto hodnotu z poľa `$_POST`. V opačnom prípade tam nastavíme východziu hodnotu, ktorú sme dostali ako parameter konštruktora. Okrem konštrukora si deklarujeme abstraktnú metódu `renderElement()`, pomocou ktorej budú potomkovia definovať konkrétny formulárový prvok.
 
-Ďalej si deklarujeme metódu `render`. Tá bude spoločná pre všetky formulárové prvky. Táto metóda vykreslí element `label` a pomocou metódy `renderElement()` vykreslí telo daného elementu.
+Ďalej si deklarujeme metódu `render()`. Tá bude spoločná pre všetky formulárové prvky. Metóda vykreslí element `label` a pomocou metódy `renderElement()` vykreslí telo daného elementu.
 
 ```php
  public function render(): void {
@@ -169,7 +169,7 @@ class Form {
 }
 ```
 
-Táto trieda si bude v atribúte `formFields` pamätať zoznam všetkých formulárových prvkov. Vykreslenie formulára pozostáva z dvoch častí. Najskôr vykreslíme HTML kód samotného formulára - `div` element a v ňom `form`. Následne prejdeme všetky formulárové prvky cyklom `foreach` a zobrazíme každý zvlášť. Na konci by sme mali dostať kompletný HTML kód formulára.
+Táto trieda si bude v atribúte `$formFields` pamätať zoznam všetkých formulárových prvkov. Vykreslenie formulára pozostáva z dvoch častí. Najskôr vykreslíme HTML kód samotného formulára - `div` element a v ňom `form`. Následne prejdeme všetky formulárové prvky cyklom `foreach` a zobrazíme každý zvlášť. Na konci by sme mali dostať kompletný HTML kód formulára.
 
 #### Získanie vyplnených údajov
 
@@ -183,7 +183,7 @@ public function getData(): array
 }
 ```
 
-Táto metóda prejde všetky formulárové prvky. Najskôr ich ale prefiltruje pomocou metódy [`array_filter()`](https://www.php.net/manual/en/function.array_filter). Pri získavaní hodnôt chceme len inštancie typu `AFormField` pretože len tie obsahujú "hodnotu". Po prefiltronaví aplikujeme funkciu [`array_map()`](https://www.php.net/manual/en/function.array_map), pomocou ktorej z `AFormField` prvkov vytiahneme vyplnenú hodnotu.
+Táto metóda prejde všetky formulárové prvky. Najskôr ich ale prefiltruje pomocou metódy [`array_filter()`](https://www.php.net/manual/en/function.array_filter). Pri získavaní hodnôt chceme len inštancie typu `AFormField` pretože len tie obsahujú "hodnotu". Po prefiltrovaní aplikujeme funkciu [`array_map()`](https://www.php.net/manual/en/function.array_map), pomocou ktorej z `AFormField` prvkov vytiahneme vyplnenú hodnotu.
 
 Vyššie spomenutý kód by sa dal prepísať aj pomocou jednoduchého `foreach` cyklu nasledovne:
 
@@ -228,7 +228,7 @@ private function getDefaultValue($key)
 }
 ```
 
-Táto metóda sa pokúsi nájsť hodnotu v atribúte `defaultValues` a v prípade, že sa tam nenachádza vráti prázdny reťazec.
+Táto metóda sa pokúsi nájsť hodnotu v atribúte `$defaultValues` a v prípade, že sa tam nenachádza, vráti prázdny reťazec.
 
 Metóda na pridanie textového poľa by mohla vyzerať nasledovne:
 
@@ -265,7 +265,7 @@ Pridanie tlačidla je rovnaké ako v prípade textového poľa, len v tomto prí
 
 ### Validácia formulára
 
-Aktuálne implementovaný formulár obsahuje len vkladanie základných textových polí bez nejakej validácie vstupov. Na základe návrhu, validácia bude implementovaná pomocou jednoduchej objektovej štruktúry.
+Aktuálne implementovaný formulár obsahuje len vkladanie základných textových polí bez validácie vstupov. Na základe návrhu, validácia bude implementovaná pomocou jednoduchej objektovej štruktúry.
 
 #### Základná trieda pre všetky validátory
 
@@ -368,7 +368,7 @@ public function getValue() {
 }
 ```
 
-Metóda `isValid()` nám vráti `true` v prípade, že po validácii nemáme žiadne validačné chyby. Volanie validácie v metóde `getValue()` sme pridali preto, aby sa nám upravili vyplnené hodnoty (napr. aby nám `getValue()` v prípade číselného poľa vrátilo číslo po aplikovaní daného validátora).
+Metóda `isValid()`  vráti `true` v prípade, že po validácii nemáme žiadne validačné chyby. Volanie validácie v metóde `getValue()` sme pridali preto, aby sa nám upravili vyplnené hodnoty (napr. aby nám `getValue()` v prípade číselného poľa vrátilo číslo po aplikovaní daného validátora).
 
 Metódu `render()` upravíme tak, aby vypisovala nájdené validačné chyby nasledovne:
 

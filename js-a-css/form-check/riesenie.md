@@ -157,7 +157,7 @@ if (nieco == null) {
 
 Tento zápis vieme zjednodušiť na `nieco?.ahoj()` pomocou [*optional chaining* operátora](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining).
 
-Zmazanie elementu s chybovou hláškou bude teda vyzerať následovne:
+Zmazanie elementu s chybovou hláškou bude teda vyzerať nasledovne:
 
 ```javascript
 function validateInput(element, validationFunction) {
@@ -327,7 +327,7 @@ function validateInput(element, validationFunction) {
 }
 ```
 
-Formulár sa bude správať následovne:
+Formulár sa bude správať nasledovne:
 
 ![](images_form-check/form-check-02.gif)
 
