@@ -12,7 +12,7 @@
 
 Vytvorte PHP triedu, ktoré bude schopná zobraziť obsah ľubovolnej tabuľky a bude vedieť:
 
-- načíta a zobrazí všetky dáta vo forme HTML tabuľky
-- Bude vedieť zoradiť dáta vzostupne a zostupne kliknutím na hlavičku 
-- Zobrazené dáta bude vedieť stránkovať
+- Načíta a zobrazí všetky dáta vo forme HTML tabuľky.
+- Bude vedieť zoradiť dáta vzostupne a zostupne kliknutím na záhlavie tabuľky. 
+- Zobrazené dáta bude vedieť stránkovať.
 

@@ -368,7 +368,7 @@ public function getValue() {
 }
 ```
 
-Metóda `isValid()` nám vráti `true` v prípade, že po validácii nemáme žiadne validačné chyby. Volanie validácie v metóde `getValue()` sme pridali preto, aby sa nám upravili vyplnené hodnoty (napr. aby nám `getValue()` v prípade číselného poľa vrátilo číslo a reťazec po aplikovaní daného validátora).
+Metóda `isValid()` nám vráti `true` v prípade, že po validácii nemáme žiadne validačné chyby. Volanie validácie v metóde `getValue()` sme pridali preto, aby sa nám upravili vyplnené hodnoty (napr. aby nám `getValue()` v prípade číselného poľa vrátilo číslo po aplikovaní daného validátora).
 
 Metódu `render()` upravíme tak, aby vypisovala nájdené validačné chyby nasledovne:
 

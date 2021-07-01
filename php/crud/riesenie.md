@@ -367,7 +367,7 @@ echo "Uživateľ {$user->getFullname()} ostránený.<br><a href='?'>Späť</a>";
 
 V tomto kóde nemáme takmer žiadne HTML kód. Jediný HTML kód, ktorý sa tu nachádza, je výpis správy o odstránení / neodstránení používateľa. Jednu zaujímavosť, ktorú si tu môžeme všimnúť je použitie kľúčového slova `return`. Tento príkaz spôsobí ukončenie spracovávania tohto skriptu, akoby sme boli v nejakej metóde / funkcii, ale spracovávanie súboru `index.php`, do ktorého sme tento skript vložili, bude pokračovať ďalej.
 
-![Informácia o ostráneni použivateľa](images_crud/delete-result.png)
+![Informácia o odstránení záznamu používateľa](images_crud/delete-result.png)
 
 Aktuálne implementované mazanie používateľov má ale jeden malý nedostatok. Z používateľského hľadiska nie je dobré zmazať údaje bez toho, aby používateľ túto akciu potvrdil. Môže sa totižto stať, že používateľ aplikácie omylom klikne na tlačidlo `Delete` a týmto spôsobom záznam nechcene odstráni.
 
@@ -409,7 +409,8 @@ Skutočne chcete odstrániť používateľa <?=$user->getFullname()?>?
 
 #### Implementácia pomocou JavaScriptu
 
-Druhým spôsobom je implementácia pomocou jednoduchého *confirm* dialógu v jazyku JavaScript. Tento JavaScript je potrebné aplikovať na tlačidlo `Delete` v zozname používateľov. Funkcia `confirm()` má ako parameter správu, ktorú zobrazí a poď ňou zobrazí tlačidla `Yes` a `Cancel`. Pokiaľ chceme túto funkciu skombinovať s odkazom na odstránenie používateľa, môžeme použiť udalosť `onclick`. Pokiaľ funkcia, ktorá je v definovaná v udalosti `onclick` vráti návratovú hodnotu `false`,  tak prehliadač zablokuje presmerovanie definované príslušným odkazom.
+Druhým spôsobom je implementácia pomocou jednoduchého *confirm* dialógu v jazyku JavaScript. Tento JavaScript je potrebné aplikovať na tlačidlo `Delete` v zozname používateľov. Funkcia `confirm()` má ako parameter správu, ktorú zobrazí a poď ňou zobrazí tlačidla `Yes` a `C
+ancel`. Pokiaľ chceme túto funkciu skombinovať s odkazom na odstránenie používateľa, môžeme použiť udalosť `onclick`. Pokiaľ funkcia, ktorá je v definovaná v udalosti `onclick` vráti návratovú hodnotu `false`,  tak prehliadač zablokuje presmerovanie definované príslušným odkazom.
 
 ```html
 <a href="?p=users/delete&id=<?=$user->id?>" onclick="return confirm('Skutočne chcete odstrániť tento záznam?')">Delete</a>
