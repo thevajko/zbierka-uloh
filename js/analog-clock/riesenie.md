@@ -61,7 +61,7 @@ window.onload = function(){
 ```
 Výsledkom skriptu je takýto kruh:
 
-![](images_analog_clock/aclock-01.png)
+![](images_analog-clock/aclock-01.png)
 
 ### Vykreslenie ručičiek
 
@@ -116,7 +116,7 @@ window.onload = function(){
 
 Výsledná kresba by mala vyzerať nasledovne:
 
-![](images_analog_clock/aclock-02.png)
+![](images_analog-clock/aclock-02.png)
 
 ### Vykreslenie ciferníka 
 
@@ -161,7 +161,7 @@ window.onload = function(){
 ```
 Vykreslí sa:
 
-![](images_analog_clock/aclock-03.png)
+![](images_analog-clock/aclock-03.png)
 
 
 ### Vykreslenie ciferníka
@@ -192,7 +192,7 @@ function makeTick(ctx){
 ```
 Ciferník bude vyzerať takto:
 
-![](images_analog_clock/aclock-04.png) 
+![](images_analog-clock/aclock-04.png) 
 
 Teraz doplníme do zobrazenia ručičky a ich jednotlive uhly vyrátame týmto spôsobom:
 
@@ -226,7 +226,7 @@ function makeTick(ctx){
 ```
 Hodiny sa zobrazia nasledovne:
 
-![](images_analog_clock/aclock-05.png)
+![](images_analog-clock/aclock-05.png)
 
 Ako posledné potrebujeme, aby sa funkcia `makeTick()` spúšťala každú sekundu a vytvoril sa tak dojem, že sa hodiny idú. To docielime periodickým spúštaním za pomoci metódy [`setInterval()`](https://www.w3schools.com/jsref/met_win_setinterval.asp) každú sekundu.
 
@@ -271,4 +271,4 @@ window.onload = function(){
 
 Výsledok:
 
-![](images_analog_clock/aclock-01.gif)
+![](images_analog-clock/aclock-01.gif)

@@ -12,22 +12,19 @@
 Máme definované HTML, ktoré vyzerá nasledovne:
 
 ```html
-
 <div class="gallery">
     <div class="photo">
-        <img src="images_galeria/fotka.jpg"/>
+        <img src="images_gallery/fotka.jpg"/>
         <h3>Včelín</h3>
         <p>Popisok fotky, na ktorej je včelín.</p>
     </div>
 
     <div class="photo">
-        <img src="images_galeria/fotka2.jpg"/>
+        <img src="images_gallery/fotka2.jpg"/>
         <h3>Včela</h3>
         <p>Popisok fotky, na ktorej je včela.</p>
     </div>
-
     ...
-
 </div>
 ```
 
@@ -43,19 +40,19 @@ Naštýlujte pomocou CSS túto galériu nasledovne:
 
 #### Zobrazenie na malom zariadení
 
-![](images_galeria/zadanie-s.jpg)
+![](images_gallery/zadanie-s.jpg)
 
 #### Zobrazenie na strednom zariadení
 
-![](images_galeria/zadanie-m.jpg)
+![](images_gallery/zadanie-m.jpg)
 
 #### Zobrazenie na veľkom zariadení
 
-![](images_galeria/zadanie-l.jpg)
+![](images_gallery/zadanie-l.jpg)
 
 #### Zobrazenie informácie o obrázku
 
-![](images_galeria/zadanie-hover.jpg)
+![](images_gallery/zadanie-hover.jpg)
 
 ### Cieľ príkladu
 

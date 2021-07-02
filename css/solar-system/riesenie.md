@@ -43,7 +43,7 @@ Začneme s deklaráciou štýlu pre slnko. Pokiaľ chceme slnko umiestniť do st
   position: absolute;
   left: 50%;
   top: 50%;
-  background-image: url("images_planety/sun.png");
+  background-image: url("images_solar-system/sun.png");
   background-size: cover;
   transform: translate(-50%, -50%);
 }
@@ -60,7 +60,7 @@ Pomocou tohto štýlu sme nastavili veľkosť, pozíciu, pozadie a posunuli sme 
     position: absolute;
     left: 50%;
     top: 50%;
-    background-image: url("images_planety/earth.png");
+    background-image: url("images_solar-system/earth.png");
     background-size: cover;
     transform: translate(-50%, -50%) translateX(300px);
 }
@@ -88,19 +88,19 @@ Upravený kód pomocou CSS premenných by mohol vyzerať nasledovne:
 .sun {
     --size: 120px;
     --orbitRadius: 0;
-    background-image: url("images_planety/sun.png");
+    background-image: url("images_solar-system/sun.png");
 }
 
 .earth {
     --size: 80px;
     --orbitRadius: 300px;
-    background-image: url("images_planety/earth.png");
+    background-image: url("images_solar-system/earth.png");
 }
 
 .saturn {
     --size: 150px;
     --orbitRadius: 450px;
-    background-image: url("images_planety/saturn.png");
+    background-image: url("images_solar-system/saturn.png");
 }
 ```
 
@@ -112,11 +112,11 @@ V našom konkrétnom príklade sme použili na prvý pohľad komplikovaný výpo
 
 Pre animáciu otáčania už máme pripravené všetko potrebné. Poďme sa pozrieť, akým spôsobom vieme nejakú planétu - napr. saturn otočiť okolo slnka. Začali sme s tým, že všetky planéty a slnko sú umiestnené na stred obrazovky a potom pomocou `translateX` sme ich posunuli smerom napravo na svoju orbitu.
 
-![Posun planéty v smere osi X](images_planety/step1-translate.png)
+![Posun planéty v smere osi X](images_solar-system/step1-translate.png)
 
 Pokiaľ pred posun planéty vložíme otočenie, môžeme tým kontrolovať uhol, pod ktorým sa naša planéta vzdiali od slnka. Napríklad, ak vložíme pred `translateX(450px)` otočenie o 45 stupňov - `rotate(45deg)`, tak dostaneme:
 
-![Otočenie planéty o 45 stupňov](images_planety/step2-translate.png)
+![Otočenie planéty o 45 stupňov](images_solar-system/step2-translate.png)
 
 Planétka je síce otočená okolo slnka o 45 stupňov, ale pribudol ďalší problém. Planétka sa otočila okolo svojej osi. Ak to chceme vrátiť späť, tak za posun (`translateX(450px)`) doplníme rotáciu v opačnom smere, ktorá otočí planétu na aktuálnej pozícii o 45 stupňov späť. Celkový zápis otočenia planétky presne o 45 stupňov bude nasledovný:
 
@@ -124,7 +124,7 @@ Planétka je síce otočená okolo slnka o 45 stupňov, ale pribudol ďalší pr
     transform: rotate(45deg) translateX(450px) rotate(-45deg);
 ```
 
-![Otočenie planéty do pôvodnej pozície](images_planety/step3-translate.png)
+![Otočenie planéty do pôvodnej pozície](images_solar-system/step3-translate.png)
 
 #### Animácia obehu planétky
 
@@ -149,7 +149,7 @@ Finálna definícia elementu, napríklad pre saturn s aplikovanou animáciou mô
 .saturn {
     --size: 150px;
     --orbitRadius: 450px;
-    background-image: url("images_planety/saturn.png");
+    background-image: url("images_solar-system/saturn.png");
     animation: circularOrbit 8s linear infinite;
 }
 ```
@@ -160,7 +160,7 @@ Vzhľadom na univerzálnosť celého návrhu bude pridanie mesiaca úplne rovnak
 .moon {
     --size: 40px;
     --orbitRadius: 80px;
-    background-image: url("images_planety/moon.png");
+    background-image: url("images_solar-system/moon.png");
     animation: circularOrbit 2s linear infinite;
 }
 ```
@@ -171,7 +171,7 @@ Mesiac využíva rovnaké vlastnosti ako ostatné planéty, len centrum jeho obe
 
 V zápise animácie môžeme definovať tzv. *timing* funkciu. V uvedenom príklade bola ako *timing* funkcia zvolená funkcia `linear`, ktorá sa správa tak, že planétky sa pohybujú rovnako rýchlo po celý čas obehu. Tieto *timing* funkcie sa definujú pomocou kubických bezierových kriviek. Našťastie si tieto krivky nemusíme počítať manuálne, ale môžeme využiť online nástroj - napríklad [cubic-bezier.com](https://cubic-bezier.com). Môžeme napríklad vyskúšať funkciu `cubic-bezier(.61,.11,.41,.91)`, ktorá spôsobí, že zo začiatku planétka pôjde veľmi pomaly, postupne bude zrýchlovať, v polovici otáčky pôjde najrýchlejšie a na konci zas spomalí. Spomenutá *timing* funkcia vyzerá nasledovne:
 
-![Ukážka timing funkcie](images_planety/timing-funckia.png)
+![Ukážka timing funkcie](images_solar-system/timing-funckia.png)
 
 ### Vykreslenie orbitálnych dráh
 

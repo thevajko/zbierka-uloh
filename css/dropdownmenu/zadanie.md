@@ -55,4 +55,4 @@ Všimnite si však, že samotné elementy `ul` a `li` definujú *iba* štruktúr
 Pre riešenie použite výlučne iba CSS.
 
 ### Cieľ príkladu
-Tento príklad ma za hlavný cieľ demonštráciu toho, čo všetko možné je dosiahnuť použitím výlučne _CSS_ bez nutnosti použiť _javascript_. Príklad sa zameriava na správne formátovanie prvkov a predovšetkým na použitie _CSS vlastnosti_ `possition`.
+Tento príklad ma za hlavný cieľ demonštráciu toho, čo všetko možné je dosiahnuť použitím výlučne CSS bez nutnosti použiť JavaScript. Príklad sa zameriava na správne formátovanie prvkov a predovšetkým na použitie CSS vlastnosti `position`.

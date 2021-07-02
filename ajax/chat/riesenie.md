@@ -188,11 +188,11 @@ try {
 
 Ak teraz zavoláme naše API a nepošleme žiadne GET parametre, dostaneme chybovú hlášku spolu s HTTP stavovým kódom.
 
-![](images_simplechat/api-01.png)
+![](images_chat/api-01.png)
 
 Ak však pridáme GET parameter `method=get-messages` dostaneme odpoveď bez chyby, aj keď v podobe prázdneho poľa, nakoľko v databáze nemáme žiadne záznamy.
 
-![](images_simplechat/api-02.png)
+![](images_chat/api-02.png)
 
 Základným súborom klienta je súbor `index.html` obsahujúci statickú webovú stránku. Ten bude načítavať súbor `main.js`, ako *JavaScript modul*, a bude obsahovať inicializáciu klienta aplikácie.
 

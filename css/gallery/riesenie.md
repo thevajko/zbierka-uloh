@@ -52,11 +52,11 @@ V poslednom rade sme roztiahli obrázok na celú šírku príslušného elementu
 
 Tento kód má ale ešte jednu chybu:
 
-![](images_galeria/riesenie1.jpg)
+![](images_gallery/riesenie1.jpg)
 
 Ako môžeme vidieť na obrázku, fotka sa nám zdeformovala. Pôvodný obrázok bol totižto fotený *na výšku* a keď obrázku nastavíme rozmery na `100%`, tak sa roztiahne a zdeformuje. Túto deformáciu môžeme našťastie jednoducho vyriešiť pomocou vlastnosti `object-fit: cover`, ktorá definuje spôsob, akým sa obrázok prispôsobí pri zmene veľkosti. Po aplikovaní tejto vlastnosti na obrázok dostaneme:
 
-![](images_galeria/riesenie2.jpg)
+![](images_gallery/riesenie2.jpg)
 
 ### Zobrazenie obrázkov v gride
 
@@ -81,7 +81,7 @@ Okrem pridania vlastnosti display sme zmenili aj šírku elementov - ak chceme t
 
 Po aplikovaní tohto štýlu ale zostaneme prekvapený:
 
-![](images_galeria/riesenie3.jpg)
+![](images_gallery/riesenie3.jpg)
 
 Namiesto troch obrázkov na riadok máme len dva. Navyše oproti pôvodnému prípadu máme okolo obrázkov medzery. Po ďalšom skúmaní zistíme, že práve tieto medzery spôsobili, že sa nezmesia tri obrázky na riadok. Pri zobrazení `inline-block` sú tieto medzery spôsobené novým riadkom v HTML kóde medzi obrázkami.
 
@@ -111,7 +111,7 @@ Druhým spôsobom je ponechanie blokového zobrazenia fotky. Blokovým elementom
 
 Výsledkom bude správne zobrazenie troch fotiek na jednom riadku:
 
-![](images_galeria/riesenie4.jpg)
+![](images_gallery/riesenie4.jpg)
 
 #### Riešenie cez flexbox
 
@@ -126,22 +126,22 @@ Posledným spôsobom je riešenie pomocou rozloženia **flexbox**. Najskôr potr
 
 Okrem `display: flex` musíme nastaviť aj vlastnosť `flex-wrap` na hodnotu `wrap`, aby sa *flexbox* nepokúšal o zobrazenie všetkých elementov na jednom riadku, ako môžeme vidieť v nasledovnom obrázku:
 
-![](images_galeria/riesenie5.jpg)
+![](images_gallery/riesenie5.jpg)
 
 Po nastavení `flex-wrap: wrap;` je už všetko v poriadku. Výhodou *flexboxu* oproti riešeniu s obtekaním je to, že *flexbox* má veľké množstvo ďalších možností. Predstavte si, že nemáme presný počet obrázkov tak, aby sme vyplnili všetky riadky. V prípade riešenia s obtekaním nám posledný obrázok zostane na ľavom okraji. Ak použijeme *flexbox*,
 môžeme pomocou vlastnosti `justify-content` nastaviť, čo sa má stať v prípade, že nebude dostatok fotiek na riadku.
 
 Ak nastavíme `justify-content` na `center`, tak sa nám fotky vycentrujú do stredu:
 
-![](images_galeria/riesenie6.jpg)
+![](images_gallery/riesenie6.jpg)
 
 Môžeme ale vyskúšať aj hodnotu `space-between`, ktorá nám fotky rozhodí na kraje:
 
-![](images_galeria/riesenie7.jpg)
+![](images_gallery/riesenie7.jpg)
 
 Alebo hodnotu `space-evenly`, ktorá nám ich umiestni s rovnomernými medzerami:
 
-![](images_galeria/riesenie8.jpg)
+![](images_gallery/riesenie8.jpg)
 
 Týchto vlastností je veľké množstvo a stačí si vybrať podľa potreby.
 
@@ -156,7 +156,7 @@ Ak nám nevyhovuje prázdne miesto v spodnom riadku, môžeme nastaviť fotke vl
 }
 ```
 
-![](images_galeria/riesenie9.jpg)
+![](images_gallery/riesenie9.jpg)
 
 #### Pridanie medzier medzi obrázky
 
@@ -174,7 +174,7 @@ Najjednoduchším spôsobom je pridanie okraja k fotke. Problém je, že okraj r
 }
 ```
 
-![](images_galeria/riesenie10.jpg)
+![](images_gallery/riesenie10.jpg)
 
 ### Rôzne počet obrázkov na riadku na základe veľkosti zariadenia
 
@@ -222,7 +222,7 @@ V tomto príklade sme pevne určili výšku obrázka na `300px` a minimálnu š�
 
 V aktuálnej verzii ešte nemáme naštýlovaný popis obrázku. Popis sa momentálne prelína s obrázkom.
 
-![](images_galeria/riesenie11.jpg)
+![](images_gallery/riesenie11.jpg)
 
 Začneme zo správnym umiestnením textov a nastavením správnej farby. Farbu nastavíme celému elementu `photo`.
 
@@ -250,7 +250,7 @@ A jednotlivé prvky správne umiestnime:
 
 Pri nastavovani popisu sme museli prepísať vlastnosť `top`, pretože túto sme nastavili všetkým elementom vo fotke pomocou selektoru `.photo > *`.
 
-![](images_galeria/riesenie12.jpg)
+![](images_gallery/riesenie12.jpg)
 
 Ďalším krokom bude stmavenie celého obrázku. To sa dá urobiť viacerými spôsobmi. Najjednoduchšie bude použitie vlastnosti `opacity`, ktorá umožní spriehľadniť ľubovolný element. Ak to navyše skombinujeme s tmavou farbou pozadia fotky dostaneme efekt stmaveného pozadia.
 
@@ -266,7 +266,7 @@ Pri nastavovani popisu sme museli prepísať vlastnosť `top`, pretože túto sm
 
 Vlastnosť `opacity` sme nastavili pomocou selektoru `:hover`, takže pozadie stmavne až po prejdení myšou ponad obrázok.
 
-![](images_galeria/riesenie13.jpg)
+![](images_gallery/riesenie13.jpg)
 
 Pokiaľ chceme, aby sa aj texty zobrazili až po premiestnení myši na obrázok, tak musíme upraviť ich CSS nasledovne:
 
@@ -322,13 +322,13 @@ Celková animácia bude trvať 1 sekundu s tým, že sme jej začiatok posunuli 
 
 Posledným problémom, ktorý musíme vyriešiť je, že akonáhle sme posunuli popis o `1000%` v smere osi Y, tak počas animácie sa nám môže stať, že sa na stránke objaví posuvník.
 
-![](images_galeria/riesenie14.jpg)
+![](images_gallery/riesenie14.jpg)
 
 Na obrázku vyššie môžeme vidieť, ako sa v pravom dolnom obrázku postupne nasúva text a počas tejto animácie vidíme zobrazený posuvník napravo. Po skončení animácie posuvník zmizne.
 
 Ak nastavíme pozadie stránky na tmavú farbu, môžeme presne vidieť, čo sa deje:
 
-![](images_galeria/riesenie15.jpg)
+![](images_gallery/riesenie15.jpg)
 
 Text sa zobrazuje v skutočnosti mimo elementu fotky. Tento problém môžeme vyriešiť tak, že elementu `photo` nastavíme hodnotu parametra `overflow` na `hidden`, čo spôsobí, že hocijaký obsah, ktorý by sa mal vykresliť mimo elementu `photo` bude skrytý.
 
@@ -340,4 +340,4 @@ Text sa zobrazuje v skutočnosti mimo elementu fotky. Tento problém môžeme vy
 
 Výsledná galéria bude vyzerať nasledovne:
 
-![](images_galeria/zadanie-final.jpg)
+![](images_gallery/zadanie-final.jpg)

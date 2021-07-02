@@ -11,7 +11,7 @@
 
 Naštýlujte pomocou CSS tabuľku podľa priloženého obrázku:
 
-![](images_selektory/zadanie1.png)
+![](images_selectors/zadanie1.png)
 
 Riešenie musí spĺňať nasledovné podmienky:
 
@@ -36,11 +36,11 @@ Riešenie musí spĺňať nasledovné podmienky:
 
 #### Zobrazenie stĺpcov s číslami.
 
-![](images_selektory/zadanie2.png)
+![](images_selectors/zadanie2.png)
 
 #### Hlavička tabuľky pri pohnutí posuvníkom.
 
-![](images_selektory/zadanie-hlavicka.png)
+![](images_selectors/zadanie-hlavicka.png)
 
 #### Štruktúra HTML kódu
 

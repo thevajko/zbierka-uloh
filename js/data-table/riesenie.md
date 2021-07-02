@@ -107,7 +107,7 @@ novú inštanciu triedy `JsTable` a doplní správne parametre:
 
 Výsledok by sa mal zobraziť takto:
 
-![](images_jstable/table-01.png)
+![](images_data-table/table-01.png)
 
 ### Jednoduché zobrazenie
 
@@ -145,7 +145,7 @@ renderHeader()
 Pokiaľ teraz spustíme skript tabuľka bude doplnená o názvy atribútov v hlavičke tabuľky. Výsledná tabuľka sa zobrazí
 nasledovne:
 
-![](images_jstable/table-02.png)
+![](images_data-table/table-02.png)
 
 Pri generovaní obsahu v metóde `JsTable.renderRows()` iba rozšírime kód, ktorý sme vložili do
 metódy `JsTable.renderHeader()`. Generovanie kódu pre jeden riadok je rovnaký ako pri hlavičke s tým rozdielom, že
@@ -199,7 +199,7 @@ renderRows()
 
 Tabuľka teraz vypíše celú kolekciu nasledovne:
 
-![](images_jstable/table-03.png)
+![](images_data-table/table-03.png)
 
 ### Zoraďovania podla stĺpca
 
@@ -347,7 +347,7 @@ A nesmieme zabudnúť doplniť predvolenú hodnotu do konštruktora:
 
 Tabuľka sa bude teraz dať zoradiť oboma smermi.
 
-![](images_jstable/tabulka-01.gif)
+![](images_data-table/tabulka-01.gif)
 
 ### Filtrovanie tabuľky
 
@@ -484,4 +484,4 @@ Tým je riešenie hotové a funguje podľa zadania.
 Výsledná logika bude fungovať nasledovne:
 </div>
 
-![](images_jstable/tabulka-02.gif)
+![](images_data-table/tabulka-02.gif)

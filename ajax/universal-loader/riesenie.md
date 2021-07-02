@@ -66,7 +66,7 @@ Na deklaráciu animácie sa používa definícia `@keyframes`. Určuje stav elem
 
 Výsledný *spinner* komponent vyzerá nasledovne:
 
-![](images_univerzal_loader/spinner.png)
+![](images_universal_loader/spinner.png)
 
 ### Javascript
 Keď sa pozrieme do zadania a východzieho kódu, môžeme vidieť, že AJAX žiadosti sa posielajú pomocou funkcie `fetch()`. Našou úlohou teda bude vytvoriť jednoduchú obaľovaciu funkciu (*wrapper*), ktorý nahradí funkciu `fetch()`.
