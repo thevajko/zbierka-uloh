@@ -192,7 +192,7 @@ A v elemente `<div class="keyboard_container">` si vyžiadame zobrazenie kláves
 
 Všimnite si použitie `<?= ?>`, čo je len skratka pre `<?php echo ... ?>`. Po spustení súboru `index.php` v prehliadači vidíme vytvorenú klávesnicu:
 
-![](images_hangman/keyboard.png)
+![](images_hangman-game/keyboard.png)
 
 Po kliknutí na ktorékoľvek písmeno sa v riadku adresa vygeneruje odkaz s parameterom `char` rovnajúcim sa znaku, na ktorý sme klikli. Túto vlastnosť neskôr využijeme v hre.
 
@@ -405,4 +405,4 @@ Tým sme dokončili hru, zostáva nám len doplniť na správne miesta na hracej
 
 Tým je celá hra hotová a na nasledujúcom obrázku si môžeme pozrieť ukážku rozohratej hry. 
 
-![](images_hangman/game_in_progress.png)
+![](images_hangman-game/game_in_progress.png)

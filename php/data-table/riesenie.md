@@ -436,7 +436,7 @@ class Table
 
 Zoraďovanie tabuľky by malo fungovať takto:
 
-![](images_dbtable/dbtable-01.gif)
+![](images_data-table/dbtable-01.gif)
 
 ### Obojstranné zoraďovanie
 
@@ -541,7 +541,7 @@ class Table
 
 Tabuľka sa bude zoradovať nasledovne:
 
-![](images_dbtable/dbtable-02.gif)
+![](images_data-table/dbtable-02.gif)
 
 ### Stránkovanie výsledkov
 
@@ -819,7 +819,7 @@ $usersTable = new Table();
 
 Tabuľka sa nám bude zobrazovať nasledovne:
 
-![](images_dbtable/dbtable-03.gif)
+![](images_data-table/dbtable-03.gif)
 
 ### Filtrovanie
 
@@ -1013,7 +1013,7 @@ class Table
 
 Dáta v tabuľke sa budú dať zoraďovať:
 
-![](images_dbtable/dbtable-04.gif)
+![](images_data-table/dbtable-04.gif)
 
 ### Vlastné definované stĺpce
 
@@ -1186,7 +1186,7 @@ $usersTable->addColumn("", "Akcie", function (User $user) {
 
 V tomto príklade uvádzame prázdny názov atribútu, na ktorý sa daný stĺpec viaže - nebude sa podľa tohto stĺpca dať zoraďovať. Ako tretí parameter definujeme anonymnú funkciu, ktorá ako parameter dostane entitu používateľa a vykreslí jednoduché tlačidlo, ktoré po stlačení vypíše ID daného používateľa.
 
-![](images_dbtable/dbtable-05.gif)
+![](images_data-table/dbtable-05.gif)
 
 ### Univerzálny zdroj dát
 
