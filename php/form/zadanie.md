@@ -5,7 +5,7 @@
 > - Repo: [Štartér](/../../tree/main/php/php-form), [Riešenie](/../../tree/solution/php/php-form).
 </div>
 
-# PHP formulár (PHP)
+# Dynamický formulár
 
 ## Zadanie
 Vytvorte PHP triedu, ktorá umožní programovo (z PHP) deklarovať ľubovolný formulár. Formulár sa bude vedieť vykresliť a automaticky spracovať a vykonať validáciu.

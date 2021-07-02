@@ -11,9 +11,9 @@
 
 ## Riešenie
 
-### Grafické zobrazenie loadera
+### Grafické zobrazenie komponentu
 
-Na začiatok si pripravíme grafickú reprezentáciu našej komponenty. Začneme s HTML kódom:
+Na začiatok si pripravíme grafickú reprezentáciu nášho komponentu. Začneme s HTML kódom:
 
 ```html
 <div id="ajaxLoader">
@@ -21,7 +21,7 @@ Na začiatok si pripravíme grafickú reprezentáciu našej komponenty. Začneme
   <span id="requestCounter">Zostáva: 5</span>
 </div>
 ```
-Vytoríme si jeden `div` element, do ktorého umiestnime vizuálny komponent (*spinner*) a miesto na zobrazenie počtu nedokončených žiadostí.
+Vytvoríme si jeden `div` element, do ktorého umiestnime vizuálny komponent (*spinner*) a miesto na zobrazenie počtu nedokončených žiadostí.
 
 Kvôli dizajnu by sme chceli docieliť, aby sa element `ajaxLoader` zobrazil roztiahnutý na celú stránku a mal polopriehľadné pozadie. Pre vizuálny komponent zobrazíme jednoduchú animáciu.
 
@@ -56,7 +56,7 @@ Kvôli dizajnu by sme chceli docieliť, aby sa element `ajaxLoader` zobrazil roz
 }
 ```
 
-Pozíciu `ajaxLoader` elementu sme nastavili na `fixed` a rozmery na `100%`, aby sme dosiahli, že tento prvok bude za každých okolností zobrazený na celú stránku. Farbu pozadia sme nastavili pomocou `rgba` funkcie tak, že farba je čierna a priehľadnosť je nastavená na `60%`. Pre usporiadanie prvkov v tomto elemente používame *flexbox*. `ajaxLoader` sme nastavili ako *flexbox* kontajner, ktorý obsahuje prvky zarovnané na stred a jednotlivé prvky sa budú usporiadavať do stĺpca.
+Pozíciu `ajaxLoader` elementu sme nastavili na `fixed` a rozmery na `100%`, aby sme dosiahli, že tento prvok bude za každých okolností zobrazený na celú stránku. Farbu pozadia sme nastavili pomocou `rgba` funkcie tak, že farba je čierna a priehľadnosť je nastavená na `60%`. Pre usporiadanie prvkov v tomto elemente používame *flexbox*. Kontajner `ajaxLoader` sme nastavili ako *flexbox* kontajner, ktorý obsahuje prvky zarovnané na stred a jednotlivé prvky sa budú usporiadavať do stĺpca.
 
 Pre zobrazanie *spinner* komponentu sme využili jednoduchú CSS animáciu. Je to `div` element, ktorý sme pomocou `border-radius: 50%` zobrazili ako kruh. Tomuto kruhu sme nechali priehľadné pozadie a nastavili mu `12px` rámček, čím sme dostali kružnicu. Hornému rámčeku sme zmenili farbu na modrú a zvyšným častiam rámčeka sme nechali bielu farbu. Toto spôsobilo, že dostaneme kružnicu, kde 1/4 kruhu má inú farbu ako zvyšok.
 

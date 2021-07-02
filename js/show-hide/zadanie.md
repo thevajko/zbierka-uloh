@@ -6,7 +6,7 @@
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 
-# ShowHide (JS, CSS)
+# Skrývanie a odkrývanie prvkov
 
 ## Zadanie
 Vytvorte skript, ktorý po kliknutí na element `h1` skryje text v elemente `p`, a naopak, ak je text zobrazený, tak ho skryje. 

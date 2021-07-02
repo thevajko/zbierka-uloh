@@ -6,7 +6,7 @@
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 
-# Dátová tabuľka (PHP)
+# Dátová tabuľka
 
 ## Zadanie
 

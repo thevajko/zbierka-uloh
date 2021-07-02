@@ -6,11 +6,11 @@
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 
-# *Chat* aplikácia (DB, PHP, JS, AJAX, CSS)
+# Aplikácia na chatovanie
 
 ## Zadanie
 
-Vytvorte *chat* aplikáciu, ktorá budem mať nasledovné funkcie:
+Vytvorte chatovaciu aplikáciu, ktorá budem mať nasledovné funkcie:
 
 - Bude umožňovať posielať správ.
 - Správy si môže pozerať aj neprihlásený používateľ. -Zobrazovať sa bude vždy 50 najnovších správ.

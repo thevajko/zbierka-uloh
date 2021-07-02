@@ -6,7 +6,7 @@
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 
-# JS Table (JS, CSS)
+# Dátová tabuľka (JS, CSS)
 
 ## Zadanie
 
