@@ -6,7 +6,7 @@
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 
-# DropDown a DropUp menu (CSS)
+# Roletové menu
 
 ## Zadanie
 
@@ -23,7 +23,7 @@ Menu musí spĺňať nasledovné podmienky:
 5. Jednotlivé podmenu zobrazte s jemne odlišnou farbou pozadia, napr. stmavovaním.
 6. Modifikujte drop-down menu na drop-up menu.
 
-Počiatočný `HTML` dokument obsahuje menu zadefinované pomocou štruktúry elementov a vyzerá nasledovne:
+Počiatočný HTML dokument obsahuje menu zadefinované pomocou štruktúry elementov a vyzerá nasledovne:
 
 ```html
 

@@ -73,7 +73,7 @@ Pomocou CSS štýlu si vytvoríme aj hraciu plochu, ktorú roztiahneme na celú 
 
 Zaujímavou vecou je zmena kurzora na náš vlastný obrázok. Chceli by sme, aby pri hre sa používal obrázok mucholapky:
 
-![](images_fly/flykiller.png)
+![](images_fly-game/flykiller.png)
 
 Na definovanie zmeny kurzora použijeme CSS vlastnosť `cursor`:
 
@@ -109,7 +109,7 @@ Ostatné použité štýly len formátujú zobrazenie skóre a času hry. Umiest
 
 Výsledková tabuľa bude vyzerať nasledovne:
 
-![](images_fly/score.png)
+![](images_fly-game/score.png)
 
 ### Logika hry
 
@@ -446,7 +446,7 @@ new Game();
 
 Celá štruktúra príkladu bude je zobrazená na tomto obrázku:
 
-![](images_fly/structure.png)
+![](images_fly-game/structure.png)
 
 Pozor! Pokiaľ použijeme riešenie s modulmi, skript v HTML musíme naimportovať spolu s atribútom `type="module"`. Inak sa skript obsahujúci moduly nenaimportuje.
 
@@ -457,4 +457,4 @@ Pozor! Pokiaľ použijeme riešenie s modulmi, skript v HTML musíme naimportova
 
 Na spustenie hry budeme potrebovať okrem prehliadača, aj nejaký webový server. Pri použití modulov nie je možné Javascript spúštať bez použitia webového servera. Hru v prehliadači spustíme kliknutím na tlačidlo `Start`. Po spustení hry uvidíme muchy na hracej ploche, kurzor sa zmení na mucholapku a môžeme začať hrať:
 
-![](images_fly/game.png)
+![](images_fly-game/game.png)

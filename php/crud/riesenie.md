@@ -47,8 +47,8 @@ CREATE TABLE `users`
 ```
 
 Do databázy pre testovacie účely vložíme niekoľko záznamov.
-![Ukážka záznamov v tabuľke `users`](images_crud/users-data.png)
 
+![Ukážka záznamov v tabuľke `users`](images_crud/users-data.png)
 
 ### Pripojenie k databáze
 
@@ -477,7 +477,7 @@ Aktuálna verzia neobsahuje takmer žiadnu validáciu formulára. V prípade, ž
 
 Úplne na konci deklarujeme jednoduchý HTML formulár, ktorý umožní vyplniť jednotlivé položky entity `User`. Každú položku formulára predvyplníme určitou hodnotou. Ak budeme editovať používateľa, tak sa nám predvyplnia polia hodnotami z databázy. Ak budeme pridávať nového používateľa, tak tieto polia zostanú prázdne.
 
-![Editačný formulát](images_crud/edit.png)
+![Editačný formulár](images_crud/edit.png)
 
 ### Implementácia ochrany voči XSS
 
