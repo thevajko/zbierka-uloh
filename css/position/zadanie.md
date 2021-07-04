@@ -8,9 +8,9 @@
 # Pozícia elementov
 <div class="info"> 
 
-**Hlavná technológia príkladu**: CSS
+**Hlavný jazyk príkladu**: CSS
 
-**Ostatné použité technológie**: HTML
+**Ostatné použité jazyky**: HTML
 
 **Obtiažnosť**: 1/5
 

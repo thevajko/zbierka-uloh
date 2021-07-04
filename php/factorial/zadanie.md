@@ -9,9 +9,9 @@
 # Faktoriál
 <div class="info"> 
 
-**Hlavná technológia príkladu**: PHP
+**Hlavný jazyk príkladu**: PHP
 
-**Ostatné použité technológie**: HTML
+**Ostatné použité jazyky**: HTML
 
 **Obtiažnosť**: 1/5
 

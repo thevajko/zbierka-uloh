@@ -9,9 +9,9 @@
 # Operácie s DB tabuľkou 
 <div class="info"> 
 
-**Hlavná technológia príkladu**: PHP
+**Hlavný jazyk príkladu**: PHP
 
-**Ostatné použité technológie**: HTML, JavaScript, CSS
+**Ostatné použité jazyky**: HTML, JavaScript, CSS
 
 **Obtiažnosť**: 2/5
 

@@ -10,9 +10,9 @@
 # Hra Pexeso
 <div class="info"> 
 
-**Hlavná technológia príkladu**: JS
+**Hlavný jazyk príkladu**: JS
 
-**Ostatné použité technológie**: HTML, CSS
+**Ostatné použité jazyky**: HTML, CSS
 
 **Obtiažnosť**: 3/5
 

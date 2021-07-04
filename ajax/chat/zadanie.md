@@ -9,9 +9,9 @@
 # Aplikácia na chatovanie
 <div class="info"> 
 
-**Hlavná technológia príkladu**: AJAX
+**Hlavný jazyk príkladu**: AJAX
 
-**Ostatné použité technológie**: PHP, HTML, JavaScript, CSS
+**Ostatné použité jazyky**: PHP, HTML, JavaScript, CSS
 
 **Obtiažnosť**: 1/5
 

@@ -9,9 +9,9 @@
 # Skrývanie a odkrývanie HTML elementov
 <div class="info"> 
 
-**Hlavná technológia príkladu**: JS
+**Hlavný jazyk príkladu**: JS
 
-**Ostatné použité technológie**: HTML
+**Ostatné použité jazyky**: HTML
 
 **Obtiažnosť**: 1/5
 

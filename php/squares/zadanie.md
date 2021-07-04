@@ -8,9 +8,9 @@
 # Generovanie štvorčekov
 <div class="info"> 
 
-**Hlavná technológia príkladu**: PHP
+**Hlavný jazyk príkladu**: PHP
 
-**Ostatné použité technológie**: HTML, CSS
+**Ostatné použité jazyky**: HTML, CSS
 
 **Obtiažnosť**: 1/5
 

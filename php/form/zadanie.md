@@ -8,9 +8,9 @@
 # Dynamický formulár
 <div class="info"> 
 
-**Hlavná technológia príkladu**: PHP
+**Hlavný jazyk príkladu**: PHP
 
-**Ostatné použité technológie**: HTML
+**Ostatné použité jazyky**: HTML
 
 **Obtiažnosť**: 4/5
 

@@ -8,9 +8,9 @@
 # Komponent pre zobrazenie spracovania AJAX žiadostí
 <div class="info"> 
 
-**Hlavná technológia príkladu**: AJAX
+**Hlavný jazyk príkladu**: AJAX
 
-**Ostatné použité technológie**: HTML, JavaScript, CSS
+**Ostatné použité jazyky**: HTML, JavaScript, CSS
 
 **Obtiažnosť**: 1/5
 

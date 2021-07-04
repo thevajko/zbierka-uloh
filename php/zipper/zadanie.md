@@ -9,9 +9,9 @@
 # Online zipovač (PHP)
 <div class="info"> 
 
-**Hlavná technológia príkladu**: PHP
+**Hlavný jazyk príkladu**: PHP
 
-**Ostatné použité technológie**: HTML, JavaScript
+**Ostatné použité jazyky**: HTML, JavaScript
 
 **Obtiažnosť**: 1/5
 
