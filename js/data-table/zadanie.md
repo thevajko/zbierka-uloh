@@ -7,23 +7,30 @@
 </div>
 
 # Dátová tabuľka (JS, CSS)
+<div class="info"> 
+
+**Hlavná technológia príkladu**: JS
+
+**Ostatné použité technológie**: HTML
+
+**Obtiažnosť**: 3/5
+
+**Obsah príkladu**: JSON dáta a ich spracovanie, zoraďovanie dát, manipulácia s kolekciou DOM elementov, dynamické vytváranie elementov a vkladanie nových elementov.
+</div>
 
 ## Zadanie
 
-Vytvorte skript, ktorý dokáže kolekciu ľubovolných JS objektov zobraziť v HTML tabuľke a umožní v nej:
+Vytvorte skript, ktorý dokáže zobraziť kolekciu dát v HTML tabuľke. Zadanie musí spĺňať nasledujúce podmienky:
 
-1. Ako vstup predpokladajte pole objektov, ktorých atribúty budú konštantne. Objekty si môžete nagenerovať napr. pomocou
-   tohto [JSON generátora](https://www.json-generator.com/). Prípadne ako zdroj použite polia definované v
+1. Ako vstup predpokladajte pole dátových objektov. Objekty si môžete vygenerovať napr. pomocou
+   [JSON generátora](https://www.json-generator.com/). Prípadne ako zdroj dát použite štruktúru definovanú v
    skripte [`users-data.js`](users-data.js) a  [`products-data.js`](products-data.js).
-1. zoraďovať daného stĺpca vzostupe a zostupne
-2. v hlavičke tabuľky zobrazte názvy atribútov objektov v kolekcii
-3. filtrovať riadky na základe danej hodnoty; zobrazí iba tie riadky kde v ľubovolnom stĺpci nájde zhodu z hľadaným
+1. Implementujte zoraďovanie podľa každého stĺpca vzostupe a zostupne.
+2. V záhlaví tabuľky zobrazte názvy atribútov objektov v kolekcii.
+3. Filtrujte riadky na základe danej hodnoty. Zobrazte iba tie riadky, kde v ľubovolnom stĺpci nájdete zhodu s hľadaným
    výrazom.
-4. Skript navrhnite tak aby na jednej stránke dal použiť opakovane, teda mohli sa zobraziť viaceré samostatne reagujúce
-   tabuľky.
+4. Skript navrhnite tak, aby sa dal na jednej stránke použiť opakovane, teda mohli sa zobraziť viaceré nezávislé tabuľky.
 
-Logiku vytvorte v čistom JS.
+Aplikáciu vytvorte pomocou JavaScriptu.
 
-### Cieľ príkladu
 
-Cieľom príkladu je ukážka pokročilejšej práce s dátami pomocou JavaScriptu a manipulácie DOM.

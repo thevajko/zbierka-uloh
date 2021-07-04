@@ -6,6 +6,16 @@
 </div>
 
 # Komponent pre zobrazenie spracovania AJAX žiadostí
+<div class="info"> 
+
+**Hlavná technológia príkladu**: AJAX
+
+**Ostatné použité technológie**: HTML, JavaScript, CSS
+
+**Obtiažnosť**: 1/5
+
+**Obsah príkladu**: AJAX požiadavky, asynchrónne funkcie, spracovanie výnimiek v JavaScripte, funkcia `fetch()`, CSS jednoduché animácie, *spinner* komponent, AJAX *loader* komponent *flexbox*.
+</div>
 
 ## Zadanie 
 Vytvorte skript, ktorý počas načítavania AJAX požiadavky zobrazí cez celú stránku komponent s informáciu o sťahovaní dát (*AJAX loader*). V prípade viacerých súbežných sťahovaní dát bude zobrazovať ich počet. Implementujte riešenie pre AJAX požiadavky, ktoré používajú funkciu `fetch()`. 
@@ -35,9 +45,6 @@ function loadData()
     loadUrl('https://run.mocky.io/v3/93096a26-6f6b-462b-81da-91512a2c4888?mocky-delay=4000ms');
 }
 ```
-
-### Cieľ príkladu
-Cieľom príkladu je vytvorenie kódu, ktorý dokáže zachytávať AJAX požiadavky, využíva asynchrónne funkcie, nahrádza funkciu `fetch` z objektu `window`. Z CSS ukazuje jednoduché animácie.
 
 <div class="hidden">
 

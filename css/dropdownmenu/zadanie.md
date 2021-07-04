@@ -7,6 +7,16 @@
 </div>
 
 # Roletové menu
+<div class="info"> 
+
+**Hlavná technológia príkladu**: CSS
+
+**Ostatné použité technológie**: HTML
+
+**Obtiažnosť**: 3/5
+
+**Obsah príkladu**: Tvorba menu, použitie CSS *Flexbox*, CSS vlastnosti `display`, `position`, potomkové selektory, pseudotrieda `:hover`, pseudoelementy  `::before` a `::after`.
+</div>
 
 ## Zadanie
 
@@ -50,9 +60,6 @@ Počiatočný HTML dokument obsahuje menu zadefinované pomocou štruktúry elem
                             ...
 ```
 
-Všimnite si však, že samotné elementy `ul` a `li` definujú *iba* štruktúru. Obsah položky je definované ako obsah elementu `span`. Vnorenie jednotlivých elementov `ul` v `li` definuje hierarchiu menu.
+Všimnite si však, že samotné elementy `ul` a `li` definujú iba štruktúru menu. Obsah položky je definovaný ako obsah elementu `span`. Vnorenie jednotlivých elementov `ul` v `li` definuje hierarchiu menu.
 
-Pre riešenie použite výlučne iba CSS.
-
-### Cieľ príkladu
-Tento príklad ma za hlavný cieľ demonštráciu toho, čo všetko možné je dosiahnuť použitím výlučne CSS bez nutnosti použiť JavaScript. Príklad sa zameriava na správne formátovanie prvkov a predovšetkým na použitie CSS vlastnosti `position`.
+Pre riešenie použite výlučne iba jazyk CSS.

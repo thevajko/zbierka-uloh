@@ -482,7 +482,7 @@ class Chat {
 export default Chat;
 ```
 
-### Písanie správ až po prihlásení
+### Posielanie správ až po prihlásení
 
 Teraz upravíme posielanie správ tak, aby sa používateľ musel pre ich odosielanie prihlásiť, inak ich bude môcť iba čítať. Používateľ bude musieť zadať meno, pod ktorým bude v chate vystupovať. Aby sme nekomplikovali celú aplikáciu, heslo nebudeme vyžadovať.
 
@@ -722,7 +722,7 @@ switch (@$_GET['method']) {
 
 Do súboru `index.html` pridáme prvky, ktoré budú predstavovať jednoduché menu. Toto menu bude obsahovať buď formulár na prihlásenie alebo element zobrazujúci meno aktuálne prihlaseného používateľa s tlačidlom pre odhlásenie.
 
-Vytvoríme preto element `<div id="status-bar">`. Ten bude slúžiť kontajner, ktorý zobrazí vnútorné komponenty pomocou `possition: fixed` na vrchu okna prehliadača. Ak nebude používateľ prihlásený, zobrazí sa element `<div id="login-form">` obsahujúci polia formulára pre prihlásenie. V opačnom prípade, po úspešnom prihlásení, bude zobrazený element `<div id="logout-form">` zobrazujúci informáciu o mene aktuálneho používateľa a tlačidlo pre odhlásenie. Doplnený HTML kód bude vyzerať takto:
+Vytvoríme preto element `<div id="status-bar">`. Ten bude slúžiť kontajner, ktorý zobrazí vnútorné komponenty pomocou `position: fixed` na vrchu okna prehliadača. Ak nebude používateľ prihlásený, zobrazí sa element `<div id="login-form">` obsahujúci polia formulára pre prihlásenie. V opačnom prípade, po úspešnom prihlásení, bude zobrazený element `<div id="logout-form">` zobrazujúci informáciu o mene aktuálneho používateľa a tlačidlo pre odhlásenie. Doplnený HTML kód bude vyzerať takto:
 
 ```html
 <!DOCTYPE html>

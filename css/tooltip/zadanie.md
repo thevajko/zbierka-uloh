@@ -6,7 +6,17 @@
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 
-# Tooltip (CSS)
+# Popisok (Tooltip)
+<div class="info"> 
+
+**Hlavná technológia príkladu**: CSS
+
+**Ostatné použité technológie**: HTML
+
+**Obtiažnosť**: 1/5
+
+**Obsah príkladu**: Základné CSS selektory, CSS vlastnosti `position` a `display`, CSS vrstvy.
+</div>
 
 ## Zadanie
 
@@ -31,6 +41,3 @@ Vstupný HTML súbor by mal vyzerať takto:
 ```
 
 V prípade potreby si môžete štruktúru dokumentu upraviť tak, aby sa vám lepšie pracovalo. Pri riešení úlohy použite výhradne CSS.
-
-### Cieľ príkladu
-Príklad je zameraný na precvičenie použitia _CSS selektorov_ a _CSS vlastnosti_ `possition`.

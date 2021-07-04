@@ -6,7 +6,17 @@
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 
-# Tooltip (JS, CSS)
+# Popisok (tooltip)
+<div class="info"> 
+
+**Hlavná technológia príkladu**: JS
+
+**Ostatné použité technológie**: HTML, CSS
+
+**Obtiažnosť**: 1/5
+
+**Obsah príkladu**: Spúštanie skriptov v obsluhe udalosti `windows.onload`, obsluha udalostí myši, použitie atribútu `innerHTML`
+</div>
 
 ## Zadanie
 
@@ -31,9 +41,6 @@ Skript by mal fungovať na HTML kóde, ako je tento:
 ```
 
 Kód obsahuje element `div`, ktorého obsah je tvorený textom generovaným pomocou [*Lorem ipsum generátora*](https://www.lipsum.com/). V tomto texte sa ďalej nachádzajú elementy `span`, kde prvý `span` označuje výraz a druhý `span` s triedou `tooltip` obsahuje text popisku, ktorý sa má používateľovi zobraziť, ak nad prvý `span` umiestni kurzor myši. Akonáhle používateľ kurzor z prvého `span` premiestni preč, popisok sa skryje. Samozrejme, pri otvorení dokumentu nesmú byť popisky zobrazené.
-
-### Cieľ príkladu
-Cieľom príkladu je demonštrácia manupulácie DOM pomocou javasctiptu.
 
 <div class="hidden">
 

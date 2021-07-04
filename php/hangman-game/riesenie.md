@@ -12,7 +12,7 @@
 
 Riešenie úlohy si rozdelíme do niekoľkých častí. Riešenie budeme implementovať pomocou princípov OOP.
 
-#### HTML súbor
+### HTML súbor
 
 V súbore HTML vykreslíme len najnutnejšie časti hry a budeme sa snažiť všetku logiku hry umiestniť do PHP súborov. Aj keď prevažná časť súboru bude v HTML jazyku, niektoré časti budú používať PHP kód, preto musí mať súbor koncovku `.php`. PHP kód do súboru doplníme neskôr. 
 
@@ -94,7 +94,7 @@ Hru budeme navrhovať a implementovať pomocou objektovo-orientovaného prístup
 ![UML diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/thevajko/zbierka-uloh/solution/php/hangman/diagram.puml)
 
 
-#### Trieda `Keyboard`
+### Trieda `Keyboard`
 
 Triedy budeme umiestňovať do súboru s rovnakým názvom, ako je názov triedy. Trieda `Keyboard` bude umiestnená v súbore `Keyboard.php`. Na deklaráciu triedy sa v jazyku PHP používa kľúčové slovo `class`:
 
@@ -152,7 +152,7 @@ Na prevod znanku z jeho ACSII hodnoty na znak použijeme funkciu `chr()`. Znak o
     }
  ```
 
-#### Trieda `Game`
+### Trieda `Game`
 
 Trieda `Game` bude riadiť celú hru a bolo by dobré, keby súbor `index.php` na komunikáciu s PHP súbormi využíval len ju a žiadnu inú. Preto, aj keby sme mohli v tomto súbore priamo vytvárať klávesnicu pomocou triedy `Keyboard`, radšej túto činnosť prenecháme triede `Game` a vytvoríme si obaľovú metódu, ktorá klávesnicu vytvorí a posunie ju do súboru `index.php`. Na začiatok súboru `Game.php` umiestnime príkaz:
 
@@ -196,7 +196,7 @@ Všimnite si použitie `<?= ?>`, čo je len skratka pre `<?php echo ... ?>`. Po 
 
 Po kliknutí na ktorékoľvek písmeno sa v riadku adresa vygeneruje odkaz s parameterom `char` rovnajúcim sa znaku, na ktorý sme klikli. Túto vlastnosť neskôr využijeme v hre.
 
-#### Trieda `Hangman`
+### Trieda `Hangman`
 
 Klávesnicu máme funkčnú, môže pokračovať k implementácii herného `engine`. Najskôr si v triede `Hangman` vytvoríme atribúty, ktoré budeme v hre potrebovať. V prvom rade budeme potrebovať nejaké slová, ktoré budeme hádať. Vyberieme také, ktoré neobsahujú žiadnu diakritiku. Slová nemusia byť rovnako dlhé. Atribút `$wantedWord` bude obsahovať vybrané slovo, ktoré budeme hádať. Atribút `$playedWord` bude obsahovať aktuálny stav hry, teda uhádnuté písmená z hádaného slova. Okrem toho si budeme potrebovať pamätať, koľko neúspešných pokusov sme už mali, aby sme vedeli určiť, aký obrázok hráčovi ukázať a určiť, kedy hra skončila. Na to slúži atribút `$failedAttempts`. Nakoniec si *engine* potrebuje uchovať, ktoré písmená už hráč hádal, aby ich pri zobrazovaní klávesnice mohol vynechať.
 
@@ -230,7 +230,7 @@ Atribúty `$playedWord`, `$failedAttempts`, `$usedChars` sú privátne, preto k 
     }
 ```
 
-#### Mechanizmus Session
+### *Session*
 
 Najskôr v triede uvedieme konštruktor. Ten bude mať paramater `$initialized`, ktorý môže nadobúdať hodnoty `true` alebo `false`. Ak konštruktor zavoláme s hodnotou parametra `true`, vykoná sa inicializácia celej hry a bude sa hrať odznovu. Táto situácia nastale len vtedy, ak hráč klikne na odkaz `Začať znovu`. 
 
@@ -308,7 +308,7 @@ Metóda `testChar()` prejde všetky písmená v hľadanom slove pomocou cyklu `f
 
 Tým máme ukončenú implementáciu herného `engine`.
 
-#### Doplnenie triedy `Game`
+### Doplnenie triedy `Game`
 
 Na začiatok súboru `Game.php` pridáme príkaz na prepojenie so súborom 'Hangman.php':
 

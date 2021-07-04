@@ -5,17 +5,23 @@
 > - Repo: [Štartér](/../../tree/main/css/css-lopticka), [Riešenie](/../../tree/solution/css/css-lopticka).
 </div>
 
-# Gulečník (CSS)
+# Gulečník
+<div class="info"> 
+
+**Hlavná technológia príkladu**: CSS
+
+**Ostatné použité technológie**: HTML
+
+**Obtiažnosť**: 2/5
+
+**Obsah príkladu**: Základy animácií v CSS, jednoduché animácie na zmenu polohy elementu, kombinácia viacerých animácií pre jeden element.
+</div>
 
 ## Zadanie
 
 Vytvorte pomocou CSS animáciu loptičky, ktorá sa pohybuje po stole a odráža sa od stien.
 
 ![Zadanie príkladu Gulečník](images_pool/zadanie.png)
-
-### Cieľ príkladu
-
-Cieľom príkladu je oboznámenie sa so základnými animáciami v CSS. Ukážeme si jednoduché animácie na zmenu polohy elementu. Vyskúšame skombinovať viacero animácií pre jeden element.
 
 <div class="hidden">
 

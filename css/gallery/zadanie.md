@@ -6,6 +6,16 @@
 </div>
 
 # Galéria (CSS)
+<div class="info"> 
+
+**Hlavná technológia príkladu**: CSS
+
+**Ostatné použité technológie**: HTML
+
+**Obtiažnosť**: 4/5
+
+**Obsah príkladu**: Základná demonštrácia CSS *flexbox* rozloženia, pokročilejšie spôsoby zobrazovania obrázkov, *media queries* a animácie.
+</div>
 
 ## Zadanie
 
@@ -53,10 +63,6 @@ Naštýlujte pomocou CSS túto galériu nasledovne:
 #### Zobrazenie informácie o obrázku
 
 ![](images_gallery/zadanie-hover.jpg)
-
-### Cieľ príkladu
-
-Cieľom príkladu je základná demonštrácia `flexbox` rozloženia, pokročilejšie spôsoby zobrazovania obrázkov, *media queries* a animácie.
 
 <div class="hidden">
 

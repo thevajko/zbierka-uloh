@@ -6,7 +6,17 @@
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 
-# Kontaktný formulár (PHP)
+# Kontaktný formulár
+<div class="info"> 
+
+**Hlavná technológia príkladu**: PHP
+
+**Ostatné použité technológie**: HTML, CSS
+
+**Obtiažnosť**: 2/5
+
+**Obsah príkladu**: Tvorba, spracovanie a validácia formulárov, odosielanie emailov v jazyku PHP.
+</div>
 
 ## Zadanie
 
@@ -21,7 +31,7 @@ Formulár by mohol vyzerať nasledovne:
 
 ### Cieľ príkladu
 
-Cieľom príkladu je vyskúšať si tvorbu, spracovanie a validáciu formulárov, ako aj odosielanie emailov v jazyku PHP.
+
 
 <div class="hidden">
 

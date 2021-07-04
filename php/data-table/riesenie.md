@@ -303,7 +303,7 @@ class Table
 
 ### Pridanie zoraďovania
 
-Aby sme mohli tabuľku zoraďovať, musíme vedieť, podľa ktorého stĺpca to máme urobiť. Túto informáciu najčastejšie obsahujú elementy `a`, tieto parametre sa volajú __GET parametre__ a pridávajú sa na koniec samotnej URL a oddelujú sa znakom `?`.
+Aby sme mohli tabuľku zoraďovať, musíme vedieť, podľa ktorého stĺpca to máme urobiť. Túto informáciu najčastejšie obsahujú elementy `a`, tieto parametre sa volajú **GET parametre** a pridávajú sa na koniec samotnej URL a oddelujú sa znakom `?`.
 
 Ak máme napríklad URL adresu `http://localhost/?order=country`, tak tá obsahuje parameter `order` s hodnotou `country`. V prípade viacerých parametrov ich oddeľujeme znakom `&` napríklad `http://localhost/?order=country&direction=desc`.
 
@@ -1015,7 +1015,7 @@ Dáta v tabuľke sa budú dať zoraďovať:
 
 ![](images_data-table/dbtable-04.gif)
 
-### Vlastné definované stĺpce
+### Vlastné stĺpce
 
 Aktuálna verzia tabuľky automaticky vygeneruje zoznam stĺpcov na základe triedy `User`. V reálnych aplikáciach je ale bežné, že v tabuľke nechceme zobraziť všetky stĺpce (napr. stĺpec `id` sa nezvykne zobrazovať) alebo chceme pomenovať stĺpce inak, ako sa volajú v databáze. Ďalšou bežnou požiadavkou je zobrazenie stĺpca, ktorý bude obsahovať tlačidlá / odkazy na modifikáciu záznamov. Pre tento účel si upravíme tabuľku tak, aby bolo možné programovo definovať stĺpce, ktoré chceme zobrazovať.
 

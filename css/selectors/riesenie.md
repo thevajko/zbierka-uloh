@@ -93,7 +93,7 @@ Začneme nastavením farieb a písma. Vzhľadom na to, že hlavička má v HTML 
 
 Centrovanie textu môžeme vykonať pomocou `text-align: center;`, ale hlavička tabuľky (element `th`) má centrovanie nastavené automaticky, takže nemusíme pridávať žiadné špeciálne CSS vlastnosti.
 
-Druhou časťou tejto úlohy je naštýlovanie prvého písmena. Na toto naštýlovanie môžeme využiť pseudoselektor `::first-letter`, ktorý umožní aplikovanie štýlu na prvé písmeno.
+Druhou časťou tejto úlohy je naštýlovanie prvého písmena. Na toto naštýlovanie môžeme využiť selektor `::first-letter`, ktorý umožní aplikovanie štýlu na prvé písmeno.
 
 ```css
 .data th::first-letter {

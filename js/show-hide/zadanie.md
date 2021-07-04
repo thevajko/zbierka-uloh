@@ -6,12 +6,23 @@
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 
-# Skrývanie a odkrývanie prvkov
+# Skrývanie a odkrývanie HTML elementov
+<div class="info"> 
+
+**Hlavná technológia príkladu**: JS
+
+**Ostatné použité technológie**: HTML
+
+**Obtiažnosť**: 1/5
+
+**Obsah príkladu**: Výber elementov pomocou metódy `querySelectorAll()`, skrývanie a zobrazovanie elementov. 
+</div>
 
 ## Zadanie
-Vytvorte skript, ktorý po kliknutí na element `h1` skryje text v elemente `p`, a naopak, ak je text zobrazený, tak ho skryje. 
+Vytvorte skript, ktorý po kliknutí na element `h1` zobrazí text v elemente `p`. Naopak, ak je text zobrazený, tak ho skryje. 
 
 Skript by mal fungovať na takejto štruktúre HTML kódu:
+
 ```html
 <body>
     <div>
@@ -34,6 +45,3 @@ Skript by mal fungovať na takejto štruktúre HTML kódu:
 
 </body>
 ```
-### Cieľ príkladu
-
-Cieľom príkladu je demonštrácia jednoduchej manipulácie DOM s použitím JavaScriptu.

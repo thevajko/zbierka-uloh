@@ -36,7 +36,7 @@ Element `system` obsahuje všetky prvky slnečnej sústavy. Mesiac sme umiestnil
 
 Začneme s deklaráciou štýlu pre slnko. Pokiaľ chceme slnko umiestniť do stredu obrazovky, máme niekoľko možností. Buď použijeme *flexbox*, alebo pomocou nastavenia typu pozície (`absolute`) umiestníme prvok do stredu. V našom príklade *flexbox* potrebovať nebudeme a vystačíme si z absolútnym poziciovaním.
 
-```css 
+```css
 .sun {
   width: 120px;
   height: 120px;

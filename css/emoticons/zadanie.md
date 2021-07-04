@@ -5,7 +5,17 @@
 > - Repo: [Štartér](/../../tree/main/css/css-smajliky), [Riešenie](/../../tree/solution/css/css-smajliky).
 </div>
 
-# Smajlíky (CSS)
+# Smajlíky
+<div class="info"> 
+
+**Hlavná technológia príkladu**: CSS
+
+**Ostatné použité technológie**: HTML
+
+**Obtiažnosť**: 4/5
+
+**Obsah príkladu**: CSS vlastnosti - veľkosť, pozícia, rámčeky, transformácie, funkcie `calc()`, CSS premenné a použitie pseudotried `::before` a `::after`.
+</div>
 
 ## Zadanie
 
@@ -51,10 +61,6 @@ HTML kód druhého smajlíka bude vyzerať nasledovne:
 ```
 
 Pri implementácii počítajte s tým, že smajlík môže mať len jeden tvar - normálny, veselý, smutný. Líčka, ale môžu mať ľubovolnú veľkosť a otočenie.
-
-### Cieľ príkladu
-
-Cieľom tohto príkladu je precvičenie CSS vlastností - veľkosť, pozícia, rámiky, transformácie, funckie `calc`, CSS premenných a použitie pseudotried `::before` a `::after`.
 
 <div class="hidden">
 

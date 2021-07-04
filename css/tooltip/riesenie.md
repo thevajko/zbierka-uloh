@@ -95,7 +95,7 @@ div.has-tooltip:hover .tooltip {
 }
 ```
 
-Pre zobrazenie popisku budeme používať CSS vlastnosť `possition`. Ako prvé musíme nastaviť v prvom elemente tento atribút na hodnotu `possition: relative;` pre prvý element `div`. To preto, aby sme ho mohli použiť ako plochu pre určenie pozície samotného popisku.
+Pre zobrazenie popisku budeme používať CSS vlastnosť `position`. Ako prvé musíme nastaviť v prvom elemente tento atribút na hodnotu `position: relative;` pre prvý element `div`. To preto, aby sme ho mohli použiť ako plochu pre určenie pozície samotného popisku.
 
 Pre umiestnenie popisku mu nastavíme `position: absolute;`. To spôsobí, že element s popiskom začne "plávať" nad ostatnými elementmi. Teraz potrebujeme element s popiskom správne umiestniť. To docielime nastavením CSS atribútov `left` a `top`:
 

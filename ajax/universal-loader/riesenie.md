@@ -68,7 +68,7 @@ Výsledný *spinner* komponent vyzerá nasledovne:
 
 ![](images_universal_loader/spinner.png)
 
-### Javascript
+### JavaScript
 Keď sa pozrieme do zadania a východzieho kódu, môžeme vidieť, že AJAX žiadosti sa posielajú pomocou funkcie `fetch()`. Našou úlohou teda bude vytvoriť jednoduchú obaľovaciu funkciu (*wrapper*), ktorý nahradí funkciu `fetch()`.
 
 ```javascript
@@ -157,7 +157,7 @@ window.fetch = loaderFetch;
 
 Vďaka tomuto kódu už nemusíme používať funkciu `loaderFetch()`, ale môžeme používať priamo `fetch()`. Ďalšou výhodou tohto prístupu je to, že aj iné knižnice, ktoré obsahujú AJAX volania pomocou funkcie `fetch` budú používať náš univerzálny komponent.
 
-### Best practices
+### Rady na záver
 
 Aktuálny kód má jeden veľajší efekt. Do objektu `window` nám pridal nasledovné funkcie a premenné:
 

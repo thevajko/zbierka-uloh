@@ -14,7 +14,7 @@
 
 Pri riešení tejto úlohy začneme deklaráciou CSS pravidiel. Hlavným cieľom tejto úlohy je generovanie veľkého množstva štvorčekov rovnakej veľkosti a následné umiestnenie týchto štvorčekov náhodne do okna prehliadača. Na to, aby sme mohli umiestniť štvorčeky na ľubovolné miesto na stránke, potrebujeme:
 
-1. Roztiahnuť element `body` na celé okno prehliadača
+1. Roztiahnuť element `body` na celé okno prehliadača.
 2. Umiestniť štvorček pomocou napr. absolútnej pozície.
 
 Uvažujme, že HTML kód stránky by mohol vyzerať nasledovne:
@@ -112,4 +112,4 @@ Samotný PHP kód na vygenerovanie štvorčekov bude obsahovať jeden cyklus, kt
 <?php } ?>
 ```
 
-Celé riešenie doplníme o základný kód HTML kostry. Tým je úloha vyriešená 
+Celé riešenie doplníme o základný kód HTML kostry. Tým je úloha vyriešená. 

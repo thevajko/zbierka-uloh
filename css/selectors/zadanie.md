@@ -6,6 +6,16 @@
 </div>
 
 # Selektory
+<div class="info"> 
+
+**Hlavná technológia príkladu**: CSS
+
+**Ostatné použité technológie**: HTML
+
+**Obtiažnosť**: 2/5
+
+**Obsah príkladu**: Rôzne typy CSS selektorov pre výber elementov, formátovanie tabuliek a textu, tvorba rámčekov,farby pozadia a popredia, vyu6itie obrázkov pozadia, rôzne pseudotriedy a pseudoelementy.  
+</div>
 
 ## Zadanie
 
@@ -76,10 +86,6 @@ Riešenie musí spĺňať nasledovné podmienky:
 ```
 
 Štruktúru dokumentu neupravujte. Pre vypracovanie použite výlučne CSS.
-
-### Cieľ príkladu
-
-Cieľom príkladu je precvičenie si rôznych typov CSS selektorov pre výber elementov. Okrem iného si precvičíme niektoré základne CSS vlastnosti, ako napríklad tvorba rámčekov, formátovanie textu, farby pozadia a pod.
 
 <div class="hidden">
 

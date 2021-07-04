@@ -7,11 +7,18 @@
 
 </div>
 
-# Analógové hodinky (JS, CSS)
+# Analógové hodiny
+<div class="info"> 
+
+**Hlavná technológia príkladu**: JS
+
+**Ostatné použité technológie**: HTML
+
+**Obtiažnosť**: 2/5
+
+**Obsah príkladu**: Vykresľovanie 2D grafiky v HTML dokumente, použitie časovača .
+</div>
 
 ## Zadanie
 Zobrazte analógové hodinky, ktoré budú zobrazovať hodiny, minúty a sekundy naživo; t.j. ich zobrazenie sa bude po sekunde obnovovať, tak aby vytvorili dojem, že hodinky idú.
 
-
-### Cieľ príkladu
-Príklad má oboznámiť riešiteľa s možnosťami, ktoré *HTML5* a *JavaScript* poskytujú pre vykresľovanie dynamickej grafiky na klientskej strane.

@@ -374,7 +374,7 @@ Aktuálne implementované mazanie používateľov má ale jeden malý nedostatok
 
 Túto ochranu môžeme implementovať jedným z dvoch spôsobov.
 
-#### Implementácia na backedne pomocou PHP
+#### Implementácia na backed strane pomocou PHP
 
 Prvým spôsobom je úprava komponentu `pages/users/delete.php` tak, že je potrebné pred zmazaním ešte dodatočné potvrdenie. Toto potvrdenie môžeme implementovať ako jednoduchý formulár s jedným potvrdzovacím tlačidlom.
 

@@ -6,6 +6,16 @@
 </div>
 
 # Dynamický formulár
+<div class="info"> 
+
+**Hlavná technológia príkladu**: PHP
+
+**Ostatné použité technológie**: HTML
+
+**Obtiažnosť**: 4/5
+
+**Obsah príkladu**:  Objektové programovanie v PHP, abstraktné triedy, dynamické generovanie HTML formulárov, spracovanie formulárov v PHP, validácia vstupov z formulára. 
+</div>
 
 ## Zadanie
 Vytvorte PHP triedu, ktorá umožní programovo (z PHP) deklarovať ľubovolný formulár. Formulár sa bude vedieť vykresliť a automaticky spracovať a vykonať validáciu.
@@ -38,9 +48,6 @@ if ($form->isValid()) {
 // Vykreslenie
 $form->render();
 ```
-
-### Cieľ príkladu
-Cieľom príkladu je práca s objektami v PHP, dynamické genrovanie HTML kódu, spracovanie formulárov a validácia vstupov. 
 
 <div class="hidden">
 

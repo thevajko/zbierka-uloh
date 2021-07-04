@@ -295,7 +295,7 @@ V našom prípade sa pokúsime o aplikovanie poslednej možnosti. Použitím sel
 - `:not(:only-child)` - je [**pseudo-trieda**](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes) `:not`   urobí nad získanými `span` filter a vyberie iba tie, ktoré nie sú jedináčik. Teda, majú vedľa seba nejaké súrodenecké   elementy. V našom prípade ide výlučne o položky menu, ktoré obsahujú podmenu.
 - `:after` - je [**pseudo-element**](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements), pomocou ktorého   vieme definovať nejaký obsah, ktorý sa zobrazí ihneď za elementmi, ktoré sú vybrané selektorom.
 
-CSS pravidlo, ktoré nám pridá idndikátor je nasledovné:
+CSS pravidlo, ktoré nám pridá indikátor je nasledovné:
 
 ```css
 ul ul span:not(:only-child)::after {
@@ -311,7 +311,7 @@ Výsledok funguje takto:
 
 ### Doplnenie zvýraznenia výberu
 
-Ďalšia vec, ktorá spríjemní používateľský komfort je vyznačenie prvkov, ktoré boli inicializované výberom. To realizujeme nasledovným CSS pravidlom:
+Ďalšia vec, ktorá spríjemní komfort používateľa je vyznačenie prvkov, ktoré boli inicializované výberom. To realizujeme nasledovným CSS pravidlom:
 
 ```css
 li:hover > span {
@@ -355,7 +355,7 @@ ul ul {
 }
 ```
 
-A ako posledné doplníme postupne stmavujúcu sa farbu pozadia pre vnorené elementy `ul`:
+A ako posledné doplníme postupne sa stmavujúcu farbu pozadia pre vnorené elementy `ul`:
 
 ```css
 ul ul {
