@@ -408,11 +408,18 @@ filterCollection(expression)
 }
 ```
 
-Tým je riešenie hotové a funguje podľa zadania.
-
 <div class="hidden">
 
 Výsledná logika bude fungovať nasledovne:
 </div>
 
 ![](images_data-table/tabulka-02.gif)
+
+<div class="solution">
+
+Kompletné zdrojové kódy hotového riešenia môžete nájsť na tejto URL adrese:
+
+[https://github.com/thevajko/zbierka-uloh/tree/solution/js/data-table](https://github.com/thevajko/zbierka-uloh/tree/solution/js/data-table)
+
+![URL adresa hotového riešenia](images_data-table/qr-data-table-js.png)
+</div>

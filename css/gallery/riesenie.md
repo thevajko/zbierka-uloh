@@ -341,3 +341,12 @@ Text sa zobrazuje v skutočnosti mimo elementu fotky. Tento problém môžeme vy
 Výsledná galéria bude vyzerať nasledovne:
 
 ![](images_gallery/zadanie-final.jpg)
+
+<div class="solution">
+
+Kompletné zdrojové kódy hotového riešenia môžete nájsť na tejto URL adrese:
+
+[https://github.com/thevajko/zbierka-uloh/tree/solution/css/gallery](https://github.com/thevajko/zbierka-uloh/tree/solution/css/gallery)
+
+![URL adresa hotového riešenia](images_gallery/qr-gallery.png)
+</div>

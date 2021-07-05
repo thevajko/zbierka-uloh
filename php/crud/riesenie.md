@@ -496,3 +496,12 @@ Môžeme si všimnúť, že na vloženie hodnoty do formulárového poľa a výp
 ```
 
 Môžeme si všimnúť, že výpis atribútu `$user->id` sme týmto spôsobom neošetrili. Atribút `$user->id` je typu `int`, takže v tomto prípade by bolo jeho ošetrenie funkciou [`htmlentities()`](https://www.php.net/manual/en/function.htmlentities.php) zbytočné, nakoľko nemôže spôsobiť XSS.
+
+<div class="solution">
+
+Kompletné zdrojové kódy hotového riešenia môžete nájsť na tejto URL adrese:
+
+[https://github.com/thevajko/zbierka-uloh/tree/solution/php/crud](https://github.com/thevajko/zbierka-uloh/tree/solution/php/crud)
+
+![URL adresa hotového riešenia](images_crud/qr-crud.png)
+</div>

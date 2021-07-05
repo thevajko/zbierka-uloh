@@ -440,3 +440,12 @@ To je všetko, čo sme potrebovali zmeniť, aby sme drop-down menu prerobili na 
 
 ![](images_dropdownmenu/menu-up-02.gif)
 
+<div class="solution">
+
+Kompletné zdrojové kódy hotového riešenia môžete nájsť na tejto URL adrese:
+
+[https://github.com/thevajko/zbierka-uloh/tree/solution/css/dropdownmenu](https://github.com/thevajko/zbierka-uloh/tree/solution/css/dropdownmenu)
+
+![URL adresa hotového riešenia](images_dropdownmenu/qr-dropdownmenu.png)
+</div>
+

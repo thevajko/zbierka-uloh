@@ -100,3 +100,12 @@ Pokiaľ chceme jednému elementu pridať viacero animácií, tak ich oddeľujeme
 ```
 
 Aj druhá animácia používa rovnaké parametre. Jediným rozdielom je čas. Animácia na vodorovnej osi trvá 2s a animácia na zvislej osi trvá 3.3s. Pokiaľ budeme tieto časy meniť, zmení sa nám uhol, pod ktorým sa bude loptička pohybovať.
+
+<div class="solution">
+
+Kompletné zdrojové kódy hotového riešenia môžete nájsť na tejto URL adrese:
+
+[https://github.com/thevajko/zbierka-uloh/tree/solution/css/pool](https://github.com/thevajko/zbierka-uloh/tree/solution/css/pool)
+
+![URL adresa hotového riešenia](images_pool/qr-pool.png)
+</div>

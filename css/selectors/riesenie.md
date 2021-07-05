@@ -290,4 +290,13 @@ Tento selektor pridá k odkazu, ktorý končí na `.pdf` pseudoelement, ktorý b
 }
 ```
 
-Pre lepší vzhľad výsledku sme ešte nastavili aj pozíciu `top: -1px;`, aby hore neostával biely pásik. Tým je celý príklad hotový.
+Pre lepší vzhľad výsledku sme ešte nastavili aj pozíciu `top: -1px;`, aby hore neostával biely pásik. 
+
+<div class="solution">
+
+Kompletné zdrojové kódy hotového riešenia môžete nájsť na tejto URL adrese:
+
+[https://github.com/thevajko/zbierka-uloh/tree/solution/css/selectors](https://github.com/thevajko/zbierka-uloh/tree/solution/css/selectors)
+
+![URL adresa hotového riešenia](images_selectors/qr-selectors.png)
+</div>

@@ -207,3 +207,11 @@ Do pôvodného kódu sme pridali nové elementy, ktoré budú použité na vykre
 
 V tomto CSS môžeme vidieť niekoľko zaujímavých vecí. Samotná orbita, keď sa pozrieme a HTML má okrem CSS triedy `orbit` aj triedu definujúcu príslušnú planétu. Takže orbite sa nastaví pozícia podobne ako planéte. Na rozdiel od planéty mu ale musíme zrušiť obrázok pozadia, animáciu a posunutie, pretože orbita sa má zobrazovať vycentrovaná na stred (okna prehliadača alebo v prípade mesiaca materskej planéty). Ďalšou zaujímavosťou je spôsob, akým nastavujeme veľkosť. Veľkosť elementu pre orbitu spočítame dynamicky na základe polomeru obežnej dráhy príslušnej planéty.
 
+<div class="solution">
+
+Kompletné zdrojové kódy hotového riešenia môžete nájsť na tejto URL adrese:
+
+[https://github.com/thevajko/zbierka-uloh/tree/solution/css/solar-system](https://github.com/thevajko/zbierka-uloh/tree/solution/css/solar-system)
+
+![URL adresa hotového riešenia](images_solar-system/qr-solar-system.png)
+</div>
