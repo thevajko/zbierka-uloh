@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/php/hangman), [Riešenie](/../../tree/solution/php/hangman).
+> - Repo: [Štartér](/../../tree/main/php/hangman-game), [Riešenie](/../../tree/solution/php/hangman-game).
 
 # Hra Obesenec (PHP)
 

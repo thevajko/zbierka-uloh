@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/js-a-css/univerzal-loader), [Riešenie](/../../tree/solution/js-a-css/univerzal-loader).
+> - Repo: [Štartér](/../../tree/main/ajax/universal-loader), [Riešenie](/../../tree/solution/ajax/universal-loader).
 > - [Zobraziť zadanie](zadanie.md)
 
 # Univerzálny loader (JS, AJAX, CSS)

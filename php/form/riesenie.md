@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/php/php-form), [Riešenie](/../../tree/solution/php/php-form).
+> - Repo: [Štartér](/../../tree/main/php/form), [Riešenie](/../../tree/solution/php/form).
 
 # PHP formulár (PHP)
 

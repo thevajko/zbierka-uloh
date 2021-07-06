@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/js-a-css/tooltip-js), [Riešenie](/../../tree/solution/js-a-css/tooltip-js).
+> - Repo: [Štartér](/../../tree/main/js/tooltip), [Riešenie](/../../tree/solution/js/tooltip).
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 

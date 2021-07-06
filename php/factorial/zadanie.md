@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/php/faktorial-php), [Riešenie](/../../tree/solution/php/faktorial-php).
+> - Repo: [Štartér](/../../tree/main/php/factorial), [Riešenie](/../../tree/solution/php/factorial).
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 

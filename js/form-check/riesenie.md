@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/js-a-css/form-check), [Riešenie](/../../tree/solution/js-a-css/form-check).
+> - Repo: [Štartér](/../../tree/main/js/form-check), [Riešenie](/../../tree/solution/js/form-check).
 > - [Zobraziť zadanie](zadanie.md)
 
 # Kontrola formulára (JS, CSS)

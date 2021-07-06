@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/js-a-css/pexeso), [Riešenie](/../../tree/solution/js-a-css/pexeso).
+> - Repo: [Štartér](/../../tree/main/js/memory-game), [Riešenie](/../../tree/solution/js/memory-game).
 > - [Zobraziť riešenie](riesenie.md)
 
 # Pesexo (JS, CSS)

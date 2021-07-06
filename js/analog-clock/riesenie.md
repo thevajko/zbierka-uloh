@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/js-a-css/analog-clock), [Riešenie](/../../tree/solution/js-a-css/analog-clock)
+> - Repo: [Štartér](/../../tree/main/js/analog-clock), [Riešenie](/../../tree/solution/js/analog-clock)
 > - [Zobraziť zadanie](zadanie.md)
 
 # Analógové hodinky (JS, CSS)

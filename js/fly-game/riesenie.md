@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/js-a-css/fly), [Riešenie](/../../tree/solution/js-a-css/fly).
+> - Repo: [Štartér](/../../tree/main/js/fly-game), [Riešenie](/../../tree/solution/js/fly-game).
 > - [Zobraziť riešenie](riesenie.md)
 
 # Mucha (JS, CSS)

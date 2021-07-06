@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/css/css-lopticka), [Riešenie](/../../tree/solution/css/css-lopticka).
+> - Repo: [Štartér](/../../tree/main/css/pool), [Riešenie](/../../tree/solution/css/pool).
 
 # Gulečník (CSS)
 
