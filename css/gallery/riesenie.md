@@ -54,7 +54,7 @@ Tento kód má ale ešte jednu chybu:
 
 ![Deformácia obrázka po zmene rozmerov](images_gallery/riesenie1.jpg)
 
-Ako môžeme vidieť na obrázku, fotka sa nám zdeformovala. Pôvodný obrázok bol totižto odfotený *na výšku* a keď obrázku nastavíme rozmery na `100%`, tak sa roztiahne a zdeformuje. Túto deformáciu môžeme našťastie jednoducho vyriešiť pomocou vlastnosti `object-fit: cover`, ktorá definuje spôsob, akým sa obrázok prispôsobí pri zmene veľkosti. Po aplikovaní tejto vlastnosti na obrázok dostaneme:
+Ako môžeme vidieť na obrázku, fotka sa nám zdeformovala. Pôvodný obrázok bol totižto odfotený *na výšku* a keď obrázku nastavíme rozmery na `100%`, tak sa roztiahne a zdeformuje. Túto deformáciu môžeme našťastie jednoducho vyriešiť pomocou vlastnosti `object-fit: cover` (pre element `.photo img`), ktorá definuje spôsob, akým sa obrázok prispôsobí pri zmene veľkosti. Po aplikovaní tejto vlastnosti na obrázok dostaneme:
 
 ![Zachovanie pomeru strán obrázku](images_gallery/riesenie2.jpg)
 
@@ -115,12 +115,18 @@ Výsledkom bude správne zobrazenie troch fotiek na jednom riadku:
 
 #### Riešenie cez flexbox
 
-Posledným spôsobom je riešenie pomocou rozloženia **flexbox**. Najskôr potrebujeme elementu `gallery` nastaviť, že má byť tzv. *flex kontajner* a zobrazenie fotiek už následne bude automatické.
+Posledným spôsobom je riešenie pomocou rozloženia **flexbox**. Najskôr potrebujeme elementu `gallery` nastaviť, že má byť tzv. *flex kontajner* a fotkám predpísať šírku.
 
 ```css
 .gallery {
     display: flex;
     flex-wrap: wrap;
+}
+
+.photo {
+    position: relative;
+    width: calc(100% / 3 - 5px);
+    padding-top: calc(75% / 3);
 }
 ```
 
@@ -128,7 +134,7 @@ Okrem `display: flex` musíme nastaviť aj vlastnosť `flex-wrap` na hodnotu `wr
 
 ![Zobrazenie troch obrázkov vedľa seba pomocou CSS *flexbox*](images_gallery/riesenie5.jpg)
 
-Po nastavení `flex-wrap: wrap;` je už všetko v poriadku. Výhodou *flexboxu* oproti riešeniu s obtekaním je to, že *flexbox* má veľké množstvo ďalších možností. Predstavte si, že nemáme presný počet obrázkov tak, aby sme vyplnili všetky riadky. V prípade riešenia s obtekaním nám posledný obrázok zostane na ľavom okraji. Ak použijeme *flexbox*, môžeme pomocou vlastnosti `justify-content` nastaviť, čo sa má stať v prípade, že nebude dostatok fotiek na riadku.
+Po nastavení `flex-wrap: wrap;` je už všetko v poriadku. Výhodou *flexboxu* oproti riešeniu s obtekaním je to, že *flexbox* má veľké množstvo ďalších možností. Predstavte si, že nemáme presný počet obrázkov tak, aby sme vyplnili všetky riadky. V prípade riešenia s obtekaním nám posledný obrázok zostane na ľavom okraji. Ak použijeme *flexbox*, môžeme pomocou vlastnosti `justify-content` v `.gallery` nastaviť, čo sa má stať v prípade, že nebude dostatok fotiek na riadku.
 
 Ak nastavíme `justify-content` na `center`, tak sa nám fotky vycentrujú do stredu:
 
@@ -154,6 +160,8 @@ Ak nám nevyhovuje prázdne miesto v spodnom riadku, môžeme nastaviť fotke vl
     flex-grow: 1;
 }
 ```
+
+Pri tomto zobrazení ale už nebudú mať všetky fotky pomer strán 4:3.
 
 ![](images_gallery/riesenie9.jpg)
 
@@ -313,7 +321,7 @@ Pre aplikovanie animácie následne stačí použiť:
 ```css
 .photo:hover p {
     animation-delay: 0.5s;
-    animation: description-in 40s;
+    animation: description-in 3s;
 }
 ```
 
