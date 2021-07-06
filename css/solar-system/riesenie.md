@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/css/css-planety), [Riešenie](/../../tree/solution/css/css-planety).
+> - Repo: [Štartér](/../../tree/main/css/solar-system), [Riešenie](/../../tree/solution/css/solar-system).
 
 # Slnečná sústava (CSS)
 
@@ -15,9 +15,6 @@
 Riešenie začneme prípravou HTML dokumentu. Na každú z planét vytvoríme vlastný HTML element. Pre lepšiu prehľadnosť a zjednodušenie zápisu CSS pravidiel ich umiestnime do spoločného elementu s triedou `system`. HTML kód bude vyzerať nasledovne:
 
 ```html
-<!DOCTYPE html>
-<html>
-<body>
 <div class="system">
     <div class="sun"></div>
     <div class="earth">
@@ -25,9 +22,6 @@ Riešenie začneme prípravou HTML dokumentu. Na každú z planét vytvoríme vl
     </div>
     <div class="saturn"></div>
 </div>
-</div>
-</body>
-</html>
 ```
 
 Element `system` obsahuje všetky prvky slnečnej sústavy. Mesiac sme umiestnili ako potomka elementu `earth`, pretože mesiac sa bude otáčať okolo zeme.
@@ -55,15 +49,15 @@ Pomocou tohto štýlu sme nastavili veľkosť, pozíciu, pozadie a posunuli sme 
 
 ```css
 .earth {
-    width: 80px;
-    height: 80px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    background-image: url("images_solar-system/earth.png");
-    background-size: cover;
-    transform: translate(-50%, -50%) translateX(300px);
-}
+     width: 80px;
+     height: 80px;
+     position: absolute;
+     left: 50%;
+     top: 50%;
+     background-image: url("images_solar-system/earth.png");
+     background-size: cover;
+     transform: translate(-50%, -50%) translateX(300px);
+ }
 ```
 
 Pomocou tohto kódu sme nastavili zem veľmi podobným spôsobom ako slnko, jediný rozdiel v týchto deklaráciach je zmena veľkosti, obrázku a zem sme ešte navyše posunuli o `300px` doprava, aby sa zobrazila ďalej od slnka.
@@ -178,7 +172,6 @@ V zápise animácie môžeme definovať tzv. *timing* funkciu. V uvedenom príkl
 Pre lepšiu grafickú predstavu si môžeme pridať vykreslenie orbitálnych dráh jednotlivých planét. Pre tento účel mierne upravíme HTML:
 
 ```html
-
 <div class="system">
     <div class="earth orbit"></div>
     <div class="saturn orbit"></div>

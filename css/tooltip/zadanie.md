@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/css/tooltip-css), [Riešenie](/../../tree/solution/css/tooltip-css).
+> - Repo: [Štartér](/../../tree/main/css/tooltip), [Riešenie](/../../tree/solution/css/tooltip).
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 
@@ -29,15 +29,17 @@ Vstupný HTML súbor by mal vyzerať takto:
 <div>
     Lorem ipsum dolor sit amet,
     <span>consectetur</span>
-    <span class="tooltip">Tooltip: asdasd asdasd asd a sd asd asdasda sda</span>
+    <span class="tooltip">Tooltip: In mollis accumsan sodales.</span>
     adipiscing elit. In
     <span>hendrerit</span>
-    <span class="tooltip">Tooltip: asdasd asdasd asd a sd asd asdasda sda</span>
+    <span class="tooltip">Tooltip: Maecenas lobortis quam quis euismod maximus.</span>
     adipiscing elit. ac ex eu aliquam. Etiam lacus orci, egestas et tempor at,
     <span>rutrum</span>
-    <span class="tooltip">Tooltip: asdasd asdasd asd a sd asd asdasda sda</span>
+    <span class="tooltip">Tooltip: Curabitur consequat ligula vel tortor consequat, quis mattis mi egestas.</span>
     adipiscing elit. vitae nulla.
 </div>
 ```
 
 V prípade potreby si môžete štruktúru dokumentu upraviť tak, aby sa vám lepšie pracovalo. Pri riešení úlohy použite výhradne CSS.
+
+![Zadanie príkladu CSS Tooltip](images_tooltip-css/zadanie.png)

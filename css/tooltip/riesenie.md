@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/css/tooltip-css), [Riešenie](/../../tree/solution/css/tooltip-css).
+> - Repo: [Štartér](/../../tree/main/css/tooltip), [Riešenie](/../../tree/solution/css/tooltip).
 > - [Zobraziť zadanie](zadanie.md)
 
 # Tooltip - iba CSS
@@ -11,7 +11,7 @@
 
 ## Riešenie
 
-V prvom kroku si musíme upraviť štruktúru zdrojového súbora tak, aby sme dosiahli stanovený cieľ len pomocou CSS. Budeme používať [CSS pseudo-triedu](https://www.w3schools.com/css/css_pseudo_classes.asp) `:hover`. Tá je priradená k elementu automaticky, pokiaľ sa nad daným prvkom nachádza kurzor myši. Chceme docieliť to, že pokiaľ hlavný element (ten, nad ktorý sa ma umiestniť kurzor) zobrazí sa popisok, inak je popisok nezobrazený. `:hover` sa bude teda dopĺňať do neho, nie do elementu s textom popisku.
+V prvom kroku si musíme upraviť štruktúru zdrojového súboru tak, aby sme dosiahli stanovený cieľ len pomocou CSS. Budeme používať [CSS pseudo-triedu](https://www.w3schools.com/css/css_pseudo_classes.asp) `:hover`. Tá je priradená k elementu automaticky, pokiaľ sa nad daným prvkom nachádza kurzor myši. Chceme docieliť to, že pokiaľ hlavný element (ten, nad ktorý sa ma umiestniť kurzor) zobrazí sa popisok, inak je popisok nezobrazený. `:hover` sa bude teda dopĺňať do neho, nie do elementu s textom popisku.
 
 CSS selektor definuje skupinu elementov, na ktoré sa aplikujú dané vlastnosti. Jeden zo spôsobov ako to zadefinovať, je uviesť štruktúru elementov, resp. "cestu štruktúrou" k elementu, na ktorý chceme vlastnosti aplikovať. To znamená, že budeme meniť CSS vlastnosti elementu s textom popisku vzhľadom na to, či hlavný element má priradenú triedu `:hover`.
 
@@ -24,20 +24,17 @@ Preto budeme musieť upraviť štruktúru zdrojového HTML. Podľa [štandardu H
     <div class="has-tooltip">
         consectetur
         <span class="tooltip">
-            asdasdas dasdasd asdasdas dasdasdas das dasdasdas da sd as da sd as d
-        </span>
+        Tooltip: In mollis accumsan sodales.
+      </span>
     </div>
-    adipiscing elit. Curabitur tempor leo at urna varius, eget scelerisque
-    arcu interdum. Aliquam et accumsan diam. Mauris
+    adipiscing elit. In
     <div class="has-tooltip">
-        tincidunt
+        hendrerit
         <span class="tooltip">
-            asdasdas dasdasd asdasdas dasdasdas das dasdasdas da sd as da sd as d
-        </span>
+        Tooltip: Maecenas lobortis quam quis euismod maximus.
+      </span>
     </div>
-
-    ...
-
+    ... 
 </div>
 ```
 
@@ -59,15 +56,6 @@ Teraz potrebujeme vytvoriť CSS selektor a vlastnosti, ktoré budú popisok zobr
 Predvolený text popisku skryjeme tak, že mu nastavíme hodnotu CSS vlastnosti `display` na hodnotu `none`. V našom prípade pre opätovné zobrazenie vložíme hodnotu `block`. CSS bude vyzerať nasledovne:
 
 ```css
-div.has-tooltip {
-    display: inline;
-    font-weight: bold;
-}
-
-div.has-tooltip .tooltip {
-    display: none;
-}
-
 div.has-tooltip:hover .tooltip {
     display: block;
 }
@@ -76,11 +64,6 @@ div.has-tooltip:hover .tooltip {
 Ak chceme, aby sa text popiskov zobrazoval vždy rovnako, musíme najprv zadefinovať jeho šírku (`width: 200px;`). Element má transparentné pozadie a kvôli lepšej čitateľnosti je potrebné ho zafarbiť napr. na bielo `background-color: white;`. Ďalej by bolo dobré pridať nejaký rámček pomocou `border: 1px solid black;`. CSS upravíme nasledovne:
 
 ```css
-div.has-tooltip {
-    display: inline;
-    font-weight: bold;
-}
-
 div.has-tooltip .tooltip {
     display: none;
     width: 200px;
@@ -88,10 +71,6 @@ div.has-tooltip .tooltip {
     position: absolute;
     background-color: white;
     padding: 3px;
-}
-
-div.has-tooltip:hover .tooltip {
-    display: block;
 }
 ```
 
@@ -104,29 +83,17 @@ Pre umiestnenie popisku mu nastavíme `position: absolute;`. To spôsobí, že e
 
 Pri nastavení `position: absolute;` nejakého elementu sa za jeho "rodičovský element" považuje hierarchicky najbližší vyšší element, ktorý má nastavený CSS atribút `position` na `relative` alebo `absolute`. V našom prípade je to prvý element. Tým pádom môžeme nastaviť hodnoty `left: 0;` a `top: 120%;`. Popisok bude zarovnaný naľavo a bude sa nachádzať kúsok pod prvým elementom.
 
-Kvôli korektnému zobrazeniu popisku pridáme ešte CSS vlastnosť `z-index: 1;`. Tým dosiahneme to, že sa element s textom popisku zobrazí vždy vo vrstve nad aktuálnymi elementmi; t.j. zobrazí sa vždy nad nimi. Výsledné CSS bude:
+Kvôli korektnému zobrazeniu popisku pridáme ešte CSS vlastnosť `z-index: 1;`. Tým dosiahneme to, že sa element s textom popisku zobrazí vždy vo vrstve nad aktuálnymi elementmi; t.j. zobrazí sa vždy nad nimi.
 
 ```css
 div.has-tooltip {
-    display: inline;
-    font-weight: bold;
     position: relative;
 }
 
 div.has-tooltip .tooltip {
-    display: none;
-    width: 200px;
-    border: 1px solid black;
-    position: absolute;
-    background-color: white;
-    padding: 3px;
     top: 120%;
     left: 0;
     z-index: 1;
-}
-
-div.has-tooltip:hover .tooltip {
-    display: block;
 }
 ```
 
