@@ -121,10 +121,6 @@ Ak tento postup aplikujeme na našu úlohu, musíme najprv identifikovať *konta
 #menu > ul {
     display: flex;
 }
-
-ul ul {
-    display: none;
-}
 ```
 
 Teraz musíme doplniť zobrazenie zoznamu tak, aby vizuálne pripomínalo menu, čím napovieme používateľovi, aby daný komponent ako menu aj používal (*nie je nič horšie pre používateľa ako neintuitívne GUI*).
@@ -154,10 +150,6 @@ CSS bude teda nasledovné:
     padding: 2px;
 }
 
-#menu > ul {
-    display: flex;
-}
-
 span {
     background-color: aqua;
     display: block;
@@ -168,10 +160,6 @@ span {
 
 li {
     display: block;
-}
-
-ul ul {
-    display: none;
 }
 ```
 
@@ -263,23 +251,20 @@ ul ul ul {
 
 ![](images_dropdownmenu/menu-fung-02.gif)
 
-Všimnime si však, že jednotlivé podmenu nie sú úplne zarovnané. To je dôsledok toho, že sme pri `ul` druhej úrovne pridali rámček, ktorý veľkosť tohto elementu zväčšil o `1px` z každej strany.
+Všimnime si však, že jednotlivé podmenu nie sú úplne zarovnané. To je dôsledok toho, že sme pri `ul` druhej úrovne pridali rámček a ďalšie vnorené menu sa zobrazí až v tomto rámčeku.
 
 ![](images_dropdownmenu/menu-dva-03.png)
 
-Aby sa menu zobrazovalo korektne, musíme veľkosť zredukovať negatívnym odsadením. Bude stačiť, ak ho zmenšíme iba zvrchu. CSS preto upravíme na:
+Aby sa menu zobrazovalo korektne, musíme vnorený element posunúť o veľkosť rámčeka. V našom prípade stačí upraviť umiestnenie menu aspoň tretej úrovne tak, že ho negatívne posunieme hore o šírku rámčeka.
 
 ```css
-ul ul {
-    position: absolute;
-    display: none;
-    border: 1px solid black;
-    background-color: burlywood;
-    margin-top: -1px;
+ul ul ul {
+    top: -1px;
+    left: 100%
 }
 ```
 
-### Zobrazenia ikonky o prítomnosti sub-menu
+### Zobrazenie ikonky o prítomnosti sub-menu
 
 Pre zlepšenie používateľského komfortu je veľmi vhodné použivateľovi najako naznačiť, že nejaká položka menu obsahuje dodatočné podmenu. Najčastejšie sa to realizuje indikátorom, napr. znakom `»`. 
 
@@ -377,7 +362,7 @@ Finálny výsledok vyzerá nasledovne:
 
 ### Upravenie na Drop-up menu
 
-Záverečná úprava spočíva čisto iba v úprave toho, kde a ako sa majú jednotlivé elementy zobraziť. Začneme teda presunutím celého menu na spodok okna prehliadača. To budeme realizovať zmenou hodnoty CSS vlastnosti `position` na hodnotu `fixed`. Tým docielime to, že menu sa bude umiestňovať nad všetky vykreslené prvky v priestore okna prehliadača a ten bude tvoriť aj jeho predka pre výpočet veľkostí.
+Zmena voči pôvodnému menu spočíva čisto iba v úprave toho, kde a ako sa majú jednotlivé elementy zobraziť. Začneme teda presunutím celého menu na spodok okna prehliadača. To budeme realizovať zmenou hodnoty CSS vlastnosti `position` na hodnotu `fixed`. Tým docielime to, že menu sa bude umiestňovať nad všetky vykreslené prvky v priestore okna prehliadača a ten bude tvoriť aj jeho predka pre výpočet veľkostí.
 
 Aby bolo menu roztiahnuté na celú dĺžku okna, musíme mu zadefinovať vlastnosť `width: 100%`. Upravený štýl zmeníme na:
 
@@ -414,23 +399,12 @@ ul li:hover > ul ul {
 }
 ```
 
-Dôležité je si uvedomiť, že rámček sa pridá na vonkajšej veľkosti elementu, ktorý ho má zadefinovaný. Taktiež sa prvky umiestňujú vzhľadom na ľavý dolný roh. Aby sa menu správne zobrazovalo, potrebujeme upraviť najprv vonkajšie odsadenie v štýle `ul ul` nasledovne:
-
-```css
-ul ul {
-    position: absolute;
-    display: none;
-    border: 1px solid black;
-    background-color: #ebebeb;
-    margin: 0 0 -1px -1px;
-}
-```
-
 Následne môžeme upraviť štýl `ul li:hover > ul ul` nasledovne:
 
 ```css
 ul li:hover > ul ul {
-    bottom: 0px;
+    top: auto;
+    bottom: -1px;
     left: 100%;
     margin-left: 0px;
 }
