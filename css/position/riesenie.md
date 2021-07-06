@@ -112,7 +112,6 @@ Ako sme spomínali, budeme potrebovať 4 elementy s obrázkom vtáčika. Mohli b
 Tieto pravidlá potom skombinujeme v HTML atribúte `class`:
 
 ```html
-
 <div class="bird top left"></div>
 <div class="bird top right"></div>
 <div class="bird bottom left"></div>
@@ -130,8 +129,6 @@ Takto dosiahneme, že pravidlá sa nebudú zbytočne opakovať a celé riešenie
 A opäť triedu pripojíme len k elementom, ktoré potrebujeme otočiť. Výsledný HTML kód potom bude:
 
 ```html
-
-<div class="sun"></div>
 <div class="bird top left"></div>
 <div class="bird top flip right"></div>
 <div class="bird bottom left"></div>

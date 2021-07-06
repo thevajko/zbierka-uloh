@@ -139,6 +139,7 @@ Pre úplnosť uvedieme ešte CSS pravidlo pre naštýlovanie tejto chybovej hlá
 ```
 
 Toto riešenie nám zobrazí chyby v nasledovnom formáte:
+
 ![](images_contact-form/riesenie-errorMessages.png)
 
 Veľkým problémom tohto riešenia je to, že po odoslaní formuláru sa nám stratia vyplnené údaje, to znamená, že ak náhodou zle vyplníme emailovu adresu, tak prídeme nie len o tú, ale aj o celú správu. Takéto správanie aplikácie je neprípustné. Tento problém sa ale dá celkom jednoducho vyriešiť. HTML `input` element má atribút `value`, pomocou ktorého mu môžeme nastaviť hodnotu. Základný kód by mohol vyzerať nasledovne:
