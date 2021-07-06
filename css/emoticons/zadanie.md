@@ -31,7 +31,7 @@ Základná HTML štruktúra smajlíka bude nasledovná:
 
 ```html
 
-<div class="smajlik">
+<div class="smiley">
     ...
 </div>
 ```
@@ -44,18 +44,18 @@ Pokiaľ budeme požadovať smajlíka s veľkosťou `100px` obráteného o 180 st
 
 ```html
 
-<div class="smajlik s-100 obrateny">
+<div class="smiley s-100 obrateny">
     ...
 </div>
 ```
 
-Iné podoby smajlíka budú realizované pridaním ďalšej triedy do hlavného `div` elementu smajlíka. Druhý smajlík na obrázku bude mať triedu `vesely`, tretí `licka` a posledný `smutny`.
+Iné podoby smajlíka budú realizované pridaním ďalšej triedy do hlavného `div` elementu smajlíka. Druhý smajlík na obrázku bude mať triedu `happy`, tretí `cheeks` a posledný `sad`.
 
 HTML kód druhého smajlíka bude vyzerať nasledovne:
 
 ```html
 
-<div class="smajlik s-250 vesely">
+<div class="smiley s-250 happy">
     ...
 </div>
 ```
