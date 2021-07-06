@@ -17,7 +17,7 @@ Pri riešení tejto úlohy budeme používať iba JavaScript a vykresľovanie po
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Title</title>
+        <title>JS Hodinky</title>
     </head>
     <body>
         <canvas width="500" height="500"></canvas>
@@ -27,19 +27,18 @@ Pri riešení tejto úlohy budeme používať iba JavaScript a vykresľovanie po
 
 Kreslenie na plátne používa uhly v radiánoch. Pre nás bude lepšie, ak budeme môcť zadávať uhly v stupňoch.
 
-Konveziu zo stupňov realizujeme nasledovným prepočtom: `uhol v radianoch = uhol v stupňoch * PI / 180`, kde `PI / 180 = 0.01745329251`. Môžeme si na to vytvoriť nasledovnú konverznú funkciu:
+Konveziu zo stupňov realizujeme nasledovným prepočtom: `uhol v radianoch = uhol v stupňoch * PI / 180`.  Presnú hodnotu `pi` nájdeme v `Math.PI`. Môžeme si na to vytvoriť nasledovnú konverznú funkciu:
 
 ```javascript
-function degToRad(d)
-{
-    return d * 0.01745;
+function degToRad(degrees) {
+    return degrees * (Math.PI/180);
 }
 ```
 
 Ako prvé nakreslíme kruh, ktorý bude vypĺňať cely obsah elementu `canvas` a bude zarovnaný na jeho stred. Na to potrebujeme získať referenciu na `HTMLElement` a `context`, pomocou ktorého vieme naň kresliť. To realizujeme nasledovným kódom:
 
 ```javascript
-window.onload = function(){
+window.onload = function() {
     let canvas = document.querySelector("canvas");
     let ctx = canvas.getContext("2d");
 }
@@ -50,7 +49,7 @@ Kreslenie kruhu sa realizuje použitím metódy contextu [`CanvasRenderingContex
 V našom prípade bude kód, ktorý nakreslí kruh, vyzerať nasledovne:
 
 ```javascript
-window.onload = function(){
+window.onload = function() {
   let canvas = document.querySelector("canvas");
   let ctx = canvas.getContext("2d");
 
@@ -76,7 +75,7 @@ Hrúbku čiary upravíme nastavením atribútu [`CanvasRenderingContext2D.lineWi
 Zostáva ešte posunúť uhol vykreslenia ručičiek, tak aby hodnota `0` zodpovedala pozícii na 12. hodine. To realizujeme jednoducho prirátaním hodnoty `270` k pôvodne zadanému uhlu: 
 
 ```javascript
-function drawWatchHand(ctx, uhol, length, width){
+function drawWatchHand(ctx, uhol, length, width) {
     let x = 250;
     let y = 250;
     let angl = degToRad(uhol + 270);
@@ -92,7 +91,7 @@ function drawWatchHand(ctx, uhol, length, width){
 Kód vykreslenia ciferníka presunieme do funkcie `drawCircle()`:
 
 ```javascript
-function drawCircle(ctx){
+function drawCircle(ctx) {
     ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.arc(250, 250, 250, 0, degToRad(360));
@@ -103,7 +102,7 @@ function drawCircle(ctx){
 Teraz si skúsime vykresliť ciferník a nejaké ručičky, aby sme si otestovali správnosť logiky nasledovne: 
 
 ```javascript
-window.onload = function(){
+window.onload = function() {
   let canvas = document.querySelector("canvas");
   let ctx = canvas.getContext("2d");
 
@@ -129,7 +128,7 @@ Pri vykreslovaní teda začíname v strede, následne sa pod daným uhlom posuni
 Funkcia `drawLineMarker()` bude vyzerať nasledovne:
 
 ```javascript
-function drawLineMarker(ctx, uhol, markerLength){
+function drawLineMarker(ctx, uhol, markerLength) {
 
     let angl = degToRad(uhol + 270);
     let r = 250 - markerLength;
@@ -177,7 +176,7 @@ Zostáva nám už iba oddeliť hodinové značky od minútových pomocou rôznej
 Celý kód bude vyzerať nasledovne:
 
 ```javascript
-function makeTick(ctx){
+function makeTick(ctx) {
    
     drawCircle(ctx);
     // cifernik
@@ -207,7 +206,7 @@ V JavaScripte získame aktuálny čast vytvorením novej inštancie triedy [`Dat
 Funkcia `makeTick()` bude po doplnení: 
 
 ```javascript
-function makeTick(ctx){
+function makeTick(ctx) {
    
     drawCircle(ctx);
     // cifernik
@@ -235,7 +234,7 @@ Budeme však musieť `canvas` pred každým prekreslením vyčistiť (celý prem
 Upravená funkcia `makeTick()`:
 
 ```javascript
-function makeTick(ctx){
+function makeTick(ctx) {
 
     ctx.clearRect(0, 0, 500, 500);
     

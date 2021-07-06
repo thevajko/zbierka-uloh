@@ -63,28 +63,53 @@ class JsTable {
     }
 
     renderHeader() {
-        return `<tr><td>header</td></tr>`
+        return `<tr><th>header</th></tr>`
     }
 
     renderRows() {
-        return `<tr><th>rows</th></tr>`
+        return `<tr><td>rows</td></tr>`
     }
 }
 ```
 
+Pri elemente `table` je nastavený atribút `border="1"`, aby bol viditeľný okraj tabuľky (aj keď lepšie riešenie by bolo tabuľku naštýlovať v CSS). 
+
 Ako kolekciu dát použijeme pole definované v súbore `users-data.js`, ktoré uložíme do globálnej premennej `usersData`.
 
-Pri elemente `table` je nastavený atribút `border="1"`, aby bol viditeľný okraj tabuľky (aj keď lepšie riešenie by bolo tabuľku naštýlovať v CSS). V HTML pridáme obsluhu udalosti `onload`, ktorá keď sa spustí, tak vytvorí novú inštanciu triedy `JsTable` a doplní správne parametre:
+```js
+var usersData = [
+    {
+        "id": 0,
+        "isAdmin": false,
+        "age": 25,
+        "farbaOci": "green",
+        "name": "Jeanie Hebert",
+        "gender": "female",
+        "email": "jeaniehebert@matrixity.com",
+        "tags": [
+            "pariatur",
+            "exercitation",
+            "dolore",
+            "et",
+            "eu",
+            "veniam",
+            "amet"
+        ]
+    },
+   //...
+];
+```
+
+V HTML pridáme element, do ktorého budeme vkladať tabuľku. Následne pridáme obsluhu udalosti `onload`, ktorá keď sa spustí, tak vytvorí novú inštanciu triedy `JsTable` a doplní správne parametre:
 
 ```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <script type="application/javascript" src="products-data.js"></script>
-    <script type="application/javascript" src="users-data.js"></script>
-    <script type="application/javascript" src="jstable.js"></script>
+    <title>JS Tabuľka</title>
+    <script src="users-data.js"></script>
+    <script src="jstable.js"></script>
     <script>
         window.onload = function () {
             let table = new JsTable(usersData, document.getElementById("table01"));
@@ -130,7 +155,7 @@ Pokiaľ teraz spustíme skript tabuľka bude doplnená o názvy atribútov v hla
 
 ![](images_data-table/table-02.png)
 
-Pri generovaní obsahu v metóde `JsTable.renderRows()` iba rozšírime kód, ktorý sme vložili do metódy `JsTable.renderHeader()`. Generovanie kódu pre jeden riadok je rovnaký ako pri hlavičke s tým rozdielom, že hodnota sa umiestni namiesto do elementu `th` do `td`.
+Pri generovaní obsahu v metóde `JsTable.renderRows()` iba rozšírime kód, ktorý sme vložili do metódy `JsTable.renderHeader()`. Generovanie kódu pre jeden riadok je rovnaké ako pri hlavičke s tým rozdielom, že hodnota sa umiestni namiesto do elementu `th` do `td`.
 
 Pre každú položku v kolekcii budeme vytvárať samostatný riadok.
 
@@ -308,12 +333,12 @@ Konštruktor `JsTable` preto upravíme kód tak, aby sa do `JsTable.HTMLElement`
 
 Aby sme mohli reagovať na zmenu hodnoty v `<input>` pridáme obsluhu udalosti [`oninput`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/input_event), ktorá je vyvolaná vždy, keď používateľ jeho hodnotu vstupného poľa.
 
-Pokiaľ táto udalosť nastane, tak dodatočné dáta budú dostupné v parametri `event`. Tieto dáta obsahujú aj referenciu na daný element `input`, ktorý potrebujeme, aby sme vedeli získať používateľom vyplnenú hodnotu. Tá je dostupná cez `event.data.value`.
+Pokiaľ táto udalosť nastane, tak dodatočné dáta budú dostupné v parametri `event`. Tieto dáta obsahujú aj referenciu na daný element `input`, ktorý potrebujeme, aby sme vedeli získať používateľom vyplnenú hodnotu. Tá je dostupná cez `event.target.value`.
 
 Vstup následne vložíme do novej metódy `JsTable.filterCollection()`, ktorá bude mať za úlohu vytvoriť vyfiltrovanú kolekciu, ktorá sa následne použije vo zvyšku kódu. Týmto nemusíme veľmi modifikovať už existujúci kód, zmeníme len kolekciu použitú na zoradenie a vykreslenie. Upravený konštruktor bude:
 
 ```javascript
- constructor(dataCollection, HTMLElement)
+constructor(dataCollection, HTMLElement)
 {
 
     this.dataCollection = dataCollection;
@@ -326,7 +351,7 @@ Vstup následne vložíme do novej metódy `JsTable.filterCollection()`, ktorá 
 
     let input = document.createElement("input");
     input.oninput = (event) => {
-        this.filterCollection(event.data.value);
+        this.filterCollection(event.target.value);
     }
     this.HTMLElement.prepend(input);
 
