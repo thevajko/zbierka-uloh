@@ -159,14 +159,14 @@ Vďaka tomuto kódu už nemusíme používať funkciu `loaderFetch()`, ale môž
 
 ### Rady na záver
 
-Aktuálny kód má jeden veľajší efekt. Do objektu `window` nám pridal nasledovné funkcie a premenné:
+Aktuálny kód má jeden vedľajší efekt. Do objektu `window` nám pridal nasledovné funkcie a premenné:
 
 - `originalFetch()`
 - `loaderFetch()`
 - `requestCounter`
 - `updateRequestCounter`
 
-Ani jeden z týchto atribútov v princípe nemá čo robiť medzi globálnymi premennými. Riešení tohto problému je niekoľko. Môžeme napríklad použiť OOP.
+Ani jeden z týchto atribútov v princípe nemá čo robiť medzi globálnymi premennými. Riešení tohto problému je niekoľko. Môžeme napríklad použiť OOP a zaobaliť celé riešenie do nejakej triedy.
 
 V prípade takýchto menších skriptov môže byť OOP zbytočne komplikované riešenie. V JavaScripte sa zvykne používať koncept tzv. `Immediately Invoked Function Expression (IIFE)`. Táto IIFE slúži na vytvorenie lokálneho prostredia, v ktorom si môžeme deklarovať vlastné "globálne" premenné, ktoré ale nebudú dostupné mimo nášho kódu.
 
