@@ -123,7 +123,7 @@ function printErrorMessage($errors, $key) : string
 
 Následné použitie tejto funkcie na výpis chybových hlásení bude nasledovné:
 
-```HTML+PHP
+```html
 <label for="name">Meno</label>
 <input type="text" id="name" name="name" placeholder="Vaše meno">
 <?=printErrorMessage($errors, "name")?>
