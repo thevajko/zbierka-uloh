@@ -6,14 +6,14 @@
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 
-# Online zipovač (PHP)
+# Online zipovač
 <div class="info"> 
 
 **Hlavný jazyk príkladu**: PHP
 
 **Ostatné použité jazyky**: HTML, JavaScript
 
-**Obtiažnosť**: 1/5
+**Obtiažnosť**: 2/5
 
 **Obsah príkladu**: Objektové programovanie v PHP, nahrávanie (*upload*) súborov na server a ich spracovanie, externé rozšírenia jazyka PHP, identifikáciu používateľa, *cookies*, polia.
 </div>

@@ -6,7 +6,7 @@
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 
-# Dátová tabuľka (JS, CSS)
+# Dátová tabuľka
 <div class="info"> 
 
 **Hlavný jazyk príkladu**: JS

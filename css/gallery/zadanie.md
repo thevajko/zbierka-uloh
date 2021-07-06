@@ -5,7 +5,7 @@
 > - Repo: [Štartér](/../../tree/main/css/galeria), [Riešenie](/../../tree/solution/css/galeria).
 </div>
 
-# Galéria (CSS)
+# Galéria
 <div class="info"> 
 
 **Hlavný jazyk príkladu**: CSS
@@ -48,21 +48,15 @@ Naštýlujte pomocou CSS túto galériu nasledovne:
 5. Názov a popisok obrázku sa zobrazí tak, že po "príchode" myši na obrázok obrázok postupne stmavne, nadpis sa 
    zobrazí v ľavom hornom rohu a popisok sa postupne nasunie zo spodu obrázku.
 
-#### Zobrazenie na malom zariadení
+#### Zobrazenie galérií na rôznych veľkostiach zariadení
 
-![](images_gallery/zadanie-s.jpg)
+![Zobrazenie galérie na malom zariadení](images_gallery/zadanie-s.jpg)
 
-#### Zobrazenie na strednom zariadení
+![Zobrazenie galérie na strednom veľkom zariadení](images_gallery/zadanie-m.jpg)
 
-![](images_gallery/zadanie-m.jpg)
+![Zobrazenie galérie na veľkom zariadení](images_gallery/zadanie-l.jpg)
 
-#### Zobrazenie na veľkom zariadení
-
-![](images_gallery/zadanie-l.jpg)
-
-#### Zobrazenie informácie o obrázku
-
-![](images_gallery/zadanie-hover.jpg)
+![Zobrazenie informácie o obrázku](images_gallery/zadanie-hover.jpg)
 
 <div class="hidden">
 
