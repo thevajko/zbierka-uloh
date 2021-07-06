@@ -221,11 +221,3 @@ Všetky premenné definované v rámci funkcie budú k dispozícií len v danej 
 })();
 ```
 
-<div class="solution">
-
-Kompletné zdrojové kódy hotového riešenia môžete nájsť na tejto URL adrese: 
-
-[https://github.com/thevajko/zbierka-uloh/tree/solution/ajax/universal-loader](https://github.com/thevajko/zbierka-uloh/tree/solution/ajax/universal-loader)
-
-![URL adresa hotového riešenia](images_universal_loader/qr-universal-loader.png)
-</div>

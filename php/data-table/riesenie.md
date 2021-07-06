@@ -1277,12 +1277,3 @@ $usersTable->addColumn("name", "Meno")
 ```
 
 V prípade, že by sme chceli v tabuľke zobraziť inú dátovú entitu, stačí implementovať príslušný `Storage` a nastaviť požadované stĺpce.
-
-<div class="solution">
-
-Kompletné zdrojové kódy hotového riešenia môžete nájsť na tejto URL adrese:
-
-[https://github.com/thevajko/zbierka-uloh/tree/solution/php/data-table](https://github.com/thevajko/zbierka-uloh/tree/solution/php/data-table)
-
-![URL adresa hotového riešenia](images_data-table/qr-data-table-php.png)
-</div>

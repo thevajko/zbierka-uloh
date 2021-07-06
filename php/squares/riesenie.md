@@ -114,11 +114,3 @@ Samotný PHP kód na vygenerovanie štvorčekov bude obsahovať jeden cyklus, kt
 
 Celé riešenie doplníme o základný kód HTML kostry. 
 
-<div class="solution">
-
-Kompletné zdrojové kódy hotového riešenia môžete nájsť na tejto URL adrese:
-
-[https://github.com/thevajko/zbierka-uloh/tree/solution/php/squares](https://github.com/thevajko/zbierka-uloh/tree/solution/php/squares)
-
-![URL adresa hotového riešenia](images_squares/qr-squares.png)
-</div>

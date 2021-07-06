@@ -80,12 +80,3 @@ function factorial($number)
 </body>
 </html>
 ```
-
-<div class="solution">
-
-Kompletné zdrojové kódy hotového riešenia môžete nájsť na tejto URL adrese:
-
-[https://github.com/thevajko/zbierka-uloh/tree/solution/php/factorial](https://github.com/thevajko/zbierka-uloh/tree/solution/php/factorial)
-
-![URL adresa hotového riešenia](images_factorial/qr-factorial.png)
-</div>

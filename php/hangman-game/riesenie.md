@@ -407,11 +407,3 @@ Tým je celá hra hotová a na nasledujúcom obrázku si môžeme pozrieť uká�
 
 ![](images_hangman-game/game_in_progress.png)
 
-<div class="solution">
-
-Kompletné zdrojové kódy hotového riešenia môžete nájsť na tejto URL adrese:
-
-[https://github.com/thevajko/zbierka-uloh/tree/solution/php/hangman-game](https://github.com/thevajko/zbierka-uloh/tree/solution/php/hangman-game)
-
-![URL adresa hotového riešenia](images_hangman-game/qr-hangman-game.png)
-</div>

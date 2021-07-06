@@ -1472,12 +1472,3 @@ class Chat
 }
 // ...
 ```
-
-<div class="solution">
-
-Kompletné zdrojové kódy hotového riešenia môžete nájsť na tejto URL adrese: 
-
-[https://github.com/thevajko/zbierka-uloh/tree/solution/ajax/chat](https://github.com/thevajko/zbierka-uloh/tree/solution/ajax/chat)
-
-![URL adresa hotového riešenia](images_chat/qr-chat.png)
-</div>

@@ -458,12 +458,3 @@ Pozor! Pokiaľ použijeme riešenie s modulmi, skript v HTML musíme naimportova
 Na spustenie hry budeme potrebovať okrem prehliadača, aj nejaký webový server. Pri použití modulov nie je možné Javascript spúštať bez použitia webového servera. Hru v prehliadači spustíme kliknutím na tlačidlo `Start`. Po spustení hry uvidíme muchy na hracej ploche, kurzor sa zmení na mucholapku a môžeme začať hrať:
 
 ![](images_fly-game/game.png)
-
-<div class="solution">
-
-Kompletné zdrojové kódy hotového riešenia môžete nájsť na tejto URL adrese:
-
-[https://github.com/thevajko/zbierka-uloh/tree/solution/js/fly-game](https://github.com/thevajko/zbierka-uloh/tree/solution/js/fly-game)
-
-![URL adresa hotového riešenia](images_fly-game/qr-fly-game.png)
-</div>

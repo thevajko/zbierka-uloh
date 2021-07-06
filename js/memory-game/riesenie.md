@@ -306,11 +306,3 @@ Priebeh rozohratej hry je možné vidieť na nasledovnom obrázku (hráč 2 prá
 
 Tým sme implementovali celú logiku hry. Koniec hry sme neriešili, ale nebol by problém detegovať, či sú všetky karty odkryté, vyhlásiť víťaza a opýtať sa, či si chcú hráči hru zahrať znovu. 
 
-<div class="solution">
-
-Kompletné zdrojové kódy hotového riešenia môžete nájsť na tejto URL adrese:
-
-[https://github.com/thevajko/zbierka-uloh/tree/solution/js/memory-game](https://github.com/thevajko/zbierka-uloh/tree/solution/js/memory-game)
-
-![URL adresa hotového riešenia](images_memory-game/qr-memory-game.png)
-</div>

@@ -337,11 +337,3 @@ Na tomto obrázku je aplikácia v stave, keď používateľ klikol na tlačidlo 
 
 ![](images_zipper/3.png)
 
-<div class="solution">
-
-Kompletné zdrojové kódy hotového riešenia môžete nájsť na tejto URL adrese:
-
-[https://github.com/thevajko/zbierka-uloh/tree/solution/php/zipper](https://github.com/thevajko/zbierka-uloh/tree/solution/php/zipper)
-
-![URL adresa hotového riešenia](images_zipper/qr-zipper.png)
-</div>
