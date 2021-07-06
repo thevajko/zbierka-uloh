@@ -414,7 +414,7 @@ To je všetko, čo sme potrebovali zmeniť, aby sme drop-down menu prerobili na 
 
 ![](images_dropdownmenu/menu-up-02.gif)
 
-<div class="solution">
+<div class="solution d-none">
 
 Kompletné zdrojové kódy hotového riešenia môžete nájsť na tejto URL adrese:
 
