@@ -23,23 +23,20 @@ Základným prvkom používateľského vstupu predstavuje element `input`, ktor�
 Ako prvé budeme kontrolovať, či majú vstupy hodnotu v správnom tvare. V prípade mailu môžeme použiť rovno typ zadefinovať vstupné pole typu `email`, teda:
 
 ```html
-
 <input type="email" id="mail">
 ```
 
 Ten ale nie je vždy dostačujúce, nakoľko nie každý prehliadač kontroluje zadanú hodnotu korektne. Lepšie preto bude použiť atribút `pattern`, kde zadáme regulárny výraz, ktorý bude kontrolovať, či hodnota v tvare e-mailovej adresy.
 
-Regulárny výraz vieme buď vytvoriť, alebo nájsť na internete. Jeden z týchto výrazov (nie je to úplne správny výraz, pretože formát e-mailovej adresy je veľmi komplikovaný) je napr. `/^\S+@\S+\.\S+$/`<span class="hidden">([zdroj tu](https://stackoverflow.com/questions/201323/how-to-validate-an-email-address-using-a-regular-expression))</span>. Element pre zadanie mailu teda zapíšeme:
+Regulárny výraz vieme buď vytvoriť, alebo nájsť na internete. Jeden z týchto výrazov (nie je to úplne správny výraz, pretože formát e-mailovej adresy je veľmi komplikovaný) je napr. `/^\S+@\S+\.\S+$/` <span class="hidden">([zdroj tu](https://stackoverflow.com/questions/201323/how-to-validate-an-email-address-using-a-regular-expression)). </span> Element pre zadanie mailu teda zapíšeme:
 
 ```html
-
 <input type="text" id="mail" pattern="/^\S+@\S+\.\S+$/">
 ```
 
 To isté bude platiť pre mobilné telefónne číslo so slovenskou predvoľbou, pre ktoré bude platiť regulárny výraz `/^\+421([0-9]{9}|(( {0,1}[0-9]{3}){3}))$/`. Element pre zadanie mobilného čísla bude zapísaný nasledovne:
 
 ```html
-
 <input type="text" id="mobil" pattern="/^\+421([0-9]{9}|(( {0,1}[0-9]{3}){3}))$/">
 ```
 
@@ -49,7 +46,6 @@ Teraz pridáme atribút `required` do `input` elementov pre zadávanie pre `Meno
 bude vyzerať nejako takto:
 
 ```html
-
 <input type="text" id="mail" pattern="/^\S+@\S+\.\S+$/" required>
 ```
 
@@ -61,7 +57,6 @@ Bolo by však dobré aj vizuálne používateľovi zobraziť, ktoré prvky formu
 pridaná aj do formulára, ktorý chybu obsahuje. Stačí nám preto pridať jednoduché CSS pravidlo, ktoré zafarbí pozadie týchto prvkov na červeno. Pre jednoduchosť pridáme štýl priamo do HTML kódu:
 
 ```html
-
 <style>
     :invalid:not(form) {
         background-color: red;
@@ -223,11 +218,9 @@ CSS pre chybovú hlašku bude nasledovné:
 Teraz musíme po načítaní HTML pridať validačné funkcie. Ako prvú pridáme validáciu toho, či je `Meno` zadané. V nej budeme kontrolovať, či je hodnota tohto vstupného elementu `null` alebo dĺžka väčšia ako 0 znakov. Tu je HTML kód v kombinácii s JavaScriptom:
 
 ```html
-
 <label for="meno">Meno:</label>
 <br>
-<input type="text"
-       id="meno">
+<input type="text" id="meno">
 <br>
 ```
 
@@ -276,11 +269,9 @@ function validateInput(element, validationFunction) {
 Pre vytvorenie lepšie používateľského komfortu našej validácie doplníme vizuálne označenie, ktoré zmení farbu elementu `label` a rámčeka `input` na červenú farbu. Budeme musieť ale upraviť HTML. Každú dvojicu `label` a `input` vložíme do `div` elementu. Budeme tak mať kontrolu nad tým, pre ktoré elementy chceme zobrazenie upraviť:
 
 ```html
-
 <div>
     <label for="meno">Meno:</label><br>
-    <input type="text"
-           id="meno"><br>
+    <input type="text" id="meno"><br>
 </div>
 ```
 
@@ -336,7 +327,6 @@ Aby sme mohli zablokovať tlačidlo pre odoslanie formulára pri nájdení chyby
 Ako ďaľšie doplníme nad tlačidlo `Odoslať` hlášku informujúcu používateľa o tom, že formulár obsahuje chyby a nie je možné ho odoslať. Je to veľmi dôležitý detail, ktorý výrazne spríjemňuje a uľahčuje používateľovi prácu s aplikáciou (zvlášť, ak by bol formulár tak veľký, že by bolo nutné použiť posuvník). Samozrejme, na začiatku je potrebné hlášku skryť a vizuálne ju oddeliť od okolia, preto pridáme nasledovné HTML:
 
 ```html
-
 <div id="submit-info">
     Formulár obsahuje chyby a nie je možné ho odoslať.
 </div>
