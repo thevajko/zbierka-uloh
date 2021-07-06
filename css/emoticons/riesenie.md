@@ -50,7 +50,7 @@ Okrem veľkosti nastavíme elementu aj farbu pozadia.
 
 Výsledkom tejto úpravy bude nasledovný štvorec o rozmeroch `50px` x `50px`.
 
-![](images_emoticons/stvorcek.png)
+![Základný štvorec](images_emoticons/stvorcek.png)
 
 V ďalšom kroku potrebujeme z tohto štvorčeka spraviť kruh. To vieme v ccs docieliť pomocou zaoblenia rámčekov - použitím vlastnosti `border-radius`. Okrem toho by bolo vhodné pridať aj čierne orámovanie, ktoré môžeme aplikovať pomocou vlastnosti `border`.
 
@@ -63,7 +63,7 @@ selektor {
 
 Vlastnosť `border-radius` nastavuje veľkosť zaoblenia elementu. Táto veľkosť môže byť uvedená v pixeloch alebo v relatívnych hodnotách vzhľadom na veľkosť elementu. V našom prípade nastavením tejto hodnoty na `50%` dosiahneme požadované zobrazenie elementu `div` ako kruhu.
 
-![](images_css_smileyy/kruh.png)
+![Vzniknutý kruh po nastavení zaoblenia rámčekov](images_emoticons/kruh.png)
 
 ### Zobrazenie očí
 
@@ -86,7 +86,7 @@ CSS kód pre oči je veľmi podobný ako pri celom tele smajlíka, obsahuje nast
 
 Výsledok vyzerá nasledovne:
 
-![](images_emoticons/kruh_oci1.png)
+![Pridanie očí](images_emoticons/kruh_oci1.png)
 
 Ako môžeme vidieť, oči sa na obrázku zobrazili v pravom hornom rohu pod sebou. Ďalším krokom bude umiestnenie týchto očí na správne miesto. To je možné dosiahnuť rôznymi spôsobmi. Napríklad sa dá použiť vlastnosť `transform` alebo nastavením absolútnej pozície.
 
@@ -108,7 +108,7 @@ selektor {
 
 Po aplikovaní bude náš smajlík vyzerať nasledovne:
 
-![](images_emoticons/kruh_oci2.png)
+![Pridanie oka na správne miesto](images_emoticons/kruh_oci2.png)
 
 Ako môžeme vidieť, na obrázku máme zobrazené len jedno eye. Je to z toho dôvodu, že obe oči majú rovnakú CSS triedu a sú umiestnené pomocou absolútneho poziciovania - takže sa prekrývajú. Aby sme oči zobrazili správne, musíme jedno z nich posunúť doprava. Možností máme niekoľko, buď druhému oku pridáme ďalšiu CSS triedu, alebo použijeme niektorý zo selektorov `:last-child`, `:nth-child(n)`, `:first-child`, a pod.
 
@@ -122,7 +122,7 @@ V našom prípade môžeme pomocou selektoru `:last-child` vybrať druhé oko a 
 
 Pomocou selektoru `.smajlik .eye:first-child` sme zvolili posledný element s triedou `eye`, ktorý sa nachádza ľubovolne zanorený v elemente s triedou `smiley`. Tento selektor len dopĺňa (prepisuje) už doteraz definované vlasnosti pre element s triedou `eye`, takže nemusíme opakovať nastavenie veľkosti farby atď. Jediná zmena, ktorú sme urobili oproti pôvodnému nastaveniu elementu `eye` bola pozícia zľava, ktorú sme v tomto prípade nastavili na 75%. Výsledný smajlík bude vyzerať nasledovne:
 
-![](images_emoticons/kruh_oci3.png)
+![Obidbe oči na správnom mieste](images_emoticons/kruh_oci3.png)
 
 ### Zobrazenie úst
 
@@ -142,7 +142,7 @@ Pre zobrazenie úst máme k dispozícii HTML element s triedou `mouth`. Začneme
 
 Veľkosť sme nastavili na `60%` z rozmeru smajlíka. Následne sme element umiestnili tak, aby sa zobrazil v strede. Ak vieme, že šírka elementu je `60%` tak na to, aby sa zobrazil vycentrovaný, musíme ho zobraziť `20%` od ľavej strany smajlíka. Po aplikovaní týchto pravidiel dostaneme nasledovný tvar:
 
-![](images_emoticons/kruh_usta1.png)
+![Element `div` na zobrazenie úst](images_emoticons/kruh_usta1.png)
 
 Ústa na vzorovom obrázku získame tak, že z tohto elementu spravíme kruh pomocou `border-radius`, zobrazíme spodný rámček a zrušíme výplň.
 
@@ -154,7 +154,7 @@ Veľkosť sme nastavili na `60%` z rozmeru smajlíka. Následne sme element umie
 }
 ```
 
-![](images_emoticons/kruh_usta2.png)
+![Úprava úst](images_emoticons/kruh_usta2.png)
 
 Výsledok sa už takmer podobá zadaniu, ibaže naše ústa nemajú pevné ohraničenie ale idú "dostratena". Tento efekt je spôsobený tým, ako fungujú rámčeky. Ak máme rámček len na jednej strane, tento rámček sa pri zaoblených elementoch na krajoch tzv. zlieva.
 
@@ -171,9 +171,9 @@ Pre lepšie pochopenie uvedieme ďalšiu ukážku. Máme nasledovný CSS kód:
 }
 ```
 
-Tento kód naštýluje zelený obdĺžnik o rozmeroch `50px` x `50px`. Tento obdĺžnik má zaoblenie `15px`. Okrem toho sme definovali rámšček o veľkosti `5px` z ľavej a spodnej strany. Ako môžeme vidieť na obrázku nižšie, prechod medzi rámčekom vľavo dole je pevný. Naopak vľavo hore, resp. vpravo dole je tento prechod plynulý.
+Tento kód naštýluje zelený obdĺžnik o rozmeroch `50px` x `50px`. Tento obdĺžnik má zaoblenie `15px`. Okrem toho sme definovali rámček o veľkosti `5px` z ľavej a spodnej strany. Ako môžeme vidieť na obrázku nižšie, prechod medzi rámčekom vľavo dole je pevný. Naopak vľavo hore, resp. vpravo dole je tento prechod plynulý.
 
-![](images_emoticons/border-demo.png)
+![Ukážka rôznych možností nastavenia rámčekov](images_emoticons/border-demo.png)
 
 V našom smajlíkovi potrebujeme nastaviť zvyšné rámčeky na rovnakú šírku ako má spodný, ale s tým, že tieto budú priesvitné:
 
@@ -186,7 +186,7 @@ V našom smajlíkovi potrebujeme nastaviť zvyšné rámčeky na rovnakú šírk
 
 Po úprave týchto pravidiel vznikne ešte jeden problém.
 
-![](images_emoticons/kruh_usta3.png)
+![Ústa smajlíka po ďalšej úprave](images_emoticons/kruh_usta3.png)
 
 Ústa sú posunuté mimo stredu napravo. Tento problém je spôsobený tým, že veľkosť nášho elementu pre ústa sa zväšila o šírku rámčekov. To znamená, že aktuálne má náš element skutočnú šírku `60%` + `5px` rámček sprava + `5px` rámček zľava. Tento problém môžeme vyriešiť viacerými spôsobmi. Môžeme napríklad tento posun kompenzovať v CSS vlastnosti `left` tak, že odrátame tých `10px`, čo máme navyše. Druhým, oveľa lepším spôsobom, je zmena vlastnosti `box-sizing`, ktorá definuje, ako sa určuje veľkosť elementu. V základe sa do veľkosti nepočíta veľkosť rámiku. Toto ale môžeme zmeniť nastavením tejto vlastnosti na hodnotu `border-box`.
 
@@ -210,7 +210,7 @@ Výsledné CSS hotového smajlíka bude vyzerať nasledovne:
 
 Okrem pridania vlastnosti `box-sizing` sme upravili pozíciu tak, že ústa sme posunuli `10%` od vrchu, `15%` zľava. Zmenili sme aj celkovú veľkosť úst na `70%`, pretože teraz rozmer úst teraz zahŕňa aj rámček.
 
-![](images_emoticons/smajlik1.png)
+![Oprava umiestnenia úst](images_emoticons/smajlik1.png)
 
 ### Vytvorenie smutného smajlíka
 
@@ -234,7 +234,7 @@ Druhou možnosťou je využitie CSS transformácií, kde je potrebné element zr
 
 Výsledok oboch príkladov je totožný:
 
-![](images_emoticons/smajlik2.png)
+![Jednoduchá úprava úst rotáciou](images_emoticons/smajlik2.png)
 
 HTML kód pre zobrazenie tohto smajlíka je podľa zadania nasledovný:
 
@@ -284,7 +284,8 @@ Líčko naľavo zobrazíme cez selektor `::before` a nastavíme mu veľkosť rov
 ```
 
 V CSS si môžeme všimnúť jednu zaujímavú vlastnosť. Vlastnosť `content` slúži na nastavenie textového obsahu pseudoelementu. V našom prípade tam nastavíme prázdny reťazec, pretože nič viac nepotrebujeme. Ak by sme `content` nezadefinovali, pseudoelement by sa nám nezobrazil vôbec. Výsledok si môžeme pozrieť na nasledovnom obrázku: 
-![](images_emoticons/kruh_licka1.png)
+
+![Líčko smajlíka](images_emoticons/kruh_licka1.png)
 
 Problémom tohto riešenia je to, že líčko nám prekrýva ústa, preto by sme chceli zmeniť poradie týchto elementov. Keď vytvoríme nejaký peseudoelement pomocou `::before` alebo `::after`, tak tento element je potomkom elementu, ku ktorému ho vytvárame.
 
@@ -313,7 +314,7 @@ Na zmenu poradia poradia elementov môžeme využiť CSS vrstvy - vlastnosť `z-
 
 Po aplikovaní týchto pravidiel dosiahneme správne zobrazenie líčka.
 
-![](images_emoticons/kruh_licka2.png)
+![Presunutie líčka do vrstvy za ústa](images_emoticons/kruh_licka2.png)
 
 Posledným krokom bude zobrazenie druhého líčka pomocou `::after`. Obe líčka majú veľa spoločných pravidiel. Výsledný kód upravíme tak, že spoločné pravidlá definujeme len raz a pozíciu nastavíme každému samostatne.
 
@@ -342,7 +343,7 @@ Môžeme si všimnúť, že prvý selektor obsahuje dve časti oddelené čiarko
 
 Výsledok bude vyzerať nasledovne:
 
-![](images_emoticons/smajlik3.png)
+![Obidve líčka smajlíka](images_emoticons/smajlik3.png)
 
 ### Vytvorenie veselého smajlíka
 
@@ -362,14 +363,13 @@ Začneme teda s CSS kódom, ktorý vyzerá nasledovne:
 }
 ```
 
-Pomocou tohto CSS nastavíme elementu čiernu farbu pozadia. Následne upravíme primerane veľkosť a pozíciu týchto úst. Posledné dve pravidlá nastavujú nové zaoblenie úst. Aj pravý aj ľavý spodný roh má nastavené zaoblenie na `100% 200%`.
-Výsledok bude nasledovný:
+Pomocou tohto CSS nastavíme elementu čiernu farbu pozadia. Následne upravíme primerane veľkosť a pozíciu týchto úst. Posledné dve pravidlá nastavujú nové zaoblenie úst. Aj pravý aj ľavý spodný roh má nastavené zaoblenie na `100% 200%`. Výsledok bude nasledovný:
 
-![](images_emoticons/smajlik_stastny_1.png)
+![Základná úprava úst smajlíka](images_emoticons/smajlik_stastny_1.png)
 
 Ako vidíme, ústa sú zaoblené aj zvrchu. Toto zaoblenie je spôsobené pravidlami pre ústa pôvodného smajlíka. Pomocou `border-radius: 0;` odstránime pôvodné zaoblenie úst. Pozor, toto pravidlo musí byť vo výslednom CSS umiestnené pred pravidlami `border-bottom-left-radius` a `border-bottom-right-radius`.
 
-![](images_emoticons/smajlik_stastny_2.png)
+![Zrušenie zaoblenia úst z hornej strany](images_emoticons/smajlik_stastny_2.png)
 
 V ďalšom kroku sa pokúsime smajlíkovi pridať zuby. Na to môžeme použiť opäť pseudoelementy `::before` a `::after`.
 
@@ -386,11 +386,12 @@ V ďalšom kroku sa pokúsime smajlíkovi pridať zuby. Na to môžeme použiť 
 ```
 
 Po aplikovaní štýlu bude náš smajlík vyzerať nasledovne:
-![](images_emoticons/smajlik_stastny_3.png)
+
+![Pridanie zubov](images_emoticons/smajlik_stastny_3.png)
 
 Smajlík síce zuby má, ale tie sa vykreslujú nad ústami. Pokiaľ chceme, aby boli zuby "vo vnútri", môžeme použiť vlastnosť `overflow`, ktorú pre `.smiley.happy .mouth` nastavíme na `hidden`.
 
-![](images_emoticons/smajlik_stastny_4.png)
+![Umiestnenie zubov na správne miesto](images_emoticons/smajlik_stastny_4.png)
 
 Posledným krokom je pridanie jazyka. Jazyk môžeme implementovať ako polkruh, ktorý umiestnime na spodnú stranu. Pri jazyku môžeme využiť to, že celé ústa majú nastavené `overflow` na `hidden` a nemusíme sa tak trápiť s polkruhom, ale môžeme použiť plný kruh, ktorého spodná čas bude skrytá.
 
@@ -408,7 +409,7 @@ Posledným krokom je pridanie jazyka. Jazyk môžeme implementovať ako polkruh,
 }
 ```
 
-![](images_emoticons/smajlik_stastny_final.png)
+![Pridanie jazyka](images_emoticons/smajlik_stastny_final.png)
 
 ### Definícia ďalších rozmerov
 
@@ -423,7 +424,7 @@ Posledným krokom je pridanie jazyka. Jazyk môžeme implementovať ako polkruh,
 
 Výsledok vyzerá takto:
 
-![](images_emoticons/smajlik_velkosti1.png)
+![Rôzne veľkosti smajlíka](images_emoticons/smajlik_velkosti1.png)
 
 Veľkosť smajlíka je v poriadku, ale veľký smajlík má tenké rámčeky. Keď sa bližšie pozrieme na CSS pravidlá, ktoré deklarujú rámčeky, môžeme vidieť nasledovné:
 
@@ -444,11 +445,12 @@ Namiesto zmeny rozmerov môžeme použiť CSS transformácie. Konkrétne transfo
 ```
 
 Výsledok bude vyzerať nasledovne:
-![](images_emoticons/smajlik_velkosti2.png)
+
+![Zmena veľkosti smajlíka cez CSS transformáciu `transform`](images_emoticons/smajlik_velkosti2.png)
 
 Najväčší smajlík má správnu veľkosť rámčeka, ale ako môžeme vidieť, pôvodne tri smajlíky sú aktuálne zobrazené cez seba. Môžeme ešte skúsiť nastaviť `transform-origin` na `top left` (ľavý horný roh), ale to nám tiež veľmi nepomôže.
 
-![](images_emoticons/smajlik_velkosti3.png)
+![Riešenie prekrývania smajlíkov pomocou `transform-origin`](images_emoticons/smajlik_velkosti3.png)
 
 CSS transformácie síce menia výzor elementu, ale nemenia jeho pozíciu a rozmer vzhľadom na iné elementy. To znamená, že ak aj zmeníme veľkosť druhého smajlíka dvakrát, tak z pohľadu tretieho sa javí nezmenený, a preto ho prekryje. Tento problém sa dá vyriešiť pridaním okrajov.
 
@@ -461,7 +463,7 @@ CSS transformácie síce menia výzor elementu, ale nemenia jeho pozíciu a rozm
 
 V tomto prípade už nepotrebujeme nastaviť `transform-origin`, pretože jeho východzia hodnota je `center center`. Ak teda zväčšíme smajlíka `50px` x `50px` dvakrát, tak na každej strane bude potrebné pridať okraj `25px`. Výsledný obrázok vyzerá nasledovne:
 
-![](images_emoticons/smajlik_velkosti4.png)
+![Správny spôsob zväčšovania smajlíka pomocou nastavenia okraja](images_emoticons/smajlik_velkosti4.png)
 
 ### Definícia rozmeru cez CSS premenné
 
@@ -515,3 +517,13 @@ Dokonca môžeme spraviť smajlíka ľubovolnej veľkosti aj priamo v HTML kóde
     <span class="mouth"></span>
 </div>
 ```
+
+<div class="solution">
+
+Kompletné zdrojové kódy hotového riešenia môžete nájsť na tejto URL adrese:
+
+[https://github.com/thevajko/zbierka-uloh/tree/solution/css/emoticons](https://github.com/thevajko/zbierka-uloh/tree/solution/css/emoticons)
+
+![URL adresa hotového riešenia](images_emoticons/qr-emoticons.png)
+</div>
+

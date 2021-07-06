@@ -336,3 +336,12 @@ Používateľ postupne pridal 5 súborov do archívu:
 Na tomto obrázku je aplikácia v stave, keď používateľ klikol na tlačidlo `Zipuj!` a môže sa rozhodnúť, či archív uloží na lokálny disk, alebo rovno otvorí.
 
 ![](images_zipper/3.png)
+
+<div class="solution">
+
+Kompletné zdrojové kódy hotového riešenia môžete nájsť na tejto URL adrese:
+
+[https://github.com/thevajko/zbierka-uloh/tree/solution/php/zipper](https://github.com/thevajko/zbierka-uloh/tree/solution/php/zipper)
+
+![URL adresa hotového riešenia](images_zipper/qr-zipper.png)
+</div>

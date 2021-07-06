@@ -5,7 +5,7 @@
 > - Repo: [Štartér](/../../tree/main/php/hangman), [Riešenie](/../../tree/solution/php/hangman).
 </div>
 
-# Hra Obesenec (PHP)
+# Hra Obesenec
 <div class="info"> 
 
 **Hlavný jazyk príkladu**: PHP

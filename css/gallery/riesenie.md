@@ -52,15 +52,15 @@ V poslednom rade sme roztiahli obrázok na celú šírku príslušného elementu
 
 Tento kód má ale ešte jednu chybu:
 
-![](images_gallery/riesenie1.jpg)
+![Deformácia obrázka po zmene rozmerov](images_gallery/riesenie1.jpg)
 
-Ako môžeme vidieť na obrázku, fotka sa nám zdeformovala. Pôvodný obrázok bol totižto fotený *na výšku* a keď obrázku nastavíme rozmery na `100%`, tak sa roztiahne a zdeformuje. Túto deformáciu môžeme našťastie jednoducho vyriešiť pomocou vlastnosti `object-fit: cover`, ktorá definuje spôsob, akým sa obrázok prispôsobí pri zmene veľkosti. Po aplikovaní tejto vlastnosti na obrázok dostaneme:
+Ako môžeme vidieť na obrázku, fotka sa nám zdeformovala. Pôvodný obrázok bol totižto odfotený *na výšku* a keď obrázku nastavíme rozmery na `100%`, tak sa roztiahne a zdeformuje. Túto deformáciu môžeme našťastie jednoducho vyriešiť pomocou vlastnosti `object-fit: cover`, ktorá definuje spôsob, akým sa obrázok prispôsobí pri zmene veľkosti. Po aplikovaní tejto vlastnosti na obrázok dostaneme:
 
-![](images_gallery/riesenie2.jpg)
+![Zachovanie pomeru strán obrázku](images_gallery/riesenie2.jpg)
 
-### Zobrazenie obrázkov v gride
+### Zobrazenie obrázkov v mriežke
 
-Aktuálne sme v stave, keď sa nám na stránke obrázky zobrazujú pod sebou. My by sme ale potrebovali, aby sme zobrazili tri obrázky vedľa seba.
+Aktuálne je aplikácia v stave, kedy sa nám na stránke obrázky zobrazujú pod sebou. Potrebovali by sme ale, aby sa zobrazili tri obrázky vedľa seba.
 
 #### Riešenie cez `inline-block`
 
@@ -79,9 +79,9 @@ Okrem pridania vlastnosti display sme zmenili aj šírku elementov - ak chceme t
 
 > Ako si môžete všimnúť, aj `padding-top` bolo potrebné zmenšiť na 1/3 pôvodnej hodnoty.
 
-Po aplikovaní tohto štýlu ale zostaneme prekvapený:
+Po aplikovaní tohto štýlu zostaneme prekvapení:
 
-![](images_gallery/riesenie3.jpg)
+![Pokus o zobrazenie troch obrázkov vedľa seba](images_gallery/riesenie3.jpg)
 
 Namiesto troch obrázkov na riadok máme len dva. Navyše oproti pôvodnému prípadu máme okolo obrázkov medzery. Po ďalšom skúmaní zistíme, že práve tieto medzery spôsobili, že sa nezmesia tri obrázky na riadok. Pri zobrazení `inline-block` sú tieto medzery spôsobené novým riadkom v HTML kóde medzi obrázkami.
 
@@ -111,7 +111,7 @@ Druhým spôsobom je ponechanie blokového zobrazenia fotky. Blokovým elementom
 
 Výsledkom bude správne zobrazenie troch fotiek na jednom riadku:
 
-![](images_gallery/riesenie4.jpg)
+![Zobrazenie troch obrázkov vedľa seba pomocou vlastnosti `float`](images_gallery/riesenie4.jpg)
 
 #### Riešenie cez flexbox
 
@@ -126,16 +126,15 @@ Posledným spôsobom je riešenie pomocou rozloženia **flexbox**. Najskôr potr
 
 Okrem `display: flex` musíme nastaviť aj vlastnosť `flex-wrap` na hodnotu `wrap`, aby sa *flexbox* nepokúšal o zobrazenie všetkých elementov na jednom riadku, ako môžeme vidieť v nasledovnom obrázku:
 
-![](images_gallery/riesenie5.jpg)
+![Zobrazenie troch obrázkov vedľa seba pomocou CSS *flexbox*](images_gallery/riesenie5.jpg)
 
-Po nastavení `flex-wrap: wrap;` je už všetko v poriadku. Výhodou *flexboxu* oproti riešeniu s obtekaním je to, že *flexbox* má veľké množstvo ďalších možností. Predstavte si, že nemáme presný počet obrázkov tak, aby sme vyplnili všetky riadky. V prípade riešenia s obtekaním nám posledný obrázok zostane na ľavom okraji. Ak použijeme *flexbox*,
-môžeme pomocou vlastnosti `justify-content` nastaviť, čo sa má stať v prípade, že nebude dostatok fotiek na riadku.
+Po nastavení `flex-wrap: wrap;` je už všetko v poriadku. Výhodou *flexboxu* oproti riešeniu s obtekaním je to, že *flexbox* má veľké množstvo ďalších možností. Predstavte si, že nemáme presný počet obrázkov tak, aby sme vyplnili všetky riadky. V prípade riešenia s obtekaním nám posledný obrázok zostane na ľavom okraji. Ak použijeme *flexbox*, môžeme pomocou vlastnosti `justify-content` nastaviť, čo sa má stať v prípade, že nebude dostatok fotiek na riadku.
 
 Ak nastavíme `justify-content` na `center`, tak sa nám fotky vycentrujú do stredu:
 
-![](images_gallery/riesenie6.jpg)
+![Vycentrovanie obrázkov pomocou volastnosti `justify-content`](images_gallery/riesenie6.jpg)
 
-Môžeme ale vyskúšať aj hodnotu `space-between`, ktorá nám fotky rozhodí na kraje:
+Môžeme vyskúšať aj hodnotu `space-between`, ktorá nám fotky umiestni na okraje:
 
 ![](images_gallery/riesenie7.jpg)
 
@@ -341,3 +340,12 @@ Text sa zobrazuje v skutočnosti mimo elementu fotky. Tento problém môžeme vy
 Výsledná galéria bude vyzerať nasledovne:
 
 ![](images_gallery/zadanie-final.jpg)
+
+<div class="solution">
+
+Kompletné zdrojové kódy hotového riešenia môžete nájsť na tejto URL adrese:
+
+[https://github.com/thevajko/zbierka-uloh/tree/solution/css/gallery](https://github.com/thevajko/zbierka-uloh/tree/solution/css/gallery)
+
+![URL adresa hotového riešenia](images_gallery/qr-gallery.png)
+</div>

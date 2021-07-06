@@ -5,7 +5,7 @@
 > - Repo: [Štartér](/../../tree/main/css/css-planety), [Riešenie](/../../tree/solution/css/css-planety).
 </div>
 
-# Slnečná sústava (CSS)
+# Slnečná sústava
 <div class="info"> 
 
 **Hlavný jazyk príkladu**: CSS

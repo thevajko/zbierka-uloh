@@ -12,7 +12,7 @@
 
 **Ostatné použité jazyky**: HTML, JavaScript, CSS
 
-**Obtiažnosť**: 1/5
+**Obtiažnosť**: 2/5
 
 **Obsah príkladu**: AJAX požiadavky, asynchrónne funkcie, spracovanie výnimiek v JavaScripte, funkcia `fetch()`, CSS jednoduché animácie, *spinner* komponent, AJAX *loader* komponent *flexbox*.
 </div>

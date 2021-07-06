@@ -473,3 +473,12 @@ validateInput(document.getElementById("sprava"), function (value = null) {
 Výsledok bude vyzerať nasledovne:
 
 ![](images_form-check/form-check-03.gif)
+
+<div class="solution">
+
+Kompletné zdrojové kódy hotového riešenia môžete nájsť na tejto URL adrese:
+
+[https://github.com/thevajko/zbierka-uloh/tree/solution/js/form-check](https://github.com/thevajko/zbierka-uloh/tree/solution/js/form-check)
+
+![URL adresa hotového riešenia](images_form-check/qr-form-check.png)
+</div>

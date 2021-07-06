@@ -6,7 +6,7 @@
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 
-# Popisok (Tooltip)
+# Popisok (tooltip)
 <div class="info"> 
 
 **Hlavný jazyk príkladu**: CSS

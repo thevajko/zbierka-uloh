@@ -138,5 +138,12 @@ A opäť triedu pripojíme len k elementom, ktoré potrebujeme otočiť. Výsled
 <div class="bird bottom flip right"></div>
 ```
 
-Týmto krokom sme sa dostali až ku koncu riešenia a výsledok je presne taký, ako bol požadovaný v zadaní.
+<div class="solution">
+
+Kompletné zdrojové kódy hotového riešenia môžete nájsť na tejto URL adrese:
+
+[https://github.com/thevajko/zbierka-uloh/tree/solution/css/position](https://github.com/thevajko/zbierka-uloh/tree/solution/css/position)
+
+![URL adresa hotového riešenia](images_position/qr-position.png)
+</div>
 

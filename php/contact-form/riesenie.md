@@ -252,3 +252,12 @@ Takto odoslaná správa bude vyzerať nasledovne:
 ![](images_contact-form/mail2.png)
 
 Do tela správy sme doplnili meno odosielateľa a pomocou hlavičky `Reply-To` sme špecifikovali adresu pre odpoveď. Vďaka tomu, keď nám príde správa z kontaktného formulára a v mail klientovi dáme odpoveď, tak táto odpoveď pôjde automaticky na adresu nášho používateľa a nie na adresu nášho servera (`my@myserver.sk`), ktorý je špecifikovaný ako odosielateľ.
+
+<div class="solution">
+
+Kompletné zdrojové kódy hotového riešenia môžete nájsť na tejto URL adrese:
+
+[https://github.com/thevajko/zbierka-uloh/tree/solution/php/contact-form](https://github.com/thevajko/zbierka-uloh/tree/solution/php/contact-form)
+
+![URL adresa hotového riešenia](images_contact-form/qr-contact-form.png)
+</div>

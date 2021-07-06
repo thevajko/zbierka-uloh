@@ -622,3 +622,12 @@ public function addSelect($name, $label, $values): SelectField
   return $field;
 }
 ```
+
+<div class="solution">
+
+Kompletné zdrojové kódy hotového riešenia môžete nájsť na tejto URL adrese:
+
+[https://github.com/thevajko/zbierka-uloh/tree/solution/php/form](https://github.com/thevajko/zbierka-uloh/tree/solution/php/form)
+
+![URL adresa hotového riešenia](images_form/qr-form.png)
+</div>
