@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/js-a-css/jstable), [Riešenie](/../../tree/solution/js-a-css/jstable).
+> - Repo: [Štartér](/../../tree/main/js/data-table), [Riešenie](/../../tree/solution/js/data-table).
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 

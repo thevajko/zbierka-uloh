@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/js-a-css/analog-clock), [Riešenie](/../../tree/solution/js-a-css/analog-clock)
+> - Repo: [Štartér](/../../tree/main/js/analog-clock), [Riešenie](/../../tree/solution/js/analog-clock)
 > - [Zobraziť zadanie](zadanie.md)
 
 # Analógové hodinky (JS, CSS)
@@ -272,12 +272,3 @@ window.onload = function(){
 Výsledok:
 
 ![](images_analog-clock/aclock-01.gif)
-
-<div class="solution">
-
-Kompletné zdrojové kódy hotového riešenia môžete nájsť na tejto URL adrese:
-
-[https://github.com/thevajko/zbierka-uloh/tree/solution/js/analog-clock](https://github.com/thevajko/zbierka-uloh/tree/solution/js/analog-clock)
-
-![URL adresa hotového riešenia](images_analog-clock/qr-analog-clock.png)
-</div>

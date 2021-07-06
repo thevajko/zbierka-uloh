@@ -96,12 +96,3 @@ div.has-tooltip .tooltip {
     z-index: 1;
 }
 ```
-
-<div class="solution">
-
-Kompletné zdrojové kódy hotového riešenia môžete nájsť na tejto URL adrese:
-
-[https://github.com/thevajko/zbierka-uloh/tree/solution/css/tooltip](https://github.com/thevajko/zbierka-uloh/tree/solution/css/tooltip)
-
-![URL adresa hotového riešenia](images_tooltip-css/qr-tooltip-css.png)
-</div>

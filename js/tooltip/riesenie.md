@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/js-a-css/tooltip-js), [Riešenie](/../../tree/solution/js-a-css/tooltip-js).
+> - Repo: [Štartér](/../../tree/main/js/tooltip), [Riešenie](/../../tree/solution/js/tooltip).
 > - [Zobraziť zadanie](zadanie.md)
 
 # Tooltip (JS, CSS)
@@ -134,12 +134,3 @@ div[data-tooltip] {
 ```
 
 Prečo sme nenastavili vertikálnu polohu ako `top: 100%` alebo `bottom: 0`? Dôvodom je, že náš skript používa na skrytie elementu udalosť, keď používateľ premiestni z elementu `div` kurzor preč. Treba si uvedomiť, že pre tieto udalosti používa DOM, nie reálne zobrazenie. Tým pádom, aj keď je popisok vizuálne umiestnený mimo prvý element, v DOM  štruktúre to tak nie je. Bohužiaľ potom by popisok zostal zobrazený, keď by naň používateľ prešiel kurzorom myši, čo nechceme.
-
-<div class="solution">
-
-Kompletné zdrojové kódy hotového riešenia môžete nájsť na tejto URL adrese:
-
-[https://github.com/thevajko/zbierka-uloh/tree/solution/js/tooltip](https://github.com/thevajko/zbierka-uloh/tree/solution/js/tooltip)
-
-![URL adresa hotového riešenia](images_tooltip-js/qr-tooltip-js.png)
-</div>

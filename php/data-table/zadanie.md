@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/php/dbtable), [Riešenie](/../../tree/solution/php/dbtable).
+> - Repo: [Štartér](/../../tree/main/php/data-table), [Riešenie](/../../tree/solution/php/data-table).
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 

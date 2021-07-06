@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/php/generovanie-stvorcekov), [Riešenie](/../../tree/solution/php/generovanie-stvorcekov).
+> - Repo: [Štartér](/../../tree/main/php/squares), [Riešenie](/../../tree/solution/php/squares).
 </div>
 
 # Generovanie štvorčekov

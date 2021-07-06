@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/php/generovanie-stvorcekov), [Riešenie](/../../tree/solution/php/generovanie-stvorcekov).
+> - Repo: [Štartér](/../../tree/main/php/squares), [Riešenie](/../../tree/solution/php/squares).
 
 # Generovanie štvorčekov (PHP, CSS)
 
@@ -114,11 +114,3 @@ Samotný PHP kód na vygenerovanie štvorčekov bude obsahovať jeden cyklus, kt
 
 Celé riešenie doplníme o základný kód HTML kostry. 
 
-<div class="solution">
-
-Kompletné zdrojové kódy hotového riešenia môžete nájsť na tejto URL adrese:
-
-[https://github.com/thevajko/zbierka-uloh/tree/solution/php/squares](https://github.com/thevajko/zbierka-uloh/tree/solution/php/squares)
-
-![URL adresa hotového riešenia](images_squares/qr-squares.png)
-</div>

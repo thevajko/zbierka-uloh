@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/php/simple-chat), [Riešenie](/../../tree/solution/php/simple-chat).
+> - Repo: [Štartér](/../../tree/main/ajax/chat), [Riešenie](/../../tree/solution/ajax/chat).
 > - [Zobraziť zadanie](zadanie.md)
 
 # *Chat* aplikácia (DB, PHP, JS, AJAX, CSS)
@@ -1472,12 +1472,3 @@ class Chat
 }
 // ...
 ```
-
-<div class="solution">
-
-Kompletné zdrojové kódy hotového riešenia môžete nájsť na tejto URL adrese: 
-
-[https://github.com/thevajko/zbierka-uloh/tree/solution/ajax/chat](https://github.com/thevajko/zbierka-uloh/tree/solution/ajax/chat)
-
-![URL adresa hotového riešenia](images_chat/qr-chat.png)
-</div>

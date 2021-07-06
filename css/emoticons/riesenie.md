@@ -540,13 +540,3 @@ Dokonca môžeme spraviť smajlíka ľubovolnej veľkosti aj priamo v HTML kóde
     <span class="mouth"></span>
 </div>
 ```
-
-<div class="solution">
-
-Kompletné zdrojové kódy hotového riešenia môžete nájsť na tejto URL adrese:
-
-[https://github.com/thevajko/zbierka-uloh/tree/solution/css/emoticons](https://github.com/thevajko/zbierka-uloh/tree/solution/css/emoticons)
-
-![URL adresa hotového riešenia](images_emoticons/qr-emoticons.png)
-</div>
-

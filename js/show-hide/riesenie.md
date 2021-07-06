@@ -95,12 +95,3 @@ h1 {
     cursor: pointer;
 }
 ```
-
-<div class="solution">
-
-Kompletné zdrojové kódy hotového riešenia môžete nájsť na tejto URL adrese:
-
-[https://github.com/thevajko/zbierka-uloh/tree/solution/js/show-hide](https://github.com/thevajko/zbierka-uloh/tree/solution/js/show-hide)
-
-![URL adresa hotového riešenia](images_show-hide/qr-show-hide.png)
-</div>
