@@ -25,17 +25,16 @@ Vytvorte skript, ktorý zobrazí popisok, ak používateľ umiestni kurzor nad `
 Skript by mal fungovať na HTML kóde, ako je tento:
 
 ```html
-
 <div>
     Lorem ipsum dolor sit amet,
     <span>consectetur</span>
-    <span class="tooltip">Tooltip: asdasd asdasd asd a sd asd asdasda sda</span>
+    <span class="tooltip">Tooltip: In mollis accumsan sodales.</span>
     adipiscing elit. In
     <span>hendrerit</span>
-    <span class="tooltip">Tooltip: asdasd asdasd asd a sd asd asdasda sda</span>
+    <span class="tooltip">Tooltip: Maecenas lobortis quam quis euismod maximus.</span>
     adipiscing elit. ac ex eu aliquam. Etiam lacus orci, egestas et tempor at,
     <span>rutrum</span>
-    <span class="tooltip">Tooltip: asdasd asdasd asd a sd asd asdasda sda</span>
+    <span class="tooltip">Tooltip: Curabitur consequat ligula vel tortor consequat, quis mattis mi egestas.</span>
     adipiscing elit. vitae nulla.
 </div>
 ```

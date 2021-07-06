@@ -24,24 +24,21 @@ Vytvorte skript, ktorý po kliknutí na element `h1` zobrazí text v elemente `p
 Skript by mal fungovať na takejto štruktúre HTML kódu:
 
 ```html
-<body>
-    <div>
-        <h1>
-            Suspendisse in congue mi
-        </h1>
-        <p>
-            Lorem ipsum dolor sit amet, conse...
-        </p>
-    </div>
-    <div>
-        <h1>
-            Interdum et malesuada fames ac ante ipsum primis in faucibus
-        </h1>
-        <p>
-            Cras elementum egestas massa, eu finibus nulla convallis se...
-        </p>
-    </div>
-    ....
-
-</body>
+<div>
+    <h1>
+        Suspendisse in congue mi
+    </h1>
+    <p>
+        Lorem ipsum dolor sit amet, conse...
+    </p>
+</div>
+<div>
+    <h1>
+        Interdum et malesuada fames ac ante ipsum primis in faucibus
+    </h1>
+    <p>
+        Cras elementum egestas massa, eu finibus nulla convallis se...
+    </p>
+</div>
+....
 ```

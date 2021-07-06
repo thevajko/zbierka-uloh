@@ -180,7 +180,7 @@ function shuffleCards() {
     }
 }
 ```
-s
+
 Zamiešané karty sa môžu zobraziť napr. takto:
 
 ![](images_memory-game/shuffled.png)

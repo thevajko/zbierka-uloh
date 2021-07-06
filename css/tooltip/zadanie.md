@@ -25,7 +25,6 @@ Pomocou CSS štýlov (bez použitia JavaScriptu) vytvorte možnosť pridávania 
 Vstupný HTML súbor by mal vyzerať takto:
 
 ```html
-
 <div>
     Lorem ipsum dolor sit amet,
     <span>consectetur</span>
