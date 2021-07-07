@@ -165,7 +165,7 @@ li {
 
 Menu bude vyzerať:
 
-![](images_dropdownmenu/menu-prva-uroven.png)
+![Prvá úroveň menu](images_dropdownmenu/menu-prva-uroven.png)
 
 ### Druhá úroveň
 
@@ -188,7 +188,7 @@ ul ul ul {
 
 Menu bude zobrazovať staticky prvú a druhú úroveň takto:
 
-![](images_dropdownmenu/menu-dva-01.png)
+![Prvá a druhá úroveň menu](images_dropdownmenu/menu-dva-01.png)
 
 Teraz potrebujeme upraviť CSS vlastnosť `position` pre všetky `li` prvej úrovne na `relative`, aby sme vytvorili základnú plochu pre prípadne `ul` ďalších úrovní.
 
@@ -210,9 +210,9 @@ ul ul ul {
 }
 ```
 
-Zobrazenie stránky v tomto kroku bude nasledovné:
+Zobrazenie menu v tomto kroku bude nasledovné:
 
-![](images_dropdownmenu/menu-dva-02.png)
+![Menu prvej a druhej úrovne po úpravách](images_dropdownmenu/menu-dva-02.png)
 
 Ako prvé teraz doplníme zobrazovanie a skrývanie druhej úrovne, pokiaľ používateľ umiestni kurzor nad danú položku `li`, ktorá obsahuje priamo podmenu. Zvolenie priameho potomka je v selektore dôležité, lebo chceme, aby sa zobrazil iba priamy potomok a nie všetky `ul` v danej vetve DOM. Môžeme ešte pridať formátovanie pre `ul` úrovne dva a viac.
 
@@ -234,7 +234,7 @@ li:hover > ul {
 
 Ako je vidieť na nasledujúcom obrázku, menu bude fungovať, ako má, ale iba po druhú úroveň.
 
-![](images_dropdownmenu/menu-fung-01.gif)
+![Funkčné menu prvej a druhej úrovne](images_dropdownmenu/menu-fung-01.gif)
 
 ### Ďalšie úrovne
 
@@ -249,11 +249,11 @@ ul ul ul {
 
 `top: 0` určuje, že sa má podmenu zobraziť vertikálne zarovno s elementom `li`, v ktorom je. `left: 100%` umiestňuje podmenu o `100%` veľkosti `li` zľava. Výsledok pridania tohto pravidla je nasledovný:
 
-![](images_dropdownmenu/menu-fung-02.gif)
+![Pridané ďalšie úrovne menu](images_dropdownmenu/menu-fung-02.gif)
 
 Všimnime si však, že jednotlivé podmenu nie sú úplne zarovnané. To je dôsledok toho, že sme pri `ul` druhej úrovne pridali rámček a ďalšie vnorené menu sa zobrazí až v tomto rámčeku.
 
-![](images_dropdownmenu/menu-dva-03.png)
+![Chybne zarovnanie menu kvôli rámčeku](images_dropdownmenu/menu-dva-03.png)
 
 Aby sa menu zobrazovalo korektne, musíme vnorený element posunúť o veľkosť rámčeka. V našom prípade stačí upraviť umiestnenie menu aspoň tretej úrovne tak, že ho negatívne posunieme hore o šírku rámčeka.
 
@@ -264,7 +264,7 @@ ul ul ul {
 }
 ```
 
-### Zobrazenie ikonky o prítomnosti sub-menu
+### Zobrazenie indikátora prítomnosti podmenu
 
 Pre zlepšenie používateľského komfortu je veľmi vhodné použivateľovi najako naznačiť, že nejaká položka menu obsahuje dodatočné podmenu. Najčastejšie sa to realizuje indikátorom, napr. znakom `»`. 
 
@@ -292,7 +292,7 @@ ul ul span:not(:only-child)::after {
 
 Výsledok funguje takto:
 
-![](images_dropdownmenu/menu-fung-03.gif)
+![Funkčné menu po tretiu úroveň s indikátorom](images_dropdownmenu/menu-fung-03.gif)
 
 ### Doplnenie zvýraznenia výberu
 
@@ -309,7 +309,7 @@ Zmenu aplikujeme na `span`, ktorý je priamym potomkom `li`, nad ktorým je aktu
 
 Výsledok funguje nasledovne:
 
-![](images_dropdownmenu/menu-fung-04.gif)
+![Zvýraznenie vybranej položky menu](images_dropdownmenu/menu-fung-04.gif)
 
 ### Záverečné formátovanie
 
@@ -358,7 +358,7 @@ ul ul ul ul {
 
 Finálny výsledok vyzerá nasledovne:
 
-![](images_dropdownmenu/menu-fung-00.gif)
+![Hotová verzia Drop-down menu](images_dropdownmenu/menu-fung-00.gif)
 
 ### Upravenie na Drop-up menu
 
@@ -388,7 +388,7 @@ li:hover > ul {
 
 Mali by sme dostať nasledovné zobrazenie:
 
-![](images_dropdownmenu/menu-up-01.gif)
+![Úprava menu na typ Drop-up](images_dropdownmenu/menu-up-01.gif)
 
 Podobne upravíme pozíciu pre menu druhej a ďalšej úrovne. Musíme však zmeniť selektor `ul ul ul` na `ul li:hover > ul ul`, aby sme predišli nutnosti použiť pravidlo `!important` (zvýšenie priority označenej vlastnosti).
 
@@ -412,4 +412,4 @@ ul li:hover > ul ul {
 
 To je všetko, čo sme potrebovali zmeniť, aby sme drop-down menu prerobili na drop-up menu. Malo by fungovať nasledovne:
 
-![](images_dropdownmenu/menu-up-02.gif)
+![Hotová verzia Drop-up menu](images_dropdownmenu/menu-up-02.gif)

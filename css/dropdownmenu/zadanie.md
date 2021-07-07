@@ -22,7 +22,7 @@
 
 Cieľom úlohy je vytvoriť roletové menu, aké bežne obsahujú desktopové aplikácie. Menu bude možné rozbaliť smerom dolu (*drop-down menu*) alebo smerom hore (*drop-up menu*). Fungovanie menu ukazuje nasledovný obrázok:
 
-![](images_dropdownmenu/menu-fung-00.gif)
+![Ukážka práce s menu](images_dropdownmenu/menu-fung-00.gif)
 
 Menu musí spĺňať nasledovné podmienky:
 

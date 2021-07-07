@@ -75,7 +75,7 @@ Ak však máme byť úplne presný, v strede bude pravý horný roh obrázku. Ak
 
 Po aplikovaní tohto pravidla bude čiastkové riešenie vyzerať nasledovne:
 
-![](images_position/sun.jpg)
+![Umiestnenie slnka do stredu](images_position/sun.jpg)
 
 Teraz do riešenia doplníme obrázky vtáčikov. Pri definovaní štýlu vtáčika využijeme všetky postupy, ako sme použili pri obrázku slnka. Keďže obrázok budeme potrebovať na viacerých miestach, nebudeme v tomto pravidle robiť žiadne umiestňovanie, ale necháme to na iné pravidlá. Jediné, čo nastavíme, bude, že element bude používať absolútnu pozíciu:
 
