@@ -8,8 +8,7 @@ class Uploader
      * @var String
      */
     private $uploadsDir;
-    private $filesList = [];
-    private $uniqueId = "";
+    private $uniqueId;
 
     public function __construct(string $uploadsDir)
     {
@@ -20,18 +19,16 @@ class Uploader
         if (!is_dir($this->uploadsDir)) {
             mkdir($this->uploadsDir, 0700);
         }
-        $this->setUniqueId();
-        $this->updateFilesList();
+        $this->generateUniqueId();
     }
 
-    function saveUploadedFile(): string
+    public function saveUploadedFile(): string
     {
         try {
-            switch ($_FILES['file']['error']) {
+            switch ($_FILES['userfile']['error']) {
                 case UPLOAD_ERR_OK:
-                    if (is_uploaded_file($_FILES['file']['tmp_name'])) {
-                        move_uploaded_file($_FILES['file']['tmp_name'], $this->getFullFileNameWithDir(basename($_FILES['file']['name'])));
-                    } else {
+                    if (!move_uploaded_file($_FILES['userfile']['tmp_name'],
+                        $this->getFullFileNameWithDir(basename($_FILES['userfile']['name'])))) {
                         throw new RuntimeException('Súbor nebol poslaný správnym spôsobom.');
                     }
                     break;
@@ -39,44 +36,40 @@ class Uploader
                     throw new RuntimeException('Žiadny súbor nebol poslaný.');
                 case UPLOAD_ERR_INI_SIZE:
                 case UPLOAD_ERR_FORM_SIZE:
-                    throw new RuntimeException('Veľkosť súbor presahuje povolený limit.');
+                    throw new RuntimeException('Veľkosť súboru presahuje povolený limit.');
                 default:
                     throw new RuntimeException('Neznáma chyba.');
             }
-            $this->updateFilesList();
             return '';
         } catch (RuntimeException $e) {
             return $e->getMessage();
         }
-
     }
 
-    function getFilesList(): array
+    public function getFilesList(): array
     {
-        return $this->filesList;
+        $fileList = array_diff(scandir($this->uploadsDir), ['..', '.']);
+        $fileList = array_filter($fileList, fn($item) => substr($item, 0, 40) == $this->uniqueId);
+        return array_map(fn($item) => substr($item, 41), $fileList);
     }
 
-    /**
-     * Zip all files in directory and
-     */
-    function zipAndDownload()
+    public function zipAndDownload(): void
     {
         $zip = new ZipArchive();
         $tmpFile = sys_get_temp_dir() . DIRECTORY_SEPARATOR . tmpfile();
         $zip->open($tmpFile, ZipArchive::CREATE);
-        foreach ($this->filesList as $fileName) {
+        foreach ($this->getFilesList() as $fileName) {
             if (file_exists($this->getFullFileNameWithDir($fileName))) {
                 $zip->addFile($this->getFullFileNameWithDir($fileName), $fileName);
             }
         }
         $zip->close();
-
-        $this->sendFile($tmpFile);
-
+        $this->sendZipFile($tmpFile);
     }
 
-    function sendFile($tmpFile) {
-        foreach ($this->filesList as $fileName) {
+    private function sendZipFile($tmpFile): void
+    {
+        foreach ($this->getFilesList() as $fileName) {
             unlink($this->getFullFileNameWithDir($fileName));
         }
 
@@ -86,39 +79,18 @@ class Uploader
         unlink($tmpFile);
     }
 
-    /**
-     * @param array $filesList
-     */
-    public function updateFilesList(): void
+    private function getFullFileNameWithDir($fileName): string
     {
-        $this->filesList = array_diff(scandir($this->uploadsDir), array('..', '.'));
-        $this->filesList = array_filter($this->filesList, fn($item) => substr($item, 0,40) == $this->getUniqueId());
-        $this->filesList = array_map(fn($item) => substr($item, 41), $this->filesList);
+        return $this->uploadsDir . DIRECTORY_SEPARATOR . $this->uniqueId . '-' . $fileName;
     }
 
-    private function getFullFileNameWithDir($fileName) : string {
-        return $this->uploadsDir . DIRECTORY_SEPARATOR .$this->getUniqueId() . '-' . $fileName;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUniqueId(): string
-    {
-        return $this->uniqueId;
-    }
-
-    /**
-     * @param string $uniqueId
-     */
-    public function setUniqueId(): void
+    private function generateUniqueId(): void
     {
         if (isset($_COOKIE['uniqueId'])) {
-         $this->uniqueId = $_COOKIE['uniqueId'];
-    } else {
-         $this->uniqueId = bin2hex(random_bytes(20));
-         setcookie('uniqueId', $this->uniqueId, ['samesite' => 'None']);
+            $this->uniqueId = $_COOKIE['uniqueId'];
+        } else {
+            $this->uniqueId = bin2hex(random_bytes(20));
+            setcookie('uniqueId', $this->uniqueId);
         }
     }
-
 }
