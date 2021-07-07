@@ -22,7 +22,7 @@
 
 Cieľom úlohy je vytvoriť roletové menu, aké bežne obsahujú desktopové aplikácie. Menu bude možné rozbaliť smerom dolu (*drop-down menu*) alebo smerom hore (*drop-up menu*). Fungovanie menu ukazuje nasledovný obrázok:
 
-![](images_dropdownmenu/menu-fung-00.gif)
+![Ukážka práce s menu](images_dropdownmenu/menu-fung-00.gif)
 
 Menu musí spĺňať nasledovné podmienky:
 
@@ -60,6 +60,6 @@ Počiatočný HTML dokument obsahuje menu zadefinované pomocou štruktúry elem
                             ...
 ```
 
-Všimnite si však, že samotné elementy `ul` a `li` definujú iba štruktúru menu. Obsah položky je definovaný ako obsah elementu `span`. Vnorenie jednotlivých elementov `ul` v `li` definuje hierarchiu menu.
+Všimnite si však, že samotné elementy `ul` a `li` definujú iba štruktúru menu. Textový obsah položky menu je definovaný ako obsah elementu `span`. Vnorenie jednotlivých elementov `ul` v `li` definuje hierarchiu menu.
 
 Pre riešenie použite výlučne iba jazyk CSS.

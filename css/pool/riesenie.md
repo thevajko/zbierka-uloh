@@ -44,7 +44,7 @@ Okrem farby sme elementom nastavili aj CSS vlastnosť `position`. Guľa má nast
 
 Výsledok bude vyzerať nasledovne.
 
-![Zobrazenie guličky a stola](images_pool/riesenie1.png)
+![Zobrazenie gule a stola](images_pool/riesenie1.png)
 
 Pre pohyb gule v zvislom smere pripravíme animáciu:
 

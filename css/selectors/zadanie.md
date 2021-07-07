@@ -22,7 +22,7 @@
 
 Naštýlujte pomocou CSS tabuľku podľa priloženého obrázku:
 
-![](images_selectors/zadanie1.png)
+![Zadanie príkladu](images_selectors/zadanie1.png)
 
 Riešenie musí spĺňať nasledovné podmienky:
 
@@ -37,6 +37,9 @@ Riešenie musí spĺňať nasledovné podmienky:
         1. Vždy budú zarovnané na stred.
         2. Ak na nich nebude kurzor myši, tak budú mať modré pozadie.
         3. Ak bude kurzor myši na niektorom z nich, tak daná bunka bude mať zelené pozadie a bunka (bunky) s číslami za ním budú mať pozadie žlté. Pozor, bunke s odkazom nemeníme farbu pozadia.
+           
+![Zobrazenie stĺpcov s číslami](images_selectors/zadanie2.png)    
+
 6. V HTML je definovaný aj stĺpec `Výsledok`, ten vo výslednej tabuľke nezobrazujte.
 7. Odkazy v stĺpci `Link` sa budú správať nasledovne:
     1. Ak bude odkaz zabezpečený (protokol HTTPS) zobrazte ho zelenou farbou.
@@ -45,13 +48,7 @@ Riešenie musí spĺňať nasledovné podmienky:
     4. Ak to bude odkaz na súbor typu PDF (odkaz končí `.pdf`) dopíšte za text odkazu, že ide o PDF - `(PDF)`.
 8. Zabezpečte, aby pri dlhej tabuľke zostávala hlavička vždy viditeľná.
 
-#### Zobrazenie stĺpcov s číslami.
-
-![](images_selectors/zadanie2.png)
-
-#### Hlavička tabuľky pri pohnutí posuvníkom.
-
-![](images_selectors/zadanie-hlavicka.png)
+![Hlavička tabuľky pri pohnutí posuvníkom](images_selectors/zadanie-hlavicka.png)
 
 #### Štruktúra HTML kódu
 
