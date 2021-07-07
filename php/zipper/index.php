@@ -2,7 +2,7 @@
 require "Uploader.php";
 $uploader = new Uploader("uploads");
 $result = "";
-if (isset($_FILES['file'])) {
+if (isset($_FILES['userfile'])) {
     $result = $uploader->saveUploadedFile();
 }
 if (isset($_POST['zip'])) {
@@ -36,32 +36,37 @@ if (isset($_POST['zip'])) {
     }
 ?>
 <form method="post" enctype="multipart/form-data">
-    Súbor: <input type="file" name="file">
+    <input type="hidden" name="MAX_FILE_SIZE" value="1000000">
+    Súbor: <input type="file" name="userfile">
     <input type="submit" value="Poslať súbor">
 </form>
 <br>
+
+<?php
+$fileList = $uploader->getFilesList();
+?>
 <p><b>Zoznam súborov:</b></p>
 <div id="files">
     <?php
-    if ($uploader->getFilesList() != []) {
-    ?>
-    <p>
-        <?php
-        foreach ($uploader->getFilesList() as $fileName) {
-            echo $fileName . '<br>';
-        }
+    if (!empty($fileList)) {
         ?>
-    </p>
-    <form action="index.php" method="post" onsubmit="deleteFiles()">
-        <input type="submit" name="zip" value="Zipovať!">
-    </form>
-<?php
-} else {
+        <p>
+            <?php
+            foreach ($fileList as $fileName) {
+                echo $fileName . '<br>';
+            }
+            ?>
+        </p>
+        <form method="post" onsubmit="deleteFiles()">
+            <input type="submit" name="zip" value="Zipovať!">
+        </form>
+        <?php
+    } else {
+        ?>
+        <p>Zatiaľ neboli nahraté žiadne súbory.</p>
+        <?php
+    }
     ?>
-    <p>Zatiaľ neboli nahraté žiadne súbory.</p>
-    <?php
-}
-?>
 </div>
 </body>
 </html>

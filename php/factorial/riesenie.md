@@ -44,7 +44,6 @@ function factorial($number)
 V zadaní je uvedené, že máme vypísať v danom formáte postupne faktoriál od čísla 0 po 10. To vieme urobiť vytvorením cyklu, ktorý sa spustí 11x a práve tu použijeme cyklus `for`. Všimnite si, ako sa nazvájom mixuje HTML a PHP kód. Táto časť kódu bude vyzerať nasledovne:
 
 ```php
-<?php // formater corrector ?>
 <ul>
     <?php for ($i = 0; $i < 10; $i++) { ?>
     <li><?php echo $i . "! = ". factorial($i)?></li>

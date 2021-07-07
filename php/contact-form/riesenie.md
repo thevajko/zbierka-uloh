@@ -77,7 +77,7 @@ if ($isPost) {
   }
   $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
   if (!$email) {
-    $errors['email'] = "Emailová adresa CSS platná.";
+    $errors['email'] = "Emailová adresa nie je platná.";
   }
   $content = trim($_POST['content']);
   if (empty($content)) {
@@ -238,7 +238,7 @@ Ak sme odoslali formulár a nemáme žiadnu validačnú chybu, tak zobrazíme sp
 
 Prezentovaný HTML formulár obsahuje len jednoduchú validáciu. Pre reálne nasadenie by bolo vhodné pridať ďalšie validačné pravidlá na napr. obsah správy. Aktuálny formulár neobsahuje žiadnú ochranu proti robotom (*botom*) takže takýto formulár môže spôsobiť záplavu spamu v emailovej schránke. Bolo by pre to vhodné implementovať nejakú ochranu proti robotom - napríklad zobrazenie formuláru až po prihlásení alebo použitie systému [reCAPTCHA](https://www.google.com/recaptcha/about/) od Google.
 
-V našom príklade sme nastavili mail tak, že u príjemcu to vyzerá tak, že mail bol odoslaný z adresy, ktorú zadal používateľ v kontaktnom formulári. Takéto emaily ale v dnešnej dobe väčšina hostingových providerov nepodporuje, a vyžadujú, aby maily boli odosielané z domény, na ktorej daný web beží. V tomto prípade vieme upraviť odosielanie tak, aby mail odišiel z adresy, ktorá patrí danému webu, ale aby sme nestratili kontakt na odosielajúceho používateľa.
+V našom príklade sme nastavili mail tak, že u príjemcu to vyzerá tak, že mail bol odoslaný z adresy, ktorú zadal používateľ v kontaktnom formulári. Takéto emaily ale v dnešnej dobe väčšina hostingových providerov nepodporuje, a vyžadujú, aby maily boli odosielané z domény, na ktorej daný web beží. V tomto prípade vieme upraviť odosielanie tak, aby mail odišiel z adresy, ktorá patrí danému webu, ale zároveň aby sme nestratili kontakt na odosielajúceho používateľa.
 
 ```php
 mail(

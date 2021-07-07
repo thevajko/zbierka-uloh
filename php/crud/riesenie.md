@@ -46,13 +46,13 @@ CREATE TABLE `users`
 ) AUTO_INCREMENT=1;
 ```
 
-Do databázy pre testovacie účely vložíme niekoľko záznamov.
+Do databázy pre testovacie účely vložíme niekoľko záznamov. Tieto záznamy môžme automaticky vygenerovať pomocou online generátora [*filldb.info*](http://filldb.info/).
 
 ![Ukážka záznamov v tabuľke `users`](images_crud/users-data.png)
 
 ### Pripojenie k databáze
 
-Pre čítanie dát z databázy existuje v jazyku PHP niekoľko prístupov. Každý DB systém môže mať vlastnú sadu tried (napr. [`mysqli()`](https://www.php.net/manual/en/book.mysqli.php) pre MySQL/MariaDB alebo [`pgsql()`](https://www.php.net/manual/en/book.pgsql.php) pre PostgreSQL). Okrem toho v PHP existuje unifikované rozhranie *PHP Data Objects* ([`PDO`](https://www.php.net/manual/en/book.pdo.php)), ktoré sa používa ako unifikovaná nadstavba nad rôznymi DBS.
+Pre čítanie dát z databázy existuje v jazyku PHP niekoľko prístupov. Každý DB systém môže mať vlastnú sadu tried alebo funkcií (napr. [`mysqli()`](https://www.php.net/manual/en/book.mysqli.php) pre MySQL/MariaDB alebo [`pgsql()`](https://www.php.net/manual/en/book.pgsql.php) pre PostgreSQL). Okrem toho v PHP existuje unifikované rozhranie *PHP Data Objects* ([`PDO`](https://www.php.net/manual/en/book.pdo.php)), ktoré sa používa ako unifikovaná nadstavba nad rôznymi DBS.
 
 V našom príklade si ukážeme prístup cez PDO, ktoré je v súčasnosti odporúčané využívať, pretože na rozdiel od ostatných prístupov, plne podporuje objektový prístup.
 
@@ -75,7 +75,7 @@ Takto vytvorená inštancia PDO nás pripojí na `mysql` databázový server s n
 
 Pre pohodlnejšiu prácu ešte nastavíme správanie PDO tak, že pri chybe dostaneme výnimku. Od PHP8 je toto správanie predvolené, takže na PHP8 už `$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);` nie je potrebné.
 
-V aplikácii často pracujeme s rôznymi entitami, ale pripájame sa na rovnakú databázu. Dobrou praxou je preto oddelenie pripojenia k databáze do vlastnej triedy, ktorú môžeme implementovať ako *singleton*, aby sme mali len jedno spoločné pripojenie k databáze. Vytvoríme triedu `Db`, ktorá bude zaobaľovať túto funkcionalitu.
+V aplikácii často pracujeme s rôznymi entitami, ale pripájame sa na rovnakú databázu. Dobrou praxou je preto oddelenie pripojenia k databáze do vlastnej triedy, ktorú môžeme implementovať podobne ako *singleton*, aby sme mali len jedno spoločné pripojenie k databáze. Vytvoríme triedu `Db`, ktorá bude zaobaľovať funkcionalitu získania singleton inštancie pripojenia k databáze (PDO).
 
 ```php
 class Db 
@@ -113,7 +113,7 @@ Pre prístup k pripojeniu využijeme statickú metódu `Db::conn()`, ktorá vrá
 
 ### Návrh objektovej štruktúry
 
-Pre lepšiu organizáciu kódu si vytvoríme triedu na prácu s databázou (`UserStorage`) a entitnú triedu (`User`). Trieda `User` bude kopírovať štruktúru dát v databáze:
+Pre lepšiu organizáciu kódu si vytvoríme triedu na prácu s databázou (`UserStorage`) a entitnú triedu (`User`). Trieda `User` bude kopírovať štruktúru dát v databáze. Jednotlivým atribútom nastavíme predvolené hodnoty, aby sme následne jednoducho mohli vytvárať nové záznamy pomocou formulára. Okrem toho sme pridali metódu `getFullname()`, ktorá nám vráti celé meno danej osoby.
 
 ```php
 class User
@@ -354,7 +354,7 @@ Mazanie použivateľov budeme implementovať v súbore `pages/users/delete.php`.
 $userStorage = new UserStorage();
 $user = null;
 if (isset($_GET["id"])) {
-    $user = $userStorage->getUser($_GET["id"]);
+    $user = $userStorage->get($_GET["id"]);
 }
 
 if ($user == null) {
@@ -362,7 +362,7 @@ if ($user == null) {
     return;
 }
 
-$userStorage->deleteUser($user);
+$userStorage->delete($user);
 echo "Uživateľ {$user->getFullname()} ostránený.<br><a href='?'>Späť</a>";
 ```
 
@@ -481,7 +481,7 @@ Aktuálna verzia neobsahuje takmer žiadnu validáciu formulára. V prípade, ž
 
 ### Implementácia ochrany voči XSS
 
-Môžeme si všimnúť, že na vloženie hodnoty do formulárového poľa a výpis upraveného použivateľa sme použili funkciu [`htmlentities()`](https://www.php.net/manual/en/function.htmlentities.php). Táto funkcia slúži na zmenu významu niektorých znakov zadanej hodnoty (premení napr. začiatky značiek `<`na HTML entitu `&lt;`). Využili sme ju preto, aby sme zabránili útoku typu XSS. Rovnakú funkciu by sme mali použiť aj na ostatných miestach, kde vypisujeme nejakú hodnotu z PHP premennej. Napríklad výpis tabuľky so zoznamom používateľov by mohol vyzerať nasledovne:
+Môžeme si všimnúť, že na vloženie hodnoty do formulárového poľa a výpis upraveného používateľa sme použili funkciu [`htmlentities()`](https://www.php.net/manual/en/function.htmlentities.php). Táto funkcia slúži na zmenu významu niektorých znakov zadanej hodnoty (premení napr. začiatky značiek `<`na HTML entitu `&lt;`). Využili sme ju preto, aby sme zabránili útoku typu XSS. Rovnakú funkciu by sme mali použiť aj na ostatných miestach, kde vypisujeme nejakú hodnotu z PHP premennej. Napríklad výpis tabuľky so zoznamom používateľov by mohol vyzerať nasledovne:
 
 ```php
 <?php foreach ($userStorage->getAll() as $user) { ?>

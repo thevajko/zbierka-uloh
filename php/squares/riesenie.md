@@ -20,12 +20,11 @@ Pri riešení tejto úlohy začneme deklaráciou CSS pravidiel. Hlavným cieľom
 Uvažujme, že HTML kód stránky by mohol vyzerať nasledovne:
 
 ```html
-
 <body>
-<div></div>
-<div></div>
-<div></div>
-...
+    <div></div>
+    <div></div>
+    <div></div>
+    ...
 </body>
 ```
 
@@ -104,11 +103,11 @@ Samotný PHP kód na vygenerovanie štvorčekov bude obsahovať jeden cyklus, kt
 
 ```php
 <?php for ($i = 0; $i < 2000; $i++) { ?>
-  <div style="
-    top: <?=randPosition()?>;
-    left: <?=randPosition()?>;
-    background: <?=randColor()?>">
-  </div>
+    <div style="
+        top: <?=randPosition()?>;
+        left: <?=randPosition()?>;
+        background: <?=randColor()?>">
+    </div>
 <?php } ?>
 ```
 

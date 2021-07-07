@@ -27,7 +27,7 @@ Validácia bude prebiehať tak, že ku každému prvku pridáme tzv. validátory
 
 Výsledný UML diagram celého riešenia je nasledovný:
 
-![UML diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/thevajko/zbierka-uloh/solution/php/php-form/diagram.puml)
+![UML diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/thevajko/zbierka-uloh/solution/php/form/diagram.puml)
 
 ### Implementácia formulára
 
@@ -51,7 +51,7 @@ abstract class AFormElement
 }
 ```
 
-Okrem samotnej metódy `render()` obsahuje aj konštrukor a atribút `$name`. Každý prvok vo formulári musí byť nejakým spôsobom pomenovaný, aby sme sa k nemu prípade vedeli neskôr dostať. Aj iné ako HTML formulárové prvky budú mať v našej implementácii svoj názov. Ak to bude potrebné, je možnosť pridať *get* metódu pre atribút `$name`. My sme ho ale označili ako `protected`, takže každý z potomkov bude mať prístup k názvu elementu. Môžeme si všimnúť, že celá triede ale aj metóda `render()` sú označené kľúčovým slovom `abstract`.
+Okrem samotnej metódy `render()` obsahuje aj konštrukor a atribút `$name`. Každý prvok vo formulári musí byť nejakým spôsobom pomenovaný, aby sme sa k nemu prípade vedeli neskôr dostať. Aj iné ako HTML formulárové prvky budú mať v našej implementácii svoj názov. Ak to bude potrebné, je možnosť pridať *get* metódu pre atribút `$name`. My sme ho ale označili ako `protected`, takže každý z potomkov bude mať prístup k názvu elementu. Môžeme si všimnúť, že celá trieda ale aj metóda `render()` sú označené kľúčovým slovom `abstract`.
 
 #### Tlačidlo na odoslanie formulára
 
@@ -110,7 +110,7 @@ Trieda si pamätá hodnotu formulárového prvku v atribúte `value`. Ak bol for
 Ďalej si deklarujeme metódu `render()`. Tá bude spoločná pre všetky formulárové prvky. Metóda vykreslí element `label` a pomocou metódy `renderElement()` vykreslí telo daného elementu.
 
 ```php
- public function render(): void {
+public function render(): void {
   ?>
   <label for="<?=$this->name?>"><?=$this->label?></label>
   <?php $this->renderElement() ?>
@@ -249,7 +249,6 @@ class Form {
   private const FORM_SUBMIT_NAME = "submit";
   
   //...
-  
   public function addSubmit(string $label): SubmitButton
   {
     $field = new SubmitButton(self::FORM_SUBMIT_NAME, $label);
@@ -326,18 +325,22 @@ Každý formulárový prvok môže mať niekoľko validátorov. Začneme preto s
 Najskôr pridáme niekoľko atribútov:
 
 ```php
-/**
-* @var AValidator[]
-*/
-protected array $validators = [];
-protected array $errors = [];
-
-private bool $validated = false;
+abstract class AFormField extends AFormElement {
+    /**
+    * @var AValidator[]
+    */
+    protected array $validators = [];
+    protected array $errors = [];
+    
+    private bool $validated = false;
+    
+    //...
+}
 ```
 
 Atribút `$validators` bude obsahovať pole zo všetkými validátormi, ktoré sa vzťahujú na daný formulárový prvok. Pole `$errors` bude obsahovať zoznam chýb po validácii a atribút `$validated` je pomocný a budeme ho používať ako ochranu pred viacnásobnou validáciou toho istého formulárového prvku.
 
-Hlavným problémom validácie je to, že ju nemôžeme vykonať priamo v konštruktore z toho dôvodu, že formulárový prvok najskôr vznikne a až potom mu priradíme validačné pravidlá. Validovať bude potrebné - v metóde `isValid()`, pri získavaní dát pomocou metódy `getValue()` a pri vykresľovaní prvku, aby sme vedeli vypísať prípadné chyby. Aby sme sa vyhli duplicite dát, pripravíme si pomocnú metódu `validate()`:
+Hlavným problémom validácie je to, že ju nemôžeme vykonať priamo v konštruktore z toho dôvodu, že formulárový prvok najskôr vznikne a až potom mu priradíme validačné pravidlá. Validovať bude potrebné - v metóde `isValid()`, pri získavaní dát pomocou metódy `getValue()` a pri vykresľovaní prvku, aby sme vedeli vypísať prípadné chyby. Aby sme sa vyhli duplicite dát, pripravíme si v triede `AFormField` pomocnú metódu `validate()`:
 
 ```php
 protected function validate()
@@ -399,7 +402,7 @@ public function isSubmitted()
 
 Kontrolujeme v nej, či v poli `$_POST` máme informáciu o tom, že bolo stlačené tlačidlo na odoslanie formuláru.
 
-Pridávanie pravidiel k položkám formulára zabezpečuje metóda `addRule()`, ktorá vyzerá nasledovne:
+Pridávanie pravidiel k položkám formulára zabezpečuje metóda `addRule()` v triede `AFormField`, ktorá vyzerá nasledovne:
 
 ```php
 public function addRule(AValidator $validator): self 
@@ -620,5 +623,32 @@ public function addSelect($name, $label, $values): SelectField
   $field = new SelectField($name, $label, $this->getDefaultValue($name), $this, $values);
   $this->formFields[$name] = $field;
   return $field;
+}
+```
+
+Deklarácia komplexného formuláru by mohla vyzerať nasledovne:
+```php
+$form = new Form(["meno" => "test"]);
+
+$form->addText("meno", "Meno")
+    ->required();
+$form->addText("priezvisko", "Priezvisko")
+    ->required();
+$form->addText("mail", "Emailová adresa", "email")
+    ->required();
+$form->addNumber("vek", "Vek");
+$form->addPassword("heslo", "Heslo");
+
+$form->addSelect("oci", "Farba očí", ["g" => "Zelená", "r" => "Červená", "b" => "Modrá"]);
+
+$form->addSubmit("Odošli");
+
+if ($form->isSubmitted() && $form->isValid()) {
+    $data = $form->getData();
+    //Process form data
+    var_dump($data);
+}
+else {
+    $form->render();
 }
 ```
