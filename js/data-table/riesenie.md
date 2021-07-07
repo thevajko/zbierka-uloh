@@ -124,7 +124,7 @@ V HTML pridáme element, do ktorého budeme vkladať tabuľku. Následne pridám
 
 Výsledok by sa mal zobraziť takto:
 
-![](images_data-table/table-01.png)
+![Zobrazenie dátovej tabuľky bez dynamických dát](images_data-table/table-01.png)
 
 ### Jednoduché zobrazenie
 
@@ -153,7 +153,7 @@ renderHeader()
 
 Pokiaľ teraz spustíme skript tabuľka bude doplnená o názvy atribútov v hlavičke tabuľky. Výsledná tabuľka sa zobrazí nasledovne:
 
-![](images_data-table/table-02.png)
+![Tabuľka doplnená o názvy atribútov v hlavičke](images_data-table/table-02.png)
 
 Pri generovaní obsahu v metóde `JsTable.renderRows()` iba rozšírime kód, ktorý sme vložili do metódy `JsTable.renderHeader()`. Generovanie kódu pre jeden riadok je rovnaké ako pri hlavičke s tým rozdielom, že hodnota sa umiestni namiesto do elementu `th` do `td`.
 
@@ -203,7 +203,7 @@ renderRows()
 
 Tabuľka teraz vypíše celú kolekciu nasledovne:
 
-![](images_data-table/table-03.png)
+![Tabuľka s dátami](images_data-table/table-03.png)
 
 ### Zoraďovania podla stĺpca
 
@@ -323,7 +323,7 @@ A nesmieme zabudnúť doplniť predvolenú hodnotu do konštruktora:
 
 Tabuľka sa bude teraz dať zoradiť oboma smermi.
 
-![](images_data-table/tabulka-01.gif)
+![Zoraďovanie tabulky kliknutím na ](images_data-table/tabulka-01.gif)
 
 ### Filtrovanie tabuľky
 

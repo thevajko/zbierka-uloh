@@ -13,7 +13,7 @@
 
 **Ostatné použité jazyky**: PHP, HTML, JavaScript, CSS
 
-**Obtiažnosť**: 5/5
+**Obťažnosť**: 5/5
 
 **Obsah príkladu**: Objektové programovanie v PHP, spracovanie výnimiek v PHP, *session*tvorba serverového API rozhrania, PHP Data Objects (PDO), *PDO preprare statement*,  databázová vrstva, HTTP stavové kódy, JSON formát,JavaScript API klient, asynchrónne programovanie v JavaScripte, kľúčové slová `async`, `await`, manipulácia s DOM, CSS *flexbox*.
 </div>

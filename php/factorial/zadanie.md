@@ -13,7 +13,7 @@
 
 **Ostatné použité jazyky**: HTML
 
-**Obtiažnosť**: 1/5
+**Obťažnosť**: 1/5
 
 **Obsah príkladu**: Základy jazyka PHP, premmené, tvorba a vlanie funkcií. 
 </div>

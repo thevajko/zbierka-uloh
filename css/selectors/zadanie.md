@@ -13,7 +13,7 @@
 
 **Ostatné použité jazyky**: HTML
 
-**Obtiažnosť**: 2/5
+**Obťažnosť**: 2/5
 
 **Obsah príkladu**: Rôzne typy CSS selektorov pre výber elementov, formátovanie tabuliek a textu, tvorba rámčekov,farby pozadia a popredia, využitie obrázkov pozadia, rôzne pseudotriedy a pseudoelementy.  
 </div>

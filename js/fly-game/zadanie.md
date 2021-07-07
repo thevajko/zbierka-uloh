@@ -14,7 +14,7 @@
 
 **Ostatné použité jazyky**: HTML, CSS
 
-**Obtiažnosť**: 4/5
+**Obťažnosť**: 4/5
 
 **Obsah príkladu**: Objektovo-orientované programovanie v JavaScript, moduly, použitie časovačov, dynamická manipulácia s atribútmi elementu, *arrow* funkcie 
 </div>

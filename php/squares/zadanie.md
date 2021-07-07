@@ -12,7 +12,7 @@
 
 **Ostatné použité jazyky**: HTML, CSS
 
-**Obtiažnosť**: 1/5
+**Obťažnosť**: 1/5
 
 **Obsah príkladu**: Generovanie HTML a CSS pomocou PHP, vytváranie a volanie funkcií, polia. 
 </div>

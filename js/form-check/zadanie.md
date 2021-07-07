@@ -13,7 +13,7 @@
 
 **Ostatné použité jazyky**: HTML, CSS
 
-**Obtiažnosť**: 3/5
+**Obťažnosť**: 3/5
 
 **Obsah príkladu**: Validácia formulárov pomocou HTML a JavaScriptu, regulárne výrazy,  
 </div>

@@ -14,7 +14,7 @@
 
 **Ostatné použité jazyky**: HTML
 
-**Obtiažnosť**: 2/5
+**Obťažnosť**: 2/5
 
 **Obsah príkladu**: Vykresľovanie 2D grafiky v HTML dokumente, použitie časovača .
 </div>

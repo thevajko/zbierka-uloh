@@ -165,7 +165,7 @@ Mesiac využíva rovnaké vlastnosti ako ostatné planéty, len centrum jeho obe
 
 V zápise animácie môžeme definovať tzv. *timing* funkciu. V uvedenom príklade bola ako *timing* funkcia zvolená funkcia `linear`, ktorá sa správa tak, že planétky sa pohybujú rovnako rýchlo po celý čas obehu. Tieto *timing* funkcie sa definujú pomocou kubických bezierových kriviek. Našťastie si tieto krivky nemusíme počítať manuálne, ale môžeme využiť online nástroj - napríklad [cubic-bezier.com](https://cubic-bezier.com). Môžeme napríklad vyskúšať funkciu `cubic-bezier(.61,.11,.41,.91)`, ktorá spôsobí, že zo začiatku planétka pôjde veľmi pomaly, postupne bude zrýchlovať, v polovici otáčky pôjde najrýchlejšie a na konci zas spomalí. Spomenutá *timing* funkcia vyzerá nasledovne:
 
-![Ukážka timing funkcie](images_solar-system/timing-funckia.png)
+![Ukážka *timing* funkcie](images_solar-system/timing-funckia.png)
 
 ### Vykreslenie orbitálnych dráh
 

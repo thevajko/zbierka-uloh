@@ -138,15 +138,15 @@ Po nastavení `flex-wrap: wrap;` je už všetko v poriadku. Výhodou *flexboxu* 
 
 Ak nastavíme `justify-content` na `center`, tak sa nám fotky vycentrujú do stredu:
 
-![Vycentrovanie obrázkov pomocou volastnosti `justify-content`](images_gallery/riesenie6.jpg)
+![Vycentrovanie obrázkov pomocou vlastnosti `justify-content`](images_gallery/riesenie6.jpg)
 
 Môžeme vyskúšať aj hodnotu `space-between`, ktorá nám fotky umiestni na okraje:
 
-![](images_gallery/riesenie7.jpg)
+![Zmena vlastnosti `justify-content` na hodnotu `space-between`](images_gallery/riesenie7.jpg)
 
 Alebo hodnotu `space-evenly`, ktorá nám ich umiestni s rovnomernými medzerami:
 
-![](images_gallery/riesenie8.jpg)
+![Zmena vlastnosti `justify-content` na hodnotu `space-evenly`](images_gallery/riesenie8.jpg)
 
 Týchto vlastností je veľké množstvo a stačí si vybrať podľa potreby.
 
@@ -163,7 +163,7 @@ Ak nám nevyhovuje prázdne miesto v spodnom riadku, môžeme nastaviť fotke vl
 
 Pri tomto zobrazení ale už nebudú mať všetky fotky pomer strán 4:3.
 
-![](images_gallery/riesenie9.jpg)
+![Roztiahnutie obrázka pomocou vlastnosti `flex-grow`](images_gallery/riesenie9.jpg)
 
 #### Pridanie medzier medzi obrázky
 
@@ -181,7 +181,7 @@ Najjednoduchším spôsobom je pridanie okraja k fotke. Problém je, že okraj r
 }
 ```
 
-![](images_gallery/riesenie10.jpg)
+![Obrázky oddelené medzerami](images_gallery/riesenie10.jpg)
 
 ### Rôzne počet obrázkov na riadku na základe veľkosti zariadenia
 
@@ -229,7 +229,7 @@ V tomto príklade sme pevne určili výšku obrázka na `300px` a minimálnu š�
 
 V aktuálnej verzii ešte nemáme naštýlovaný popis obrázku. Popis sa momentálne prelína s obrázkom.
 
-![](images_gallery/riesenie11.jpg)
+![Takmer neviditeľné prelínajúce sa popisy obrázkov](images_gallery/riesenie11.jpg)
 
 Začneme zo správnym umiestnením textov a nastavením správnej farby. Farbu nastavíme celému elementu `photo`.
 
@@ -257,7 +257,7 @@ A jednotlivé prvky správne umiestnime:
 
 Pri nastavovani popisu sme museli prepísať vlastnosť `top`, pretože túto sme nastavili všetkým elementom vo fotke pomocou selektoru `.photo > *`.
 
-![](images_gallery/riesenie12.jpg)
+![Úprava popisu obrázkov](images_gallery/riesenie12.jpg)
 
 Ďalším krokom bude stmavenie celého obrázku. To sa dá urobiť viacerými spôsobmi. Najjednoduchšie bude použitie vlastnosti `opacity`, ktorá umožní spriehľadniť ľubovolný element. Ak to navyše skombinujeme s tmavou farbou pozadia fotky dostaneme efekt stmaveného pozadia.
 
@@ -273,7 +273,7 @@ Pri nastavovani popisu sme museli prepísať vlastnosť `top`, pretože túto sm
 
 Vlastnosť `opacity` sme nastavili pomocou selektoru `:hover`, takže pozadie stmavne až po prejdení myšou ponad obrázok.
 
-![](images_gallery/riesenie13.jpg)
+![Stmavenie obrázku po prechode kurzorom myši ponad obrázok](images_gallery/riesenie13.jpg)
 
 Pokiaľ chceme, aby sa aj texty zobrazili až po premiestnení myši na obrázok, tak musíme upraviť ich CSS nasledovne:
 
@@ -289,7 +289,7 @@ Pokiaľ chceme, aby sa aj texty zobrazili až po premiestnení myši na obrázok
 
 Pomocou prvého pravidla skryjeme oba elementy a pomocou druhého ich zobrazíme, keď príde myš nad element photo.
 
-### Animácie pri prechode myši
+### Animácie pri prechode kurzora myši ponad obrázok
 
 Aktuálne riešenie funguje, výsledný dojem nie je najlepší. Skúsime teda pridať zopár animácií. Začneme tým, aby obrázok stmavol postupne a nie naraz. Na to by sme mohli napísať vlastnú animáciu, ktorá by menila vlastnosť `opacity`. Jednoduchší spôsob bude využitie vlastnosti `transition`. Túto vlastnosť definujeme pre obrázok. Výhoda `transition` oproti vlastnej animácii je v jednoduchšom zápise. Pri `transition` definujeme len vlastnosť, ktorej sa to týka a dobu zmeny.
 
@@ -329,13 +329,13 @@ Celková animácia bude trvať 1 sekundu s tým, že sme jej začiatok posunuli 
 
 Posledným problémom, ktorý musíme vyriešiť je, že akonáhle sme posunuli popis o `1000%` v smere osi Y, tak počas animácie sa nám môže stať, že sa na stránke objaví posuvník.
 
-![](images_gallery/riesenie14.jpg)
+![Zobrazený posuvník pri animácii textu](images_gallery/riesenie14.jpg)
 
 Na obrázku vyššie môžeme vidieť, ako sa v pravom dolnom obrázku postupne nasúva text a počas tejto animácie vidíme zobrazený posuvník napravo. Po skončení animácie posuvník zmizne.
 
 Ak nastavíme pozadie stránky na tmavú farbu, môžeme presne vidieť, čo sa deje:
 
-![](images_gallery/riesenie15.jpg)
+![Dôvod zobrazenia posuvníka](images_gallery/riesenie15.jpg)
 
 Text sa zobrazuje v skutočnosti mimo elementu fotky. Tento problém môžeme vyriešiť tak, že elementu `photo` nastavíme hodnotu parametra `overflow` na `hidden`, čo spôsobí, že hocijaký obsah, ktorý by sa mal vykresliť mimo elementu `photo` bude skrytý.
 
@@ -347,4 +347,4 @@ Text sa zobrazuje v skutočnosti mimo elementu fotky. Tento problém môžeme vy
 
 Výsledná galéria bude vyzerať nasledovne:
 
-![](images_gallery/zadanie-final.jpg)
+![Výsledný vzhľad riešenia príkladu Galéria](images_gallery/zadanie-final.jpg)

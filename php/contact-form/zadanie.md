@@ -13,7 +13,7 @@
 
 **Ostatné použité jazyky**: HTML, CSS
 
-**Obtiažnosť**: 2/5
+**Obťažnosť**: 2/5
 
 **Obsah príkladu**: Tvorba, spracovanie a validácia formulárov, odosielanie emailov v jazyku PHP.
 </div>

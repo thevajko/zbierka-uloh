@@ -12,7 +12,7 @@
 
 **Ostatné použité jazyky**: HTML
 
-**Obtiažnosť**: 4/5
+**Obťažnosť**: 4/5
 
 **Obsah príkladu**:  Objektové programovanie v PHP, abstraktné triedy, dynamické generovanie HTML formulárov, spracovanie formulárov v PHP, validácia vstupov z formulára. 
 </div>

@@ -12,7 +12,7 @@
 
 **Ostatné použité jazyky**: HTML
 
-**Obtiažnosť**: 4/5
+**Obťažnosť**: 4/5
 
 **Obsah príkladu**: Základná demonštrácia CSS *flexbox* rozloženia, pokročilejšie spôsoby zobrazovania obrázkov, *media queries* a animácie.
 </div>
@@ -50,11 +50,19 @@ Naštýlujte pomocou CSS túto galériu nasledovne:
 
 #### Zobrazenie galérií na rôznych veľkostiach zariadení
 
+Zariadenie s malým displejom:
+
 ![Zobrazenie galérie na malom zariadení](images_gallery/zadanie-s.jpg)
+
+Zariadenie so stredne veľkým displejom:
 
 ![Zobrazenie galérie na strednom veľkom zariadení](images_gallery/zadanie-m.jpg)
 
+Zariadenie s veľkým displejom:
+
 ![Zobrazenie galérie na veľkom zariadení](images_gallery/zadanie-l.jpg)
+
+Informácie o obrázku:
 
 ![Zobrazenie informácie o obrázku](images_gallery/zadanie-hover.jpg)
 

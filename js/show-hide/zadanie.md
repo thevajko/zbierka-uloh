@@ -13,7 +13,7 @@
 
 **Ostatné použité jazyky**: HTML
 
-**Obtiažnosť**: 1/5
+**Obťažnosť**: 1/5
 
 **Obsah príkladu**: Výber elementov pomocou metódy `querySelectorAll()`, skrývanie a zobrazovanie elementov. 
 </div>
