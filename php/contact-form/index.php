@@ -19,7 +19,7 @@ if ($isPost) {
     }
     $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
     if (!$email) {
-        $errors['email'] = "Emailová adresa CSS platná.";
+        $errors['email'] = "Emailová adresa nie je platná.";
     }
     $content = trim($_POST['content']);
     if (empty($content)) {
