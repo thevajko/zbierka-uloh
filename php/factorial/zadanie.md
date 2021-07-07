@@ -15,7 +15,7 @@
 
 **Obťažnosť**: 1/5
 
-**Obsah príkladu**: Základy jazyka PHP, premmené, tvorba a vlanie funkcií. 
+**Obsah príkladu**: Základy jazyka PHP, premenné, tvorba a volanie funkcií. 
 </div>
 
 ## Zadanie
@@ -38,3 +38,4 @@ Vytvorte skript v jazyku PHP, ktorý bude schopný zobraziť a vypočítať [fak
 <div class="hidden">
 
 [Zobraziť riešenie](riesenie.md).
+</div>

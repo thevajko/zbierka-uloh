@@ -234,7 +234,6 @@ changePosition()
 Metódy `showElement()` a `hideElement()`, ako už ich názov napovedá, majú za úloh vykresliť resp. skryť element muchy na obrazovky. Pri zobrazení zároveň naštartujeme časovač, aby mucha začala meniť svoju pozíciu a pri skrytí muchy tento časovač zrušíme. Metóda `showElement()` ešte navyše elementu muchy vymaže CSS triedu `fly_killed`, ak náhodou mucha bola už trafená a zobrazila by sa škvrna. Riadok `this.element.classList.add("fly_killer");` rieši situáciu, keď je kurzor nad obrázkom a zmenil by sa na obyčajnú šípku, preto ho nastavíme opäť na našu mucholapku. Kód metód bude nasledovný:
 
 ```javascript
-// Show the fly and start the timer
 showElement()
 {
     this.timer.start();
@@ -243,7 +242,6 @@ showElement()
     this.element.style.display = "block";
 }
 
-// Hide the fly and stop the timer
 hideElement()
 {
     this.timer.stop();
@@ -369,9 +367,7 @@ gameTick()
         this.gameSeconds--;
     } else {
         this.timer.stop();
-        // Hide all flies
         this.flies.forEach(fly => fly.hideElement());
-        // Hide fly killer
         document.querySelector('.playground').classList.remove('fly_killer');
     }
     document.getElementById("timer").innerText = this.gameSeconds.toString();
@@ -398,9 +394,7 @@ start()
     this.score = this.totalAttempts = 0;
     this.redrawScore();
     this.timer.start();
-    // Show fly killer
     document.querySelector('.playground').classList.add('fly_killer');
-    // Show all flies
     this.flies.forEach(fly => {
         fly.showElement();
     });
