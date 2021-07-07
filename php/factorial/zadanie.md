@@ -38,7 +38,3 @@ Vytvorte skript v jazyku PHP, ktorý bude schopný zobraziť a vypočítať [fak
 <div class="hidden">
 
 [Zobraziť riešenie](riesenie.md).
-
-> Toto riešenie obsahuje všetky potrebné služby v `docker-compose.yml`. Po ich spustení sa vytvorí:
-> - webový server, ktory do __document root__ namapuje adresár tejto úlohy s modulom __PDO__. Port __80__ a bude dostupný na adrese [http://localhost/](http://localhost/). Server má pridaný modul pre ladenie [__Xdebug 3__](https://xdebug.org/) nastavený na port __9000__.
-</div>
