@@ -21,7 +21,7 @@
 
 Vytvorte scenériu oblohy, ktorá bude roztiahnutá na celé pozadie okna prehliadača a uprostred nej bude obrázok slnka. V každom rohu obrazovky umiestnite obrázok vtáčika. Ak budete zmenšovať alebo zväčšovať okno prehliadača, obrázky musia zostať na svojom mieste a pri hocijakej veľkosti okna, musia vždy zostať v strede (slnko) a na okrajoch (vtáčiky). Vtáčiky budú otočené smerom k slnku. Výsledný vzhľad bude:
 
-![](images_position/task.jpg)
+![Vzhľad výsledného riešenia](images_position/task.jpg)
 
 <div class="hidden">
 
