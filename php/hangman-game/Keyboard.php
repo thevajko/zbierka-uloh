@@ -19,7 +19,7 @@ class Keyboard
      * @param int $cols Počet stĺpcov, v ktorých sa klávesnica zobrazí
      * @param Hangman $hangman Odkaz na inštanciu triedu Hangman
      */
-    public function __construct(int $cols = 6, Hangman $hangman)
+    public function __construct(int $cols, Hangman $hangman)
     {
         $this->cols = $cols;
         $this->hangman = $hangman;

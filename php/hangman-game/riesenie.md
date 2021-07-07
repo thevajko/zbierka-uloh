@@ -91,7 +91,7 @@ Prečo sme na odkaz `Začať znovu` realizovali pomocou odkazu `?` (otáznik). K
 
 Hru budeme navrhovať a implementovať pomocou objektovo-orientovaného prístupu. Bude sa skladať z troch tried: `Game`,`Hangman` a `Keyboard`. Úlohou objektu `Game` bude riadiť celú hru, herný *engine* sa bude nachádzať v triede `Hangman` a trieda `Keyboard` bude mať za úlohu vykreslenie klávesnice na obrazovku.
 
-![UML diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/thevajko/zbierka-uloh/solution/php/hangman/diagram.puml)
+![UML diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/thevajko/zbierka-uloh/solution/php/hangman-game/diagram.puml)
 
 
 ### Trieda `Keyboard`
@@ -108,19 +108,19 @@ class Keyboard
 Najskôr zadeklarujeme všetky atribúty, ktoré bude trieda potrebovať. Privátny atribút `$cols` predstavuje počet stĺpcov, na ktorých bude klávesnica zobrazená. Odkaz na triedu `Hangman` budeme potrebovať, keď budeme vykreslovať jednotlivé písmená klávesnice a budeme potrebovať informáciu, ktoré písmená už boli hádané. Odkaz dostaneme v konštruktore. Konštanta `KEYS_NUMBER` je počet znakov z abecedy, ktoré budeme používať na tvorbu klávesnice. Pre jednoduchosť, nebudeme uvažovať slovenské znaky s diakritikou, ale použijeme len znaky od `A` po `Z`, čo je presne 26 znakov.
 
 ```php
-    private $cols;
-    private $hangman;
-    const KEYS_NUMBER = 26;
+private $cols;
+private $hangman;
+const KEYS_NUMBER = 26;
 ```
 
 Konštruktor tejto triedy bude mať parameter počet stĺpcov. V jazyku PHP sa používa kľúčové slovo `__construct`. Viditeľnosť metódy nastavíme na `public`. Pri jeho definícii využijeme možnosť použitia `default` parametra. Ak konštruktoru nepošleme žiadny parameter, použije sa prednastavená hodnota 6. Konštruktor bude vyzerať:
 
 ```php
-    public function __construct(int $cols = 6, Hangman $hangman)
-    {
-        $this->cols = $cols;
-        $this->hangman = $hangman;        
-    }
+public function __construct(int $cols, Hangman $hangman)
+{
+    $this->cols = $cols;
+    $this->hangman = $hangman;        
+}
 ```
 
 Všimneme si použitie kľúčového slova `$this`, ktoré budeme používať na priradenie hodnoty do atribútu objektu. Hlavnou metódou triedy `Keyboard` je metóda, ktorá vráti HTML kód klávesnice, aby sme ho mohli vložiť do hry. 
@@ -130,26 +130,26 @@ Metóda najskôr vypočíta, koľko riadkov bude klávesnica zaberať. Ak chceme
 Na prevod znanku z jeho ACSII hodnoty na znak použijeme funkciu `chr()`. Znak obalíme do značky `<a>`, napr. po kliknutí na znak `A` sa vytvorí odkaz `<a href="?char=A">A</a>`, takže po kliknutí sa odošle v premennej `char` znak `A`. Ak sa nám už znaky minuli, do políčka tabuľky vypíšeme nedeliteľnú medzeru `&nbsp;`. Rovnako medzeru miesto znaku vypíšeme, keď by sa mal vypísať znak, ktorý už hráč hádal. Nakoniec vygenerovanú tabuľku vrátime ako reťazec, ktorý bude predstavovať kompletný HTML kód tabuľky.
 
 ```php
-    public function getKeyboardLayout(): string
-    {
-        $rows = ceil(self::KEYS_NUMBER / $this->cols);
-        $counter = 0;
-        $result = '<table class="keyboard">' . PHP_EOL;
-        for ($i = 1; $i <= $rows; $i++) {
-            $result .= '<tr>' . PHP_EOL;
-            for ($j = 1; $j <= $this->cols; $j++) {
-                $char = chr(65 + $counter++);
-                if ($counter > self::KEYS_NUMBER or in_array($char, $this->hangman->getUsedChars())) {
-                    $result .= '<td>&nbsp;</td>';
-                } else {
-                    $result .= '<td><a href="?char=' . $char . '">' . $char . '</a></td>';
-                }
+function getKeyboardLayout(): string
+{
+    $rows = ceil(self::KEYS_NUMBER / $this->cols);
+    $counter = 0;
+    $result = '<table class="keyboard">' . PHP_EOL;
+    for ($i = 1; $i <= $rows; $i++) {
+        $result .= '<tr>' . PHP_EOL;
+        for ($j = 1; $j <= $this->cols; $j++) {
+            $char = chr(65 + $counter++);
+            if ($counter > self::KEYS_NUMBER or in_array($char, $this->hangman->getUsedChars())) {
+                $result .= '<td>&nbsp;</td>';
+            } else {
+                $result .= '<td><a href="?char=' . $char . '">' . $char . '</a></td>';
             }
-            $result .= PHP_EOL . '</tr>' . PHP_EOL;
         }
-        $result .= '</table>' . PHP_EOL;
-        return $result;
+        $result .= PHP_EOL . '</tr>' . PHP_EOL;
     }
+    $result .= '</table>' . PHP_EOL;
+    return $result;
+}
  ```
 
 ### Trieda `Game`
