@@ -22,8 +22,3 @@
 Vytvorte pomocou CSS animáciu gule, ktorá sa pohybuje po stole a odráža sa od stien.
 
 ![Zadanie príkladu Gulečník](images_pool/zadanie.png)
-
-<div class="hidden">
-
-[Zobraziť riešenie](riesenie.md)
-</div>
