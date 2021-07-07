@@ -42,7 +42,7 @@ Hracia plocha sa skladá z dvoch popiskov a počítadla skóre pre každého hr�
 
 Vzhľad hry pred začiatkom je na nasledovnom obrázku:
 
-![](images_memory-game/start.png)
+![Úvodné nastavenie hracieho poľa hry](images_memory-game/start.png)
 
 Dôležité je pridanie atribútov `id` k tým atribútom, ktoré budeme neskôr v skripte nastavovať, napr. hodnoty skóre jednotlivých hráčov. Podobne označíme aj tlačidlo, aby sme mu mohli neskôr priradiť činnosť, ktorá bude nasledovať po stlačení tlačidla.
 
@@ -166,7 +166,7 @@ function distributeCards() {
 
 Ak chcete zobraziť karty na ploche, v CSS súbore stačí nastaviť `opacity: 1;`. Po tomto kroku budú karty usporiadané nasledovne:
 
-![](images_memory-game/sorted.png)
+![Karty pexesa poukladané za sebou pred zamiešaním](images_memory-game/sorted.png)
 
 Takáto hra by však bola veľmi jednoduchá, preto potrebujeme karty premiešať. Tento problém vyriešime presne tak, aby sme hrali pexeso s papierovými kartami. Presne definovaný počet krát vymeníme pozície náhodne vybratých kariet. Tým dosiahneme, že karty už nebudú usporiadané za sebou. Funkcia využije DOM metódu `querySelectorAll()`, ktorá vráti pole všetkých elementov rodiča uvedeného ako parameter. Potom v cykle 100 vymeníme vnútorný obsah dvoch náhodne vybraných elementov a tým karty zamiešame. Kód funkcie bude vyzerať nasledovne:
 
@@ -183,9 +183,9 @@ function shuffleCards() {
 
 Zamiešané karty sa môžu zobraziť napr. takto:
 
-![](images_memory-game/shuffled.png)
+![Zamiešané karty pexesa](images_memory-game/shuffled.png)
 
-#### Hracia logika
+#### Implementácia hernej logiky 
 
 Po zamiešaní kariet, získame hracie pole a znovu nastavíme `opacity: 0;`, aby karty skryli. Teraz musíme vytvoriť logiku hry. Akcia v hre sa vykonáva, keď nejaký hráč klikne myšou na kartu. Pri rozdávaní kariet sme každej bunke definovali ako obsluhu udalosti `onclick` funkciu `turnCard()`. V tejto funkcii musíme najskôr zistiť, či sa karta má vôbec otočiť, keď na ňu klikneme. Kartu neotočíme, ak:
 
@@ -302,7 +302,7 @@ function hideCards(card1, card2) {
 
 Priebeh rozohratej hry je možné vidieť na nasledovnom obrázku (hráč 2 práve odkryl 2 karty):
 
-![](images_memory-game/progress.png)
+![Ukážka rozohratej hry](images_memory-game/progress.png)
 
 Tým sme implementovali celú logiku hry. Koniec hry sme neriešili, ale nebol by problém detegovať, či sú všetky karty odkryté, vyhlásiť víťaza a opýtať sa, či si chcú hráči hru zahrať znovu. 
 

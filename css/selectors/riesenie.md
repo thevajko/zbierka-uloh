@@ -69,7 +69,7 @@ Tento selektor by sme ale mohli napísať rôznymi spôsobmi. Jedna varianta by 
 
 Po aplikovaní tohto štýlu tabuľka nebude ale vyzerať tak, ako sme požadovali.
 
-![](images_selectors/dvojite-oramovanie.png)
+![Dvojitý rámček HTML tabuľky](images_selectors/dvojite-oramovanie.png)
 
 Ako môžeme vidieť na obrázku vyššie, tabuľka má dvojité okraje, ktoré sú oddelené medzerou. Tieto medzery su definované pomocou CSS vlastnosti `border-spacing`. Mohli by sme nastaviť medzeru medzi bunkami na `0px` ale tým pádom by sme mali šírku rámčeka `2px`. Ďalšou CSS vlastnosťou, ktorú môžeme použiť je CSS vlastnosť `border-collapse`, pomocou ktorej vieme duplicitné orámovanie odstrániť. Pridáme preto do CSS pravidla pre tabuľku pridáme:
 

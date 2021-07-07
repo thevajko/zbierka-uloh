@@ -323,7 +323,7 @@ A nesmieme zabudnúť doplniť predvolenú hodnotu do konštruktora:
 
 Tabuľka sa bude teraz dať zoradiť oboma smermi.
 
-![Zoraďovanie tabulky kliknutím na ](images_data-table/tabulka-01.gif)
+![Zoraďovanie tabulky kliknutím na názov atribútu](images_data-table/tabulka-01.gif)
 
 ### Filtrovanie tabuľky
 
@@ -435,7 +435,8 @@ filterCollection(expression)
 
 <div class="hidden">
 
-Výsledná logika bude fungovať nasledovne:
+Výsledné riešenie bude fungovať nasledovne:
+
 </div>
 
-![](images_data-table/tabulka-02.gif)
+![Hotové riešenie](images_data-table/tabulka-02.gif)

@@ -140,7 +140,7 @@ Pre úplnosť uvedieme ešte CSS pravidlo pre naštýlovanie tejto chybovej hlá
 
 Toto riešenie nám zobrazí chyby v nasledovnom formáte:
 
-![](images_contact-form/riesenie-errorMessages.png)
+![Zobrazenie chýb pri nekompletne vyplnenom formulári](images_contact-form/riesenie-errorMessages.png)
 
 Veľkým problémom tohto riešenia je to, že po odoslaní formuláru sa nám stratia vyplnené údaje, to znamená, že ak náhodou zle vyplníme emailovu adresu, tak prídeme nie len o tú, ale aj o celú správu. Takéto správanie aplikácie je neprípustné. Tento problém sa ale dá celkom jednoducho vyriešiť. HTML `input` element má atribút `value`, pomocou ktorého mu môžeme nastaviť hodnotu. Základný kód by mohol vyzerať nasledovne:
 
@@ -150,7 +150,7 @@ Veľkým problémom tohto riešenia je to, že po odoslaní formuláru sa nám s
 
 Pokiaľ teraz znovu načítame formulár, tak sa nám zobrazí chybne:
 
-![](images_contact-form/warning1.png)
+![Chyba na strane servera sa zobrazí vo formulárovom prku](images_contact-form/warning1.png)
 
 Celý element `input` pre meno je aktuálne rozbitý. Ak chceme vedieť prečo, pozrieme sa do vygenerovaného HTML:
 
@@ -216,7 +216,7 @@ Prvým parametrom tejto funkcie je adresa príjemcu. V našom prípade chceme, a
 
 Výsledný email vyzerá po zachytení aplikáciou *MailHog* nasledovne:
 
-![](images_contact-form/mail.png)
+![Ukážka zachyteného e-mailu v aplikácii *MailHog*](images_contact-form/mail.png)
 
 V aktuálnom stave aplikácia po odoslaní emailu opäť zobrazí formulár. Chceli by sme to upraviť tak, aby po úspešnom odoslaní emailu sme dostali informáciu, že správa bola odoslaná.
 
@@ -250,6 +250,6 @@ mail(
 
 Takto odoslaná správa bude vyzerať nasledovne:
 
-![](images_contact-form/mail2.png)
+![Upravený odosielateľ v hlavičke mailu](images_contact-form/mail2.png)
 
 Do tela správy sme doplnili meno odosielateľa a pomocou hlavičky `Reply-To` sme špecifikovali adresu pre odpoveď. Vďaka tomu, keď nám príde správa z kontaktného formulára a v mail klientovi dáme odpoveď, tak táto odpoveď pôjde automaticky na adresu nášho používateľa a nie na adresu nášho servera (`my@myserver.sk`), ktorý je špecifikovaný ako odosielateľ.

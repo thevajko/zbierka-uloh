@@ -87,11 +87,11 @@ Prečo sme na odkaz `Začať znovu` realizovali pomocou odkazu `?` (otáznik). K
 }
 ```
 
-### Logika hry
+### Herná logika
 
 Hru budeme navrhovať a implementovať pomocou objektovo-orientovaného prístupu. Bude sa skladať z troch tried: `Game`,`Hangman` a `Keyboard`. Úlohou objektu `Game` bude riadiť celú hru, herný *engine* sa bude nachádzať v triede `Hangman` a trieda `Keyboard` bude mať za úlohu vykreslenie klávesnice na obrazovku.
 
-![UML diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/thevajko/zbierka-uloh/solution/php/hangman-game/diagram.puml)
+![UML diagram tried](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/thevajko/zbierka-uloh/solution/php/hangman-game/diagram.puml)
 
 
 ### Trieda `Keyboard`
@@ -192,7 +192,7 @@ A v elemente `<div class="keyboard_container">` si vyžiadame zobrazenie kláves
 
 Všimnite si použitie `<?= ?>`, čo je len skratka pre `<?php echo ... ?>`. Po spustení súboru `index.php` v prehliadači vidíme vytvorenú klávesnicu:
 
-![](images_hangman-game/keyboard.png)
+![Klávesnica vytvorená pre účely hry](images_hangman-game/keyboard.png)
 
 Po kliknutí na ktorékoľvek písmeno sa v riadku adresa vygeneruje odkaz s parameterom `char` rovnajúcim sa znaku, na ktorý sme klikli. Túto vlastnosť neskôr využijeme v hre.
 
@@ -405,5 +405,5 @@ Tým sme dokončili hru, zostáva nám len doplniť na správne miesta na hracej
 
 Tým je celá hra hotová a na nasledujúcom obrázku si môžeme pozrieť ukážku rozohratej hry. 
 
-![](images_hangman-game/game_in_progress.png)
+![Ukážka rozohratej hry](images_hangman-game/game_in_progress.png)
 

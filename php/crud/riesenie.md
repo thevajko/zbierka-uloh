@@ -46,7 +46,7 @@ CREATE TABLE `users`
 ) AUTO_INCREMENT=1;
 ```
 
-Do databázy pre testovacie účely vložíme niekoľko záznamov. Tieto záznamy môžme automaticky vygenerovať pomocou online generátora [*filldb.info*](http://filldb.info/).
+Do databázy pre testovacie účely vložíme niekoľko záznamov. Tieto záznamy môžeme automaticky vygenerovať pomocou online generátora [*filldb.info*](http://filldb.info/).
 
 ![Ukážka záznamov v tabuľke `users`](images_crud/users-data.png)
 

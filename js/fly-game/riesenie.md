@@ -73,7 +73,7 @@ Pomocou CSS štýlu si vytvoríme aj hraciu plochu, ktorú roztiahneme na celú 
 
 Zaujímavou vecou je zmena kurzora na náš vlastný obrázok. Chceli by sme, aby pri hre sa používal obrázok mucholapky:
 
-![](images_fly-game/flykiller.png)
+![Mucholapka ako kurzor myši](images_fly-game/flykiller.png)
 
 Na definovanie zmeny kurzora použijeme CSS vlastnosť `cursor`:
 
@@ -109,7 +109,7 @@ Ostatné použité štýly len formátujú zobrazenie skóre a času hry. Umiest
 
 Výsledková tabuľa bude vyzerať nasledovne:
 
-![](images_fly-game/score.png)
+![Výsledková tabuľa hry](images_fly-game/score.png)
 
 ### Logika hry
 
@@ -125,7 +125,7 @@ Celá hra bude limitovaná časom, preto pri začiatku hry spustíme časovač, 
 
 Implementáciu hry si rozložíme do troch tried: `Timer`, `Fly`, `Game`. Najprv vytvoríme triedu `Timer`, ktorá sa bude starať o časovače potrebné pri rôznych situáciách v hre. Ďalej si vytvoríme triedu `Fly`, ktorá bude mať na starosti správanie sa muchy počas hry. A celú hru bude riadiť trieda `Game`, ktorej zodpovednosťou bude spúšťanie a ukončovanie hry ako aj rátanie bodov hráča. Všetky tieto triedy na začiatok uložíme do jedného súboru `skript.js`.
 
-![UML diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/thevajko/zbierka-uloh/solution/js/fly-game/diagram.puml)
+![UML diagram tried](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/thevajko/zbierka-uloh/solution/js/fly-game/diagram.puml)
 
 ### Trieda Timer
 
@@ -447,7 +447,7 @@ new Game();
 
 Celá štruktúra príkladu bude je zobrazená na tomto obrázku:
 
-![](images_fly-game/structure.png)
+![Adresárová štruktúra riešenia](images_fly-game/structure.png)
 
 Pozor! Pokiaľ použijeme riešenie s modulmi, skript v HTML musíme naimportovať spolu s atribútom `type="module"`. Inak sa skript obsahujúci moduly nenaimportuje.
 
@@ -458,4 +458,4 @@ Pozor! Pokiaľ použijeme riešenie s modulmi, skript v HTML musíme naimportova
 
 Na spustenie hry budeme potrebovať okrem prehliadača, aj nejaký webový server. Pri použití modulov nie je možné Javascript spúštať bez použitia webového servera. Hru v prehliadači spustíme kliknutím na tlačidlo `Start`. Po spustení hry uvidíme muchy na hracej ploche, kurzor sa zmení na mucholapku a môžeme začať hrať:
 
-![](images_fly-game/game.png)
+![Ukážka spustenej hry](images_fly-game/game.png)

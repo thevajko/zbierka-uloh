@@ -51,7 +51,7 @@ bude vyzerať nejako takto:
 
 Teraz, keď odošleme formulár kliknutím na tlačidlo `Odoslať`, formulár sa neodošle a prehliadač zobrazí pri prvom prvku s nevyplnenou hodnotou alebo nesprávnou hodnotu chybovú hlášku:
 
-![](images_form-check/form-check-01.png)
+![Kontrola vyplnenia povinného poľa formulára](images_form-check/form-check-01.png)
 
 Bolo by však dobré aj vizuálne používateľovi zobraziť, ktoré prvky formulára obsahujú chybu. Tu môžeme využiť to, že prehliadač automaticky do neplatných prvkov formulára pridá pseudo-triedu [`:invalid`](https://developer.mozilla.org/en-US/docs/Web/CSS/:invalid). Taktiež je táto `:invalid`
 pridaná aj do formulára, ktorý chybu obsahuje. Stačí nám preto pridať jednoduché CSS pravidlo, ktoré zafarbí pozadie týchto prvkov na červeno. Pre jednoduchosť pridáme štýl priamo do HTML kódu:
@@ -67,7 +67,7 @@ pridaná aj do formulára, ktorý chybu obsahuje. Stačí nám preto pridať jed
 Selektor `:invalid:not(form)` vyberá všetky prvky, ktoré majú priradenú pseudo-triedu `:invalid` a nie je to element `form`
 pomocou `:not(form)`. Formulár sa bude teraz zobrazovať nasledovne:
 
-![](images_form-check/form-check-02.png)
+![Zvýraznenie nevyplneného povinného poľa formulára](images_form-check/form-check-02.png)
 
 Týmto sme vyčerpali možnosti, ktoré máme pre validáciu s použitím výlučne HTML5 bez JavaScriptu. Ešte by sme chceli poznamenať:
 
@@ -236,7 +236,7 @@ Teraz musíme po načítaní HTML pridať validačné funkcie. Ako prvú pridám
 
 Validácia sa nebude chovať úplne podľa našeho zámeru, nakoľko ku kontrole dôjde až pri zmene hodnoty daného vstupného elementu. Fungovanie bude nasledovné:
 
-![](images_form-check/form-check-01.gif)
+![Kontrola formulára nastane až pri zmene hodnoty](images_form-check/form-check-01.gif)
 
 Najjednoduchším spôsobom ako spustiť validáciu po jej pridaní je umelo vyvolať `oninput` udalosť. To zrealizujeme pridaním `element.dispatchEvent(new Event('input'));` ihned po pridaní logiky zavedenej na túto udalosť. Kód funkcie `validateInput()` bude upravený na následovný:
 
@@ -320,7 +320,7 @@ function validateInput(element, validationFunction) {
 
 Formulár sa bude správať nasledovne:
 
-![](images_form-check/form-check-02.gif)
+![Zobrazenie chybovej hlášky pri nevyplnenom povinnom poli formulára](images_form-check/form-check-02.gif)
 
 Aby sme mohli zablokovať tlačidlo pre odoslanie formulára pri nájdení chyby musíme najprv zistiť, či má formulár chybu. Najjednoduchším riešením bude vybrať všetky HTML elementy, ktoré majú CSS triedu `error` (vieme, že keď nastane chyba, elementy s touto triedou sa pridajú do DOM).
 
@@ -462,5 +462,5 @@ validateInput(document.getElementById("sprava"), function (value = null) {
 
 Výsledok bude vyzerať nasledovne:
 
-![](images_form-check/form-check-03.gif)
+![Kompletná kontrola formulárových polí](images_form-check/form-check-03.gif)
 
