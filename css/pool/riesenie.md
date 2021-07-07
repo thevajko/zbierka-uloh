@@ -3,6 +3,7 @@
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
 > - Repo: [Štartér](/../../tree/main/css/pool), [Riešenie](/../../tree/solution/css/pool).
+> - [Zobraziť zadanie](zadanie.md)
 
 # Gulečník (CSS)
 
@@ -10,16 +11,15 @@
 
 ## Riešenie
 
-Začneme definíciou HTML kódu pre túto úlohu. Potrebujeme zobraziť stôl a guličku na ňom.
+Začneme definíciou HTML kódu pre túto úlohu v ktorom budú HTML elementy predstavujúce stôl a guľu na ňom.
 
 ```html
-
 <div class="table">
     <div class="ball"></div>
 </div>
 ```
 
-Následne je potrebné tieto elementy naštýlovať. Pre stôl nastavíme veľkosť `500px` x `300px`, tmavozelené pozadie a čierny rámček. Loptička bude mať priemer `30px`, červenú farbu a bude okrúhla. Na zobrazenie HTML elementu ako kruh môžeme využiť CSS vlastnosť `border-radius`.
+Následne je potrebné tieto elementy naštýlovať, aby sa zobrazili ako biliardový stôl a guľa. Elementu predstavujúcemu stôl nastavíme pevnú veľkosť `500px` x `300px`, tmavozelené pozadie a čierny rámček. Guľa bude mať priemer `30px`, červenú farbu, tenký čierny rámik a bude okrúhla. Na zobrazenie HTML elementu ako kruh použijeme CSS vlastnosť `border-radius`.
 
 ```css
 .table {
@@ -40,13 +40,13 @@ Následne je potrebné tieto elementy naštýlovať. Pre stôl nastavíme veľko
 }
 ```
 
-Okrem farby sme elementom nastavili aj pozície. Gulička má nastavenú pozíciu na `absolute`, aby sme ju pomocou vlastností `top` a `left` mohli umiestnisť na ľubovolné miesto v rámci stola. Stolu sme museli nastaviť pozíciu na `relative`, aby sme mohli lotičku umiestňovať absolútne vzhľadom na stôl.
+Okrem farby sme elementom nastavili aj CSS vlastnosť `position`. Guľa má nastavenú hodnotu na `absolute`, aby sme ju pomocou CSS vlastností `top` a `left` mohli umiestniť na ľubovolné miesto v rámci stola. Stolu sme museli nastaviť hodnotu na `relative`, aby sme mohli guľu umiestňovať absolútne vzhľadom na stôl.
 
 Výsledok bude vyzerať nasledovne.
 
 ![Zobrazenie guličky a stola](images_pool/riesenie1.png)
 
-Pre pohyb loptičky v zvislom smere pripravíme animáciu:
+Pre pohyb gule v zvislom smere pripravíme animáciu:
 
 ```css
 @keyframes y-axis {
@@ -59,7 +59,7 @@ Pre pohyb loptičky v zvislom smere pripravíme animáciu:
 }
 ```
 
-Táto animácia bude presúvať loptičku zhora dole. Animáciu na loptičku aplikujeme nasledovne:
+Táto animácia bude presúvať guľu zhora dole. Animáciu na guľu aplikujeme nasledovne:
 
 ```css
 .ball {
@@ -70,14 +70,14 @@ Táto animácia bude presúvať loptičku zhora dole. Animáciu na loptičku apl
 Jednotlivé hodnoty v tomto zápise majú nasledovný význam:
 
 - `y-axis` - názov animácie, ktorú sme si zadeklarovali pomocou kľúčového slovíčka `@keyframes`.
-- `3.3s` - čas trvania animácie. Počas tohto času bude loptička plynule meniť svoju pozíciu na osi `Y`.
-- `linear` - takzvaná *timing* funkcia. Táto funkcia popisuje spôsob, akým sa v čase bude meniť hodnota. Funkcia `linear` bude meniť hodnotu lineárne. Pre zaujímavejšie animácie sa dajú použiť definície *timing* funkcie pomocou kubickej beziérovej krivky. Tákuto funkciu si môžete vygenerovať napríklad na stránke [cubic-bezier.com](https://cubic-bezier.com).
+- `3.3s` - čas trvania animácie. Počas tohto času bude guľa plynule meniť svoju pozíciu na osi `Y`.
+- `linear` - takzvaná *timing* funkcia. Táto funkcia popisuje spôsob, akým sa v čase bude meniť hodnota. Funkcia `linear` bude meniť hodnotu lineárne. Pre zaujímavejšie animácie sa dajú použiť definície *timing* funkcie pomocou _kubickej beziérovej krivky_. Takúto funkciu si môžete vygenerovať napríklad na stránke [cubic-bezier.com](https://cubic-bezier.com).
 - `alternate` - definuje smer animácie (`animation-direction`). Tento smer môže byť od začiatku po koniec, od konca po začiatok, alebo v našom prípade `alternate` bude animáciu prehrávať tam a späť.
-- `infinite` - definuje počet opakovaní animácie. V našom prípade chceme, aby sa loptička odrážala až, kým neopustíme stránku.
+- `infinite` - definuje počet opakovaní animácie. V našom prípade chceme, aby sa guľa odrážala až, kým neopustíme stránku.
 
-Po aplikovaní animácie by sme mali vidieť, ako sa loptička najskôr hýbe dole, a potom sa odrazí a pôjde hore. Toto by sa malo opakovať donekonečna.
+Po aplikovaní animácie by sme mali vidieť, ako sa guľa najskôr hýbe dole, a potom sa odrazí a pôjde hore. Toto by sa malo opakovať donekonečna.
 
-Aby sme ale dosiahli pohyb loptičky aj v osi `X`, musíme pridať ďalšiu animáciu. Táto bude vyzerať veľmi podobne ako animácia pohybu v smere osi `Y`:
+Aby sme ale dosiahli pohyb gule aj v osi `X`, musíme pridať ďalšiu animáciu. Táto bude vyzerať veľmi podobne ako animácia pohybu v smere osi `Y`:
 
 ```css
 @keyframes x-axis {
@@ -92,12 +92,11 @@ Aby sme ale dosiahli pohyb loptičky aj v osi `X`, musíme pridať ďalšiu anim
 
 Pokiaľ chceme jednému elementu pridať viacero animácií, tak ich oddeľujeme čiarkou:
 
-```css 
+```css
 .ball {
     ... 
     animation: x-axis 2s linear alternate infinite, y-axis 3.3s linear alternate infinite;
 }
 ```
 
-Aj druhá animácia používa rovnaké parametre. Jediným rozdielom je čas. Animácia na vodorovnej osi trvá 2s a animácia na zvislej osi trvá 3.3s. Pokiaľ budeme tieto časy meniť, zmení sa nám uhol, pod ktorým sa bude loptička pohybovať.
-
+Aj druhá animácia používa rovnaké parametre. Jediným rozdielom je čas. Animácia na vodorovnej osi trvá 2s a animácia na zvislej osi trvá 3.3s. Pokiaľ budeme tieto časy meniť, zmení sa nám uhol, pod ktorým sa bude guľa pohybovať.

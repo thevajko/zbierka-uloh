@@ -3,6 +3,7 @@
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
 > - Repo: [Štartér](/../../tree/main/css/pool), [Riešenie](/../../tree/solution/css/pool).
+> - [Zobraziť riešenie](riesenie.md)
 </div>
 
 # Gulečník
@@ -19,11 +20,6 @@
 
 ## Zadanie
 
-Vytvorte pomocou CSS animáciu loptičky, ktorá sa pohybuje po stole a odráža sa od stien.
+Vytvorte pomocou CSS animáciu gule, ktorá sa pohybuje po stole a odráža sa od stien.
 
 ![Zadanie príkladu Gulečník](images_pool/zadanie.png)
-
-<div class="hidden">
-
-[Zobraziť riešenie](riesenie.md)
-</div>
