@@ -1,10 +1,10 @@
 @startuml
 
 class UserStorage {
-  +User[] getAllUsers()
-  +?User getUser($id)
-  +void storeUser(User $user)
-  +void deleteUser(User $user)
+  +User[] getAll()
+  +?User get($id)
+  +void store(User $user)
+  +void delete(User $user)
 }
 
 class User {

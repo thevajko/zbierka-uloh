@@ -13,7 +13,7 @@
 
 **Ostatné použité jazyky**: HTML, JavaScript, CSS
 
-**Obtiažnosť**: 3/5
+**Obtiažnosť**: 4/5
 
 **Obsah príkladu**: Štruktúra aplikácie vo viacerých súboroch, operácie čítania, pridávanie, zmeny a mazania dát v DB, PHP Data Objects (PDO), *PDO preprare statement*, ochrana voči XSS útoku.
 </div>
