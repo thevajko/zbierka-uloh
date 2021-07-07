@@ -18,8 +18,7 @@ Predpokladáme, že databázový server je spustený a obsahuje tabuľku s dáta
 > Toto riešenie obsahuje všetky potrebné služby v `docker-compose.yml`. Po ich spustení sa vytvorí:
 > - webový server, ktory do __document root__ namapuje adresár tejto úlohy s modulom __PDO__. Port __80__ a bude dostupný na adrese [http://localhost/](http://localhost/). Server má pridaný modul pre ladenie [__Xdebug 3__](https://xdebug.org/) nastavený na port __9000__.
 > - databázový server s vytvorenou _databázov_ a tabuľkou `users` s dátami na porte __3306__ a bude dostupný na `localhost:3306`. Prihlasovacie údaje sú:
-    >
-- MYSQL_ROOT_PASSWORD: heslo
+>   - MYSQL_ROOT_PASSWORD: heslo
 >   - MYSQL_DATABASE: dbtable
 >   - MYSQL_USER: db_user
 >   - MYSQL_PASSWORD: db_user_pass
@@ -352,8 +351,7 @@ Názov stĺpca budeme mať vo vstupnej premennej `$sortedBy` a zoradovať budeme
 ```php
 class UserStorage
 {
-    // ...
-   /**
+    /**
      * @return User[]
      */
     public function getAll($sortedBy = ""): array
@@ -372,8 +370,6 @@ class UserStorage
             die($e->getMessage());
         }
     }
-    
-    // ...
 }
 ```
 
@@ -468,7 +464,6 @@ Teraz pridáme do metódy `UserStorage::getAll()` nový vstupný parameter `$sor
 ```php
 class UserStorage
 {
-    // ... 
     /**
      * @return User[]
      */
@@ -489,8 +484,6 @@ class UserStorage
             die($e->getMessage());
         }
     }
-   
-    // ... 
 }
 ```
 
@@ -647,7 +640,16 @@ class Table
     private int $itemsCount = 0;
     private int $totalPages = 0;
     // ...
-   private function getPageNumber(): int
+    
+    public function __construct()
+    {
+        $this->orderBy = ($this->isColumnNameValid(@$_GET['order']) ? $_GET['order'] : "");
+        $this->direction = $_GET['direction'] ?? "";
+
+        $this->page = $this->getPageNumber();
+    }
+    
+    private function getPageNumber(): int
     {
         $userStorage = new UserStorage();
         $this->itemsCount = $userStorage->getCount();
@@ -669,9 +671,7 @@ class Table
 class Table
 {
     // ...
-
     private function renderPaginator() : string {
-
         $r = "";
         for ($i = 0; $i < $this->totalPages; $i++){
             $href = $this->prepareUrl(['page' => $i]);
@@ -679,6 +679,19 @@ class Table
         }
 
         return "<div>$r</div>";
+    }
+    // ... 
+}
+```
+
+Zobrazíme stránkovanie na spodku tabuľky:
+```php
+class Table
+{
+    // ...
+    public function render() : string
+    {
+        return "<table border=\"1\">{$this->renderHead()}{$this->renderBody()}</table>". $this->renderPaginator();
     }
     // ... 
 }
@@ -722,8 +735,7 @@ Teraz môžeme doplniť predanie parametrov o stránke pre zobrazenie do `Table:
 class Table
 {
     // ...
-
-  private function renderBody() : string
+    private function renderBody() : string
     {
         $body = "";
         $userStorage = new UserStorage();
@@ -742,7 +754,7 @@ class Table
 }
 ```
 
-Pri zmene zoradenia je dobré nastaviť zobrazenú stránku na prvú. To urobíme jednoducho, tým že v metóde `Table->renderHead()` pridáme do lokálnej premennej `$hrefParams` index `page` s hodnotou `0`:
+Pri zmene zoradenia je dobré nastaviť zobrazenú stránku na prvú. To urobíme jednoducho, tým že v metóde `Table::renderHead()` pridáme do lokálnej premennej `$hrefParams` index `page` s hodnotou `0`:
 
 ```php
 class Table
@@ -751,7 +763,7 @@ class Table
 
     private function renderHead() : string {
         $header = "";
-        foreach ($this->retColumnAttributes() as $attribName => $value) {
+        foreach ($this->getColumnAttributes() as $attribName => $value) {
 
             $hrefParams = [
                 'order' => $attribName,
@@ -983,7 +995,7 @@ Do formuláru nedopĺňame žiadne extra atribúty ani nastavenia GET parametrov
 ```php
 class Table
 {
-   //..
+    //..
     private function renderFilter() : string{
         return '<form>
         <input name="filter" type="text" value="'.$this->filter.'">
@@ -999,8 +1011,7 @@ Formulár sa má zobraziť nad tabuľkou, preto ho doplníme do metódy `Table->
 ```php
 class Table
 {
-   //..
-
+    //...
     public function render() : string
     {
         return $this->renderFilter()
@@ -1055,22 +1066,24 @@ class Column
 
 Trieda obsahuje *get* metódy na názov stĺpca a názov atribútu. Okrem toho obsahuje metódu `render()`, ktorá má ako parameter celý záznam (riadok tabuľky) a má za úlohu vykresliť daný stĺpec pomocou definovanej metódy `render()`. Ako si môžeme všimnúť, v metóde `render()` sme si renderovaciu funkciu, ktorá je uložená v atribúte museli najskôr uložiť do lokálnej premennej a až potom zavolať. Je to z toho dôvodu, že zápis `$this->renderer($row)` by nevykonal funkciu, uloženú v atribúte `$renderer`, ale snažil by sa nájsť metódu `renderer()` v triede `Column`.
 
-Keď máme pripravenú triedu, reprezentujúcu stĺpec tabuľky, pristúpime k jej implementácii do trieda `Table`. V prvom rade si pripravíme atribút `$columns`, ktorý bude obsahovať definíciu stĺpcov tabuľky.
+Keď máme pripravenú triedu, reprezentujúcu stĺpec tabuľky, pristúpime k jej implementácii do triedy `Table`. V prvom rade si pripravíme atribút `$columns`, ktorý bude obsahovať definíciu stĺpcov tabuľky. Ďalej si pridáme metódu, pomocou ktorej budeme môcť definovať jednotlivé stĺpce tabuľky.
 
 ```php
-/** @var Column[] */
-private array $columns = [];
-```
-
-Ďalej si pridáme metódu, pomocou ktorej budeme môcť definovať jednotlivé stĺpce tabuľky.
-
-```php
-public function addColumn(string $field, string $title, ?Closure $renderer = null): self {
-    if ($renderer == null) {
-        $renderer = fn($row) => htmlentities($row->$field);
+class Table
+{
+    //...
+    /** @var Column[] */
+    private array $columns = [];
+    
+    //...
+    public function addColumn(string $field, string $title, ?Closure $renderer = null): self {
+        if ($renderer == null) {
+            $renderer = fn($row) => htmlentities($row->$field);
+        }
+        $this->columns[] = new Column($field, $title, $renderer);
+        return $this;
     }
-    $this->columns[] = new Column($field, $title, $renderer);
-    return $this;
+    //...
 }
 ```
 
@@ -1089,29 +1102,34 @@ $table->addColumn(...)
 Ďalej musíme upraviť metódy na generovanie hlavičky a tela tabuľky tak, aby využívali takto definované stĺpce. Metóda `renderHead()` bude vyzerať takto:
 
 ```php
-private function renderHead() : string 
+class Table
 {
-    $header = "";
-    foreach ($this->columns as $column) {
-        if (empty($column->getField())) {
-            $header .= "<th>{$column->getTitle()}</th>";
-        }
-        else {
-            $hrefParams = [
-                'order' => $column->getField(),
-                'page' => 0
-            ];
-
-            if ($this->orderBy == $column->getField() && $this->direction == "") {
-                $hrefParams['direction'] = "DESC";
-            } else {
-                $hrefParams['direction'] = "";
+    //...
+    private function renderHead() : string 
+    {
+        $header = "";
+        foreach ($this->columns as $column) {
+            if (empty($column->getField())) {
+                $header .= "<th>{$column->getTitle()}</th>";
             }
-
-            $header .= "<th><a href=\"{$this->prepareUrl($hrefParams)}\">{$column->getTitle()}</a></th>";
+            else {
+                $hrefParams = [
+                    'order' => $column->getField(),
+                    'page' => 0
+                ];
+    
+                if ($this->orderBy == $column->getField() && $this->direction == "") {
+                    $hrefParams['direction'] = "DESC";
+                } else {
+                    $hrefParams['direction'] = "";
+                }
+    
+                $header .= "<th><a href=\"{$this->prepareUrl($hrefParams)}\">{$column->getTitle()}</a></th>";
+            }
         }
+        return "<tr>{$header}</tr>";
     }
-    return "<tr>{$header}</tr>";
+    //...
 }
 ```
 
@@ -1120,28 +1138,38 @@ Namiesto `retColumnAttributes()` teraz prechádzame zoznamom stĺpcov definovan�
 Ďalšou metódou, ktorú musíme upraviť je metóda `renderBody()`:
 
 ```php
-private function renderBody() : string
+class Table
 {
-    $body = "";
-    $userStorage = new UserStorage();
-    $users = $userStorage->getAll($this->orderBy, $this->direction, $this->page, $this->pageSize, $this->filter);
-
-    foreach ($users as $user) {
-        $tr = "";
-        foreach ($this->columns as $column) {
-            $tr .= "<td>{$column->render($user)}</td>";
+    //...
+    private function renderBody() : string
+    {
+        $body = "";
+        $userStorage = new UserStorage();
+        $users = $userStorage->getAll($this->orderBy, $this->direction, $this->page, $this->pageSize, $this->filter);
+    
+        foreach ($users as $user) {
+            $tr = "";
+            foreach ($this->columns as $column) {
+                $tr .= "<td>{$column->render($user)}</td>";
+            }
+            $body .= "<tr>$tr</tr>";
         }
-        $body .= "<tr>$tr</tr>";
+        return $body;
     }
-    return $body;
+    //...
 }
 ```
 
 Tu je podobne, ako v predchádzajúcom prípade, zmena len v tom, že namieto `$this->getColumnAttributes()` iterujeme cez `$columns` a výstup generujeme cez `$column->render($user)`. Metóda `getColumnAttributes()` bola ešte používaná pri validácii parametru pri zoraďovaní stĺpcov. Upravíme pre to ešte metódu `isColumnNameValid()`:
 
 ```php
-private function isColumnNameValid($name) : bool {
-    return !empty($name) && in_array($name, array_map(fn(Column $c) => $c->getField(), $this->columns));
+class Table
+{
+    //...
+    private function isColumnNameValid($name) : bool {
+        return !empty($name) && in_array($name, array_map(fn(Column $c) => $c->getField(), $this->columns));
+    }
+    //...
 }
 ```
 
@@ -1158,9 +1186,14 @@ $this->orderBy = $_GET['order'] ?? "";
 Na začiatok metódy `renderBody()` pridáme:
 
 ```php
-private function renderBody() : string
+class Table
 {
-    $this->orderBy = $this->isColumnNameValid($this->orderBy) ? $this->orderBy : "";
+    //...
+    private function renderBody() : string
+    {
+        $this->orderBy = $this->isColumnNameValid($this->orderBy) ? $this->orderBy : "";
+        //...
+    }
     //...
 }
 ```
