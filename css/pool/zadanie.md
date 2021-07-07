@@ -19,7 +19,7 @@
 
 ## Zadanie
 
-Vytvorte pomocou CSS animáciu loptičky, ktorá sa pohybuje po stole a odráža sa od stien.
+Vytvorte pomocou CSS animáciu gule, ktorá sa pohybuje po stole a odráža sa od stien.
 
 ![Zadanie príkladu Gulečník](images_pool/zadanie.png)
 
