@@ -3,6 +3,7 @@
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
 > - Repo: [Štartér](/../../tree/main/css/emoticons), [Riešenie](/../../tree/solution/css/emoticons).
+    [Zobraziť riešenie](riesenie.md)
 </div>
 
 # Smajlíky
@@ -61,8 +62,3 @@ HTML kód druhého smajlíka bude vyzerať nasledovne:
 ```
 
 Pri implementácii počítajte s tým, že smajlík môže mať len jeden tvar - normálny, veselý, smutný. Líčka, ale môžu mať ľubovolnú veľkosť a otočenie.
-
-<div class="hidden">
-
-[Zobraziť riešenie](riesenie.md)
-</div>
