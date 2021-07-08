@@ -10,7 +10,7 @@ body {
 .sun {
     background-image: url("../img/sun.png");
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
     width: 300px;
     height: 300px;
     top: 50%;
@@ -22,7 +22,7 @@ body {
 .bird{
     background-image: url("../img/bird.png");
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
     width: 150px;
     height: 150px;
     position: absolute;

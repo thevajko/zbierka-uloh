@@ -24,14 +24,14 @@ Preto budeme musieť upraviť štruktúru zdrojového HTML. Podľa [štandardu H
     <div class="has-tooltip">
         consectetur
         <span class="tooltip">
-        Tooltip: In mollis accumsan sodales.
+        In mollis accumsan sodales.
       </span>
     </div>
     adipiscing elit. In
     <div class="has-tooltip">
         hendrerit
         <span class="tooltip">
-        Tooltip: Maecenas lobortis quam quis euismod maximus.
+        Maecenas lobortis quam quis euismod maximus.
       </span>
     </div>
     ... 
@@ -70,6 +70,7 @@ div.has-tooltip .tooltip {
     border: 1px solid black;
     position: absolute;
     background-color: white;
+    font-weight: normal;
     padding: 3px;
 }
 ```
@@ -96,3 +97,14 @@ div.has-tooltip .tooltip {
     z-index: 1;
 }
 ```
+
+Na záver ešte k popisku pridáme automatický text na začiatok, aby sme zvýraznili, že ide o popisok (*tooltip*) pomocou pseudotriedy `::before`:
+
+```css
+div.has-tooltip .tooltip::before {     
+    content: "Tooltip: ";
+    font-weight: bold;
+}
+```
+
+
