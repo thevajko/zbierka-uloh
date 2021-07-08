@@ -38,7 +38,7 @@ class Keyboard
             $result .= '<tr>' . PHP_EOL;
             for ($j = 1; $j <= $this->cols; $j++) {
                 $char = chr(65 + $counter++);
-                if ($counter > self::KEYS_NUMBER or in_array($char, $this->hangman->getUsedChars())) {
+                if ($counter > self::KEYS_NUMBER || in_array($char, $this->hangman->getUsedChars())) {
                     $result .= '<td>&nbsp;</td>';
                 } else {
                     $result .= '<td><a href="?char=' . $char . '">' . $char . '</a></td>';
