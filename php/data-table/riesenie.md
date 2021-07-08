@@ -87,7 +87,7 @@ CREATE TABLE `users`
 );
 ```
 
-Dáta do našej DB tabuľky si môžme pripraviť ručne, alebo môžeme využiť niektorý z on-line generátorov. Napríklad generátor [*filldb.info*](http://filldb.info/) umožňuje po vložení schémy automaticky vygenerovať dáta pre našu tabuľku `users`.
+Dáta do našej DB tabuľky si môžeme pripraviť ručne, alebo môžeme využiť niektorý z on-line generátorov. Napríklad generátor [*filldb.info*](http://filldb.info/) umožňuje po vložení schémy automaticky vygenerovať dáta pre našu tabuľku `users`.
 
 Pre prístup k dátam v databáze si vytvoríme triedu `UserStorage`, ktorá bude obsahovať metódu `getAll()`, ktorej úlohou bude vybrať všetky záznamy z tabuľky `users` a vrátiť ich v poli, kde každý riadok bude predstavovať jednu inštanciu triedy `User`.
 
@@ -432,7 +432,7 @@ class Table
 
 Zoraďovanie tabuľky by malo fungovať takto:
 
-![](images_data-table/dbtable-01.gif)
+![Zoraďovanie tabuľky po kliknutí na názov atribútu](images_data-table/dbtable-01.gif)
 
 ### Obojstranné zoraďovanie
 
@@ -534,7 +534,7 @@ class Table
 
 Tabuľka sa bude zoradovať nasledovne:
 
-![](images_data-table/dbtable-02.gif)
+![Obojsmerné zoraďovanie tabuľky](images_data-table/dbtable-02.gif)
 
 ### Stránkovanie výsledkov
 
@@ -831,7 +831,7 @@ $usersTable = new Table();
 
 Tabuľka sa nám bude zobrazovať nasledovne:
 
-![](images_data-table/dbtable-03.gif)
+![Stránkovanie dát v tabuľke](images_data-table/dbtable-03.gif)
 
 ### Filtrovanie
 
@@ -1022,9 +1022,9 @@ class Table
 }
 ```
 
-Dáta v tabuľke sa budú dať zoraďovať:
+Dáta v tabuľke sa budú dať filtrovať:
 
-![](images_data-table/dbtable-04.gif)
+![Filtrovanie dát v tabuľke](images_data-table/dbtable-04.gif)
 
 ### Vlastné stĺpce
 
@@ -1213,13 +1213,13 @@ Pokiaľ by sme chceli pridať pole s tlačidlami do každého riadku, môžeme t
 
 ```php
 $usersTable->addColumn("", "Akcie", function (User $user) {
-    return '<button onclick="alert(' . $user->id . ')">Tlacidko</button>';
+    return '<button onclick="alert(' . $user->id . ')">Tlačidlo</button>';
 });
 ```
 
 V tomto príklade uvádzame prázdny názov atribútu, na ktorý sa daný stĺpec viaže - nebude sa podľa tohto stĺpca dať zoraďovať. Ako tretí parameter definujeme anonymnú funkciu, ktorá ako parameter dostane entitu používateľa a vykreslí jednoduché tlačidlo, ktoré po stlačení vypíše ID daného používateľa.
 
-![](images_data-table/dbtable-05.gif)
+![Neviem, čo chcel autor obrázkom povedať](images_data-table/dbtable-05.gif)
 
 ### Univerzálny zdroj dát
 
@@ -1305,7 +1305,7 @@ $usersTable->addColumn("name", "Meno")
     ->addColumn("mail", "Emailová adresa")
     ->addColumn("country", "Krajina")
     ->addColumn("", "Akcie", function (User $user) {
-        return '<button onclick="alert(' . $user->id . ')">Tlacidko</button>';
+        return '<button onclick="alert(' . $user->id . ')">Tlačidlo</button>';
     });
 ```
 

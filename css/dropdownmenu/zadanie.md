@@ -13,7 +13,7 @@
 
 **Ostatné použité jazyky**: HTML
 
-**Obtiažnosť**: 3/5
+**Obťažnosť**: 3/5
 
 **Obsah príkladu**: Tvorba menu, použitie CSS *Flexbox*, CSS vlastnosti `display`, `position`, potomkové selektory, pseudotrieda `:hover`, pseudoelementy  `::before` a `::after`.
 </div>

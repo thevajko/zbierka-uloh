@@ -12,7 +12,7 @@ $usersTable->addColumn("name", "Meno")
     ->addColumn("mail", "Emailová adresa")
     ->addColumn("country", "Krajina")
     ->addColumn("", "Akcie", function (User $user) {
-        return '<button onclick="alert(' . $user->id . ')">Tlacidko</button>';
+        return '<button onclick="alert(' . $user->id . ')">Tlačidlo</button>';
     });
 ?><html>
 <head>

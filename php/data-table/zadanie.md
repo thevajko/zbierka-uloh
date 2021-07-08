@@ -13,7 +13,7 @@
 
 **Ostatné použité jazyky**: HTML
 
-**Obtiažnosť**: 5/5
+**Obťažnosť**: 5/5
 
 **Obsah príkladu**: Objektové programovanie v PHP, rozhrania, PHP Data Objects (PDO), *PDO preprare statement*, GET parametre, ochrana proti útokom typu SQL *injection*, zoraďovanie a filtrovanie dát, stránkovanie dát.  
 </div>

@@ -256,15 +256,15 @@ function deleteFiles() {
 
 Tým je aplikácia hotová. Na nasledovnom obrázku je možné vidieť jej vzhľad pred nahratím súborov:
 
-![](images_zipper/1.png)
+![počiatočný stav aplikácie (žiadne súbory neboli nahraté)](images_zipper/1.png)
 
 Používateľ postupne pridal 5 súborov do archívu:
 
-![](images_zipper/2.png)
+![Používateľ nahral 5 súborov na server](images_zipper/2.png)
 
 Na tomto obrázku je aplikácia v stave, keď používateľ klikol na tlačidlo `Zipuj!` a môže sa rozhodnúť, či archív uloží na lokálny disk, alebo rovno otvorí.
 
-![](images_zipper/3.png)
+![Aplikácia po komprimácii ponúka používateľovi stiahnutie archívu](images_zipper/3.png)
 
 
 
@@ -326,4 +326,4 @@ public function getFilesList(): array
 
 Pretože sme si oddelili prístup k názvom súborov do samostatnej metódy `getFullFileNameWithDir()` zostávajúce `saveUploadedFile()`, `zipAndDownload()` a `sendZipFile()` nemusíme meniť.
 
-Výsledné riešenie môžme otestovať napríklad pomocou inkognito okna.
+Výsledné riešenie môžeme otestovať napríklad pomocou súkromného okna.

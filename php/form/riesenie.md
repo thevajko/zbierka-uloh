@@ -27,7 +27,7 @@ Validácia bude prebiehať tak, že ku každému prvku pridáme tzv. validátory
 
 Výsledný UML diagram celého riešenia je nasledovný:
 
-![UML diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/thevajko/zbierka-uloh/solution/php/form/diagram.puml)
+![UML diagram tried](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/thevajko/zbierka-uloh/solution/php/form/diagram.puml)
 
 ### Implementácia formulára
 

@@ -60,9 +60,9 @@ window.onload = function() {
 ```
 Výsledkom skriptu je takýto kruh:
 
-![](images_analog-clock/aclock-01.png)
+![Vykreslenie kružnice](images_analog-clock/aclock-01.png)
 
-### Vykreslenie ručičiek
+### Vykreslenie ručičiek hodiniek
 
 Teraz si vytvoríme funkciu, ktorú budeme používať pre vykreslenie sekundovej, minútovej a hodinovej ručičky. Funkcia musí umožňovať definovať šírku a dĺžku ručičky od stredu, ako aj jej uhol.
 
@@ -115,9 +115,9 @@ window.onload = function() {
 
 Výsledná kresba by mala vyzerať nasledovne:
 
-![](images_analog-clock/aclock-02.png)
+![Vykreslené ručičky hodiniek](images_analog-clock/aclock-02.png)
 
-### Vykreslenie ciferníka 
+### Vykreslenie hodinových a minútových značiek
 
 Pre vykreslenie hodinových a minútových značiek vytvoríme novú funkciu `drawLineMarker()`. Tá bude obsahovať mierne upravený kód funkcie `drawWatchHand()`.
 
@@ -160,8 +160,7 @@ window.onload = function(){
 ```
 Vykreslí sa:
 
-![](images_analog-clock/aclock-03.png)
-
+![Vykreslená časť hodinových a minútových značiek](images_analog-clock/aclock-03.png)
 
 ### Vykreslenie ciferníka
 
@@ -191,7 +190,7 @@ function makeTick(ctx) {
 ```
 Ciferník bude vyzerať takto:
 
-![](images_analog-clock/aclock-04.png) 
+![Vykreslený celý ciferník](images_analog-clock/aclock-04.png) 
 
 Teraz doplníme do zobrazenia ručičky a ich jednotlive uhly vyrátame týmto spôsobom:
 
@@ -225,7 +224,7 @@ function makeTick(ctx) {
 ```
 Hodiny sa zobrazia nasledovne:
 
-![](images_analog-clock/aclock-05.png)
+![Vykreslenie celých hodiniek](images_analog-clock/aclock-05.png)
 
 Ako posledné potrebujeme, aby sa funkcia `makeTick()` spúšťala každú sekundu a vytvoril sa tak dojem, že sa hodiny idú. To docielime periodickým spúštaním za pomoci metódy [`setInterval()`](https://www.w3schools.com/jsref/met_win_setinterval.asp) každú sekundu.
 
@@ -270,4 +269,4 @@ window.onload = function(){
 
 Výsledok:
 
-![](images_analog-clock/aclock-01.gif)
+![Funkčné hodinky](images_analog-clock/aclock-01.gif)

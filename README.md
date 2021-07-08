@@ -30,34 +30,34 @@ Samozrejme, pre spustenie potrebných služieb môžete použiť ľubovoľným s
 Úlohy sú rozdelené podľa toho, ktorú technológiu používajú a obsahujú označenie náročnosti (stupnica od 1 po 5, kde 5 je najväčšia náročnosť)
 
 ## CSS
-1. [Gulečník](css/pool/zadanie.md) (CSS) - obtiažnosť 1
-1. [Selektory](css/selectors/zadanie.md) (CSS) - obtiažnosť 2
-1. [Tooltip](css/tooltip/zadanie.md) (CSS) - obtiažnosť 2
-1. [Slnečna sústava](css/solar-system/zadanie.md) (CSS) - obtiažnosť 2
-1. [Galéria](css/gallery/zadanie.md) (CSS) - obtiažnosť 2
-1. [Drop-Down a Drop-Up menu](css/dropdownmenu/zadanie.md) (CSS) - obtiažnosť 3
-1. [CSS Smajlíky](css/emoticons/zadanie.md) (CSS) - obtiažnosť 3
+1. [Gulečník](css/pool/zadanie.md) (CSS) - Obťažnosť 1
+1. [Selektory](css/selectors/zadanie.md) (CSS) - Obťažnosť 2
+1. [Tooltip](css/tooltip/zadanie.md) (CSS) - Obťažnosť 2
+1. [Slnečna sústava](css/solar-system/zadanie.md) (CSS) - Obťažnosť 2
+1. [Galéria](css/gallery/zadanie.md) (CSS) - Obťažnosť 2
+1. [Drop-Down a Drop-Up menu](css/dropdownmenu/zadanie.md) (CSS) - Obťažnosť 3
+1. [CSS Smajlíky](css/emoticons/zadanie.md) (CSS) - Obťažnosť 3
    
 ## JS a CSS
-1. [ShowHide](js/show-hide/zadanie.md) (JS, CSS) - obtiažnosť 1
-1. [Tooltip](js/tooltip/zadanie.md) (JS, CSS) - obtiažnosť 2
-1. [Analógové hodinky](js/analog-clock/zadanie.md) (JS, CSS) - obtiažnosť 2
-1. [Univerzal loader](ajax/universal-loader/zadanie.md) (JS, AJAX, CSS) - obtiažnosť 2
-1. [Kontrola formulára](js/form-check/zadanie.md) (JS, CSS) - obtiažnosť 2
-1. [Pexeso](js/memory-game/zadanie.md) (JS, CSS) - obtiažnosť 2
-1. [JS Table](js/data-table/zadanie.md) (JS, CSS) - obtiažnosť 3
-1. [Hra mucha](js/fly-game/zadanie.md) (JS, CSS) - obtiažnosť 4
+1. [ShowHide](js/show-hide/zadanie.md) (JS, CSS) - Obťažnosť 1
+1. [Tooltip](js/tooltip/zadanie.md) (JS, CSS) - Obťažnosť 2
+1. [Analógové hodinky](js/analog-clock/zadanie.md) (JS, CSS) - Obťažnosť 2
+1. [Univerzal loader](ajax/universal-loader/zadanie.md) (JS, AJAX, CSS) - Obťažnosť 2
+1. [Kontrola formulára](js/form-check/zadanie.md) (JS, CSS) - Obťažnosť 2
+1. [Pexeso](js/memory-game/zadanie.md) (JS, CSS) - Obťažnosť 2
+1. [JS Table](js/data-table/zadanie.md) (JS, CSS) - Obťažnosť 3
+1. [Hra mucha](js/fly-game/zadanie.md) (JS, CSS) - Obťažnosť 4
 
 ## PHP
-1. [Faktoriál](php/factorial/zadanie.md) (PHP) - obtiažnosť 1
-1. [Generovanie štvorčekov](php/squares/zadanie.md) (PHP, CSS) - obtiažnosť 1
-1. [Kontaktný formulár](php/contact-form/zadanie.md) (PHP, CSS) - obtiažnosť 1 
-1. [PHP formulár](php/form/zadanie.md) (PHP, CSS) - obtiažnosť 2 
+1. [Faktoriál](php/factorial/zadanie.md) (PHP) - Obťažnosť 1
+1. [Generovanie štvorčekov](php/squares/zadanie.md) (PHP, CSS) - Obťažnosť 1
+1. [Kontaktný formulár](php/contact-form/zadanie.md) (PHP, CSS) - Obťažnosť 1 
+1. [PHP formulár](php/form/zadanie.md) (PHP, CSS) - Obťažnosť 2 
 
 ## Komplexné úlohy
-1. [Jednoduchá Db tabuľka](php/data-table/zadanie.md) (DB, PHP) - obtiažnosť 4
-1. [Operácie nad tabuľkou](php/crud/zadanie.md) (DB, PHP) - obtiažnosť 4
-1. [Jednoduchý chat](ajax/chat/zadanie.md) (DB, PHP, JS, AJAX, CSS) - obtiažnosť 5
+1. [Jednoduchá Db tabuľka](php/data-table/zadanie.md) (DB, PHP) - Obťažnosť 4
+1. [Operácie nad tabuľkou](php/crud/zadanie.md) (DB, PHP) - Obťažnosť 4
+1. [Jednoduchý chat](ajax/chat/zadanie.md) (DB, PHP, JS, AJAX, CSS) - Obťažnosť 5
 
 ___
 

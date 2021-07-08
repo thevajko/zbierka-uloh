@@ -13,7 +13,7 @@
 
 **Ostatné použité jazyky**: HTML, CSS
 
-**Obtiažnosť**: 1/5
+**Obťažnosť**: 1/5
 
 **Obsah príkladu**: Spúštanie skriptov v obsluhe udalosti `windows.onload`, obsluha udalostí myši, použitie atribútu `innerHTML`
 </div>

@@ -13,7 +13,7 @@
 
 **Ostatné použité jazyky**: HTML, JavaScript
 
-**Obtiažnosť**: 2/5
+**Obťažnosť**: 2/5
 
 **Obsah príkladu**: Objektové programovanie v PHP, nahrávanie (*upload*) súborov na server a ich spracovanie, externé rozšírenia jazyka PHP, identifikáciu používateľa, *cookies*, polia.
 </div>

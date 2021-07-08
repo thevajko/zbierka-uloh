@@ -11,7 +11,7 @@ require 'Hangman.php';
  */
 class Game
 {
-    private $hangman = null;
+    private $hangman;
 
     /**
      * Game konštruktor

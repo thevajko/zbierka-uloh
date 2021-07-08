@@ -14,7 +14,7 @@
 
 **Ostatné použité jazyky**: HTML, CSS
 
-**Obtiažnosť**: 3/5
+**Obťažnosť**: 3/5
 
 **Obsah príkladu**: Dynamické generovanie elementov pomocou DOM metódy `createElement()`, výber elementov na základe CSS selektora s použitím DOM metódy `querySelectorAll()`, nastavovanie atribútov elementov, práca so DOM hierarchiou
 </div>

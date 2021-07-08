@@ -13,7 +13,7 @@
 
 **Ostatné použité jazyky**: HTML
 
-**Obtiažnosť**: 2/5
+**Obťažnosť**: 2/5
 
 **Obsah príkladu**: Základy animácií v CSS, jednoduché animácie na zmenu polohy elementu, kombinácia viacerých animácií pre jeden element.
 </div>

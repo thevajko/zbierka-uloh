@@ -12,7 +12,7 @@
 
 **Ostatné použité jazyky**: HTML
 
-**Obtiažnosť**: 1/5
+**Obťažnosť**: 1/5
 
 **Obsah príkladu**: Kombinácia viacerých CSS tried pri jednom elemente, použitie CSS vlastnosti `position`, vlastnosť `transform `
 </div>

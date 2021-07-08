@@ -13,7 +13,7 @@
 
 **Ostatné použité jazyky**: HTML, CSS
 
-**Obtiažnosť**: 2/5
+**Obťažnosť**: 2/5
 
 **Obsah príkladu**: Tvorba, spracovanie a validácia formulárov, odosielanie emailov v jazyku PHP.
 </div>
@@ -27,7 +27,7 @@ Vytvorte kontaktný formulár, ktorý po vyplnení odošle správu na email. Kon
 
 Formulár by mohol vyzerať nasledovne:
 
-![](images_contact-form/zadanie.jpg)
+![Navrhovaný vzhľad kontaktného formulára](images_contact-form/zadanie.jpg)
 
 ### Cieľ príkladu
 

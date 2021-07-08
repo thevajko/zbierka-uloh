@@ -12,7 +12,7 @@
 
 **Ostatné použité jazyky**: HTML
 
-**Obtiažnosť**: 3/5
+**Obťažnosť**: 3/5
 
 **Obsah príkladu**: Animácie a transformácie CSS elementov pomocou vlastnosti `transform`, určovanie pozície, práca s CSS premennými.
 </div>

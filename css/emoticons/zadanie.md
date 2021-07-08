@@ -13,7 +13,7 @@
 
 **Ostatné použité jazyky**: HTML
 
-**Obtiažnosť**: 4/5
+**Obťažnosť**: 4/5
 
 **Obsah príkladu**: CSS vlastnosti - veľkosť, pozícia, rámčeky, transformácie, funkcie `calc()`, CSS premenné a použitie pseudotried `::before` a `::after`.
 </div>
