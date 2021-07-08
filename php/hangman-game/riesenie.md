@@ -121,7 +121,7 @@ class Keyboard
 Najskôr zadeklarujeme všetky atribúty, ktoré bude trieda potrebovať. Privátny atribút `$cols` predstavuje počet stĺpcov, na ktorých bude klávesnica zobrazená. Odkaz na triedu `Hangman` budeme potrebovať, keď budeme vykreslovať jednotlivé písmená klávesnice a budeme potrebovať informáciu, ktoré písmená už boli hádané. Odkaz dostaneme v konštruktore. Konštanta `KEYS_NUMBER` je počet znakov z abecedy, ktoré budeme používať na tvorbu klávesnice. Pre jednoduchosť, nebudeme uvažovať slovenské znaky s diakritikou, ale použijeme len znaky od `A` po `Z`, čo je presne 26 znakov.
 
 ```php
-private $cols;
+private int $cols;
 const KEYS_NUMBER = 26;
 ```
 
@@ -141,7 +141,7 @@ Metóda najskôr vypočíta, koľko riadkov bude klávesnica zaberať. Ak chceme
 Na prevod znanku z jeho ACSII hodnoty na znak použijeme funkciu `chr()`. Znak obalíme do značky `<a>`, napr. po kliknutí na znak `A` sa vytvorí odkaz `<a href="?char=A">A</a>`, takže po kliknutí sa odošle v premennej `char` znak `A`. Ak sa nám už znaky minuli, do políčka tabuľky vypíšeme nedeliteľnú medzeru `&nbsp;`. Rovnako medzeru miesto znaku vypíšeme, keď by sa mal vypísať znak, ktorý už hráč hádal. Nakoniec vygenerovanú tabuľku vrátime ako reťazec, ktorý bude predstavovať kompletný HTML kód tabuľky.
 
 ```php
-function getKeyboardLayout(): string
+public function getKeyboardLayout(): string
 {
     $rows = ceil(self::KEYS_NUMBER / $this->cols);
     $counter = 0;
@@ -177,7 +177,7 @@ A tým sprístupníme triedu `Keyboard` triede `Game`. Triedu zatiaľ nebudeme u
 ```php
 class Game
 {
-    function getKeyboard(int $cols): Keyboard
+    public function getKeyboard(int $cols): Keyboard
     {
         return new Keyboard($cols);
     }
@@ -216,31 +216,31 @@ Klávesnicu máme funkčnú, môže pokračovať k implementácii herného `engi
 <?php
 class Hangman
 {
-    private $words = ['MAMA', 'OTEC', 'KEFA', 'VEDA', 'LAVICA', 'JABLKO', 'UDICA', 'DOLINA'];
-    private $wantedWord;
-    private $playedWord;
-    private $failedAttempts;
-    private $usedChars = [];
+    private array $words = ['MAMA', 'OTEC', 'KEFA', 'VEDA', 'LAVICA', 'JABLKO', 'UDICA', 'DOLINA'];
+    private string $wantedWord;
+    private string $playedWord;
+    private int $failedAttempts;
+    private array $usedChars = [];
 }
 ```
 
 Atribúty `$playedWord`, `$failedAttempts`, `$usedChars` sú privátne, preto k nim nemôžeme pristupovať priamo mimo triedy `Hangman`. My ich však budeme potrebovať v iných triedach. Na sprístupnenie mimo triedy si vytvoríme `public` metódy typu `get` (angl. *getters*), ktorých jedinou úlohou bude vrátiť hodnotu príslušného atribútu. Metódy typu `set` (angl. *setters*) pre tieto atribúty nebudeme potrebovať, preto ich nebudeme vytvárať.
 
 ```php
-    public function getPlayedWord(): string
-    {
-        return $this->playedWord;
-    }
+public function getPlayedWord(): string
+{
+    return $this->playedWord;
+}
 
-    public function getFailedAttempts(): int
-    {
-        return $this->failedAttempts;
-    }
+public function getFailedAttempts(): int
+{
+    return $this->failedAttempts;
+}
 
-    public function getUsedChars(): array
-    {
-        return $this->usedChars;
-    }
+public function getUsedChars(): array
+{
+    return $this->usedChars;
+}
 ```
 
 ### *Session*
@@ -263,29 +263,29 @@ Ak máme `session` spustené, všetky hodnoty, ktoré si počas behu skriptu ulo
 Ak začíname hru znovu, vyberieme si nové slovo, vynulujeme počet pokusov volaním metódy `selectWord()` a inicializujeme slovo hráča na toľko pomlčiek (funkciou `str_repeat()`), koľko má hľadané slovo písmen (napr. slovo `V E D A` bude mať tvar `- - - -`). Nakoniec si ešte budeme potrebovať pamätať zoznam znakov, ktoré už hráč hádal (pole `$usedChars`). Zároveň si tieto atribúty uložíme do *session*. Konštruktor pridáme do triedy `Hangman`.
 
 ```php
-    public function __construct(bool $initialized)
-    {
-        if ($initialized) {
-            $this->wantedWord = $_SESSION['wantedWord'];
-            $this->playedWord = $_SESSION['playedWord'];
-            $this->failedAttempts = $_SESSION['attempts'];
-            $this->usedChars = $_SESSION['usedChars'];
-        } else {
-            $this->failedAttempts = $_SESSION['attempts'] = 0;
-            $this->wantedWord = $_SESSION['wantedWord'] = $this->selectWord();
-            $this->playedWord = $_SESSION['playedWord'] = str_repeat('-', strlen($_SESSION['wantedWord']));
-            $this->usedChars = $_SESSION['usedChars'] = [];
-        }
+public function __construct(bool $initialized)
+{
+    if ($initialized) {
+        $this->wantedWord = $_SESSION['wantedWord'];
+        $this->playedWord = $_SESSION['playedWord'];
+        $this->failedAttempts = $_SESSION['attempts'];
+        $this->usedChars = $_SESSION['usedChars'];
+    } else {
+        $this->failedAttempts = $_SESSION['attempts'] = 0;
+        $this->wantedWord = $_SESSION['wantedWord'] = $this->selectWord();
+        $this->playedWord = $_SESSION['playedWord'] = str_repeat('-', strlen($_SESSION['wantedWord']));
+        $this->usedChars = $_SESSION['usedChars'] = [];
     }
+}
 ```
 
 Spomínaná metóda `selectWord()` bude vracať náhodne vybrané slovo zo zoznamu slov, pričom náhodne vygenerujeme index z poľa `$words` (rozsah 0 až počet prvkov poľa - 1). Metóda vracia návratovú hodnotu typu `string`, preto ju v hlavičke metódy budeme aj vyžadovať:
 
 ```php
-    public function selectWord(): string
-    {
-        return $this->words[rand(0, count($this->words) - 1)];
-    } 
+public function selectWord(): string
+{
+    return $this->words[rand(0, count($this->words) - 1)];
+} 
 ```
 
 Jadrom celej hry je zisťovanie, či písmeno poslané od hráča sa nachádza v hľadanom slovo, alebo nie. Tento test má zmysel robiť len, keď hra prebieha. Ak sa poslané písmeno nachádza v hľadanom slove, písmeno je potrebné uložiť na správne miesto v slove. Ak by sa písmeno v slovo nachádzalo viackrát, je potrebné ho vložiť na každé miesto. Vložené písmeno nahradí v slove hráča pomlčku na danom mieste. 
@@ -293,87 +293,87 @@ Jadrom celej hry je zisťovanie, či písmeno poslané od hráča sa nachádza v
 Metóda `testChar()` prejde všetky písmená v hľadanom slove pomocou cyklu `for`, ak sa nájde nejaká zhoda, písmeno zaznačí do slova hráča. Ak nebol pokus úspešný a hra ešte stále prebieha, inkrementujeme počet chybných pokusov, aby sme mohli zobraziť príslušný obrázok. Nesmieme zabudnúť tieto hodnoty vložiť do *session*, aby boli k dispozícii po opätovnom spustení skriptu.
 
 ```php
-    public function testChar(string $testedChar): void
-    {
-        if ($this->gameStatus() == 'in progress') {
-            $found = false;
-            for ($i = 0; $i < strlen($this->wantedWord); $i++) {
-                if ($testedChar == $this->wantedWord[$i]) {
-                    $this->playedWord[$i] = $testedChar;
-                    $found = true;
-                }
+public function testChar(string $testedChar): void
+{
+    if ($this->gameStatus() == 'in progress') {
+        $found = false;
+        for ($i = 0; $i < strlen($this->wantedWord); $i++) {
+            if ($testedChar == $this->wantedWord[$i]) {
+                $this->playedWord[$i] = $testedChar;
+                $found = true;
             }
-            $_SESSION['playedWord'] = $this->playedWord;
-            $_SESSION['attempts'] = $found ? $this->failedAttempts : ++$this->failedAttempts;
-            array_push($_SESSION['usedChars'], $testedChar);
-            $this->usedChars = $_SESSION['usedChars'];
         }
+        $_SESSION['playedWord'] = $this->playedWord;
+        $_SESSION['attempts'] = $found ? $this->failedAttempts : ++$this->failedAttempts;
+        array_push($_SESSION['usedChars'], $testedChar);
+        $this->usedChars = $_SESSION['usedChars'];
     }
+}
 ```
 
 Ďalším krokom bude implementácia metódy `gameStatus()`, ktoré na základe stavu hry vráti, či hráč vyhral, prehral, alebo hra stále prebieha. Pokiaľ v slove už nebude žiadna pomlčka, všetky písmená budú uhádnuté, atribúty `$wantedWord` a `$playedWord` sa budú rovnať. Vtedy vieme, že hráč uhádol slovo a hru vyhral. Ak hráč už má 10 a viac neúspešných pokusov, prehral, v inom prípade hra stále prebieha:
 
 ```php
-    public function gameStatus(): string
-    {
-        if ($this->playedWord == $this->wantedWord) {
-            return 'won';
-        } else if ($this->failedAttempts >= 10 ) {
-            return 'lost';
-        } else {
-            return 'in progress';
-        }
+public function gameStatus(): string
+{
+    if ($this->playedWord == $this->wantedWord) {
+        return 'won';
+    } else if ($this->failedAttempts >= 10 ) {
+        return 'lost';
+    } else {
+        return 'in progress';
     }
+}
 ```
 
 Teraz, keď si v inštancii triedy `Hangman` budeme pamätať, ktoré klávesy už hráč použil, doplníme do konštuktora triedy `Keyboard` parameter odkazujúci na inštanciu triedy `Hangman` a konštruktor bude vyzerať:
 
 ```php
-    public function __construct(int $cols, Hangman $hangman)
-    {
-        $this->cols = $cols;
-        $this->hangman = $hangman;
-    }
+public function __construct(int $cols, Hangman $hangman)
+{
+    $this->cols = $cols;
+    $this->hangman = $hangman;
+}
 ```
 
 a do tej istej triedy pridáme aj privátny atribút `$hangman`:
 
 ```php
-private $hangman;
+private Hangman $hangman;
 ```
 
 Metódu `getKeyboardLayout()` upravíme tak, aby nevykreslovala tie klávesy, ktoré už hráč stlačil (získame ich z metódy `getUsedChars()` triedy `Hangman`). To dosiahneme úpravou podmienky na tvar `if ($counter > self::KEYS_NUMBER or in_array($char, $this->hangman->getUsedChars()))`. Pre úplnosť uvádzame celý kód metódy: 
 
 ```php
-    public function getKeyboardLayout(): string
-    {
-        $rows = ceil(self::KEYS_NUMBER / $this->cols);
-        $counter = 0;
-        $result = '<table class="keyboard">' . PHP_EOL;
-        for ($i = 1; $i <= $rows; $i++) {
-            $result .= '<tr>' . PHP_EOL;
-            for ($j = 1; $j <= $this->cols; $j++) {
-                $char = chr(65 + $counter++);
-                if ($counter > self::KEYS_NUMBER or in_array($char, $this->hangman->getUsedChars())) {
-                    $result .= '<td>&nbsp;</td>';
-                } else {
-                    $result .= '<td><a href="?char=' . $char . '">' . $char . '</a></td>';
-                }
+public function getKeyboardLayout(): string
+{
+    $rows = ceil(self::KEYS_NUMBER / $this->cols);
+    $counter = 0;
+    $result = '<table class="keyboard">' . PHP_EOL;
+    for ($i = 1; $i <= $rows; $i++) {
+        $result .= '<tr>' . PHP_EOL;
+        for ($j = 1; $j <= $this->cols; $j++) {
+            $char = chr(65 + $counter++);
+            if ($counter > self::KEYS_NUMBER || in_array($char, $this->hangman->getUsedChars())) {
+                $result .= '<td>&nbsp;</td>';
+            } else {
+                $result .= '<td><a href="?char=' . $char . '">' . $char . '</a></td>';
             }
-            $result .= PHP_EOL . '</tr>' . PHP_EOL;
         }
-        $result .= '</table>' . PHP_EOL;
-        return $result;
+        $result .= PHP_EOL . '</tr>' . PHP_EOL;
     }
+    $result .= '</table>' . PHP_EOL;
+    return $result;
+}
 ```
 
 Nakoniec upravíme volanie konštruktora v metóde `getKeyboard()` v triede `Game` tak, aby pri vzniku inštancie triedy `Keyboard` táto mala aj odkaz na inštanciu triedy `Hangman` (neskôr si atribút `$hangman` pridáme do triedy `Game`):
 
 ```php
-    function getKeyboard(int $cols): Keyboard
-    {
-        return new Keyboard($cols, $this->hangman);
-    }
+public function getKeyboard(int $cols): Keyboard
+{
+    return new Keyboard($cols, $this->hangman);
+}
 ```
 
 Tým máme ukončenú implementáciu herného `engine`.
@@ -391,7 +391,7 @@ Do triedy pridáme privátny atribút `$hangman` a konštruktor, ktorý vytvorí
 ```php
 class Game
 {
-    private $hangman = null;
+    private Hangman $hangman;
 
     public function __construct()
     {
@@ -403,42 +403,42 @@ class Game
 Do tejto triedy ešte potrebujeme doplniť metódy, ktoré budú dostupné zo súboru `index.php`, pretože trieda `Game` bude jediná trieda, s ktorou budeme v súbore `index.php` pracovať. Prvou metódou bude metóda `play()`, ktorá bude predstavovať jedno kolo hry. Jedno kolo je hádanie (kliknutie) na jedno písmeno na našej virtuálnej klávesnici. Po každom kliknutí overíme, či bolo písmeno nájdené, alebo nie. Návratovou hodnotou tejto metódy bude stav hry, teda slovo hráča.
 
 ```php
-    public function play(): string
-    {
-        if (isset($_GET['char'])) {
-            $this->hangman->testChar($_GET['char']);
-        }
-        return $this->hangman->getPlayedWord();
+public function play(): string
+{
+    if (isset($_GET['char'])) {
+        $this->hangman->testChar($_GET['char']);
     }
+    return $this->hangman->getPlayedWord();
+}
 ```
 
 Nasledujúcou metódou bude metóda `getFailedAttempts()`, ktorá bude iba zaobaľovať volanie rovnakej metódy z triedy `Hangman` a bude vracať počet neúspešných pokusov:
 
 ```php
-    public function getFailedAttempts(): int
-    {
-        return $this->hangman->getFailedAttempts();
-    }
+public function getFailedAttempts(): int
+{
+    return $this->hangman->getFailedAttempts();
+}
 ```
 
 Poslednou metódou je metóda, ktorá na požiadanie vráti stav hry. Je to znovu len obalenie volania metódy z herného *engine* doplnená o formátovanie odpovede, tak by sme ju mohli zobraziť hráčovi:
 
 ```php
-    public function getGameResult(): string
-    {
-        switch ($this->hangman->gameStatus()) {
-            case 'won':
-                return 'Vyhral si! Gratulujem!';
-                break;
-            case 'lost':
-                return 'Prehral si!';
-                break;
-            case 'in progress':
-            default:
-                return '';
-                break;
-        }
+public function getGameResult(): string
+{
+    switch ($this->hangman->gameStatus()) {
+        case 'won':
+            return 'Vyhral si! Gratulujem!';
+            break;
+        case 'lost':
+            return 'Prehral si!';
+            break;
+        case 'in progress':
+        default:
+            return '';
+            break;
     }
+}
 ```
 
 Tým sme dokončili hru, zostáva nám len doplniť na správne miesta na hracej ploche potrebné informácie. Do kontajnera `<div class="play_ground">` doplníme upravené slovo hráča. 
