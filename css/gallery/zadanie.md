@@ -3,6 +3,7 @@
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
 > - Repo: [Štartér](/../../tree/main/css/gallery), [Riešenie](/../../tree/solution/css/gallery).
+> - [Zobraziť riešenie](riesenie.md)
 </div>
 
 # Galéria
@@ -41,12 +42,16 @@ Máme definované HTML, ktoré vyzerá nasledovne:
 Naštýlujte pomocou CSS túto galériu nasledovne:
 
 1. Obrázky budú zobrazené v mriežke.
-2. Mriežka sa bude prispôsobovať veľkosti obrazovky - na veľkom displeji (šírka viac ako 1000px) zobrazte 3 obrázky
-   vedľa seba. Pri strednom (šírka > 600px) zobrazte 2 a na malých displejoch zobrazte len jeden.
+2. Mriežka sa bude prispôsobovať veľkosti obrazovky:
+   - Na veľkom displeji (šírka viac ako 1000px) zobrazte 3 obrázky
+   vedľa seba.
+   - Pri strednom (šírka > 600px) zobrazte 2.
+   - Na malých displejoch zobrazte len jeden.
 3. Obrázky vždy vyplnia celú dostupnú šírku.
 4. Obrázky budú mať rozmer strán v pomere 4:3.
-5. Názov a popisok obrázku sa zobrazí tak, že po "príchode" myši na obrázok obrázok postupne stmavne, nadpis sa 
-   zobrazí v ľavom hornom rohu a popisok sa postupne nasunie zo spodu obrázku.
+5. Názov a popisok obrázku sa zobrazí tak:
+   - že po "príchode" kurzora myši nad obrázok tento obrázok postupne stmavne,
+   - nadpis sa zobrazí v ľavom hornom rohu a popisok sa postupne nasunie zo spodu obrázku.
 
 #### Zobrazenie galérií na rôznych veľkostiach zariadení
 
@@ -65,8 +70,3 @@ Zariadenie s veľkým displejom:
 Informácie o obrázku:
 
 ![Zobrazenie informácie o obrázku](images_gallery/zadanie-hover.jpg)
-
-<div class="hidden">
-
-[Zobraziť riešenie](riesenie.md)
-</div>
