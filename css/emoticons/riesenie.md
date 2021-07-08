@@ -119,11 +119,11 @@ V našom prípade môžeme pomocou selektoru `:first-child` vybrať prvé oko a 
 }
 ```
 
-Pomocou selektoru `.smiley .eye:first-child` sme zvolili prvý element s triedou `eye`, ktorý sa nachádza ľubovolne vnorený v elemente s triedou `smiley`. Tento selektor len dopĺňa (prepisuje) už doteraz definované vlastnosti pre element s triedou `eye`, takže nemusíme opakovať nastavenie veľkosti farby atď. Jediná zmena, ktorú sme urobili oproti pôvodnému nastaveniu elementu `eye` bola pozícia zľava a tu sme nastavili na 75%. Výsledný emotikon bude vyzerať nasledovne:
+Pomocou selektoru `.smiley .eye:first-child` sme zvolili prvý element s triedou `eye`, ktorý sa nachádza ľubovolne vnorený v elemente s triedou `smiley`. Tento selektor len dopĺňa (prepisuje) už doteraz definované vlastnosti pre element s triedou `eye`, takže nemusíme opakovať nastavenie veľkosti farby atď. Jediná zmena, ktorú sme urobili oproti pôvodnému nastaveniu elementu `eye`, bola pozícia zľava a tu sme nastavili na `75%`. Výsledný emotikon bude vyzerať nasledovne:
 
 ![Obidbe oči na správnom mieste](images_emoticons/kruh_oci3.png)
 
-Nabádalo by sa aj použitie CSS pseudotriedy `:last-child` ale tá v tomto prípade nefungoje, pretože posledný element v emotikonovi nemá triedu `.eye` ale `.mouth` a tým pádom by sme nevybrali žiaden element.
+Nabádalo by sa aj použitie CSS pseudotriedy `:last-child`, ale tá v tomto prípade nefunguje, pretože posledný element v emotikonovi nemá triedu `.eye` ale `.mouth`, a tým pádom by sme nevybrali žiadny element.
 
 ### Zobrazenie úst
 
@@ -141,7 +141,7 @@ Pre zobrazenie úst máme k dispozícii HTML element s triedou `mouth`. Začneme
 }
 ```
 
-Veľkosť sme nastavili na `60%` z rozmeru emotikona. Následne sme element umiestnili tak, aby sa zobrazil v strede. Ak vieme, že šírka elementu je `60%` tak na to, aby sa zobrazil vycentrovaný, musíme ho zobraziť `20%` od ľavej strany emotikona. Po aplikovaní týchto pravidiel dostaneme nasledovný tvar:
+Veľkosť sme nastavili na `60%` z rozmeru emotikona. Následne sme element umiestnili tak, aby sa zobrazil v strede. Ak vieme, že šírka elementu je `60%`, tak na to, aby sa zobrazil vycentrovaný, musíme ho zobraziť `20%` od ľavej strany emotikona. Po aplikovaní týchto pravidiel dostaneme nasledovný tvar:
 
 ![Element `div` na zobrazenie úst](images_emoticons/kruh_usta1.png)
 
@@ -189,9 +189,9 @@ Po úprave týchto pravidiel vznikne ešte jeden problém.
 
 ![Ústa emotikona po ďalšej úprave](images_emoticons/kruh_usta3.png)
 
-Ústa sú posunuté mimo stredu napravo. Tento problém je spôsobený tým, že veľkosť nášho elementu pre ústa sa zväšila o šírku rámčekov. To znamená, že aktuálne má náš element skutočnú šírku `60%` + `2px` rámček sprava + `2px` rámček zľava. Tento problém môžeme vyriešiť viacerými spôsobmi. 
+Ústa sú posunuté mimo stredu napravo. Tento problém je spôsobený tým, že veľkosť nášho elementu pre ústa sa zväčšila o šírku rámčekov. To znamená, že aktuálne má náš element skutočnú šírku `60%` + `2px` rámček sprava + `2px` rámček zľava. Tento problém môžeme vyriešiť viacerými spôsobmi. 
 
-Môžeme napríklad tento posun kompenzovať v CSS vlastnosti `left` tak, že odrátame `4px` čo máme navyše. Druhým, oveľa lepším spôsobom, je zmena vlastnosti `box-sizing`, ktorá definuje, ako sa určuje veľkosť elementu. V základe sa do veľkosti nepočíta veľkosť rámiku. Toto ale môžeme zmeniť nastavením tejto vlastnosti na hodnotu `border-box`.
+Môžeme napríklad tento posun kompenzovať v CSS vlastnosti `left` tak, že odrátame `4px`, čo máme navyše. Druhým, oveľa lepším spôsobom, je zmena vlastnosti `box-sizing`, ktorá definuje, ako sa určuje veľkosť elementu. Potom sa do veľkosti nepočíta veľkosť rámčeku. Toto môžeme zmeniť nastavením tejto vlastnosti na hodnotu `border-box`.
 
 Výsledné CSS hotového emotikona bude vyzerať nasledovne:
 
@@ -271,7 +271,7 @@ HTML kód nášho emotikona s líčkami musí vyzerať nasledovne:
 
 Pre zobrazenie líčok môžeme využiť pseudoelementy `::before` a `::after`, ktoré nám umožňujú formátovať virtuálne elementy pridané na začiatok a koniec určitého elementu.
 
-Líčko naľavo zobrazíme cez pseudoelement `::before` a nastavíme mu veľkosť rovnú `30%` z veľkosti úst. Okrem toho mu nastavíme farbu, `border-radius` a pozíciu podobne, ako pri ostatných prvkoch.
+Líčko naľavo zobrazíme cez pseudoelement `::before` a nastavíme mu veľkosť rovnú `30%` z veľkosti úst. Okrem toho mu nastavíme farbu, `border-radius` a pozíciu podobne ako pri ostatných prvkoch.
 
 ```css
 .smiley.cheeks .mouth::before {
@@ -290,7 +290,7 @@ V CSS si môžeme všimnúť jednu zaujímavú vlastnosť. Vlastnosť `content` 
 
 ![Líčko emotikona](images_emoticons/kruh_licka1.png)
 
-Problémom tohto riešenia je to, že líčko nám prekrýva ústa, preto by sme chceli zmeniť poradie týchto elementov. Keď vytvoríme nejaký peseudoelement pomocou `::before` alebo `::after`, tak tento element je potomkom elementu, ku ktorému ho vytvárame.
+Problémom tohto riešenia je to, že líčko nám prekrýva ústa, preto by sme chceli zmeniť poradie týchto elementov. Keď vytvoríme nejaký peseudoelement pomocou `::before` alebo `::after`, tak tento element je potomkom elementu, pre ktorý ho vytvárame.
 
 ```html
 
@@ -347,7 +347,7 @@ Výsledok bude vyzerať nasledovne:
 
 ### Vytvorenie veselého emotikona
 
-Pri vytváraní veselého emotikona musíme zmeniť viacero vecí. Prvou z nich je vykreslenie úst. V predchádzajúcich príkladoch sme používali na vykreslenie úst zaoblené rámčeky, ktoré zobrazili štvrť-kruh s daným polomerom. Pri veselom emotikonovi potrebujeme celý polkruh, navyše ešte aj vyplnený. 
+Pri vytváraní veselého emotikona musíme zmeniť viacero vecí. Prvou z nich je vykreslenie úst. V predchádzajúcich príkladoch sme používali na vykreslenie úst zaoblené rámčeky, ktoré zobrazili štvrťkruh s daným polomerom. Pri veselom emotikonovi potrebujeme polkruh, navyše ešte aj vyplnený. 
 
 Ak chceme získať vyplnený polkruh, tak už nám nebude stačiť vykresliť vhodne ohnutý rámček, ale budeme musieť celý element transformovať na polkruh. Na túto transformáciu využijeme CSS vlastnosti `border-bottom-left-radius` a `border-bottom-right-radius`. Tie umožňujú presnejšie špecifikovať oblúk na okrajoch elementu.
 
@@ -365,7 +365,7 @@ Začneme teda s CSS, ktoré vyzerá nasledovne:
 }
 ```
 
-Pomocou tohto CSS nastavíme elementu čiernu farbu pozadia. Následne upravíme primerane veľkosť a pozíciu týchto úst. Posledné dve pravidlá nastavujú nové zaoblenie úst. Aj pravý aj ľavý spodný roh má nastavené zaoblenie na `100% 200%`. Výsledok bude nasledovný:
+Pomocou tohto CSS kódu nastavíme elementu čiernu farbu pozadia. Následne upravíme primerane veľkosť a pozíciu týchto úst. Posledné dve pravidlá nastavujú nové zaoblenie úst. Aj pravý aj ľavý spodný roh má nastavené zaoblenie na `100% 200%`. Výsledok bude nasledovný:
 
 ![Základná úprava úst emotikona](images_emoticons/smajlik_stastny_1.png)
 
@@ -386,7 +386,7 @@ Ako vidíme, ústa sú zaoblené aj zvrchu. Toto zaoblenie je spôsobené pravid
 
 ![Zrušenie zaoblenia úst z hornej strany](images_emoticons/smajlik_stastny_2.png)
 
-V ďalšom kroku sa pokúsime emotikonovi pridať zuby. Na to môžeme použiť opäť pseudoelementy `::before` a `::after`.
+V ďalšom kroku sa pokúsime emotikonu pridať zuby. Na to môžeme použiť opäť pseudoelementy `::before` a `::after`.
 
 ```css
 .smiley.happy .mouth::before {
@@ -403,7 +403,7 @@ Po aplikovaní štýlu bude náš emotikon vyzerať nasledovne:
 
 ![Pridanie zubov](images_emoticons/smajlik_stastny_3.png)
 
-emotikon síce zuby má, ale tie sa vykreslujú nad ústami. Pokiaľ chceme, aby boli zuby "vo vnútri", môžeme použiť CSS vlastnosť `overflow`, ktorú pre `.smiley.happy .mouth` nastavíme na `hidden`.
+Emotikon síce zuby má, ale tie sa vykreslujú nad ústami. Pokiaľ chceme, aby boli zuby "vo vnútri", môžeme použiť CSS vlastnosť `overflow`, ktorú pre `.smiley.happy .mouth` nastavíme na `hidden`.
 
 ![Umiestnenie zubov na správne miesto](images_emoticons/smajlik_stastny_4.png)
 
@@ -509,7 +509,7 @@ Definíciu základného emotikona môžeme upraviť nasledovne:
 }
 ```
 
-Do deklarácie sme pridali CSS premennú `--size`, ktorej hodnotu sme nastavili na `50px`. Pokiaľ chceme použiť túto premennú ako hodnotu nejakej vlastnosti, musíme použiť funkciu `var`. Ďalšia zaujímavá funkcia, ktorú sme v tomto príklade použili je funkcia `calc`. Táto funkcia slúži na výpočet hodnoty. V našom prípade bude šírka rámčeka vypočítaná ako veľkosť elementu vydelená 25. Rovnakú premennú môžeme používať vo všetkých potomkoch emotikona, takže upravíme veľkosť rámčeka aj pre ústa nasledovne:
+Do deklarácie sme pridali CSS premennú `--size`, ktorej hodnotu sme nastavili na `50px`. Pokiaľ chceme použiť túto premennú ako hodnotu nejakej vlastnosti, musíme použiť funkciu `var`. Ďalšia zaujímavá funkcia, ktorú sme v tomto príklade použili, je funkcia `calc()`. Táto funkcia slúži na výpočet hodnoty. V našom prípade bude šírka rámčeka vypočítaná ako veľkosť elementu vydelená 25. Rovnakú premennú môžeme používať vo všetkých potomkoch emotikona, takže upravíme veľkosť rámčeka aj pre ústa nasledovne:
 
 ```css
 .smiley .mouth {
