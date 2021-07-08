@@ -27,13 +27,13 @@ Máme definované HTML, ktoré vyzerá nasledovne:
     <div class="photo">
         <img src="images_gallery/fotka.jpg"/>
         <h3>Včelín</h3>
-        <p>Popisok fotky, na ktorej je včelín.</p>
+        <p>Popisok obrázku, na ktorej je včelín.</p>
     </div>
 
     <div class="photo">
         <img src="images_gallery/fotka2.jpg"/>
         <h3>Včela</h3>
-        <p>Popisok fotky, na ktorej je včela.</p>
+        <p>Popisok obrázku, na ktorej je včela.</p>
     </div>
     ...
 </div>
@@ -43,14 +43,13 @@ Naštýlujte pomocou CSS túto galériu nasledovne:
 
 1. Obrázky budú zobrazené v mriežke.
 2. Mriežka sa bude prispôsobovať veľkosti obrazovky:
-   - Na veľkom displeji (šírka viac ako 1000px) zobrazte 3 obrázky
-   vedľa seba.
-   - Pri strednom (šírka > 600px) zobrazte 2.
-   - Na malých displejoch zobrazte len jeden.
+   - Na veľkom displeji (šírka > 1000px) zobrazte tri obrázky vedľa seba.
+   - Pri strednom (šírka > 600px) zobrazte dva obrázky.
+   - Na malých displejoch zobrazte len jeden obrázok.
 3. Obrázky vždy vyplnia celú dostupnú šírku.
-4. Obrázky budú mať rozmer strán v pomere 4:3.
-5. Názov a popisok obrázku sa zobrazí tak:
-   - že po "príchode" kurzora myši nad obrázok tento obrázok postupne stmavne,
+4. Obrázky budú mať pomer strán 4:3.
+5. Názov a popisok obrázku sa zobrazí tak, že
+   - po nastavení kurzora myši na obrázok, tento postupne stmavne,
    - nadpis sa zobrazí v ľavom hornom rohu a popisok sa postupne nasunie zo spodu obrázku.
 
 #### Zobrazenie galérií na rôznych veľkostiach zariadení
@@ -70,3 +69,8 @@ Zariadenie s veľkým displejom:
 Informácie o obrázku:
 
 ![Zobrazenie informácie o obrázku](images_gallery/zadanie-hover.jpg)
+
+<div class="hidden">
+
+[Zobraziť riešenie](riesenie.md)
+</div>
