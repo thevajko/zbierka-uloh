@@ -6,7 +6,7 @@
     [Zobraziť riešenie](riesenie.md)
 </div>
 
-# Smajlíky
+# Emotikony
 <div class="info"> 
 
 **Hlavný jazyk príkladu**: CSS
@@ -20,15 +20,15 @@
 
 ## Zadanie
 
-Vytvorte pomocou CSS bez použitia grafiky (obrázky, `svg`) nasledujúce smajlíky.
+Vytvorte pomocou CSS bez použitia grafiky (obrázky, `svg`) nasledujúce emotikony.
 
-![Zadanie príkladu Smajlíky](images_emoticons/zadanie.png)
+![Zadanie príkladu Emotikony](images_emoticons/zadanie.png)
 
-Každý smajlík bude dostupný vo veľkostiach `50px`, `100px`, `250px` a `500px`.
+Každý emotikon bude dostupný vo veľkostiach `50px`, `100px`, `250px` a `500px`.
 
-Prvé štyri smajlíky sú základné. Každý zo základných smajlíkov sa bude dať otočiť o 180 stupňov. Posledný smajlík na ukážke vznikol otočením prvého smajlíka.
+Prvé štyri emotikony sú základné. Každý zo základných emotikonov sa bude dať otočiť o 180 stupňov. Posledný emotikon na ukážke vznikol otočením prvého emotikona.
 
-Základná HTML štruktúra smajlíka bude nasledovná:
+Základná HTML štruktúra emotikona bude nasledovná:
 
 ```html
 
@@ -37,11 +37,11 @@ Základná HTML štruktúra smajlíka bude nasledovná:
 </div>
 ```
 
-Túto štruktúru je potrebné dodržať. Obsah elementu `div` si prispôsobte podľa potreby. Tento HTML kód vykreslí prvého smajlíka vo veľkosti `50px`. Pokiaľ chceme zmeniť veľkosť smajlíka, pridáme do `div` elementu ďalšiu CSS triedu - `s-100`, `s-250` alebo `s-500` podľa požadovanej veľkosti.
+Túto štruktúru je potrebné dodržať. Obsah elementu `div` si prispôsobte podľa potreby. Tento HTML kód vykreslí prvého emotikona vo veľkosti `50px`. Pokiaľ chceme zmeniť veľkosť emotikona, pridáme do `div` elementu ďalšiu CSS triedu - `s-100`, `s-250` alebo `s-500` podľa požadovanej veľkosti.
 
-Rotácia smajlíka bude realizovaná pridaním CSS triedy `upside-down` do hlavného elementu `div`.
+Rotácia emotikona bude realizovaná pridaním CSS triedy `upside-down` do hlavného elementu `div`.
 
-Pokiaľ budeme požadovať smajlíka s veľkosťou `100px` obráteného o 180 stupňov, deklarácia HTML kódu bude nasledovná:
+Pokiaľ budeme požadovať emotikona s veľkosťou `100px` obráteného o 180 stupňov, deklarácia HTML kódu bude nasledovná:
 
 ```html
 
@@ -50,9 +50,9 @@ Pokiaľ budeme požadovať smajlíka s veľkosťou `100px` obráteného o 180 st
 </div>
 ```
 
-Iné podoby smajlíka budú realizované pridaním ďalšej triedy do hlavného `div` elementu smajlíka. Druhý smajlík na obrázku bude mať triedu `happy`, tretí `cheeks` a posledný `sad`.
+Iné podoby emotikona budú realizované pridaním ďalšej triedy do hlavného `div` elementu emotikona. Druhý emotikon na obrázku bude mať triedu `happy`, tretí `cheeks` a posledný `sad`.
 
-HTML kód druhého smajlíka bude vyzerať nasledovne:
+HTML kód druhého emotikona bude vyzerať nasledovne:
 
 ```html
 
@@ -61,4 +61,4 @@ HTML kód druhého smajlíka bude vyzerať nasledovne:
 </div>
 ```
 
-Pri implementácii počítajte s tým, že smajlík môže mať len jeden tvar - normálny, veselý, smutný alebo líčka, ale môže mať ľubovolnú veľkosť a otočenie.
+Pri implementácii počítajte s tým, že emotikon môže mať len jeden tvar - normálny, veselý, smutný alebo líčka, ale môže mať ľubovolnú veľkosť a otočenie.
