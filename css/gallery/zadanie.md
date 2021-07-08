@@ -27,13 +27,13 @@ Máme definované HTML, ktoré vyzerá nasledovne:
     <div class="photo">
         <img src="images_gallery/fotka.jpg"/>
         <h3>Včelín</h3>
-        <p>Popisok obrázku, na ktorej je včelín.</p>
+        <p>Popisok obrázku, na ktorom je včelín.</p>
     </div>
 
     <div class="photo">
         <img src="images_gallery/fotka2.jpg"/>
         <h3>Včela</h3>
-        <p>Popisok obrázku, na ktorej je včela.</p>
+        <p>Popisok obrázku, na ktorom je včela.</p>
     </div>
     ...
 </div>
