@@ -3,6 +3,7 @@
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
 > - Repo: [Štartér](/../../tree/main/css/position), [Riešenie](/../../tree/solution/css/position).
+> - [Zobraziť riešenie](riesenie.md)
 </div>
 
 # Pozícia elementov
@@ -25,5 +26,5 @@ Vytvorte scenériu oblohy, ktorá bude roztiahnutá na celé pozadie okna prehli
 
 <div class="hidden">
 
-[Zobraziť riešenie](riesenie.md)
+
 </div>

@@ -29,7 +29,6 @@ Následne je potrebné tieto elementy naštýlovať, aby sa zobrazili ako biliar
     background: darkgreen;
     border: 5px solid black;
 }
-
 .ball {
     position: absolute;
     width: 30px;

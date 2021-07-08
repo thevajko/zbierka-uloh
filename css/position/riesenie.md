@@ -3,7 +3,7 @@
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
 > - Repo: [Štartér](/../../tree/main/css/position), [Riešenie](/../../tree/solution/css/position).
-
+> - [Zobraziť zadanie](zadanie.md)
 # Pozícia elementov
 
 </div>
@@ -17,20 +17,18 @@ Na riešenie úlohy budeme potrebovať vytvoriť HTML a CSS súbor. V HTMl súbo
 Súbor HTML bude obsahovať odkaz na externý CSS súbor, pričom využijeme relatívnu cestu k adresáru, čím dosiahneme ľahkú prenositeľnosť celého riešenia (v prípade zmeny adresára celého projektu):
 
 ```html
-
 <link rel="stylesheet" href="css/styl.css">
 ```
 
-Telo HTML dokumentu bude tvorené kontajnermi pre jednotlivé elementy. V zadaní sa nachádza požiadavka nakresliť jedno slnko a štyri vtáčiky. Preto vytvoríme spolu 5 kontajnerov a každému z nich pridáme príslusšnú CSS triedu pomocou atribútu `class`. Pozadie vložíme do elementu `body` bez nutnosti definovania triedy.
+Telo HTML dokumentu bude tvorené kontajnermi pre jednotlivé elementy. V zadaní sa nachádza požiadavka nakresliť jedno slnko a štyri vtáčiky. Preto vytvoríme spolu 5 kontajnerov a každému z nich pridáme príslušnú CSS triedu pomocou atribútu `class`. Pozadie vložíme do elementu `body` bez nutnosti definovania CSS triedy.
 
 ```html
-
 <body>
-<div class="sun"></div>
-<div class="bird"></div>
-<div class="bird"></div>
-<div class="bird"></div>
-<div class="bird"></div>
+    <div class="sun"></div>
+    <div class="bird"></div>
+    <div class="bird"></div>
+    <div class="bird"></div>
+    <div class="bird"></div>
 </body>
 ```
 
@@ -38,9 +36,9 @@ Telo HTML dokumentu bude tvorené kontajnermi pre jednotlivé elementy. V zadan�
 
 ### Pozadie scenérie
 
-CSS súbor bude obsahovať všetky pravidlá. Najskôr si pripravíme pozadie. Na definovanie pozadia využijeme selektor značky `body`. Pozadie bude tvorené obrázkom definovaným vlastnosťou `background-image` a nebude sa opakovať. Opakovanie by bolo vhodné použiť, ak máme obrázok menší, ako je kontajner, v ktorom bude umiestnený a takto nastavíme, či sa bude v osi X a Y sa bude opakovať (dlaždičový efekt).
+CSS súbor bude obsahovať všetky pravidlá. Najskôr si pripravíme pozadie. Na definovanie pozadia využijeme selektor značky `body`. Pozadie bude tvorené obrázkom definovaným CSS vlastnosťou `background-image` a nebude sa opakovať. Opakovanie by bolo vhodné použiť, ak máme obrázok menší, ako je kontajner, v ktorom bude umiestnený a takto nastavíme, či sa bude v osi X a Y sa bude opakovať (dlaždičový efekt).
 
-Obrázok roztiahneme na celú plochu tela HTML dokumentu pomocou vlastnosti `background-size`. Nastavenie `cover` zabezpečí, že sa obrázok roztiahne na celú plochu kontajnera (v tomto prípade okna prehliadača), aj keby sa mal obrázok deformovať roztiahnutím, alebo orezať. Element `body` má štandarne v prehliadači nastavený okraj `8px` z každej strany, aby sme tento okraj zrušili a obrázok mali roztiahnutý na celé okno, nastavíme jeho hodnotu na `0`. Na záver musíme ešte nastaviť výšku na `100%`, inak sa pozadie neroztiahne na celú vertikálnu výšku okna prehliadača. Výsledné pravidlo bude vyzerať takto:
+Obrázok roztiahneme na celú plochu tela HTML dokumentu pomocou CSS vlastnosti `background-size`. Nastavenie `cover` zabezpečí, že sa obrázok roztiahne na celú plochu kontajnera (v tomto prípade okna prehliadača), aj keby sa mal obrázok deformovať roztiahnutím, alebo orezať. Element `body` má štandardne v prehliadači nastavený vonkajšie odsadenie na `8px` z každej strany, aby sme tento okraj zrušili a obrázok mali roztiahnutý na celé okno, nastavíme túto hodnotu na `0`. Na záver musíme ešte nastaviť výšku na `100%`, inak sa pozadie neroztiahne na celú vertikálnu výšku okna prehliadača. Výsledné pravidlo bude vyzerať takto:
 
 ```css
 body {
@@ -54,11 +52,11 @@ body {
 
 ### Slnko
 
-Druhým krokom bude umiestnenie slnka doprostred okna prehliadača. Pomocou selektora triedy definujeme najprv obrázok pozadia. Keďže originálny obrázok je väčší (500 x 500 px) nastavením vlastností `width` a `height` na `300px` obrázok zmenšíme. Aj keď toto nie je optimálne riešenie, pretože veľkosť obrázku sa mení až na strane klienta a tým pádom sa cez sieť prenáša originálny súbor, pre tento jednoduchý príklad toto riešenie bude postačovať.
+Druhým krokom bude umiestnenie slnka doprostred okna prehliadača. Pomocou selektora triedy definujeme najprv obrázok pozadia. Keďže originálny obrázok je väčší (500 x 500 px) nastavením CSS vlastností `width` a `height` na `300px` obrázok zmenšíme. Aj keď toto nie je optimálne riešenie, pretože veľkosť obrázku sa mení až na strane klienta a tým pádom sa cez sieť prenáša originálny súbor, pre tento jednoduchý príklad toto riešenie bude postačovať.
 
-Vlastnosť `background-size` využijeme na to, aby sa zmenšený obrázok zobrazil celý a pri zobrazení sa neorezal. Dôležitým nastavením je hodnota `absolute` vlastnosti `position`. Týmto nastavením získame možnosť nastavovať pozíciu prvku kdekoľvek v okne prehliadača pomocou vlastností `top` a `left`. Tieto vlastnosti určujú vzdialenosť od vrchu a ľavej strany okraja. Obrázok chceme mať vždy uprostred, preto zvolíme hodnotu `50%`, a tak bude pri každej zmene veľkosti okna slnko v strede.
+CSS vlastnosť `background-size` využijeme na to, aby sa zmenšený obrázok zobrazil celý a pri zobrazení sa neorezal. Dôležitým nastavením je hodnota `absolute` CSS vlastnosti `position`. Týmto nastavením získame možnosť nastavovať pozíciu prvku kdekoľvek v okne prehliadača pomocou CSS vlastností `top` a `left`. Tieto CSS vlastnosti určujú vzdialenosť od vrchu a ľavej strany okraja, v našom prípade, elementu `body`. Obrázok chceme mať vždy uprostred, preto zvolíme hodnotu `50%`, a tak bude pri každej zmene veľkosti okna slnko v strede.
 
-Ak však máme byť úplne presný, v strede bude pravý horný roh obrázku. Ak by sme chceli, aby v strede okna bol stred obrázku slnka, potrebujeme obrázok posunúť o polovicu jeho veľkosti vľavo a hore. Pomôžeme si CSS vlastnosťou `transform` a obrázok pomocou `translate` posunieme o `50%` jeho výšky, resp. šírky. Pravidlo bude vyzerať takto:
+Ak však máme byť úplne presný, v strede bude pravý horný roh obrázku. Ak by sme chceli, aby v strede okna bol stred obrázku slnka, potrebujeme obrázok posunúť o polovicu jeho veľkosti vľavo a hore. Pomôžeme si CSS vlastnosťou `transform` a obrázok pomocou CSS funkcie `translate()` posunieme o `50%` jeho výšky, resp. šírky. Pravidlo bude vyzerať takto:
 
 ```css
 .sun {
@@ -89,21 +87,18 @@ Teraz do riešenia doplníme obrázky vtáčikov. Pri definovaní štýlu vtáč
 }
 ```
 
-Ako sme spomínali, budeme potrebovať 4 elementy s obrázkom vtáčika. Mohli by sme teda vytvoriť štyri elementy a každý by mal rovnaké CSS vlastnosti. To by však nebol veľmi efektívny spôsob a veľa vlastností by sa zbytočne opakovalo. Lepšie bude využiť možnosť definovania viacerých tried pri jednom elemente a tým vlastnosti skombinovať. Pripravíme si teda štyri CSS pravidlá, pričom každé bude definovať iné nastavenie pozície prvku:
+Ako sme spomínali, budeme potrebovať 4 elementy s obrázkom vtáčika. Mohli by sme teda vytvoriť štyri elementy a každý by mal rovnaké CSS vlastnosti. To by však nebol veľmi efektívny spôsob a veľa vlastností by sa zbytočne opakovalo. Lepšie bude využiť možnosť definovania viacerých tried pri jednom HTML elemente a tým vlastnosti skombinovať. Pripravíme si teda štyri CSS pravidlá, pričom každé bude definovať iné nastavenie pozície prvku:
 
 ```css
 .top {
     top: 0;
 }
-
 .bottom {
     bottom: 0;
 }
-
 .left {
     left: 0;
 }
-
 .right {
     right: 0;
 }
@@ -118,7 +113,7 @@ Tieto pravidlá potom skombinujeme v HTML atribúte `class`:
 <div class="bird bottom right"></div>
 ```
 
-Takto dosiahneme, že pravidlá sa nebudú zbytočne opakovať a celé riešenie bude prehľadné. Podobným spôsobom vytvoríme aj efekt otočenie obrázku vtáčika a aplikujeme ho len na tie obrázky, ktoré potrebujeme otočiť. Využijeme na to CSS vlastnosť `transform`, ktorá pomocou funkcie `scaleX()` dokáže otočiť obrázok v požadovanej osi:
+Takto dosiahneme, že pravidlá sa nebudú zbytočne opakovať a celé riešenie bude prehľadné. Podobným spôsobom vytvoríme aj efekt otočenie obrázku vtáčika a aplikujeme ho len na tie obrázky, ktoré potrebujeme otočiť. Využijeme na to CSS vlastnosť `transform`, ktorá pomocou CSS funkcie `scaleX()` dokáže otočiť obrázok v požadovanej osi:
 
 ```css
 .flip {
