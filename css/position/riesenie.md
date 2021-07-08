@@ -14,7 +14,7 @@ Na riešenie úlohy budeme potrebovať vytvoriť HTML a CSS súbor. V HTMl súbo
 
 ## HTML súbor
 
-Súbor HTML bude obsahovať odkaz na externý CSS súbor, pričom využijeme relatívnu cestu k adresáru, čím dosiahneme ľahkú prenositeľnosť celého riešenia (v prípade zmeny adresára celého projektu):
+Vytvoríme si základnú kostru HTML súboru. Súbor bude obsahovať odkaz na externý CSS súbor, pričom využijeme relatívnu cestu k adresáru, čím dosiahneme ľahkú prenositeľnosť celého riešenia (v prípade zmeny adresára celého projektu). Do sekcie `head` umestnime:
 
 ```html
 <link rel="stylesheet" href="css/styl.css">
@@ -61,7 +61,7 @@ Ak však máme byť úplne presný, v strede bude pravý horný roh obrázku. Ak
 ```css
 .sun {
     background-image: url("../img/sun.png");
-    background-size: cover;
+    background-size: contain;
     width: 300px;
     height: 300px;
     position: absolute;
@@ -80,7 +80,7 @@ Teraz do riešenia doplníme obrázky vtáčikov. Pri definovaní štýlu vtáč
 ```css
 .bird {
     background-image: url("../img/bird.png");
-    background-size: cover;
+    background-size: contain;
     position: absolute;
     width: 150px;
     height: 150px;
@@ -124,9 +124,11 @@ Takto dosiahneme, že pravidlá sa nebudú zbytočne opakovať a celé riešenie
 A opäť triedu pripojíme len k elementom, ktoré potrebujeme otočiť. Výsledný HTML kód potom bude:
 
 ```html
-<div class="bird top left"></div>
-<div class="bird top flip right"></div>
-<div class="bird bottom left"></div>
-<div class="bird bottom flip right"></div>
+<div class="bird top flip left"></div>
+<div class="bird top right"></div>
+<div class="bird bottom flip left"></div>
+<div class="bird bottom right"></div>
 ```
+
+A príklad je hotový.
 

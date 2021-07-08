@@ -20,7 +20,7 @@ Pri riešení tohto príkladu budeme postupovať po jednotlivých krokoch:
 
 ### Správne zobrazenie obrázkov
 
-Vo všeobecnosti môžeme predpokladať, že obrázky v galérii môžu mať rôzne rozmery. Niektoré môžu byť fotené na výšku, iné na šírku, byť širokouhlé až panoramatické. Ak teda chceme zobraziť obrázky rôznych rozmerov v nejakom unifikovanom rozmere vieme to docieliť dvomi spôsobmi: buď na strane servera vygenerujeme náhľady s rovnakým rozmerom alebo si ich prispôsobíme pomocou CSS. V tomto príklade si ukážeme riešenie čisto pomocou CSS.
+Vo všeobecnosti môžeme predpokladať, že obrázky v galérii môžu mať rôzne rozmery. Niektoré môžu byť fotené na výšku, iné na šírku, byť širokouhlé až panoramatické. Ak teda chceme zobraziť obrázky rôznych rozmerov v nejakom unifikovanom rozmere vieme to docieliť dvomi spôsobmi: buď na strane servera vygenerujeme náhľady s rovnakým rozmerom alebo si ich prispôsobíme pomocou CSS. V tomto príklade si ukážeme riešenie len pomocou CSS.
 
 
 https://developer.mozilla.org/en-US/docs/Web/CSS/padding-top
@@ -53,11 +53,11 @@ Potomkovia obaľovacieho elementu budú posunutý dolu vnútorným odsadením. T
 ```
 
 Ďalej sme pre element `img` pridali CSS štýl, ktorý prispôsobuje a roztiahne na rozmery rodičovského elementu `photo`. 
-Po aplikovaní tohto CSS dostaneme stránku, kde budú jednotlivé fotky roztiahnuté na celú šírku stránky a zobrazené budu vždy bez ohľadu na veľkosť okna v pomere 4:3.  Toto CSS však nezobrazuje všetky obrázky korektne:
+Po aplikovaní tohto CSS dostaneme stránku, kde budú jednotlivé obrázky roztiahnuté na celú šírku stránky a zobrazené budu vždy bez ohľadu na veľkosť okna v pomere 4:3.  Toto CSS však nezobrazuje všetky obrázky korektne:
 
 ![Deformácia obrázka po zmene rozmerov](images_gallery/riesenie1.jpg)
 
-Ako môžeme vidieť na obrázku, posledná fotka sa nám zobrazuje zdeformovane. Pôvodný obrázok bol totižto odfotený *na výšku* a keď obrázku nastavíme rozmery na `100%`, tak sa roztiahne a zdeformuje. Túto deformáciu môžeme opraviť pridanúm CSS vlastnosti [`object-fit: cover`](https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit) (CSS pravidlo `.photo img`), ktorá definuje spôsob, akým sa obrázok prispôsobí pri zmene veľkosti. 
+Ako môžeme vidieť na obrázku, posledný obrázok sa nám zobrazuje zdeformovane. Pôvodný obrázok bol totižto odfotený *na výšku* a keď obrázku nastavíme rozmery na `100%`, tak sa roztiahne a zdeformuje. Túto deformáciu môžeme opraviť pridanúm CSS vlastnosti [`object-fit: cover`](https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit) (CSS pravidlo `.photo img`), ktorá definuje spôsob, akým sa obrázok prispôsobí pri zmene veľkosti. 
 
 ```css
 .photo img {
@@ -97,9 +97,9 @@ Po aplikovaní tohto štýlu zostaneme prekvapení:
 
 ![Pokus o zobrazenie troch obrázkov vedľa seba](images_gallery/riesenie3.jpg)
 
-Namiesto troch predpokladaných obrázkov na riadok máme len dva. Navyše oproti pôvodnému prípadu máme okolo obrázkov medzery. Práve tieto medzery spôsobili, že sa nezmestia tri obrázky do jedného riadku. Pri zobrazení `inline-block` sú tieto medzery spôsobené tým ako prehliadač zobrazuje riadkové značky. V tomto prípade hocijaký znak nachádzajúci sa medzi elementami fotiek bude interpretovať ako medzeru.
+Namiesto troch predpokladaných obrázkov na riadok máme len dva. Navyše oproti pôvodnému prípadu máme okolo obrázkov medzery. Práve tieto medzery spôsobili, že sa nezmestia tri obrázky do jedného riadku. Pri zobrazení `inline-block` sú tieto medzery spôsobené tým ako prehliadač zobrazuje riadkové značky. V tomto prípade hocijaký znak nachádzajúci sa medzi elementami obrázkov bude interpretovať ako medzeru.
 
-Ak v pôvodnom HTML kóde odstránime medzery medzi fotkami, tak tento problém zmizne. Toto ale nie je správne riešenie, nakoľko by sme sa pri deklarácii CSS pravidiel nemali spoliehať na medzery medzi HTML elementmi.
+Ak v pôvodnom HTML kóde odstránime medzery medzi obrázkami, tak tento problém zmizne. Toto ale nie je správne riešenie, nakoľko by sme sa pri deklarácii CSS pravidiel nemali spoliehať na medzery medzi HTML elementmi.
 
 ```html
 <div class="photo">
@@ -123,13 +123,13 @@ Druhým spôsobom je ponechanie CSS vlastnosti `display: inline-block` a pridám
 }
 ```
 
-Výsledkom bude správne zobrazenie troch fotiek na jednom riadku:
+Výsledkom bude správne zobrazenie troch obrázkov na jednom riadku:
 
 ![Zobrazenie troch obrázkov vedľa seba pomocou vlastnosti `float`](images_gallery/riesenie4.jpg)
 
 #### Riešenie cez flexbox
 
-Posledným spôsobom (a odporúčaným) je riešenie pomocou rozloženia **flexbox**. Najskôr potrebujeme elementu `gallery` nastaviť, že má byť tzv. *flex kontajner* a fotkám predpísať šírku.
+Posledným spôsobom (a odporúčaným) je riešenie pomocou rozloženia **flexbox**. Najskôr potrebujeme elementu `gallery` nastaviť, že má byť tzv. *flex kontajner* a obrázkom predpísať šírku.
 
 ```css
 .gallery {
@@ -147,13 +147,13 @@ Okrem `display: flex` musíme nastaviť aj CSS vlastnosť `flex-wrap` na hodnotu
 
 ![Zobrazenie troch obrázkov vedľa seba pomocou CSS *flexbox*](images_gallery/riesenie5.jpg)
 
-Po nastavení `flex-wrap: wrap;` je už všetko v poriadku. Výhodou *flexboxu* oproti riešeniu s obtekaním je to, že *flexbox* má veľké množstvo ďalších možností. Predstavte si, že nemáme presný počet obrázkov tak, aby sme vyplnili všetky riadky. V prípade riešenia s obtekaním nám posledný obrázok zostane na ľavom okraji. Ak použijeme *flexbox*, môžeme pomocou vlastnosti `justify-content` v `.gallery` nastaviť, čo sa má stať v prípade, že nebude dostatok fotiek na riadku.
+Po nastavení `flex-wrap: wrap;` je už všetko v poriadku. Výhodou *flexboxu* oproti riešeniu s obtekaním je to, že *flexbox* má veľké množstvo ďalších možností. Predstavte si, že nemáme presný počet obrázkov tak, aby sme vyplnili všetky riadky. V prípade riešenia s obtekaním nám posledný obrázok zostane na ľavom okraji. Ak použijeme *flexbox*, môžeme pomocou vlastnosti `justify-content` v `.gallery` nastaviť, čo sa má stať v prípade, že nebude dostatok obrázkov na riadku.
 
-Ak nastavíme `justify-content` na `center`, tak sa nám fotky vycentrujú do stredu:
+Ak nastavíme `justify-content` na `center`, tak sa nám obrázky vycentrujú do stredu:
 
 ![Vycentrovanie obrázkov pomocou vlastnosti `justify-content`](images_gallery/riesenie6.jpg)
 
-Môžeme vyskúšať aj hodnotu `space-between`, ktorá nám fotky umiestni na okraje:
+Môžeme vyskúšať aj hodnotu `space-between`, ktorá nám obrázky umiestni na okraje:
 
 ![Zmena vlastnosti `justify-content` na hodnotu `space-between`](images_gallery/riesenie7.jpg)
 
@@ -163,7 +163,7 @@ Alebo hodnotu `space-evenly`, ktorá nám ich umiestni s rovnomernými medzerami
 
 Týchto vlastností je veľké množstvo a stačí si vybrať podľa potreby.
 
-Ak nám nevyhovuje prázdne miesto v spodnom riadku, môžeme nastaviť fotke vlastnosť `flex-grow`, vďaka ktorej sa obrázky v poslednom riadku roztiahnú tak, aby vyplnili celý priestor:
+Ak nám nevyhovuje prázdne miesto v spodnom riadku, môžeme nastaviť obrázku vlastnosť `flex-grow`, vďaka ktorej sa obrázky v poslednom riadku roztiahnú tak, aby vyplnili celý priestor:
 
 ```css
 .photo {
@@ -174,13 +174,13 @@ Ak nám nevyhovuje prázdne miesto v spodnom riadku, môžeme nastaviť fotke vl
 }
 ```
 
-Pri tomto zobrazení ale už nebudú mať všetky fotky pomer strán 4:3.
+Pri tomto zobrazení ale už nebudú mať všetky obrázky pomer strán 4:3.
 
 ![Roztiahnutie obrázka pomocou vlastnosti `flex-grow`](images_gallery/riesenie9.jpg)
 
 #### Pridanie medzier medzi obrázky
 
-V ďalšom kroku by sme mali nastaviť medzery medzi jednotlivými fotkami, nech nie sú nalepené na sebe.
+V ďalšom kroku by sme mali nastaviť medzery medzi jednotlivými obrázkami, nech nie sú nalepené na sebe.
 
 Najjednoduchším spôsobom je pridanie vonkajšieho odsadenia pomocou CSS vlastnosti `margin`. Problém je, že okraj rozširuje element, takže ho musíme odpočítať od šírky samotného elementu. S využitím funkcie `calc()` to ale CSS žiaden problém (od celkových rozmerov odrátame celkovú veľkosť odsadenia):
 
@@ -198,11 +198,13 @@ Najjednoduchším spôsobom je pridanie vonkajšieho odsadenia pomocou CSS vlast
 
 ### Rôzne počet obrázkov na riadku na základe veľkosti zariadenia
 
-Pokiaľ trváme na zachovaní pomeru strán musíme využiť tzv. [**media queries**](https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries) anotácia `@media()` Tie nám umožňujú aplikovať štýl na základe určitej vlastnosti. V našom prípade potrebujeme kontrolovať celkovú šírku viewportu. Použijeme preto media query `max-width`. 
+Pokiaľ trváme na zachovaní pomeru strán musíme využiť tzv. [**media queries**](https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries) anotácia `@media()` Tie nám umožňujú aplikovať štýl na základe určitej vlastnosti. V našom prípade potrebujeme kontrolovať celkovú šírku okna prehliadača. Použijeme preto media query `max-width`. 
 
-V zadaní požadujeme tri spôsoby prispôsobenia zobrazenia fotiek. Jeden z nich bude východzie a ostatné sa budu meniť na základe aktuálnej šírky viewportu. Za východzie môžeme považovať zobrazenie pre malé okno kde sa fotieky zobrazia pod sebou. Pre ďalšie uporiadania potrebujeme preto definovať v `@media()` dva body zlomu v ktorých sa bude meniť počet obrázkov na riadku. 
+> Presnejšie by bolo v zmysle pojmu okno prehliadača použiť *vierport*, ktorý je síce v mnohých situáciach rovnaký ako viditeľná klientska plocha okna prehliadača, ale bez potenciálnych posuvníkov a takisto bez ostatných častí, ako sú nástrové lišty prehliadača a podobne. V našom príklade, ak zameníme pojem *viewport* za okno prehliadača, dopustíme sa istej nepresnosti, ale pre riešenie príkladu to nebude mať vplyv.  
 
-Prvý z nich bude platiť pre šírku viewportu do `600px` a druhý do `1000px`. Veľmi závisí na poradí v akom jednotlivé pravidlá v `@media()` zapíšeme, nakoľko posledne zadefinované pravidlo prepisuje rovnaké predchádzajúce.  Ako prvé preto musíme zadefinovať štýlovanie pre najmenšie zobrazenie, nasledovať musí štýlovanie pre rozmer viewpoeru `1000px` a ako posledné pre rozmer viewportu `600px`.
+V zadaní požadujeme tri spôsoby prispôsobenia zobrazenia obrázkov. Jeden z nich bude východzie a ostatné sa budu meniť na základe aktuálnej šírky kna prehliadača. Za východzie môžeme považovať zobrazenie pre malé okno kde sa obrázky zobrazia pod sebou. Pre ďalšie typy uporiadania potrebujeme preto definovať v `@media()` dva body zlomu, v ktorých sa bude meniť počet obrázkov na riadku. 
+
+Prvý z nich bude platiť pre šírku okna prehliadača do `600px` a druhý do `1000px`. Veľmi závisí na poradí v akom jednotlivé pravidlá v `@media()` zapíšeme, nakoľko posledne zadefinované pravidlo prepisuje rovnaké predchádzajúce.  Ako prvé preto musíme zadefinovať štýlovanie pre najmenšie zobrazenie, nasledovať musí štýlovanie pre rozmer okna prehliadača `1000px` a ako posledné pre rozmer `600px`.
 
 Nasledujúce riadky dopíšeme za definíciu pravidla `.photo`:
 
@@ -221,7 +223,7 @@ Nasledujúce riadky dopíšeme za definíciu pravidla `.photo`:
 }
 ```
 
-Prvé pravidlo prepíše prednastavenú šírku fotky z cca `33%` na `50%` v prípade, že obrazovka má maximálnu širku `1000px`. Druhé zas prepíše šírku fotky na `100%` v prípade, že šírka zariadenia bude menšia, nanajvýš rovná `600px`.
+Prvé pravidlo prepíše prednastavenú šírku obrázku z cca `33%` na `50%` v prípade, že obrazovka má maximálnu širku `1000px`. Druhé zas prepíše šírku obrázku na `100%` v prípade, že šírka zariadenia bude menšia, nanajvýš rovná `600px`.
 
 #### Automatická zmena veľkosti pomocou *flexboxu*.
 
@@ -270,11 +272,11 @@ Doplnenie pre správne umiestnime ďalších prvkov :
 }
 ```
 
-Pri nastavovaní popisu fotiek sme museli prepísať CSS vlastnosť `top`, pretože sme ju nastavili všetkým elementom vo fotke pomocou selektoru `.photo > *`.
+Pri nastavovaní popisu obrázkov sme museli prepísať CSS vlastnosť `top`, pretože sme ju nastavili všetkým elementom vo obrázku pomocou selektoru `.photo > *`.
 
 ![Úprava popisu obrázkov](images_gallery/riesenie12.jpg)
 
-Ďalším krokom bude stmavenie celého obrázku. Najjednoduchšie bude použitie CSS vlastnosti `opacity`, ktorá umožní spriehľadniť ľubovolný element. Ak to skombinujeme s tmavou farbou pozadia fotky dostaneme efekt stmaveného pozadia.
+Ďalším krokom bude stmavenie celého obrázku. Najjednoduchšie bude použitie CSS vlastnosti `opacity`, ktorá umožní spriehľadniť ľubovolný element. Ak to skombinujeme s tmavou farbou pozadia obrázku dostaneme efekt stmaveného pozadia.
 
 ```css
 .photo {
@@ -289,7 +291,7 @@ CSS vlastnosť `opacity` sme nastavili pomocou selektoru `:hover`, takže pozadi
 
 ![Stmavenie obrázku po prechode kurzorom myši ponad obrázok](images_gallery/riesenie13.jpg)
 
-Pokiaľ chceme, aby sa aj texty zobrazili až po premiestnení kurzora myši na fotku, tak musíme upraviť ich CSS nasledovne:
+Pokiaľ chceme, aby sa aj texty zobrazili až po premiestnení kurzora myši na obrázok, tak musíme upraviť ich CSS nasledovne:
 
 ```css
 .photo p, .photo h3 {
@@ -304,9 +306,9 @@ Pomocou prvého pravidla skryjeme oba elementy a pomocou druhého ich zobrazíme
 
 ### Animácie pri prechode kurzora myši ponad obrázok
 
-Aktuálne riešenie funguje, výsledný dojem ale nie je najlepší. Skúsime teda pridať zopár animácií pre spríjemnenie používateľského zážitku. Začneme tým dynamickým stmavovaním fotky. Najjednoduchší spôsob bude využitie CSS vlastnosti `transition`. Výhoda `transition` oproti vlastnej CSS animácii je v jednoduchšom zápise. Pri `transition` definujeme len vlastnosť, ktorej sa to týka a dobu zmeny.
+Aktuálne riešenie funguje, výsledný dojem ale nie je najlepší. Skúsime teda pridať zopár animácií pre spríjemnenie používateľského zážitku. Začneme tým dynamickým stmavovaním obrázku. Najjednoduchší spôsob bude využitie CSS vlastnosti `transition`. Výhoda `transition` oproti vlastnej CSS animácii je v jednoduchšom zápise. Pri `transition` definujeme len vlastnosť, ktorej sa to týka a dobu zmeny.
 
-Túto vlastnosť definujeme pre element `img` fotky:
+Túto vlastnosť definujeme pre element `img`:
 
 ```css
 .photo img {
@@ -352,7 +354,7 @@ Ak nastavíme pozadie stránky na tmavú farbu, môžeme presne vidieť, čo sa 
 
 ![Dôvod zobrazenia posuvníka](images_gallery/riesenie15.jpg)
 
-Text sa zobrazuje v skutočnosti mimo elementu fotky. Tento problém môžeme vyriešiť tak, že hlavnému elementu fotky nastavíme hodnotu CSS parametra `overflow` na `hidden`. To spôsobí, že ak element obsahuje zobsah presahujúci jeho zobrazene a mali by sa zobraziť posuvníky tak sa nezobrazia.
+Text sa zobrazuje v skutočnosti mimo elementu obrázku. Tento problém môžeme vyriešiť tak, že hlavnému elementu obrázku nastavíme hodnotu CSS parametra `overflow` na `hidden`. To spôsobí, že ak element obsahuje zobsah presahujúci jeho zobrazene a mali by sa zobraziť posuvníky tak sa nezobrazia.
 
 ```css
 .photo {
