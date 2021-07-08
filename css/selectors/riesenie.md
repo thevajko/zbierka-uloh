@@ -31,9 +31,9 @@ Pomocou CSS môžeme definovať orámovanie pomocou nasledovných pravidiel:
 
 Tabuľka v HTML kóde mala definovanú `class="data"`, preto sme na naštýlovanie tabuľky použili selektor `.data`. Samotnej tabuľke sme nastavili `1px` vonkajšie orámovanie. 
 
-Bunky v tabuľke sú predstavované HTML elementmi dvoch typov: `<th>` (*table head*) a `<td>` (*table data*). Z tohto dôvodu použijeme pre ich výber CSS selektor `.data tr > *`. Ten vyberie každého (v selektore špecifikované pomocou `*`) priameho potomka (v selektore špecifikované pomocou `>`) elementu `<tr>` umiestneného v tabuľke. 
+Bunky v tabuľke sú predstavované HTML elementmi dvoch typov: `th` (*table head*) a `td` (*table data*). Z tohto dôvodu použijeme pre ich výber CSS selektor `.data tr > *`. Ten vyberie každého (v selektore špecifikované pomocou `*`) priameho potomka (v selektore špecifikované pomocou `>`) elementu `tr` umiestneného v tabuľke. 
 
-Tento selektor by sme ale mohli napísať rôznymi spôsobmi. Jedna varianta by mohla byť aj `table.data > tr > *`, kde tento selector vyberie priameho potomka elementu `<tr>`, ktorý sa nachádza ako priamy potomok elementu `<table>` s atribútom `class="data"`. Tento prípad by ale nemusel byť úplne všeobecný, pretože riadky tabuľky môžu byť ešte rozdelené do sekcií:
+Tento selektor by sme ale mohli napísať rôznymi spôsobmi. Jedna varianta by mohla byť aj `table.data > tr > *`, kde tento selector vyberie priameho potomka elementu `<tr>`, ktorý sa nachádza ako priamy potomok elementu `table` s atribútom `class="data"`. Tento prípad by ale nemusel byť úplne všeobecný, pretože riadky tabuľky môžu byť ešte rozdelené do sekcií:
 
 ```html
 <table>
@@ -83,7 +83,7 @@ Ako môžeme vidieť na obrázku vyššie, tabuľka má dvojité okraje, ktoré 
 
 > Záhlavie tabuľky bude mať zelenú farbu pozadia, text bude tučným písmom a bude centrovaný, prvé písmeno bude mať žltú farbu.
 
-Začneme nastavením farieb a písma. Vzhľadom na to, že bunky hlavičky tvoria elementy `<th>` a bunky s dátami `<td>`, môžeme použiť nasledovný CSS selektor:
+Začneme nastavením farieb a písma. Vzhľadom na to, že bunky hlavičky tvoria elementy `th` a bunky s dátami `td`, môžeme použiť nasledovný CSS selektor:
 
 ```css
 .data th {
@@ -94,7 +94,7 @@ Začneme nastavením farieb a písma. Vzhľadom na to, že bunky hlavičky tvori
 }
 ```
 
-Centrovanie textu môžeme vykonať pomocou CSS vlastnosti `text-align: center;`, ale hlavička tabuľky (elementy `<th>`) má centrovanie nastavené automaticky, takže nemusíme pridávať žiadne dodatočné CSS vlastnosti.
+Centrovanie textu môžeme vykonať pomocou CSS vlastnosti `text-align: center;`, ale hlavička tabuľky (elementy `th`) má centrovanie nastavené automaticky, takže nemusíme pridávať žiadne dodatočné CSS vlastnosti.
 
 Druhou časťou tejto úlohy je zmena farby prvého písmena v hlavičke tabuľky. Na toto naštýlovanie môžeme využiť selektor CSS [pseudoelemetu](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors/Pseudo-classes_and_pseudo-elements#what_is_a_pseudo-element) `::first-letter`, ktorý umožní aplikovanie štýlu na prvé písmeno.
 
@@ -120,7 +120,7 @@ Výsledné pravidlo bude vyzerať nasledovne:
 }
 ```
 
-Tento selektor vyberie každý nepárny element `<td>` z tabuľky s atribútom `class="data"`.
+Tento selektor vyberie každý nepárny element `td` z tabuľky s atribútom `class="data"`.
 
 ### Formátovanie stĺpca s priezviskom  (bod 4)
 
@@ -151,7 +151,7 @@ Na vyriešenie tejto úlohy môžeme použiť pravidlo:
 }
 ```
 
-Pomocou tohto pravidla nastavíme šedú farbu pozadia každej bunke v riadku, nad ktorým na nachádza kurzor myši (pseudotriedu `:hover` sme aplikovali na element `<tr>`).
+Pomocou tohto pravidla nastavíme šedú farbu pozadia každej bunke v riadku, nad ktorým na nachádza kurzor myši (pseudotriedu `:hover` sme aplikovali na element `tr`).
 
 #### Formátovanie kolónky s menom (bod 5.2)
 
@@ -165,7 +165,6 @@ Tento problém sa dá vyriešiť aj dvoma pravidlami, prvé pravidlo nastaví fa
 .data tr:hover td:first-child {
     color: #e74c3c;
 }
-
 .data tr:hover td:first-child:hover {
     color: black;
 }
@@ -218,7 +217,7 @@ V ďalšej časti úlohy bolo vyžadované zobrazenie zelenej farby bunky, keď 
 
 Posledným problémom v tejto časti je zobrazenie žltého pozadia pre bunky, ktoré sú za kurzorom myši označenou bunkou. Pre tento účel môžeme použiť selektor `~`, ktorý umožní vybrať všetky elementy, ktoré nasledujú za určitým špecifikovaným elementom. 
 
-V našom prípade chceme nájsť všetky `<td>` elementy, ktoré sa nachádzajú za bunkou, nad ktorou je kurzor myši. Prvú časť môžeme použiť z predchádzajúceho prípadu a doplníme za ňu výber nasledovníkov pomocou `~`:
+V našom prípade chceme nájsť všetky `td` elementy, ktoré sa nachádzajú za bunkou, nad ktorou je kurzor myši. Prvú časť môžeme použiť z predchádzajúceho prípadu a doplníme za ňu výber nasledovníkov pomocou `~`:
 
 ```css
 .data tr td:hover:nth-child(n+4) ~ td:nth-child(-n+6) {
@@ -240,7 +239,7 @@ Na túto úlohu môžeme využiť pseudotriedu `:nth-last-child`, pomocou ktorej
 }
 ```
 
-V tomto príklade si môžete všimnúť, že opäť používame `*`. Je to kvôli tomu, že okrem dát uložených v elementoch `<td>`, potrebujeme skryť aj hlavičku uloženú v `<th>`.
+V tomto príklade si môžete všimnúť, že opäť používame `*`. Je to kvôli tomu, že okrem dát uložených v elementoch `td`, potrebujeme skryť aj hlavičku uloženú v `th`.
 
 ### Formátovanie odkazov (bod 7) 
 
