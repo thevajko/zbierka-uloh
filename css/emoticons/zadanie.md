@@ -39,13 +39,13 @@ Základná HTML štruktúra smajlíka bude nasledovná:
 
 Túto štruktúru je potrebné dodržať. Obsah elementu `div` si prispôsobte podľa potreby. Tento HTML kód vykreslí prvého smajlíka vo veľkosti `50px`. Pokiaľ chceme zmeniť veľkosť smajlíka, pridáme do `div` elementu ďalšiu CSS triedu - `s-100`, `s-250` alebo `s-500` podľa požadovanej veľkosti.
 
-Rotácia smajlíka bude realizovaná pridaním CSS triedy `obrateny` do hlavného elementu `div`.
+Rotácia smajlíka bude realizovaná pridaním CSS triedy `upside-down` do hlavného elementu `div`.
 
 Pokiaľ budeme požadovať smajlíka s veľkosťou `100px` obráteného o 180 stupňov, deklarácia HTML kódu bude nasledovná:
 
 ```html
 
-<div class="smiley s-100 obrateny">
+<div class="smiley s-100 upside-down">
     ...
 </div>
 ```
