@@ -16,7 +16,7 @@ Pri vypracovaní riešenia budeme postupovať podľa jednotlivých bodov zadania
 
 > Tabuľka bude mať čierny rámček medzi bunkami a okolo celej tabuľky.
 
-Pomocou CSS môžeme definovať orámovanie pomocou nasledovných pravidiel:
+Pomocou CSS môžeme definovať rámček pomocou nasledovných pravidiel:
 
 ```css
 .data {
@@ -29,11 +29,11 @@ Pomocou CSS môžeme definovať orámovanie pomocou nasledovných pravidiel:
 }
 ```
 
-Tabuľka v HTML kóde mala definovanú `class="data"`, preto sme na naštýlovanie tabuľky použili selektor `.data`. Samotnej tabuľke sme nastavili `1px` vonkajšie orámovanie. 
+Tabuľka v HTML kóde mala definovaný atribút `class="data"`, preto sme na naštýlovanie tabuľky použili selektor `.data`. Samotnej tabuľke sme nastavili `1px` vonkajší rámček. 
 
 Bunky v tabuľke sú predstavované HTML elementmi dvoch typov: `th` (*table head*) a `td` (*table data*). Z tohto dôvodu použijeme pre ich výber CSS selektor `.data tr > *`. Ten vyberie každého (v selektore špecifikované pomocou `*`) priameho potomka (v selektore špecifikované pomocou `>`) elementu `tr` umiestneného v tabuľke. 
 
-Tento selektor by sme ale mohli napísať rôznymi spôsobmi. Jedna varianta by mohla byť aj `table.data > tr > *`, kde tento selector vyberie priameho potomka elementu `<tr>`, ktorý sa nachádza ako priamy potomok elementu `table` s atribútom `class="data"`. Tento prípad by ale nemusel byť úplne všeobecný, pretože riadky tabuľky môžu byť ešte rozdelené do sekcií:
+Tento selektor by sme ale mohli napísať rôznymi spôsobmi. Jeden variant by mohla byť aj `table.data > tr > *`, kde tento selector vyberie priameho potomka elementu `tr`, ktorý sa nachádza ako priamy potomok elementu `table` s atribútom `class="data"`. Tento prípad by ale nemusel byť úplne všeobecný, pretože riadky tabuľky môžu byť ešte rozdelené do sekcií:
 
 ```html
 <table>
@@ -59,7 +59,7 @@ Tento selektor by sme ale mohli napísať rôznymi spôsobmi. Jedna varianta by 
 </table>
 ```
 
-Ďalšou možnosťou by bolo rozdeliť tento selektor na dva oddelené čiarkou:
+Ďalšou možnosťou by bolo rozdeliť tento selektor na dva, oddelené čiarkou:
 
 ```css
 .data > tr > th, 
@@ -71,7 +71,7 @@ Po aplikovaní tohto štýlu tabuľka nebude ale vyzerať tak, ako sme požadova
 
 ![Dvojitý rámček HTML tabuľky](images_selectors/dvojite-oramovanie.png)
 
-Ako môžeme vidieť na obrázku vyššie, tabuľka má dvojité okraje, ktoré sú oddelené medzerou. Tieto medzery su definované pomocou CSS vlastnosti `border-spacing`. Mohli by sme nastaviť medzeru medzi bunkami na `0px` ale tým pádom by sme mali šírku rámčeka `2px`. Ďalšou CSS vlastnosťou, ktorú môžeme použiť je CSS vlastnosť `border-collapse`, pomocou ktorej vieme duplicitné orámovanie odstrániť. Pridáme preto do CSS pravidla pre tabuľku pridáme:
+Ako môžeme vidieť na obrázku vyššie, tabuľka má dvojité okraje, ktoré sú oddelené medzerou. Tieto medzery su definované pomocou CSS vlastnosti `border-spacing`. Mohli by sme nastaviť medzeru medzi bunkami na `0px` ale tým pádom by sme mali šírku rámčeka `2px`. Ďalšou CSS vlastnosťou, ktorú môžeme použiť je CSS vlastnosť `border-collapse`, pomocou ktorej vieme duplicitný rámček odstrániť. Pridáme preto do CSS pravidla pre tabuľku pridáme:
 
 ```css
 .data {
@@ -104,13 +104,13 @@ Druhou časťou tejto úlohy je zmena farby prvého písmena v hlavičke tabuľk
 }
 ```
 
-### Zafarbenie nepárnych riadkov  (bod 3)
+### Zafarbenie nepárnych riadkov (bod 3)
 
 > Riadky každý nepárny riadok tabuľky bude mať svetlosivé pozadie.
 
 Pre vyriešenie tejto úlohy potrebujeme použiť selektor, ktorý vyberie len nepárne riadky. V CSS máme k dispozícii selektor CSS [pseudotriedy](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors/Pseudo-classes_and_pseudo-elements#what_is_a_pseudo-class) `:nth-child()`, pomocou ktorého môžeme vybrať n-tého potomka. 
 
-Pokiaľ chceme vybrať napríklad presne tretí element zapíšeme pseudotriedu ako `:nth-child(3)`. Okrem presného čísla môžeme použiť aj predpis na výber každého _n-tého elementu_. Pokiaľ chceme vybrať každý druhý element zapíšeme to ako `:nth-child(2n)`. Môžeme ešte doplniť hodnotu posuvu začiatku vyberania prvkov. Ak teda chceme vybrať každý tretí prvok ale chceme začať od piateho prvku tak to zapíšeme ako `:nth-child(3n + 5)`. Výber párneho/nepárneho riadku je ale častým prípadom, preto v CSS je možné namiesto `2n+1` použiť výraz `odd` (z anglického _nepárne_, po prípade `even` pre _párne_ riadky).
+Pokiaľ chceme vybrať napríklad presne tretí element zapíšeme pseudotriedu ako `:nth-child(3)`. Okrem presného čísla môžeme použiť aj predpis na výber každého *n-tého elementu*. Pokiaľ chceme vybrať každý druhý element zapíšeme to ako `:nth-child(2n)`. Môžeme ešte doplniť hodnotu posuvu začiatku vyberania prvkov. Ak teda chceme vybrať každý tretí prvok, ale chceme začať od piateho prvku, tak to zapíšeme ako `:nth-child(3n + 5)`. Výber párneho/nepárneho riadku je ale častým prípadom, preto v CSS je možné namiesto `2n+1` použiť výraz `odd` (z anglického *nepárne*, po prípade `even` pre *párne* riadky).
 
 Výsledné pravidlo bude vyzerať nasledovne:
 
@@ -137,9 +137,9 @@ Pre výber stĺpca s priezviskom môžeme opäť použiť selektor pseudotriedy 
 
 ### Formátovanie riadkov na základe umiestnenia myšky (bod 5)
 
-> Pri umiestnení myšky nad riadkom tabuľky
+> Pri umiestnení kurzora myši nad riadkom tabuľky
 
-Pokiaľ chceme pomocou CSS meniť vlastnosti na základe pozície kurzora myši použijeme pseudotriedu `:hover`, ktorá umožňuje definovať pravidlá pre elementy, nad ktorými sa nachádza myš.
+Pokiaľ chceme pomocou CSS meniť vlastnosti na základe pozície kurzora myši, použijeme pseudotriedu `:hover`, ktorá umožňuje definovať pravidlá pre elementy, nad ktorými sa nachádza kurzor myši.
 
 #### Sivé pozadie celého riadku (bod 5.1)
 
@@ -153,13 +153,13 @@ Na vyriešenie tejto úlohy môžeme použiť pravidlo:
 
 Pomocou tohto pravidla nastavíme šedú farbu pozadia každej bunke v riadku, nad ktorým na nachádza kurzor myši (pseudotriedu `:hover` sme aplikovali na element `tr`).
 
-#### Formátovanie kolónky s menom (bod 5.2)
+#### Formátovanie stĺpca s menom (bod 5.2)
 
 > Text v stĺpci `Meno` bude mať červenú farbu, ale iba pokiaľ nebude kurzor myši v bunke s menom. Ak bude  kurzor myši v bunke s menom, text bude mať štandardnú čiernu farbu.
 
 Pre vyriešenie tohto bodu zadania potrebujeme napísať selektor, ktorý vyberie prvý stĺpec v tabuľke v prípade, že sa kurzor myši nachádza na riadku, ale nie na stĺpci s menom. Pokiaľ chceme v riadku vybrať prvý stĺpec, môžeme využiť pseudotriedu `:nth-child()` s parametrom `1`. Môžeme využiť ale aj skrátenú verziu `:first-child`, ktorá robí presne to isté ako `:nth-child(1)`.
 
-Tento problém sa dá vyriešiť aj dvoma pravidlami, prvé pravidlo nastaví farbu prvému stĺpcu v prípade, že bude kurzor myši nad daným riadkom. A druhé pravidlo prepíše farbu späť na čiernu, v prípade že kurzor myši bude nad konkrétnou bunkou. Pravidlá sú nasledovné:
+Tento problém sa dá vyriešiť aj dvoma pravidlami. Prvé pravidlo nastaví farbu prvému stĺpcu v prípade, že bude kurzor myši nad daným riadkom. Druhé pravidlo prepíše farbu späť na čiernu, v prípade, že kurzor myši bude nad konkrétnou bunkou. Pravidlá sú nasledovné:
 
 ```css
 .data tr:hover td:first-child {
@@ -172,7 +172,7 @@ Tento problém sa dá vyriešiť aj dvoma pravidlami, prvé pravidlo nastaví fa
 
 Toto riešenie sa dá aj zjednodušiť. Okrem duplicity tohto riešenia je ešte aj problém s tým, že ak by sme zmenili farbu textu v tabuľke, tak ju musíme zmeniť aj na tomto mieste, čo prináša ďalšiu duplicitu.
 
-Pre zjednodušenie môžeme využiť pseudotriedu `:not()` ktorá umožňuje negovať určitú časť selektoru. V našom prípade chceme vybrať prvú bunku v riadku kde je kurzor myši, ak kurzor myši nie je práve na tejto bunke.
+Pre zjednodušenie môžeme využiť pseudotriedu `:not()` ktorá umožňuje negovať určitú časť selektoru. V našom prípade chceme vybrať prvú bunku v riadku, kde je kurzor myši, ak kurzor myši nie je práve na tejto bunke.
 
 ```css
 .data tr:hover td:first-child:not(:hover) {
@@ -199,7 +199,7 @@ Pre každý stĺpec môžeme použiť vlastný selektor `:nth-child(4)` až `:nt
 }
 ```
 
-Pre ďalšie dve časti skombinujeme pravidlá, ktoré sme už definovali. Začneme modrým podfarbením čísel pri umiestnení kurzor myši nad daním riadkom:
+Pre ďalšie dve časti skombinujeme pravidlá, ktoré sme už definovali. Začneme modrým podfarbením čísel pri umiestnení kurzora myši nad daným riadkom:
 
 ```css
 .data tr:hover td:nth-child(n+4):nth-child(-n+6) {
@@ -207,7 +207,7 @@ Pre ďalšie dve časti skombinujeme pravidlá, ktoré sme už definovali. Začn
 }
 ```
 
-V ďalšej časti úlohy bolo vyžadované zobrazenie zelenej farby bunky, keď nad ňou bude kurzor myši. Tu môžeme využiť podobný prístup ako v bode 5.2.:
+V ďalšej časti úlohy bolo vyžadované nastavenie zelenej farby bunky, keď nad ňou bude kurzor myši. Tu môžeme využiť podobný prístup ako v bode 5.2.:
 
 ```css
 .data tr td:hover:nth-child(n+4):nth-child(-n+6) {
@@ -231,7 +231,7 @@ V tomto prípade sme prvú časť zjednodušili a podmienku, že ide len o prvý
 
 > V HTML je definovaný aj stĺpec `Výsledok`, ten vo výslednej tabuľke nezobrazte.
 
-Na túto úlohu môžeme využiť pseudotriedu `:nth-last-child`, pomocou ktorej zvolíme a skryjeme daný stĺpec. Správaním je veľmi podobný ako už pseudotrieda `:nth-child`, ibaže počíta prvky od konca:
+Na túto úlohu môžeme využiť pseudotriedu `:nth-last-child`, pomocou ktorej zvolíme a skryjeme daný stĺpec. Správaním je veľmi podobné ako pseudotrieda `:nth-child`, ibaže počíta prvky od konca:
 
 ```css
 .data tr > *:nth-last-child(2) {
@@ -244,12 +244,12 @@ V tomto príklade si môžete všimnúť, že opäť používame `*`. Je to kvô
 ### Formátovanie odkazov (bod 7) 
 
 > Odkazy v stĺpci `Link` sa budú správať nasledovne:
-> 1. Ak bude odkaz zabezpečený (protokol HTTPS) zobrazte ho zelenou farbou.
-> 2. Ak bude odkaz nezabezpečený (protokol HTTP) zobrazte ho červenou farbou.
+> 1. Ak bude odkaz zabezpečený (protokol HTTPS), zobrazte ho zelenou farbou.
+> 2. Ak bude odkaz nezabezpečený (protokol HTTP), zobrazte ho červenou farbou.
 > 3. Ak to bude relatívny odkaz, zobrazte ho modrou farbou.
-> 4. Ak to bude odkaz na súbor typu PDF (odkaz končí `.pdf`) dopíšte za text odkazu, že ide o PDF - `(PDF)`.
+> 4. Ak to bude odkaz na súbor typu PDF (odkaz končí `.pdf`), dopíšte za text odkazu, že ide o PDF - `(PDF)`.
 
-Pre riešenie tejto úlohy potrebujeme využiť [atribútové selektory](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors). Takýto selektor môže vyzerať nasledovne: `element[atribut="hodnota"]`. Začneme postupne, v prvej časti potrebujeme nájsť odkazy, ktoré smerujú na zabezpečené stránky, to znamená, že ich URL adresa začína `https:`. Použijeme preto nasledovný selektor:
+Pre riešenie tejto úlohy potrebujeme využiť [*atribútové selektory*](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors). Takýto selektor môže vyzerať nasledovne: `element[atribut="hodnota"]`. Začneme postupne, v prvej časti potrebujeme nájsť odkazy, ktoré smerujú na zabezpečené stránky, to znamená, že ich URL adresa začína `https:`. Použijeme preto nasledovný selektor:
 
 ```css
 .data td a[href^="https:"] {
@@ -273,7 +273,7 @@ Pre relatívne odkazy môžeme pre jednoduchosť použiť pravidlo, ktoré pomoc
 }
 ```
 
-Poslednou časťou tejto úlohy bolo doplnenie slova `(PDF)` k odkazom, ktoré smerujú na `.pdf` súbor. Toto môžeme dosiahnuť kombináciou podobného selektora ako v predchádzajúcom prípade a pseudoelementu `::after`. Na rozdiel od predchádzajúceho prípadu nepoužijeme `^=`, ktoré kontroluje začiatok hodnoty, ale použijeme `$=`, ktoré kontroluje koniec hodnoty atribútu.
+Poslednou časťou tejto úlohy bolo doplnenie skratky `(PDF)` k odkazom, ktoré smerujú na `.pdf` súbor. Toto môžeme dosiahnuť kombináciou podobného selektora ako v predchádzajúcom prípade a pseudoelementu `::after`. Na rozdiel od predchádzajúceho prípadu nepoužijeme `^=`, ktoré kontroluje začiatok hodnoty, ale použijeme `$=`, ktoré kontroluje koniec hodnoty atribútu.
 
 ```css
 .data td a[href$=".pdf"]::after {
@@ -285,9 +285,9 @@ Tento selektor pridá k odkazu, ktorý končí na `.pdf` pseudoelement, ktorý b
 
 ### Ukotvenie hlavičky (bod 8)
 
-> Zabezpečte, aby pri veľkej tabuľke zostávala hlavička vždy viditeľná.
+> Zabezpečte, aby pri dlhej tabuľke zostávala hlavička vždy viditeľná.
 
-Často sa stáva, že na stránke je veľa dát, a keď je tabuľka veľmi veľká a je potrebné použiť posuvník, tak v strede tabuľky už nevieme identifikovať stĺpce. Pomocou CSS vieme ukotviť hlavičku tak, že použijeme CSS vlastnosť`position: sticky`:
+Často sa stáva, že na stránke je veľa dát, a keď je tabuľka veľmi dlhá a je potrebné použiť posuvník, tak v strede tabuľky už nevieme identifikovať stĺpce. Pomocou CSS vieme ukotviť hlavičku tak, že použijeme CSS vlastnosť `position: sticky`:
 
 ```css
 .data th {

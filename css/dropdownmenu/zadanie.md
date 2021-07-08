@@ -31,7 +31,7 @@ Menu musí spĺňať nasledovné podmienky:
 3. Vizuálne treba indikovať, či dané menu obsahuje podmenu.
 4. Zvýraznite, aké položky menu sú aktivované.
 5. Jednotlivé podmenu zobrazte s jemne odlišnou farbou pozadia, napr. stmavovaním.
-6. Modifikujte drop-down menu na drop-up menu.
+6. Drop-down menu musí byť jednoduchou úpravou zmeniteľné na drop-up menu.
 
 Počiatočný HTML dokument obsahuje menu zadefinované pomocou štruktúry elementov a vyzerá nasledovne:
 

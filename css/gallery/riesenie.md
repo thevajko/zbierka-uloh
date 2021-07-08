@@ -200,8 +200,6 @@ Najjednoduchším spôsobom je pridanie vonkajšieho odsadenia pomocou CSS vlast
 
 Pokiaľ trváme na zachovaní pomeru strán musíme využiť tzv. [**media queries**](https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries) anotácia `@media()` Tie nám umožňujú aplikovať štýl na základe určitej vlastnosti. V našom prípade potrebujeme kontrolovať celkovú šírku okna prehliadača. Použijeme preto media query `max-width`. 
 
-> Presnejšie by bolo v zmysle pojmu okno prehliadača použiť *vierport*, ktorý je síce v mnohých situáciach rovnaký ako viditeľná klientska plocha okna prehliadača, ale bez potenciálnych posuvníkov a takisto bez ostatných častí, ako sú nástrové lišty prehliadača a podobne. V našom príklade, ak zameníme pojem *viewport* za okno prehliadača, dopustíme sa istej nepresnosti, ale pre riešenie príkladu to nebude mať vplyv.  
-
 V zadaní požadujeme tri spôsoby prispôsobenia zobrazenia obrázkov. Jeden z nich bude východzie a ostatné sa budu meniť na základe aktuálnej šírky kna prehliadača. Za východzie môžeme považovať zobrazenie pre malé okno kde sa obrázky zobrazia pod sebou. Pre ďalšie typy uporiadania potrebujeme preto definovať v `@media()` dva body zlomu, v ktorých sa bude meniť počet obrázkov na riadku. 
 
 Prvý z nich bude platiť pre šírku okna prehliadača do `600px` a druhý do `1000px`. Veľmi závisí na poradí v akom jednotlivé pravidlá v `@media()` zapíšeme, nakoľko posledne zadefinované pravidlo prepisuje rovnaké predchádzajúce.  Ako prvé preto musíme zadefinovať štýlovanie pre najmenšie zobrazenie, nasledovať musí štýlovanie pre rozmer okna prehliadača `1000px` a ako posledné pre rozmer `600px`.

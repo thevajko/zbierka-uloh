@@ -15,7 +15,7 @@
 
 **Obťažnosť**: 2/5
 
-**Obsah príkladu**: Rôzne typy CSS selektorov pre výber elementov, formátovanie tabuliek a textu, tvorba rámčekov,farby pozadia a popredia, využitie obrázkov pozadia, rôzne pseudotriedy a pseudoelementy.  
+**Obsah príkladu**: Rôzne typy CSS selektorov pre výber elementov, formátovanie tabuliek a textu, tvorba rámčekov, farby pozadia a popredia, využitie obrázkov pozadia, rôzne pseudotriedy a pseudoelementy.  
 </div>
 
 ## Zadanie
@@ -30,7 +30,7 @@ Riešenie musí spĺňať nasledovné podmienky:
 2. Záhlavie tabuľky bude mať zelenú farbu pozadia, text bude tučným písmom a bude centrovaný, prvé písmeno bude mať žltú farbu.
 3. Každý nepárny riadok tabuľky bude mať svetlosivé pozadie.
 4. Stĺpec s priezviskami bude napísaný veľkými písmenami.
-5. Pri umiestnení kurzor myši nad riadkom tabuľky sa stane:
+5. Pri umiestnení kurzora myši nad riadkom tabuľky sa stane:
     1. Celý riadok bude mať sivé pozadie.
     2. Text v stĺpci `Meno` bude mať červenú farbu, ale iba pokiaľ nebude kurzor myši v bunke s menom. Ak bude kurzor myši v bunke s menom, text bude mať štandardnú čiernu farbu.
     3. Bunky v stĺpcoch `Číslo 1` až `Číslo 3` budú mať nasledovné správanie:
@@ -42,10 +42,10 @@ Riešenie musí spĺňať nasledovné podmienky:
 
 6. V HTML je definovaný aj stĺpec `Výsledok`, ten vo výslednej tabuľke nezobrazujte.
 7. Odkazy v stĺpci `Link` sa budú správať nasledovne:
-    1. Ak bude odkaz zabezpečený (protokol HTTPS) zobrazte ho zelenou farbou.
-    2. Ak bude odkaz nezabezpečený (protokol HTTP) zobrazte ho červenou farbou.
+    1. Ak bude odkaz zabezpečený (protokol HTTPS), zobrazte ho zelenou farbou.
+    2. Ak bude odkaz nezabezpečený (protokol HTTP), zobrazte ho červenou farbou.
     3. Ak to bude relatívny odkaz, zobrazte ho modrou farbou.
-    4. Ak to bude odkaz na súbor typu PDF (odkaz končí `.pdf`) dopíšte za text odkazu, že ide o PDF - `(PDF)`.
+    4. Ak to bude odkaz na súbor typu PDF (odkaz končí `.pdf`), dopíšte za text odkazu, že ide o PDF - `(PDF)`.
 8. Zabezpečte, aby pri dlhej tabuľke zostávala hlavička vždy viditeľná.
 
 ![Hlavička tabuľky pri pohnutí posuvníkom](images_selectors/zadanie-hlavicka.png)
