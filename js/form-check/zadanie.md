@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/js/form-check), [Riešenie](/../../tree/solution/js/form-check).
+> - Repo: [Štartér](/../../tree/main/js/form-check), [Riešenie](/../../tree/solution/js/form-check)
 > - [Zobraziť zadanie](riesenie.md)
 </div>
 
@@ -15,7 +15,7 @@
 
 **Obťažnosť**: 3/5
 
-**Obsah príkladu**: Validácia formulárov pomocou HTML a JavaScriptu, regulárne výrazy,  
+**Obsah príkladu**: Validácia formulárov pomocou HTML a JavaScriptu, regulárne výrazy.
 </div>
 
 ## Zadanie
