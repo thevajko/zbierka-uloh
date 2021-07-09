@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/js/analog-clock), [Riešenie](/../../tree/solution/js/analog-clock).
+> - Repo: [Štartér](/../../tree/main/js/analog-clock), [Riešenie](/../../tree/solution/js/analog-clock)
 > - [Zobraziť riešenie](riesenie.md)
 
 </div>
@@ -16,7 +16,7 @@
 
 **Obťažnosť**: 2/5
 
-**Obsah príkladu**: Vykresľovanie 2D grafiky v HTML dokumente, použitie časovača .
+**Obsah príkladu**: Vykresľovanie 2D grafiky v HTML dokumente, použitie časovača.
 </div>
 
 ## Zadanie
