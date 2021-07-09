@@ -19,21 +19,19 @@ Pri riešení tohto príkladu budeme postupovať po jednotlivých krokoch:
 
 ### Správne zobrazenie obrázkov
 
-Vo všeobecnosti môžeme predpokladať, že obrázky v galérii môžu mať rôzne rozmery. Niektoré môžu byť fotené na výšku, iné na šírku, byť širokouhlé až panoramatické. Ak teda chceme zobraziť obrázky rôznych rozmerov v nejakom unifikovanom rozmere, vieme to docieliť dvomi spôsobmi: buď na strane servera vygenerujeme náhľady s rovnakým rozmerom, alebo si ich prispôsobíme pomocou CSS. V tomto príklade si ukážeme riešenie len pomocou CSS.
+Vo všeobecnosti môžeme predpokladať, že obrázky v galérii môžu mať rôzne rozmery. Niektoré môžu byť fotené na výšku, iné na šírku, byť širokouhlé až panoramatické. Ak teda chceme zobraziť obrázky rôznych rozmerov v nejakom unifikovanom rozmere, vieme to docieliť dvomi spôsobmi: buď na strane servera vygenerujeme náhľady s rovnakým rozmerom, alebo si ich prispôsobíme pomocou CSS. V tomto príklade si ukážeme riešenie pomocou CSS.
 
-<div class="hidden"> 
+V CSS je problematické zadefinovať veľkosť nejakého elementu vzhľadom na veľkosť jeho predka v percentuálnych hodnotách ak chceme zachovať pomer strán veľkosti.
 
-https://developer.mozilla.org/en-US/docs/Web/CSS/padding-top
-https://css-tricks.com/oh-hey-padding-percentage-is-based-on-the-parent-elements-width/
-</div>
+Problém tu nevytvára nastavenie CSS vlastnosti potomka na `width: 100%` (tu chceme, aby potomok vypĺňal jeho celú šírku), ale nastavenie jeho výšky. Výška zadaná v percentuálnej hodnote sa vyrátava z výšky predka, a to nechceme (pomer strán bude nesprávny). Čo sa dá v tejto situácií použiť, je malý trik s použitím CSS vlastnosti [`padding-top`](https://developer.mozilla.org/en-US/docs/Web/CSS/padding-top). Tá totiž, pri použití percentuálnej hodnoty, nastavuje vertikálne odsadenie ale ako základ používa __šírku rodičovského elementu NIE svoju výšku__.
 
-V CSS je celkom problematické zadefinovať veľkosť nejakého elementu vzhľadom na veľkosť jeho predka a to tak, že keď sa zmení veľkosť predka, zmení sa aj veľkosť potomka, pričom zostáva zachovaný pomer strán jeho veľkosti.
+V našom prípade chceme dosiahnuť pomer `4:3`. Ak je šírka `100%`, výška bude musieť mať hodnotu `75%` aby bol dodržaný stanovený pomer. Tieto vlastnosti pridáme do CSS pravidla pre obaľovací element fotky s atribútom `class="photo"`. Toto však samo o sebe nebude stačiť. Aktuálnymi CSS vlastnosťami sme len zadefinovali veľkosť tohto prvku pomocou vnútorného odsadenia. 
 
-Problém tu nevytvára nastavenie CSS vlastnosti potomka na `width: 100%` (tu chceme, aby potomok vypĺňal jeho celú šírku), ale nastavenie jeho šírky. Šírka zadaná v percentuálnej hodnote sa vyrátava zo šírky predka, a to nechceme (pomer strán bude nesprávny). Čo sa dá v tejto situácií použiť, je malý trik s použitím CSS vlastnosti [`padding-top`](https://developer.mozilla.org/en-US/docs/Web/CSS/padding-top). Tá totiž, pri použití percentuálnej hodnoty, nastavuje vertikálne odsadenie ale ako základ používa __šírku rodičovského elementu NIE svoju výšku__.
+Potomkovia obaľovacieho elementu budú posunutí dolu vnútorným odsadením. Tieto elementy majú zobrazovať samotný obrázok, popisok a názov obrázka. Aby sa zobrazili správne, musíme im upraviť hodnotu CSS vlastnosti `position` na `absolute`. 
 
-Ak chceme dosiahnuť pomer `4:3` a šírka je `100%`, výška bude musieť mať hodnotu `75%`. Tieto vlastnosti pridáme do CSS pravidla pre obaľovací element s atribútom `class="photo"`. Toto však samo o sebe nebude stačiť. Aktuálnymi CSS vlastnosťami sme len zadefinovali veľkosť tohto prvku pomocou vnútorného odsadenia. 
+To docielime pre všetkých potomkov pomocou selektoru `.photo > *`. Túto vlastnosť upravíme aj predkovi na hodnotu `relative`, aby v rámci jeho vnútra bolo možné umiestňovať potomkov.
 
-Potomkovia obaľovacieho elementu budú posunutí dolu vnútorným odsadením. Tieto elementy majú zobrazovať samotný obrázok, popisok a názov obrázka. Aby sa zobrazili správne, musíme im upraviť hodnotu CSS vlastnosti `position` na `absolute`. To docielime pre všetkých potomkov pomocou selektoru `.photo > *`. Túto vlastnosť upravíme aj predkovi na hodnotu `relative`, aby v rámci jeho vnútra bolo možné umiestňovať potomkov.
+Pri hodnote `position: absolute` elementy "nezaberajú" svoje miesto a "vyplávajú" nad ostatné. Rozmer obaľovacieho elementu tak bude definovaný čisto iba vlastnosťami `width` a `padding-top`.
 
 ```css
 .photo {
@@ -129,7 +127,7 @@ Výsledkom bude správne zobrazenie troch obrázkov na jednom riadku:
 
 #### Riešenie pomocou *flexbox* rozloženia
 
-Posledným spôsobom (a odporúčaným) je riešenie pomocou  **flexbox** rozloženia. Najskôr potrebujeme elementu `gallery` nastaviť, že má byť tzv. *flex kontajner* a obrázkom predpísať šírku.
+Posledným spôsobom (a odporúčaným) je riešenie pomocou **flexbox** rozloženia. Najskôr potrebujeme elementu `gallery` nastaviť, že má byť tzv. *flex kontajner* a obrázkom predpísať šírku.
 
 ```css
 .gallery {
@@ -200,9 +198,11 @@ Najjednoduchším spôsobom je pridanie vonkajšieho odsadenia pomocou CSS vlast
 
 Pokiaľ trváme na zachovaní pomeru strán musíme využiť tzv. [**media queries**](https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries) anotácia `@media()` Tie nám umožňujú aplikovať štýl na základe určitej vlastnosti. V našom prípade potrebujeme kontrolovať celkovú šírku okna prehliadača. Použijeme preto media query `max-width`. 
 
-V zadaní požadujeme tri spôsoby prispôsobenia zobrazenia obrázkov. Jeden z nich bude východzí a ostatné sa budu meniť na základe aktuálnej šírky okna prehliadača. Za východzie môžeme považovať zobrazenie pre malé okno, kde sa obrázky zobrazia pod sebou. Pre ďalšie typy uporiadania potrebujeme preto definovať v `@media()` dva body zlomu, v ktorých sa bude meniť počet obrázkov na riadku. 
+V zadaní požadujeme tri spôsoby prispôsobenia zobrazenia obrázkov. Jeden z nich bude východzí a ostatné sa budu meniť na základe aktuálnej šírky okna prehliadača. Za východzie môžeme považovať zobrazenie pre malé okno, kde sa obrázky zobrazia pod sebou. Pre ďalšie typy usporiadania potrebujeme preto definovať v `@media()` dva body zlomu, v ktorých sa bude meniť počet obrázkov na riadku. 
 
-Prvý z nich bude platiť pre šírku okna prehliadača do `600px` a druhý do `1000px`. Veľmi závisí na poradí, v akom jednotlivé pravidlá v `@media()` zapíšeme, nakoľko posledne zadefinované pravidlo prepisuje rovnaké predchádzajúce. Ako prvé preto musíme zadefinovať štýlovanie pre najmenšie zobrazenie, nasledovať musí štýlovanie pre rozmer okna prehliadača `1000px` a ako posledné pre rozmer `600px`.
+Prvý z nich bude platiť pre šírku okna prehliadača do `600px` a druhý do `1000px`. Veľmi závisí na poradí, v akom jednotlivé pravidlá v `@media()` zapíšeme, nakoľko posledne zadefinované pravidlo prepisuje rovnaké CSS predchádzajúceho. Ako prvé preto musíme zadefinovať štýlovanie pre najmenšie zobrazenie, nasledovať musí štýlovanie pre rozmer okna prehliadača `1000px` a ako posledné pre rozmer `600px`.
+
+Ako podmienku platnosti daného bloku CSS štýlov definujeme pomocou pravidla `max-width`, ktorá je pravdivá pokiaľ veľkosti okna nepresiahne uvedenú hodnotu. 
 
 Nasledujúce riadky dopíšeme za definíciu pravidla `.photo`:
 
@@ -221,7 +221,7 @@ Nasledujúce riadky dopíšeme za definíciu pravidla `.photo`:
 }
 ```
 
-Prvé pravidlo prepíše prednastavenú šírku obrázku z cca `33%` na `50%` v prípade, že obrazovka má maximálnu širku `1000px`. Druhé zas prepíše šírku obrázku na `100%` v prípade, že šírka zariadenia bude menšia, nanajvýš rovná `600px`.
+Prvé `@media` pravidlo prepíše prednastavenú šírku obrázku z cca `33%` na `50%` v prípade, že obrazovka má maximálnu šírku `1000px`. Druhé zas prepíše šírku obrázku na `100%` v prípade, že šírka zariadenia bude menšia, nanajvýš rovná `600px`.
 
 #### Automatická zmena veľkosti pomocou *flexbox* rozloženia.
 
@@ -352,7 +352,7 @@ Ak nastavíme pozadie stránky na tmavú farbu, môžeme presne vidieť, čo sa 
 
 ![Dôvod zobrazenia posuvníka](images_gallery/riesenie15.jpg)
 
-Text sa zobrazuje v skutočnosti mimo elementu obrázku. Tento problém môžeme vyriešiť tak, že hlavnému elementu obrázku nastavíme hodnotu CSS parametra `overflow` na `hidden`. To spôsobí, že ak element obsahuje zobsah presahujúci jeho zobrazene a mali by sa zobraziť posuvníky, tak sa nezobrazia.
+Text sa zobrazuje v skutočnosti mimo elementu obrázku. Tento problém môžeme vyriešiť tak, že hlavnému elementu obrázku nastavíme hodnotu CSS parametra `overflow` na `hidden`. To spôsobí, že ak element obsahuje obsah presahujúci jeho veľkosť, tak sa posuvníky nezobrazia.
 
 ```css
 .photo {
