@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/js/memory-game), [Riešenie](/../../tree/solution/js/memory-game).
+> - Repo: [Štartér](/../../tree/main/js/memory-game), [Riešenie](/../../tree/solution/js/memory-game)
 > - [Zobraziť riešenie](riesenie.md)
 
 # Pesexo (JS, CSS)
@@ -17,13 +17,13 @@ Celé riešenie sa bude skladať z troch súborov: `index.html`, `style.css`, `s
 
 Táto časť aplikácie je veľmi jednoduchá, tvorí ju súbor `index.html`, v ktorom importujeme ostatné časti aplikácie (CSS a JS) a vykresľujeme len začiatočné nastavenie celej hry. Žiadny grafický dizajn ani logika aplikácie sa tu nenachádza, aby sme dodržali pravidlo, že každý typ súboru obsahuje len to, čo je jeho úlohou.
 
-`font-awesome` knižnicu pripojíme pomocou dole uvedeného riadku. Využijeme súbor dostupný na internete bez nutnosti sťahovania z webu. Ten spôsob pripojovania využíva *Content delivery network* (CDN). Kód pre pripojenie `font-awesome` ikon vyzerá nasledovne:
+Knižnicu `font-awesome` pripojíme pomocou dole uvedeného riadku. Využijeme súbor dostupný na internete bez nutnosti sťahovania z webu. Ten spôsob pripojovania využíva *Content delivery network* (CDN). Kód pre pripojenie `font-awesome` ikon vyzerá nasledovne:
 
 ```html
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 ```
 
-Hracia plocha sa skladá z dvoch popiskov a počítadla skóre pre každého hráča, tabuľky a tlačidla na rozdanie kariet. Tabuľka bude slúžiť ako herné pole pexesa a budú v nej poukladané všetky karty. Keďže herné pole pexesa je matica, tabuľka nám dizajnovo poslúži ako základ. Samostné karty nebudeme pre pracnosť vytvárať v HTML, ale vytvoríme ich v skripte. Úvodné prostredie hry bude vyzerať takto:
+Hracia plocha sa skladá z dvoch popiskov a počítadla skóre pre každého hráča, tabuľky a tlačidla na rozdanie kariet. Tabuľka bude slúžiť ako herné pole pexesa a budú v nej poukladané všetky karty. Keďže herné pole pexesa je matica, tabuľka nám dizajnovo poslúži ako základ. Samotné karty nebudeme pre pracnosť vytvárať v HTML, ale vytvoríme ich v skripte. Úvodné prostredie hry bude vyzerať takto:
 
 ```html
 <div id="score">
@@ -44,11 +44,11 @@ Vzhľad hry pred začiatkom je na nasledovnom obrázku:
 
 ![Úvodné nastavenie hracieho poľa hry](images_memory-game/start.png)
 
-Dôležité je pridanie atribútov `id` k tým atribútom, ktoré budeme neskôr v skripte nastavovať, napr. hodnoty skóre jednotlivých hráčov. Podobne označíme aj tlačidlo, aby sme mu mohli neskôr priradiť činnosť, ktorá bude nasledovať po stlačení tlačidla.
+Dôležité je pridanie CSS atribútov `id` k tým atribútom, ktoré budeme neskôr v skripte nastavovať, napr. hodnoty skóre jednotlivých hráčov. Podobne označíme aj tlačidlo, aby sme mu mohli neskôr priradiť činnosť, ktorá bude nasledovať po stlačení tlačidla.
 
 ### CSS štýl
 
-Úlohou tejto časti aplikácie, nachádzajúcej sa v súbore `style.css` je grafické nastavenie jednotlivých prvkov hry. Tu sa ukazuje výhoda, že sme si označili tabuľku atribútom `id`, pretože môžeme použiť potomkový selektor, aby sme štýl aplikovali len na elementy, ktoré budú vo vnútri tabuľky. Ako je vidieť z nastavenia štýlu, každá karta pexesa bude mať 90 x 120 pixelov farba pozadia bude určovať farbu chrbta karty. Druhé nastavenie štýlu bude mať za úlohu skryť obrázok (ikonu), ktorá sa na karte nachádza, aby ju nebolo vidieť:
+Úlohou tejto časti aplikácie, nachádzajúcej sa v súbore `style.css` je grafické nastavenie jednotlivých prvkov hry. Tu sa ukazuje výhoda, že sme si označili tabuľku atribútom `id`, pretože môžeme použiť potomkový selektor, aby sme štýl aplikovali len na elementy, ktoré budú vo vnútri tabuľky. Ako je vidieť z nastavenia štýlu, každá karta pexesa bude mať 90 x 120 pixelov a farba pozadia bude určovať farbu chrbta karty. Druhé nastavenie štýlu bude mať za úlohu skryť obrázok (ikonu), ktorá sa na karte nachádza, aby ju nebolo vidieť:
 
 ```css
 #board td {
@@ -57,7 +57,6 @@ Dôležité je pridanie atribútov `id` k tým atribútom, ktoré budeme neskôr
     text-align: center;
     background-color: BlueViolet;
 }
-
 #board td i {
     opacity: 0;
     color: Indigo;
