@@ -11,14 +11,17 @@
 
 ## Riešenie
 
-V prvom kroku si musíme upraviť štruktúru zdrojového súboru tak, aby sme dosiahli stanovený cieľ len pomocou CSS. Budeme používať [CSS pseudotriedu](https://www.w3schools.com/css/css_pseudo_classes.asp) `:hover`. Tá je priradená k elementu automaticky, pokiaľ sa nad daným prvkom nachádza kurzor myši. Touto pseudotriedou docielime to, že pokiaľ bude kurzor myši nad príslušným elementom v texte, zobrazí sa popisok, inak bude popisok skrytý. Pseudotrieda `:hover` sa bude teda dopĺňať do neho, nie do elementu s textom popisku.
+V prvom kroku si musíme upraviť štruktúru zdrojového súboru tak, aby sme dosiahli stanovený cieľ len pomocou CSS. Budeme používať [CSS pseudotriedu](https://www.w3schools.com/css/css_pseudo_classes.asp) `:hover`. Tá je priradená k elementu webovým prehliadačom automaticky, pokiaľ sa nad daným prvkom nachádza kurzor myši. 
 
-CSS selektor definuje skupinu elementov, na ktoré sa aplikujú dané vlastnosti. Jeden zo spôsobov ako to zadefinovať, je uviesť štruktúru elementov, resp. "cestu štruktúrou" k elementu, na ktorý chceme vlastnosti aplikovať. To znamená, že budeme meniť CSS vlastnosti elementu s textom popisku vzhľadom na to, či hlavný element má priradenú triedu `:hover`.
+Aby sme mohli `:hover` použiť, musíme upraviť štruktúru zdrojového HTML. Umiestnime preto element s popiskom ako potomka elementu ku ktorému sa vzťahuje. Podľa [štandardu HTML](https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-span-element), ale nemôžeme vložiť do elementu `span` ďalší `span` alebo `div` element, takže zmeníme element `span` obsahujúci popisok na element `div`.
 
-Preto budeme musieť upraviť štruktúru zdrojového HTML. Podľa [štandardu HTML](https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-span-element), ale nemôžeme vložiť do elementu `span` ďalší `span` alebo `div` element, takže zmeníme element `span` obsahujúci popisok na element `div` nasledovne:
+Dôvodom pre zmenu štruktúry je spôsob akým budeme používať CSS pre zobrazenie popiskov. Predvolene sú popisky skryté a zobraziť sa majú iba ak nad textom, ktorý ma popisok, je kurzor myši. 
+
+Nakoľko CSS selektor definuje skupinu elementov, najprv vytvorime selektor ktorý vyberie _všetky elementy popiskov v elementoch, ktoré majú popisok_ a tie skryjeme. Ďalšie pravidlo zadefinujeme pre _všetky elementy popiskov v elementoch, ktoré majú popisok a __je nad nimi kurzor___ a tie zobrazíme.
+
+Preto budeme musieť upraviť následovne:
 
 ```HTML
-
 <div class="text">
     Lorem ipsum dolor sit amet,
     <div class="has-tooltip">
@@ -45,13 +48,12 @@ div.has-tooltip {
     display: inline;
     font-weight: bold;
 }
-
 div.has-tooltip .tooltip {
     display: none;
 }
 ```
 
-Teraz potrebujeme vytvoriť CSS selektor a vlastnosti, ktoré budú popisok zobrazovať a skrývať. Chceme docieliť, aby sa text popisku zobrazil iba, ak bude kurzor nad elementom, ktorý označuje, že úsek textu bude mať popisok. Použijeme pseudotriedu `:hover` pomocou selektoru `div.has-tooltip:hover .tooltip`.
+Teraz potrebujeme vytvoriť CSS štýl, ktorý bude popisok zobrazovať a skrývať. Chceme docieliť, aby sa text popisku zobrazil iba, ak bude kurzor nad elementom, ktorý označuje, že úsek textu bude mať popisok. Použijeme pseudotriedu `:hover` pomocou selektoru `div.has-tooltip:hover .tooltip`.
 
 Predvolený text popisku skryjeme tak, že mu nastavíme hodnotu CSS vlastnosti `display` na hodnotu `none`. V našom prípade pre opätovné zobrazenie vložíme hodnotu `block`. CSS bude vyzerať nasledovne:
 
@@ -75,9 +77,9 @@ div.has-tooltip .tooltip {
 }
 ```
 
-Pre zobrazenie popisku budeme používať CSS vlastnosť `position`. Ako prvé musíme nastaviť v prvom elemente tento atribút na hodnotu `position: relative;`. To preto, aby sme ho mohli použiť ako plochu pre určenie pozície samotného popisku.
+Pre zobrazenie popisku budeme používať CSS vlastnosť `position`. Ako prvé musíme nastaviť v rodičovskom elemente tento atribút na hodnotu `position: relative;`. To preto, aby sme ho mohli použiť ako plochu pre určenie pozície samotného popisku.
 
-Pre umiestnenie popisku mu nastavíme `position: absolute;`. To spôsobí, že element s popiskom začne "plávať" nad ostatnými elementmi. Teraz potrebujeme element s popiskom správne umiestniť. To docielime nastavením CSS atribútov `left` a `top`:
+Pre umiestnenie popisku mu nastavíme `position: absolute;`. To spôsobí, že element s popiskom začne "plávať" nad ostatnými elementmi. Teraz potrebujeme element s popiskom správne umiestniť. To docielime nastavením CSS vlastností `left` a `top`:
 
 >- `left` definuje vzdialenosť elementu od ľavej strany rodičovského elementu. 
 >- `top` definuje vzdialenosť elementu od vrchu rodičovského elementu.
@@ -90,7 +92,6 @@ Kvôli korektnému zobrazeniu popisku pridáme ešte CSS vlastnosť `z-index: 1;
 div.has-tooltip {
     position: relative;
 }
-
 div.has-tooltip .tooltip {
     top: 120%;
     left: 0;
@@ -106,5 +107,3 @@ div.has-tooltip .tooltip::before {
     font-weight: bold;
 }
 ```
-
-
