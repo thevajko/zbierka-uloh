@@ -40,7 +40,7 @@ V JavaScripte existujú dva spôsoby, akým je možné dynamicky vytvárať nov�
 
 Rozdiel je v efektívnosti. Prvý spôsob je menej efektívny nakoľko prehliadač musí reťazec najskôr rozparsovať a následne vytvoriť jednotlivé elementy. Taktiež nedostaneme priamo referencie na jednotlivé vytvorené elementy a sme nútení ich dopytovať.
 
-V druhom prípade toto parsovanie a získavanie referencií odpadá, ale na druhú stranu vzniká dlhší kód, nakoľko musíme každú inštanciu elementu inicializovať (manuálne nastaviť im požadované hodnoty parametrov).
+V druhom prípade toto parsovanie a získavanie referencií odpadá, ale na druhú stranu vzniká dlhší kód, nakoľko musíme každú inštanciu elementu inicializovať (manuálne im nastaviť požadované hodnoty parametrov).
 
 Pri riešení našej úlohy však budeme používať oba prístupy. Na tvorbu tela tabuľky použijeme vytváranie riadkov pomocou reťazca a na tvorbu hlavičky použijeme priame vytváranie elementov, nakoľko hlavička bude obsahovať kód pre zoraďovanie stĺpcov.
 
@@ -128,7 +128,7 @@ Výsledok by sa mal zobraziť takto:
 
 ### Jednoduché zobrazenie
 
-V hlavičke tabuľky je potrebné zobraziť názvy atribútov objektov v kolekcii. JavaScript umožňuje získať zoznam názvov atribútov ľubovoľnej inštancie volaním metódy `Object.keys()`<span class="hidden">([ demonštrácia tu](https://developer. mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys)</span>. Nakoľko predpokladáme, že kolekcia dát obsahuje rovnaké objekty, pre získanie atribútov stačí vybrať prvý objekt:
+V hlavičke tabuľky je potrebné zobraziť názvy atribútov objektov v kolekcii. JavaScript umožňuje získať zoznam názvov atribútov ľubovoľnej inštancie volaním metódy `Object.keys()`<span class="hidden">([demonštrácia tu](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys ))</span>. Nakoľko predpokladáme, že kolekcia dát obsahuje rovnaké objekty, pre získanie atribútov stačí vybrať prvý objekt:
 
 ```javascript
 let firstItem = this.dataCollection[0];
@@ -159,7 +159,7 @@ Pri generovaní obsahu v metóde `JsTable.renderRows()` iba rozšírime kód, kt
 
 Pre každú položku v kolekcii budeme vytvárať samostatný riadok.
 
-Ako posledné potrebujeme získať hodnoty z každého objektu v kolekcii v takom poradí, v akom sú popísané v hlavičke. V JavaScripte môžeme pristúpiť k hodnote tribútov objektu cez index. V nasledovnom kóde sú uvedené dve možnosti prístupu k hodnote atribútu:
+Ako posledné potrebujeme získať hodnoty z každého objektu v kolekcii v takom poradí, v akom sú popísané v hlavičke. V JavaScripte môžeme pristúpiť k hodnote atribútov objektu cez index. V nasledovnom kóde sú uvedené dve možnosti prístupu k hodnote atribútu:
 
 ```javascript
 class Trieda {
@@ -172,14 +172,14 @@ obj.atrb; // hodnota
 obj["atrb"]; // hodnota
 ```
 
-Postupnosť krokov môžeme zapísať nasledovne:
+Postupnosť generovania tela tabuľky môžeme zapísať nasledovne:
 
 1. Inicializujeme si premennú `bodyText`, do ktorej budeme priebežne pridávať kód jednotlivých riadkov.
 2. Do premennej `keys` priradíme pole s názvami atribútov objektov v kolekcii.
 3. Následne budeme prechádzať kolekciu dát:
     1. Inicializujeme premennú `rowText`
     2. Budeme prechádzať pole `keys`, pre každú položku:
-        1. Do premennej  `rowText` pridáme reťazec s HTML kódom pre element `<td>` s hodnotou daného atribútu.
+        1. Do premennej  `rowText` pridáme reťazec s HTML kódom pre element `td` s hodnotou daného atribútu.
     3. Do premennej `bodyText` pridáme hodnotu z `rowText`, ktorú obalíme elementom `tr`.
 4. Vrátime obsah premennej `bodyText`,
 
@@ -241,7 +241,7 @@ renderTable()
 }
 ```
 
-Ďalej potrebujeme pridať akciu, ktorá po kliknutí na `th` zoradí a nanovo vykreslí tabuľku. Vytvorenému elementu `th` pridáme preto obsluhu udalosti `onclick`, ktorá zavolá novú metódu `JsTable.sortCollection()`. Tá bude mať jeden vstupný parameter, a to meno stĺpca, na základe ktorého sa má zoraďovať. Doplníme CSS pre zmenu kurzora, aby indikoval možnosť zoraďovania pomocou `cursor: pointer`. Výsledný kód metódy `JsTable.renderHeader()` bude nasledovný:
+Ďalej potrebujeme pridať akciu, ktorá po kliknutí na element `th` zoradí a nanovo vykreslí tabuľku. Vytvorenému elementu `th` pridáme preto obsluhu udalosti `onclick`, ktorá zavolá novú metódu `JsTable.sortCollection()`. Tá bude mať jeden vstupný parameter, a to meno stĺpca, na základe ktorého sa má zoraďovať. Doplníme CSS pre zmenu kurzora myši, aby indikoval možnosť zoraďovania pomocou `cursor: pointer`. Výsledný kód metódy `JsTable.renderHeader()` bude nasledovný:
 
 ```javascript
 renderHeader()
@@ -265,7 +265,7 @@ Zoraďovanie bude realizované zavolaním metódy `JsTable.sortCollection()`, kd
 
 V JavaScripte vieme zoradiť pole pomocou metódy [`Array.prototype.sort()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort), kde ako voliteľný parameter vložíme funkciu pre porovnanie, ktorá vracia číselný výsledok porovnania.
 
-Pre uľahčenie porovnávania reťazcov obsahuje JavaScript [`String.prototype.localeCompare()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare), ktorá vracia presne výstup vhodný pre naše účely.
+Pre uľahčenie porovnávania reťazcov obsahuje metódu JavaScript [`String.prototype.localeCompare()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare), ktorá vracia presne výstup vhodný pre naše účely.
 
 Pre získanie požadovanej hodnoty atribútu opäť použijeme prístup k atribútu objektu cez index. A ako posledné zavoláme `JsTable.renderTable()`, aby došlo k prekresleniu tabuľky a zobrazila sa zoradená.
 
@@ -283,7 +283,7 @@ sortCollection(filterBy)
 
 Tabuľka sa nám momentálne zoradí iba jedným smerom. Doplníme preto do triedy `JsTable` atribút `lastSortedBy`, ktorý bude uchovávať informáciu o tom, podľa ktorého stĺpca bola tabuľka naposledy zoradená. Zoraďovanie by sa dalo popísať nasledovne:
 
-1. Skontrolume, či `lastSortedBy` sa rovná `null`, alebo či sa nerovná vstupnému parametru `filterBy`:
+1. Skontrolujme, či `lastSortedBy` sa rovná `null`, alebo či sa nerovná vstupnému parametru `filterBy`:
     1. Ak *áno*, tak zoradíme stĺpce prvým spôsobom a do `lastSortedBy` vložíme hodnotu `filterBy`
     2. Ak *nie*, tak zoradíme stĺpce druhým spôsobom a do `lastSortedBy` vložíme hodnotu `NULL`
 
@@ -327,11 +327,11 @@ Tabuľka sa bude teraz dať zoradiť oboma smermi.
 
 ### Filtrovanie tabuľky
 
-Prvá úprava bude v zmene toho, akým spôsobom sa bude tabuľka prekresľovať. Dôvodom je pridanie elementu `input`, pomocou ktorého bude môcť používateľ zadávať výraz pre filtrovanie hodnôt v tabuľke. Vyhľadávanie sa bude spúšťať automaticky hneď, ked sa zmení hodnota v `input`. Momentálne sa vymaže a nanovo vytvorí celá tabuľka, čo by spôsobilo aj znovu vytvorenie `input` elementu a používateľ by tak nemohol zadať celý hľadaný výraz.
+Prvá úprava bude v zmene toho, akým spôsobom sa bude tabuľka prekresľovať. Dôvodom je pridanie elementu `input`, pomocou ktorého bude môcť používateľ zadávať výraz pre filtrovanie hodnôt v tabuľke. Vyhľadávanie sa bude spúšťať automaticky hneď, ked sa zmení hodnota v elemente `input`. Momentálne sa pri prekreslení vymaže a nanovo vytvorí celá tabuľka, čo by spôsobilo aj znovu vytvorenie `input` elementu a používateľ by tak nemohol zadať celý hľadaný výraz.
 
-Konštruktor `JsTable` preto upravíme kód tak, aby sa do `JsTable.HTMLElement` pridal nový element a až do neho budeme vykresľovať tabuľku ako predtým.
+Konštruktor `JsTable` preto upravíme tak, aby sa do `JsTable.HTMLElement` pridal nový element a až do neho budeme vykresľovať tabuľku ako predtým.
 
-Aby sme mohli reagovať na zmenu hodnoty v `<input>` pridáme obsluhu udalosti [`oninput`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/input_event), ktorá je vyvolaná vždy, keď používateľ jeho hodnotu vstupného poľa.
+Aby sme mohli reagovať na zmenu hodnoty v elemente `input` pridáme obsluhu udalosti [`oninput`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/input_event), ktorá je vyvolaná vždy, keď používateľ jeho hodnotu vstupného poľa.
 
 Pokiaľ táto udalosť nastane, tak dodatočné dáta budú dostupné v parametri `event`. Tieto dáta obsahujú aj referenciu na daný element `input`, ktorý potrebujeme, aby sme vedeli získať používateľom vyplnenú hodnotu. Tá je dostupná cez `event.target.value`.
 
@@ -411,7 +411,7 @@ Teraz môžeme vytvoriť kód pre samotné filtrovanie, doplníme novú metódu 
 
 V JavaScripte môžeme pre filtrovanie poľa použiť [`Array.prototype.filter()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter). Táto metóda pre každý prvok v poli vykoná filtračnú funkciu, ktorá vracia hodnotu typu `bool`. Ak je výsledok `true`, daný prvok zaradí do nového výstupného poľa.
 
-Pri samotnej kontole musíme prejsť hodnotu všetkých atribútov objektov v zdrojovej kolekcii `dataCollection`. Podreťazec v reťazci vieme hľadať pomocou [`String.prototype.includes()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes). Tu nepoužijeme [`Array.prototype.forEach()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach), nakoľko chceme vrátiť hodnotu `true` pri prvej zhode a `forEach()` používa pre iteráciu funkciu. Vymeníme ho preto za obyčajný `for` cyklus. Taktiež nesmieme zabudnúť na konverziu na reťazec. Metódu na filtráciu bude vyzerať nasledovne:
+Pri samotnej kontrole musíme prejsť hodnotu všetkých atribútov objektov v zdrojovej kolekcii `dataCollection`. Podreťazec v reťazci vieme hľadať pomocou [`String.prototype.includes()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes). Tu nepoužijeme [`Array.prototype.forEach()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach), nakoľko chceme vrátiť hodnotu `true` pri prvej zhode a `forEach()` používa pre iteráciu funkciu. Vymeníme ho preto za obyčajný `for` cyklus. Taktiež nesmieme zabudnúť na konverziu na reťazec. Metódu na filtráciu bude vyzerať nasledovne:
 
 ```javascript
 filterCollection(expression)
