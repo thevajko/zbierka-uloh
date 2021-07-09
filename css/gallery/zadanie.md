@@ -69,8 +69,3 @@ Zariadenie s veľkým displejom:
 Informácie o obrázku:
 
 ![Zobrazenie informácie o obrázku](images_gallery/zadanie-hover.jpg)
-
-<div class="hidden">
-
-[Zobraziť riešenie](riesenie.md)
-</div>
