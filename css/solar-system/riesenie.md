@@ -46,7 +46,7 @@ Začneme s deklaráciou štýlu pre slnko. Pokiaľ chceme slnko umiestniť do st
 
 Pomocou tohto štýlu sme nastavili veľkosť, pozíciu, pozadie a posunuli sme element cez CSS transformáciu do stredu obrazovky. Môžeme si všimnúť, že CSS vlastnosť `background-size` sme nastavili na `cover`, vďaka čomu sa nám obrázok prispôsobí veľkosti elementu. 
 
-Pre vycentrovanie prvku na stred obrazovky sme využívali kombináciu `left` a `right` nastavených na `50%` a spätného posunu do stredu pomocou `translate(-50%, -50%)`. Túto kombináciu sme používali preto, lebo len pomocou `left` a `right` sme boli schopní vycentrovať ľavý horný roh nášho prvku. A kvôli centrovaniu na stred, bolo potrebné použiť `translate(-50%, -50%)`, ktoré posunulo prvok o polovicu jeho šíky/výšky smerom doľava a hore.
+Pre vycentrovanie prvku na stred obrazovky sme využívali kombináciu CSS vlastností `left` a `right` nastavených na `50%` a spätného posunu do stredu pomocou `translate(-50%, -50%)`. Túto kombináciu sme používali preto, lebo len pomocou `left` a `right` sme boli schopní vycentrovať ľavý horný roh nášho prvku. A kvôli centrovaniu na stred, bolo potrebné použiť `translate(-50%, -50%)`, ktoré posunulo prvok o polovicu jeho šíky/výšky smerom doľava a hore.
 
 Ďalej budeme pokračovať so štýlmi pre jednotlivé planéty. Začneme so zemou:
 
@@ -81,19 +81,16 @@ Upravený kód pomocou CSS premenných by mohol vyzerať nasledovne:
     top: calc(50% - (var(--size) / 2));
     transform: translateX(var(--orbitRadius));
 }
-
 .sun {
     --size: 120px;
     --orbitRadius: 0;
     background-image: url("images_solar-system/sun.png");
 }
-
 .earth {
     --size: 80px;
     --orbitRadius: 300px;
     background-image: url("images_solar-system/earth.png");
 }
-
 .saturn {
     --size: 150px;
     --orbitRadius: 450px;
@@ -101,31 +98,33 @@ Upravený kód pomocou CSS premenných by mohol vyzerať nasledovne:
 }
 ```
 
-Pre každý element v slnečnej sústave sme zadeklarovali výšku a šírku pomocou premennej. Zápis `var(--size)` získa hodnotu premennej `--size`. Ďalšou úpravou bol spôsob centrovania elementu. V pôvodnej verzii sme využívali kombináciu `left` a `right` nastavenú na `50%` a spätného posunu do stredu pomocou `translate(-50%, -50%)`. Využitie vlastnosti `transform` nie je ale úplne dobrý napad, pretože túto CSS vlastnosť ešte budeme potrebovať pri animáciach, čo by znamenalo, že túto transformáciu by sme museli používať aj pri animáciach. Využitie `translate(-50%, -50%)` je hlavne dobré vtedy, keď dopredu nepoznáme šírku prvku, ktorý chceme zarovnávať. Ak poznáme šírku zarovnávaného elementu, môžeme si vystačiť len s vlastnosťami `left` a `right` a funkciou `calc`, ktorá nám dynamicky spočíta umiestnenie elementu.
+Pre každý element v slnečnej sústave sme zadeklarovali výšku a šírku pomocou premennej. Zápis `var(--size)` získa hodnotu premennej `--size`. Ďalšou úpravou bol spôsob centrovania elementu. V pôvodnej verzii sme využívali kombináciu `left` a `right` nastavenú na `50%` a spätného posunu do stredu pomocou `translate(-50%, -50%)`. Využitie CSS vlastnosti `transform` nie je ale úplne dobrý nápad, pretože pomocou tejto CSS vlastnosti budeme vytvárať animáciu.
+ 
+Využitie `translate(-50%, -50%)` je dobré vtedy, keď dopredu nepoznáme šírku prvku, ktorý chceme zarovnávať. Ak poznáme šírku zarovnávaného elementu, môžeme si vystačiť len s vlastnosťami `left` a `right` a funkciou `calc`, ktorá nám dynamicky spočíta umiestnenie elementu.
 
 V našom konkrétnom príklade sme použili na prvý pohľad komplikovaný výpočet `calc(50% - (var(--size) / 2))`. Tento výpočet hovorí, že element bude umiestnený naľavo 50% šírky stránky mínus jeho šírka delené dva. Čím dostaneme presné umiestnenie v strede obrazovky a rovnaký kód použijeme aj na umiestnenie elementu od vrchu stránky.
 
 ### Otáčanie planéty
 
-Pre animáciu otáčania už máme pripravené všetko potrebné. Poďme sa pozrieť, akým spôsobom vieme nejakú planétu, napr. saturn otočiť okolo slnka. Začali sme s tým, že všetky planéty a slnko sú umiestnené na stred obrazovky a potom pomocou `translateX` sme ich posunuli smerom napravo na svoju orbitu.
+Pre animáciu otáčania už máme pripravené všetko potrebné. Poďme sa pozrieť, akým spôsobom vieme nejakú planétu, napr. saturn otočiť okolo slnka. Začali sme s tým, že všetky planéty a slnko sú umiestnené na stred obrazovky a potom pomocou CSS funkcie [`translateX()`](https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/translateX()) sme ich posunuli smerom napravo na svoju orbitu.
 
 ![Posun planéty v smere osi X](images_solar-system/step1-translate.png)
 
-Pokiaľ pred posun planéty vložíme otočenie, môžeme tým kontrolovať uhol, pod ktorým sa naša planéta vzdiali od slnka. Napríklad, ak vložíme pred `translateX(450px)` otočenie o 45 stupňov - `rotate(45deg)`, tak dostaneme:
+Pokiaľ pred posun planéty vložíme otočenie, môžeme tým kontrolovať uhol, pod ktorým sa naša planéta vzdiali od slnka. Napríklad, ak vložíme pred `translateX(450px)` otočenie o 45 stupňov - [`rotate(45deg)`](https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/rotate()), tak dostaneme:
 
 ![Otočenie planéty o 45 stupňov](images_solar-system/step2-translate.png)
 
-Planétka je síce otočená okolo slnka o 45 stupňov, ale pribudol ďalší problém. Planétka sa otočila okolo svojej osi. Ak to chceme vrátiť späť, tak za posun (`translateX(450px)`) doplníme rotáciu v opačnom smere, ktorá otočí planétu na aktuálnej pozícii o 45 stupňov späť. Celkový zápis otočenia planétky presne o 45 stupňov bude nasledovný:
+Planétka je síce otočená okolo slnka o 45 stupňov, ale pribudol ďalší problém. Planétka sa otočila okolo svojej osi. Ak to chceme vrátiť späť, tak za posun `translateX(450px)` doplníme rotáciu v opačnom smere, ktorá otočí planétu na aktuálnej pozícii o 45 stupňov späť. Celkový zápis otočenia planétky presne o 45 stupňov bude nasledovný:
 
 ```css
-    transform: rotate(45deg) translateX(450px) rotate(-45deg);
+transform: rotate(45deg) translateX(450px) rotate(-45deg);
 ```
 
 ![Otočenie planéty do pôvodnej pozície](images_solar-system/step3-translate.png)
 
 #### Animácia obehu planétky
 
-Pre animáciu pohybu nám stačí jednoducho meniť uhol planétky postupne od 0 do 360 stupňov. Napíšeme si jednoduchú animáciu:
+Pre animáciu pohybu nám stačí jednoducho meniť uhol planétky postupne od 0 do 360 stupňov. Napíšeme si preto jednoduchú animáciu:
 
 ```css
 @keyframes circularOrbit {
@@ -138,7 +137,7 @@ Pre animáciu pohybu nám stačí jednoducho meniť uhol planétky postupne od 0
 }
 ```
 
-Táto animácia využíva metódu popísanú v predchádzajúcej časti. Okrem toho, aby sme túto animáciu spravili univerzálne použiteľnú, na veľkosť orbity sme použili CSS premennú, ktorú sme si pomenovali `--orbitRadius`.
+Táto animácia využíva CSS funkciu popísanú v predchádzajúcej časti. Okrem toho, aby sme túto animáciu spravili univerzálne použiteľnú, na veľkosť orbity sme použili CSS premennú, ktorú sme si pomenovali `--orbitRadius`.
 
 Finálna definícia elementu, napríklad pre saturn s aplikovanou animáciou môže vyzerať nasledovne:
 
