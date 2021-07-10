@@ -48,7 +48,9 @@ Dôležité je pridanie CSS atribútov `id` k tým atribútom, ktoré budeme nes
 
 ### CSS štýl
 
-Úlohou tejto časti aplikácie, nachádzajúcej sa v súbore `style.css` je grafické nastavenie jednotlivých prvkov hry. Tu sa ukazuje výhoda, že sme si označili tabuľku atribútom `id`, pretože môžeme použiť potomkový selektor, aby sme štýl aplikovali len na elementy, ktoré budú vo vnútri tabuľky. Ako je vidieť z nastavenia štýlu, každá karta pexesa bude mať 90 x 120 pixelov a farba pozadia bude určovať farbu chrbta karty. Druhé nastavenie štýlu bude mať za úlohu skryť obrázok (ikonu), ktorá sa na karte nachádza, aby ju nebolo vidieť:
+Úlohou tejto časti aplikácie, nachádzajúcej sa v súbore `style.css` je grafické nastavenie jednotlivých prvkov hry. Elementu tabuľky sme pridali atribút `id` s hodnotou `board`. Vďaka tomu môžeme vytvoriť CSS selektory, ktoré budú aplikované len na elementy vo vnútri tejto tabuľky.
+
+Ako je vidieť z nastavenia štýlu, každá karta pexesa bude mať 90 x 120 pixelov a farba pozadia bude určovať farbu chrbta karty. Druhé nastavenie štýlu bude mať za úlohu skryť obrázok (ikonu), ktorá sa na karte nachádza, aby ju nebolo vidieť:
 
 ```css
 #board td {
@@ -67,7 +69,12 @@ Dôležité je pridanie CSS atribútov `id` k tým atribútom, ktoré budeme nes
 
 #### Inicializácia nastavení hry
 
-Celá logika hry sa bude vytvárať v JavaScript súbore `script.js`. V hre si budeme potrebovať pamätať niekoľko údajov, preto si inicializujeme premenné. Prvé štyri premenné budú obsahovať skóre hráča. Premenné `card1` a `card2` budú predstavovať aktuálne odokryté karty. Pole `cardSymbols` bude obsahovať zoznam ikon, ktoré použijeme na tvorbu kariet. Bude ich presne 15, pretože máme 30 kariet (15 dvojíc). Kvôli prehľadnosti si vytvoríme pole od indexu 1 (JavaScript, podobne ako iné jazyky používa ako prvý index poľa 0), aby sa nám s ním lepšie pracovalo. To je dôvod, prečo je prvá hodnota poľa prázdny reťazec.
+Celá logika hry sa bude vytvárať v JavaScript súbore `script.js`. V hre si budeme potrebovať pamätať niekoľko údajov, preto si inicializujeme viaceré globálne premenné:
+
+- `reversedCards` bude obsahovať koľko kariet je aktuálne otočených. 
+- `player1GuessedCount` a `player2GuessedCount` budú obsahovať počet toho, koľko krát daný hráč otočil nejakú kartu.
+- `card1` a `card2` budú predstavovať aktuálne odkryté karty.
+- `cardSymbols` je pole a bude obsahovať zoznam ikon, ktoré použijeme na tvorbu kariet. Bude ich presne 15, pretože máme 30 kariet (15 dvojíc). Kvôli prehľadnosti si vytvoríme pole od indexu 1 (JavaScript, podobne ako iné jazyky používa ako prvý index poľa 0), aby sa nám s ním lepšie pracovalo. To je dôvod, prečo je prvá hodnota poľa prázdny reťazec.
 
 ```javascript
 let reversedCards = 0;
@@ -81,19 +88,18 @@ let cardSymbols = ['', 'tractor', 'truck-monster', 'truck', 'truck-pickup', 'tru
 
 #### Nastavenie obsluhy udalosti pre tlačidlo *Rozdaj karty*
 
-Na začiatku si nastavíme obsluhu udalosti kliknutia na tlačidlo `Rozdaj karty`, pričom toto priradenie sa musí uskutočniť až potom, ako sú všetky elementy nahraté v prehliadači. Využijeme na to udalosť `onload`, ktorá nastane, keď je už kód stránky v prehliadači. Všimnite si, že priradenie udalosti sa vykoná pripradením názvu funkcie, nie jej zavolaním (v kóde nie sú zátvorky za `initialize`). Celý kód bude vyzerať nasledovne:
+Na začiatku si nastavíme obsluhu udalosti kliknutia na tlačidlo `Rozdaj karty`, pričom toto priradenie sa musí uskutočniť až potom, ako sú všetky elementy nahraté v prehliadači. Využijeme na to udalosť `onload`, ktorá nastane, keď je už kód stránky v prehliadači načítaný. Všimnite si, že priradenie udalosti sa vykoná priradením názvu funkcie, nie jej zavolaním (v kóde nie sú zátvorky za `initialize`). Celý kód bude vyzerať nasledovne:
 
 ```javascript
 function initialize() {
     document.getElementById("start").onclick = initializeGame;
 }
-
 window.onload = initialize;
 ```
 
 #### Pomocná funkcia `gid()`
 
-Keďže DOM metóda `document.getElementById()` má veľmi dlhý názov a bolo by otravné ju neustále celú písať, preto by bolo lepšie vytvoriť si pomocnú funkciu s parametrom ID elementu, ktorý chceme získať. V skripte je budeme často používať.
+Keďže DOM metóda `document.getElementById()` má veľmi dlhý názov a bolo by otravné ju neustále celú písať, preto si vytvoríme pomocnú funkciu s parametrom ID elementu, ktorý chceme získať. V skripte je budeme často používať.
 
 ```javascript
 function gid(elementId) {
@@ -141,7 +147,11 @@ function showScore(player, guessed) {
 
 #### Rozdanie kariet
 
-V HTML súbore sme si vytvorili prázdnu tabuľku a teraz si ju naplníme. Pomocou DOM vieme dynamicky vytvárať jednotlivé elementy, a to využijeme aj teraz. Najskôr vymažeme celú tabuľku príkazom `board.innerHTML = "";` a potom v cykle poukladáme karty vedľa seba. Keďže kariet je 15, musíme ich uložiť 2x za sebou. Na to využijeme ternárny operátor `?:`, a ak už sme rozdali 15 kariet, začneme znovu od prvej. Rozdávanie kariet je vlastne vytváranie buniek tabuľky postupne po riadkoch (na to slúžia dva zanorené cykly) a pomocou DOM funkcie `document.createElement()` vytvoríme postupne riadky a stĺpce tabuľky. Obsahom bunky bude ikona z `font-awesome`, ktorá na zobrazenie ikony využíva značku `<i class="fas fa-car"></i>`. Každej bunke nastavíme obsluhu `onclick`, kde budeme riešiť, čo sa má stať, keď hráč klikne na nejakú kartu. Táto obsluha bude spoločná pre všetky karty. Výsledná funkcia bude vyzerať takto:
+V HTML súbore sme si vytvorili prázdnu tabuľku a teraz si ju naplníme. Pomocou DOM vieme dynamicky vytvárať jednotlivé elementy, a to využijeme aj teraz. Najskôr vymažeme obsah tabuľky príkazom `board.innerHTML = "";` a potom v cykle poukladáme karty vedľa seba.
+
+Keďže kariet je 15, musíme ich uložiť 2x za sebou. Na to využijeme ternárny operátor `?:`, a ak už sme rozdali 15 kariet, začneme znovu od prvej. Rozdávanie kariet je vlastne vytváranie buniek tabuľky postupne po riadkoch (na to slúžia dva vnorené cykly) a pomocou DOM funkcie `document.createElement()` vytvoríme postupne riadky a stĺpce tabuľky. 
+
+Obsahom bunky bude ikona z `font-awesome`, ktorá na zobrazenie ikony využíva značku `<i class="fas fa-car"></i>`. Každej bunke nastavíme obsluhu `onclick`, kde budeme riešiť, čo sa má stať, keď hráč klikne na nejakú kartu. Táto obsluha bude spoločná pre všetky karty. Výsledná funkcia bude vyzerať takto:
 
 ```javascript
 function distributeCards() {
@@ -163,11 +173,11 @@ function distributeCards() {
 }
 ```
 
-Ak chcete zobraziť karty na ploche, v CSS súbore stačí nastaviť `opacity: 1;`. Po tomto kroku budú karty usporiadané nasledovne:
+Ak chcete zobraziť karty na ploche, v CSS súbore stačí nastaviť CSS vlastnosť `opacity: 1;`. Po tomto kroku budú karty usporiadané nasledovne:
 
 ![Karty pexesa poukladané za sebou pred zamiešaním](images_memory-game/sorted.png)
 
-Takáto hra by však bola veľmi jednoduchá, preto potrebujeme karty premiešať. Tento problém vyriešime presne tak, aby sme hrali pexeso s papierovými kartami. Presne definovaný počet krát vymeníme pozície náhodne vybratých kariet. Tým dosiahneme, že karty už nebudú usporiadané za sebou. Funkcia využije DOM metódu `querySelectorAll()`, ktorá vráti pole všetkých elementov rodiča uvedeného ako parameter. Potom v cykle 100 vymeníme vnútorný obsah dvoch náhodne vybraných elementov a tým karty zamiešame. Kód funkcie bude vyzerať nasledovne:
+Takáto hra by však bola veľmi jednoduchá, preto potrebujeme karty premiešať. Tento problém vyriešime presne tak, ako keby sme hrali pexeso s papierovými kartami. Presne definovaný počet krát vymeníme pozície náhodne vybratých kariet. Tým dosiahneme, že karty už nebudú usporiadané za sebou. Funkcia využije DOM metódu `querySelectorAll()`, ktorá vráti pole všetkých elementov rodiča uvedeného ako parameter. Potom v cykle 100 krát vymeníme vnútorný obsah dvoch náhodne vybraných elementov a tým karty zamiešame. Kód funkcie bude vyzerať nasledovne:
 
 ```javascript
 function shuffleCards() {
@@ -189,15 +199,17 @@ Zamiešané karty sa môžu zobraziť napr. takto:
 Po zamiešaní kariet, získame hracie pole a znovu nastavíme `opacity: 0;`, aby karty skryli. Teraz musíme vytvoriť logiku hry. Akcia v hre sa vykonáva, keď nejaký hráč klikne myšou na kartu. Pri rozdávaní kariet sme každej bunke definovali ako obsluhu udalosti `onclick` funkciu `turnCard()`. V tejto funkcii musíme najskôr zistiť, či sa karta má vôbec otočiť, keď na ňu klikneme. Kartu neotočíme, ak:
 
 - počet už otočených kariet je 2,
-- hráč klik na kartu, ktorá je práve vybratá,
-- hráč klikne na kartu, ktorá je už bola uhádnutá. Tieto operácie rieši táto časť funkcie:
+- hráč klikne na kartu, ktorá je práve vybratá,
+- hráč klikne na kartu, ktorá je už bola uhádnutá. 
+
+Tieto operácie rieši táto časť funkcie:
 
 ```javascript
 if (reversedCards == 2) return;
 if (this.style.backgroundColor == "plum" || this.style.backgroundColor == "white") return;
 ```
 
-Ak nie je splnená žiadna z vyššie uvedených podmienok, zobrazíme kartu, na ktorú klikol a to tak, že jej nastavíme farbu pozadia na bielu a priehľadnosť na 1. Ak je zatiaľ otočená len jedna karta, zvyšime si počet obrátených kariet, prvú kartu si zapamätáme a necháme hráča vybrať druhú kartu.
+Ak nie je splnená žiadna z vyššie uvedených podmienok, zobrazíme kartu, na ktorú používateľ klikol a to tak, že jej nastavíme farbu pozadia na bielu a priehľadnosť na 1. Ak je zatiaľ otočená len jedna karta, zvýšime si počet obrátených kariet, prvú kartu si zapamätáme a necháme hráča vybrať druhú kartu.
 
 ```javascript
 this.style.backgroundColor = "white";
@@ -210,7 +222,7 @@ if (reversedCards == 1) {
 }
 ```
 
-Ak máme dve karty, možeme začať vyhodnocovanie, či sú karty rovnaké. Karty sú rovnaké, keď obsahujú tú istú ikonu, preto nám stačí kontrolovať DOM vlastnosť `innerHTML`.
+Ak máme dve karty, môžeme začať vyhodnocovanie, či sú karty rovnaké. Karty sú rovnaké, keď obsahujú tú istú ikonu, preto nám stačí kontrolovať DOM vlastnosť `innerHTML`.
 
 ```javascript
 if (card1.innerHTML == card2.innerHTML) {
@@ -231,7 +243,7 @@ if (gid("player1").style.color == 'green') {
 reversedCards = 0;
 ```
 
-Ak sa karty nerovnajú,karty otočíme naspäť a na ťahu je druhý hráč. Tu musíme využiť časovač, aby sme hráčovi neskryli karty hneď, ale až napr. po jednej sekunde, aby si stihol prezrieť aj druhú kartu. Nesmieme zabudnúť počet obrátených kariet nastaviť na 0.
+Ak sa karty nerovnajú, karty otočíme naspäť a na ťahu je druhý hráč. Tu musíme využiť časovač, aby sme hráčovi neskryli karty hneď, ale až napr. po jednej sekunde, aby si stihol prezrieť aj druhú kartu. Nesmieme zabudnúť počet obrátených kariet nastaviť na 0.
 
 ```javascript
 if (gid("player1").style.color == 'green') {
@@ -299,9 +311,9 @@ function hideCards(card1, card2) {
 }
 ```
 
-Priebeh rozohratej hry je možné vidieť na nasledovnom obrázku (hráč 2 práve odkryl 2 karty):
+Priebeh rozohranej hry je možné vidieť na nasledovnom obrázku (hráč 2 práve odkryl 2 karty):
 
-![Ukážka rozohratej hry](images_memory-game/progress.png)
+![Ukážka rozohranej hry](images_memory-game/progress.png)
 
 Tým sme implementovali celú logiku hry. Koniec hry sme neriešili, ale nebol by problém detegovať, či sú všetky karty odkryté, vyhlásiť víťaza a opýtať sa, či si chcú hráči hru zahrať znovu. 
 
