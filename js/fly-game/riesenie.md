@@ -13,7 +13,7 @@
 
 Riešenie sa bude skladať z HTML, CSS a JavaScript súboru. Vytvoríme si súbor `index.html` v hlavnom adresári príkladu. Kvôli prehľadnosti súbory s obrázkami uložíme do adresára `img` a súbor so skriptom do adresára `js`.
 
-#### HTML súbor
+#### HTML časť
 
 Najprv si vytvoríme hraciu plochu. Tento súbor bude veľmi jednoduchý, nebudeme tu implementovať žiadnu aplikačnú logiku, ani dizajn. V súbore sa budú nachádzať len elementy, ktoré budú slúžiť na výpis skóre, zostávajúceho času a tlačidlo *Štart hry*. Všetky elementy, ku ktorým budeme v aplikačnej logike pristupovať, umiestnime do kontajnerov (elementy `div`) a označíme ich atribútom `id`. HTML kód bude vyzerať nasledovne:
 
@@ -33,7 +33,7 @@ Najprv si vytvoríme hraciu plochu. Tento súbor bude veľmi jednoduchý, nebude
 
 #### CSS štýl
 
-Najprv nastavíme vnútorné a vonkajšie odsadenie na `0`, aby hracia plocha bola celé klientske okno prehliadača a všetky elementy mali tieto hodnoty nastavené na `0`.
+Najprv nastavíme vnútorné a vonkajšie odsadenie na `0`, aby hracia plocha tvorila celé klientske okno prehliadača a všetky elementy mali tieto hodnoty nastavené na `0`.
 
 ```css
 * {
@@ -54,7 +54,7 @@ Pomocou CSS štýlu si vytvoríme aj hraciu plochu, ktorú roztiahneme na celú 
 }
 ```
 
-Ďalej si v súbore so štýlom naštýlujeme element, ktorý bude obsahovať obrázok s muchou. Obrázky do CSS vložíme ako obrázok pozadia pomocou CSS vlastnosti `background-image`. Formát obrázku sme zvolili typu gif, najmä z dôvodu, že obrázok je animovaný a vytvára dojem, že mucha sa mierne hýbe. Veľkosť obrázku nastavíme na `50px` x `50px` a roztiahneme ho na celú šírku elementu (vlastnosť `background-size`). Dôležité je nastaviť CSS vlastnosť `position` na hodnotu `fixed`, aby sme vedeli pomocou JavaScriptu muchu zobrazovať na rôznych miestach obrazovky. Pravidlo `.fly_killer` sa bude používať pri zásahu muchy a zobrazí fľak. Štýl pre muchu a fľak bude vyzerať takto:
+Ďalej si v súbore so štýlom naštýlujeme element, ktorý bude obsahovať obrázok s muchou. Obrázky do CSS vložíme ako obrázok pozadia pomocou CSS vlastnosti `background-image`. Formát obrázku sme zvolili typu `gif`, najmä z dôvodu, že obrázok je animovaný a vytvára dojem, že mucha sa mierne hýbe. Veľkosť obrázku nastavíme na `50px` x `50px` a roztiahneme ho na celú šírku elementu (vlastnosť `background-size`). Dôležité je nastaviť CSS vlastnosť `position` na hodnotu `fixed`, aby sme vedeli pomocou JavaScriptu muchu zobrazovať na rôznych miestach obrazovky. Pravidlo `.fly_killer` sa bude používať pri zásahu muchy a zobrazí škvrna. Štýl pre muchu a škvrnu bude vyzerať takto:
 
 ```css
 .fly {
@@ -69,7 +69,7 @@ Pomocou CSS štýlu si vytvoríme aj hraciu plochu, ktorú roztiahneme na celú 
 }
 ```
 
-Zaujímavou vecou je zmena kurzora na náš vlastný obrázok. Chceli by sme, aby pri sa hre používal obrázok mucholapky:
+Zaujímavou vecou je zmena kurzora na náš vlastný obrázok. Chceli by sme, aby sa pri hre používal obrázok mucholapky:
 
 ![Mucholapka ako kurzor myši](images_fly-game/flykiller.png)
 
@@ -81,7 +81,7 @@ Na definovanie zmeny kurzora použijeme CSS vlastnosť `cursor`:
 }
 ```
 
-Ostatné použité štýly len formátujú zobrazenie skóre a času hry. Umiestnime ich na vrch stránky do stredu.
+Ostatné použité štýly len formátujú zobrazenie skóre a času hry. Výsledkovú tabuľu umiestnime na vrch stránky do stredu:
 
 ```css
 #menu {
@@ -115,17 +115,17 @@ Poloha muchy na obrazovke sa musí v pravidelných intervaloch meniť, aby mala 
 
 Zmyslom hry je trafiť muchu, preto musíme nejako vyriešiť, či kliknutie myšou bolo na mieste, kde sa mucha nachádza, alebo mimo nej. Jedno riešenie by sa ponúkalo a to také, že na základe súradníc kliknutia zistíme, či sme klikni do obdĺžnika, kde sa nachádza mucha. To by si však vyžadovalo niekoľko výpočtov a porovnaní.
 
-Jednoduchším riešením je nechať rozhodnutie, či sme klikli na muchu na prehliadač. Stačí, aby sme definovali obsluhu udalosti `onclick` na elemente, kde sa mucha nachádza. Ak sme klikli na muchu, obsluha udalosti sa spustí a my môžeme hráčovi pripočítať bod a zároveň zobrazíme škvrnu. Pretože škvrna nesmie zmiznúť hneď, použijeme časovač na pozdržanie jeho vymazania z obrazovky. Ak klikol mimo elementu s muchou, pripočítame mu o jeden pokus viac.
+Jednoduchším riešením je nechať rozhodnutie, či sme klikli na muchu, na prehliadač. Stačí, aby sme definovali obsluhu udalosti `onclick` na element, kde sa mucha nachádza. Ak sme klikli na muchu, obsluha udalosti sa spustí a my môžeme hráčovi pripočítať bod a zároveň zobrazíme škvrnu. Pretože škvrna nesmie zmiznúť hneď, použijeme časovač na pozdržanie jej vymazania z obrazovky. Ak klikol mimo elementu s muchou, pripočítame mu o jeden pokus viac.
 
 Celá hra bude limitovaná časom, preto pri začiatku hry spustíme časovač, ktorý začne odpočítavať čas hry. Na konci hry všetky muchy skryjeme a hra môže začať odznovu.
 
-Implementáciu hry si rozložíme do troch tried: `Timer`, `Fly`, `Game`. Najprv vytvoríme triedu `Timer`, ktorá sa bude starať o časovače potrebné pri rôznych situáciách v hre. Ďalej si vytvoríme triedu `Fly`, ktorá bude mať na starosti správanie sa muchy počas hry. A celú hru bude riadiť trieda `Game`, ktorej zodpovednosťou bude spúšťanie a ukončovanie hry ako aj rátanie bodov hráča. Všetky tieto triedy na začiatok uložíme do jedného súboru `skript.js`.
+Implementáciu hry si rozložíme do troch tried: `Timer`, `Fly`, `Game`. Najprv vytvoríme triedu `Timer`, ktorá sa bude starať o časovače potrebné pri rôznych situáciách v hre. Ďalej si vytvoríme triedu `Fly`, ktorá bude mať na starosti správanie sa muchy počas hry. A celú hru bude riadiť trieda `Game`, ktorej zodpovednosťou bude spúšťanie a ukončovanie hry, ako aj rátanie bodov hráča. Všetky tieto triedy na začiatok uložíme do jedného súboru `skript.js`.
 
 ![UML diagram tried](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/thevajko/zbierka-uloh/solution/js/fly-game/diagram.puml)
 
 ### Trieda Timer
 
-Začneme pomocnou triedou `Timer`, ktorá bude mať na starosti spúšťanie časovačov v hre. Časovač budeme potrebovať v hre na viacerých miestach. Ako už bolo spomínané bude použitý pri presune muchy na iné miesto na obrazovke, na pozdržanie zmazania škvrny po trafenej muche, ako aj na odpočítavanie času hry. Triedu v Javascripte vytvoríme kľúčovým slovom `class`.
+Začneme pomocnou triedou `Timer`, ktorá bude mať na starosti spúšťanie časovačov v hre. Časovač budeme potrebovať v hre na viacerých miestach. Ako už bolo spomínané, bude použitý pri presune muchy na iné miesto na obrazovke, na pozdržanie zmazania škvrny po trafenej muche, ako aj na odpočítavanie času hry. Triedu v JavaScripte vytvoríme kľúčovým slovom `class`.
 
 ```javascript
 class Timer {
@@ -133,7 +133,7 @@ class Timer {
 }
 ```
 
-Najskôr si nastavíme všetky atribúty, ktoré bude trieda `Timer` využívať. Atribúty sa zapisujú do vnútra definície triedy. Pre túto triedu budeme potrebovať atribút `interval`, čo bude čas v milisekundách definujúci, ako často časovač spúšťať funkciu (alebo metódu triedy), ktorú mu nastavíme. Atribút `timerId` bude identifikátor časovača, ktorý budeme používať na identifikáciu časovača pri jeho rušení, keďže nám v hre bude bežať viac časovačov. Nakoniec atribút `_callback` bude obsahovať funkciu (alebo metódu triedy), ktorú bude časovač spúšťať.
+Najskôr si nastavíme všetky atribúty, ktoré bude trieda `Timer` využívať. Atribúty sa zapisujú do vnútra definície triedy. Pre túto triedu budeme potrebovať atribút `interval`, čo bude čas v milisekundách definujúci, ako často bude časovač spúšťať funkciu (alebo metódu triedy), ktorú mu nastavíme. Atribút `timerId` bude identifikátor časovača, ktorý budeme používať na identifikáciu časovača pri jeho rušení, keďže nám v hre bude bežať viac časovačov. Nakoniec atribút `_callback` bude obsahovať funkciu (alebo metódu triedy), ktorú bude časovač spúšťať.
 
 Všimnite si znak `_` pre začiatkom atribútu. Keďže k atribútu budeme vytvárať `set` metódu (angl. *setter*), nemôže sa atribút volať rovnako ako metóda. Implementáciu *set* metódy si ukážeme neskôr. Všetky atribúty sa zapisujú bez kľúčového slova `let` alebo `var`. Atribúty je možné aj inicializovať, v našom prípade bude stačiť iba `null` pri atribútoch `timerId` a `_callback`.
 
@@ -143,7 +143,7 @@ timerId = null;
 _callback = null;
 ```
 
-Všetky metódy tejto triedy (sú to bežné funkcie v Javascripte) musíme pridať do vnútra triedy. Každá trieda by mala mať svoj **konštruktor**, čo je metóda, ktorá za zavolá pri vzniku inštancie danej triedy a vykoná nastavenie tejto inštancie. V našom prípade len nastavíme interval v milisekundách. Na zápis konštruktora v JavaScripte sa používa kľúčové slovo `constructor` a ako parameter mu pri volaní nastavíme hodnotu intervalu.
+Všetky metódy tejto triedy (sú to bežné funkcie v JavaScripte) musíme pridať do vnútra triedy. Každá trieda by mala mať svoj **konštruktor**, čo je metóda, ktorá za zavolá pri vzniku inštancie danej triedy a vykoná nastavenie tejto inštancie. V našom prípade len nastavíme interval v milisekundách. Na zápis konštruktora v JavaScripte sa používa kľúčové slovo `constructor` a ako parameter mu pri volaní nastavíme hodnotu intervalu.
 
 ```javascript
 constructor(interval = 1000)
@@ -152,7 +152,7 @@ constructor(interval = 1000)
 }
 ```
 
-V tejto triede budeme potrebovať dve metódy. Jednu na spustenie časovača a druhú na jeho zastavenie. Spustenie časovača je jednoduchá operácia, ktorá zavolá metódu `window.setInterval()` s parametrami `handler`, čo je buď názov metódy, alebo funkcie, ktorá sa má zavolať, ale v princípe to môže byť ľubovolný Javascript kód a *čas v milisekundách*, v akom sa pravidelne bude tento kód spúšťať. Pred tým však ešte časovač vypneme, aby sme eliminovali viacnásobné spustenie toho istého časovača. Do atribútu `timerId` si uložíme vytvorený časovač na neskoršie použitie. Pri tomto zápise si môžete všimnúť, že na definíciu metód v JavaScripte sa nepoužíva kľúčové slovo `function`.
+V tejto triede budeme potrebovať dve metódy. Jednu na spustenie časovača a druhú na jeho zastavenie. Spustenie časovača je jednoduchá operácia, ktorá zavolá metódu `window.setInterval()` s parametrami `handler`, čo je buď názov metódy, alebo funkcie, ktorá sa má zavolať, ale v princípe to môže byť ľubovolný JavaScript kód a *čas v milisekundách*, v akom sa pravidelne bude tento kód spúšťať. Pred tým však ešte časovač vypneme, aby sme eliminovali viacnásobné spustenie toho istého časovača. Do atribútu `timerId` si uložíme vytvorený časovač na neskoršie použitie. Pri tomto zápise si môžeme všimnúť, že na definíciu metód v JavaScripte sa nepoužíva kľúčové slovo `function`.
 
 ```javascript
 start()
@@ -174,7 +174,7 @@ stop()
 }
 ```
 
-Poslednou metódou triedy `Timer` je metóda `callback`, ktorá slúži na nastavenie metódy, ktorú bude daný časovač spúšťať. Je to `set` metóda, čo je zrejmé z použitia kľúčového slova `set`. Metóda v svojom tele len nastaví parameter. Prázdne zátvorky znamenajú, že priraďovaná metóda nemá žiadne parametre a telom priraďovanej funkcie bude volanie metódy. Spôsob použitia tejto metódy si ukážeme neskôr v príklade.
+Poslednou metódou triedy `Timer` je metóda `callback()`, ktorá slúži na nastavenie metódy, ktorú bude daný časovač spúšťať. Je to `set` metóda, čo je zrejmé z použitia kľúčového slova `set`. Metóda v svojom tele len nastaví parameter. Prázdne zátvorky znamenajú, že priraďovaná metóda nemá žiadne parametre a telom priraďovanej funkcie bude volanie metódy. Spôsob použitia tejto metódy si ukážeme neskôr v príklade.
 
 ```javascript
 set callback(callback)
@@ -191,7 +191,7 @@ Táto trieda bude predstavovať jednu muchu v hre. Na obrazovke bude súčasne z
 element = null;
 ```
 
-Konštruktor v tejto triede má za úlohu vytvoriť muchu a nastaviť jej, aby v definovanom čase menila svoju pozíciu. Parameter `interval` definuje, ako často sa zmena polohy bude vykonávať. Na to potrebujeme vytvoriť novú inštanciu triedy `Timer`, vytvoriť DOM element (pozor toto nie je rovnaká metóda ako `document.createElement()`) a nastaviť časovaču, že v pravidelne definovanom intervale má volať metódu `changePosition()` tejto inštancie muchy. Tu je vidieť použitie `set` metódy, ktoré sa líši od volania bežnej metódy v tom, že je realizovaná ako priradenie. Na priradenie metódy, ktorá sa bude volať, použijeme *arrow funkciu*, ktorá celý zápis zjednoduší a sprehľadní. Navyše vo vnútri volania sprístupní odkaz `this`, inak by sme nemali prístup k inštancii triedy mucha. Výsledná implementácia konštruktora bude vyzerať nasledovne:
+Konštruktor v tejto triede má za úlohu vytvoriť muchu a nastaviť jej, aby v definovanom čase menila svoju pozíciu. Parameter `interval` definuje, ako často sa zmena polohy bude vykonávať. Na to potrebujeme vytvoriť novú inštanciu triedy `Timer`, vytvoriť DOM element (pozor toto nie je rovnaká metóda ako `document.createElement()`) a nastaviť časovaču, že v pravidelne definovanom intervale má volať metódu `changePosition()` tejto inštancie muchy. Tu je vidieť použitie `set` metódy, ktoré sa líši od volania bežnej metódy v tom, že je realizovaná ako priradenie. Na priradenie metódy, ktorá sa bude volať, použijeme **arrow funkciu**, ktorá celý zápis zjednoduší a sprehľadní. Navyše vo vnútri volania sprístupní odkaz `this`, inak by sme nemali prístup k inštancii triedy `Fly`. Výsledná implementácia konštruktora bude vyzerať nasledovne:
 
 ```javascript
 constructor(interval = 1000)
@@ -202,7 +202,7 @@ constructor(interval = 1000)
 }
 ```
 
-Keďže budeme vytvárať viacero elementov muchy súčasne, musíme vytvoriť metódu, ktorá bude vykreslovať element muchy na obrazovku. Metóda bude volať DOM metódu `document.createElement()`, vytvorenému elementu nastaví CSS triedu `fly` a vygeneruje mu náhodnú pozíciu na obrazovke. Túto metódu budeme volať pri vytváraní a novom spúšťaní hry, preto muchy najskôr skryjeme a zobrazíme ich, až keď sa hra začne (metóda `hideElement()`). Vytvorený element pripojíme do dokumentu DOM metódou `document.body.appendChild()`.
+Keďže budeme vytvárať viacero elementov muchy súčasne, musíme vytvoriť metódu, ktorá bude vykresľovať element muchy na obrazovku. Metóda bude volať DOM metódu `document.createElement()`, vytvorenému elementu nastaví CSS triedu `fly` a vygeneruje mu náhodnú pozíciu na obrazovke. Túto metódu budeme volať pri vytváraní a novom spúšťaní hry, preto muchy najskôr skryjeme a zobrazíme ich, až keď sa hra začne (metóda `hideElement()`). Vytvorený element pripojíme do dokumentu DOM metódou `document.body.appendChild()`.
 
 ```javascript
 createElement()
@@ -215,7 +215,7 @@ createElement()
 }
 ```
 
-Úlohou metódy `changePosition()` bude nastaviť element muchy na náhodnú pozíciu. Ako sme spomínali, mucha má nastavenú pozíciu na `fixed`, preto jej môžeme pomocou CSS vlastností `top` a `left` predpísať, kde sa má vykresliť. Na výpočet polohy použijeme vygenerovanie náhodného čísla, ktoré bude z rozsahu 0 až šírky klientskeho okna prehliadača, resp. 0 až po jeho výšku. Keďže rozmery budú v `px`, na konci ich pripojíme k vygenerovanej hodnote. Ďalej obrázok náhodne otočíme, aby nebola mucha zobrazená stále rovnakým smerom. Nakoniec ešte odstránime CSS triedu `fly_killed`, ktorá sa tam objaví, keď muchu trafíme, ale to bude predmetom inej metódy:
+Úlohou metódy `changePosition()` bude nastaviť element muchy na náhodnú pozíciu. Ako sme spomínali, mucha má nastavenú pozíciu na `fixed`, preto jej môžeme pomocou CSS vlastností `top` a `left` predpísať, kde sa má vykresliť. Na výpočet polohy použijeme vygenerovanie náhodného čísla, ktoré bude z rozsahu nula až šírka klientskeho okna prehliadača, resp. nula až jeho výška. Keďže rozmery budú v `px`, na konci ich pripojíme k vygenerovanej hodnote. Ďalej obrázok náhodne otočíme, aby nebola mucha zobrazená stále rovnakým smerom. Nakoniec ešte odstránime CSS triedu `fly_killed`, ktorá sa tam objaví, keď muchu trafíme, ale to bude predmetom inej metódy:
 
 ```javascript
 changePosition()
@@ -268,14 +268,15 @@ set onClick(callback)
 
 Trieda `Game` bude zodpovedná za riadenie priebehu hry. Bude sa v nej odohrávať naštartovanie hry, ako aj jej ukončenie. Pri vzniku novej hry vytvorí všetky muchy, ktoré budeme v hre používať. Pri trafení muchy zvýši hráčovi skóre, bude mať na starosti odpočítavanie času a po skončení časového limitu skryje všetky muchy.
 
-Na začiatku triedy  `Game` si zadefinujeme všetky atribúty, ktoré budeme v hre používať: 
+Na začiatku triedy `Game` si zadefinujeme všetky atribúty, ktoré budeme v hre používať: 
 
 - Atribút `gameDuration` použijeme na nastavenie trvania hry na 30 sekúnd. Túto hodnotu je možné v prípade potreby zmeniť. 
-- Atribúte `gameSeconds` bude vždy obsahovať aktuálny počet sekúnd, ktorý sa na začiatku nastaví na hodnotu `gameDuration` a postupne sa bude odpočítavať. 
-- Atribút `numOfFlies` definuje počet múch v jednej hre na obrazovke a atribút `score` obsahuje aktuálne skóre hráča počas hry. 
-- Atribút `totalAttempts` bude obsahovať celkový počet kliknutí hráča, aby sme vedeli určiť pomer úspešných a neúspešných pokusov. 
+- Atribút `gameSeconds` bude vždy obsahovať aktuálny počet sekúnd, ktorý sa na začiatku nastaví na hodnotu `gameDuration` a postupne sa bude odpočítavať. 
+- Atribút `numOfFlies` definuje počet múch v jednej hre na obrazovke.
+- Atribút `score` obsahuje aktuálne skóre hráča počas hry. 
+- Atribút `totalAttempts` obsahuje celkový počet kliknutí hráča, aby sme vedeli určiť pomer úspešných a neúspešných pokusov. 
 - Atribút `flies` predstavuje pole múch, kde každý prvok poľa je jedna mucha. 
-- Atribút `timer` predstavuje časovač hry, ktorý má na starosti odpočítavanie času celej hry.
+- Atribút `timer` predstavuje časovač hry, ktorý má na starosti odpočítavanie času jednej hry.
 
 ```javascript
 gameDuration = 30;
@@ -288,7 +289,7 @@ flies = [];
 timer = new Timer();
 ```
 
-Konštruktor triedy `Game` má za úlohu inicializáciu celej hry. Na začiatku inicializuje časovač hry, tak aby sa odpočítavali zostávajúce sekundy do konca hry. Viac sa o tomto časovači dozvieme v metóde `gameTick()`.
+Konštruktor triedy `Game` má za úlohu inicializáciu celej hry. Na začiatku inicializuje časovač hry tak, aby sa odpočítavali zostávajúce sekundy do konca hry. Viac sa o tomto časovači dozvieme v metóde `gameTick()`.
 
 ```javascript
 constructor()
@@ -297,9 +298,9 @@ constructor()
 }
 ```
 
-Ďalším krokom v konštruktore je vytvorenie obsluhy udalostí `DOMContentLoaded`. Táto udalosť nastane vtedy, keď je v okne prehliadača už stiahnutý celý webový dokument príslušnej stránky a teda máme istotu, že všetky DOM elementy sú už na stránke k dispozícii. Je to obdoba k implementácii obsluhy udalosti `onload`.
+Ďalším krokom v konštruktore je vytvorenie obsluhy udalostí `DOMContentLoaded`. Táto udalosť nastane vtedy, keď je v okne prehliadača už stiahnutý celý HTMl kód príslušnej stránky a teda máme istotu, že všetky DOM elementy sú už na stránke k dispozícii. Je to obdoba k implementácii obsluhy udalosti `window.onload`.
 
-V tejto chvíli môžeme zadefinovať obsluhu tlačidla `Start` slúžiaceho na spustenie hry. To opäť vykonáme s pomocou *arrow funkcie*, aby sme referencie dostali do obsluhy v tejto udalosti. 
+V tejto chvíli môžeme zadefinovať obsluhu tlačidla `Start` slúžiaceho na spustenie hry. To opäť vykonáme s pomocou *arrow funkcie*, aby sme referenciu `this` dostali do obsluhy v tejto udalosti. 
 
 Ďalej definujeme obsluhu udalosti kliknutia na plochu, pričom si najskôr vyhľadáme element, ktorý má nastavenú CSS triedu `playground`. Táto obsluha udalostí je implementovaná *inline* spôsobom. Funkcia je priamo definovaná pri samotnej udalosti. Je veľmi jednoduchá a slúži len na to, aby sme započítali všetky kliknutia v hre, okrem kliknutí na tlačítko `Start`. Takisto musíme brať do úvahy, ak hra už skončila. Vtedy už počet pokusov nesmie nepribúdať.
 
@@ -356,7 +357,7 @@ redrawScore()
 }
 ```
 
-Na počítanie času v hre sme si vytvorili metódu `gameTick()`. Táto metóda bude odpočítavať čas zostávajúci pre hráča. Po uplynutí každej sekundy zobrazí v paneli hry zostávajúci čas. Ak na konci hry časovač zastaví, skryje všetky muchy a zmení kurzor na jeho bežný tvar:
+Na počítanie času v hre sme si vytvorili metódu `gameTick()`. Táto metóda bude odpočítavať čas zostávajúci pre hráča. Po uplynutí každej sekundy zobrazí v paneli hry zostávajúci čas. Na konci hry zastaví časovač, skryje všetky muchy a zmení kurzor na jeho bežný tvar:
 
 ```javascript
 gameTick()
@@ -383,7 +384,7 @@ flyHit()
 }
 ```
 
-Na záver sme si nechali metódu `start()`, ktorá je obsluhou udalostí kliknutia na tlačidlo `Start`. Má za úlohu inicializovať novú hru a nastaviť všetky jej parametre. Na úvod metódy nastavíme čas trvania hry, potom vynulujeme skóre a celkové pokusy a vypíšeme ich a prestavíme kurzor myši na mucholapku. 
+Na záver sme si nechali metódu `start()`, ktorá je obsluhou udalosti kliknutia na tlačidlo `Start`. Má za úlohu inicializovať novú hru a nastaviť všetky jej parametre. Na úvod metódy nastavíme čas trvania hry, potom vynulujeme skóre a celkové pokusy, vypíšeme ich a prestavíme kurzor myši na mucholapku. 
 
 Posledný cyklus slúži na to, aby zobrazili všetky muchy. Všimnite si, že tento cyklus nie je realizovaný niektorým z bežných cyklov, ale metódou poľa `forEach`, ktorá sa používa na postupnú iteráciu po jednotlivých prvkoch poľa:
 
@@ -411,7 +412,7 @@ Tento príkaz dáme na koniec celého skriptu mimo triedy `Game`. Referenciu na 
 
 #### Moduly
 
-Jazyk JavaScript nepozná príkaz `include`, preto sme všetky tieto triedy ukladali do jedného spoločného súboru. Je zrejmé, že už pri takomto relatívne krátkom skripte jeho kód je dlhý a začína byť ťažké sa v ňom orientovať. Tento problém by sme mohli vyriešiť tak, že by sme vytvorili pre každú triedu samostatný súbor a tento súbor pomocou značky `script` na importovali do HTML súboru nasledovným spôsobom:
+Jazyk JavaScript nepozná príkaz `include`, preto sme všetky tieto triedy ukladali do jedného spoločného súboru. Je zrejmé, že už pri takomto relatívne krátkom skripte jeho kód je dlhý a začína byť ťažké sa v ňom orientovať. Tento problém by sme mohli vyriešiť tak, že by sme vytvorili pre každú triedu samostatný súbor, a tento súbor pomocou značky `<script>` naimportovali do HTML súboru nasledovným spôsobom:
 
 ```javascript
 <script src="js/timer.js"></script>
@@ -419,10 +420,9 @@ Jazyk JavaScript nepozná príkaz `include`, preto sme všetky tieto triedy ukla
 <script src="js/game.js"></script>
 ```
 
-Toto riešenie by bolo funkčné, ale opäť ak by sme mali takých súborov viac museli
-by sme každý z nich vložiť do HTML a prehľadnosť by sme vyriešili len čiastočne. Na tento problém existuje lepšie riešenie a tým je použitie modulov. 
+Toto riešenie by bolo funkčné, ale opäť, ak by sme mali takých súborov viac, museli by sme každý z nich vložiť do HTML a prehľadnosť by sme vyriešili len čiastočne. Na tento problém existuje lepšie riešenie a tým je použitie modulov. 
 
-**Moduly** používajú kľúčové slovo `import` na to, aby sprístupnili kód v inom JavaScript súbore. Úprava nášho príkladu bude veľmi jednoduchá. Keďže sme programovali objektovo, na konci každého JavaScript súboru bude stačiť vyexportovať celú triedu pomocou kľúčového slova `export`. Tým sa stane prístupná pre súbory, v ktorých ju budeme potrebovať importovať. Na začiatok každého súboru naimportujeme triedy, ktoré v danom súbore budeme používať. Napríklad, v triede `Fly` budeme potrebovať metódy triedy `Timer`, preto si pred deklaráciu triedy najskôr naimportujeme a na konci súboru triedy samotnú triedu `Fly` vyexportujeme, aby bola k dispozícii ostatným triedam:
+**Moduly** používajú kľúčové slovo `import` na to, aby sprístupnili kód v inom JavaScript súbore. Úprava nášho príkladu bude veľmi jednoduchá. Keďže sme programovali objektovo, na konci každého JavaScript súboru bude stačiť vyexportovať celú triedu pomocou kľúčového slova `export`. Tým sa stane prístupná pre súbory, v ktorých ju budeme potrebovať importovať. Na začiatok každého súboru naimportujeme triedy, ktoré v danom súbore budeme používať. Napríklad, v triede `Fly` budeme potrebovať metódy triedy `Timer`, preto si pred deklaráciou triedy najskôr  naimportujeme triedu `Timer` a na konci súboru triedu `Fly` vyexportujeme, aby bola k dispozícii ostatným triedam:
 
 ```javascript
 import {Timer} from "./timer.js";
@@ -446,12 +446,12 @@ Celá štruktúra príkladu je zobrazená na tomto obrázku:
 
 ![Adresárová štruktúra riešenia](images_fly-game/structure.png)
 
-__Pozor!__ Pokiaľ použijeme riešenie s modulmi, skript v HTML musíme naimportovať spolu s atribútom `type="module"`. Inak sa skript obsahujúci moduly nenaimportuje.
+> **Pozor!** Pokiaľ použijeme riešenie s modulmi, skript v HTML musíme naimportovať s atribútom `type="module"`. Inak sa skript obsahujúci moduly nenaimportuje. Na spustenie hry budeme potrebovať okrem prehliadača aj nejaký webový server. Pri použití modulov **nie je možné** JavaScript spúšťať bez použitia webového servera.
 
 ```html
 <script type="module" src="js/main.js"></script>
 ```
 
-Na spustenie hry budeme potrebovať okrem prehliadača, aj nejaký webový server. Pri použití modulov nie je možné Javascript spúšťať bez použitia webového servera. Hru v prehliadači spustíme kliknutím na tlačidlo `Start`. Po spustení hry uvidíme muchy na hracej ploche, kurzor sa zmení na mucholapku a môžeme začať hrať:
+Hru v prehliadači spustíme kliknutím na tlačidlo `Start`. Po spustení hry uvidíme muchy na hracej ploche, kurzor sa zmení na mucholapku a môžeme začať hrať:
 
 ![Ukážka spustenej hry](images_fly-game/game.png)

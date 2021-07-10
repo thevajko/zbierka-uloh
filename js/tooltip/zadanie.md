@@ -43,7 +43,7 @@ Kód obsahuje element `div`, ktorého obsah je tvorený textom generovaným pomo
 
 <div class="hidden">
 
-Štruktúru dokumentu môžete upraviť, tak aby bolo možné úlohu vypracovať. Pre vypracovanie sa snažte použiť čistý javascript a CSS.
+Štruktúru dokumentu môžete upraviť, tak aby bolo možné úlohu vypracovať. Pre vypracovanie sa snažte použiť čistý JavaScript a CSS.
 
 > ### Pomôcky:
 > - [Načítanie JS](../../common/js-onload.md )

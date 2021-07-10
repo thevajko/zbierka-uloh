@@ -68,9 +68,9 @@ Výsledkom skriptu je takáto kružnica:
 
 Teraz si vytvoríme funkciu, ktorú budeme používať pre vykreslenie sekundovej, minútovej a hodinovej ručičky. Funkcia musí umožňovať definovať šírku a dĺžku ručičky od stredu a aj jej uhol.
 
-Predpokladáme, že element `canvas` má pevne stanovený rozmer `500px` x `500px`. Stred a východzí bod pre kreslenie ručičiek bude bod `x=250, y=250`. Preto presunieme kresliace pero na tuto pozíciu pomocou metódy [`CanvasRenderingContext2D.moveTo()`](CanvasRenderingContext2D.moveTo()). 
+Predpokladáme, že element `canvas` má pevne stanovený rozmer `500px` x `500px`. Stred a východzí bod pre kreslenie ručičiek bude bod `x=250, y=250`. Preto presunieme kresliace pero na túto pozíciu pomocou metódy [`CanvasRenderingContext2D.moveTo()`](CanvasRenderingContext2D.moveTo()). 
 
-Následne potrebujeme urobiť z východzieho bodu čiaru na bod, ktorý je definovaný uhlom a vzdialenosťou. Na toto použijeme goniometrické funkcie `Math.cos()` a `Math.sin()`<span class="hidden">([viac info tu](https://stackoverflow.com/questions/23598547/draw-a-line-from-x-y-with-a-given-angle-and-length/23598710) alebo učebnica matematiky... )</span>. Čiaru do ďalšieho bodu nakreslíme pomocou metódy [`CanvasRenderingContext2D.lineTo()`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineTo).
+Následne potrebujeme nakresliť z východzieho bodu čiaru na bod, ktorý je definovaný uhlom a vzdialenosťou. Na toto použijeme goniometrické funkcie *sínus* a *kosínus* (metódy `Math.cos()` a `Math.sin()`)<span class="hidden">([viac info tu](https://stackoverflow.com/questions/23598547/draw-a-line-from-x-y-with-a-given-angle-and-length/23598710) alebo učebnica matematiky... )</span>. Čiaru do ďalšieho bodu nakreslíme pomocou metódy [`CanvasRenderingContext2D.lineTo()`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineTo).
 
 Hrúbku čiary upravíme nastavením atribútu [`CanvasRenderingContext2D.lineWidth`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineWidth).
 
@@ -230,7 +230,7 @@ Hodiny sa zobrazia nasledovne:
 
 Ako posledné potrebujeme, aby sa funkcia `makeTick()` spúšťala každú sekundu a vytvoril sa tak dojem, že hodiny idú. To docielime periodickým spúšťaním pomocou metódy [`setInterval()`](https://www.w3schools.com/jsref/met_win_setinterval.asp) každú sekundu.
 
-Náš `canvas` však musíme pred každým prekreslením vyčistiť (celý premaľovať na bielo) pomocou [`CanvasRenderingContext2D.clearRect()`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/clearRect), inak by na ňom zostávali pôvodné čiary z predchádzajúceho vykreslenia.
+Náš `canvas` však musíme pred každým prekreslením vyčistiť (celý premaľovať na bielo) pomocou [`CanvasRenderingContext2D.clearRect()`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/clearRect), inak by na ňom zostávali pôvodné čiary z predchádzajúceho kreslenia.
 
 Upravená funkcia `makeTick()`:
 

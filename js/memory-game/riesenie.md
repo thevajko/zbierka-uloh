@@ -11,7 +11,7 @@
 
 ## Riešenie
 
-Celé riešenie sa bude skladať z troch súborov: `index.html`, `style.css`, `script.js`. Logika aplikácie sa bude vykonávať v Javascripte, HTML a CSS využijeme len na tvorbu základnej hracej plochy.
+Celé riešenie sa bude skladať z troch súborov: `index.html`, `style.css`, `script.js`. Logika aplikácie sa bude vykonávať v JavaScripte, HTML a CSS využijeme len na tvorbu základnej hracej plochy.
 
 ### HTML základ
 
