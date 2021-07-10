@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/js-a-css/showhide), [Riešenie](/../../tree/solution/js-a-css/showhide).
+> - Repo: [Štartér](/../../tree/main/js-a-css/showhide), [Riešenie](/../../tree/solution/js-a-css/showhide)
 > - [Zobraziť zadanie](zadanie.md)
 
 # ShowHide - (JS, CSS)
@@ -11,7 +11,7 @@
 
 ## Riešenie
 
-Táto úloha sa dá vyriešiť iba s pomocou JavaScriptu. Prvým krokom bude vytvorenie prípravou časti kódu, ktorý sa spustí až po načítaní HTML dokumentu zo servera. To sa tá docieliť nasledovným kódom:
+Táto úloha sa dá vyriešiť iba s pomocou JavaScriptu. Prvým krokom bude vytvorenie časti kódu, ktorý sa spustí až po načítaní HTML dokumentu zo servera. To sa tá docieliť nasledovným kódom:
 
 ```javascript
 window.onload = function () {
@@ -19,7 +19,7 @@ window.onload = function () {
 }
 ```
 
-Ako prvé skript po inicializovaní dokumentu, získa kolekciu všetkých `h1` elementov v celom dokumente:
+Ako prvé skript po inicializovaní dokumentu, získa kolekciu všetkých `h1` elementov z celého dokumentu:
 
 ```javascript
 window.onload = function () {
@@ -30,7 +30,7 @@ window.onload = function () {
 }
 ```
 
-Funkcia sa pre zobrazovanie a skrývanie sa má vykonať po kliknutí na element `h1`. Spustenie tejto funkcie realizujeme pomocou priradenia funkcie na obsluhu udalosti [`onclick`](https://www.w3schools.com/jsref/event_onclick.asp).
+Funkcia sa pre zobrazovanie a skrývanie má vykonať po kliknutí na element `h1`. Spustenie tejto funkcie realizujeme pomocou priradenia funkcie na obsluhu udalosti [`onclick`](https://www.w3schools.com/jsref/event_onclick.asp).
 
 ```javascript
 window.onload = function () {
@@ -59,13 +59,13 @@ window.onload = function () {
 }
 ```
 
-Skrývanie a zobrazovanie elementov `p` realizujeme upravením CSS vlastnosti `display`. JavaScript môže priamo modifikovať CSS daného elementu prostredníctvom [atribútu `style`](https://www.w3schools.com/jsref/prop_html_style.asp) . Ak chceme nejaký element skryť, urobíme to nasledovne:
+Skrývanie a zobrazovanie elementov `p` realizujeme upravením CSS vlastnosti `display`. JavaScript môže priamo modifikovať CSS daného elementu prostredníctvom [atribútu `style`](https://www.w3schools.com/jsref/prop_html_style.asp). Ak chceme nejaký element skryť, urobíme to nasledovne:
 
 ```javascript
 domElement.style.display = "none";
 ```
 
-Priradená hodnota je vložená prostredníctvom reťazca a vieme ju priradiť aj získať. To využijeme pri rozhodovaní, či daný element `p` skryjeme alebo zobrazíme. Ak bude `domElement.style.display` obsahovať hodnotu `none` znamena to, že je element `p` skrytý a je ho potrebné zobraziť. V inom prípade sa skryje.
+Priradená hodnota je vložená prostredníctvom reťazca a vieme ju priradiť aj získať. To využijeme pri rozhodovaní, či daný element `p` skryjeme alebo zobrazíme. Ak bude `domElement.style.display` obsahovať hodnotu `none` znamená to, že je element `p` skrytý a je ho potrebné zobraziť. V inom prípade sa skryje. Logika, ktorá sa spustí po načítaní stránky bude nasledovná:
 
 ```javascript
 window.onload = function () {
@@ -84,7 +84,7 @@ window.onload = function () {
 }
 ```
 
-Ako posledný krok upravíme CSS a doplníme formátovanie a zmenu kurzoru pre element `h1`, tak aby indikoval používateľovi, že sa naň dá kliknúť. Zmenu kurzora zabezpečíme pridaním CSS vlastnosti `cursor: pointer;`. CSS bude vyzerať nasledovne:
+Ako posledný krok upravíme CSS a doplníme formátovanie a zmenu kurzoru myši pre element `h1`, tak aby indikoval používateľovi, že sa naň dá kliknúť. Zmenu kurzora zabezpečíme pridaním CSS vlastnosti `cursor: pointer;`. CSS bude vyzerať nasledovne:
 
 ```css
 body {
