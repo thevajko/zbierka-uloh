@@ -2,7 +2,8 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/php/form), [Riešenie](/../../tree/solution/php/form).
+> - Repo: [Štartér](/../../tree/main/php/form), [Riešenie](/../../tree/solution/php/form)
+> - [Zobraziť riešenie](riesenie.md)
 </div>
 
 # Dynamický formulár
@@ -48,8 +49,3 @@ if ($form->isValid()) {
 // Vykreslenie
 $form->render();
 ```
-
-<div class="hidden">
-
-[Zobraziť riešenie](riesenie.md).
-</div>
