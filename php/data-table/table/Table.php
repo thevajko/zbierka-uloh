@@ -1,7 +1,5 @@
 <?php
 
-use JetBrains\PhpStorm\Pure;
-
 require_once "ITableSource.php";
 require_once "Column.php";
 

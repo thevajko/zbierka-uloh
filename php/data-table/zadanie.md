@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/php/data-table), [Riešenie](/../../tree/solution/php/data-table).
+> - Repo: [Štartér](/../../tree/main/php/data-table), [Riešenie](/../../tree/solution/php/data-table)
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 
@@ -25,4 +25,3 @@ Vytvorte PHP triedu, ktoré bude schopná zobraziť obsah ľubovolnej databázov
 1. načíta a zobrazí všetky dáta vo forme HTML tabuľky,
 1. umožní zoradiť dáta zostupne a zostupne kliknutím na záhlavie tabuľky, 
 1. zobrazené dáta sa budú dať stránkovať.
-
