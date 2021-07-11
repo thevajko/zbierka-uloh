@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/php/crud), [Riešenie](/../../tree/solution/php/crud).
+> - Repo: [Štartér](/../../tree/main/php/crud), [Riešenie](/../../tree/solution/php/crud)
 > - [Zobraziť zadanie](zadanie.md)
 
 # Operácie nad tabuľkou (PHP)
@@ -14,13 +14,13 @@
 <div class="hidden">
 
 > Toto riešenie obsahuje všetky potrebné služby v `docker-compose.yml`. Po ich spustení sa vytvorí:
-> - webový server, ktory do __document root__ namapuje adresár tejto úlohy s modulom __PDO__. Port __80__ a bude dostupný na adrese [http://localhost/](http://localhost/). Server má pridaný modul pre ladenie [__Xdebug 3__](https://xdebug.org/) nastavený na port __9000__.
-> - databázový server s vytvorenou _databázov_ a tabuľkou `users` s dátami na porte __3306__ a bude dostupný na `localhost:3306`. Prihlasovacie údaje sú:
+> - webový server, ktorý do __document root__ namapuje adresár tejto úlohy s modulom __PDO__. Port __80__ a bude dostupný na adrese [http://localhost/](http://localhost/). Server má pridaný modul pre ladenie [__Xdebug 3__](https://xdebug.org/) nastavený na port __9000__.
+> - databázový server s vytvorenou _databázou_ a tabuľkou `users` s dátami na porte __3306__ a bude dostupný na `localhost:3306`. Prihlasovacie údaje sú:
 >   - MYSQL_ROOT_PASSWORD: db_user_pass
 >   - MYSQL_DATABASE: crud
 >   - MYSQL_USER: db_user
 >   - MYSQL_PASSWORD: db_user_pass
-> - phpmyadmin server, ktorý sa automatický nastevený na databázový server na porte __8080__ a bude dostupný na adrese [http://localhost:8080/](http://localhost:8080/)
+> - phpmyadmin server, ktorý sa automatický nastavený na databázový server na porte __8080__ a bude dostupný na adrese [http://localhost:8080/](http://localhost:8080/)
 
 </div>
 
@@ -113,7 +113,7 @@ Pre prístup k pripojeniu využijeme statickú metódu `Db::conn()`, ktorá vrá
 
 ### Návrh objektovej štruktúry
 
-Pre lepšiu organizáciu kódu si vytvoríme triedu na prácu s databázou (`UserStorage`) a entitnú triedu (`User`). Trieda `User` bude kopírovať štruktúru dát v databáze. Jednotlivým atribútom nastavíme predvolené hodnoty, aby sme následne jednoducho mohli vytvárať nové záznamy pomocou formulára. Okrem toho sme pridali metódu `getFullname()`, ktorá nám vráti celé meno danej osoby.
+Pre lepšiu organizáciu kódu si vytvoríme triedu `UserStorage` na prácu s databázou a entitnú triedu `User`. Trieda `User` bude kopírovať štruktúru dát v databáze. Jednotlivým atribútom nastavíme predvolené hodnoty, aby sme následne jednoducho mohli vytvárať nové záznamy pomocou formulára. Okrem toho sme pridali metódu `getFullname()`, ktorá nám vráti celé meno danej osoby.
 
 ```php
 class User
@@ -208,9 +208,9 @@ public function get($id): ?User
 }
 ```
 
-Metóda [`PDOStatement::fetch()`](https://www.php.net/manual/en/pdostatement.fetch.php) na rozdiel od [`PDOStatement::fetchAll()`](https://www.php.net/manual/en/pdostatement.fetchall.php) neumožnuje priamo definovať triedu, ktorú nám táto metóda vráti. Pre nastavenie typu, ktorý nám metóda [`PDOStatement::fetch()`](https://www.php.net/manual/en/pdostatement.fetch.php) vráti, použijeme [`PDOStatement::setFetchMode`](https://www.php.net/manual/en/pdostatement.setfetchmode.php), kde nastavíme `PDO::FETCH_CLASS` a triedu na `User::class`.
+Metóda [`PDOStatement::fetch()`](https://www.php.net/manual/en/pdostatement.fetch.php) na rozdiel od [`PDOStatement::fetchAll()`](https://www.php.net/manual/en/pdostatement.fetchall.php) neumožňuje priamo definovať triedu, ktorú nám táto metóda vráti. Pre nastavenie typu, ktorý nám metóda [`PDOStatement::fetch()`](https://www.php.net/manual/en/pdostatement.fetch.php) vráti, použijeme [`PDOStatement::setFetchMode`](https://www.php.net/manual/en/pdostatement.setfetchmode.php), kde nastavíme `PDO::FETCH_CLASS` a triedu na `User::class`.
 
-Metóda [`PDOStatement::fetch()`](https://www.php.net/manual/en/pdostatement.fetch.php) vráti `false` v prípade že sme nenašli žiaden záznam v databáze, preto sme pridali podmienku, ktorá v prípade, že neexistuje záznam v databáze s daným `id` vráti hodnotu `null`, čo je objektovo čistejšie riešenie, ako keď metóda `UserStorage::get()` vráti `false` v prípade nenájdenia záznamu.
+Metóda [`PDOStatement::fetch()`](https://www.php.net/manual/en/pdostatement.fetch.php) vráti `false` v prípade že sme nenašli žiaden záznam v databáze. Preto sme pridali podmienku, ktorá v prípade, že neexistuje záznam v databáze s daným `id` vráti hodnotu `null`. Je to objektovo čistejšie riešenie, ako keď metóda `UserStorage::get()` vráti `false` v prípade nenájdenia záznamu.
 
 #### Ukladanie dát do databázy
 
@@ -251,7 +251,8 @@ public function delete(User $user): void {
 
 ### Architektúra web aplikácie
 
-Modelovú vrstvu aplikácie máme hotovú. V ďalšom kroku potrebujeme navrhnúť spôsob, akým do aplikácie vložíme výpis dát, formulár na editáciu a pridávanie položiek. Webová aplikácia na správu používateľov bude potrebovať niekoľko podstránok. Existujú rôzne prístupy, ako môžeme takúto funkcionalitu rozdeliť do jednotlivých častí aplikácie. Úplne najjednoduchší spôsob je rozdelenie aplikácie na niekoľko PHP stránok. V tomto prístupe by mohla štruktúra našej stránky vyzerať nasledovne:
+Modelovú vrstvu aplikácie máme hotovú. V ďalšom kroku potrebujeme navrhnúť spôsob, akým do aplikácie vložíme výpis dát, formulár na editáciu a pridávanie položiek. Webová aplikácia na správu používateľov bude potrebovať niekoľko podstránok. 
+Existujú rôzne prístupy, ako môžeme takúto funkcionalitu rozdeliť do jednotlivých častí aplikácie. Úplne najjednoduchší spôsob je rozdelenie aplikácie na niekoľko PHP stránok. V tomto prístupe by mohla štruktúra našej stránky vyzerať nasledovne:
 
 ```
 index.php
@@ -260,11 +261,13 @@ add.php
 delete.php
 ```
 
-Ak by sme chceli vidieť zoznam užívateľov, zadali by sme si do prehliadača URL adresu: `https://stranka.sk/index.php`. Pre editáciu používateľa by sme mali adresu, ktorá by mohla vyzerať nasledovne: `https://stranka.sk/edit.php?id=6`. Takýto prístup nie je veľmi vhodný, pretože sa po čase stane neprehľadným a často vedie k veľkej duplicite kódu. Každý zo súborov `index.php`, `edit.php` atď. bude musieť obsahovať rovnaký kód na vykreslenie hlavičky HTML stránky, vykreslenie prípadného menu a ďalších prvkov. Táto duplicita sa síce dá odstrániť pomocou PHP príkazu [`include`](https://www.php.net/manual/en/function.include.php), ale kód bude aj tak neprehľadný.
+Ak by sme chceli vidieť zoznam užívateľov, zadali by sme si do prehliadača URL adresu: `https://stranka.sk/index.php`. Pre editáciu používateľa by sme mali adresu, ktorá by mohla vyzerať nasledovne: `https://stranka.sk/edit.php?id=6`. 
+
+Takýto prístup nie je veľmi vhodný, pretože sa po čase stane neprehľadným a často vedie k veľkej duplicite kódu. Každý zo súborov `index.php`, `edit.php` atď. bude musieť obsahovať rovnaký kód na vykreslenie hlavičky HTML stránky, vykreslenie prípadného menu a ďalších prvkov. Táto duplicita sa síce dá odstrániť pomocou PHP príkazu [`include`](https://www.php.net/manual/en/function.include.php), ale kód bude aj tak neprehľadný.
 
 Úplným opakom spomenutého prístupu je využitie návrhového vzoru MVC. Ten rozdelí logiku aplikácie na niekoľko vrstiev a celá aplikácia bude mať jeden prístupový bod (`index.php`).
 
-V našom jednoduchom prípade ale nebudeme implementovať MVC framework, ani nebudeme využívať už existujúci a navrhneme si jednoduchú štruktúru súborov, kde jednotlivé časti aplikácie rozdelíme na určité komponenty a v `index.php` ich budeme spájať dokopy.
+V našom jednoduchom prípade ale nebudeme implementovať MVC a ani nebudeme využívať už existujúci framework. Navrhneme si jednoduchú štruktúru súborov, kde jednotlivé časti aplikácie rozdelíme na určité komponenty a v `index.php` ich budeme spájať dokopy.
 
 Naša štruktúra aplikácie by mohla vyzerať nasledovne:
 
@@ -274,7 +277,9 @@ Modelové triedy sme uložili do zložky `model`. V koreňovom adresári projekt
 
 ### Implementácia vstupného bodu aplikácie
 
-Na začiatok začneme s implementáciou vstupného bodu aplikácie. Vstupným bodom bude súbor `index.php`. Ten bude obsahovať základnú štruktúru HTML stránky, do budúcnosti môže obsahovať opakujúce sa časti stránky (napr. menu), a jednoduchý smerovač (*router*), ktorý na základe parametrov v URL adrese zobrazí príslušný komponent. To, ktorý komponent sa zobrazí, budeme v URL adrese zadávať pomocou parametra `p` (*page*). Na základe tohto parametra vložíme do stránky príslušný súbor zo zložky `pages`.
+Na začiatok začneme s implementáciou vstupného bodu aplikácie. Vstupným bodom bude súbor `index.php`. Ten bude obsahovať základnú štruktúru HTML stránky, do budúcnosti môže obsahovať opakujúce sa časti stránky (napr. menu) a jednoduchý smerovač (*router*).
+
+Ten na základe parametrov v URL adrese zobrazí príslušný komponent. To, ktorý komponent sa zobrazí, budeme v URL adrese zadávať pomocou GET parametra `p` (*page*). Na základe tohto GET parametra vložíme do stránky príslušný súbor zo zložky `pages`.
 
 ```php
 <?php
@@ -306,9 +311,11 @@ require "model/UserStorage.php";
 </html>
 ```
 
-Na začiatku tohto súboru vložíme `UserStorage`, aby sme danú triedu mali v ďalších častiach aplikácie dostupnú. Hlavnú časť súboru `index.php` tvorí smerovač, ktorý na základe hodnoty `GET` parametra `p` rozhoduje, ktorý komponent sa použije. Tento smerovač je implementovaný jednoduchým `switch` konštruktom. Ako môžeme vidieť, pri URL adrese `?p=users/add`, ale aj `?p=users/edit` nám vloží ten istý komponent - formulár na editáciu používateľov.
+Na začiatku tohto súboru vložíme súbor `UserStorage.php`, aby sme danú triedu mali v ďalších častiach aplikácie dostupnú. Hlavnú časť súboru `index.php` tvorí smerovač, ktorý na základe hodnoty GET parametra `p` rozhoduje, ktorý komponent sa použije.
 
-Celá logika tohto jednoduchého smerovača by sa dala spraviť aj univerzálnejšie - napríklad by sa dalo automaticky načítať súbor podľa hodnoty parametra `p`. Pri takejto implementácii treba mať ale na pamäti bezpečnosť. Je potrebné zabezpečiť aplikáciu pred útokom typu *local file inclusion*. Pre komplexnosť tohto problému radšej zostaneme v našom príklade pri jednoduchej implementácii smerovača pomocou príkazu `switch`.
+Tento smerovač je implementovaný jednoduchým `switch` konštruktom. Ako môžeme vidieť, pri URL adrese `?p=users/add`, ale aj `?p=users/edit` nám vloží ten istý komponent - formulár na editáciu používateľov.
+
+Celá logika tohto jednoduchého smerovača by sa dala spraviť aj univerzálnejšie. Napríklad by sa dal automaticky načítať súbor podľa hodnoty parametra `p`. Pri takejto implementácii treba mať ale na pamäti bezpečnosť. Je potrebné zabezpečiť aplikáciu pred útokom typu *local file inclusion*. Pre komplexnosť tohto problému radšej zostaneme v našom príklade pri jednoduchej implementácii smerovača pomocou príkazu `switch`.
 
 ### Implementácia výpisu používateľov
 
@@ -341,13 +348,13 @@ $userStorage = new UserStorage();
 </table>
 ```
 
-Na úvod si vytvoríme inštanciu `UserStorage`. Následne pridáme odkaz na pridanie novej položky, ktorý bude smerovať na URL adresu `?p=users/add`. Potom deklarujeme HTML tabuľku zo stĺpcami, ktoré obsahuje naša entita. V cykle `foreach` prejdeme jednotlivé záznamy a vypíšeme ich. Úplne do posledného stĺpca sme pridali dva odkazy. Jeden na editáciu daného záznamu, ktorý vyzerá nasledovne `?p=users/edit&id=`, pričom za hodnotu parametra `id` sa doplní databázové `id` daného riadku. Rovnakým spôsobom sme vytvorili aj odkaz na odstránenie súboru.
+Na úvod si vytvoríme inštanciu triedy `UserStorage`. Následne pridáme odkaz na pridanie novej položky, ktorý bude smerovať na URL adresu `?p=users/add`. Potom deklarujeme HTML tabuľku zo stĺpcami, ktoré obsahuje naša entita. V cykle `foreach` prejdeme jednotlivé záznamy a vypíšeme ich. Úplne do posledného stĺpca sme pridali dva odkazy. Jeden na editáciu daného záznamu, ktorý vyzerá nasledovne `?p=users/edit&id=`, pričom za hodnotu parametra `id` sa doplní databázové `id` daného riadku. Rovnakým spôsobom sme vytvorili aj odkaz na odstránenie súboru.
 
 ![Zoznam použivateľov](images_crud/list.png)
 
 ### Implementácia mazania používateľov
 
-Mazanie použivateľov budeme implementovať v súbore `pages/users/delete.php`. Pri mazaní najskôr načítame používateľa podľa `GET` parametru `id` a ak takého používateľa nájdeme, tak ho odstránime z databázy a vypíšeme informáciu o tom, že sme používateľa odstránili.
+Mazanie používateľov budeme implementovať v súbore `pages/users/delete.php`. Pri mazaní najskôr načítame používateľa podľa GET parametru `id` a ak takého používateľa nájdeme, tak ho odstránime z databázy a vypíšeme informáciu o tom, že sme používateľa odstránili.
 
 ```php
 <?php
@@ -366,7 +373,7 @@ $userStorage->delete($user);
 echo "Uživateľ {$user->getFullname()} ostránený.<br><a href='?'>Späť</a>";
 ```
 
-V tomto kóde nemáme takmer žiadne HTML kód. Jediný HTML kód, ktorý sa tu nachádza, je výpis správy o odstránení / neodstránení používateľa. Jednu zaujímavosť, ktorú si tu môžeme všimnúť je použitie kľúčového slova `return`. Tento príkaz spôsobí ukončenie spracovávania tohto skriptu, akoby sme boli v nejakej metóde / funkcii, ale spracovávanie súboru `index.php`, do ktorého sme tento skript vložili, bude pokračovať ďalej.
+V tomto kóde nemáme takmer žiadny HTML kód. Jediný HTML kód, ktorý sa tu nachádza, je výpis správy o odstránení / neodstránení používateľa. Jednu zaujímavosť, ktorú si tu môžeme všimnúť je použitie kľúčového slova `return`. Tento príkaz spôsobí ukončenie spracovávania tohto skriptu, akoby sme boli v nejakej metóde / funkcii, ale spracovávanie súboru `index.php`, do ktorého sme tento skript vložili, bude pokračovať ďalej.
 
 ![Informácia o odstránení záznamu používateľa](images_crud/delete-result.png)
 
@@ -410,8 +417,9 @@ Skutočne chcete odstrániť používateľa <?=$user->getFullname()?>?
 
 #### Implementácia pomocou JavaScriptu
 
-Druhým spôsobom je implementácia pomocou jednoduchého *confirm* dialógu v jazyku JavaScript. Tento JavaScript je potrebné aplikovať na tlačidlo `Delete` v zozname používateľov. Funkcia `confirm()` má ako parameter správu, ktorú zobrazí a poď ňou zobrazí tlačidla `Yes` a `C
-ancel`. Pokiaľ chceme túto funkciu skombinovať s odkazom na odstránenie používateľa, môžeme použiť udalosť `onclick`. Pokiaľ funkcia, ktorá je v definovaná v udalosti `onclick` vráti návratovú hodnotu `false`,  tak prehliadač zablokuje presmerovanie definované príslušným odkazom.
+Druhým spôsobom je implementácia pomocou jednoduchého *confirm* dialógu v jazyku JavaScript. Tento JavaScript je potrebné aplikovať na tlačidlo `Delete` v zozname používateľov. Funkcia `confirm()` má ako parameter správu, ktorú zobrazí a poď ňou zobrazí tlačidla `Yes` a `Cancel`. 
+
+Pokiaľ chceme túto funkciu skombinovať s odkazom na odstránenie používateľa, môžeme použiť udalosť `onclick`. Pokiaľ funkcia, ktorá je v definovaná v udalosti `onclick` vráti návratovú hodnotu `false`, tak prehliadač zablokuje presmerovanie definované príslušným odkazom.
 
 ```html
 <a href="?p=users/delete&id=<?=$user->id?>" onclick="return confirm('Skutočne chcete odstrániť tento záznam?')">Delete</a>
