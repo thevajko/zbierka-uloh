@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/php/factorial), [Riešenie](/../../tree/solution/php/factorial).
+> - Repo: [Štartér](/../../tree/main/php/factorial), [Riešenie](/../../tree/solution/php/factorial)
 > - [Zobraziť zadanie](zadanie.md)
 
 # Faktoriál - PHP
@@ -11,7 +11,7 @@
 
 ## Riešenie
 
-Ako prvé je potrebné zistiť, ako sa počíta faktoriál. Na webe, napr. mna stránkach [Wikipédie](https://sk.wikipedia.org/wiki/Faktori%C3%A1l), je možné nájsť tento vzorec pre výpočet faktoriálu čísla 5:
+Ako prvé je potrebné zistiť, ako sa počíta faktoriál. Na webe, napr. na stránkach [Wikipédie](https://sk.wikipedia.org/wiki/Faktori%C3%A1l), je možné nájsť tento vzorec pre výpočet faktoriálu čísla 5:
 
 ```
 5! = 5 * 4 * 3 * 2 * 1 = 120
@@ -41,7 +41,7 @@ function factorial($number)
 }
 ```
 
-V zadaní je uvedené, že máme vypísať v danom formáte postupne faktoriál od čísla 0 po 10. To vieme urobiť vytvorením cyklu, ktorý sa spustí 11x a práve tu použijeme cyklus `for`. Všimnite si, ako sa nazvájom mixuje HTML a PHP kód. Táto časť kódu bude vyzerať nasledovne:
+V zadaní je uvedené, že máme vypísať v danom formáte postupne faktoriál od čísla 0 po 10. To vieme urobiť vytvorením cyklu, ktorý sa spustí 11x a práve tu použijeme cyklus `for`. Všimnite si, ako sa navzájom mixuje HTML a PHP kód. Táto časť kódu bude vyzerať nasledovne:
 
 ```php
 <ul>

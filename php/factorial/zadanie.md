@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/php/factorial), [Riešenie](/../../tree/solution/php/factorial).
+> - Repo: [Štartér](/../../tree/main/php/factorial), [Riešenie](/../../tree/solution/php/factorial)
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 
@@ -35,7 +35,3 @@ Vytvorte skript v jazyku PHP, ktorý bude schopný zobraziť a vypočítať [fak
     <li>9! = 362880</li>
 </ul>
 ```
-<div class="hidden">
-
-[Zobraziť riešenie](riesenie.md).
-</div>
