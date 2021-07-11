@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/js/memory-game), [Riešenie](/../../tree/solution/js/memory-game).
+> - Repo: [Štartér](/../../tree/main/js/memory-game), [Riešenie](/../../tree/solution/js/memory-game)
 > - [Zobraziť riešenie](riesenie.md)
 
 </div>
@@ -16,7 +16,7 @@
 
 **Obťažnosť**: 3/5
 
-**Obsah príkladu**: Dynamické generovanie elementov pomocou DOM metódy `createElement()`, výber elementov na základe CSS selektora s použitím DOM metódy `querySelectorAll()`, nastavovanie atribútov elementov, práca so DOM hierarchiou
+**Obsah príkladu**: Dynamické generovanie elementov pomocou DOM metódy `createElement()`, výber elementov na základe CSS selektora s použitím DOM metódy `querySelectorAll()`, nastavovanie atribútov elementov, práca so DOM hierarchiou.
 </div>
 
 ## Zadanie

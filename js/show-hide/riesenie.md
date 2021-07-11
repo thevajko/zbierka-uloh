@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/js-a-css/showhide), [Riešenie](/../../tree/solution/js-a-css/showhide).
+> - Repo: [Štartér](/../../tree/main/js-a-css/showhide), [Riešenie](/../../tree/solution/js-a-css/showhide)
 > - [Zobraziť zadanie](zadanie.md)
 
 # ShowHide - (JS, CSS)
@@ -30,7 +30,7 @@ window.onload = function () {
 }
 ```
 
-Funkcia sa pre zobrazovanie a skrývanie sa má vykonať po kliknutí na element `h1`. Spustenie tejto funkcie realizujeme pomocou priradenia funkcie na obsluhu udalosti [`onclick`](https://www.w3schools.com/jsref/event_onclick.asp).
+Funkcia sa pre zobrazovanie a skrývanie má vykonať po kliknutí na element `h1`. Spustenie tejto funkcie realizujeme pomocou priradenia funkcie na obsluhu udalosti [`onclick`](https://www.w3schools.com/jsref/event_onclick.asp).
 
 ```javascript
 window.onload = function () {

@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/js/show-hide), [Riešenie](/../../tree/solution/js/show-hide).
+> - Repo: [Štartér](/../../tree/main/js/show-hide), [Riešenie](/../../tree/solution/js/show-hide)
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 

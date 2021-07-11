@@ -21,9 +21,9 @@ Pri riešení tohto príkladu budeme postupovať po jednotlivých krokoch:
 
 Vo všeobecnosti môžeme predpokladať, že obrázky v galérii môžu mať rôzne rozmery. Niektoré môžu byť fotené na výšku, iné na šírku, byť širokouhlé až panoramatické. Ak teda chceme zobraziť obrázky rôznych rozmerov v nejakom unifikovanom rozmere, vieme to docieliť dvomi spôsobmi: buď na strane servera vygenerujeme náhľady s rovnakým rozmerom, alebo si ich prispôsobíme pomocou CSS. V tomto príklade si ukážeme riešenie pomocou CSS.
 
-V CSS je problematické zadefinovať veľkosť nejakého elementu vzhľadom na veľkosť jeho predka v percentuálnych hodnotách ak chceme zachovať pomer strán veľkosti.
+V CSS je problematické zadefinovať veľkosť nejakého elementu vzhľadom na veľkosť jeho predka v percentuálnych hodnotách, ak chceme zachovať pomer strán veľkosti.
 
-Problém tu nevytvára nastavenie CSS vlastnosti potomka na `width: 100%` (tu chceme, aby potomok vypĺňal jeho celú šírku), ale nastavenie jeho výšky. Výška zadaná v percentuálnej hodnote sa vyrátava z výšky predka, a to nechceme (pomer strán bude nesprávny). Čo sa dá v tejto situácií použiť, je malý trik s použitím CSS vlastnosti [`padding-top`](https://developer.mozilla.org/en-US/docs/Web/CSS/padding-top). Tá totiž, pri použití percentuálnej hodnoty, nastavuje vertikálne odsadenie ale ako základ používa __šírku rodičovského elementu NIE svoju výšku__.
+Problém tu nevytvára nastavenie CSS vlastnosti potomka na `width: 100%` (tu chceme, aby potomok vypĺňal jeho celú šírku), ale nastavenie jeho výšky. Výška zadaná v percentuálnej hodnote sa vyrátava z výšky predka, a to nechceme (pomer strán bude nesprávny). Čo sa dá v tejto situácií použiť, je malý trik s použitím CSS vlastnosti [`padding-top`](https://developer.mozilla.org/en-US/docs/Web/CSS/padding-top). Tá totiž, pri použití percentuálnej hodnoty, nastavuje vertikálne odsadenie, ale ako základ používa __šírku rodičovského elementu NIE svoju výšku__.
 
 V našom prípade chceme dosiahnuť pomer `4:3`. Ak je šírka `100%`, výška bude musieť mať hodnotu `75%` aby bol dodržaný stanovený pomer. Tieto vlastnosti pridáme do CSS pravidla pre obaľovací element fotky s atribútom `class="photo"`. Toto však samo o sebe nebude stačiť. Aktuálnymi CSS vlastnosťami sme len zadefinovali veľkosť tohto prvku pomocou vnútorného odsadenia. 
 
@@ -202,7 +202,7 @@ V zadaní požadujeme tri spôsoby prispôsobenia zobrazenia obrázkov. Jeden z 
 
 Prvý z nich bude platiť pre šírku okna prehliadača do `600px` a druhý do `1000px`. Veľmi závisí na poradí, v akom jednotlivé pravidlá v `@media()` zapíšeme, nakoľko posledne zadefinované pravidlo prepisuje rovnaké CSS predchádzajúceho. Ako prvé preto musíme zadefinovať štýlovanie pre najmenšie zobrazenie, nasledovať musí štýlovanie pre rozmer okna prehliadača `1000px` a ako posledné pre rozmer `600px`.
 
-Ako podmienku platnosti daného bloku CSS štýlov definujeme pomocou pravidla `max-width`, ktorá je pravdivá pokiaľ veľkosti okna nepresiahne uvedenú hodnotu. 
+Podmienku platnosti daného bloku CSS štýlov definujeme pomocou pravidla `max-width`, ktorá je pravdivá, pokiaľ šírka okna nepresiahne uvedenú hodnotu. 
 
 Nasledujúce riadky dopíšeme za definíciu pravidla `.photo`:
 
@@ -352,7 +352,7 @@ Ak nastavíme pozadie stránky na tmavú farbu, môžeme presne vidieť, čo sa 
 
 ![Dôvod zobrazenia posuvníka](images_gallery/riesenie15.jpg)
 
-Text sa zobrazuje v skutočnosti mimo elementu obrázku. Tento problém môžeme vyriešiť tak, že hlavnému elementu obrázku nastavíme hodnotu CSS parametra `overflow` na `hidden`. To spôsobí, že ak element obsahuje obsah presahujúci jeho veľkosť, tak sa posuvníky nezobrazia.
+Text sa zobrazuje v skutočnosti mimo elementu obrázku. Tento problém môžeme vyriešiť tak, že hlavnému elementu obrázku nastavíme hodnotu CSS parametra `overflow` na `hidden`. To spôsobí, že ak obsah elementu presahuje jeho veľkosť, tak sa posuvníky nezobrazia.
 
 ```css
 .photo {

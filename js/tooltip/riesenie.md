@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/js/tooltip), [Riešenie](/../../tree/solution/js/tooltip).
+> - Repo: [Štartér](/../../tree/main/js/tooltip), [Riešenie](/../../tree/solution/js/tooltip)
 > - [Zobraziť zadanie](zadanie.md)
 
 # Tooltip (JS, CSS)
@@ -17,7 +17,7 @@ V prvom kroku je potrebné vyriešiť skrytie textu popiskov. Jedným zo spôsob
 <span data-tooltip="Tooltip: In mollis accumsan sodales.">consectetur</span>
 ```
 
-Ďalším krokom je príprava zobrazenia textu, pokiaľ naň používateľ umiestni kurzor a jeho skrytie, ak kurzor text opustí. Túto časť je možné vytvoriť jedine s použitím JavaScriptu. Skript, ktorý bude vykonávať túto činnosť, sa musí spustiť automaticky po načítaní dokumentu<span class="hidden"> ([viac o spúštaní skriptov tu](../../common/js-onload.md))</span>. To sa tá dosiahnuť nasledovným kódom:
+Ďalším krokom je príprava zobrazenia textu, pokiaľ naň používateľ umiestni kurzor myši a jeho skrytie, ak ho dá preč. Túto časť je možné vypracovať jedine s použitím JavaScriptu. Skript, ktorý bude vykonávať túto činnosť, sa musí spustiť automaticky po načítaní dokumentu<span class="hidden"> ([viac o spúštaní skriptov tu](../../common/js-onload.md))</span>. To sa tá dosiahnuť nasledovným kódom:
 
 ```javascript
 window.onload = function () {
@@ -34,7 +34,7 @@ for (let i = 0; i < spans.length; i++) {
 }
 ```
 
-V tomto cykle vytvoríme najprv kód, ktorý text popisku získa z atribútu `data-tooltip` a následne ho zobrazí. Zobrazenie popisku používateľovi spravíme tak, že jeho text vložíme do ďalšieho prvého elementu ako vnorený element. Podľa [štandardu HTML](https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-span-element) ale nemôžeme vložiť do elementu `span` ďalší `span` alebo `div` element. Preto zmeníme element obsahujúci popisok na `div`, takže bude vyzerať:
+V tomto cykle vytvorime najprv logiku, ktorá text popisku získa z atribútu `data-tooltip` a následne ho zobrazí. Zobrazenie popisku používateľovi spravíme tak, že jeho text vložíme do ďalšieho prvého elementu ako vnorený element. Podľa [štandardu HTML](https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-span-element) ale nemôžeme vložiť do elementu `span` ďalší `span` alebo `div`. Preto zmeníme element obsahujúci popisok na `div`, takže bude vyzerať:
 
 ```html
 <div data-tooltip="Tooltip: In mollis accumsan sodales.">consectetur</div>
@@ -106,13 +106,12 @@ Pre umiestnenie popisku nastavíme `position: absolute;`. To spôsobí, že elem
 
 Pri nastavení `position: absolute;` nejakého elementu sa za jeho *rodičovský element* považuje hierarchicky najbližší vyšší element, ktorý má nastavený CSS atribút `position` na `relative` alebo `absolute`. V našom prípade to je prvý element. Tým pádom môžeme nastaviť hodnotu `left: 0;` a `top: 120%;`. Potom bude popisok zarovnaný vľavo a bude pod prvým elementom<span class="hidden"> ([podrobnejšie o CSS position](../../common/css-position.md))</span>. Výsledné CSS bude:
 
-```CSS
+```css
 div[data-tooltip] {
     display: inline;
     font-weight: bold;
     position: relative;
 }
-
 .tooltip {
     display: block;
     width: 200px;

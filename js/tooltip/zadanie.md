@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/js/tooltip), [Riešenie](/../../tree/solution/js/tooltip).
+> - Repo: [Štartér](/../../tree/main/js/tooltip), [Riešenie](/../../tree/solution/js/tooltip)
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 
@@ -43,7 +43,7 @@ Kód obsahuje element `div`, ktorého obsah je tvorený textom generovaným pomo
 
 <div class="hidden">
 
-Štruktúru dokumentu môžete upraviť, tak aby bolo možné úlohu vypracovať. Pre vypracovanie sa snažte použiť čistý javascript a CSS.
+Štruktúru dokumentu môžete upraviť, tak aby bolo možné úlohu vypracovať. Pre vypracovanie sa snažte použiť čistý JavaScript a CSS.
 
 > ### Pomôcky:
 > - [Načítanie JS](../../common/js-onload.md )
