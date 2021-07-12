@@ -2,7 +2,8 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/php/squares), [Riešenie](/../../tree/solution/php/squares).
+> - Repo: [Štartér](/../../tree/main/php/squares), [Riešenie](/../../tree/solution/php/squares)
+> - [Zobraziť zadanie](zadanie.md)
 
 # Generovanie štvorčekov (PHP, CSS)
 
@@ -38,7 +39,6 @@ body {
     height: 100%;
     overflow: hidden;
 }
-
 div {
     position: absolute;
     width: 50px;
@@ -46,7 +46,7 @@ div {
 }
 ```
 
-Pre telo dokumentu (element `body`) nastavíme vlastnosti `padding` a `margin` na `0`, aby sa mohli štvorčeky zobrazovať od úplneho okraja okna. Okrem toho nastavíme veľkosť na `100%`, aby vyplnili celý okno. Ak nechceme, aby sa nám okolo okna zobrazovali posuvníky, je potrebné ešte nastaviť `overflow: hidden`.
+Pre telo dokumentu (element `body`) nastavíme CSS vlastnosti `padding` a `margin` na `0`, aby sa mohli štvorčeky zobrazovať od úplného okraja okna. Okrem toho nastavíme veľkosť na `100%`, aby vyplnili celý okno. Ak nechceme, aby sa nám okolo okna zobrazovali posuvníky, je potrebné ešte nastaviť `overflow: hidden`.
 
 Každý štvorček bude mať nastavenú pozíciu na `absolute`, aby sme ho mohli umiestniť ľubovolne na stránku a veľkosť bude mať `50px`.
 
@@ -54,7 +54,7 @@ Každý štvorček bude mať nastavenú pozíciu na `absolute`, aby sme ho mohli
 
 Implementáciu PHP časti začneme deklarovaním niekoľkých pomocných funkcií.
 
-Vzhľadom na to, že štvorčeky chceme umiestňovať náhodne na základe súradnic v percentách, definujeme si funkciu `randPosition()`, ktorú umiestnime medzi značky `<?php` a `?>`.
+Vzhľadom na to, že štvorčeky chceme umiestňovať náhodne na základe súradníc v percentách, definujeme si funkciu `randPosition()`, ktorú umiestnime medzi značky `<?php` a `?>`.
 
 ```php
 function randPosition() 
@@ -77,19 +77,12 @@ V tomto prípade sme si deklarovali pole dostupných farieb. Výslednú farbu vy
 
 Výhodou tohto riešenia je to, že vieme dopredu špecifikovať, aké farby chceme. V prípade, že by sme potrebovali plne náhodné spektrum farieb potrebujeme si danú farbu nejakým spôsobom vygenerovať.
 
-Existuje niekoľko spôsobov, ako môžeme reprezentovať farby.
-- RGB
-- HSB
-- HSL
-- CMYK
+Vo webových aplikáciach najčastejšie využívame RGB formát pre zápis farby. RGB kód farby sa skladá z troch zložiek R - *red*, G - *green*, B - *blue*. Každá z týchto hodnôt môže nadobúdať hodnotu 0 - 255 (0 - FF hexadecimálne). Existujú dva formáty zápisu RGB farby v CSS:
 
-Vo webových aplikáciach najčastejšie využívame RGB farebné spektrum. RGB kód farby sa skladá z troch zložiek R - *red*, G - *green*, B - *blue*. Každá z týchto hodnôt môže nadobúdať hodnotu 0 - 255 (0 - FF hexadecimálne). Existujú dva formáty zápisu RGB farby v CSS.
+1. *Hexadecimálny* - začína znakom `#` a za ním nasledujú hodnoty RGB v 16-tkovej sústave, spolu 6 číslic. Napríklad červená farba vyzerá takto: `#FF0000`. 
+2. *Decimálny* - ten sa v CSS zapisuje nasledovne `rgb(red, green, blue);`
 
-*Hexadecimálny* - začína znakom # a za ním nasledujú hodnoty RGB v 16-tkovej sústave - spolu 6 číslic. Napríklad červená farba vyzerá takto: `#FF0000`.
-
-*Decimálny** - ten sa v CSS zapisuje nasledovne `rgb(red, green, blue);`
-
-Pokiaľ chceme jednoducho vygenerovať farbu, môžeme vygenerovať náhodné číslo z rozsahu 0 - 2^24 (`0xFFFFFF`). Táto hodnota musí mať aj úvodné nuly - takže, ak vygenerujeme hodnotu `0xFF` musíme ju doplniť nulami - `0000FF`. Jej kód bude vyzerať nasledovne:
+Pokiaľ chceme jednoducho vygenerovať farbu, môžeme vygenerovať náhodné číslo z rozsahu 0 - 2^24 (`0xFFFFFF`). Táto hodnota musí mať aj úvodné nuly. Ak vygenerujeme hodnotu `0xFF` musíme ju doplniť nulami - `0000FF`. Jej kód bude vyzerať nasledovne:
 
 ```php
 function randColor()
@@ -111,5 +104,4 @@ Samotný PHP kód na vygenerovanie štvorčekov bude obsahovať jeden cyklus, kt
 <?php } ?>
 ```
 
-Celé riešenie doplníme o základný kód HTML kostry. 
-
+Celé riešenie doplníme o základný kód HTML kostry.
