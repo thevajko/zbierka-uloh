@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/ajax/universal-loader), [Riešenie](/../../tree/solution/ajax/universal-loader).
+> - Repo: [Štartér](/../../tree/main/ajax/universal-loader), [Riešenie](/../../tree/solution/ajax/universal-loader)
 > - [Zobraziť zadanie](zadanie.md)
 
 # Univerzálny loader (JS, AJAX, CSS)
@@ -39,7 +39,6 @@ Kvôli dizajnu by sme chceli docieliť, aby sa element `ajaxLoader` zobrazil roz
   flex-direction: column;
   color: white;
 }
-
 .spinner {
     border: 12px solid #f3f3f3;
     border-top: 12px solid #1970aa;
@@ -49,16 +48,15 @@ Kvôli dizajnu by sme chceli docieliť, aby sa element `ajaxLoader` zobrazil roz
     animation: spin 2s linear infinite;
     margin: 10px;
 }
-
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
 ```
 
-Pozíciu `ajaxLoader` elementu sme nastavili na `fixed` a rozmery na `100%`, aby sme dosiahli, že tento prvok bude za každých okolností zobrazený na celú stránku. Farbu pozadia sme nastavili pomocou `rgba` funkcie tak, že farba je čierna a priehľadnosť je nastavená na `60%`. Pre usporiadanie prvkov v tomto elemente používame *flexbox*. Kontajner `ajaxLoader` sme nastavili ako *flexbox* kontajner, ktorý obsahuje prvky zarovnané na stred a jednotlivé prvky sa budú usporiadavať do stĺpca.
+Pozíciu `ajaxLoader` elementu sme nastavili na `fixed` a rozmery na `100%`, aby sme dosiahli, že tento prvok bude za každých okolností zobrazený na celú stránku. Farbu pozadia sme nastavili pomocou `rgba` CSS funkcie tak, že farba je čierna a priehľadnosť je nastavená na `60%`. Pre usporiadanie prvkov v tomto elemente používame *flexbox*. Kontajner `ajaxLoader` sme nastavili ako *flexbox* kontajner, ktorý obsahuje prvky zarovnané na stred a jednotlivé prvky sa budú usporadúvať do stĺpca.
 
-Pre zobrazanie *spinner* komponentu sme využili jednoduchú CSS animáciu. Je to `div` element, ktorý sme pomocou `border-radius: 50%` zobrazili ako kruh. Tomuto kruhu sme nechali priehľadné pozadie a nastavili mu `12px` rámček, čím sme dostali kružnicu. Hornému rámčeku sme zmenili farbu na modrú a zvyšným častiam rámčeka sme nechali bielu farbu. Toto spôsobilo, že dostaneme kružnicu, kde 1/4 kruhu má inú farbu ako zvyšok.
+Pre zobrazenie *spinner* komponentu sme využili jednoduchú CSS animáciu. Je to `div` element, ktorý sme pomocou `border-radius: 50%` zobrazili ako kruh. Tomuto kruhu sme nechali priehľadné pozadie a nastavili mu `12px` rámček, čím sme dostali kružnicu. Hornému rámčeku sme zmenili farbu na modrú a zvyšným častiam rámčeka sme nechali bielu farbu. Toto spôsobilo, že dostaneme kružnicu, kde 1/4 kruhu má inú farbu ako zvyšok.
 
 Otáčanie kruhu sme dosiahli pomocou jednoduchej animácie, ktorá tento element rotuje o 360 stupňov. Jedna rotácia trvá 2s a je lineárna - kruh sa bude otáčať konštantnou rýchlosťou a animácia sa opakuje donekonečna.
 
@@ -88,17 +86,19 @@ async function loaderFetch(...args)
 }
 ```
 
-Funkcia `fetch()` je asynchrónna, preto aj náša funkcia musí byť asynchrónna. Funkcia `loaderFetch()` má variabilný počet parametrov (`...args`), pretože aj samotná funkcia `fetch()` môže byť volaná s rôznymi parametrami. 
+Funkcia `fetch()` je asynchrónna, preto aj naša funkcia musí byť asynchrónna. Funkcia `loaderFetch()` má variabilný počet parametrov (`...args`), pretože aj samotná funkcia `fetch()` môže byť volaná s rôznymi parametrami. 
 
 > Ak deklarujeme parameter funkcie ako `...parametre`, tak v premennej `parametre` budeme mať pole jednotlivých parametrov, ktoré boli zadané pri volaní. Pri volaní originálnej funkcie `fetch()` tieto parametre potom "rozbalíme" pomocou syntaxe `...args`, vďaka čomu sa originálna funkcia zavolá s rovnakými parametrami ako naša funkcia.
 
 Na začiatku funkcie dynamicky vytvoríme DOM element, ktorý reprezentuje HTML reprezentáciu celého komponentu. Pomocou `document.getElementsByTagName("body")[0].append(loader);` tento vytvorený element vložíme do DOM stránky.
 
-V ďalšej časti máme blok `try / finally`, ktorý používame preto, lebo vždy po skončení asynchrónneho volania potrebujeme skryť celý komponent *AJAX loader* bez ohľadu na to, či sa operácia podarí, alebo nastane výnimka. Vo vetve `try` sa pokúsime zavolať funkciu `fetch()` a asynchrónne počkáme na skončenie žiadosti. Po skončení vrátime odpoveď. V prípade, že sa stiahnutie nepodarí a nastane výnimka, táto sa znovu vyhodí. Vo vetve `finally` odstránime elemement z DOM.
+V ďalšej časti máme blok `try / finally`, ktorý používame preto, lebo vždy po skončení asynchrónneho volania potrebujeme skryť celý komponent *AJAX loader* bez ohľadu na to, či sa operácia podarí, alebo nastane výnimka. Vo vetve `try` sa pokúsime zavolať funkciu `fetch()` a asynchrónne počkáme na skončenie žiadosti. Po skončení vrátime odpoveď. V prípade, že sa stiahnutie nepodarí a nastane výnimka, táto sa znovu vyhodí. Vo vetve `finally` odstránime element z DOM.
 
 Ak chceme našu funkciu otestovať, nahradíme vo funkcii `nacitajZdroj()` volanie `fetch()` za `loaderFetch()`.
 
-Po spustení ukážkového príkladu si môžeme všimnúť, že po stlačení tlačidla nám celá obrazovka stmavne a zobrazí sa komponent *spinner*. Problém je ale v tom, že ak náš kód načítava 2 zdroje súčasne, tak sa tento celý komponent *AJAX loader* zobrazí 2x. Na ukážke môžeme pozorovať, že po skončení prvej žiadosti sa obrazovka trochu zosvetlí a komponent čaká na skončenie aj druhej žiadosti. Túto situáciu môžeme vyriešiť pridaním počítadla neukončených žiadostí a zobrazovať / skrývať budeme celý komponent *AJAX loader* len v prípade potreby. 
+Po spustení ukážkového príkladu si môžeme všimnúť, že po stlačení tlačidla nám celá obrazovka stmavne a zobrazí sa komponent *spinner*. Problém je ale v tom, že ak náš kód načítava 2 zdroje súčasne, tak sa tento celý komponent *AJAX loader* zobrazí 2x. 
+
+Na ukážke môžeme pozorovať, že po skončení prvej žiadosti sa obrazovka trochu zosvetlí a komponent čaká na skončenie aj druhej žiadosti. Túto situáciu môžeme vyriešiť pridaním počítadla neukončených žiadostí a zobrazovať / skrývať budeme celý komponent *AJAX loader* len v prípade potreby. 
 
 ```javascript
 let requestCounter = 0;
