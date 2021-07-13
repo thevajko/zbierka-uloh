@@ -2,7 +2,8 @@
 
 >  ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/ajax/universal-loader), [Riešenie](/../../tree/solution/ajax/universal-loader).
+> - Repo: [Štartér](/../../tree/main/ajax/universal-loader), [Riešenie](/../../tree/solution/ajax/universal-loader)
+> - [Zobraziť riešenie](riesenie.md)
 </div>
 
 # Komponent pre zobrazenie spracovania AJAX žiadostí
@@ -45,8 +46,3 @@ function loadData()
     loadUrl('https://run.mocky.io/v3/93096a26-6f6b-462b-81da-91512a2c4888?mocky-delay=4000ms');
 }
 ```
-
-<div class="hidden">
-
-[Zobraziť riešenie](riesenie.md).
-</div>

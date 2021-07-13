@@ -2,7 +2,8 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/php/squares), [Riešenie](/../../tree/solution/php/squares).
+> - Repo: [Štartér](/../../tree/main/php/squares), [Riešenie](/../../tree/solution/php/squares)
+> - [Zobraziť riešenie](riesenie.md)
 </div>
 
 # Generovanie štvorčekov
@@ -24,8 +25,3 @@ Vytvorte skript v jazyku PHP, ktorý v kombinácii s CSS vyplní celú stránku 
 
 ### Cieľ príkladu
 Cieľom príkladu je jednoduchá ukážka dynamického generovania HTML kódu pomocou PHP.
-
-<div class="hidden">
-
-[Zobraziť riešenie](riesenie.md).
-</div>
