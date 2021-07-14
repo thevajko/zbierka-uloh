@@ -28,7 +28,7 @@ long double factorial (int n) {
 }
 ```
 
-V prvom kroku prepíšeme pseudokód do jazyka PHP, začneme deklaráciou funkcie, ktorej kód umiestnime na začiatok súboru. Pozor, súbor musí mať koncovku `.php`. Na výpočet použijeme cyklus `while`, v ktorom postupne zmenšujeme hodnotu parametra `$cislo` dekrementáciou, výsledok vzniká postupným násobením:
+V prvom kroku prepíšeme pseudokód do jazyka PHP. Začneme deklaráciou funkcie, ktorej kód umiestnime na začiatok súboru. Pozor, súbor musí mať koncovku `.php`. Na výpočet použijeme cyklus `while`, v ktorom postupne zmenšujeme hodnotu parametra `$cislo` dekrementáciou, výsledok vzniká postupným násobením:
 
 ```php
 function factorial($number)
@@ -41,7 +41,7 @@ function factorial($number)
 }
 ```
 
-V zadaní je uvedené, že máme vypísať v danom formáte postupne faktoriál od čísla 0 po 10. To vieme urobiť vytvorením cyklu, ktorý sa spustí 11x a práve tu použijeme cyklus `for`. Všimnite si, ako sa navzájom mixuje HTML a PHP kód. Táto časť kódu bude vyzerať nasledovne:
+V zadaní je uvedené, že máme vypísať postupne faktoriál od čísla 0 po 10. To vieme urobiť vytvorením cyklu, ktorý sa spustí 11x a práve tu použijeme cyklus `for`. Všimnite si, ako sa navzájom mixuje HTML a PHP kód. Táto časť kódu bude vyzerať nasledovne:
 
 ```php
 <ul>

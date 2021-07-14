@@ -130,7 +130,7 @@ Jedinú výnimku bude tvoriť formátovanie elementu `ul` druhej a ďalšej úro
 
 Pre odstránenie problémov s odsadením môžeme v našom prípade urobiť tzv. *globálny reset odsadení* v CSS. Ten používa selektor `*` a ako vlastnosti mu nastavíme vnútorné a vonkajšie odsadenie na hodnotu `0`. Selektor `*` sa následne použije ako hodnota pre všetky štýlovania. Dôsledok je taký, že teraz musíme definovať odsadenia iba tam, kde ich skutočne chceme.
 
-Následne ešte musíme upraviť zobrazenie elementov `li`, tak aby sa nezobrazovali ako položky menu a elementy `span`, aby sa zobrazovali ako blokové značky (inak im nebude možné zadefinovať rozmer a odsadenie).
+Následne ešte musíme upraviť zobrazenie elementov `li` tak, aby sa nezobrazovali ako položky menu a elementy `span`, aby sa zobrazovali ako blokové značky (inak im nebude možné zadefinovať rozmer a odsadenie).
 
 Vzhľadom na to, že výsledkom úlohy je menu, bude dobrý nápad zamedziť automatické zalamovanie textu v `span`. To urobíme tak, že `span` elementom doplníme CSS vlastnosť `white-space: nowrap;`.
 

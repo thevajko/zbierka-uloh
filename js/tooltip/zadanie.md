@@ -15,7 +15,7 @@
 
 **Obťažnosť**: 1/5
 
-**Obsah príkladu**: Spúšťanie skriptov v obsluhe udalosti `windows.onload`, obsluha udalostí myši, použitie atribútu `innerHTML`
+**Obsah príkladu**: Spúšťanie skriptov v obsluhe udalosti `windows.onload`, obsluha udalostí myši, použitie atribútu `innerHTML`.
 </div>
 
 ## Zadanie
@@ -39,11 +39,11 @@ Skript by mal fungovať na HTML kóde, ako je tento:
 </div>
 ```
 
-Kód obsahuje element `div`, ktorého obsah je tvorený textom generovaným pomocou [*Lorem ipsum generátora*](https://www.lipsum.com/). V tomto texte sa ďalej nachádzajú elementy `span`, kde prvý `span` označuje výraz a druhý `span` s triedou `tooltip` obsahuje text popisku, ktorý sa má používateľovi zobraziť, ak nad prvý `span` umiestni kurzor myši. Akonáhle používateľ kurzor z prvého `span` premiestni preč, popisok sa skryje. Samozrejme, pri otvorení dokumentu nesmú byť popisky zobrazené.
+Kód obsahuje element `div`, ktorého obsah je tvorený textom generovaným pomocou [*Lorem ipsum generátora*](https://www.lipsum.com/). V tomto texte sa ďalej nachádzajú elementy `span`, kde prvý `span` označuje výraz a druhý `span` s triedou `tooltip` obsahuje text popisku, ktorý sa má používateľovi zobraziť, ak nad prvý `span` umiestni kurzor myši. Akonáhle používateľ kurzor z prvého elementu `span` premiestni preč, popisok sa skryje. Samozrejme, pri otvorení dokumentu nesmú byť popisky zobrazené.
 
 <div class="hidden">
 
-Štruktúru dokumentu môžete upraviť, tak aby bolo možné úlohu vypracovať. Pre vypracovanie sa snažte použiť čistý JavaScript a CSS.
+Štruktúru dokumentu môžete upraviť tak, aby bolo možné úlohu vypracovať. Pre vypracovanie použite JavaScript a CSS.
 
 > ### Pomôcky:
 > - [Načítanie JS](../../common/js-onload.md )

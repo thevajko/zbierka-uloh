@@ -2,7 +2,8 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/php/squares), [Riešenie](/../../tree/solution/php/squares).
+> - Repo: [Štartér](/../../tree/main/php/squares), [Riešenie](/../../tree/solution/php/squares)
+> - [Zobraziť riešenie](riesenie.md)
 </div>
 
 # Generovanie štvorčekov
@@ -18,14 +19,9 @@
 </div>
 
 ## Zadanie
-Vytvorte skript v jazyku PHP, ktorý v kombinácii s CSS vyplní celú stránku štvorčekami o veľkosti `50px` x `50px`. Každý štvorček bude mať náhodnú pozíciu a farbu. Štvorčekov na jednej strane zobrazte 2000. 
+Vytvorte skript v jazyku PHP, ktorý v kombinácii s CSS vyplní celú stránku štvorčekami o veľkosti `50px` x `50px`. Každý štvorček bude mať náhodnú pozíciu a farbu. Štvorčekov na jednej stránke zobrazte 2000. 
 
 ![Ukážka náhodne rozmiestnených farebných štvorčekov](images_squares/zadanie.png)
 
 ### Cieľ príkladu
 Cieľom príkladu je jednoduchá ukážka dynamického generovania HTML kódu pomocou PHP.
-
-<div class="hidden">
-
-[Zobraziť riešenie](riesenie.md).
-</div>

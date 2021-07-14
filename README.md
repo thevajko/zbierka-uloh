@@ -12,7 +12,7 @@ Repozitár obsahuje dva branche:
 # Docker
 V súčasnosti jeden z najpoužívanejších spôsobov virtuálizácie, ktorá výrazne zjednocuje a zjednodušuje vývoj a nasadzovanie rôznych aplikácií. Umožňuje veľmi pohodlne nakonfigurovať a zostaviť služby ako lokálne tak aj na serveroch. Umožňuje vytvoriť jednotné a stabilné prostredie.
 
-Niektoré naše úlohy vyžadujú pre ich vypracovanie webový server s PHP a relačnú databázu. Pre odľahčenie a odstránenie nutnosti všetko konfigurovať pripájame, ku každej úlohe, ktorá to vyžaduje súbor `docker-compose.yml`. Tento súbor obsahuje potrebnú nami vytvorenú konfiguráciu, tak aby ste nestrácali zbytočne čas konfiguráciou a inštaláciou potrebných služieb.
+Niektoré naše úlohy vyžadujú pre ich vypracovanie webový server s PHP a relačnú databázu. Pre odľahčenie a odstránenie nutnosti všetko konfigurovať pripájame, ku každej úlohe, ktorá to vyžaduje súbor `docker-compose.yml`. Tento súbor obsahuje potrebnú nami vytvorenú konfiguráciu tak, aby ste nestrácali zbytočne čas konfiguráciou a inštaláciou potrebných služieb.
 
 Pre použitie _Dockera_ na lokálnom PC sa používa aplikácia _Docker Desktop_, ktorá je dostupná pre _Linux_, _Windows_ a _MacOS_. Pár poznámok k jej stiahnutiu:
 

@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/php/zipper), [Riešenie](/../../tree/solution/php/zipper).
+> - Repo: [Štartér](/../../tree/main/php/zipper), [Riešenie](/../../tree/solution/php/zipper)
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 
@@ -20,7 +20,7 @@
 
 ## Zadanie
 
-Vytvorte PHP skript, ktorý umožní postupne používateľovi pridávať súbory zo svojho počítača na server a potom tieto súbory komprimuje a umožní stiahnuť. Aplikáciu najskôr implementujte tak, že komprimovať sa budú všetky súbory naraz bez ohľadu na to, kto súbor nahral. Neskôr implementujte funkciu aplikácie, aby výsledný komprimovaný súbor obsahoval len súbory, ktoré nahral daný používateľ.
+Vytvorte PHP skript, ktorý umožní postupne používateľovi pridávať súbory zo svojho počítača na server, tieto súbory skomprimuje a umožní stiahnuť. Aplikáciu najskôr implementujte tak, že komprimovať sa budú všetky súbory naraz bez ohľadu na to, kto súbor nahral. Neskôr implementujte funkciu aplikácie, aby výsledný komprimovaný súbor obsahoval len súbory, ktoré nahral daný používateľ.
 
 <div class="hidden">
 

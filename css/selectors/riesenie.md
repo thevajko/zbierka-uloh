@@ -191,7 +191,7 @@ Ako môžeme vidieť na tejto ukážke, jednotlivé selektory sa dajú ľubovoľ
 
 Pre riešenie tohto problému vieme využiť už známu pseudotriedu`:nth-child()`. Začneme zarovnaním čísel na stred.
 
-Pre každý stĺpec môžeme použiť vlastný selektor `:nth-child(4)` až `:nth-child(6)`. Druhou možnosťou je spojiť tieto selektory do jedného. Vieme na to použiť nasledovný trik: selektor `:nth-child(n+4)` zvolí všetkých potomkov, okrem prvých 3, tj. 4, 5, 6, ... Tým pádom vieme jednoducho vybrať všetky stĺpce okrem prvých troch. Druhým trikom, ktorý vieme použiť, je selektor `:nth-child(-n+6)`, ktorý naopak vyberie prvých 6 stĺpcov. Kombináciou týchto selektorov dostaneme pravidlo na zarovnenie textu na stred. Pri kombinácii sa vyberú len tie elementy, ktoré spĺňajú všetky podmienky, tj. spraví sa prienik, a nasledovný selektor zvolí stĺpce 4,5,6:
+Pre každý stĺpec môžeme použiť vlastný selektor `:nth-child(4)` až `:nth-child(6)`. Druhou možnosťou je spojiť tieto selektory do jedného. Vieme na to použiť nasledovný trik: selektor `:nth-child(n+4)` zvolí všetkých potomkov, okrem prvých 3, t.j. 4, 5, 6, ... Tým pádom vieme jednoducho vybrať všetky stĺpce okrem prvých troch. Druhým trikom, ktorý vieme použiť, je selektor `:nth-child(-n+6)`, ktorý naopak vyberie prvých 6 stĺpcov. Kombináciou týchto selektorov dostaneme pravidlo na zarovnenie textu na stred. Pri kombinácii sa vyberú len tie elementy, ktoré spĺňajú všetky podmienky, tj. spraví sa prienik, a nasledovný selektor zvolí stĺpce 4,5,6:
 
 ```css
 .data tr td:nth-child(n+4):nth-child(-n+6) {
