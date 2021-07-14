@@ -151,7 +151,7 @@ class MessageStorage {
     {
         try {
             return Db::conn()
-                ->query("SELECT * FROM messages ORDER by created ASC LIMIT 50")
+                ->query("SELECT * FROM messages ORDER by created DESC LIMIT 50")
                 ->fetchAll(PDO::FETCH_CLASS, Message::class);
         }  catch (PDOException $e) {
             throw new Exception($e->getMessage(), 500);
@@ -160,7 +160,7 @@ class MessageStorage {
 }
 ```
 
-Ak bude chcieť klient získať kolekciu posledných 50 správ, bude musieť na server odoslať HTTP žiadosť s GET parametrom `method`, ktorého hodnota bude  `get-messages`. V súbore `api.php` do bloku `switch` pridáme vetvu pre hodnotu `get-messages`. V nej získame pole správ zavolaním metódy `UserStorage::getMessages()` a následne ho serializujeme do formátu JSON a vypíšeme do tela odpovede. Kód bude vyzerať nasledovne:
+Ak bude chcieť klient získať kolekciu posledných 50 správ, bude musieť na server odoslať HTTP žiadosť s GET parametrom `method`, ktorého hodnota bude  `get-messages`. V súbore `api.php` do bloku `switch` pridáme vetvu pre hodnotu `get-messages`. V nej získame pole správ zavolaním metódy `UserStorage::getMessages()`. To následne otočíme aby ako prvá správa bola tá najstaršia pomocou [`array_reverse()`](https://www.php.net/manual/en/function.array-reverse.php) a následne ho serializujeme do formátu JSON a vypíšeme do tela odpovede. Kód bude vyzerať nasledovne:
 
 ```php
 require "php/Message.php";
@@ -172,7 +172,7 @@ try {
 
         case 'get-messages':
             $messageStorage = new MessageStorage();
-            $messages = $messageStorage->getMessages();
+            $messages = array_reverse($messageStorage->getMessages());
             echo json_encode($messages);
             break;
             
@@ -249,7 +249,6 @@ class Chat {
         }
     }
 }
-
 export default Chat;
 ```
 
@@ -1304,11 +1303,11 @@ class MessageStorage {
         try {
             if (empty($userName)){
                 return Db::conn()
-                    ->query("SELECT * FROM messages WHERE private_for IS null ORDER by created ASC LIMIT 50")
+                    ->query("SELECT * FROM messages WHERE private_for IS null ORDER by created DESC LIMIT 50")
                     ->fetchAll(PDO::FETCH_CLASS, Message::class);
             } else {
                 $stat = Db::conn()
-                    ->prepare("SELECT * FROM messages  WHERE private_for IS null OR private_for LIKE ? OR user LIKE ? ORDER by created ASC LIMIT 50");
+                    ->prepare("SELECT * FROM messages  WHERE private_for IS null OR private_for LIKE ? OR user LIKE ? ORDER by created DESC LIMIT 50");
                 $stat->execute([$userName,$userName ]);
                 return $stat->fetchAll(PDO::FETCH_CLASS, Message::class);
             }
@@ -1328,7 +1327,7 @@ switch (@$_GET['method']) {
     // ...
         case 'get-messages':
             $messageStorage = new MessageStorage();
-            $messages = $messageStorage->getMessages(@$_SESSION['user']);
+            $messages = array_reverse($messageStorage->getMessages(@$_SESSION['user']));
             echo json_encode($messages);
             break;
     // ...
