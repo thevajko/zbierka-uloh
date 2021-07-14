@@ -14,17 +14,17 @@
 
 **Obťažnosť**: 4/5
 
-**Obsah príkladu**:  Objektové programovanie v PHP, abstraktné triedy, dynamické generovanie HTML formulárov, spracovanie formulárov v PHP, validácia vstupov z formulára. 
+**Obsah príkladu**: Objektové programovanie v PHP, abstraktné triedy, dynamické generovanie HTML formulárov, spracovanie formulárov v PHP, validácia vstupov z formulára. 
 </div>
 
 ## Zadanie
 Vytvorte PHP triedu, ktorá umožní programovo (z PHP) deklarovať ľubovolný formulár. Formulár sa bude vedieť vykresliť a automaticky spracovať a vykonať validáciu.
 
 Trieda umožní:
-- definovať formulár
-- vyplniť predvolené hodnoty
-- pridať validačné pravidlá
-- získať vyplnené hodnoty
+- definovať formulár,
+- vyplniť predvolené hodnoty,
+- pridať validačné pravidlá,
+- získať vyplnené hodnoty.
 
 
 Použitie formuláru by mohlo byť nasledovné:
