@@ -11,13 +11,13 @@
 
 ## Riešenie
 
-V prvom kroku je potrebné vyriešiť skrytie textu popiskov. Jedným zo spôsobov, ako to dosiahnuť, je premiestniť tento text do ([`data-*` *atribútov*](https://www.w3schools.com/tags/att_global_data.asp)). Tým pádom bude HTML kód vyzerať nasledovne:
+V prvom kroku je potrebné vyriešiť skrytie textu popiskov. Jedným zo spôsobov ako to dosiahnuť, je premiestniť tento text do ([`data-*` *atribútov*](https://www.w3schools.com/tags/att_global_data.asp)). Tým pádom bude HTML kód vyzerať nasledovne:
 
 ```html
 <span data-tooltip="Tooltip: In mollis accumsan sodales.">consectetur</span>
 ```
 
-Ďalším krokom je príprava zobrazenia textu, pokiaľ naň používateľ umiestni kurzor myši a jeho skrytie, ak ho dá preč. Túto časť je možné vypracovať jedine s použitím JavaScriptu. Skript, ktorý bude vykonávať túto činnosť, sa musí spustiť automaticky po načítaní dokumentu<span class="hidden"> ([viac o spúštaní skriptov tu](../../common/js-onload.md))</span>. To sa tá dosiahnuť nasledovným kódom:
+Ďalším krokom je príprava zobrazenia textu, pokiaľ naň používateľ umiestni kurzor myši a jeho skrytie, ak ho dá preč. Túto časť je možné vypracovať jedine s použitím JavaScriptu. Skript, ktorý bude vykonávať túto činnosť, sa musí spustiť automaticky po načítaní dokumentu<span class="hidden"> ([viac o spúštaní skriptov tu](../../common/js-onload.md))</span>. To sa dá dosiahnuť nasledovným kódom:
 
 ```javascript
 window.onload = function () {
@@ -34,7 +34,7 @@ for (let i = 0; i < spans.length; i++) {
 }
 ```
 
-V tomto cykle vytvorime najprv logiku, ktorá text popisku získa z atribútu `data-tooltip` a následne ho zobrazí. Zobrazenie popisku používateľovi spravíme tak, že jeho text vložíme do ďalšieho prvého elementu ako vnorený element. Podľa [štandardu HTML](https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-span-element) ale nemôžeme vložiť do elementu `span` ďalší `span` alebo `div`. Preto zmeníme element obsahujúci popisok na `div`, takže bude vyzerať:
+V tomto cykle vytvoríme najprv logiku, ktorá text popisku získa z atribútu `data-tooltip` a následne ho zobrazí. Zobrazenie popisku používateľovi spravíme tak, že jeho text vložíme do ďalšieho prvého elementu ako vnorený element. Podľa [štandardu HTML](https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-span-element) ale nemôžeme vložiť do elementu `span` ďalší `span` alebo `div`. Preto zmeníme element obsahujúci popisok na `div`, takže bude vyzerať:
 
 ```html
 <div data-tooltip="Tooltip: In mollis accumsan sodales.">consectetur</div>
@@ -49,7 +49,7 @@ for (let i = 0; i < divs.length; i++) {
 }
 ```
 
-Teraz pridáme kód, ktorý sa vykoná, ak používateľ premiestni kurzor nad nejaký `div` s atribútom `data-tooltip`. Tá vytvorí nový `div` element a umiestni ho ako potomka do elementu `div`, ktorý ma popisok. To dosiahneme pridaním funkcie pre udalosť `onmouseenter` a element vytvoríme modifikáciou obsahu atribútu `innerHTML` prvého `div` elementu:
+Teraz pridáme kód, ktorý sa vykoná, ak používateľ premiestni kurzor nad nejaký `div` s atribútom `data-tooltip`. Tá vytvorí nový `div` element a umiestni ho ako potomka do elementu `div`, ktorý ma popisok. To dosiahneme pridaním obsluhy udalosti `onmouseenter` a element vytvoríme modifikáciou obsahu atribútu `innerHTML` prvého `div` elementu:
 
 ```javascript
 let divs = document.querySelectorAll("div[data-tooltip]");
@@ -61,7 +61,7 @@ for (let i = 0; i < divs.length; i++) {
 }
 ```
 
-Ak používateľ premiestni kurzor preč z prvého `div` elementu, popisok skryjeme zmazaním vnoreného elementu `div` pomocou funkcie obsluhy udalosti. Pokiaľ máme referenciu na nejaký element, môžeme pomocou CSS selektoru vyberať jeho potomkov. Kód bude nasledovný:
+Ak používateľ premiestni kurzor preč z prvého `div` elementu, popisok skryjeme zmazaním vnoreného elementu `div` pomocou funkcie obsluhy udalosti. Pokiaľ máme referenciu na nejaký element, môžeme pomocou CSS selektora vyberať jeho potomkov. Kód bude nasledovný:
 
 ```javascript
 let divs = document.querySelectorAll("div[data-tooltip]");
@@ -76,7 +76,7 @@ for (let i = 0; i < divs.length; i++) {
 }
 ```
 
-Ešte zostáva správne doplniť CSS. Ako prvé musíme upraviť zobrazenie popisku. Naša úprava ich zmení na `div` elementy, ktoré sa správajú ako blokové značky. Taktiež pridáme nejaké vizuálne oddelenie od okolitého textu. Selektor štýlu pre element `div` s popiskom opäť použije selektor, ktorý sme použili v skripte (tentoraz v CSS):
+Ešte zostáva správne doplniť CSS. Ako prvé musíme upraviť zobrazenie popisku. Naša úprava ich zmení na `div` elementy, ktoré sa správajú ako blokové značky. Taktiež pridáme nejaké vizuálne oddelenie od okolitého textu. Selektor štýlu pre element `div` s popiskom opäť použijeme selektor, ktorý sme použili v skripte (tentoraz v CSS):
 
 ```css
 div[data-tooltip] {
@@ -85,7 +85,7 @@ div[data-tooltip] {
 }
 ```
 
-Samotný popisok sa pridá ako potomok prvého `div` elementu. Vieme, že `div` je bloková značka. Je preto potrebné jej definovať šírku, aby sa popisok zobrazoval rovnako. Pridáme preto napr. `width: 200px;`. Tento `div` má transparentné pozadie a aby bol lepšie čitateľný, zafarbíme ho napr. na bielo pomocou nsatavenia `background-color: white;`. Popisok by sa mal zobrazovať nad úrovňou bežného textu, preto ho umiestnime do vrstvy nad text pomocou `z-index: 1;`. Bolo by ďalej dobré pridať nejaký rámček, preto použijeme `border: 1px solid black;`. CSS teda bude vyzerať nasledovne:
+Samotný popisok pridáme ako potomok prvého `div` elementu. Vieme, že `div` je bloková značka. Je preto potrebné jej definovať šírku, aby sa popisok zobrazoval rovnako. Pridáme preto napr. `width: 200px;`. Tento element  `div` má transparentné pozadie a aby bol lepšie čitateľný, zafarbíme ho napr. na bielo pomocou nastavenia `background-color: white;`. Popisok by sa mal zobrazovať nad úrovňou bežného textu, preto ho umiestnime do vrstvy nad text pomocou `z-index: 1;`. Bolo by dobré pridať aj nejaký rámček, preto použijeme `border: 1px solid black;`. CSS teda bude vyzerať nasledovne:
 
 ```css
 .tooltip {
@@ -125,4 +125,4 @@ div[data-tooltip] {
 }
 ```
 
-Prečo sme nenastavili vertikálnu polohu ako `top: 100%` alebo `bottom: 0`? Dôvodom je, že náš skript používa na skrytie elementu udalosť, kedy používateľ premiestni preč kurzor z elementu `div`. Treba si uvedomiť, že pre tieto udalosti používa DOM, nie reálne zobrazenie. Tým pádom, aj keď je popisok vizuálne umiestnený mimo prvý element, v DOM štruktúre to tak nie je. Bohužiaľ potom by popisok zostal zobrazený, keď by naň používateľ prešiel kurzorom myši, čo nechceme.
+Prečo sme nenastavili vertikálnu polohu na `top: 100%` alebo `bottom: 0`? Dôvodom je, že náš skript používa na skrytie elementu udalosť, kedy používateľ premiestni preč kurzor z elementu `div`. Treba si uvedomiť, že pre tieto udalosti používa DOM, nie reálne zobrazenie. Preto, aj keď je popisok vizuálne umiestnený mimo prvý element, v DOM štruktúre to tak nie je. Bohužiaľ potom by popisok zostal zobrazený, keď by naň používateľ prešiel kurzorom myši, čo nechceme.

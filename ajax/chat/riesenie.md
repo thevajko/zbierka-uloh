@@ -485,7 +485,7 @@ create table messages
 );
 ```
 
-Do PHP triedy `Message` doplníme atribút `$user`, tak aby trieda reflektovala úpravu databázovej tabuľky `messages` nasledovne:
+Do PHP triedy `Message` doplníme atribút `$user` tak, aby trieda reflektovala úpravu databázovej tabuľky `messages` nasledovne:
 
 ```php
 class Message
@@ -497,7 +497,7 @@ class Message
 }
 ```
 
-Vytvoríme novú PHP triedu `User` a doplníme do nej atribúty, tak aby zodpovedala svojej databázovej verzii:
+Vytvoríme novú PHP triedu `User` a doplníme do nej atribúty tak, aby zodpovedala svojej databázovej verzii:
 
 ```php
 class User
@@ -828,7 +828,7 @@ class Chat {
 }
 ```
 
-Upravíme kód metódy `Chat.postMessage()`, tak aby zmena v HTML bola vykonaná triedou `UIHelper` nasledovne:
+Upravíme kód metódy `Chat.postMessage()` tak, aby zmena v HTML bola vykonaná triedou `UIHelper` nasledovne:
 
 ```javascript
 class Chat {

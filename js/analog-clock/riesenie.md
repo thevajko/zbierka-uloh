@@ -74,7 +74,7 @@ Následne potrebujeme nakresliť z východzieho bodu čiaru na bod, ktorý je de
 
 Hrúbku čiary upravíme nastavením atribútu [`CanvasRenderingContext2D.lineWidth`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineWidth).
 
-Zostáva ešte posunúť uhol vykreslenia ručičiek, tak aby hodnota `0` zodpovedala pozícii na 12. hodine. To realizujeme jednoducho prirátaním hodnoty `270` k pôvodne zadanému uhlu: 
+Zostáva ešte posunúť uhol vykreslenia ručičiek tak, aby hodnota `0` zodpovedala pozícii na 12. hodine. To realizujeme jednoducho prirátaním hodnoty `270` k pôvodne zadanému uhlu: 
 
 ```javascript
 function drawWatchHand(ctx, uhol, length, width) {

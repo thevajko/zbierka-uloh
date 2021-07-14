@@ -15,7 +15,7 @@
 
 **Obťažnosť**: 1/5
 
-**Obsah príkladu**: Spúšťanie skriptov v obsluhe udalosti `windows.onload`, obsluha udalostí myši, použitie atribútu `innerHTML`
+**Obsah príkladu**: Spúšťanie skriptov v obsluhe udalosti `windows.onload`, obsluha udalostí myši, použitie atribútu `innerHTML`.
 </div>
 
 ## Zadanie
@@ -43,7 +43,7 @@ Kód obsahuje element `div`, ktorého obsah je tvorený textom generovaným pomo
 
 <div class="hidden">
 
-Štruktúru dokumentu môžete upraviť, tak aby bolo možné úlohu vypracovať. Pre vypracovanie sa snažte použiť čistý JavaScript a CSS.
+Štruktúru dokumentu môžete upraviť tak, aby bolo možné úlohu vypracovať. Pre vypracovanie použite JavaScript a CSS.
 
 > ### Pomôcky:
 > - [Načítanie JS](../../common/js-onload.md )

@@ -30,7 +30,7 @@ Samotné riešenie je rozdelené do niekoľkých častí.
 
 ### Pripojenie k databáze
 
-Úlohou tohto príkladu je zobrazovanie dát z databázy. Pre pripojenie k databáze využijeme modul PDO. Vytvoríme si triedu `Db`, ktorá bude sprostredkovať pripojenie na databázu. Táto trieda bude mať statickú metódu, ktorá nám vráti inštanciu `PDO`. Účelom tejto triedy je iba vždy sprostredkovať tú istú inštanciu `PDO` pre komunikáciu s databázou, nič iné. Trieda bude vyzerať nasledovne:
+Úlohou tohto príkladu je zobrazovanie dát z databázy. Pre pripojenie k databáze využijeme modul PDO. Vytvoríme si triedu `Db`, ktorá bude sprostredkovať pripojenie na databázu. Táto trieda bude mať statickú metódu, ktorá vráti inštanciu `PDO`. Účelom tejto triedy je iba sprostredkovať tú istú inštanciu `PDO` pre komunikáciu s databázou, nič iné. Trieda bude vyzerať nasledovne:
 
 ```php
 class Db {
@@ -73,7 +73,7 @@ class User
 }
 ```
 
-V našom prípade sa jedná o triedu `User`, ktorá reprezentuje osobu. Pre túto entitu si v DB vytvoríme tabuľku nasledovne:
+V našom prípade ide o triedu `User`, ktorá reprezentuje osobu. Pre túto entitu si v DB vytvoríme tabuľku nasledovne:
 
 ```sql
 CREATE TABLE `users`
@@ -87,7 +87,7 @@ CREATE TABLE `users`
 );
 ```
 
-Dáta do našej DB tabuľky si môžeme pripraviť ručne, alebo môžeme využiť niektorý z on-line generátorov. Napríklad generátor [*filldb.info*](http://filldb.info/) umožňuje po vložení schémy automaticky vygenerovať dáta pre našu tabuľku `users`.
+Dáta do našej DB tabuľky si môžeme pripraviť sami, alebo môžeme využiť niektorý z on-line generátorov. Napríklad generátor [*filldb.info*](http://filldb.info/) umožňuje po vložení schémy automaticky vygenerovať dáta pre našu tabuľku `users`.
 
 Pre prístup k dátam v databáze si vytvoríme triedu `UserStorage`, ktorá bude obsahovať metódu `getAll()`, ktorej úlohou bude vybrať všetky záznamy z tabuľky `users` a vrátiť ich v poli, kde každý riadok bude predstavovať jednu inštanciu triedy `User`.
 
@@ -134,7 +134,7 @@ if ($users) {
 
 ### Výpis do tabuľky
 
-Aby sme dodržali rozdelenie logiky po logických celkoch vytvoríme novú triedu `Table`, ktorej úlohou bude vykreslenie dát DB tabuľky z databázy do HTML tabuľky a doplnenie podpornej logiku pre zoraďovanie, stránkovanie a správu jednotlivých záznamov.
+Aby sme dodržali rozdelenie aplikačnej logiky po logických celkoch, vytvoríme novú triedu `Table`, ktorej úlohou bude výpis dát DB tabuľky z databázy do HTML tabuľky a doplnenie podpornej logiky pre zoraďovanie, stránkovanie a správu jednotlivých záznamov.
 
 Ako prvé vytvoríme zobrazenie všetkých dát vo forme HTML tabuľky. Na to budeme potrebovať získať názvy stĺpcov tabuľky v databáze. My však pre mapovanie dát používame triedu `User`, stačí nám preto získať zoznam atribútov tejto triedy.
 
@@ -173,7 +173,7 @@ class Table
 }
 ```
 
-Pridáme ďalšiu verejnú metódu `render()`, ktorá ma zostaviť celkovú konštrukciu HTML tabuľky vo forme textového reťazca. Aktuálne iba zabalí výsledok metódy `renderHead()` do elementov `table`. Kód bude vyzerať:
+Pridáme ďalšiu verejnú metódu `render()`, ktorá zostaví celkovú konštrukciu HTML tabuľky vo forme textového reťazca. Aktuálne iba zabalí výsledok metódy `renderHead()` do elementu `table`. Kód bude vyzerať:
 
 ```php
 class Table
@@ -227,7 +227,7 @@ class Table
 }
 ```
 
-Teraz musíme upraviť metódu `renderHead()` tak aby používala novo vytvorenú metódu `getColumnAttributes()` nasledovne:
+Teraz musíme upraviť metódu `renderHead()` tak, aby používala novo vytvorenú metódu `getColumnAttributes()` nasledovne:
 
 ```php
 class Table 
@@ -409,7 +409,7 @@ class Table
 }
 ````
 
-Teraz potrebujeme upraviť metódu `Table::renderBody()`, tak aby sa pri volaní metódy `UserStorage::getAll()` do nej vkladal parameter `$this->orderBy`. Po úprave bude jej kód nasledovný:
+Teraz potrebujeme upraviť metódu `Table::renderBody()` tak, aby sa pri volaní metódy `UserStorage::getAll()` do nej vkladal parameter `$this->orderBy`. Po úprave bude jej kód nasledovný:
 
 ```php
 class Table
@@ -577,7 +577,7 @@ class Table
 
 Teraz upravíme generovanie hlavičky v metóde `Table::renderHead()`. V cykle najprv inicializujeme pole `$hrefParams` a doplníme do neho parameter `order` aj s hodnotou. Potom budeme kontrolovať, či už je tabuľka zoradená podľa aktuálneho stĺpca. Ak áno, pridáme do poľa index `direction` s hodnotou `DESC`, inak mu nastavíme prázdny textový reťazec.
 
-Upravíme ešte generovanie `href` parametra pre element `a`, tak aby používal metódu `Table::prepareUrl()`. Úprava bude nasledovná:
+Upravíme ešte generovanie `href` parametra pre element `a` tak, aby používal metódu `Table::prepareUrl()`. Úprava bude nasledovná:
 
 ```php
 class Table
@@ -759,7 +759,7 @@ class Table
 }
 ```
 
-Pri zmene zoradenia je dobré nastaviť zobrazenú stránku na prvú. To urobíme jednoducho, tým že v metóde `Table::renderHead()` pridáme do lokálnej premennej `$hrefParams` index `page` s hodnotou `0`:
+Pri zmene zoradenia je dobré nastaviť zobrazenú stránku na prvú. To urobíme jednoducho tak, že v metóde `Table::renderHead()` pridáme do lokálnej premennej `$hrefParams` index `page` s hodnotou `0`:
 
 ```php
 class Table
@@ -809,7 +809,7 @@ class Table
 }
 ```
 
-Upravíme ešte súbor `index.php` tak aby sme mohli doplniť CSS pre stránkovač:
+Upravíme ešte súbor `index.php` tak, aby sme mohli doplniť CSS pre stránkovač:
 
 ```php
 <?php

@@ -59,13 +59,13 @@ window.onload = function () {
 }
 ```
 
-Skrývanie a zobrazovanie elementov `p` realizujeme upravením CSS vlastnosti `display`. JavaScript môže priamo modifikovať CSS daného elementu prostredníctvom [atribútu `style`](https://www.w3schools.com/jsref/prop_html_style.asp). Ak chceme nejaký element skryť, urobíme to nasledovne:
+Skrývanie a zobrazovanie elementov `p` realizujeme upravením CSS vlastnosti `display`. JavaScript môže priamo modifikovať CSS daného elementu prostredníctvom atribútu [`style`](https://www.w3schools.com/jsref/prop_html_style.asp). Ak chceme nejaký element skryť, urobíme to nasledovne:
 
 ```javascript
 domElement.style.display = "none";
 ```
 
-Priradená hodnota je vložená prostredníctvom reťazca a vieme ju priradiť aj získať. To využijeme pri rozhodovaní, či daný element `p` skryjeme alebo zobrazíme. Ak bude `domElement.style.display` obsahovať hodnotu `none`, znamená to, že je element `p` skrytý a je ho potrebné zobraziť. V inom prípade sa skryje.
+Priradená hodnota je vložená prostredníctvom reťazca a vieme ju priradiť aj získať. To využijeme pri rozhodovaní, či daný element `p` skryjeme, alebo zobrazíme. Ak bude `domElement.style.display` obsahovať hodnotu `none`, znamená to, že je element `p` skrytý a je ho potrebné zobraziť. V inom prípade sa skryje.
 
 ```javascript
 window.onload = function () {
@@ -84,7 +84,7 @@ window.onload = function () {
 }
 ```
 
-Posledný krok bude úprava CSS a doplnenie formátovania, ako aj zmena kurzora pre element `h1`, tak aby indikoval používateľovi, že sa naň dá kliknúť. Zmenu kurzora zabezpečíme pridaním CSS vlastnosti `cursor: pointer;`. CSS bude vyzerať nasledovne:
+Posledný krok bude úprava CSS a doplnenie formátovania, ako aj zmena kurzora pre element `h1` tak, aby indikoval používateľovi, že sa naň dá kliknúť. Zmenu kurzora zabezpečíme pridaním CSS vlastnosti `cursor: pointer;`. CSS bude vyzerať nasledovne:
 
 ```css
 body {
