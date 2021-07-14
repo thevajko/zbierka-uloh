@@ -54,7 +54,9 @@ Kvôli dizajnu by sme chceli docieliť, aby sa element `ajaxLoader` zobrazil roz
 }
 ```
 
-Pozíciu `ajaxLoader` elementu sme nastavili na `fixed` a rozmery na `100%`, aby sme dosiahli, že tento prvok bude za každých okolností zobrazený na celú stránku. Farbu pozadia sme nastavili pomocou `rgba` CSS funkcie tak, že farba je čierna a priehľadnosť je nastavená na `60%`. Pre usporiadanie prvkov v tomto elemente používame *flexbox*. Kontajner `ajaxLoader` sme nastavili ako *flexbox* kontajner, ktorý obsahuje prvky zarovnané na stred a jednotlivé prvky sa budú usporadúvať do stĺpca.
+Pozíciu `ajaxLoader` elementu sme nastavili na `fixed` a rozmery na `100%`, aby sme dosiahli, že tento prvok bude za každých okolností zobrazený na celú stránku. Farbu pozadia sme nastavili pomocou `rgba` CSS funkcie tak, že farba je čierna a priehľadnosť je nastavená na `60%`. 
+
+Pre usporiadanie prvkov v tomto elemente používame *flexbox*. Kontajner `ajaxLoader` sme nastavili ako *flexbox* kontajner, ktorý obsahuje prvky zarovnané na stred a jednotlivé prvky sa budú usporadúvať do stĺpca.
 
 Pre zobrazenie *spinner* komponentu sme využili jednoduchú CSS animáciu. Je to `div` element, ktorý sme pomocou `border-radius: 50%` zobrazili ako kruh. Tomuto kruhu sme nechali priehľadné pozadie a nastavili mu `12px` rámček, čím sme dostali kružnicu. Hornému rámčeku sme zmenili farbu na modrú a zvyšným častiam rámčeka sme nechali bielu farbu. Toto spôsobilo, že dostaneme kružnicu, kde 1/4 kruhu má inú farbu ako zvyšok.
 
@@ -123,7 +125,7 @@ async function loaderFetch(...args)
 }
 ```
 
-Zadeklarovali sme si premennú `requestCounter`, ktorú pri každej novej žiadosti o dáta inkrementujeme a po ukončení dekrementujeme. Ak sa spustí prvá žiadosť, zobrazíme komponent *AJAX loader*. Pri skončení poslednej žiadosti komponent odstránime. Oproti pôvodnému riešeniu sme upravili aj vetvu `finally`. Teraz sme na nájdenie elementu na odstránenie použijeme `document.getElementById("ajaxLoader")`. Inak by sa mohlo stať, že odstránime nesprávny *AJAX loader* komponent.
+Zadeklarovali sme si premennú `requestCounter`, ktorú pri každej novej žiadosti o dáta inkrementujeme a po ukončení dekrementujeme. Ak sa spustí prvá žiadosť, zobrazíme komponent *AJAX loader*. Pri skončení poslednej žiadosti komponent odstránime. Oproti pôvodnému riešeniu sme upravili aj vetvu `finally`. Na nájdenie elementu použijeme metódu `document.getElementById("ajaxLoader")`. Inak by sa mohlo stať, že odstránime nesprávny *AJAX loader* komponent.
 
 Ďalšou požiadavkou v zadaní bolo vypisovanie počtu prebiehajúcich žiadostí. Tento počet budeme vypisovať do predpripraveného elementu s `id="requestCounter"`.
 
@@ -137,7 +139,7 @@ function updateRequestCounter() {
 
 ### Univerzálny *loader* komponent pre všetky AJAX žiadosti
 
-Pokiaľ by sme chceli aby sa náš *AJAX loader* komponent používal pri všetkých žiadostiach, môžeme funkciu `load()` z objektu `window` nahradiť tou našou. Na to, aby sme to spravili potrebujeme vykonať nasledujúce kroky:
+Pokiaľ by sme chceli, aby sa náš *AJAX loader* komponent používal pri všetkých žiadostiach, môžeme funkciu `load()` z objektu `window` nahradiť tou našou. Na to, aby sme to spravili potrebujeme vykonať nasledujúce kroky:
 
 1. Musíme si zapamätať pôvodnú funkciu do nejakej lokálnej premennej.
 2. Nahradiť funkciu `load()` tou našou.
