@@ -13,7 +13,7 @@
 
 Celé riešenie sa bude skladať z troch súborov: `index.html`, `style.css`, `script.js`. Logika aplikácie sa bude vykonávať v JavaScripte, HTML a CSS využijeme len na tvorbu základnej hracej plochy.
 
-### HTML základ
+### HTML dokument
 
 Táto časť aplikácie je veľmi jednoduchá, tvorí ju súbor `index.html`, v ktorom importujeme ostatné časti aplikácie (CSS a JS) a vykresľujeme len začiatočné nastavenie celej hry. Žiadny grafický dizajn ani logika aplikácie sa tu nenachádza, aby sme dodržali pravidlo, že každý typ súboru obsahuje len to, čo je jeho úlohou.
 
@@ -65,7 +65,7 @@ Ako je vidieť z nastavenia štýlu, každá karta pexesa bude mať 90 x 120 pix
 }
 ```
 
-### Logika hry
+### Herná logika
 
 #### Inicializácia nastavení hry
 
@@ -137,7 +137,7 @@ function changePlayer(newPlayer) {
 }
 ```
 
-Podobne jednoduchá je aj funkcia, ktorá zobrazí body. Parametrami tejto funkcie sú identifikácia hráča, nový počet ťahov a nový počet bodov. Jej úlohou je len zobraziť nový stav hodnôt:
+Podobne jednoduchá je aj funkcia zobrazujúca body hráča. Jej parametrami sú identifikácia hráča a  nový počet bodov. Jej úlohou je len zobraziť nový stav hodnôt:
 
 ```javascript
 function showScore(player, guessed) {
@@ -147,9 +147,9 @@ function showScore(player, guessed) {
 
 #### Rozdanie kariet
 
-V HTML súbore sme si vytvorili prázdnu tabuľku a teraz si ju naplníme. Pomocou DOM vieme dynamicky vytvárať jednotlivé elementy, a to využijeme aj teraz. Najskôr vymažeme obsah tabuľky príkazom `board.innerHTML = "";` a potom v cykle poukladáme karty vedľa seba.
+V HTML súbore sme si vytvorili prázdnu tabuľku a teraz si ju naplníme. Pomocou DOM dynamicky vytvoríme jednotlivé elementy. Najskôr vymažeme obsah tabuľky príkazom `board.innerHTML = "";` a potom v cykle poukladáme karty vedľa seba.
 
-Keďže kariet je 15, musíme ich uložiť 2x za sebou. Na to využijeme ternárny operátor `?:`, a ak už sme rozdali 15 kariet, začneme znovu od prvej. Rozdávanie kariet je vlastne vytváranie buniek tabuľky postupne po riadkoch (na to slúžia dva vnorené cykly) a pomocou DOM funkcie `document.createElement()` vytvoríme postupne riadky a stĺpce tabuľky. 
+Keďže kariet je 15, musíme ich uložiť 2x za sebou. Na to využijeme ternárny operátor `?:`, a ak už sme rozdali 15 kariet, začneme znovu od prvej. Rozdávanie kariet je vlastne vytváranie buniek tabuľky postupne po riadkoch (na to slúžia dva vnorené cykly) a pomocou DOM metódy `document.createElement()` vytvoríme riadky a stĺpce tabuľky. 
 
 Obsahom bunky bude ikona z `font-awesome`, ktorá na zobrazenie ikony využíva značku `<i class="fas fa-car"></i>`. Každej bunke nastavíme obsluhu `onclick`, kde budeme riešiť, čo sa má stať, keď hráč klikne na nejakú kartu. Táto obsluha bude spoločná pre všetky karty. Výsledná funkcia bude vyzerať takto:
 
@@ -224,9 +224,12 @@ if (reversedCards == 1) {
 
 Ak máme dve karty, môžeme začať vyhodnocovanie, či sú karty rovnaké. Karty sú rovnaké, keď obsahujú tú istú ikonu, preto nám stačí kontrolovať DOM vlastnosť `innerHTML`.
 
+<div class="end">
+
 ```javascript
 if (card1.innerHTML == card2.innerHTML) {
 ```
+</div>
 
 Ak sa karty rovnajú, karty označíme ako uhádnuté zmenou pozadia, hráčovi pripočítame bod a zobrazíme jeho skóre. Na záver vynulujeme počet obrátených kariet:
 
@@ -313,7 +316,7 @@ function hideCards(card1, card2) {
 
 Priebeh rozohranej hry je možné vidieť na nasledovnom obrázku (hráč 2 práve odkryl 2 karty):
 
-![Ukážka rozohranej hry](images_memory-game/progress.png)
+![Ukážka rozohranej hry](images_memory-game/progress.gif)
 
 Tým sme implementovali celú logiku hry. Koniec hry sme neriešili, ale nebol by problém detegovať, či sú všetky karty odkryté, vyhlásiť víťaza a opýtať sa, či si chcú hráči hru zahrať znovu. 
 

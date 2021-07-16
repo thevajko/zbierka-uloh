@@ -2,7 +2,8 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/php/form), [Riešenie](/../../tree/solution/php/form).
+> - Repo: [Štartér](/../../tree/main/php/form), [Riešenie](/../../tree/solution/php/form)
+> - [Zobraziť riešenie](riesenie.md)
 </div>
 
 # Dynamický formulár
@@ -12,13 +13,13 @@
 
 **Ostatné použité jazyky**: HTML
 
-**Obťažnosť**: 4/5
+**Obťažnosť**: 3/5
 
-**Obsah príkladu**: Objektové programovanie v PHP, abstraktné triedy, dynamické generovanie HTML formulárov, spracovanie formulárov v PHP, validácia vstupov z formulára. 
+**Obsah príkladu**: Objektové programovanie v PHP, abstraktné triedy, viditeľnosť metód, dynamické generovanie HTML formulárov, validácia formulárových polí, spracovanie formulárov v PHP. 
 </div>
 
 ## Zadanie
-Vytvorte PHP triedu, ktorá umožní programovo (z PHP) deklarovať ľubovolný formulár. Formulár sa bude vedieť vykresliť a automaticky spracovať a vykonať validáciu.
+Vytvorte PHP triedu, ktorá umožní programovo (z PHP) deklarovať ľubovolný HTML formulár. Formulár sa bude vedieť zobraziť, automaticky spracovať a vykonať validáciu.
 
 Trieda umožní:
 - definovať formulár,
@@ -26,11 +27,9 @@ Trieda umožní:
 - pridať validačné pravidlá,
 - získať vyplnené hodnoty.
 
-
 Použitie formuláru by mohlo byť nasledovné:
 
 ```php
-
 // Deklarácia
 $form = new Form($defaults);
 $form->addText("meno", "Meno")
@@ -48,8 +47,3 @@ if ($form->isValid()) {
 // Vykreslenie
 $form->render();
 ```
-
-<div class="hidden">
-
-[Zobraziť riešenie](riesenie.md).
-</div>

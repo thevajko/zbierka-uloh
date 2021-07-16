@@ -6,7 +6,7 @@
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 
-# Galéria
+# Obrázková galéria
 <div class="info"> 
 
 **Hlavný jazyk príkladu**: CSS
@@ -15,7 +15,7 @@
 
 **Obťažnosť**: 4/5
 
-**Obsah príkladu**: Základná demonštrácia CSS *flexbox* rozloženia, pokročilejšie spôsoby zobrazovania obrázkov, *media queries* a animácie.
+**Obsah príkladu**:  Tvorba galérie fotografií, *Flexbox* rozloženie, pokročilejšie spôsoby zobrazovania obrázkov, priehľadnosť obrázkov, CSS funkcia `calc()`, *media queries* a animácie.
 </div>
 
 ## Zadanie
@@ -52,20 +52,22 @@ Naštýlujte pomocou CSS túto galériu nasledovne:
    - po nastavení kurzora myši na obrázok, tento postupne stmavne,
    - nadpis sa zobrazí v ľavom hornom rohu a popisok sa postupne nasunie zo spodu obrázku.
 
-#### Zobrazenie galérií na rôznych veľkostiach zariadení
+### Zobrazenie galérií na rôzne veľkých zariadeniach
 
-Zariadenie s malým displejom:
+Na nasledujúcich obrázkoch vidíte správanie sa galérie na dispejoch rôznych zariadení a spôsob zobrazenia informácií o obrázku pri prechode kurzora myši ponad obrázok.
+
+<div class="hidden">Zariadenie s malým displejom:</div>
 
 ![Zobrazenie galérie na malom zariadení](images_gallery/zadanie-s.jpg)
 
-Zariadenie so stredne veľkým displejom:
+<div class="hidden">Zariadenie so stredne veľkým displejom:</div>
 
 ![Zobrazenie galérie na strednom veľkom zariadení](images_gallery/zadanie-m.jpg)
 
-Zariadenie s veľkým displejom:
+<div class="hidden">Zariadenie s veľkým displejom:</div>
 
 ![Zobrazenie galérie na veľkom zariadení](images_gallery/zadanie-l.jpg)
 
-Informácie o obrázku:
+<div class="hidden">Informácie o obrázku:</div>
 
 ![Zobrazenie informácie o obrázku](images_gallery/zadanie-hover.jpg)

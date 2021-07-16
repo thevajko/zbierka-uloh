@@ -9,13 +9,13 @@
 # Komponent pre zobrazenie spracovania AJAX žiadostí
 <div class="info"> 
 
-**Hlavná technológia príkladu**: AJAX
+**Hlavný jazyk príkladu**: AJAX
 
 **Ostatné použité jazyky**: HTML, JavaScript, CSS
 
 **Obťažnosť**: 2/5
 
-**Obsah príkladu**: AJAX požiadavky, asynchrónne funkcie, spracovanie výnimiek v JavaScripte, funkcia `fetch()`, CSS jednoduché animácie, *spinner* komponent, AJAX *loader* komponent, *flexbox* rozloženie.
+**Obsah príkladu**: AJAX požiadavky, asynchrónne funkcie v JavaScripte, spracovanie výnimiek v JavaScripte, funkcia `fetch()`, variabilný počet parametrov funkcie, CSS jednoduché animácie, *spinner* komponent, AJAX *loader* komponent.
 </div>
 
 ## Zadanie 

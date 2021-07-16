@@ -15,7 +15,7 @@
 
 **Obťažnosť**: 2/5
 
-**Obsah príkladu**: Základy animácií v CSS, jednoduché animácie na zmenu polohy elementu, kombinácia viacerých animácií pre jeden element.
+**Obsah príkladu**: CSS animácie, jednoduché animácie na zmenu polohy elementu, kombinácia viacerých animácií pre jeden element, *timing* funkcie.
 </div>
 
 ## Zadanie

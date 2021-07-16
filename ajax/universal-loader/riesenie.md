@@ -68,8 +68,11 @@ Výsledný *spinner* komponent vyzerá nasledovne:
 
 ![Ukážka vzhľadu *spinner* komponentu](images_universal_loader/spinner.png)
 
-### JavaScript
+### Aplikačná logika komponentu
+
 Keď sa pozrieme do zadania a východzieho kódu, môžeme vidieť, že AJAX žiadosti sa posielajú pomocou funkcie `fetch()`. Našou úlohou teda bude vytvoriť jednoduchú obaľovaciu funkciu (*wrapper*), ktorý nahradí funkciu `fetch()`.
+
+<div class="end">
 
 ```javascript
 async function loaderFetch(...args) 
@@ -87,12 +90,13 @@ async function loaderFetch(...args)
   }
 }
 ```
+</div>
 
 Funkcia `fetch()` je asynchrónna, preto aj naša funkcia musí byť asynchrónna. Funkcia `loaderFetch()` má variabilný počet parametrov (`...args`), pretože aj samotná funkcia `fetch()` môže byť volaná s rôznymi parametrami. 
 
-> Ak deklarujeme parameter funkcie ako `...parametre`, tak v premennej `parametre` budeme mať pole jednotlivých parametrov, ktoré boli zadané pri volaní. Pri volaní originálnej funkcie `fetch()` tieto parametre potom "rozbalíme" pomocou syntaxe `...args`, vďaka čomu sa originálna funkcia zavolá s rovnakými parametrami ako naša funkcia.
+Ak deklarujeme parameter funkcie ako `...parametre`, tak v premennej `parametre` budeme mať pole jednotlivých parametrov, ktoré boli zadané pri volaní. Pri volaní originálnej funkcie `fetch()` tieto parametre potom "rozbalíme" pomocou syntaxe `...args`, vďaka čomu sa originálna funkcia zavolá s rovnakými parametrami ako naša funkcia.
 
-Na začiatku funkcie dynamicky vytvoríme DOM element, ktorý reprezentuje HTML reprezentáciu celého komponentu. Pomocou `document.getElementsByTagName("body")[0].append(loader);` tento vytvorený element vložíme do DOM stránky.
+Najprv vytvoríme DOM element, ktorý predstavuje HTML reprezentáciu celého komponentu. Pomocou `document.getElementsByTagName("body")[0].append(loader);` tento vytvorený element vložíme do DOM stránky.
 
 V ďalšej časti máme blok `try / finally`, ktorý používame preto, lebo vždy po skončení asynchrónneho volania potrebujeme skryť celý komponent *AJAX loader* bez ohľadu na to, či sa operácia podarí, alebo nastane výnimka. Vo vetve `try` sa pokúsime zavolať funkciu `fetch()` a asynchrónne počkáme na skončenie žiadosti. Po skončení vrátime odpoveď. V prípade, že sa stiahnutie nepodarí a nastane výnimka, táto sa znovu vyhodí. Vo vetve `finally` odstránime element z DOM.
 
@@ -137,7 +141,7 @@ function updateRequestCounter() {
 }
 ```
 
-### Univerzálny *loader* komponent pre všetky AJAX žiadosti
+### Podpora pre všetky AJAX žiadosti
 
 Pokiaľ by sme chceli, aby sa náš *AJAX loader* komponent používal pri všetkých žiadostiach, môžeme funkciu `load()` z objektu `window` nahradiť tou našou. Na to, aby sme to spravili potrebujeme vykonať nasledujúce kroky:
 

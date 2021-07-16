@@ -15,7 +15,7 @@
 
 **Obťažnosť**: 3/5
 
-**Obsah príkladu**: Objektové programovanie v PHP, generovanie HTML obsahu pomocou PHP, vkladanie PHP súborov pomocou `include` a `require`, *session*. 
+**Obsah príkladu**: Objektové programovanie v PHP, generovanie HTML kódu pomocou PHP, vkladanie PHP súborov pomocou `include` a `require`, *session*, polia, práca s reťazcami. 
 </div>
 
 ## Zadanie

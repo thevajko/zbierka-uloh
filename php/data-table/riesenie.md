@@ -30,7 +30,11 @@ Samotné riešenie je rozdelené do niekoľkých častí.
 
 ### Pripojenie k databáze
 
-Úlohou tohto príkladu je zobrazovanie dát z databázy. Pre pripojenie k databáze využijeme modul PDO. Vytvoríme si triedu `Db`, ktorá bude sprostredkovať pripojenie na databázu. Táto trieda bude mať statickú metódu, ktorá vráti inštanciu `PDO`. Účelom tejto triedy je iba sprostredkovať tú istú inštanciu `PDO` pre komunikáciu s databázou, nič iné. Trieda bude vyzerať nasledovne:
+Úlohou tohto príkladu je zobrazovanie dát z databázy. Pre pripojenie k databáze využijeme modul PDO. Vytvoríme si triedu `Db`, ktorá bude sprostredkovať pripojenie na databázu. Táto trieda bude mať statickú metódu, ktorá vráti inštanciu `PDO`. Účelom tejto triedy je iba sprostredkovať tú istú inštanciu `PDO` pre komunikáciu s databázou, nič iné. 
+
+<div style="page-break-after: always;"></div>
+
+Trieda bude vyzerať nasledovne:
 
 ```php
 class Db {
@@ -91,6 +95,8 @@ Dáta do našej DB tabuľky si môžeme pripraviť sami, alebo môžeme využiť
 
 Pre prístup k dátam v databáze si vytvoríme triedu `UserStorage`, ktorá bude obsahovať metódu `getAll()`, ktorej úlohou bude vybrať všetky záznamy z tabuľky `users` a vrátiť ich v poli, kde každý riadok bude predstavovať jednu inštanciu triedy `User`.
 
+<div class="end">
+
 ```php
 class UserStorage {
     /**
@@ -108,6 +114,7 @@ class UserStorage {
     }
 }
 ```
+</div>
 
 ### Jednoduchý výpis dát
 
@@ -132,7 +139,7 @@ if ($users) {
 }
 ```
 
-### Výpis do tabuľky
+### Výpis dát do tabuľky
 
 Aby sme dodržali rozdelenie aplikačnej logiky po logických celkoch, vytvoríme novú triedu `Table`, ktorej úlohou bude výpis dát DB tabuľky z databázy do HTML tabuľky a doplnenie podpornej logiky pre zoraďovanie, stránkovanie a správu jednotlivých záznamov.
 
@@ -173,7 +180,9 @@ class Table
 }
 ```
 
-Pridáme ďalšiu verejnú metódu `render()`, ktorá zostaví celkovú konštrukciu HTML tabuľky vo forme textového reťazca. Aktuálne iba zabalí výsledok metódy `renderHead()` do elementu `table`. Kód bude vyzerať:
+Pridáme ďalšiu verejnú metódu `render()`, ktorá zostaví HTML tabuľku vo forme textového reťazca. Aktuálne iba vloží výsledok metódy `renderHead()` do elementu `table`. 
+
+Kód bude vyzerať nasledovne:
 
 ```php
 class Table
@@ -206,7 +215,11 @@ echo $usersTable->render();
 
 Výsledkom skriptu je HTML tabuľka zatiaľ iba s hlavičkou. Do triedy `Table` pridáme privátnu metódu `renderBody()`, ktorá bude generovať samotné riadky s dátami, opäť vo forme reťazca pre jej výstup.
 
-Ako prvé opäť potrebujeme získať zoznam atribútov. Kód ich získania vyberieme a vložíme do samostatnej metódy `getColumnAttributes()`, nakoľko ho budeme používať na dvoch miestach. Túto metódu budeme volať veľmi často a jej výstup bude vždy rovnaký. Preto si pri jej prvom zavolaní uložíme výsledok do privátneho atribútu `$columnAttribs` a ak bude mať hodnotu, budeme vracať tú. Kód bude vyzerať:
+Ako prvé opäť potrebujeme získať zoznam atribútov. Kód ich získania vyberieme a vložíme do samostatnej metódy `getColumnAttributes()`, nakoľko ho budeme používať na dvoch miestach. Túto metódu budeme volať často a jej výstup bude vždy rovnaký, preto si pri jej prvom zavolaní uložíme výsledok do privátneho atribútu `$columnAttribs` a ak bude mať hodnotu, vrátime tú. 
+
+<div style="page-break-after: always;"></div>
+
+Kód bude vyzerať takto:
 
 ```php
 class Table 
@@ -248,7 +261,7 @@ class Table
 
 V metóde `renderBody()` najprv inicializujeme lokálnu premennú `$body`, do ktorej budeme postupne zbierať jednotlivé riadky tabuľky. V ďalšom kroku vyberieme všetky dáta z tabuľky `users` vo forme poľa do premennej `$users`, ktoré budeme prechádzať v cykle.
 
-Na začiatku každej iterácie priradíme do premennej `$tr` prázdny textový reťazec. Následne budeme prechádzať pole s atribútmi vrátenými z `$this->getColumnAttributes()`. 
+Na začiatku každej iterácie priradíme do premennej `$tr` prázdny reťazec. Následne prechádzame pole s atribútmi vrátenými z `$this->getColumnAttributes()`. 
 
 V nasledovnom cykle sa ukladá pri iterácii do premennej `$attribName` hodnota indexu, ktorý predstavuje názov parametra. V PHP je možné použiť hodnotu v premennej pri odkazovaní sa na atribút objektu. Jednoduchá ukážka:
 
@@ -263,6 +276,8 @@ echo $o->$a; // 5
 ```
 
 Tento princíp použijeme pri vypisovaní dát z objektov, ktoré dostaneme z databázy. Takto pridáme všetky hodnoty ako textový reťazec do premennej `$tr`. Po prechode všetkými atribútmi umiestnime obsah premennej `$tr` do `$body`. Po spracovaní všetkých dát z databázy vrátime obsah `$body` ako výsledok metódy.
+
+<div class="end">
 
 ```php
 class Table
@@ -285,6 +300,7 @@ class Table
     // ...
 }
 ```
+</div>
 
 Následne pridáme do metódy `render()` metódu `renderBody()`:
 
@@ -300,11 +316,11 @@ class Table
 }
 ```
 
-### Pridanie zoraďovania
+### Implementácia zoraďovania dát
 
 Aby sme mohli tabuľku zoraďovať, musíme vedieť, podľa ktorého stĺpca máme tabuľku zoradiť. Túto informáciu obsahujú elementy `a` v podobe paremetrov GET, ktoré sú pridané sa na konci URL adresy. 
 
-> **GET parametre** sa oddeľujú od zvyšku adresy znakom `?`. Ak máme napríklad URL adresu `http://localhost/?order=country`, tak tá obsahuje parameter `order` s hodnotou `country`. V prípade viacerých parametrov ich oddeľujeme znakom `&` napríklad `http://localhost/?order=country&direction=desc`.
+**GET parametre** sa oddeľujú od zvyšku adresy znakom `?`. Ak máme napríklad URL adresu `http://localhost/?order=country`, tak tá obsahuje parameter `order` s hodnotou `country`. V prípade viacerých parametrov ich oddeľujeme znakom `&` napríklad `http://localhost/?order=country&direction=desc`.
 
 Ešte by sme chceli poznamenať, že maximálna dĺžka URL adresy je 2,048 znakov vrátane HTTP GET parametrov. Rozhodne neodporúčame posielať veľké množstvo dát práve cez GET parametre. Na takéto zasielanie slúži odoslanie cez HTTP POST metódu. 
 
@@ -333,6 +349,8 @@ Parametre GET jazyk PHP automaticky ukladá do _super globálnej premennej_ [$_G
 
 Úprava triedy `Table` bude nasledovná:
 
+<div class="end">
+
 ```php
 class Table
 {
@@ -345,6 +363,7 @@ class Table
     // ...
 }
 ```
+</div>
 
 Teraz musíme upraviť metódu `UserStorage::getAll()` a doplniť do nej vstupný parameter `$sortedBy`, ktorý bude mať predvolenú hodnotu opäť nastavenú ako prázdny reťazec. Vyberáme všetky dáta pomocou SQL dopytu `SELECT * FROM users`, a ak chceme pridať zoradenie, musíme pridať klauzulu `ORDER BY` s názvom stĺpca a smerom, akým chceme dáta zoradiť.
 
@@ -436,7 +455,7 @@ class Table
 
 Zoraďovanie tabuľky by malo fungovať takto:
 
-![Zoraďovanie tabuľky po kliknutí na názov atribútu](images_data-table/dbtable-01.gif)
+![Zoraďovanie stĺpca tabuľky po kliknutí na názov atribútu](images_data-table/dbtable-01.gif)
 
 ### Obojstranné zoraďovanie
 
@@ -538,7 +557,7 @@ class Table
 
 Tabuľka sa bude zoraďovať nasledovne:
 
-![Obojsmerné zoraďovanie tabuľky](images_data-table/dbtable-02.gif)
+![Obojsmerné zoraďovanie stĺpca tabuľky](images_data-table/dbtable-02.gif)
 
 ### Stránkovanie výsledkov
 
@@ -833,14 +852,15 @@ $usersTable = new Table();
     </body>
 </html>
 ```
+<div style="page-break-after: always;"></div>
 
-Tabuľka sa nám bude zobrazovať nasledovne:
+Tabuľka sa bude zobrazovať nasledovne:
 
 ![Stránkovanie dát v tabuľke](images_data-table/dbtable-03.gif)
 
 ### Filtrovanie
 
-Ako prvé budeme pridávať možnosť filtrovania do triedy `UserStorage`. Filtrovanie do SQL dopytu pridáva podmienky operátorom `LIKE` do klauzuly `WHERE`. Tu musíme špecifikovať, čo chceme vyhľadávať a v ktorom stĺpci. Taktiež rovnakú filtráciu musíme pridať pri získavaní celkového počtu záznamov, aby sa zobrazoval adekvátny počet strán v stránkovači.
+Ako prvé pridáme možnosť filtrovania do triedy `UserStorage`. Filtrovanie do SQL dopytu pridáva podmienky s operátorom `LIKE` do klauzuly `WHERE`. Musíme určiť, čo chceme vyhľadávať a v ktorom stĺpci. Taktiež rovnakú filtráciu musíme pridať pri získavaní celkového počtu záznamov, aby sa zobrazoval správny počet strán v stránkovači.
 
 Z tohto dôvodu ako prvé vytvoríme v triede `UserStorage` novú privátnu metódu `getFilter()`, ktorej úlohou bude vytvorenie podmienky pre filtrovanie a tú následne pridáme ako do získania celkového počtu záznamov v metóde `UserStorage::getCount()`, tak aj do získavania samotných dát v metóde `UserStorage::getAll()`.
 
@@ -848,7 +868,7 @@ Metóda `getFilter()` bude obsahovať jeden vstupný parameter, a to hodnotu, po
 
 Nakoľko musíme pre každý stĺpec, v ktorom chceme vyhľadávať, uviesť samostatnú podmienku, môžeme si vytvoriť pole, v ktorom budú názvy stĺpcov pre vyhľadávanie a následne v cykle postupne podmienku zostavovať.
 
-Zoznam stĺpcov je umiestnený v premennej `$searchableColumns` a jednotlivé podmienky budeme ukladať ako pole reťazcov do premennej `$search`. To pospájame do jedného textového reťazca pomocou funkcie [`implode()`](https://www.php.net/manual/en/function.implode.php). Doplníme klauzulu `WHERE` a z každej strany doplníme medzeru, aby sme sa vyhli syntaktickej chybe vo výslednom SQL dopyte.
+Zoznam stĺpcov je umiestnený v premennej `$searchableColumns` a jednotlivé podmienky budeme ukladať ako pole reťazcov do premennej `$search`. To pospájame do jedného textového reťazca pomocou PHP funkcie [`implode()`](https://www.php.net/manual/en/function.implode.php). Doplníme klauzulu `WHERE` a z každej strany reťazca doplníme medzeru, aby sme sa vyhli syntaktickej chybe vo výslednom SQL dopyte.
 
 SQL dopyt umožňuje za znakom `%` definovať ľubovolnú postupnosť znakov medzi pevne stanovenými znakmi v hľadanom výraze. Používatelia sú ale zvyknutí skôr použiť znak `*`. Z tohto dôvodu môžeme v premennej `$filter` vymeniť všetky znaky `*` za znak `%` pomocou PHP funkcie [`str_replace()`](https://www.php.net/manual/en/function.str-replace.php).
 
@@ -858,10 +878,10 @@ Kód metódy bude nasledovný:
 class UserStorage
 {
     // ...
-    private function getFilter($filter = ""){
-
-        if ($filter){
-             $filter = str_replace("*","%", $filter);
+    private function getFilter($filter = "")
+    {
+        if ($filter) {
+            $filter = str_replace("*","%", $filter);
             $searchableColumns = ["name", "surname", "mail"];
             $search = [];
             foreach ($searchableColumns as $columnName) {
@@ -896,21 +916,17 @@ Teraz modifikujeme metódu `UserStorage::getAll()` a doplníme ju na správne mi
 ```php
 class UserStorage
 {
-    /**
-     * @return User[]
-     */
     public function getAll($sortedBy = "", $sortDirection = "", $page = 0, $pageSize = 10, $filter = ""): array
     {
         $sql = "SELECT * FROM users";
-
         $sql .= $this->getFilter($filter);
 
         if ($sortedBy) {
             $direc = $sortDirection == "DESC" ? "DESC" : "ASC";
             $sql = $sql . " ORDER BY {$sortedBy} {$direc}" ;
         }
-
         $page *= $pageSize;
+
         $sql .= " LIMIT {$pageSize} OFFSET {$page}";
 
         try {
@@ -941,13 +957,14 @@ class Table
         $this->filter =  str_replace( "'", "",$_GET['filter'] ?? "");
 
         $this->page = $this->getPageNumber();
-
     }
-    //..
+    //...
 }
 ```
 
 Ako prvú upravíme metódu `Table::getPageNumber()`. Jediné, čo v nej vykonáme je pridanie parametra, podľa ktorého budeme filtrovať, do volania metódy `UserStorage::getCount()`:
+
+<div class="end">
 
 ```php
 class Table
@@ -964,9 +981,10 @@ class Table
         }
         return $page;
     }
-    //..
+    //...
 }
 ```
+</div>
 
 To istú úpravu vykonáme v metóde `Table::renderBody()`:
 
@@ -989,7 +1007,7 @@ class Table
         }
         return $body;
     }
-    //..
+    //...
 }
 ```
 
@@ -1000,14 +1018,14 @@ Do formuláru nedopĺňame žiadne extra atribúty ani nastavenia GET parametrov
 ```php
 class Table
 {
-    //..
+    //...
     private function renderFilter() : string{
         return '<form>
         <input name="filter" type="text" value="'.$this->filter.'">
         <button type="submit">Filtrovať</button>
         </form>';
     }
- 
+    //...
 }
 ```
 
@@ -1033,7 +1051,7 @@ Dáta v tabuľke sa budú dať filtrovať:
 
 ### Vlastné stĺpce
 
-Aktuálna verzia tabuľky automaticky vygeneruje zoznam stĺpcov na základe triedy `User`. V reálnych aplikáciach je ale bežné, že v tabuľke nechceme zobraziť všetky stĺpce (napr. stĺpec `id` sa nezvykne zobrazovať) alebo chceme pomenovať stĺpce inak, ako sa volajú v databáze. Ďalšou bežnou požiadavkou je zobrazenie stĺpca, ktorý bude obsahovať tlačidlá / odkazy na modifikáciu záznamov. Pre tento účel si upravíme tabuľku tak, aby bolo možné programovo definovať stĺpce, ktoré chceme zobrazovať.
+Aktuálna verzia tabuľky automaticky vygeneruje zoznam stĺpcov na základe triedy `User`. V reálnych aplikáciach je ale bežné, že v tabuľke nechceme zobraziť všetky stĺpce (napr. stĺpec `id` sa nezvykne zobrazovať) alebo chceme pomenovať stĺpce inak, ako sa volajú v databáze. Ďalšou bežnou požiadavkou je zobrazenie stĺpca, ktorý bude obsahovať tlačidlá (odkazy) na modifikáciu záznamov. Pre tento účel si upravíme tabuľku tak, aby bolo možné programovo definovať stĺpce, ktoré chceme zobrazovať.
 
 Na reprezentáciu stĺpca si vytvoríme triedu `Column`, ktorá bude obsahovať titulok (to, čo sa má zobraziť v hlavičke tabuľky), názov atribútu a funkciu, ktorá vykreslí obsah konkrétnej bunky v danom stĺpci.
 
@@ -1077,10 +1095,8 @@ Keď máme pripravenú triedu, reprezentujúcu stĺpec tabuľky, pristúpime k j
 class Table
 {
     //...
-    /** @var Column[] */
     private array $columns = [];
     
-    //...
     public function addColumn(string $field, string $title, ?Closure $renderer = null): self {
         if ($renderer == null) {
             $renderer = fn($row) => htmlentities($row->$field);
@@ -1122,13 +1138,11 @@ class Table
                     'order' => $column->getField(),
                     'page' => 0
                 ];
-    
-                if ($this->orderBy == $column->getField() && $this->direction == "") {
+                    if ($this->orderBy == $column->getField() && $this->direction == "") {
                     $hrefParams['direction'] = "DESC";
                 } else {
                     $hrefParams['direction'] = "";
                 }
-    
                 $header .= "<th><a href=\"{$this->prepareUrl($hrefParams)}\">{$column->getTitle()}</a></th>";
             }
         }
@@ -1165,7 +1179,11 @@ class Table
 }
 ```
 
-Tu je to podobne, ako v predchádzajúcom prípade, zmena je len v tom, že namiesto `$this->getColumnAttributes()` iterujeme cez `$columns` a výstup generujeme cez `$column->render($user)`. Metóda `getColumnAttributes()` bola ešte používaná pri validácii parametru pri zoraďovaní stĺpcov. Upravíme pre to ešte metódu `isColumnNameValid()`:
+Tu je to podobne, ako v predchádzajúcom prípade, zmena je len v tom, že namiesto `$this->getColumnAttributes()` iterujeme cez `$columns` a výstup generujeme cez `$column->render($user)`. Metóda `getColumnAttributes()` bola ešte používaná pri validácii parametru pri zoraďovaní stĺpcov. 
+
+<div style="page-break-after: always;"></div>
+
+Upravíme pre to ešte metódu `isColumnNameValid()`:
 
 ```php
 class Table
@@ -1180,15 +1198,15 @@ class Table
 
 Tento raz kontrolujeme, či názov stĺpca, podľa ktorého zoraďujeme, nie je prázdny (pretože reálne stĺpce tabuľky môžu obsahovať napríklad pole s akciami, t.j. neodkazujú sa na DB atribút a zoraďovanie podľa tohto poľa nie je dovolené). Okrem toho sme pomocou funkcie `array_map()` transformovali pole objektov typu `Column` na pole reťazcov, v ktorom následne vyhľadávame. V tomto momente môžeme odstrániť metódu `getColumnAttributes()` a atribút `$columnAttribs`.
 
-Poslednou úpravou, ktorú musíme spraviť, je presunutie kontroly atribútu `$order` z konštruktora do metódy `renderBody()`, pretože v konštruktore ešte nemáme k dispozícii zoznam definovaných stĺpcov.
-
-V konštruktore upravíme:
+Poslednou úpravou je presun kontroly atribútu `$orderBy` z konštruktora do metódy `renderBody()`, pretože v konštruktore ešte nemáme k dispozícii zoznam definovaných stĺpcov. V konštruktore upravíme:
 
 ```php
 $this->orderBy = $_GET['order'] ?? "";
 ```
 
 Na začiatok metódy `renderBody()` pridáme:
+
+<div class="end">
 
 ```php
 class Table
@@ -1202,6 +1220,7 @@ class Table
     //...
 }
 ```
+</div>
 
 Pre zobrazenie pôvodnej tabuľky upravíme `index.php`:
 
@@ -1224,7 +1243,7 @@ $usersTable->addColumn("", "Akcie", function (User $user) {
 
 V tomto príklade uvádzame prázdny názov atribútu, na ktorý sa daný stĺpec viaže, potom sa nebude dať podľa tohto stĺpca zoraďovať. Ako tretí parameter definujeme anonymnú funkciu, ktorá ako parameter dostane entitu používateľa a zobrazí jednoduché tlačidlo, ktoré po stlačení vypíše ID daného používateľa.
 
-![Neviem, čo chcel autor obrázkom povedať](images_data-table/dbtable-05.gif)
+![Funkčné akčné tlačidlo a zobrazenie správy používateľovi](images_data-table/dbtable-05.gif)
 
 ### Univerzálny zdroj dát
 
@@ -1250,6 +1269,8 @@ class UserStorage implements ITableSource
 
 Triedu `Table` upravíme tak, že ako parameter konštruktora získa inštanciu typu `ITableSource`, ktorú si uloží do atribútu `$dataSource`:
 
+<div class="end">
+
 ```php
 class Table
 {
@@ -1264,6 +1285,7 @@ class Table
     //...
 }
 ```
+</div>
 
 Následne upravíme metódy `renderBody()` a `getPageNumber()` tak, aby si nevyrábali vždy nový `UserStorage`, ale využívali atribút `$dataSource`.
 
@@ -1299,6 +1321,8 @@ class Table
     }
 }
 ```
+
+<div style="page-break-after: always;"></div>
 
 V súbore `index.php` upravíme deklaráciu tabuľky tak, že v konštruktore jej nastavíme inštanciu `UserStorage`:
 

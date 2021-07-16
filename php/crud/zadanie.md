@@ -6,14 +6,14 @@
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 
-# Operácie s DB tabuľkou 
+# Základné operácie s dátovou tabuľkou
 <div class="info"> 
 
 **Hlavný jazyk príkladu**: PHP
 
 **Ostatné použité jazyky**: HTML, JavaScript, CSS
 
-**Obťažnosť**: 3/5
+**Obťažnosť**: 5/5
 
 **Obsah príkladu**: Štruktúra aplikácie vo viacerých súboroch, operácie čítania, pridávanie, zmeny a mazania dát v DB, PHP Data Objects (PDO), *PDO preprare statement*, ochrana voči XSS útoku.
 </div>

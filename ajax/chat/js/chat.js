@@ -123,9 +123,10 @@ class Chat {
                 }
                 throw new Error("ERROR:" + response.status + " " + response.statusText);
             }
-            await this.checkLoggedState();
         } catch (e) {
             console.log('Request Failed', e);
+        } finally {
+            await this.checkLoggedState();
         }
     }
 

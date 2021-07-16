@@ -11,9 +11,9 @@
 
 ## Riešenie
 
-### HTML a CSS časť riešenia
+### HTML dokument 
 
-Pri riešení tejto úlohy začneme deklaráciou CSS pravidiel. Hlavným cieľom tejto úlohy je generovanie veľkého množstva štvorčekov rovnakej veľkosti a následné umiestnenie týchto štvorčekov náhodne do okna prehliadača. Na to, aby sme mohli umiestniť štvorčeky na ľubovolné miesto na stránke, potrebujeme:
+Hlavným cieľom tejto úlohy je generovanie veľkého množstva štvorčekov rovnakej veľkosti a následné umiestnenie týchto štvorčekov náhodne do okna prehliadača. Na to, aby sme mohli umiestniť štvorčeky na ľubovolné miesto na stránke, potrebujeme:
 
 1. Roztiahnuť element `body` na celé okno prehliadača.
 2. Umiestniť štvorček pomocou napr. absolútnej pozície.
@@ -29,7 +29,11 @@ Uvažujme, že HTML kód stránky by mohol vyzerať nasledovne:
 </body>
 ```
 
+### CSS štýl
+
 Každý `div` element bude reprezentovať jeden štvorček.
+
+<div class="end">
 
 ```css
 body {
@@ -45,12 +49,13 @@ div {
     height: 50px;
 }
 ```
+</div>
 
 Pre telo dokumentu (element `body`) nastavíme CSS vlastnosti `padding` a `margin` na `0`, aby sa mohli štvorčeky zobrazovať od úplného okraja okna. Okrem toho nastavíme veľkosť na `100%`, aby vyplnili celé okno. Ak nechceme, aby sa nám okolo okna zobrazovali posuvníky, je potrebné ešte nastaviť `overflow: hidden`.
 
 Každý štvorček bude mať nastavenú pozíciu na `absolute`, aby sme ho mohli umiestniť ľubovolne na stránku a bude mať veľkosť `50px`.
 
-### PHP časť riešenia
+### PHP skript
 
 Implementáciu PHP časti začneme deklarovaním niekoľkých pomocných funkcií.
 
@@ -77,10 +82,10 @@ V tomto prípade sme si deklarovali pole dostupných farieb. Výslednú farbu vy
 
 Výhodou tohto riešenia je to, že vieme dopredu špecifikovať, aké farby chceme. V prípade, že by sme potrebovali plne náhodné spektrum farieb, potrebujeme si danú farbu nejakým spôsobom vygenerovať.
 
-> Vo webových aplikáciach najčastejšie využívame RGB formát pre zápis farby. RGB kód farby sa skladá z troch zložiek R - *red*, G - *green*, B - *blue*. Každá z týchto hodnôt môže nadobúdať hodnotu `0` - `255` (`0` - `FF` hexadecimálne). Existujú dva formáty zápisu RGB farby v CSS:
+Vo webových aplikáciach najčastejšie využívame RGB formát pre zápis farby. RGB kód farby sa skladá z troch zložiek R - *red*, G - *green*, B - *blue*. Každá z týchto hodnôt môže nadobúdať hodnotu `0` - `255` (`0` - `FF` hexadecimálne). Existujú dva formáty zápisu RGB farby v CSS:
 
-> 1. *Hexadecimálny* - začína znakom `#` a za ním nasledujú hodnoty RGB v 16-tkovej sústave, spolu 6 číslic. Napríklad červená farba vyzerá takto: `#FF0000`. 
-> 2. *Decimálny* - ten sa v CSS zapisuje nasledovne `rgb(red, green, blue);`
+1. *Hexadecimálny* - začína znakom `#` a za ním nasledujú hodnoty RGB v 16-tkovej sústave, spolu 6 číslic. Napríklad červená farba vyzerá takto: `#FF0000`. 
+2. *Decimálny* - ten sa v CSS zapisuje nasledovne `rgb(red, green, blue);`
 
 Pokiaľ chceme jednoducho vygenerovať farbu, môžeme vygenerovať náhodné číslo z rozsahu 0 - 2^24 (`0xFFFFFF`). Táto hodnota musí mať aj úvodné nuly. Ak vygenerujeme hodnotu `0xFF` musíme ju doplniť nulami - `0000FF`. Jej kód bude vyzerať nasledovne:
 

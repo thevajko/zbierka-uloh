@@ -15,14 +15,14 @@
 
 **Obťažnosť**: 5/5
 
-**Obsah príkladu**: Objektové programovanie v PHP, spracovanie výnimiek v PHP, *session*, tvorba serverového API rozhrania, PHP Data Objects (PDO), *PDO preprare statement*, databázová vrstva, HTTP stavové kódy, JSON formát, JavaScript API klient, asynchrónne programovanie v JavaScripte, kľúčové slová `async`, `await`, manipulácia s DOM, CSS *flexbox*.
+**Obsah príkladu**: Objektové programovanie v PHP, spracovanie výnimiek v PHP, *session*, tvorba serverového API rozhrania, PHP Data Objects (PDO), *PDO preprare statements*, databázová vrstva, HTTP stavové kódy, AJAX volania, JSON formát, JavaScript API klient, prísľuby (*promises*), asynchrónne programovanie v JavaScripte, časovače v JavaScripte, kľúčové slová `async`, `await`, použitie *arrow* funkcií, manipulácia s DOM, CSS *flexbox*.
 </div>
 
 ## Zadanie
 
 Vytvorte chatovaciu aplikáciu, ktorá budem mať nasledovné funkcie:
 
-1. Bude umožňovať posielať správ.
+1. Bude umožňovať posielanie správ.
 1. Správy si môže pozerať aj neprihlásený používateľ. 
 1. Zobrazovať sa bude vždy 50 najnovších správ.
 1. Aby používateľ mohol chatovať, musí zadať svoje meno, t.j. prihlásiť sa.

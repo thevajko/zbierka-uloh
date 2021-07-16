@@ -11,11 +11,11 @@ class MessageStorage
         try {
             if (empty($userName)){
                 return Db::conn()
-                    ->query("SELECT * FROM messages WHERE private_for IS null ORDER by created ASC LIMIT 50")
+                    ->query("SELECT * FROM messages WHERE private_for IS null ORDER by created DESC LIMIT 50")
                     ->fetchAll(PDO::FETCH_CLASS, Message::class);
             } else {
                 $stat = Db::conn()
-                    ->prepare("SELECT * FROM messages  WHERE private_for IS null OR private_for LIKE ? OR user LIKE ? ORDER by created ASC LIMIT 50");
+                    ->prepare("SELECT * FROM messages  WHERE private_for IS null OR private_for LIKE ? OR user LIKE ? ORDER by created DESC LIMIT 50");
                 $stat->execute([$userName,$userName ]);
                 return $stat->fetchAll(PDO::FETCH_CLASS, Message::class);
             }

@@ -11,13 +11,13 @@
 
 ## Riešenie
 
-Riešenie úlohy si rozdelíme do niekoľkých častí. Riešenie budeme implementovať pomocou princípov OOP.
+Riešenie si rozdelíme do niekoľkých častí a a použijeme objektový prístup.
 
-### HTML súbor
+### HTML dokument
 
 Ak vytvárame celú hru od úplného začiatku, vytvoríme si adresár `img` a nakopírujeme si do neho obrázky `0.png` až `10.png`. 
 
-V súbore HTML vykreslíme len najnutnejšie časti hry a budeme sa snažiť všetku logiku hry umiestniť do PHP súborov. Aj keď prevažná časť súboru bude v HTML jazyku, niektoré časti budú používať PHP kód, preto musí mať súbor koncovku `php`. PHP kód do súboru doplníme neskôr. 
+V súbore HTML vytvoríme len základné hry a všetku logiku hry umiestnime do PHP súborov. Aj keď prevažná časť súboru bude v HTML jazyku, niektoré časti budú používať PHP kód, preto **musí** mať súbor koncovku `php`. PHP kód do súboru doplníme neskôr. 
 
 Súčasťou hry bude aj klávesnica zobrazená na obrazovke hry a hráč pomocou nej bude môcť zadávať jednotlivé písmená. Klávesnicu môžeme vytvoriť manuálne pomocou HTML, ale ukážeme si spôsob, ako sa dá HTMl generovať pomocou PHP. 
 
@@ -53,7 +53,7 @@ Prečo sme na odkaz `Začať znovu` realizovali pomocou odkazu `?` (otáznik). K
 </html>
 ```
 
-#### CSS štýl
+### CSS štýl
 
 CSS kód tejto aplikácie je veľmi jednoduchý a definuje len pár štýlov pre text. Použité štýly uzatvárajú hracie pole do rámčeka, nastavujú vzhľad klávesnice, ako aj skrývajú rozdiel, ak sme už klikli na niektorý zo znakov. Súbor `style.css` umiestnime do vytvoreného adresára `css` a bude vyzerať takto:
 
@@ -100,7 +100,7 @@ Hru budeme navrhovať a implementovať pomocou objektovo-orientovaného prístup
 ![UML diagram tried](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/thevajko/zbierka-uloh/solution/php/hangman-game/diagram.puml)
 
 
-### Trieda `Keyboard`
+#### Trieda `Keyboard`
 
 Triedy budeme umiestňovať do súboru s rovnakým názvom, ako je názov triedy. Trieda `Keyboard` bude umiestnená v súbore `Keyboard.php`. Na deklaráciu triedy sa v jazyku PHP používa kľúčové slovo `class`:
 
@@ -170,7 +170,7 @@ class Keyboard
 }
  ```
 
-### Trieda `Game`
+#### Trieda `Game`
 
 Trieda `Game` bude riadiť celú hru a bolo by dobré, keby súbor `index.php` na komunikáciu s PHP súbormi využíval len ju a žiadnu inú. Preto, aj keby sme mohli v tomto súbore priamo vytvárať klávesnicu pomocou triedy `Keyboard`, radšej túto činnosť prenecháme triede `Game` a vytvoríme si obaľovaciu metódu, ktorá klávesnicu vytvorí a posunie ju do súboru `index.php`. Na začiatok súboru `Game.php` umiestnime príkaz:
 
@@ -215,7 +215,7 @@ Všimnite si použitie `<?= ?>`, čo je len skratka pre `<?php echo ... ?>`. Po 
 
 Po kliknutí na ktorékoľvek písmeno v riadku sa odošle GET požiadavka s parameterom `char` rovnajúcim sa znaku, na ktorý sme klikli. Túto vlastnosť neskôr využijeme v hre.
 
-### Trieda `Hangman`
+#### Trieda `Hangman`
 
 Klávesnicu máme funkčnú, môže pokračovať v implementácii herného `engine`. Najskôr si v triede `Hangman` vytvoríme atribúty, ktoré budeme v hre potrebovať. V prvom rade budeme potrebovať nejaké slová, ktoré budeme hádať. Vyberieme také, ktoré neobsahujú žiadnu diakritiku. Slová nemusia byť rovnako dlhé. 
 
@@ -254,7 +254,7 @@ class Hangman
 }
 ```
 
-### *Session*
+#### Uchovávanie stavu hry 
 
 Teraz v triede `Hangman` vytvoríme konštruktor. Ten bude mať vstupný paramater `$initialized`, ktorý môže nadobúdať hodnoty `true` alebo `false`. Ak konštruktor zavoláme s hodnotou parametra `true`, vykoná sa inicializácia celej hry a bude sa hrať odznovu. Táto situácia nastane len vtedy, ak hráč klikne na odkaz `Začať znovu`. 
 
@@ -336,7 +336,11 @@ class Hangman
 }
 ```
 
-Ďalším krokom bude implementácia metódy `gameStatus()`, ktoré na základe stavu hry vráti, či hráč vyhral, prehral, alebo hra stále prebieha. Pokiaľ v slove už nebude žiadna pomlčka, všetky písmená budú uhádnuté, atribúty `$wantedWord` a `$playedWord` sa budú rovnať. Vtedy vieme, že hráč uhádol slovo a hru vyhral. Ak hráč už má 10 a viac neúspešných pokusov, prehral. V inom prípade hra stále prebieha:
+Ďalším krokom bude implementácia metódy `gameStatus()`, ktoré na základe stavu hry vráti, či hráč vyhral, prehral, alebo hra stále prebieha. Pokiaľ v slove už nebude žiadna pomlčka, všetky písmená budú uhádnuté, atribúty `$wantedWord` a `$playedWord` sa budú rovnať. Vtedy vieme, že hráč uhádol slovo a hru vyhral. Ak hráč už má 10 a viac neúspešných pokusov, prehral. 
+
+<div style="page-break-after: always;"></div>
+
+V inom prípade hra stále prebieha:
 
 ```php
 class Hangman
@@ -371,7 +375,11 @@ class Keyboard
 }
 ```
 
-Metódu `getKeyboardLayout()` upravíme tak, aby nevypisovala tie klávesy, ktoré už hráč stlačil (získame ich z metódy `getUsedChars()` triedy `Hangman`). To dosiahneme úpravou podmienky na tvar `if ($counter > self::KEYS_NUMBER or in_array($char, $this->hangman->getUsedChars()))`. Pre úplnosť uvádzame celý kód metódy: 
+Metódu `getKeyboardLayout()` upravíme tak, aby nevypisovala tie klávesy, ktoré už hráč stlačil (získame ich z metódy `getUsedChars()` triedy `Hangman`). To dosiahneme úpravou podmienky na tvar `if ($counter > self::KEYS_NUMBER or in_array($char, $this->hangman->getUsedChars()))`. 
+
+<div style="page-break-after: always;"></div>
+
+Pre úplnosť uvádzame celý kód metódy: 
 
 ```php
 class Keyboard
@@ -415,9 +423,7 @@ class Game
 }
 ```
 
-Tým máme ukončenú implementáciu herného `engine`.
-
-### Doplnenie triedy `Game`
+### Integrácia riešenia v triede `Game`
 
 Na začiatok súboru `Game.php` pridáme príkaz na prepojenie so súborom `Hangman.php`:
 
@@ -496,7 +502,9 @@ Tým sme dokončili hru, zostáva nám len doplniť na správne miesta na hracej
 
 Zmenu obrázku vyriešime jednoducho tak, že všetky obrázky máme očíslované od 0 po 10 (`0.png` až `10.png`) a podľa počtu neúspešných pokusov necháme zobraziť príslušný obrázok. Obrázok `0.png` je prázdny biely obrázok a to, aby sme sa pri pokusoch nedostali nad hranicu 10 neúspešných pokusov, zabezpečíme v hernom *engine*. 
 
-Podmienka `if ($game->getGameResult() == '')` zabezpečí, že klávesnica bude zobrazená len vtedy, keď hra bude prebiehať. Inak ju nezobrazíme. Výsledný HTML súbor bude vyzerať takto:
+Podmienka `if ($game->getGameResult() == '')` zabezpečí, že klávesnica bude zobrazená len vtedy, keď hra bude prebiehať. Inak ju nezobrazíme. 
+
+Výsledný HTML súbor bude vyzerať takto:
 
 ```html
 <?php
@@ -511,38 +519,41 @@ Podmienka `if ($game->getGameResult() == '')` zabezpečí, že klávesnica bude 
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<h1>Hra Obesenec</h1>
-<h2>Hracie pole</h2>
-<div class="play_ground">
-    <?= $game->play(); ?>
-</div>
-<div class="attempts">
-    Počet neúspešných pokusov: <?= $game->getFailedAttempts() ?>
-</div>
-<div class="hangman_picture">
-    <img src="img/<?= $game->getFailedAttempts() ?>.png" alt="Obesenec">
-</div>
-<div class="results">
-    <?= $game->getGameResult() ?>
-</div>
-<?php
-    if ($game->getGameResult() == '') {
-?>
+    <h1>Hra Obesenec</h1>
+    <h2>Hracie pole</h2>
+    <div class="play_ground">
+        <?= $game->play(); ?>
+    </div>
+    <div class="attempts">
+        Počet neúspešných pokusov: <?= $game->getFailedAttempts() ?>
+    </div>
+    <div class="hangman_picture">
+        <img src="img/<?= $game->getFailedAttempts() ?>.png" alt="Obesenec">
+    </div>
+    <div class="results">
+        <?= $game->getGameResult() ?>
+    </div>
+    <?php
+        if ($game->getGameResult() == '') {
+     ?>
     <h2>Klávesnica</h2>
     <div class="keyboard_container">
         <?= $game->getKeyboard("7")->getKeyboardLayout(); ?>
     </div>
-<?php
-    }
-?>
-<div>
-    <br><a href="?">Začať znovu</a>
-</div>
+    <?php
+        }
+    ?>
+    <div>
+        <br>
+        <a href="?">Začať znovu</a>
+    </div>
 </body>
 </html>
 ```
 
+<div style="page-break-after: always;"></div>
+
 Tým je celá hra hotová a na nasledujúcom obrázku si môžeme pozrieť ukážku rozohranej hry. 
 
-![Ukážka rozohratej hry](images_hangman-game/game_in_progress.png)
+![Ukážka rozohratej hry](images_hangman-game/game_in_progress.gif)
 

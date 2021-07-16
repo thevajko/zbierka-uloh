@@ -75,7 +75,7 @@ Takto vytvorená inštancia PDO nás pripojí na `mysql` databázový server s n
 
 Pre pohodlnejšiu prácu ešte nastavíme správanie PDO tak, že pri chybe dostaneme výnimku. Od PHP8 je toto správanie predvolené, takže na PHP8 už `$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);` nie je potrebné.
 
-V aplikácii často pracujeme s rôznymi entitami, ale pripájame sa na rovnakú databázu. Dobrou praxou je preto oddelenie pripojenia k databáze do vlastnej triedy, ktorú môžeme implementovať podobne ako *singleton*, aby sme mali len jedno spoločné pripojenie k databáze. Vytvoríme triedu `Db`, ktorá bude zaobaľovať funkcionalitu získania *singleton* inštancie pripojenia k databáze (PDO).
+V aplikácii často pracujeme s rôznymi entitami, ale pripájame sa zvyčajne k rovnakej databáze. Dobrou návrhovou praxou je preto oddelenie pripojenia k databáze do samostatnej triedy, ktorú môžeme implementovať napríklad ako návrhový vzor *singleton*, aby sme si zabezpečili **len jedno** spoločné pripojenie k databáze v celom kóde. Vytvoríme teda triedu `Db`, ktorá bude zaobaľovať funkcionalitu získania *singleton* inštancie pripojenia k databáze (PDO).
 
 ```php
 class Db 
@@ -107,13 +107,13 @@ class Db
 }
 ```
 
-Trieda obsahuje jeden statický atribút `$connection` typu `PDO`, v ktorom sa uchováva inštancia pripojenia k databáze. Pripojenie k databáze z predchádzajúceho príkladu sme umiestnili do statickej metódy `Db::connect()`.
+Trieda obsahuje jeden privátny statický atribút `$connection` typu `PDO`, v ktorom sa uchováva inštancia pripojenia k databáze (ak sme pripojení). Kód pripojenia k databáze sme umiestnili do privátnej statickej metódy `Db::connect()`.
 
 Pre prístup k pripojeniu využijeme statickú metódu `Db::conn()`, ktorá vráti (prípadne vytvorí) inštanciu `PDO`.
 
 ### Návrh objektovej štruktúry
 
-Pre lepšiu organizáciu kódu si vytvoríme triedu `UserStorage` na prácu s databázou a entitnú triedu `User`. Trieda `User` bude kopírovať štruktúru dát v databáze. Jednotlivým atribútom nastavíme predvolené hodnoty, aby sme následne jednoducho mohli vytvárať nové záznamy pomocou formulára. Okrem toho sme pridali metódu `getFullname()`, ktorá nám vráti celé meno danej osoby.
+Pre lepšiu organizáciu kódu si vytvoríme triedu `UserStorage` na prácu s databázou a entitnú triedu `User`. Trieda `User` bude zodpovedať štruktúre dát v databáze. Jednotlivým atribútom nastavíme predvolené hodnoty, aby sme následne jednoducho mohli vytvárať nové záznamy pomocou formulára. Okrem toho sme pridali metódu `getFullname()`, ktorá poskladá a vráti celé meno danej osoby.
 
 ```php
 class User
@@ -136,11 +136,13 @@ Trieda `UserStorage` bude mať metódy na:
 - uloženie používateľa,
 - odstránenie používateľa.
 
+<div style="page-break-after: always;"></div>
+
 Vzťahy medzi jednotlivými triedami budú vyzerať nasledovne:
 
 ![UML diagram UserStorage](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/thevajko/zbierka-uloh/solution/php/crud/diagram.puml)
 
-### Implementácia UserStorage
+### Implementácia triedy `UserStorage`
 
 V nasledujúcej časti si postupne implementujeme metódy triedy `UserStorage` na prístup a modifikáciu dát.
 
@@ -194,6 +196,8 @@ Po vykonaní príkazu môžeme v prípade príkazu `SELECT` načítať dáta, kt
 
 Výsledná metóda na získanie záznamu používateľa z databázy bude nasledovná:
 
+<div class="end">
+
 ```php
 public function get($id): ?User 
 {
@@ -207,6 +211,7 @@ public function get($id): ?User
     return $user;
 }
 ```
+</div>
 
 Metóda [`PDOStatement::fetch()`](https://www.php.net/manual/en/pdostatement.fetch.php) na rozdiel od [`PDOStatement::fetchAll()`](https://www.php.net/manual/en/pdostatement.fetchall.php) neumožňuje priamo definovať triedu, ktorú nám táto metóda vráti. Pre nastavenie typu, ktorý nám metóda [`PDOStatement::fetch()`](https://www.php.net/manual/en/pdostatement.fetch.php) vráti, použijeme [`PDOStatement::setFetchMode()`](https://www.php.net/manual/en/pdostatement.setfetchmode.php), kde nastavíme `PDO::FETCH_CLASS` a triedu na `User::class`.
 
@@ -214,7 +219,7 @@ Metóda [`PDOStatement::fetch()`](https://www.php.net/manual/en/pdostatement.fet
 
 #### Ukladanie dát do databázy
 
-Vkladanie nových záznamov a úpravu existujúcich budeme implementovať v jednej metóde. Metóda `UserStorage::store()` dostane ako parameter inštanciu triedy `User` a uloží túto triedu do databázy. Trieda `User` obsahuje atribút `id`. Na základe toho, či bude atribút `id` nastavený, budeme rozlišovať, či chceme objekt do databázy vložiť (`id` bude rovné východzej hodnote rovnej 0), alebo chceme upraviť záznam, ktorý sa už v DB nachádza (`id` nie je rovné 0). Na samotné vkladanie dát použijeme metódu [`PDO::prepare()`](https://www.php.net/manual/en/pdostatement.prepare.php), pretože pri vkladaní dát budeme potrebovať parametrizované dopyty.
+Vkladanie nových záznamov a úpravu existujúcich budeme implementovať v jednej spoločnej metóde. Metóda `UserStorage::store()` dostane ako parameter inštanciu triedy `User` a uloží túto triedu do databázy. Trieda `User` obsahuje atribút `id`. Na základe toho, či bude atribút `id` nastavený, budeme rozlišovať, či chceme objekt do databázy vložiť (`id` bude rovné východzej hodnote rovnej `0`), alebo chceme upraviť záznam, ktorý sa už v DB nachádza (`id` nie je rovné `0`). Na samotné vkladanie dát použijeme metódu [`PDO::prepare()`](https://www.php.net/manual/en/pdostatement.prepare.php), pretože pri vkladaní dát budeme potrebovať využiť parametrizované dopyty.
 
 ```php
 public function store(User $user): void 
@@ -253,7 +258,11 @@ public function delete(User $user): void {
 
 Modelovú vrstvu aplikácie máme hotovú. V ďalšom kroku potrebujeme navrhnúť spôsob, akým do aplikácie vložíme výpis dát, formulár na editáciu a pridávanie položiek. Webová aplikácia na správu používateľov bude potrebovať niekoľko podstránok. 
 
-Existujú rôzne prístupy, ako môžeme takúto funkcionalitu rozdeliť do jednotlivých častí aplikácie. Úplne najjednoduchší spôsob je rozdelenie aplikácie na niekoľko PHP stránok. V tomto prístupe by mohla štruktúra našej stránky vyzerať nasledovne:
+Existujú rôzne prístupy, ako môžeme takúto funkcionalitu rozdeliť do jednotlivých častí aplikácie. Úplne najjednoduchší spôsob je rozdelenie aplikácie na niekoľko PHP stránok. 
+
+<div style="page-break-after: always;"></div>
+
+Pri použití tohto prístupu by mohla štruktúra našej aplikácie vyzerať nasledovne:
 
 ```
 index.php
@@ -264,11 +273,11 @@ delete.php
 
 Ak by sme chceli vidieť zoznam užívateľov, zadali by sme si do prehliadača URL adresu: `https://stranka.sk/index.php`. Pre editáciu používateľa by sme mali adresu, ktorá by mohla vyzerať nasledovne: `https://stranka.sk/edit.php?id=6`. 
 
-Takýto prístup nie je veľmi vhodný, pretože sa po čase stane neprehľadným a často vedie k veľkej duplicite kódu. Každý zo súborov `index.php`, `edit.php` atď. bude musieť obsahovať rovnaký kód na vykreslenie hlavičky HTML stránky, vykreslenie prípadného menu a ďalších prvkov. Táto duplicita sa síce dá odstrániť pomocou PHP príkazu [`include`](https://www.php.net/manual/en/function.include.php), ale kód bude aj tak neprehľadný.
+Tento prístup nie je najvhodnejší, pretože sa časom stane neprehľadným a vedie k veľkej duplicite kódu. Každý zo súborov `index.php`, `edit.php` atď. bude obsahovať rovnaký kód na zobrazenie hlavičky HTML stránky, prípadného menu a ďalších častí. Táto duplicita sa síce dá odstrániť pomocou PHP príkazu [`include`](https://www.php.net/manual/en/function.include.php), ale kód bude aj tak neprehľadný.
 
-Úplným opakom spomenutého prístupu je využitie návrhového vzoru MVC. Ten rozdelí logiku aplikácie na niekoľko vrstiev a celá aplikácia bude mať jeden prístupový bod (`index.php`).
+Opakom spomenutého prístupu je využitie návrhového vzoru MVC, ktorý rozdelí logiku aplikácie do niekoľkých vrstiev a aplikácia bude mať jeden prístupový bod (`index.php`).
 
-V našom jednoduchom prípade ale nebudeme implementovať MVC a ani nebudeme využívať už existujúci framework. Navrhneme si jednoduchú štruktúru súborov, kde jednotlivé časti aplikácie rozdelíme na určité komponenty a v `index.php` ich budeme spájať dokopy.
+V našom jednoduchom prípade ale nebudeme implementovať MVC a ani iný existujúci framework. Navrhneme si jednoduchú štruktúru súborov, kde jednotlivé časti aplikácie rozdelíme na komponenty a v `index.php` ich budeme spojíme dokopy.
 
 Naša štruktúra aplikácie by mohla vyzerať nasledovne:
 
@@ -353,7 +362,7 @@ Na úvod si vytvoríme inštanciu triedy `UserStorage`. Následne pridáme odkaz
 
 ![Zoznam použivateľov](images_crud/list.png)
 
-### Implementácia mazania používateľov
+### Implementácia mazania záznamov
 
 Mazanie používateľov budeme implementovať v súbore `pages/users/delete.php`. Pri mazaní najskôr načítame záznam používateľa podľa GET parametru `id` a ak takého používateľa nájdeme, tak záznam odstránime z databázy a vypíšeme informáciu o tom, že sme záznam odstránili.
 
@@ -382,7 +391,7 @@ Aktuálne implementované mazanie používateľov má ale jeden malý nedostatok
 
 Túto ochranu môžeme implementovať jedným z dvoch spôsobov.
 
-#### Implementácia na backed strane pomocou PHP
+#### Implementácia na strane servera
 
 Prvým spôsobom je úprava komponentu `pages/users/delete.php` tak, že je potrebné pred zmazaním ešte dodatočné potvrdenie. Toto potvrdenie môžeme implementovať ako jednoduchý formulár s jedným potvrdzovacím tlačidlom.
 
@@ -416,7 +425,7 @@ Skutočne chcete odstrániť používateľa <?=$user->getFullname()?>?
 
 ![Potvrdenie mazania záznamu na backende](images_crud/backed-confirm.png)
 
-#### Implementácia pomocou JavaScriptu
+#### Implementácia na strane klienta
 
 Druhým spôsobom je implementácia pomocou jednoduchého *confirm* dialógu v jazyku JavaScript. Tento JavaScript je potrebné aplikovať na tlačidlo `Delete` v zozname používateľov. Funkcia `confirm()` má ako parameter správu, ktorú zobrazí a poď ňou zobrazí tlačidla `Yes` a `Cancel`. 
 

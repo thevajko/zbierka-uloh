@@ -58,7 +58,7 @@ Meno je textové pole. Email je tiež textové pole, ktorému sme nastavili atri
 
 Každému prvku tohto nášho formulára sme nastavili `display: block` preto, aby sme mali jednotlivé elementy zobrazené pekne pod sebou. Okrem toho sme pridali ďalšie štýlovanie, nastavili sme pomocou `margin-top` rozostup medzi prvkami a pomocou `height` sme nastavili predvolenú výšku poľa na text správy.
 
-### Validácia formulára na strane PHP
+### Validácia formulára na strane servera
 Pri nesprávnych hodnotách je potrebné preskočiť posielanie emailu a vrátiť používateľovi formulár späť, aj s informáciou o chybách. Keďže formulár odosielame na rovnakú adresu, kde sa aktuálne nachádza, môžeme pridať validáciu na začiatok tohto súboru.
 
 Pre jednoduchosť príkladu budeme uvažovať, že nasledovný kód je v súbore `index.php`, v ktorom sa aktuálne nachádza aj HTML kód formuláru. Pri zložitejšej aplikácii je vhodné určité spoločné funkcionality oddeliť do samostatných súborov, a tieto vkladať do stránky pomocou príkazov `include` alebo `require`. 
@@ -166,6 +166,8 @@ Warning: Undefined array key "name" in /var/www/html/index.php on line 74
 
 Táto chyba ukazuje dva problémy tohto prístupu. Prvým je nesprávne použitie superglobálnej premennej `$_POST`, ktorá obsahuje hodnoty len v prípade prijatia POST žiadosti. Druhý problém je problém *escaping* (zmena významu znakov) - ak naša hodnota obsahuje HTML kód, tak nám tento kód môže rozbiť celý formulár.
 
+<div style="page-break-after: always;"></div>
+
 Na ošetrenie tohto problému si pripravíme pomocnú funkciu `getParam()`:
 
 ```php
@@ -194,7 +196,7 @@ V prípade poľa na písanie správy, ktoré využíva element `textarea` bude s
 <textarea id="content" name="content" placeholder="Text správy..."><?=getParam('content')?></textarea>
 ```
 
-### Odosielanie Emailu
+### Odosielanie emailu
 
 Po úspešnej validácii môžeme odoslať email. V PHP nám na to poslúži funkcia [`mail()`](https://www.php.net/manual/en/function.mail). Na to, aby bolo možné odosielať emaily, musí byť správne nakonfigurovaný aj mailový server. Na lokálnom serveri to nemusí vždy fungovať. V prípade využitia priloženého `docker-compose.yml` sa nám na lokálnom serveri sprístupní aplikácia *MailHog*, ktorá bude všetky odoslané emaily z PHP odchytávať a zobrazovať v prehľadnom používateľskom rozhraní, čo umožní rýchlejší vývoj aplikácie.
 
@@ -218,9 +220,11 @@ Výsledný email vyzerá po zachytení aplikáciou *MailHog* nasledovne:
 
 V aktuálnom stave aplikácia po odoslaní emailu opäť zobrazí formulár. Chceli by sme to upraviť tak, aby sme po úspešnom odoslaní emailu dostali informáciu, že správa bola odoslaná.
 
+<div style="page-break-after: always;"></div>
+
 Túto úpravu spravíme jednoducho tak, že formulár zaobalíme do príkazu `if`.
 
-```php
+```html
 <?php if ($isPost && empty($errors)) { ?>
   Ďakujeme za vašu správu.
 <?php } else { ?>
@@ -245,6 +249,8 @@ mail(
   "Odosielateľ: $name<$email>\n$content", 
   "From: my@myserver.sk\r\nReply-To: $name<$email>");
 ```
+
+<div style="page-break-after: always;"></div>
 
 Takto odoslaná správa bude vyzerať nasledovne:
 

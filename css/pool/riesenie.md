@@ -11,7 +11,8 @@
 
 ## Riešenie
 
-Začneme definíciou HTML kódu pre túto úlohu. V HTML súbore budú elementy predstavujúce stôl a guľu na ňom.
+Začneme definíciou HTML kódu pre túto úlohu. V HTML súbore budú elementy predstavujúce stôl a guľu na ňom:
+<div style="page-break-after: always;"></div>
 
 ```html
 <div class="table">
@@ -40,7 +41,7 @@ Následne je potrebné tieto elementy naštýlovať, aby sa zobrazili ako biliar
 ```
 
 Okrem farby sme elementom nastavili aj CSS vlastnosť `position`. Guľa má nastavenú hodnotu na `absolute`, aby sme ju pomocou CSS vlastností `top` a `left` mohli umiestniť na ľubovolné miesto v rámci stola. Stolu sme museli nastaviť hodnotu na `relative`, aby sme mohli guľu umiestňovať absolútne vzhľadom na stôl.
-
+<div style="page-break-after: always;"></div>
 Výsledok bude vyzerať nasledovne:
 
 ![Zobrazenie gule a stola](images_pool/riesenie1.png)
@@ -74,7 +75,7 @@ Jednotlivé hodnoty v tomto zápise majú nasledovný význam:
 - `alternate` - definuje smer animácie (`animation-direction`). Tento smer môže byť od začiatku po koniec, od konca po začiatok, alebo v našom prípade `alternate` bude animáciu prehrávať tam a späť.
 - `infinite` - definuje počet opakovaní animácie. V našom prípade chceme, aby sa guľa odrážala, dokým neopustíme stránku.
 
-Po aplikovaní animácie by sme mali vidieť, ako sa guľa najskôr hýbe dole, a potom sa odrazí a pôjde hore. Toto by sa malo opakovať donekonečna.
+Po aplikovaní animácie by sme mali vidieť, ako sa guľa najskôr hýbe dole a potom sa odrazí a pôjde hore. Toto by sa malo opakovať donekonečna.
 
 Aby sme ale dosiahli pohyb gule aj v osi `X`, musíme pridať ďalšiu animáciu. Táto bude vyzerať veľmi podobne ako animácia pohybu v smere osi `Y`:
 
@@ -89,7 +90,7 @@ Aby sme ale dosiahli pohyb gule aj v osi `X`, musíme pridať ďalšiu animáciu
 }
 ```
 
-Pokiaľ chceme jednému elementu pridať viacero animácií, tak ich oddeľujeme čiarkou:
+Pokiaľ chceme jednému elementu pridať viacero animácií, tak ich v zápise pravidla oddeľujeme čiarkou:
 
 ```css
 .ball {
@@ -98,4 +99,4 @@ Pokiaľ chceme jednému elementu pridať viacero animácií, tak ich oddeľujeme
 }
 ```
 
-Aj druhá animácia používa rovnaké parametre. Jediným rozdielom je čas. Animácia na vodorovnej osi trvá 2s a animácia na zvislej osi trvá 3.3s. Pokiaľ budeme tieto časy meniť, zmení sa nám uhol, pod ktorým sa bude guľa odrážať od hrán stola.
+Ako vidno z CSS pravidla vyššie, aj druhá animácia používa rovnaké parametre. Jediným rozdielom je trvanie animácie. Animácia na vodorovnej osi trvá 2s a animácia na zvislej osi trvá 3.3s. Ak chceme experimentovať, tieto časy môžeme meniť. Zmení sa nám tým uhol, pod ktorým sa bude guľa odrážať od hrán stola.

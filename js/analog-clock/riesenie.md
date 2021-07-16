@@ -5,7 +5,7 @@
 > - Repo: [Štartér](/../../tree/main/js/analog-clock), [Riešenie](/../../tree/solution/js/analog-clock)
 > - [Zobraziť zadanie](zadanie.md)
 
-# Analógové hodinky (JS, CSS)
+# Analógové hodiny (JS, CSS)
 </div>
 
 ## Riešenie
@@ -17,7 +17,7 @@ Pri riešení tejto úlohy budeme používať iba JavaScript a vykresľovanie po
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>JS Hodinky</title>
+        <title>JS Hodiny</title>
     </head>
     <body>
         <canvas width="500" height="500"></canvas>
@@ -44,11 +44,13 @@ window.onload = function() {
 }
 ```
 
-Kreslenie kružnice realizujeme použitím metódy kontextu [`CanvasRenderingContext2D.arc()`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc). Táto metóda potrebuje dostať *polohu stredu*, *polomer*, *začiatočný* a *koncový uhol* kreslenia. Pred volaním metódy `arc()` je potrebné definovať začiatok postupnosti krokov pre vykreslenie pomocou metódy [`CanvasRenderingContext2D.beginPath()`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/beginPath). Následne môžeme definovať, čo chceme kresliť. 
+Kreslenie kružnice realizujeme metódou kontextu [`CanvasRenderingContext2D.arc()`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc). Metóda má parametre *poloha stredu*, *polomer*, *začiatočný* a *koncový uhol* kreslenia. Pred volaním metódy `arc()` je potrebné definovať začiatok postupnosti krokov pre vykreslenie pomocou metódy [`CanvasRenderingContext2D.beginPath()`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/beginPath). Následne môžeme definovať, čo chceme kresliť. 
 
 Nakoľko sme len zostavili postupnosť krokov kreslenia, musíme pre ich vykreslenie zavolať metódu [`CanvasRenderingContext2D.stroke()`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/stroke). Až potom sa vykreslí požadovaná grafika do elementu `canvas`.
 
 V našom prípade bude kód, ktorý nakreslí kružnicu, vyzerať nasledovne:
+
+<div class="end">
 
 ```javascript
 window.onload = function() {
@@ -60,11 +62,13 @@ window.onload = function() {
   ctx.stroke();
 }
 ```
+</div>
+
 Výsledkom skriptu je takáto kružnica:
 
 ![Vykreslenie kružnice](images_analog-clock/aclock-01.png)
 
-### Vykreslenie ručičiek hodiniek
+### Vykreslenie hodinových ručičiek
 
 Teraz si vytvoríme funkciu, ktorú budeme používať pre vykreslenie sekundovej, minútovej a hodinovej ručičky. Funkcia musí umožňovať definovať šírku a dĺžku ručičky od stredu a aj jej uhol.
 
@@ -115,6 +119,8 @@ window.onload = function() {
 }
 ```
 
+<div style="page-break-after: always;"></div>
+
 Výsledná kresba by mala vyzerať nasledovne:
 
 ![Vykreslené ručičky hodiniek](images_analog-clock/aclock-02.png)
@@ -131,10 +137,8 @@ Funkcia `drawLineMarker()` bude vyzerať nasledovne:
 
 ```javascript
 function drawLineMarker(ctx, uhol, markerLength) {
-
     let angl = degToRad(uhol + 270);
     let r = 250 - markerLength;
-
     let sx = 250  + r * Math.cos(angl);
     let sy = 250 + r * Math.sin(angl);
 
@@ -190,6 +194,9 @@ function makeTick(ctx) {
     }
 }
 ```
+
+<div style="page-break-after: always;"></div>
+
 Ciferník bude vyzerať takto:
 
 ![Vykreslený celý ciferník](images_analog-clock/aclock-04.png) 
@@ -198,7 +205,9 @@ Teraz doplníme do zobrazenia ručičky a ich jednotlive uhly vyrátame týmto s
 
 - *Sekundová ručička* - sekúnd je v jednej minúte *60*, tým pádom nám stačí aktuálny počet sekúnd vynásobiť hodnotou `360 / 60 = 6`. Prepočet sekúnd na uhol sekundovej ručičky môžeme zapísať ako `sekundy * 6`. 
 - *Minútová ručička* - hodina má *60* minút, čo tvorí uhol minúty *6* stupňov. Pozíciu musíme ešte doplniť o posun sekúnd tak, že 6 rozdelíme na 60 sekúnd t.j. `6/60 = 0.1`. Prepočet minút a sekúnd na uhol minútovej ručičky môžeme zapísať ako `minúty * 6 + sekundy * 0.1`. 
-- *Hodinová ručička* - hodín je na ciferníku *12*, teda hodina má `360 / 12 = 30` stupňov. Pre upresnenie pozície ešte prirátame posun o minúty, t.j. minúty budeme násobiť `30 / 60 = 0.5`. Prepočet hodín a minút na pozíciu hodinovej ručičky 12 hodinových hodín môžeme zapísať ako `hodiny * 30 + minuty *0.5`. 
+- *Hodinová ručička* - hodín je na ciferníku *12*, teda hodina má `360 / 12 = 30` stupňov. Pre upresnenie pozície ešte prirátame posun o minúty, t.j. minúty budeme násobiť `30 / 60 = 0.5`. Výpočet uhlu hodinovej ručičky môžeme vyjadriť ako `hodiny * 30 + minuty *0.5`. 
+
+### Spustenie hodín
 
 V JavaScripte získame aktuálny čas vytvorením novej inštancie triedy [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date). Tá obsahuje metódy `Date.getSeconds()`,`Date.getMinutes()` a `Date.getHours()`. 
 
@@ -257,6 +266,8 @@ function makeTick(ctx) {
 
 A na záver pridáme spúšťanie v `window.onload`:
 
+<div class="end">
+
 ```javascript
 window.onload = function(){
     let canvas = document.querySelector("canvas");
@@ -268,7 +279,8 @@ window.onload = function(){
     makeTick(ctx);
 }
 ```
+</div>
 
 Výsledok:
 
-![Funkčné hodinky](images_analog-clock/aclock-01.gif)
+![Funkčné hodiny](images_analog-clock/aclock-01.gif)

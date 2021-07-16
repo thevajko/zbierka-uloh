@@ -6,7 +6,7 @@
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 
-# Selektory
+# CSS selektory
 <div class="info"> 
 
 **Hlavný jazyk príkladu**: CSS
@@ -15,7 +15,7 @@
 
 **Obťažnosť**: 2/5
 
-**Obsah príkladu**: Rôzne typy CSS selektorov pre výber elementov, formátovanie tabuliek a textu, tvorba rámčekov, farby pozadia a popredia, využitie obrázkov pozadia, rôzne pseudotriedy a pseudoelementy.  
+**Obsah príkladu**: Pokročilé CSS selektory, formátovanie tabuliek a textu, tvorba rámčekov tabuliek, farby pozadia a popredia, využitie obrázkov pozadia, rôzne pseudotriedy a pseudoelementy.  
 </div>
 
 ## Zadanie
@@ -42,20 +42,19 @@ Riešenie musí spĺňať nasledovné podmienky:
 
 6. V HTML je definovaný aj stĺpec `Výsledok`, ten vo výslednej tabuľke nezobrazujte.
 7. Odkazy v stĺpci `Link` sa budú správať nasledovne:
-    1. Ak bude odkaz zabezpečený (protokol HTTPS), zobrazte ho zelenou farbou.
-    2. Ak bude odkaz nezabezpečený (protokol HTTP), zobrazte ho červenou farbou.
-    3. Ak to bude relatívny odkaz, zobrazte ho modrou farbou.
-    4. Ak to bude odkaz na súbor typu PDF (odkaz končí `.pdf`), dopíšte za text odkazu, že ide o PDF - `(PDF)`.
+    1. Zabezpečené odkazy (protokol HTTPS) zobrazte zelenou farbou.
+    2. Nezabezpečené odkazy (protokol HTTP) zobrazte červenou farbou.
+    3. Relatívne odkazy zobrazte ho modrou farbou.
+    4. Pri odkazoch na súbor typu PDF (odkaz končí `.pdf`) dopíšte za text odkazu text `(PDF)`.
 8. Zabezpečte, aby pri dlhej tabuľke zostávala hlavička vždy viditeľná.
 
 ![Hlavička tabuľky pri pohnutí posuvníkom](images_selectors/zadanie-hlavicka.png)
 
-#### Štruktúra HTML kódu
+### Štruktúra HTML kódu
 
 Štruktúra základného HTML vyzerá nasledovne (všimnite si 7. stĺpec `Výsledok`, ktorý sa v zobrazenej tabuľke nachádzať nemá) :
 
 ```html
-
 <table class="data">
     <tr>
         <th>Meno</th>

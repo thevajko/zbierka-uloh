@@ -44,6 +44,8 @@ V druhom prípade táto analýza a získavanie referencií odpadá, ale na druh�
 
 Pri riešení našej úlohy však budeme používať oba prístupy. Na tvorbu tela tabuľky použijeme vytváranie riadkov pomocou reťazca a na tvorbu hlavičky použijeme priame vytváranie elementov, nakoľko hlavička bude obsahovať kód pre zoraďovanie stĺpcov.
 
+<div style="page-break-after: always;"></div>
+
 Aby sme si otestovali dynamické vytváranie elementov, doplníme triedu `JsTable` nasledovne:
 
 ```javascript
@@ -121,12 +123,13 @@ V HTML kóde pridáme element, do ktorého budeme vkladať tabuľku. Následne p
 </body>
 </html>
 ```
+<div style="page-break-after: always;"></div>
 
 Výsledok by sa mal zobraziť takto:
 
 ![Zobrazenie dátovej tabuľky bez dynamických dát](images_data-table/table-01.png)
 
-### Jednoduché zobrazenie
+### Jednoduché zobrazenie dát
 
 V hlavičke tabuľky je potrebné zobraziť názvy atribútov objektov v kolekcii. JavaScript umožňuje získať zoznam názvov atribútov ľubovoľnej inštancie volaním metódy `Object.keys()`<span class="hidden">([demonštrácia tu](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys ))</span>. Nakoľko predpokladáme, že kolekcia dát obsahuje rovnaké objekty, pre získanie atribútov stačí vybrať prvý objekt:
 
@@ -139,6 +142,8 @@ Návratovou hodnotou `Object.keys()` je pole, ktoré obsahuje názvy atribútov 
 
 Pre dynamickú tvorbu elementov hlavičky použijeme vytváranie elementov pomocou reťazca. Pre definovanie reťazcov použijeme tzv. [*template Literals*](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals). Metódu `JsTable.renderHeader()` upravíme nasledovne:
 
+<div class="end">
+
 ```javascript
 renderHeader()
 {
@@ -150,16 +155,17 @@ renderHeader()
     return `<tr>${headerText}</tr>`
 }
 ```
+</div>
 
 Pokiaľ teraz spustíme skript, tabuľka bude doplnená o názvy atribútov v hlavičke tabuľky. Výsledná tabuľka sa zobrazí nasledovne:
 
 ![Tabuľka doplnená o názvy atribútov v hlavičke](images_data-table/table-02.png)
 
-Pri generovaní obsahu v metóde `JsTable.renderRows()` iba rozšírime kód, ktorý sme vložili do metódy `JsTable.renderHeader()`. Generovanie kódu pre jeden riadok je rovnaké ako pri hlavičke s tým rozdielom, že hodnota sa umiestni namiesto do elementu `th` do `td`.
+Pri generovaní obsahu v metóde `JsTable.renderRows()` iba rozšírime kód, ktorý sme vložili do metódy `JsTable.renderHeader()`. Generovanie kódu pre riadok je rovnaké ako pri hlavičke s tým rozdielom, že hodnota sa umiestni namiesto do elementu `th` do `td`.
 
 Pre každú položku v kolekcii budeme vytvárať samostatný riadok.
 
-Ako posledné potrebujeme získať hodnoty z každého objektu v kolekcii v takom poradí, v akom sú popísané v hlavičke. V JavaScripte môžeme pristúpiť k hodnote atribútov objektu cez index. V nasledovnom kóde sú uvedené dve možnosti prístupu k hodnote atribútu:
+Na záver potrebujeme získať hodnoty z každého objektu v kolekcii v poradí, v akom sú popísané v hlavičke. V JavaScripte môžeme pristúpiť k hodnote atribútov objektu cez index. V nasledovnom kóde sú uvedené dve možnosti prístupu k hodnote atribútu:
 
 ```javascript
 class Trieda {
@@ -174,11 +180,11 @@ obj["atrb"]; // hodnota
 
 Postupnosť generovania tela tabuľky môžeme zapísať nasledovne:
 
-1. Inicializujeme si premennú `bodyText`, do ktorej budeme priebežne pridávať kód jednotlivých riadkov.
+1. Inicializujeme premennú `bodyText`, do ktorej budeme priebežne pridávať kód jednotlivých riadkov.
 2. Do premennej `keys` priradíme pole s názvami atribútov objektov v kolekcii.
 3. Následne budeme prechádzať kolekciu dát:
     1. Inicializujeme premennú `rowText`.
-    2. Budeme prechádzať pole `keys` a pre každú položku do premennej  `rowText` pridáme reťazec s HTML kódom pre element `td` s hodnotou daného atribútu.
+    2. Prechádzame pole `keys` a pre každú položku do premennej `rowText` pridáme reťazec s HTML kódom pre element `td` s hodnotou daného atribútu.
     3. Do premennej `bodyText` pridáme hodnotu z `rowText`, ktorú obalíme elementom `tr`.
 4. Vrátime obsah premennej `bodyText`.
 
@@ -320,6 +326,8 @@ A nesmieme zabudnúť doplniť predvolenú hodnotu do konštruktora:
 }
 ```
 
+<div style="page-break-after: always;"></div>
+
 Tabuľka sa bude teraz dať zoradiť oboma smermi.
 
 ![Zoraďovanie tabulky kliknutím na názov atribútu](images_data-table/tabulka-01.gif)
@@ -438,4 +446,4 @@ Výsledné riešenie bude fungovať nasledovne:
 
 </div>
 
-![Hotové riešenie](images_data-table/tabulka-02.gif)
+![Hotové riešenie s funkčným filtrovaním](images_data-table/tabulka-02.gif)

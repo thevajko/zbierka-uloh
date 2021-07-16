@@ -11,7 +11,7 @@
 
 ## Riešenie
 
-### HTML časť
+### HTML dokument
 
 Riešenie začneme prípravou HTML dokumentu. Na každú z planét vytvoríme vlastný HTML element. Pre lepšiu prehľadnosť a zjednodušenie zápisu CSS pravidiel ich umiestnime do spoločného elementu s triedou `system`. HTML kód bude vyzerať nasledovne:
 
@@ -122,7 +122,7 @@ transform: rotate(45deg) translateX(450px) rotate(-45deg);
 
 ![Otočenie planéty do pôvodnej pozície](images_solar-system/step3-translate.png)
 
-#### Animácia obehu planétky
+#### Animácia obehu planéty
 
 Pre animáciu pohybu nám stačí jednoducho meniť uhol planétky postupne od 0 do 360 stupňov. Napíšeme si preto jednoduchú animáciu:
 
@@ -152,6 +152,8 @@ Finálna definícia elementu, napríklad pre saturn s aplikovanou animáciou mô
 
 Vzhľadom na univerzálnosť celého návrhu bude pridanie mesiaca úplne rovnaké:
 
+<div class="end">
+
 ```css
 .moon {
     --size: 40px;
@@ -160,6 +162,7 @@ Vzhľadom na univerzálnosť celého návrhu bude pridanie mesiaca úplne rovnak
     animation: circularOrbit 2s linear infinite;
 }
 ```
+</div>
 
 Mesiac využíva rovnaké vlastnosti ako ostatné planéty, len centrum jeho obežnej dráhy nie je stred obrazovky, ale planétka zem. Ďalším rozdielom je rýchlosť animácie, v prípade saturnu trvá jeden obeh `8s` a v prípade mesiaca `2s`.
 
@@ -200,4 +203,6 @@ Do pôvodného kódu sme pridali nové elementy, ktoré budú použité na vykre
 }
 ```
 
-V tomto CSS môžeme vidieť niekoľko zaujímavých vecí. Samotná orbita, keď sa pozrieme HTML, má okrem CSS triedy `orbit` aj triedu definujúcu príslušnú planétu. Takže orbite sa nastaví pozícia podobne ako planéte. Na rozdiel od planéty jej ale musíme zrušiť obrázok pozadia, animáciu a posunutie, pretože orbita sa má zobrazovať vycentrovaná na stred (okna prehliadača alebo v prípade mesiaca materskej planéty). Ďalšou zaujímavosťou je spôsob, akým nastavujeme veľkosť. Veľkosť elementu pre orbitu spočítame dynamicky na základe polomeru obežnej dráhy príslušnej planéty.
+V tomto CSS môžeme vidieť niekoľko zaujímavých vecí. Samotná orbita, keď sa pozrieme HTML, má okrem CSS triedy `orbit` aj triedu definujúcu príslušnú planétu. Takže orbite sa nastaví pozícia podobne ako planéte. Na rozdiel od planéty jej ale musíme zrušiť obrázok pozadia, animáciu a posunutie, pretože orbita sa má zobrazovať vycentrovaná na stred (okna prehliadača alebo v prípade mesiaca materskej planéty). 
+
+Ďalšou zaujímavosťou je spôsob, akým nastavujeme veľkosť. Veľkosť elementu pre orbitu spočítame dynamicky na základe polomeru obežnej dráhy príslušnej planéty.

@@ -14,7 +14,7 @@ Pri vypracovaní riešenia budeme postupovať podľa jednotlivých bodov zadania
 
 ### Rámček okolo tabuľky (bod 1)
 
-> Tabuľka bude mať čierny rámček medzi bunkami a okolo celej tabuľky.
+*Tabuľka bude mať čierny rámček medzi bunkami a okolo celej tabuľky.*
 
 Pomocou CSS môžeme definovať rámček pomocou nasledovných pravidiel:
 
@@ -33,7 +33,7 @@ Tabuľka v HTML kóde mala definovaný atribút `class="data"`, preto sme na na�
 
 Bunky v tabuľke sú predstavované HTML elementmi dvoch typov: `th` (*table head*) a `td` (*table data*). Z tohto dôvodu použijeme pre ich výber CSS selektor `.data tr > *`. Ten vyberie každého (v selektore špecifikované pomocou `*`) priameho potomka (v selektore špecifikované pomocou `>`) elementu `tr` umiestneného v tabuľke. 
 
-Tento selektor by sme ale mohli napísať rôznymi spôsobmi. Jeden variant by mohla byť aj `table.data > tr > *`, kde tento selector vyberie priameho potomka elementu `tr`, ktorý sa nachádza ako priamy potomok elementu `table` s atribútom `class="data"`. Tento prípad by ale nemusel byť úplne všeobecný, pretože riadky tabuľky môžu byť ešte rozdelené do sekcií:
+Tento selektor by sme ale mohli napísať rôznymi spôsobmi. Jeden variant by mohol byť `table.data > tr > *`, kde tento selektor vyberie priameho potomka elementu `tr`, ktorý sa je priamym potomkom elementu `table` s atribútom `class="data"`. Tento prípad by ale nebol úplne všeobecný, pretože riadky tabuľky môžu byť ešte rozdelené do sekcií:
 
 ```html
 <table>
@@ -67,11 +67,13 @@ Tento selektor by sme ale mohli napísať rôznymi spôsobmi. Jeden variant by m
 }
 ```
 
-Po aplikovaní tohto štýlu tabuľka nebude ale vyzerať tak, ako sme požadovali.
+<div style="page-break-after: always;"></div>
+
+Po aplikovaní tohto štýlu tabuľka nebude ale vyzerať tak, ako sme požadovali:
 
 ![Dvojitý rámček HTML tabuľky](images_selectors/dvojite-oramovanie.png)
 
-Ako môžeme vidieť na obrázku vyššie, tabuľka má dvojité okraje, ktoré sú oddelené medzerou. Tieto medzery su definované pomocou CSS vlastnosti `border-spacing`. Mohli by sme nastaviť medzeru medzi bunkami na `0px` ale tým pádom by sme mali šírku rámčeka `2px`. Ďalšou CSS vlastnosťou, ktorú môžeme použiť je CSS vlastnosť `border-collapse`, pomocou ktorej vieme duplicitný rámček odstrániť. Pridáme preto do CSS pravidla pre tabuľku pridáme:
+Ako možeme vidieť na obrázku vyššie, tabuľka má dvojité okraje oddelené medzerou. Tieto medzery sú definované pomocou CSS vlastnosti `border-spacing`. Mohli by sme nastaviť medzeru medzi bunkami na `0px`, ale potom by sme mali šírku rámčeka `2px`. Inou CSS vlastnosťou, ktorú môžeme v tomto prípade použiť, je CSS vlastnosť `border-collapse`. Pomocou nej vieme duplicitný rámček pri tabuľkách odstrániť. Preto do CSS pravidla pridáme:
 
 ```css
 .data {
@@ -79,11 +81,13 @@ Ako môžeme vidieť na obrázku vyššie, tabuľka má dvojité okraje, ktoré 
 }
 ```
 
-### Formátovanie hlavičky (bod 2)
+### Formátovanie záhlavia tabuľky (bod 2)
 
-> Záhlavie tabuľky bude mať zelenú farbu pozadia, text bude tučným písmom a bude centrovaný, prvé písmeno bude mať žltú farbu.
+*Záhlavie tabuľky bude mať zelenú farbu pozadia, text bude tučným písmom a bude centrovaný, prvé písmeno bude mať žltú farbu.*
 
 Začneme nastavením farieb a písma. Vzhľadom na to, že bunky hlavičky tvoria elementy `th` a bunky s dátami `td`, môžeme použiť nasledovný CSS selektor:
+
+<div class="end">
 
 ```css
 .data th {
@@ -93,10 +97,11 @@ Začneme nastavením farieb a písma. Vzhľadom na to, že bunky hlavičky tvori
     padding: 5px;
 }
 ```
+</div>
 
-Centrovanie textu môžeme vykonať pomocou CSS vlastnosti `text-align: center;`, ale hlavička tabuľky (elementy `th`) má centrovanie nastavené automaticky, takže nemusíme pridávať žiadne dodatočné CSS vlastnosti.
+Centrovanie textu dosiahneme pomocou CSS vlastnosti `text-align: center;`. Hlavička tabuľky (elementy `th`) je centrovaná automaticky, takže nemusíme pridávať žiadne dodatočné CSS vlastnosti.
 
-Druhou časťou tejto úlohy je zmena farby prvého písmena v hlavičke tabuľky. Na toto naštýlovanie môžeme využiť selektor CSS [pseudoelemetu](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors/Pseudo-classes_and_pseudo-elements#what_is_a_pseudo-element) `::first-letter`, ktorý umožní aplikovanie štýlu na prvé písmeno.
+Druhou úlohou je zmena farby prvého písmena v hlavičke tabuľky. Tu sa hodí CSS selektor [pseudoelemetu](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors/Pseudo-classes_and_pseudo-elements#what_is_a_pseudo-element) `::first-letter`, ktorý umožní aplikáciu štýlu na prvé písmeno:
 
 ```css
 .data th::first-letter {
@@ -106,7 +111,7 @@ Druhou časťou tejto úlohy je zmena farby prvého písmena v hlavičke tabuľk
 
 ### Zafarbenie nepárnych riadkov (bod 3)
 
-> Riadky každý nepárny riadok tabuľky bude mať svetlosivé pozadie.
+*Riadky každý nepárny riadok tabuľky bude mať svetlosivé pozadie.*
 
 Pre vyriešenie tejto úlohy potrebujeme použiť selektor, ktorý vyberie len nepárne riadky. V CSS máme k dispozícii selektor CSS [pseudotriedy](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors/Pseudo-classes_and_pseudo-elements#what_is_a_pseudo-class) `:nth-child()`, pomocou ktorého môžeme vybrať n-tého potomka. 
 
@@ -124,7 +129,7 @@ Tento selektor vyberie každý nepárny element `td` z tabuľky s atribútom `cl
 
 ### Formátovanie stĺpca s priezviskom  (bod 4)
 
-> Stĺpec s priezviskami bude napísaný veľkými písmenami.
+*Stĺpec s priezviskami bude napísaný veľkými písmenami.*
 
 Pre výber stĺpca s priezviskom môžeme opäť použiť selektor pseudotriedy `:nth-child()`, nakoľko vieme, že je vždy druhý.
 
@@ -135,9 +140,9 @@ Pre výber stĺpca s priezviskom môžeme opäť použiť selektor pseudotriedy 
 }
 ```
 
-### Formátovanie riadkov na základe umiestnenia myšky (bod 5)
+### Formátovanie riadkov na základe polohy myši (bod 5)
 
-> Pri umiestnení kurzora myši nad riadkom tabuľky
+*Pri umiestnení kurzora myši nad riadkom tabuľky*
 
 Pokiaľ chceme pomocou CSS meniť vlastnosti na základe pozície kurzora myši, použijeme pseudotriedu `:hover`, ktorá umožňuje definovať pravidlá pre elementy, nad ktorými sa nachádza kurzor myši.
 
@@ -155,7 +160,7 @@ Pomocou tohto pravidla nastavíme šedú farbu pozadia každej bunke v riadku, n
 
 #### Formátovanie stĺpca s menom (bod 5.2)
 
-> Text v stĺpci `Meno` bude mať červenú farbu, ale iba pokiaľ nebude kurzor myši v bunke s menom. Ak bude  kurzor myši v bunke s menom, text bude mať štandardnú čiernu farbu.
+*Text v stĺpci `Meno` bude mať červenú farbu, ale iba pokiaľ nebude kurzor myši v bunke s menom. Ak bude  kurzor myši v bunke s menom, text bude mať štandardnú čiernu farbu.*
 
 Pre vyriešenie tohto bodu zadania potrebujeme napísať selektor, ktorý vyberie prvý stĺpec v tabuľke v prípade, že sa kurzor myši nachádza na riadku, ale nie na stĺpci s menom. Pokiaľ chceme v riadku vybrať prvý stĺpec, môžeme využiť pseudotriedu `:nth-child()` s parametrom `1`. Môžeme využiť ale aj skrátenú verziu `:first-child`, ktorá robí presne to isté ako `:nth-child(1)`.
 
@@ -182,12 +187,12 @@ Pre zjednodušenie môžeme využiť pseudotriedu `:not()` ktorá umožňuje neg
 
 Ako môžeme vidieť na tejto ukážke, jednotlivé selektory sa dajú ľubovoľne kombinovať.
 
-#### Formátovanie číselných buniek (bod 5.3)
+#### Formátovanie číselných buniek tabuľky (bod 5.3)
 
-> Bunky v stĺpcoch `Číslo 1` až `Číslo 3` budú mať nasledovné správanie:
-> 1. Vždy budú zarovnané na stred.
-> 2. Ak na nich nebude kurzor myši, tak budú mať modré pozadie.
-> 3. Ak bude kurzor myši na niektorom z nich, tak daná bunka bude mať zelené pozadie a bunka (bunky) s číslami za ním budú mať pozadie žlté. Pozor, bunke s odkazom nemeníme farbu pozadia.
+*Bunky v stĺpcoch `Číslo 1` až `Číslo 3` budú mať nasledovné správanie:*
+*1. Vždy budú zarovnané na stred.*
+*2. Ak na nich nebude kurzor myši, tak budú mať modré pozadie.*
+*3. Ak bude kurzor myši na niektorom z nich, tak daná bunka bude mať zelené pozadie a bunka (bunky) s číslami za ním budú mať pozadie žlté. Pozor, bunke s odkazom nemeníme farbu pozadia.*
 
 Pre riešenie tohto problému vieme využiť už známu pseudotriedu`:nth-child()`. Začneme zarovnaním čísel na stred.
 
@@ -229,7 +234,7 @@ V tomto prípade sme prvú časť zjednodušili a podmienku, že ide len o prvý
 
 ### Skrytie stĺpca s výsledkom (bod 6)
 
-> V HTML je definovaný aj stĺpec `Výsledok`, ten vo výslednej tabuľke nezobrazte.
+*V HTML je definovaný aj stĺpec `Výsledok`, ten vo výslednej tabuľke nezobrazte.*
 
 Na túto úlohu môžeme využiť pseudotriedu `:nth-last-child`, pomocou ktorej zvolíme a skryjeme daný stĺpec. Správaním je veľmi podobné ako pseudotrieda `:nth-child`, ibaže počíta prvky od konca:
 
@@ -243,11 +248,11 @@ V tomto príklade si môžete všimnúť, že opäť používame `*`. Je to kvô
 
 ### Formátovanie odkazov (bod 7) 
 
-> Odkazy v stĺpci `Link` sa budú správať nasledovne:
-> 1. Ak bude odkaz zabezpečený (protokol HTTPS), zobrazte ho zelenou farbou.
-> 2. Ak bude odkaz nezabezpečený (protokol HTTP), zobrazte ho červenou farbou.
-> 3. Ak to bude relatívny odkaz, zobrazte ho modrou farbou.
-> 4. Ak to bude odkaz na súbor typu PDF (odkaz končí `.pdf`), dopíšte za text odkazu, že ide o PDF - `(PDF)`.
+*Odkazy v stĺpci `Link` sa budú správať nasledovne:*
+*1. Ak bude odkaz zabezpečený (protokol HTTPS), zobrazte ho zelenou farbou.*
+*2. Ak bude odkaz nezabezpečený (protokol HTTP), zobrazte ho červenou farbou.*
+*3. Ak to bude relatívny odkaz, zobrazte ho modrou farbou.*
+*4. Ak to bude odkaz na súbor typu PDF (odkaz končí `.pdf`), dopíšte za text odkazu, že ide o PDF - `(PDF)`.*
 
 Pre riešenie tejto úlohy potrebujeme využiť [*atribútové selektory*](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors). Takýto selektor môže vyzerať nasledovne: `element[atribut="hodnota"]`. Začneme postupne, v prvej časti potrebujeme nájsť odkazy, ktoré smerujú na zabezpečené stránky, to znamená, že ich URL adresa začína `https:`. Použijeme preto nasledovný selektor:
 
@@ -281,13 +286,13 @@ Poslednou časťou tejto úlohy bolo doplnenie skratky `(PDF)` k odkazom, ktoré
 }
 ```
 
-Tento selektor pridá k odkazu, ktorý končí na `.pdf` pseudoelement, ktorý bude mať obsah `(PDF)`.
+Tento selektor pridá k odkazu, ktorý končí na `.pdf`, pseudoelement s textom `(PDF)`.
 
-### Ukotvenie hlavičky (bod 8)
+### Ukotvenie záhlavia tabuľky (bod 8)
 
-> Zabezpečte, aby pri dlhej tabuľke zostávala hlavička vždy viditeľná.
+*Zabezpečte, aby pri dlhej tabuľke zostávala hlavička vždy viditeľná.*
 
-Často sa stáva, že na stránke je veľa dát, a keď je tabuľka veľmi dlhá a je potrebné použiť posuvník, tak v strede tabuľky už nevieme identifikovať stĺpce. Pomocou CSS vieme ukotviť hlavičku tak, že použijeme CSS vlastnosť `position: sticky`:
+Pri dlhej tabuľke je potrebné použiť posuvník a v strede tabuľky už nevieme identifikovať stĺpce. Pomocou CSS vlastnosti `position: sticky` však vieme ukotviť hlavičku:
 
 ```css
 .data th {
@@ -296,4 +301,4 @@ Tento selektor pridá k odkazu, ktorý končí na `.pdf` pseudoelement, ktorý b
 }
 ```
 
-Pre lepší vzhľad výsledku sme ešte nastavili aj pozíciu `top: -1px;`, aby hore neostával biely pásik. 
+Na záver, pre lepší vzhľad výsledného riešenia, sme ešte nastavili aj pozíciu hlavičky tabuľky na `top: -1px;`, aby medzi hlavičkou tabuľky a vrchom okna prehliadača nezostával biely pásik. 

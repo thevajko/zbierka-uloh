@@ -20,7 +20,7 @@ try {
 
         case 'get-messages':
             $messageStorage = new MessageStorage();
-            $messages = $messageStorage->getMessages(@$_SESSION['user']);
+            $messages = array_reverse($messageStorage->getMessages(@$_SESSION['user']));
             echo json_encode($messages);
             break;
 
@@ -51,7 +51,7 @@ try {
                     return $user->name != $_SESSION['user'];
                 });
             }
-            echo json_encode($out);
+            echo json_encode(array_values($out));
             break;
 
         case 'login':

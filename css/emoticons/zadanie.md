@@ -15,7 +15,7 @@
 
 **Obťažnosť**: 4/5
 
-**Obsah príkladu**: CSS vlastnosti - veľkosť, pozícia, rámčeky, transformácie, funkcie `calc()`, CSS premenné a použitie pseudotried `::before` a `::after`.
+**Obsah príkladu**: CSS vlastnosti - veľkosť, pozícia, rámčeky, transformácie, funkcia `calc()`, CSS vrstvy, CSS premenné a použitie pseudotried `::before` a `::after`.
 </div>
 
 ## Zadanie
@@ -31,7 +31,6 @@ Prvé štyri emotikony sú základné. Každý zo základných emotikonov sa bud
 Základná HTML štruktúra emotikona bude nasledovná:
 
 ```html
-
 <div class="smiley">
     ...
 </div>
@@ -44,7 +43,6 @@ Rotácia emotikona bude realizovaná pridaním CSS triedy `upside-down` do hlavn
 Pokiaľ budeme požadovať emotikona s veľkosťou `100px` obráteného o 180 stupňov, deklarácia HTML kódu bude nasledovná:
 
 ```html
-
 <div class="smiley s-100 upside-down">
     ...
 </div>
@@ -55,7 +53,6 @@ Iné podoby emotikona budú realizované pridaním ďalšej triedy do hlavného 
 HTML kód druhého emotikona bude vyzerať nasledovne:
 
 ```html
-
 <div class="smiley s-250 happy">
     ...
 </div>

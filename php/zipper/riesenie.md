@@ -25,7 +25,7 @@ Formulár bude obsahovať dva vstupné prvky: prvý typu `file` a druhý typu `s
 </form>
 ```
 
-### Spracovanie formulára
+#### Spracovanie formulára
 
 Keď sa formulár odošle na server, je potrebné dáta nejakým spôsobom spracovať. Ak sa odošle súbor, v jazyku PHP sa nastaví prvok superglobálneho poľa [`$_FILE`](https://www.php.net/manual/en/reserved.variables.files.php) tak, aby sme boli schopní identifikovať, aký súbor používateľ poslal. Táto premenná je dvojrozmerné pole, kde prvý rozmer je názov poľa uvedený vo formulári a ďalší rozmer sú parametre súboru.
 
@@ -39,7 +39,7 @@ Keď sa formulár odošle na server, je potrebné dáta nejakým spôsobom sprac
 
 - `$_FILES['userfile']['error']` - Číselná hodnota chybového kódu. Ak *upload* prebehol v poriadku, bude tam `0` (konštanta `UPLOAD_ERR_OK`), inak tam bude nejaký chybový kód.
 
-### Limitovanie veľkosti nahrávaného súboru
+#### Limitovanie veľkosti nahrávaného súboru
 
 Ak nechceme, aby na server bol poslaný dlhší súbor ako je stanovený limit, môžeme veľkosť súboru obmedziť už na strane klienta (hoci súbor aj tak prehliadač odošle) pomocou nastavenia skrytého formulárového poľa:
 
@@ -53,7 +53,7 @@ Preto spoľahlivejším riešením je definovanie veľkosti súborov pomocou dir
 
 Okrem toho je ešte možné limitovať počet súborov, ktoré sa na server pošlú v jednej požiadavke direktívou `max_file_uploads`. Tieto hodnoty sú nastavované na strane servera, a preto nemôžu byť podvrhnuté. V prípade, že veľkosť súboru presahuje nastavenú hodnotu, nahrávaný súbor bude odmietnutý a bude vrátená chyba `UPLOAD_ERR_INI_SIZE` umiestnená v `$_FILES['userfile']['error']`.
 
-### Trieda Uploader
+### Trieda `Uploader`
 
 Keď vieme, ako spracovať súbor na strane servera, môžeme pristúpiť k implementácii triedy `Uploader`. Súbory budeme zhromažďovať v nejakom adresári až do chvíle, keď ich skomprimujeme a pošleme používateľovi. Preto budeme potrebovať privátny atribút `$uploadsDir`, ktorý triede pošleme pri jej vytváraní. Ak tento adresár neexistuje, vytvoríme si ho. Ak náhodou existuje súbor s týmto menom, vymažeme ho. Ak adresár existuje, použijeme ho. Pri práci so súbormi budeme potrebovať vždy aktuálny zoznam súborov, preto si vytvoríme metódu, ktorá bude vracať vždy aktuálny zoznam súborov.
 
@@ -173,6 +173,8 @@ class Uploader
 
 V metóde `sendZipFile()` vymažeme nahraté súbory a nastavíme odpoveď servera tak, aby prehliadač ponúkol používateľovi dialógové okno na uloženie alebo otvorenie komprimovaného archívu. Toto dosiahneme nastavením HTTP hlavičiek tak, že súbor posielaný zo servera bude MIME typu `application/zip`. Hlavička `Content-Disposition` prehliadaču pošle názov súboru. V ďalšom kroku vytvorený archív vypíšeme príkazom `echo`, čím zabezpečíme, že sa dostane tok dát cez webový server na prehliadač. Nakoniec dočasný súbor s archívom vymažeme.
 
+<div class="end">
+
 ```php
 class Uploader
 {
@@ -190,8 +192,9 @@ class Uploader
     }
 }
 ```
+</div>
 
-### Úpravy súboru index.php
+### Integrácia riešenia do `index.php`
 
 Na začiatok súboru (pred definíciu `<!doctype html>`) umiestnime PHP časť kódu, ktorá bude našu aplikáciu riadiť. Vždy budeme potrebovať vytvoriť inštanciu triedy `Uploader`. Ak používateľ poslal súbor, bude nastavená premenná `$_FILES['userfile']` a súbor uložíme volaním metódy `saveUploadedFile()`. Ak používateľ stačil tlačidlo `Zipuj`, súbory skomprimujeme a výstup mu ponúkneme na stiahnutie (volaním metódy `zipAndDownload()`). Nesmieme zabudnúť ukončiť celý PHP skript (funkciou `exit()`) za týmto príkazom, pretože zvyšný HTML kód už nie je, ani nesmie byť súčasťou posielaného archívu.
 
@@ -277,16 +280,17 @@ function deleteFiles() {
 
 Tým je aplikácia hotová. Na nasledovnom obrázku je možné vidieť jej vzhľad pred nahratím súborov:
 
-![Počiatočný stav aplikácie (žiadne súbory neboli nahraté)](images_zipper/1.png)
+![Počiatočný stav aplikácie (žiadne súbory neboli nahraté)](images_zipper/no_files.png)
+
+<div style="page-break-after: always;"></div>
 
 Používateľ postupne pridal 5 súborov do archívu:
 
-![Používateľ nahral 5 súborov na server](images_zipper/2.png)
+![Používateľ nahral 5 súborov na server](images_zipper/5_files_uploaded.png)
 
 Na tomto obrázku je aplikácia v stave, keď používateľ klikol na tlačidlo `Zipuj!` a môže sa rozhodnúť, či archív uloží na lokálny disk, alebo ho rovno otvorí.
 
-![Aplikácia po komprimácii ponúka používateľovi stiahnutie archívu](images_zipper/3.png)
-
+![Aplikácia po komprimácii ponúka používateľovi stiahnutie archívu](images_zipper/archive_download.png)
 
 
 ### Úprava aplikácie pre viacerých používateľov
@@ -295,17 +299,17 @@ Aktuálne implementovaná aplikácia má ale jedno obmedzenie. Keby nám súbory
 
 Potrebujeme teda nejako zabezpečiť, aby sa súbory medzi používateľmi nemiešali. Jedným z riešení by bolo vytvorenie prihlasovania a každý používateľ by mal vlastný adresár so súbormi. Riešenie by si vyžadovalo pridanie celkom rozsiahleho kódu, najmä ak by sme chceli užívateľa aj overovať (jeho meno a heslo).
 
-#### Cookies
+#### *Cookies*
 
 Existuje však jednoduchšie riešenie. Základným problémom webových aplikácií je, že HTTP protokol je *bezstavový*. To v praxi znamená, že všetky žiadosti sú navzájom nezávislé a server nevie o tom, že dve žiadosti z toho istého prehliadača sú od toho istého používateľa. To by v našom konkrétnom prípade znamenalo, že by sme nevedeli určiť, ktoré súbory patria tomu istému používateľovi. 
 
 Riešením je nájsť spôsob, ako označiť žiadosť z prehliadača tak, aby serveru bolo jasné, že žiadosť súvisí z inou žiadosťou z toho istého prehliadača. Tento spôsob však netreba nanovo vymýšľať, pretože už existuje a nazýva sa **cookies**.
 
-> *Cookies* sú HTTP hlavičky, ktoré vieme zo servera poslať na prehliadač, ten si ich zapamätá a s každou požiadavkou nám ich pošle späť na server, kde ich vieme spracovať. 
+*Cookies* sú HTTP hlavičky, ktoré vieme zo servera poslať na prehliadač, ten si ich zapamätá a s každou požiadavkou nám ich pošle späť na server, kde ich vieme spracovať. 
 
 Ak si do takéhoto *cookie* napr. vložíme jednoznačný identifikátor používateľa, na serveri vždy budeme vedieť, od koho súbory pochádzajú.
 
-### Podpora viacerých používateľov
+#### Implementácia podpory pre viacerých používateľov
 
 V prvom rade si musíme vytvoriť jednoznačný identifikátor používateľa pri prvej komunikácii s ním. Ak už takýto identifikátor existuje, nebudeme ho vytvárať, ale použijeme existujúci. Tento identifikátor uložíme v atribúte `$uniqueId` v triede `Uploader`.
 
@@ -348,11 +352,13 @@ class Uploader
 }
 ```
 
-Výsledný názov súbor potom, napr. pre súbor `1.txt`, bude `3ee22b7b69591e19406b001137397953ac882d5e-1.txt`.
+Po zavolaní metódy sa vygeneruje jedinečný názov súboru. Napr. pre súbor `1.txt` to bude `3ee22b7b69591e19406b001137397953ac882d5e-1.txt`.
 
 V podobnom duchu budeme musieť upraviť aj metódu `getFilesList()`, aby vracala len zoznam súborov, ktorý má predponu zhodnú s identifikátorom používateľa (využijeme funkciu `array_filter()`, ktorá vstupné pole prefiltruje a vráti len tie prvky, ktoré spĺňajú zadané kritérium). 
 
 Nakoniec zostávajúce názvy súborov zbavíme identifikátora a pomlčky, aby sme dostali pôvodné názvy (funkcia `array_map()` vykoná definovanú operáciu nad každým prvkom poľa). Pri obidvoch funkciách využijeme **arrow funkcie** z jazyka PHP, aby sme kód zjednodušili. Ako parameter obe majú jeden prvok poľa, ktorý pri danej iterácii spracujú. Vyhneme sa tak písaniu cyklu, v ktorom by sme obidve operácie riešili.
+
+<div class="end">
 
 ```php
 class Uploader
@@ -367,6 +373,7 @@ class Uploader
     // ...
 }
 ```
+</div>
 
 Pretože sme si oddelili prístup k názvom súborov do samostatnej metódy `getFullFileNameWithDir()` zostávajúce `saveUploadedFile()`, `zipAndDownload()` a `sendZipFile()` nemusíme meniť.
 

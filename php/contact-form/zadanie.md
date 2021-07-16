@@ -15,19 +15,23 @@
 
 **Obťažnosť**: 2/5
 
-**Obsah príkladu**: Tvorba, spracovanie a validácia formulárov, odosielanie emailov v jazyku PHP.
+**Obsah príkladu**: Tvorba, spracovanie a validácia formulárov, vkladanie PHP súborov, testovanie a odosielanie emailov v jazyku PHP.
 </div>
 
 ## Zadanie
 
-Vytvorte kontaktný formulár, ktorý po vyplnení odošle správu na email. Kontaktný formulár umožní zadať meno a emailovú adresu používateľa. Okrem toho bude obsahovať pole, do ktorého je možné napísať text správy ako viacriadkový text. Formulár bude mať implementované základné validačné pravidlá na strane servera:
+Vytvorte aplikáciu s kontaktným formulárom, ktorá po správnom vyplnení formulára odošle správu na vopred určenú emailovú adresu. Kontaktný formulár bude umožňovať zadať meno a emailovú adresu používateľa a okrem toho bude obsahovať pole, do ktorého je možné napísať text správy ako viacriadkový text. 
 
-- Meno a správa nemôžu byť prázdne
-- Emailová adresa musí obsahovať platnú emailovú adresu
+Formulár bude mať implementované základné validačné pravidlá, ktoré budú implementované na strane servera:
 
-Formulár by mohol vyzerať nasledovne:
+- Polia `Meno` a `Správa` nemôžu byť prázdne
+- Pole `Emailová adresa` musí obsahovať platnú emailovú adresu
 
-![Navrhovaný vzhľad kontaktného formulára](images_contact-form/zadanie.jpg)
+<div style="page-break-after: always;"></div>
+
+Formulár by mohol vyzerať nasledovne: 
+
+![Navrhovaný vzhľad kontaktného formulára](images_contact-form/zadanie.png)
 
 <div class="hidden">
 
