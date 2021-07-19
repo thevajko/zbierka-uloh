@@ -31,7 +31,7 @@ Na začiatok si navrhneme architektúru celého riešenia. Aplikáciu rozdelíme
 
 Klient aplikácie bude úplne nezávislý od servera, napísaný vo *Vanilla JavaScript* (skript, ktorý nepoužíva žiadne externé knižnice ako napr. *jQuery*). Všetky dáta pre fungovanie *chatu* bude získavať klient z webového API. Klient bude zo serverom komunikovať pomocou výmeny dát v JSON formáte.
 
-### Vytvorenie anonymného chatu
+### Vytvorenie anonymného *chatu*
 
 V prvom kroku vytvoríme verziu "anonymného" chatu, kde môže pridať príspevok hocikto. Perzistentné úložisku dát bude predstavovať databáza, preto si v nej vytvoríme tabuľku pre správy s názvom `messages`. DDL pre jej vytvorenie bude:
 
@@ -45,6 +45,8 @@ create table messages
         primary key (id)
 );
 ```
+
+#### Odpovede servera s použitím HTTP stavových kódov
 
 Súčasťou odpovede servera je [_HTTP stavový kód_](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status). Ten je súčasť hlavičky odosielanej serverom v HTTP odpovedi. V jej tele by sme mali posielať kód a chybovú hlášku (ak nastala chyba), ktorú spracuje klient.
 
@@ -91,6 +93,8 @@ try {
 }
 ```
 
+#### Ukladanie dát
+
 Ďalej si vytvoríme tri PHP triedy. Prvá bude predstavovať dátový objekt reprezentujúci jeden riadok v databáze. Nazveme ju `Message` a bude vyzerať nasledovne:
 
 ```php
@@ -136,6 +140,8 @@ class Db {
     }
 }
 ```
+
+#### Zobrazenie správ v *chate*
 
 Posledná trieda `MessageStorage` bude obsahovať kód pokrývajúcu výlučne aplikačnú logiku týkajúcu sa PHP triedy `Message`. Aj keď sa to sprvu nezdá, umiestniť túto logiku do triedy `Db` by nebolo vhodné, nakoľko by sa nám v nej zmiešavali viaceré navzájom nesúvisiace programové celky.
 
@@ -190,6 +196,8 @@ Ak teraz zavoláme naše API a nepošleme žiadne GET parametre, dostaneme chybo
 Ak však pridáme GET parameter `method=get-messages` dostaneme odpoveď bez chyby, aj keď v podobe prázdneho poľa, nakoľko v databáze nemáme žiadne záznamy.
 
 ![Vrátenie prázdneho zoznamu správ s HTTP kódom 200](images_chat/api-02.png)
+
+#### Prijímanie správ
 
 Základným súborom klienta je súbor `index.html` obsahujúci statickú webovú stránku. Ten bude načítavať súbor `main.js`, ako *JavaScript modul*, a bude obsahovať inicializáciu klienta aplikácie.
 
@@ -284,6 +292,8 @@ V tomto momente bude *chat* zobrazovať iba dáta, ktoré sú v databáze. Aby s
 </div>
 ```
 
+#### Posielanie správ
+
 Teraz do triedy `Chat` pridáme metódu `postMessage()`, ktorej zavolaním odošleme dáta novej správy na server. Zasielanie parametrov pomocou HTTP metódy POST je trochu komplikovanejšie ako pomocou HTTP GET, pretože je potrebné pridať zopár doplňujúcich informácií. Tie pridáme metóde `fetch()` ako druhý parameter:
 
 1. Aby `fetch()` poslal žiadosť typu HTTP POST, musíme doplniť nastavenie `method: "POST"`.
@@ -292,7 +302,7 @@ Teraz do triedy `Chat` pridáme metódu `postMessage()`, ktorej zavolaním odoš
 
 Teraz skontrolujeme HTTP kód odpovede. Nakoľko server nepotrebuje odoslať po uložení správy na klienta žiadne dáta budeme očakávať návratový HTTP kód [`204 No Content`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/204).
 
-Ako posledný krok nastavíme obsah elementu `input` s `id="message"` ako prázdny. Takto bude používateľ môcť ihneď po odoslaní správy začať písať novú. Metóda `postMessage()` bude vyzerať:
+Ako posledný krok nastavíme obsah elementu `input` s atribútom `id="message"` ako prázdny. Takto bude používateľ môcť ihneď po odoslaní správy začať písať novú. Metóda `postMessage()` bude vyzerať:
 
 ```javascript
 class Chat {
@@ -414,11 +424,11 @@ Pridáme preto do našej aplikácie nasledovný CSS štýl ([zdroj](https://www.
 
 Tento CSS kód vytvorí kruhový šedý rámček, kde jedna jeho 1/4 je modrá. Je k nemu pridaná animácia, ktorá ho za dve sekundy otočí okolo svojej osi o 360 stupňov.
 
-Informáciu o prebiehajúcom procese na pozadí momentálne zobrazíme pri odoslaní správy. Volaním metódy `Chat.postMessage()` musíme zablokovať prvky `<input id="message>` a `<button id="send-button">`. Tým pádom nebude možné túto metódu spustiť znovu, iba ak už spustená AJAX žiadosť skončí. Taktiež zmeníme text elementu `<button id="send-button">` z `Odoslať` na `Posielam...`.
+Informáciu o prebiehajúcom procese na pozadí momentálne zobrazíme pri odoslaní správy. Volaním metódy `Chat.postMessage()` musíme zablokovať elementy `input` s atribútom ˛`id="message` a `button` s atribútom `id="send-button"`. Tým pádom nebude možné túto metódu spustiť znovu, iba ak už spustená AJAX žiadosť skončí. Taktiež zmeníme text elementu `button` s atribútom `id="send-button"` z `Odoslať` na `Posielam...`.
 
-Na začiatku metódy `Chat.postMessage()` preto zmeníme HTML obsah elementu `<button id="send-button">` a následne nastavíme elementom `<input id="message">` a `<button id="send-button">` atribút `disabled` na hodnotu `true`. Znemožníme tak používateľovi zmeniť správu a kliknúť na tlačidlo `Odoslať`. Za `try-catch` blok pridáme blok `finally`, ktorého kód sa spustí keď AJAX žiadosť skončí. V ňom opäť zmeníme HTML obsah elementu `<button  id="send-button">` a následne nastavíme elementom `<input id="message">` a `<button  id="send-button">` atribút `disabled` na hodnotu `false`.
+Na začiatku metódy `Chat.postMessage()` preto zmeníme HTML obsah elementu `button` s atribútom `id="send-button"` a následne nastavíme elementom `input` s atribútom `id="message"` a `button` s atribútom `id="send-button"` atribút `disabled` na hodnotu `true`. Znemožníme tak používateľovi zmeniť správu a kliknúť na tlačidlo `Odoslať`. Za `try-catch` blok pridáme blok `finally`, ktorého kód sa spustí keď AJAX žiadosť skončí. V ňom opäť zmeníme HTML obsah elementu `button` s atribútom `id="send-button"` a následne nastavíme atribút `disabled` na hodnotu `false` elementom `input` s atribútom `id="message"` a `button` s atribútom `id="send-button"`.
 
-Po vymazaní dát z `<input id="message">` môžeme presunúť *focus* na tento element pomocou metódy [`HTMLElement.focus()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLOrForeignElement/focus), čím umožníme používateľovi priamo písať ďalšiu správu. Inak by naň používateľ musel opätovne kliknúť.
+Po vymazaní dát z `input` s atribútom `id="message"` môžeme presunúť *focus* na tento element pomocou metódy [`HTMLElement.focus()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLOrForeignElement/focus), čím umožníme používateľovi priamo písať ďalšiu správu. Inak by naň používateľ musel opätovne kliknúť.
 
 Kód metódy `Chat.postMessage()` bude po úprave nasledovný:
 
@@ -506,6 +516,8 @@ class User
 }
 ```
 
+#### Správa používateľov
+
 Podobne, ako sme vytvorili triedu `MessageStorage`, obsahujúcu ukladanie správ, vytvoríme triedu `UserStorage`. Tá bude obsahovať štyri verejné metódy: 
 
 - získanie zoznamu všetkých používateľov (výpis prihlásených používateľov),
@@ -591,6 +603,8 @@ class UserStorage {
 }
 ```
 
+#### Prihlásenie používateľa
+
 Teraz rozšírime skript `api.php` tak, aby umožňoval prihlásenie používateľa. Aby si server pamätal, aké je meno prihláseného používateľa, budeme toto meno ukladať do [`session`](https://www.php.net/manual/en/book.session.php). Dáta pre *session* PHP umožňuje uložiť do špeciálnej superglobálnej premennej [`$_SESSION`](https://www.php.net/manual/en/reserved.variables.session.php). Na začiatku PHP skriptu treba nastaviť, že aplikácia bude *session* používať. Preto prvý riadok v skripte `api.php` bude volanie funkcie [`session_start()`](https://www.php.net/manual/en/function.session-start.php).
 
 `$_SESSION` je pole, v ktorom index `user` bude obsahovať informáciu o mene aktuálne prihláseného používateľa pre dané *session*. Pokiaľ tento index nebude existovať, alebo bude obsahovať prázdnu hodnotu (`null` alebo prázdny textový reťazec), bude aplikácia považovať používateľa sa neprihláseného.
@@ -675,6 +689,8 @@ class MessageStorage {
 }
 ```
 
+#### Odhlásenie používateľa
+
 Teraz pridáme kód pre odhlásenie, ktorý sa bude spúšťať pomocou `api.php?method=logout`. Pri spustení odhlasovania musíme najskôr overiť, či je používateľ prihlásený. Pokiaľ je, najprv ho vymažeme z databázy a následne vymažeme dáta v PHP *session* pomocou funkcie [`session_destroy()`](https://www.php.net/manual/en/function.session-destroy.php) a vrátime HTTP kód `204`.
 
 ```php
@@ -695,6 +711,8 @@ switch (@$_GET['method']) {
 }
 ```
 
+#### Overenie stavu používateľa
+
 Klient bude môcť kedykoľvek overiť, či je používateľ prihlásený. Bude to overovať v prípade prihlásenia a odhlásenia (či prebehlo v poriadku) a pri inicializácii triedy `Chat` (používateľ napr. zatvorí stránku a následne ju znovu otvorí ešte predtým než jeho *session* vyprší).
 
 Preto pridáme do servera ďalšiu metódu, ktorá vráti hodnotu `false`, ak nie je používateľ prihlásený alebo jeho meno, ak prihlásený je. Táto metóda bude dostupná na URL adrese `?method=is-logged` a bude iba kontrolovať, či je v `$_SESSION` index `user` a ak áno, či obsahuje nejakú hodnotu. Kód bude vyzerať nasledovne:
@@ -711,9 +729,11 @@ switch (@$_GET['method']) {
 }
 ```
 
+#### Integrácia prihlásenia a odhlásenia do aplikácie
+
 Do súboru `index.html` pridáme prvky, ktoré budú predstavovať jednoduché menu. Toto menu bude obsahovať buď formulár na prihlásenie alebo element zobrazujúci meno aktuálne prihláseného používateľa s tlačidlom pre odhlásenie.
 
-Vytvoríme preto element `<div id="status-bar">`. Ten bude slúžiť ako kontajner, ktorý zobrazí vnútorné komponenty pomocou `position: fixed` na vrchu okna prehliadača. Ak nebude používateľ prihlásený, zobrazí sa element `<div id="login-form">` obsahujúci polia formulára pre prihlásenie. V opačnom prípade, po úspešnom prihlásení, bude zobrazený element `<div id="logout-form">` zobrazujúci informáciu o mene aktuálneho používateľa a tlačidlo pre odhlásenie. Doplnený HTML kód bude vyzerať takto:
+Vytvoríme preto element `div` s atribútom `id="status-bar"`. Ten bude slúžiť ako kontajner, ktorý zobrazí vnútorné komponenty pomocou `position: fixed` na vrchu okna prehliadača. Ak nebude používateľ prihlásený, zobrazí sa element `div` s atribútom `id="login-form"` obsahujúci polia formulára pre prihlásenie. V opačnom prípade, po úspešnom prihlásení, bude zobrazený element `div` s atribútom `id="logout-form"` zobrazujúci informáciu o mene aktuálneho používateľa a tlačidlo pre odhlásenie. Doplnený HTML kód bude vyzerať takto:
 
 ```html
 <div id="status-bar">
@@ -758,6 +778,8 @@ body {
 }
 ```
 
+#### Pridanie informácie o odosielateľovi správy 
+
 Prvá a najjednoduchšia úprava bude v metóde `getMessages()` triedy `Chat` pre výpis správ získaných od servera. Pridali sme do dát informáciu o používateľovi, ktorý správu napísal, preto ju doplníme do výpisu:
 
 ```javascript
@@ -789,6 +811,8 @@ class Chat {
     // ...
 }
 ```
+
+#### Úprava chatu pre prihlásených používateľov
 
 Nakoľko chceme aby naš JavaScript bol čo najprehľadnejší, vytvoríme novú triedu `UIHelper`, ktorá bude obsahovať iba kód na modifikáciu HTML elementov. Ako prvú tu presunieme kód, ktorým povolíme alebo zablokujeme odoslanie správy. Vzhľadom na to, že nechceme neprihlásenému používateľovi umožniť odosielať správy a naopak prihlásenému používateľovi chceme zobraziť pri odosielaní správy komponent *spinner*, doplníme do metódy pre zablokovanie formulára správy parameter pre zobrazenie komponentu *spinnera*. Trieda `UIHelper` bude mať nasledovný obsah:
 
@@ -862,7 +886,7 @@ class Chat {
 }
 ```
 
-Následne si v triede `UIHelper` pripravíme metódy pre zobrazovanie formulára pre prihlásenie a element pre odhlásenie. Metóda pre zobrazenie elementu odhlásenia má parameter, ktorým zobrazíme aktuálne prihlásenému používateľovi meno, pod ktorým píše správy. Taktiež pri zobrazení prihlasovacieho formulára zmažeme obsah elementu `<input id="message">` (pole pre zapisovanie textu správy), pokiaľ používateľ má správu rozpísanú a rozhodne sa odhlásiť. Metódy budú nasledovné:
+Následne si v triede `UIHelper` pripravíme metódy pre zobrazovanie formulára pre prihlásenie a element pre odhlásenie. Metóda pre zobrazenie elementu odhlásenia má parameter, ktorým zobrazíme aktuálne prihlásenému používateľovi meno, pod ktorým píše správy. Taktiež pri zobrazení prihlasovacieho formulára zmažeme obsah elementu `input` s atribútom `id="message"` (pole pre zapisovanie textu správy), pokiaľ používateľ má správu rozpísanú a rozhodne sa odhlásiť. Metódy budú nasledovné:
 
 ```javascript
 class UIHelper {
@@ -925,7 +949,7 @@ class Chat {
 }
 ```
 
-Do triedy `Chat` pridáme novú metódu `makeLogin()`, ktorou budeme odosielať potrebné dáta pre prihlásenie. Informácia o mene sa bude odosielať v POST parametri `name` a jeho hodnotu získame z elementu `<input id="login">`.
+Do triedy `Chat` pridáme novú metódu `makeLogin()`, ktorou budeme odosielať potrebné dáta pre prihlásenie. Informácia o mene sa bude odosielať v POST parametri `name` a jeho hodnotu získame z elementu `input` s atribútom  `id="login"`.
 
 Ak server vráti HTTP kód `200` vieme, že login prebehol úspešne a spustíme overenie prihlásenia pomocou metódy `checkLoggedState()` (tá sa postará aj o správnu úpravu používateľského rozhrania klienta). V prípade návratu HTTP stavového kódu `455` (klient s rovnakým menom už existuje), zobrazíme používateľovi dialógové okno so správou, že si musí zvoliť iné meno pomocou funkcie [`alert()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/alert).
 
@@ -1002,9 +1026,11 @@ class Chat {
 }
 ```
 
+#### Indikácia odosielania AJAX žiadostí
+
 Teraz pridáme indikáciu odosielania AJAX žiadosti na pozadí pridaním komponentu *spinner* pri prihlasovaní a odhlasovaní na klientovi. Do triedy `UIHelper` pridáme metódu `showStatusBarLoading()`. Jej úlohou bude skryť prihlasovací formulár a aj element pre odhlásenie.
 
-Potom zobrazíme animáciu signalizujúcu načítavanie správ. Element s animáciou budeme musieť vytvoriť ako nový element a pridať ho do elementu `<input id="status-bar">`. 
+Potom zobrazíme animáciu signalizujúcu načítavanie správ. Element s animáciou budeme musieť vytvoriť ako nový element a pridať ho do elementu `input` s atribútom `id="status-bar"`. 
 
 Tento vytvorený element budeme musieť následne pri zobrazení prihlásenia alebo odhlásenia vymazať. Jeho zmazanie vykonáme príkazom `document.querySelector("#status-bar > .loader")?.remove();`. Nakoľko element s obsahujúci komponent *spinner* nemusí byť v momente volania ešte vytvorený, pred metódu `remove()` použijeme operátor `?`:
 
@@ -1076,7 +1102,7 @@ create table messages
 );
 ```
 
-Nesmieme zabudnúť doplniť PHP triedu `User` o nový atribút `$private_for`. Tento atribút sme označili ako `nullable string`, pretože nemusí byť vyplnený.
+Nesmieme zabudnúť doplniť PHP triedu `User` o nový atribút `$private_for`. Tento atribút sme označili ako *nullable string*, pretože nemusí byť vyplnený.
 
 ```php
 class Message
@@ -1089,7 +1115,7 @@ class Message
 }
 ```
 
-Najprv musíme upraviť štruktúru HTML elementov v súbore `index.html` tak, že existujúce elementy `<div id="messages">` a `<div id="chat-bar">` vložíme do nového elementu `<div id="chat-content">`. Ten následne umiestnime ako potomka do nového elementu `<div id="frame">`. Do neho pridáme ako prvého potomka ďalší element `<div id="users-list">`. HTML kód bude po úpravách vyzerať nasledovne:
+Najprv musíme upraviť štruktúru HTML elementov v súbore `index.html` tak, že existujúce elementy `div` s atribútom `id="messages"` a `div` s atribútom `id="chat-bar"` vložíme do nového elementu `div` s atribútom `id="chat-content"`. Ten následne umiestnime ako potomka do nového elementu `div` s atribútom `id="frame"`. Do neho pridáme ako prvého potomka ďalší element `div` s atribútom `id="users-list"`. HTML kód bude po úpravách vyzerať nasledovne:
 
 ```html
 <body>
@@ -1109,6 +1135,8 @@ Najprv musíme upraviť štruktúru HTML elementov v súbore `index.html` tak, �
 </div>
 </body>
 ```
+
+#### Písanie súkromnej správy
 
 Ďalej doplníme elementy, ktoré budú používateľovi zobrazovať informáciu o tom, že píše súkromnú správu a taktiež tlačidlo, ktorým bude možné písanie súkromnej správy zrušiť.
 
@@ -1139,6 +1167,8 @@ Zoznam používateľov a *chat* zobrazíme vedľa seba pomocou CSS *flexbox* a d
 }
 ```
 
+#### Vrátenie zoznamu používateľov zo servera
+
 Potom do serverovej časti aplikácie v súbore `api.php` pridáme do bloku `switch` vetvu `users`. V nej si na začiatku vytvoríme lokálnu premennú, do ktorej priradíme prázdne pole. V prípade, ak je používateľ prihlásený, pridáme do tejto premennej pole aktívnych používateľov. Zoznam používateľov prefiltrujeme pomocou funkcie [`array_filter()`](https://www.php.net/manual/en/function.array-filter.php). Výstup tejto funkcie ale neupraví čísla indexov, preto pre ich resetovanie použijeme funkciu [`array_values()`](https://www.php.net/manual/en/function.array-values.php). Tento "reset" je dôležitý pre to, aby nám funkcia `json_encode` výsledné dáta vrátila vo formáte JSON ako pole, a nie ako objekt. Následne ho posielame na výstup v JSON formáte. V prípade, ak používateľ nie je prihlásený, klient dostene prázdne pole. Doplnený kód bude nasledovný:
 
 ```php
@@ -1160,7 +1190,9 @@ switch (@$_GET['method']) {
 // ...
 ```
 
-Do JavaScript triedy `UIHelper` doplníme metódy, ktoré budú zobrazovať a skrývať element `<span id="private-area">` obsahujúci informáciu o písaní súkromnej správy. Samotnú hodnotu `innerText` elementu `<span id="private">` budeme používať na získanie mena používateľa, ktorému je správa určená. Pridaný kód bude:
+#### Zobrazenie zoznamu používateľov 
+
+Do JavaScript triedy `UIHelper` doplníme metódy, ktoré budú zobrazovať a skrývať element `span` s atribútom `id="private-area"` obsahujúci informáciu o písaní súkromnej správy. Samotnú hodnotu `innerText` elementu `span` s atribútom `id="private"` budeme používať na získanie mena používateľa, ktorému je správa určená. Pridaný kód bude:
 
 ```javascript
 class UIHelper {
@@ -1227,7 +1259,9 @@ class Chat {
 }
 ```
 
-Upravíme metódu `postMessage()` tak, aby v prípade písania súkromnej správu poslala informáciu o tom, komu je správa určená. Túto informáciu získame z elementu `<span id="private">`. Ak tento element bude obsahovať hodnotu v atribúte `innerText`, vložíme ju POST parametru `private`. Úprava tejto metódy bude nasledovná:
+#### Odoslanie súkromnej správy
+
+Upravíme metódu `postMessage()` tak, aby v prípade písania súkromnej správu poslala informáciu o tom, komu je správa určená. Túto informáciu získame z elementu `span` s atribútom `id="private"`. Ak tento element bude obsahovať hodnotu v atribúte `innerText`, vložíme ju POST parametru `private`. Úprava tejto metódy bude nasledovná:
 
 ```javascript
 class Chat {
@@ -1292,6 +1326,8 @@ class MessageStorage {
     // ...
 }
 ```
+
+#### Úprava získavania správ pre používateľa 
 
 Podobne upravíme metódu, ktorá vracia zoznam správ. Každému používateľovi musíme zobraziť správy, ktoré nemajú definovaného príjemcu, teda kde `private_for = null` a tiež správy, ktoré boli adresované jemu, alebo ich napísal. To, pre ktorého používateľa privátne správy vyberáme, bude určovať vstupný parameter `$userName`. Upravený kód bude následovný:
 
@@ -1374,6 +1410,8 @@ Nakoniec doplníme do CSS triedu `.private`, ktorá zmení pozadie privátnej sp
     background-color: #ffc83d;
 }
 ```
+
+#### Spustenie *chatu*
 
 V metóde `run()` nastavíme jej spúšťanie pomocou časovača `setInterval()`, podobne ako metódu `getMessages()`:
 

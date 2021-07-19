@@ -12,7 +12,7 @@
 
 Na úvod riešenia začneme s analýzou problému. V zadaní máme štyri rôzne emotikony. Tieto emotikony majú tvar kruhu, ktorý vo všetkých štyroch prípadoch obsahuje dve oči a jedny ústa. Druhý a tretí emotikon obsahuje okolo základných úst navyše ďalšie grafické prvky.
 
-### Úprava HTML kódu smajlika
+### Úprava HTML kódu emotikona
 
 V zadaní máme základnú kostru emotikona, do ktorej si môžeme pridať ďalšie prvky. Vzhľadom na potrebu troch ďalších častí si upravíme pripravené HTML nasledovne:
 
@@ -29,7 +29,7 @@ Do kostry sme pridali ďalšie tri elementy. Tieto elementy sú typu `span` a ma
 
 Po spustení aktuálneho kódu však zatiaľ nič neuvidíme, nakoľko elementy neobsahujú žiaden textový obsah a cez CSS sme im ešte nepriradili žiadne pravidlá.
 
-### Základne zobrazenie tela emotikona
+#### Základne zobrazenie tela emotikona
 
 Na úvod začneme s definíciou CSS pre základného emotikona vo veľkosti `50px` x `50px`.
 
@@ -63,7 +63,7 @@ CSS vlastnosť `border-radius` nastavuje veľkosť zaoblenia elementu. Táto ve�
 
 ![Vzniknutý kruh po nastavení zaoblenia rámčekov](images_emoticons/kruh.png)
 
-### Zobrazenie očí
+#### Zobrazenie očí
 
 Po tom, ako sme vytvorili kruh, sa pustíme do štýlovania očí emotikona. Pre oči máme v HTML kóde pripravené dva elementy `span` s atribútom `class="eye"`. Začneme tým, že ich zobrazíme.
 
@@ -125,7 +125,7 @@ Pomocou selektoru `.smiley .eye:first-child` sme zvolili prvý element s triedou
 
 Nabádalo by sa aj použitie CSS pseudotriedy `:last-child`, ale tá v tomto prípade nefunguje, pretože posledný element v emotikonovi nemá triedu `.eye` ale `.mouth`, a tým pádom by sme nevybrali žiadny element.
 
-### Zobrazenie úst
+#### Zobrazenie úst
 
 Pre zobrazenie úst máme k dispozícii HTML element s triedou `mouth`. Začneme tým, že si tento element zobrazíme, nastavíme mu veľkosť a pozíciu:
 
@@ -157,7 +157,7 @@ Veľkosť sme nastavili na `60%` z rozmeru emotikona. Následne sme element umie
 
 ![Úprava úst](images_emoticons/kruh_usta2.png)
 
-Výsledok sa už takmer podobá zadaniu, ibaže naše ústa nemajú pevné ohraničenie ale idú "dostratena". Tento efekt je spôsobený tým, ako fungujú rámčeky. Ak máme rámček len na jednej strane, tento rámček sa pri zaoblených elementoch na krajoch tzv. zlieva.
+Výsledok sa už takmer podobá zadaniu, ibaže naše ústa nemajú pevné ohraničenie, ale idú "dostratena". Tento efekt je spôsobený tým, ako fungujú rámčeky. Ak máme rámček len na jednej strane, tento rámček sa pri zaoblených elementoch na krajoch tzv. zlieva.
 
 Pre lepšie pochopenie uvedieme ďalšiu ukážku. Máme nasledovný CSS kód:
 

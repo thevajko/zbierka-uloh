@@ -15,7 +15,7 @@
 
 **Obťažnosť**: 1/5
 
-**Obsah príkladu**: Základy jazyka PHP, premenné, tvorba a volanie funkcií. 
+**Obsah príkladu**: Základná syntax jazyka PHP, mixovanie HTML a PHP, premenné, cyklus `while`, tvorba a volanie funkcií, návratová hodnota funkcie. 
 </div>
 
 ## Zadanie

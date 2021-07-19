@@ -58,7 +58,7 @@ Meno je textové pole. Email je tiež textové pole, ktorému sme nastavili atri
 
 Každému prvku tohto nášho formulára sme nastavili `display: block` preto, aby sme mali jednotlivé elementy zobrazené pekne pod sebou. Okrem toho sme pridali ďalšie štýlovanie, nastavili sme pomocou `margin-top` rozostup medzi prvkami a pomocou `height` sme nastavili predvolenú výšku poľa na text správy.
 
-### Validácia formulára na strane PHP
+### Validácia formulára na strane servera
 Pri nesprávnych hodnotách je potrebné preskočiť posielanie emailu a vrátiť používateľovi formulár späť, aj s informáciou o chybách. Keďže formulár odosielame na rovnakú adresu, kde sa aktuálne nachádza, môžeme pridať validáciu na začiatok tohto súboru.
 
 Pre jednoduchosť príkladu budeme uvažovať, že nasledovný kód je v súbore `index.php`, v ktorom sa aktuálne nachádza aj HTML kód formuláru. Pri zložitejšej aplikácii je vhodné určité spoločné funkcionality oddeliť do samostatných súborov, a tieto vkladať do stránky pomocou príkazov `include` alebo `require`. 
@@ -194,7 +194,7 @@ V prípade poľa na písanie správy, ktoré využíva element `textarea` bude s
 <textarea id="content" name="content" placeholder="Text správy..."><?=getParam('content')?></textarea>
 ```
 
-### Odosielanie Emailu
+### Odosielanie emailu
 
 Po úspešnej validácii môžeme odoslať email. V PHP nám na to poslúži funkcia [`mail()`](https://www.php.net/manual/en/function.mail). Na to, aby bolo možné odosielať emaily, musí byť správne nakonfigurovaný aj mailový server. Na lokálnom serveri to nemusí vždy fungovať. V prípade využitia priloženého `docker-compose.yml` sa nám na lokálnom serveri sprístupní aplikácia *MailHog*, ktorá bude všetky odoslané emaily z PHP odchytávať a zobrazovať v prehľadnom používateľskom rozhraní, čo umožní rýchlejší vývoj aplikácie.
 

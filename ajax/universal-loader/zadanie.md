@@ -15,7 +15,7 @@
 
 **Obťažnosť**: 2/5
 
-**Obsah príkladu**: AJAX požiadavky, asynchrónne funkcie, spracovanie výnimiek v JavaScripte, funkcia `fetch()`, CSS jednoduché animácie, *spinner* komponent, AJAX *loader* komponent *flexbox*.
+**Obsah príkladu**: AJAX požiadavky, asynchrónne funkcie v JavaScripte, spracovanie výnimiek v JavaScripte, funkcia `fetch()`, variabilný počet parametrov funkcie, CSS jednoduché animácie, *spinner* komponent, AJAX *loader* komponent.
 </div>
 
 ## Zadanie 

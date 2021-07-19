@@ -6,7 +6,7 @@
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 
-# Operácie s DB tabuľkou 
+# Základné operácie s dátovou tabuľkou
 <div class="info"> 
 
 **Hlavný jazyk príkladu**: PHP

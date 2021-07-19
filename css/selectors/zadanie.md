@@ -15,7 +15,7 @@
 
 **Obťažnosť**: 2/5
 
-**Obsah príkladu**: Rôzne typy CSS selektorov pre výber elementov, formátovanie tabuliek a textu, tvorba rámčekov, farby pozadia a popredia, využitie obrázkov pozadia, rôzne pseudotriedy a pseudoelementy.  
+**Obsah príkladu**: Pokročilé CSS selektory, formátovanie tabuliek a textu, tvorba rámčekov tabuliek, farby pozadia a popredia, využitie obrázkov pozadia, rôzne pseudotriedy a pseudoelementy.  
 </div>
 
 ## Zadanie
@@ -50,7 +50,7 @@ Riešenie musí spĺňať nasledovné podmienky:
 
 ![Hlavička tabuľky pri pohnutí posuvníkom](images_selectors/zadanie-hlavicka.png)
 
-#### Štruktúra HTML kódu
+### Štruktúra HTML kódu
 
 Štruktúra základného HTML vyzerá nasledovne (všimnite si 7. stĺpec `Výsledok`, ktorý sa v zobrazenej tabuľke nachádzať nemá) :
 

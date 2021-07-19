@@ -15,7 +15,7 @@
 
 **Obťažnosť**: 3/5
 
-**Obsah príkladu**: JSON dáta a ich spracovanie, zoraďovanie dát, manipulácia s kolekciou DOM elementov, dynamické vytváranie elementov a vkladanie nových elementov.
+**Obsah príkladu**: Výpis dát do HTMl tabuľky, JSON dáta a ich spracovanie, zoraďovanie kolekcií dát, JavaScript objekty, manipulácia s kolekciou DOM elementov, dynamické vytváranie elementov a vkladanie nových elementov.
 </div>
 
 ## Zadanie

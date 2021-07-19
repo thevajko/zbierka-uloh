@@ -15,7 +15,7 @@
 
 **Obťažnosť**: 5/5
 
-**Obsah príkladu**: Objektové programovanie v PHP, rozhrania, PHP Data Objects (PDO), *PDO preprared statements*, GET parametre, ochrana proti útokom typu SQL *injection*, zoraďovanie a filtrovanie dát, stránkovanie dát.  
+**Obsah príkladu**: Objektová architektúra aplikácie, triedy a rozhrania, PHP Data Objects (PDO), *PDO preprared statements*, GET parametre, zoraďovanie, filtrovanie a stránkovanie dát, príkaz `switch`,  ochrana voči *SQL injection* útoku, ochrana voči *XSS útoku*.  
 </div>
 
 ## Zadanie

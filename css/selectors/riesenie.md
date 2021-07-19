@@ -79,7 +79,7 @@ Ako môžeme vidieť na obrázku vyššie, tabuľka má dvojité okraje, ktoré 
 }
 ```
 
-### Formátovanie hlavičky (bod 2)
+### Formátovanie záhlavia tabuľky (bod 2)
 
 > Záhlavie tabuľky bude mať zelenú farbu pozadia, text bude tučným písmom a bude centrovaný, prvé písmeno bude mať žltú farbu.
 
@@ -135,7 +135,7 @@ Pre výber stĺpca s priezviskom môžeme opäť použiť selektor pseudotriedy 
 }
 ```
 
-### Formátovanie riadkov na základe umiestnenia myšky (bod 5)
+### Formátovanie riadkov na základe polohy myši (bod 5)
 
 > Pri umiestnení kurzora myši nad riadkom tabuľky
 
@@ -182,7 +182,7 @@ Pre zjednodušenie môžeme využiť pseudotriedu `:not()` ktorá umožňuje neg
 
 Ako môžeme vidieť na tejto ukážke, jednotlivé selektory sa dajú ľubovoľne kombinovať.
 
-#### Formátovanie číselných buniek (bod 5.3)
+#### Formátovanie číselných buniek tabuľky (bod 5.3)
 
 > Bunky v stĺpcoch `Číslo 1` až `Číslo 3` budú mať nasledovné správanie:
 > 1. Vždy budú zarovnané na stred.
@@ -283,7 +283,7 @@ Poslednou časťou tejto úlohy bolo doplnenie skratky `(PDF)` k odkazom, ktoré
 
 Tento selektor pridá k odkazu, ktorý končí na `.pdf` pseudoelement, ktorý bude mať obsah `(PDF)`.
 
-### Ukotvenie hlavičky (bod 8)
+### Ukotvenie záhlavia tabuľky (bod 8)
 
 > Zabezpečte, aby pri dlhej tabuľke zostávala hlavička vždy viditeľná.
 

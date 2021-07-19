@@ -15,7 +15,7 @@
 
 **Obťažnosť**: 4/5
 
-**Obsah príkladu**: Základná demonštrácia CSS *flexbox* rozloženia, pokročilejšie spôsoby zobrazovania obrázkov, *media queries* a animácie.
+**Obsah príkladu**:  Tvorba galérie fotografií, *Flexbox* rozloženie, pokročilejšie spôsoby zobrazovania obrázkov, priehľadnosť obrázkov, CSS funkcia `calc()`, *media queries* a animácie.
 </div>
 
 ## Zadanie
@@ -52,7 +52,7 @@ Naštýlujte pomocou CSS túto galériu nasledovne:
    - po nastavení kurzora myši na obrázok, tento postupne stmavne,
    - nadpis sa zobrazí v ľavom hornom rohu a popisok sa postupne nasunie zo spodu obrázku.
 
-#### Zobrazenie galérií na rôznych veľkostiach zariadení
+### Zobrazenie galérií na rôzne veľkých zariadeniach
 
 Zariadenie s malým displejom:
 

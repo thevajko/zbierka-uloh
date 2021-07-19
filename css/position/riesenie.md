@@ -10,9 +10,9 @@
 
 ## Riešenie
 
-Na riešenie úlohy budeme potrebovať vytvoriť HTML a CSS súbor. V HTMl súbore budú základné elementy, ktoré budeme potrebovať pre riešenie úlohy a CSS súbor bude obsahovať všetky  pravidlá štýlov. CSS súbor umiestnime do adresára `css`, aj keď tento príklad nie je rozsiahly, je dobré dodržiavať štandardné umiestnenie súborov. Obrázky umiestnime do adresára `img`.
+Na riešenie úlohy budeme potrebovať vytvoriť HTML a CSS súbor. V HTMl súbore budú základné elementy, ktoré budeme potrebovať pre riešenie úlohy a CSS súbor bude obsahovať všetky pravidlá štýlov. CSS súbor umiestnime do adresára `css`, aj keď tento príklad nie je rozsiahly, je dobré dodržiavať štandardné umiestnenie súborov. Obrázky umiestnime do adresára `img`.
 
-## HTML časť
+### HTML dokument
 
 Vytvoríme si základnú kostru HTML súboru. Súbor bude obsahovať odkaz na externý CSS súbor, pričom využijeme relatívnu cestu k adresáru, čím dosiahneme ľahkú prenositeľnosť celého riešenia (v prípade zmeny adresára celého projektu). Do sekcie `<head>` umestnime:
 
@@ -32,9 +32,9 @@ Telo HTML dokumentu bude tvorené kontajnermi pre jednotlivé elementy. V zadan�
 </body>
 ```
 
-## CSS časť
+### CSS štýl
 
-### Pozadie scenérie
+#### Pozadie scenérie
 
 CSS súbor bude obsahovať všetky pravidlá. Najskôr si pripravíme pozadie. Na definovanie pozadia využijeme selektor značky `body`. Pozadie bude tvorené obrázkom definovaným CSS vlastnosťou `background-image` a nebude sa opakovať. Opakovanie by bolo vhodné použiť, ak máme obrázok menší, ako je kontajner, v ktorom bude umiestnený a takto nastavíme, či sa bude v osi X a Y sa bude opakovať (dlaždicový efekt).
 
@@ -54,7 +54,7 @@ body {
 }
 ```
 
-### Slnko
+#### Slnko
 
 Druhým krokom bude umiestnenie slnka doprostred okna prehliadača. Pomocou selektora triedy definujeme najprv obrázok pozadia vlastnosťou `background-image`. Takisto nastavíme veľkosť obrázku pomocou CSS vlastností `width` a `height` na `256px`, čo je skutočná veľkosť obrázku. Toto nastavenie je dôležité, aby nám správne fungovalo napr. posunutie obrázku presne do presného stredu (vlastnosť `transform`).
 
@@ -79,7 +79,7 @@ Po aplikovaní tohto pravidla bude čiastkové riešenie vyzerať nasledovne:
 
 ![Umiestnenie slnka do stredu](images_position/sun.jpg)
 
-### Vtáčiky
+#### Vtáčiky
 
 Teraz do riešenia doplníme obrázky vtáčikov. Pri definovaní štýlu vtáčika využijeme všetky postupy, ako sme použili pri obrázku slnka. Nastavenie `background-size: contain ` využijeme na to, aby sa obrázok zobrazil celý aj po zmenšení (originálna veľkosť obrázku je `298px` x `252px`) a pri zobrazení sa neorezal.Keďže obrázok budeme potrebovať na viacerých miestach, nebudeme v tomto pravidle robiť žiadne umiestňovanie, ale necháme to na iné pravidlá. Jediné, čo nastavíme, bude, že element bude používať absolútnu pozíciu:
 

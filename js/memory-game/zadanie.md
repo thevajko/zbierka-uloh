@@ -16,7 +16,7 @@
 
 **Obťažnosť**: 3/5
 
-**Obsah príkladu**: Dynamické generovanie elementov pomocou DOM metódy `createElement()`, výber elementov na základe CSS selektora s použitím DOM metódy `querySelectorAll()`, nastavovanie atribútov elementov, práca so DOM hierarchiou.
+**Obsah príkladu**: Dynamické generovanie elementov, výber elementov na základe CSS selektora, nastavovanie atribútov elementov, práca s DOM hierarchiou, webové fonty, práca s poliami v JavaScripte.
 </div>
 
 ## Zadanie

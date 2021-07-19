@@ -7,7 +7,7 @@
 
 </div>
 
-# Hra Mucha
+# Hra Muchy
 <div class="info"> 
 
 **Hlavný jazyk príkladu**: JS
@@ -16,7 +16,7 @@
 
 **Obťažnosť**: 4/5
 
-**Obsah príkladu**: Objektovo-orientované programovanie v JavaScripte, moduly, použitie časovačov, dynamická manipulácia s atribútmi elementu, *arrow* funkcie 
+**Obsah príkladu**: Objektovo-orientované programovanie v JavaScripte, konštruktory, *get* a *set* metódy objektov, moduly, použitie časovačov, zmena kurzora myši, dynamická manipulácia s atribútmi elementu, *arrow* funkcie, nastavovanie CSS tried elementom, DOM udalosť `DOMContentLoaded`, iterácia polí cez `forEach()`. 
 </div>
 
 ## Zadanie

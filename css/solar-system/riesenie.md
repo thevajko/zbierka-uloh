@@ -11,7 +11,7 @@
 
 ## Riešenie
 
-### HTML časť
+### HTML dokument
 
 Riešenie začneme prípravou HTML dokumentu. Na každú z planét vytvoríme vlastný HTML element. Pre lepšiu prehľadnosť a zjednodušenie zápisu CSS pravidiel ich umiestnime do spoločného elementu s triedou `system`. HTML kód bude vyzerať nasledovne:
 
@@ -122,7 +122,7 @@ transform: rotate(45deg) translateX(450px) rotate(-45deg);
 
 ![Otočenie planéty do pôvodnej pozície](images_solar-system/step3-translate.png)
 
-#### Animácia obehu planétky
+#### Animácia obehu planéty
 
 Pre animáciu pohybu nám stačí jednoducho meniť uhol planétky postupne od 0 do 360 stupňov. Napíšeme si preto jednoduchú animáciu:
 

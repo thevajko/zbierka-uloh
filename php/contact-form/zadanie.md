@@ -15,7 +15,7 @@
 
 **Obťažnosť**: 2/5
 
-**Obsah príkladu**: Tvorba, spracovanie a validácia formulárov, odosielanie emailov v jazyku PHP.
+**Obsah príkladu**: Tvorba, spracovanie a validácia formulárov, vkladanie PHP súborov, testovanie a odosielanie emailov v jazyku PHP.
 </div>
 
 ## Zadanie

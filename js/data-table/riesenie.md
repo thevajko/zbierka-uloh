@@ -126,7 +126,7 @@ Výsledok by sa mal zobraziť takto:
 
 ![Zobrazenie dátovej tabuľky bez dynamických dát](images_data-table/table-01.png)
 
-### Jednoduché zobrazenie
+### Jednoduché zobrazenie dát
 
 V hlavičke tabuľky je potrebné zobraziť názvy atribútov objektov v kolekcii. JavaScript umožňuje získať zoznam názvov atribútov ľubovoľnej inštancie volaním metódy `Object.keys()`<span class="hidden">([demonštrácia tu](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys ))</span>. Nakoľko predpokladáme, že kolekcia dát obsahuje rovnaké objekty, pre získanie atribútov stačí vybrať prvý objekt:
 

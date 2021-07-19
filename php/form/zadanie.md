@@ -15,7 +15,7 @@
 
 **Obťažnosť**: 4/5
 
-**Obsah príkladu**: Objektové programovanie v PHP, abstraktné triedy, dynamické generovanie HTML formulárov, spracovanie formulárov v PHP, validácia vstupov z formulára. 
+**Obsah príkladu**: Objektové programovanie v PHP, abstraktné triedy, viditeľnosť metód, dynamické generovanie HTML formulárov, validácia formulárových polí, spracovanie formulárov v PHP. 
 </div>
 
 ## Zadanie

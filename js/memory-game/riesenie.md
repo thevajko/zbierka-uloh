@@ -13,7 +13,7 @@
 
 Celé riešenie sa bude skladať z troch súborov: `index.html`, `style.css`, `script.js`. Logika aplikácie sa bude vykonávať v JavaScripte, HTML a CSS využijeme len na tvorbu základnej hracej plochy.
 
-### HTML základ
+### HTML dokument
 
 Táto časť aplikácie je veľmi jednoduchá, tvorí ju súbor `index.html`, v ktorom importujeme ostatné časti aplikácie (CSS a JS) a vykresľujeme len začiatočné nastavenie celej hry. Žiadny grafický dizajn ani logika aplikácie sa tu nenachádza, aby sme dodržali pravidlo, že každý typ súboru obsahuje len to, čo je jeho úlohou.
 
@@ -65,7 +65,7 @@ Ako je vidieť z nastavenia štýlu, každá karta pexesa bude mať 90 x 120 pix
 }
 ```
 
-### Logika hry
+### Herná logika
 
 #### Inicializácia nastavení hry
 

@@ -15,7 +15,7 @@
 
 **Obťažnosť**: 1/5
 
-**Obsah príkladu**: Kombinácia viacerých CSS tried pri jednom elemente, použitie CSS vlastnosti `position` a `transform `
+**Obsah príkladu**: Umiestňovanie elementov pomocou CSS, kombinovanie viacerých CSS tried, pozadie elementov, použitie CSS vlastností `position` a `transform `
 </div>
 
 ## Zadanie

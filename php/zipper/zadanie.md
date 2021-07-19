@@ -6,7 +6,7 @@
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 
-# Online zipovač
+# Online komprimácia súborov
 <div class="info"> 
 
 **Hlavný jazyk príkladu**: PHP
@@ -15,7 +15,7 @@
 
 **Obťažnosť**: 2/5
 
-**Obsah príkladu**: Objektové programovanie v PHP, nahrávanie (*upload*) súborov na server a ich spracovanie, externé rozšírenia jazyka PHP, identifikáciu používateľa, *cookies*, polia.
+**Obsah príkladu**: Objektové programovanie v PHP, nahrávanie (*upload*) súborov na server a ich spracovanie, práca so súbormi a adresármi, komprimácia súborov, posielanie súborov na klienta, externé rozšírenia jazyka PHP, identifikáciu používateľa, práca s *cookies* V PHP, pokročilejšia práca s poliami, výnimky.
 </div>
 
 ## Zadanie

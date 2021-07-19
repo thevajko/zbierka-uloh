@@ -15,7 +15,7 @@
 
 **Obťažnosť**: 3/5
 
-**Obsah príkladu**: Animácie a transformácie CSS elementov pomocou vlastnosti `transform`, určovanie pozície, práca s CSS premennými.
+**Obsah príkladu**: Animácie a transformácie CSS elementov pomocou vlastnosti `transform`, *timing* funkcia, umiestňovanie elementov pomocou CSS, práca s CSS premennými.
 </div>
 
 ## Zadanie

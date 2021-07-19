@@ -15,7 +15,7 @@
 
 **Obťažnosť**: 1/5
 
-**Obsah príkladu**: Základné CSS selektory, CSS vlastnosti `position` a `display`, CSS vrstvy.
+**Obsah príkladu**: Základné CSS selektory, umiestňovanie elementov pomocou CSS, CSS vlastnosti `position` a `display`, CSS vrstvy, rámčeky, pseudotrieda `:hover`.
 </div>
 
 ## Zadanie

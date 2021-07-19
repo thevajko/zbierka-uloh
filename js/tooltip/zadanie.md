@@ -15,7 +15,7 @@
 
 **Obťažnosť**: 1/5
 
-**Obsah príkladu**: Spúšťanie skriptov v obsluhe udalosti `windows.onload`, obsluha udalostí myši, použitie atribútu `innerHTML`.
+**Obsah príkladu**: Obsluha udalosti `windows.onload`, obsluha udalostí myši, použitie metódy `document.querySelectorAll()`, dátové atribúty, použitie atribútu `innerHTML`.
 </div>
 
 ## Zadanie

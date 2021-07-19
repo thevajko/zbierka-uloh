@@ -15,7 +15,7 @@
 
 **Obťažnosť**: 3/5
 
-**Obsah príkladu**: Tvorba menu, použitie CSS *Flexbox*, CSS vlastnosti `display`, `position`, potomkové selektory, pseudotrieda `:hover`, pseudoelementy  `::before` a `::after`.
+**Obsah príkladu**: Tvorba menu, použitie CSS *Flexbox*, CSS vlastnosti `display`, `position`, pokročilé CSS selektory, pseudotrieda `:hover`, pseudoelementy  `::before` a `::after`.
 </div>
 
 ## Zadanie

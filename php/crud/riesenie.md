@@ -140,7 +140,7 @@ Vzťahy medzi jednotlivými triedami budú vyzerať nasledovne:
 
 ![UML diagram UserStorage](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/thevajko/zbierka-uloh/solution/php/crud/diagram.puml)
 
-### Implementácia UserStorage
+### Implementácia triedy `UserStorage`
 
 V nasledujúcej časti si postupne implementujeme metódy triedy `UserStorage` na prístup a modifikáciu dát.
 
@@ -353,7 +353,7 @@ Na úvod si vytvoríme inštanciu triedy `UserStorage`. Následne pridáme odkaz
 
 ![Zoznam použivateľov](images_crud/list.png)
 
-### Implementácia mazania používateľov
+### Implementácia mazania záznamov
 
 Mazanie používateľov budeme implementovať v súbore `pages/users/delete.php`. Pri mazaní najskôr načítame záznam používateľa podľa GET parametru `id` a ak takého používateľa nájdeme, tak záznam odstránime z databázy a vypíšeme informáciu o tom, že sme záznam odstránili.
 
@@ -382,7 +382,7 @@ Aktuálne implementované mazanie používateľov má ale jeden malý nedostatok
 
 Túto ochranu môžeme implementovať jedným z dvoch spôsobov.
 
-#### Implementácia na backed strane pomocou PHP
+#### Implementácia na strane servera
 
 Prvým spôsobom je úprava komponentu `pages/users/delete.php` tak, že je potrebné pred zmazaním ešte dodatočné potvrdenie. Toto potvrdenie môžeme implementovať ako jednoduchý formulár s jedným potvrdzovacím tlačidlom.
 
@@ -416,7 +416,7 @@ Skutočne chcete odstrániť používateľa <?=$user->getFullname()?>?
 
 ![Potvrdenie mazania záznamu na backende](images_crud/backed-confirm.png)
 
-#### Implementácia pomocou JavaScriptu
+#### Implementácia na strane klienta
 
 Druhým spôsobom je implementácia pomocou jednoduchého *confirm* dialógu v jazyku JavaScript. Tento JavaScript je potrebné aplikovať na tlačidlo `Delete` v zozname používateľov. Funkcia `confirm()` má ako parameter správu, ktorú zobrazí a poď ňou zobrazí tlačidla `Yes` a `Cancel`. 
 

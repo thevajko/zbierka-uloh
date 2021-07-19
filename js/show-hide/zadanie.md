@@ -15,7 +15,7 @@
 
 **Obťažnosť**: 1/5
 
-**Obsah príkladu**: Výber elementov pomocou metódy `querySelectorAll()`, skrývanie a zobrazovanie elementov. 
+**Obsah príkladu**: Výber elementov pomocou metódy `querySelectorAll()`, skrývanie a zobrazovanie elementov, kolekcie elementov, hierarchia elementov, DOM udalosti, zmena kurzoru. 
 </div>
 
 ## Zadanie

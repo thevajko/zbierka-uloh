@@ -66,7 +66,8 @@ Výsledný *spinner* komponent vyzerá nasledovne:
 
 ![Ukážka vzhľadu *spinner* komponentu](images_universal_loader/spinner.png)
 
-### JavaScript
+### Aplikačná logika komponentu
+
 Keď sa pozrieme do zadania a východzieho kódu, môžeme vidieť, že AJAX žiadosti sa posielajú pomocou funkcie `fetch()`. Našou úlohou teda bude vytvoriť jednoduchú obaľovaciu funkciu (*wrapper*), ktorý nahradí funkciu `fetch()`.
 
 ```javascript
@@ -135,7 +136,7 @@ function updateRequestCounter() {
 }
 ```
 
-### Univerzálny *loader* komponent pre všetky AJAX žiadosti
+### Podpora pre všetky AJAX žiadosti
 
 Pokiaľ by sme chceli aby sa náš *AJAX loader* komponent používal pri všetkých žiadostiach, môžeme funkciu `load()` z objektu `window` nahradiť tou našou. Na to, aby sme to spravili potrebujeme vykonať nasledujúce kroky:
 

@@ -132,7 +132,7 @@ if ($users) {
 }
 ```
 
-### Výpis do tabuľky
+### Výpis dát do tabuľky
 
 Aby sme dodržali rozdelenie aplikačnej logiky po logických celkoch, vytvoríme novú triedu `Table`, ktorej úlohou bude výpis dát DB tabuľky z databázy do HTML tabuľky a doplnenie podpornej logiky pre zoraďovanie, stránkovanie a správu jednotlivých záznamov.
 
@@ -300,7 +300,7 @@ class Table
 }
 ```
 
-### Pridanie zoraďovania
+### Implementácia zoraďovania dát
 
 Aby sme mohli tabuľku zoraďovať, musíme vedieť, podľa ktorého stĺpca máme tabuľku zoradiť. Túto informáciu obsahujú elementy `a` v podobe paremetrov GET, ktoré sú pridané sa na konci URL adresy. 
 

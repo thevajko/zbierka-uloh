@@ -11,7 +11,7 @@
 
 ## Riešenie
 
-### Návrh
+### Analýza a návrh riešenia
 
 Na riešenie tejto úlohy bude potrebné navrhnúť objektovú štruktúru. Zo zadania vyplýva, že budeme potrebovať triedu `Form`. Táto trieda bude mať metódy na pridávanie formulárových prvkov pomocou metód `addXXX()` (kde `XXX` je názov formulárového poľa). Okrem iného táto trieda bude schopná vrátiť vyplnené hodnoty v asociatívnom poli pomocou metódy `getData()`. Ďalšou funkcionalitou bude detekcia odoslania formulára `isSubmitted()` a kontrola správnosti vyplnených údajov metódou `isValid()`.
 
@@ -122,7 +122,7 @@ abstract class AFormField extends AFormElement {
 }
 ```
 
-#### Implementácia textového poľa
+#### Implementácia zobrazenia textového poľa
 
 Konkrétna definícia textového poľa v triede `TextInputField` už nebude zložitá. Jediné, čo potrebujeme implementovať, je metóda `renderElement()`, ktorá vypíše HTML `input` element a doplní príslušné dáta:
 
@@ -282,7 +282,7 @@ class Form {
 
 Pridanie tlačidla je rovnaké ako v prípade textového poľa, len v tomto prípade vytvoríme inštanciu `SubmitButton`.
 
-### Validácia formulára
+### Validácia vstupov
 
 Aktuálne implementovaný formulár obsahuje len vkladanie základných textových polí bez validácie vstupov. Na základe návrhu validácia bude implementovaná pomocou jednoduchej objektovej štruktúry.
 
@@ -342,7 +342,7 @@ class RequiredValidator extends AValidator
 
 Tento validátor obsahuje jednoduchú kontrolu vstupného poľa pomocou funkcie [`empty()`](https://www.php.net/manual/en/function.empty.php). Okrem toho definuje metódu na získanie východzej chybovej správy.
 
-#### Pridanie validátorov k formulátrovým prvkom
+#### Pridanie validátorov k formulárovým poliam
 
 Každý formulárový prvok môže mať niekoľko validátorov. Začneme preto s rozšírením triedy `AFormField`.
 
@@ -492,7 +492,7 @@ $form->addText("meno", "Krstné meno")
 
 Ako môžeme vidieť, metóda `required()` umožňuje definovať vlastnú chybovú správu, takže namiesto východzieho `Položka musí byť vyplnená` sa pri nevyplnení poľa vypíše správa `Položka krstné meno je vyžadovaná`.
 
-#### Validácia formulára
+#### Validácia celého formulára
 
 Keď máme definovaný mechanizmus na validáciu jednotlivých položiek, môžeme pristúpiť k implementácii metódy na validáciu celého formulára. Na to, aby bol formulár valídny, musí byť v prvom rade odoslaný a v druhom rade všetky jeho položky musia byť valídne. Túto kontrolu môžeme implementovať nasledovne:
 
@@ -634,7 +634,7 @@ class NumberValidator extends AValidator
 }
 ```
 
-#### Ďalšie typy formulárových prvkov
+#### Ďalšie typy formulárových polí
 
 Nakoniec si ukáže ešte jeden formulárový prvok, a to výberový zoznam (značka `<select>`).
 

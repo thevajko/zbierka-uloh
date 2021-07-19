@@ -13,7 +13,7 @@
 
 Riešenie úlohy si rozdelíme do niekoľkých častí. Riešenie budeme implementovať pomocou princípov OOP.
 
-### HTML súbor
+### HTML dokument
 
 Ak vytvárame celú hru od úplného začiatku, vytvoríme si adresár `img` a nakopírujeme si do neho obrázky `0.png` až `10.png`. 
 
@@ -53,7 +53,7 @@ Prečo sme na odkaz `Začať znovu` realizovali pomocou odkazu `?` (otáznik). K
 </html>
 ```
 
-#### CSS štýl
+### CSS štýl
 
 CSS kód tejto aplikácie je veľmi jednoduchý a definuje len pár štýlov pre text. Použité štýly uzatvárajú hracie pole do rámčeka, nastavujú vzhľad klávesnice, ako aj skrývajú rozdiel, ak sme už klikli na niektorý zo znakov. Súbor `style.css` umiestnime do vytvoreného adresára `css` a bude vyzerať takto:
 
@@ -100,7 +100,7 @@ Hru budeme navrhovať a implementovať pomocou objektovo-orientovaného prístup
 ![UML diagram tried](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/thevajko/zbierka-uloh/solution/php/hangman-game/diagram.puml)
 
 
-### Trieda `Keyboard`
+#### Trieda `Keyboard`
 
 Triedy budeme umiestňovať do súboru s rovnakým názvom, ako je názov triedy. Trieda `Keyboard` bude umiestnená v súbore `Keyboard.php`. Na deklaráciu triedy sa v jazyku PHP používa kľúčové slovo `class`:
 
@@ -170,7 +170,7 @@ class Keyboard
 }
  ```
 
-### Trieda `Game`
+#### Trieda `Game`
 
 Trieda `Game` bude riadiť celú hru a bolo by dobré, keby súbor `index.php` na komunikáciu s PHP súbormi využíval len ju a žiadnu inú. Preto, aj keby sme mohli v tomto súbore priamo vytvárať klávesnicu pomocou triedy `Keyboard`, radšej túto činnosť prenecháme triede `Game` a vytvoríme si obaľovaciu metódu, ktorá klávesnicu vytvorí a posunie ju do súboru `index.php`. Na začiatok súboru `Game.php` umiestnime príkaz:
 
@@ -215,7 +215,7 @@ Všimnite si použitie `<?= ?>`, čo je len skratka pre `<?php echo ... ?>`. Po 
 
 Po kliknutí na ktorékoľvek písmeno v riadku sa odošle GET požiadavka s parameterom `char` rovnajúcim sa znaku, na ktorý sme klikli. Túto vlastnosť neskôr využijeme v hre.
 
-### Trieda `Hangman`
+#### Trieda `Hangman`
 
 Klávesnicu máme funkčnú, môže pokračovať v implementácii herného `engine`. Najskôr si v triede `Hangman` vytvoríme atribúty, ktoré budeme v hre potrebovať. V prvom rade budeme potrebovať nejaké slová, ktoré budeme hádať. Vyberieme také, ktoré neobsahujú žiadnu diakritiku. Slová nemusia byť rovnako dlhé. 
 
@@ -254,7 +254,7 @@ class Hangman
 }
 ```
 
-### *Session*
+#### Uchovávanie stavu hry 
 
 Teraz v triede `Hangman` vytvoríme konštruktor. Ten bude mať vstupný paramater `$initialized`, ktorý môže nadobúdať hodnoty `true` alebo `false`. Ak konštruktor zavoláme s hodnotou parametra `true`, vykoná sa inicializácia celej hry a bude sa hrať odznovu. Táto situácia nastane len vtedy, ak hráč klikne na odkaz `Začať znovu`. 
 
@@ -417,7 +417,7 @@ class Game
 
 Tým máme ukončenú implementáciu herného `engine`.
 
-### Doplnenie triedy `Game`
+### Integrácia riešenia v triede `Game`
 
 Na začiatok súboru `Game.php` pridáme príkaz na prepojenie so súborom `Hangman.php`:
 

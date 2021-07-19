@@ -9,9 +9,9 @@
 
 </div>
 
-## Riešenie
-
 <div class="hidden">
+
+## Riešenie
 
 Riešenie je rozdelené do nasledovných podkapitol
 
@@ -27,7 +27,7 @@ Riešenie je rozdelené do nasledovných podkapitol
 
 </div>
 
-### Prvá úroveň menu
+## Prvá úroveň menu
 
 Prvý krok spočíva v skrytí všetkých vnorených elementov `ul` okrem prvej úrovne. Na skrytie všetkých vnorených `ul` elementov použijeme následnícky selektor: `ul ul`. CSS pravidlo bude vyzerať nasledovne:
 
@@ -80,9 +80,9 @@ Výsledok bude:
 jedendvatristyri text text text
 ```
 
-V našom prípade chceme zachovať pôvodnú HTML štruktúru a nechceme dopĺňať ďalšie elementy, preto zvolíme zobrazenie pomocou [*flexbox*](https://css-tricks.com/snippets/css/a-guide-to-flexbox).
+V našom prípade chceme zachovať pôvodnú HTML štruktúru a nechceme dopĺňať ďalšie elementy, preto zvolíme zobrazenie pomocou rozloženia [*flexbox*](https://css-tricks.com/snippets/css/a-guide-to-flexbox).
 
-*Flexbox* potrebuje na svoje fungovanie obaľovací element, tzv. *kontajner*, (v našom prípade element `ul`) a položky, ktoré sa v ňom majú zobraziť (u nás elementy `li`). Ak chceme aplikovať *flexbox* na náš príklad s elementom `span`, jeho kód bude vyzerať nasledovne<span class="hidden">(otvoriť [fiddle](https://jsfiddle.net/meshosk/a7Lzsnqh ))</span>:
+*Flexbox* potrebuje na svoje fungovanie obaľovací element, tzv. *kontajner*, (v našom prípade element `ul`) a položky, ktoré sa v ňom majú zobraziť (u nás elementy `li`). Ak chceme aplikovať rozloženie *flexbox* na náš príklad s elementom `span`, jeho kód bude vyzerať nasledovne<span class="hidden">(otvoriť [fiddle](https://jsfiddle.net/meshosk/a7Lzsnqh ))</span>:
 
 ```html
 <html>
@@ -161,7 +161,7 @@ Menu bude vyzerať:
 
 ![Prvá úroveň menu](images_dropdownmenu/menu-prva-uroven.png)
 
-### Druhá úroveň
+## Druhá úroveň menu
 
 Nasleduje vytvorenie štýlu pre druhú úroveň. Pre lepšie ladenie CSS si musíme najprv zobraziť prvú a druhú úroveň. To docielime tým, že upravíme obsah selektoru `ul ul` a doplníme skrytie všetkých elementov `ul` úrovne tri a viac, teda selektorom `ul ul ul`. Upravené CSS bude vyzerať (zobrazené sú iba doplnené a zmenené CSS pravidlá):
 
@@ -225,7 +225,7 @@ Ako je vidieť na nasledujúcom obrázku, menu bude fungovať, ako má, ale iba 
 
 ![Funkčné menu prvej a druhej úrovne](images_dropdownmenu/menu-fung-01.gif)
 
-### Ďalšie úrovne
+## Ďalšie úrovne menu
 
 Aby sa nám správne zobrazili menu druhej úrovne, je potrebné upraviť spôsob určovania ich pozície. Nasledujúce podmenu sa má zobraziť výškovo zarovno s položkou napravo od nej. To docielime nasledovným CSS pravidlom:
 
@@ -253,7 +253,7 @@ ul ul ul {
 }
 ```
 
-### Zobrazenie indikátora prítomnosti podmenu
+## Zobrazenie indikátora prítomnosti podmenu
 
 Pre zlepšenie používateľského komfortu je veľmi vhodné používateľovi nejako naznačiť, že nejaká položka menu obsahuje dodatočné podmenu. Najčastejšie sa to realizuje indikátorom, napr. znakom `»`. 
 
@@ -283,7 +283,7 @@ Výsledok funguje takto:
 
 ![Funkčné menu po tretiu úroveň s indikátorom](images_dropdownmenu/menu-fung-03.gif)
 
-### Doplnenie zvýraznenia výberu
+## Doplnenie zvýraznenia výberu
 
 Ďalšia vec, ktorá spríjemní komfort používateľa, je vyznačenie prvkov, ktoré boli inicializované výberom. To realizujeme nasledovným CSS pravidlom:
 
@@ -300,7 +300,7 @@ Výsledok funguje nasledovne:
 
 ![Zvýraznenie vybranej položky menu](images_dropdownmenu/menu-fung-04.gif)
 
-### Záverečné formátovanie
+## Záverečné formátovanie
 
 Nasledovné úpravy ešte zlepšia dizajn celého riešenia:
 
@@ -344,7 +344,7 @@ Finálny výsledok vyzerá nasledovne:
 
 ![Hotová verzia Drop-down menu](images_dropdownmenu/menu-fung-00.gif)
 
-### Úprava na drop-up menu
+## Úprava na *drop-up* menu
 
 Zmena voči pôvodnému menu spočíva čisto iba v úprave toho, kde a ako sa majú jednotlivé elementy zobraziť. Začneme teda presunutím celého menu na spodok okna prehliadača. To budeme realizovať zmenou hodnoty CSS vlastnosti `position` na hodnotu `fixed`. Tým docielime to, že menu sa bude umiestňovať nad všetky vykreslené prvky v priestore okna prehliadača a ten bude tvoriť aj jeho predka pre výpočet veľkostí.
 

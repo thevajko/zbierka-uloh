@@ -16,7 +16,7 @@
 
 **Obťažnosť**: 2/5
 
-**Obsah príkladu**: Vykresľovanie 2D grafiky v HTML dokumente, použitie časovača.
+**Obsah príkladu**: Vykresľovanie 2D grafiky v HTML dokumente, kreslenie na plátne (*canvas*), použitie časovača.
 </div>
 
 ## Zadanie
