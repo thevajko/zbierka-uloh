@@ -51,7 +51,7 @@ try {
                     return $user->name != $_SESSION['user'];
                 });
             }
-            echo json_encode($out);
+            echo json_encode(array_values($out));
             break;
 
         case 'login':
