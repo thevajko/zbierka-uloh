@@ -277,15 +277,15 @@ function deleteFiles() {
 
 Tým je aplikácia hotová. Na nasledovnom obrázku je možné vidieť jej vzhľad pred nahratím súborov:
 
-![Počiatočný stav aplikácie (žiadne súbory neboli nahraté)](images_zipper/1.png)
+![Počiatočný stav aplikácie (žiadne súbory neboli nahraté)](images_zipper/no_files.png)
 
 Používateľ postupne pridal 5 súborov do archívu:
 
-![Používateľ nahral 5 súborov na server](images_zipper/2.png)
+![Používateľ nahral 5 súborov na server](images_zipper/5_files_uploaded.png)
 
 Na tomto obrázku je aplikácia v stave, keď používateľ klikol na tlačidlo `Zipuj!` a môže sa rozhodnúť, či archív uloží na lokálny disk, alebo ho rovno otvorí.
 
-![Aplikácia po komprimácii ponúka používateľovi stiahnutie archívu](images_zipper/3.png)
+![Aplikácia po komprimácii ponúka používateľovi stiahnutie archívu](images_zipper/archive_download.png)
 
 
 ### Úprava aplikácie pre viacerých používateľov

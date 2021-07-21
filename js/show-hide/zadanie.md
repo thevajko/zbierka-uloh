@@ -6,7 +6,7 @@
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 
-# Skrývanie a zobrazovanie HTML elementov
+# Skrývanie a zobrazovanie elementov
 <div class="info"> 
 
 **Hlavný jazyk príkladu**: JS

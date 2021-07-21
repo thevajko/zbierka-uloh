@@ -458,4 +458,4 @@ Celá štruktúra príkladu je zobrazená na tomto obrázku:
 
 Hru v prehliadači spustíme kliknutím na tlačidlo `Start`. Po spustení hry uvidíme muchy na hracej ploche, kurzor sa zmení na mucholapku a môžeme začať hrať:
 
-![Ukážka spustenej hry](images_fly-game/game.png)
+![Ukážka spustenej hry](images_fly-game/game.gif)

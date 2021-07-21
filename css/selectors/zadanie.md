@@ -6,7 +6,7 @@
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 
-# Selektory
+# CSS Selektory
 <div class="info"> 
 
 **Hlavný jazyk príkladu**: CSS

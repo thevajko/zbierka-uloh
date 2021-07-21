@@ -38,11 +38,10 @@ V prvom kroku vytvoríme verziu "anonymného" chatu, kde môže pridať príspev
 ```sql
 create table messages
 (
-    id      int auto_increment,
-    message text     not null,
-    created datetime not null,
-    constraint messages_pk
-        primary key (id)
+    `id`      int auto_increment,
+    `message` text NOT NULL,
+    `created` datetime NOT NULL,
+    constraint messages_pk  primary key (id)
 );
 ```
 
@@ -475,22 +474,21 @@ Teraz upravíme posielanie správ tak, aby sa používateľ musel pre ich odosie
 ```sql
 create table users
 (
-    id   int auto_increment
-        primary key,
-    name varchar(100) not null
+    `id`   int auto_increment primary key,
+    `name` varchar(100) NOT NULL
 );
 ```
 
-Do existujúcej tabuľky `messages` pridáme stĺpec `user`, ktorý bude obsahovať meno používateľa, ktorý správu odoslal. Nepoužijeme cudzie kľúče, a to z dôvodu, aby sme aplikáciu nerobili zbytočne zložitou. Pred samotným pridaním stĺpca odporúčame vymazať staré správy, pretože staré záznamy neobsahujú položku `user`. DDL upravenej tabuľky `messages` je nasledovné:
+Do existujúcej tabuľky `messages` pridáme stĺpec `user`, ktorý bude obsahovať meno používateľa, ktorý správu odoslal. Pred samotným pridaním stĺpca odporúčame vymazať staré správy, pretože staré záznamy neobsahujú položku `user`. DDL upravenej tabuľky `messages` je nasledovné (Pozor! Príkaz vymaže pôvodnú tabuľku `messages`.):
 
 ```sql
+drop table if exists `messages`;
 create table messages
 (
-    id      int auto_increment
-        primary key,
-    message text                                 not null,
-    created datetime default current_timestamp() not null,
-    user    varchar(100)                         not null
+    `id`      int  auto_increment primary key,
+    `message` text NOT NULL,
+    `created` datetime default current_timestamp() NOT NULL,
+    `user`    varchar(100) NOT NULL
 );
 ```
 
@@ -1088,17 +1086,17 @@ class Chat {
 
 ### Súkromné správy
 
-Posledná časť, ktorú do nášho chatu pridáme, bude posielanie súkromných správ. Ako prvé upravíme tabuľku `Users` a pridáme do nej stĺpec `private_for`, ktorý bude obsahovať informáciu, pre koho je daná správa určená. Tento stĺpec označíme ako `null`, čo znamená, že nieje povinný. DDL pre tabuľku `Users` bude po pridaní takéto:
+Posledná časť, ktorú do nášho chatu pridáme, bude posielanie súkromných správ. Ako prvé upravíme tabuľku `Users` a pridáme do nej stĺpec `private_for`, ktorý bude obsahovať informáciu, pre koho je daná správa určená. Tento stĺpec označíme ako `null`, čo znamená, že nie je povinný. DDL pre tabuľku `Users` bude po pridaní takéto (Pozor! Príkaz vymaže pôvodnú tabuľku `messages`.):
 
 ```sql
+drop table if exists `messages`;
 create table messages
 (
-    id          int auto_increment
-        primary key,
-    message     text                                 not null,
-    created     datetime default current_timestamp() not null,
-    user        varchar(100)                         not null,
-    private_for varchar(100)                         null
+    `id`          int auto_increment primary key,
+    `message`     text NOT NULL,
+    `created`     datetime default current_timestamp() NOT NULL,
+    `user`        varchar(100) NOT NULL,
+    `private_for` varchar(100) NULL
 );
 ```
 
@@ -1144,7 +1142,7 @@ Najprv musíme upraviť štruktúru HTML elementov v súbore `index.html` tak, �
 <div id="chat-bar">
     <span id="private-area" class="hidden">
         <button id="cancel-private">x</button>
-        Skromná pre <span id="private"></span>
+        Súkromná správa pre <span id="private"></span>
     </span>
     <input type="text" id="message">
     <button id="send-button">Odoslať</button>
@@ -1427,3 +1425,7 @@ class Chat {
     // ...
 }
 ```
+
+Funkčná chatovacia aplikácia je na svete:
+
+![Ukážka rozpísanej konverzácie v chate](images_chat/chat.gif)

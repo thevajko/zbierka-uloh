@@ -455,4 +455,4 @@ validateInput(document.getElementById("sprava"), function (value = null) {
 
 Výsledok bude vyzerať nasledovne:
 
-![Kompletná kontrola formulárových polí](images_form-check/form-check-03.gif)
+![Správne vyplnený formulár bez chybových hlásení](images_form-check/form-check-03.gif)

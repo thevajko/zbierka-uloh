@@ -5,7 +5,7 @@
 > - Repo: [Štartér](/../../tree/main/js/analog-clock), [Riešenie](/../../tree/solution/js/analog-clock)
 > - [Zobraziť zadanie](zadanie.md)
 
-# Analógové hodinky (JS, CSS)
+# Analógové hodiny (JS, CSS)
 </div>
 
 ## Riešenie
@@ -17,7 +17,7 @@ Pri riešení tejto úlohy budeme používať iba JavaScript a vykresľovanie po
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>JS Hodinky</title>
+        <title>JS Hodiny</title>
     </head>
     <body>
         <canvas width="500" height="500"></canvas>
@@ -273,4 +273,4 @@ window.onload = function(){
 
 Výsledok:
 
-![Funkčné hodinky](images_analog-clock/aclock-01.gif)
+![Funkčné hodiny](images_analog-clock/aclock-01.gif)

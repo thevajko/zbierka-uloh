@@ -7,6 +7,7 @@
 </div>
 
 # Pozícia elementov
+
 <div class="info"> 
 
 **Hlavný jazyk príkladu**: CSS

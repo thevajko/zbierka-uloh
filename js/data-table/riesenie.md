@@ -438,4 +438,4 @@ Výsledné riešenie bude fungovať nasledovne:
 
 </div>
 
-![Hotové riešenie](images_data-table/tabulka-02.gif)
+![Hotové riešenie s funkčným filtrovaním](images_data-table/tabulka-02.gif)

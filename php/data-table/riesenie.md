@@ -436,7 +436,7 @@ class Table
 
 Zoraďovanie tabuľky by malo fungovať takto:
 
-![Zoraďovanie tabuľky po kliknutí na názov atribútu](images_data-table/dbtable-01.gif)
+![Zoraďovanie stĺpca tabuľky po kliknutí na názov atribútu](images_data-table/dbtable-01.gif)
 
 ### Obojstranné zoraďovanie
 
@@ -538,7 +538,7 @@ class Table
 
 Tabuľka sa bude zoraďovať nasledovne:
 
-![Obojsmerné zoraďovanie tabuľky](images_data-table/dbtable-02.gif)
+![Obojsmerné zoraďovanie stĺpca tabuľky](images_data-table/dbtable-02.gif)
 
 ### Stránkovanie výsledkov
 
@@ -1224,7 +1224,7 @@ $usersTable->addColumn("", "Akcie", function (User $user) {
 
 V tomto príklade uvádzame prázdny názov atribútu, na ktorý sa daný stĺpec viaže, potom sa nebude dať podľa tohto stĺpca zoraďovať. Ako tretí parameter definujeme anonymnú funkciu, ktorá ako parameter dostane entitu používateľa a zobrazí jednoduché tlačidlo, ktoré po stlačení vypíše ID daného používateľa.
 
-![Neviem, čo chcel autor obrázkom povedať](images_data-table/dbtable-05.gif)
+![Funkčné akčné tlačidlo a zobrazenie správy používateľovi](images_data-table/dbtable-05.gif)
 
 ### Univerzálny zdroj dát
 

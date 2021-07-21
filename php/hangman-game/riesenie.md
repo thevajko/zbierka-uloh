@@ -544,5 +544,5 @@ Podmienka `if ($game->getGameResult() == '')` zabezpečí, že klávesnica bude 
 
 Tým je celá hra hotová a na nasledujúcom obrázku si môžeme pozrieť ukážku rozohranej hry. 
 
-![Ukážka rozohratej hry](images_hangman-game/game_in_progress.png)
+![Ukážka rozohratej hry](images_hangman-game/game_in_progress.gif)
 

@@ -313,7 +313,7 @@ function hideCards(card1, card2) {
 
 Priebeh rozohranej hry je možné vidieť na nasledovnom obrázku (hráč 2 práve odkryl 2 karty):
 
-![Ukážka rozohranej hry](images_memory-game/progress.png)
+![Ukážka rozohranej hry](images_memory-game/progress.gif)
 
 Tým sme implementovali celú logiku hry. Koniec hry sme neriešili, ale nebol by problém detegovať, či sú všetky karty odkryté, vyhlásiť víťaza a opýtať sa, či si chcú hráči hru zahrať znovu. 
 

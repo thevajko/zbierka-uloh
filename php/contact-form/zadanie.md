@@ -27,7 +27,7 @@ Vytvorte kontaktný formulár, ktorý po vyplnení odošle správu na email. Kon
 
 Formulár by mohol vyzerať nasledovne:
 
-![Navrhovaný vzhľad kontaktného formulára](images_contact-form/zadanie.jpg)
+![Navrhovaný vzhľad kontaktného formulára](images_contact-form/zadanie.png)
 
 <div class="hidden">
 

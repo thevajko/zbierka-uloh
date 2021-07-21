@@ -6,7 +6,7 @@
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 
-# Galéria
+# Obrázková galéria
 <div class="info"> 
 
 **Hlavný jazyk príkladu**: CSS

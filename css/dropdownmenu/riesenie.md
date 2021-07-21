@@ -372,7 +372,7 @@ li:hover > ul {
 
 Mali by sme dostať nasledovné zobrazenie:
 
-![Úprava menu na typ Drop-up](images_dropdownmenu/menu-up-01.gif)
+![Úprava menu na typ Drop-up (nie ešte plne funkčné)](images_dropdownmenu/menu-up-01.gif)
 
 Podobne upravíme pozíciu pre menu druhej a ďalšej úrovne. Musíme však zmeniť selektor `ul ul ul` na `ul li:hover > ul ul`, aby sme predišli nutnosti použiť pravidlo `!important` (zvýšenie priority označenej vlastnosti).
 
@@ -396,4 +396,4 @@ ul li:hover > ul ul {
 
 To je všetko, čo sme potrebovali zmeniť, aby sme drop-down menu prerobili na drop-up menu. Malo by fungovať nasledovne:
 
-![Hotová verzia Drop-up menu](images_dropdownmenu/menu-up-02.gif)
+![Hotová funkčná verzia Drop-up menu](images_dropdownmenu/menu-up-02.gif)
