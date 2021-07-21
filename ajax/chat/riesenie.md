@@ -479,10 +479,9 @@ create table users
 );
 ```
 
-Do existujúcej tabuľky `messages` pridáme stĺpec `user`, ktorý bude obsahovať meno používateľa, ktorý správu odoslal. Pred samotným pridaním stĺpca odporúčame vymazať staré správy, pretože staré záznamy neobsahujú položku `user`. DDL upravenej tabuľky `messages` je nasledovné (Pozor! Príkaz vymaže pôvodnú tabuľku `messages`.):
+Do existujúcej tabuľky `messages` pridáme stĺpec `user`, ktorý bude obsahovať meno používateľa, ktorý správu odoslal. Pred samotným pridaním stĺpca odporúčame vymazať staré správy, pretože staré záznamy neobsahujú položku `user`. DDL upravenej tabuľky `messages` je nasledovné:
 
 ```sql
-drop table if exists `messages`;
 create table messages
 (
     `id`      int  auto_increment primary key,
@@ -978,9 +977,10 @@ class Chat {
                 }
                 throw new Error("ERROR:" + response.status + " " + response.statusText);
             }
-            await this.checkLoggedState();
         } catch (e) {
             console.log('Request Failed', e);
+        } finally {
+            await this.checkLoggedState();
         }
     }
     // ...
@@ -1086,10 +1086,9 @@ class Chat {
 
 ### Súkromné správy
 
-Posledná časť, ktorú do nášho chatu pridáme, bude posielanie súkromných správ. Ako prvé upravíme tabuľku `Users` a pridáme do nej stĺpec `private_for`, ktorý bude obsahovať informáciu, pre koho je daná správa určená. Tento stĺpec označíme ako `null`, čo znamená, že nie je povinný. DDL pre tabuľku `Users` bude po pridaní takéto (Pozor! Príkaz vymaže pôvodnú tabuľku `messages`.):
+Posledná časť, ktorú do nášho chatu pridáme, bude posielanie súkromných správ. Ako prvé upravíme tabuľku `Users` a pridáme do nej stĺpec `private_for`, ktorý bude obsahovať informáciu, pre koho je daná správa určená. Tento stĺpec označíme ako `null`, čo znamená, že nie je povinný. DDL pre tabuľku `Users` bude po pridaní takéto:
 
 ```sql
-drop table if exists `messages`;
 create table messages
 (
     `id`          int auto_increment primary key,

@@ -198,7 +198,7 @@ Teraz doplníme do zobrazenia ručičky a ich jednotlive uhly vyrátame týmto s
 
 - *Sekundová ručička* - sekúnd je v jednej minúte *60*, tým pádom nám stačí aktuálny počet sekúnd vynásobiť hodnotou `360 / 60 = 6`. Prepočet sekúnd na uhol sekundovej ručičky môžeme zapísať ako `sekundy * 6`. 
 - *Minútová ručička* - hodina má *60* minút, čo tvorí uhol minúty *6* stupňov. Pozíciu musíme ešte doplniť o posun sekúnd tak, že 6 rozdelíme na 60 sekúnd t.j. `6/60 = 0.1`. Prepočet minút a sekúnd na uhol minútovej ručičky môžeme zapísať ako `minúty * 6 + sekundy * 0.1`. 
-- *Hodinová ručička* - hodín je na ciferníku *12*, teda hodina má `360 / 12 = 30` stupňov. Pre upresnenie pozície ešte prirátame posun o minúty, t.j. minúty budeme násobiť `30 / 60 = 0.5`. Prepočet hodín a minút na pozíciu hodinovej ručičky 12 hodinových hodín môžeme zapísať ako `hodiny * 30 + minuty *0.5`. 
+- *Hodinová ručička* - hodín je na ciferníku *12*, teda hodina má `360 / 12 = 30` stupňov. Pre upresnenie pozície ešte prirátame posun o minúty, t.j. minúty budeme násobiť `30 / 60 = 0.5`. Výpočet uhlu hodinovej ručičky môžeme vyjadriť ako `hodiny * 30 + minuty *0.5`. 
 
 ### Spustenie hodín
 

@@ -13,7 +13,7 @@
 
 **Ostatné použité jazyky**: HTML
 
-**Obťažnosť**: 3/5
+**Obťažnosť**: 4/5
 
 **Obsah príkladu**: Výpis dát do HTMl tabuľky, JSON dáta a ich spracovanie, zoraďovanie kolekcií dát, JavaScript objekty, manipulácia s kolekciou DOM elementov, dynamické vytváranie elementov a vkladanie nových elementov.
 </div>
