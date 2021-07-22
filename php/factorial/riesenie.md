@@ -13,9 +13,13 @@
 
 Ako prvé je potrebné zistiť, ako sa počíta faktoriál. Na webe, napr. na stránkach [Wikipédie](https://sk.wikipedia.org/wiki/Faktori%C3%A1l), je možné nájsť tento vzorec pre výpočet faktoriálu čísla 5:
 
+<div class="end">
+
 ```
 5! = 5 * 4 * 3 * 2 * 1 = 120
 ```
+</div>
+
 
 Na stránkach Wikipédie nájdeme dva *pseudokódy* s cyklom a použitím rekurzie. V tomto riešení si vyberieme nerekurzívny pseudo-kód, ktorý vyzerá nasledovne:
 
@@ -50,6 +54,8 @@ V zadaní je uvedené, že máme vypísať postupne faktoriál od čísla 0 po 1
     <?php } ?>
 </ul>
 ```
+
+<div style="page-break-after: always;"></div>
 
 Na záver, keď všetko spojíme dokopy a pridáme štandardnú HTML kostru, celé riešenie bude vyzerať:
 

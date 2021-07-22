@@ -10,17 +10,21 @@
 
 ## Riešenie
 
-Na riešenie úlohy budeme potrebovať vytvoriť HTML a CSS súbor. V HTMl súbore budú základné elementy, ktoré budeme potrebovať pre riešenie úlohy a CSS súbor bude obsahovať všetky pravidlá štýlov. CSS súbor umiestnime do adresára `css`, aj keď tento príklad nie je rozsiahly, je dobré dodržiavať štandardné umiestnenie súborov. Obrázky umiestnime do adresára `img`.
+Na riešenie úlohy budeme potrebovať HTML a CSS súbor. V HTML súbore budú základné elementy, ktoré budeme potrebovať pre riešenie úlohy a CSS súbor bude obsahovať všetky CSS pravidlá.  Obrázky umiestnime do adresára `img`.
 
 ### HTML dokument
 
-Vytvoríme si základnú kostru HTML súboru. Súbor bude obsahovať odkaz na externý CSS súbor, pričom využijeme relatívnu cestu k adresáru, čím dosiahneme ľahkú prenositeľnosť celého riešenia (v prípade zmeny adresára celého projektu). Do sekcie `<head>` umestnime:
+Vytvoríme si základnú kostru HTML súboru. Súbor bude obsahovať odkaz na externý CSS súbor, pričom využijeme relatívnu cestu k adresáru, čím dosiahneme ľahkú prenositeľnosť celého riešenia (v prípade zmeny adresára celého projektu). Sekcia `<head>` bude vyzerať:
 
 ```html
-<link rel="stylesheet" href="css/styl.css">
+<head>
+    <meta charset="utf-8">
+    <title>Obloha</title>
+    <link rel="stylesheet" href="styl.css">
+</head>
 ```
 
-Telo HTML dokumentu bude tvorené kontajnermi pre jednotlivé elementy. V zadaní sa nachádza požiadavka nakresliť jedno slnko a štyri vtáčiky. Preto vytvoríme spolu 5 kontajnerov a každému z nich pridáme príslušnú CSS triedu pomocou atribútu `class`. Pozadie vložíme do sekcie `<body>` bez nutnosti definovania CSS triedy.
+Telo HTML dokumentu bude tvorené kontajnermi pre jednotlivé elementy. Podľa zadania máme nakresliť jedno slnko a štyri vtáčiky. Preto vytvoríme spolu päť kontajnerov a každému z nich pridáme príslušnú CSS triedu pomocou atribútu `class`. Pozadie prepojíme priamo so značkou `<body>` bez CSS triedy.
 
 ```html
 <body>
@@ -46,7 +50,7 @@ Element `body` má štandardne v prehliadači nastavené vonkajšie odsadenie na
 
 ```css
 body {
-    background-image: url("../img/sky.jpg");
+    background-image: url("img/sky.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     margin: 0;
@@ -64,7 +68,7 @@ Ak však máme byť úplne presní, v strede bude pravý horný roh obrázku. Ak
 
 ```css
 .sun {
-    background-image: url("../img/sun.png");
+    background-image: url("img/sun.png");
     background-size: contain;
     width: 256px;
     height: 256px;
@@ -74,7 +78,7 @@ Ak však máme byť úplne presní, v strede bude pravý horný roh obrázku. Ak
     transform: translate(-50%, -50%);
 }
 ```
-
+<div style="page-break-after: always;"></div>
 Po aplikovaní tohto pravidla bude čiastkové riešenie vyzerať nasledovne:
 
 ![Umiestnenie slnka do stredu](images_position/sun.jpg)
@@ -85,7 +89,7 @@ Teraz do riešenia doplníme obrázky vtáčikov. Pri definovaní štýlu vtáč
 
 ```css
 .bird {
-    background-image: url("../img/bird.png");
+    background-image: url("img/bird.png");
     background-size: contain;
     position: absolute;
     width: 150px;
@@ -135,5 +139,3 @@ A opäť triedu pripojíme len k elementom, ktoré potrebujeme otočiť. Výsled
 <div class="bird bottom flip left"></div>
 <div class="bird bottom right"></div>
 ```
-
-A príklad je hotový.

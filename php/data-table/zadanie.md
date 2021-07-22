@@ -20,8 +20,8 @@
 
 ## Zadanie
 
-Vytvorte PHP triedu, ktoré bude schopná zobraziť obsah ľubovolnej databázovej tabuľky a:
+Vytvorte aplikáciu v jazyku PHP, ktorá bude schopná zobraziť obsah ľubovolnej databázovej tabuľky a bude umožňovať:
 
-1. načíta a zobrazí všetky dáta vo forme HTML tabuľky,
-1. umožní zoradiť dáta zostupne a zostupne kliknutím na záhlavie tabuľky, 
-1. zobrazené dáta sa budú dať stránkovať.
+1. načítanie a zobrazenie všetkých dát vo forme HTML tabuľky,
+1. zoradenie dát vzostupne a zostupne kliknutím na záhlavie tabuľky, 
+1. stránkovanie zobrazených dát (zobrazenie napr. len 10 záznamov súčasne).

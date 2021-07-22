@@ -101,8 +101,8 @@ Pre zobrazenie popisku budeme používať CSS vlastnosť `position`. Najprv mus�
 
 Pre umiestnenie popisku nastavíme `position: absolute;`. To spôsobí, že element s popiskom začne "plávať" nad ostatnými elementmi. Teraz potrebujeme element s popiskom správne umiestniť. To docielime nastavením CSS atribútov`left` a `top`.
 
-> - `left` definuje vzdialenosť elementu od ľavej strany rodičovského elementu.
-> - `top` definuje vzdialenosť elementu od vrchu rodičovského elementu.
+- `left` definuje vzdialenosť elementu od ľavej strany rodičovského elementu.
+- `top` definuje vzdialenosť elementu od vrchu rodičovského elementu.
 
 Pri nastavení `position: absolute;` nejakého elementu sa za jeho *rodičovský element* považuje hierarchicky najbližší vyšší element, ktorý má nastavený CSS atribút `position` na `relative` alebo `absolute`. V našom prípade to je prvý element. Tým pádom môžeme nastaviť hodnotu `left: 0;` a `top: 120%;`. Potom bude popisok zarovnaný vľavo a bude pod prvým elementom<span class="hidden"> ([podrobnejšie o CSS position](../../common/css-position.md))</span>. Výsledné CSS bude:
 

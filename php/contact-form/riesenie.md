@@ -166,6 +166,8 @@ Warning: Undefined array key "name" in /var/www/html/index.php on line 74
 
 Táto chyba ukazuje dva problémy tohto prístupu. Prvým je nesprávne použitie superglobálnej premennej `$_POST`, ktorá obsahuje hodnoty len v prípade prijatia POST žiadosti. Druhý problém je problém *escaping* (zmena významu znakov) - ak naša hodnota obsahuje HTML kód, tak nám tento kód môže rozbiť celý formulár.
 
+<div style="page-break-after: always;"></div>
+
 Na ošetrenie tohto problému si pripravíme pomocnú funkciu `getParam()`:
 
 ```php
@@ -218,9 +220,11 @@ Výsledný email vyzerá po zachytení aplikáciou *MailHog* nasledovne:
 
 V aktuálnom stave aplikácia po odoslaní emailu opäť zobrazí formulár. Chceli by sme to upraviť tak, aby sme po úspešnom odoslaní emailu dostali informáciu, že správa bola odoslaná.
 
+<div style="page-break-after: always;"></div>
+
 Túto úpravu spravíme jednoducho tak, že formulár zaobalíme do príkazu `if`.
 
-```php
+```html
 <?php if ($isPost && empty($errors)) { ?>
   Ďakujeme za vašu správu.
 <?php } else { ?>
@@ -245,6 +249,8 @@ mail(
   "Odosielateľ: $name<$email>\n$content", 
   "From: my@myserver.sk\r\nReply-To: $name<$email>");
 ```
+
+<div style="page-break-after: always;"></div>
 
 Takto odoslaná správa bude vyzerať nasledovne:
 

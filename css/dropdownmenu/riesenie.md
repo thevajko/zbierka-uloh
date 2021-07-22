@@ -56,7 +56,7 @@ Aby sme to názorne predviedli, stačí si niekde do kódu stránky vložiť nas
     text
 </div>
 ```
-
+<div style="page-break-after: always;"></div>
 Výsledok bude:
 
 ```html
@@ -128,13 +128,11 @@ Značky `ul` a `li` by mali definovať iba štruktúru menu. Definujeme preto fa
 
 Jedinú výnimku bude tvoriť formátovanie elementu `ul` druhej a ďalšej úrovne, ktorým neskôr pridáme formátovanie v podobe rámčeka a pozadia. Samozrejme, problému sa dá predísť vytvorením obaľovacieho elementu pre ďalšie úrovne. V našom prípade sme ale chceli mať v príklade čo najjednoduchšiu štruktúru.
 
-Pre odstránenie problémov s odsadením môžeme v našom prípade urobiť tzv. *globálny reset odsadení* v CSS. Ten používa selektor `*` a ako vlastnosti mu nastavíme vnútorné a vonkajšie odsadenie na hodnotu `0`. Selektor `*` sa následne použije ako hodnota pre všetky štýlovania. Dôsledok je taký, že teraz musíme definovať odsadenia iba tam, kde ich skutočne chceme.
+Pre odstránenie problémov s odsadením môžeme v našom prípade urobiť tzv. *globálny reset odsadení* v CSS. Ten používa selektor `*` a ako vlastnosti mu nastavíme vnútorné a vonkajšie odsadenie na hodnotu `0`. Selektor `*` sa následne použije ako hodnota pre všetky štýly. Teraz stačí definovať odsadenia iba tam, kde ich skutočne chceme.
 
 Následne ešte musíme upraviť zobrazenie elementov `li` tak, aby sa nezobrazovali ako položky menu a elementy `span`, aby sa zobrazovali ako blokové značky (inak im nebude možné zadefinovať rozmer a odsadenie).
 
-Vzhľadom na to, že výsledkom úlohy je menu, bude dobrý nápad zamedziť automatické zalamovanie textu v `span`. To urobíme tak, že `span` elementom doplníme CSS vlastnosť `white-space: nowrap;`.
-
-CSS bude teda nasledovné:
+Vzhľadom na to, že výsledkom úlohy je menu, bude dobrý nápad zamedziť automatické zalamovanie textu v `span`. To urobíme tak, že `span` elementom doplníme CSS vlastnosť `white-space: nowrap;`.CSS bude teda nasledovné:
 
 ```css
 * {
@@ -221,7 +219,7 @@ li:hover > ul {
 }
 ```
 
-Ako je vidieť na nasledujúcom obrázku, menu bude fungovať, ako má, ale iba po druhú úroveň.
+Ako je vidieť na nasledujúcom obrázku, menu správne funguje, ale iba po druhú úroveň.
 
 ![Funkčné menu prvej a druhej úrovne](images_dropdownmenu/menu-fung-01.gif)
 
@@ -236,7 +234,7 @@ ul ul ul {
 }
 ```
 
-CSS vlastnosť `top: 0` určuje, ako sa má podmenu zobraziť vertikálne zarovno s elementom `li`, v ktorom sa nachádza. Vlastnosť `left: 100%` umiestňuje podmenu o `100%` veľkosti rodičovského elementu `li` zľava. Výsledok pridania tohto pravidla je nasledovný:
+Nastavenie CSS vlastnosti `top: 0` určuje, ako sa má podmenu zobraziť vertikálne zarovno s elementom `li`, v ktorom sa nachádza. Vlastnosť `left: 100%` umiestňuje podmenu o `100%` veľkosti rodičovského elementu `li` zľava. Výsledok pridania tohto pravidla je nasledovný:
 
 ![Pridané ďalšie úrovne menu](images_dropdownmenu/menu-fung-02.gif)
 
@@ -261,7 +259,7 @@ Pre doplnenie tohto indikátora existuje viacero spôsobov:
 
 - Doplnenie nového elementu do HTML, ktorý daný znak doplní 
 - Namiesto pridania elementu stačí vytvoriť CSS pravidlo a následne túto triedu doplniť do atribútu `class` daného elementu
-- Ak máme štruktúru pevne danú, môžeme zadefinovať doplnenie tohto znaku CSS selektorom
+- Ak máme štruktúru pevne danú, môžeme doplniť tento znak CSS selektorom
 
 V našom prípade sa pokúsime o aplikovanie poslednej možnosti. Použitím selektora `ul ul span:not(:only-child)::after`, ktorý môžeme popísať nasledovne:
 
@@ -271,6 +269,8 @@ V našom prípade sa pokúsime o aplikovanie poslednej možnosti. Použitím sel
 
 CSS pravidlo, ktoré nám pridá indikátor, je nasledovné:
 
+<div class="end">
+
 ```css
 ul ul span:not(:only-child)::after {
     color: blue;
@@ -278,8 +278,9 @@ ul ul span:not(:only-child)::after {
     padding: 3px 3px 3px 10px;
 }
 ```
+</div>
 
-Výsledok funguje takto:
+Výsledok vyzerá takto:
 
 ![Funkčné menu po tretiu úroveň s indikátorom](images_dropdownmenu/menu-fung-03.gif)
 
@@ -295,7 +296,7 @@ li:hover > span {
 ```
 
 Zmenu aplikujeme na element `span`, ktorý je priamym potomkom elementu `li`, nad ktorým je aktuálne kurzor myši. Je potrebné si pamätať, že táto indikácia vyplýva z DOM štruktúry a nie z toho, ako sú prvky reálne vykreslené v okne prehliadača.
-
+<div style="page-break-after: always;"></div>
 Výsledok funguje nasledovne:
 
 ![Zvýraznenie vybranej položky menu](images_dropdownmenu/menu-fung-04.gif)
@@ -309,6 +310,8 @@ Nasledovné úpravy ešte zlepšia dizajn celého riešenia:
 3. Každú úroveň jemne farebne odlíšime.
 
 CSS štýly pre bod 1. a 2. budú vyzerať nasledovne:
+
+<div class="end">
 
 ```css
 span {
@@ -325,6 +328,7 @@ ul ul {
     background-color: #ebebeb;
 }
 ```
+</div>
 
 A ako posledné doplníme postupne sa stmavujúcu farbu pozadia pre vnorené elementy `ul`:
 
@@ -347,6 +351,8 @@ Finálny výsledok vyzerá nasledovne:
 ## Úprava na *drop-up* menu
 
 Zmena voči pôvodnému menu spočíva čisto iba v úprave toho, kde a ako sa majú jednotlivé elementy zobraziť. Začneme teda presunutím celého menu na spodok okna prehliadača. To budeme realizovať zmenou hodnoty CSS vlastnosti `position` na hodnotu `fixed`. Tým docielime to, že menu sa bude umiestňovať nad všetky vykreslené prvky v priestore okna prehliadača a ten bude tvoriť aj jeho predka pre výpočet veľkostí.
+
+<div style="page-break-after: always;"></div>
 
 Aby bolo menu roztiahnuté na celú dĺžku okna, musíme mu zadefinovať CSS vlastnosť `width: 100%`. Upravený štýl zmeníme na:
 

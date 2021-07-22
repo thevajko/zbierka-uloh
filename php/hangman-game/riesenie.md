@@ -11,13 +11,13 @@
 
 ## Riešenie
 
-Riešenie úlohy si rozdelíme do niekoľkých častí. Riešenie budeme implementovať pomocou princípov OOP.
+Riešenie si rozdelíme do niekoľkých častí a a použijeme objektový prístup.
 
 ### HTML dokument
 
 Ak vytvárame celú hru od úplného začiatku, vytvoríme si adresár `img` a nakopírujeme si do neho obrázky `0.png` až `10.png`. 
 
-V súbore HTML vykreslíme len najnutnejšie časti hry a budeme sa snažiť všetku logiku hry umiestniť do PHP súborov. Aj keď prevažná časť súboru bude v HTML jazyku, niektoré časti budú používať PHP kód, preto musí mať súbor koncovku `php`. PHP kód do súboru doplníme neskôr. 
+V súbore HTML vytvoríme len základné hry a všetku logiku hry umiestnime do PHP súborov. Aj keď prevažná časť súboru bude v HTML jazyku, niektoré časti budú používať PHP kód, preto **musí** mať súbor koncovku `php`. PHP kód do súboru doplníme neskôr. 
 
 Súčasťou hry bude aj klávesnica zobrazená na obrazovke hry a hráč pomocou nej bude môcť zadávať jednotlivé písmená. Klávesnicu môžeme vytvoriť manuálne pomocou HTML, ale ukážeme si spôsob, ako sa dá HTMl generovať pomocou PHP. 
 
@@ -336,7 +336,11 @@ class Hangman
 }
 ```
 
-Ďalším krokom bude implementácia metódy `gameStatus()`, ktoré na základe stavu hry vráti, či hráč vyhral, prehral, alebo hra stále prebieha. Pokiaľ v slove už nebude žiadna pomlčka, všetky písmená budú uhádnuté, atribúty `$wantedWord` a `$playedWord` sa budú rovnať. Vtedy vieme, že hráč uhádol slovo a hru vyhral. Ak hráč už má 10 a viac neúspešných pokusov, prehral. V inom prípade hra stále prebieha:
+Ďalším krokom bude implementácia metódy `gameStatus()`, ktoré na základe stavu hry vráti, či hráč vyhral, prehral, alebo hra stále prebieha. Pokiaľ v slove už nebude žiadna pomlčka, všetky písmená budú uhádnuté, atribúty `$wantedWord` a `$playedWord` sa budú rovnať. Vtedy vieme, že hráč uhádol slovo a hru vyhral. Ak hráč už má 10 a viac neúspešných pokusov, prehral. 
+
+<div style="page-break-after: always;"></div>
+
+V inom prípade hra stále prebieha:
 
 ```php
 class Hangman
@@ -371,7 +375,11 @@ class Keyboard
 }
 ```
 
-Metódu `getKeyboardLayout()` upravíme tak, aby nevypisovala tie klávesy, ktoré už hráč stlačil (získame ich z metódy `getUsedChars()` triedy `Hangman`). To dosiahneme úpravou podmienky na tvar `if ($counter > self::KEYS_NUMBER or in_array($char, $this->hangman->getUsedChars()))`. Pre úplnosť uvádzame celý kód metódy: 
+Metódu `getKeyboardLayout()` upravíme tak, aby nevypisovala tie klávesy, ktoré už hráč stlačil (získame ich z metódy `getUsedChars()` triedy `Hangman`). To dosiahneme úpravou podmienky na tvar `if ($counter > self::KEYS_NUMBER or in_array($char, $this->hangman->getUsedChars()))`. 
+
+<div style="page-break-after: always;"></div>
+
+Pre úplnosť uvádzame celý kód metódy: 
 
 ```php
 class Keyboard
@@ -414,8 +422,6 @@ class Game
     // ...
 }
 ```
-
-Tým máme ukončenú implementáciu herného `engine`.
 
 ### Integrácia riešenia v triede `Game`
 
@@ -496,7 +502,9 @@ Tým sme dokončili hru, zostáva nám len doplniť na správne miesta na hracej
 
 Zmenu obrázku vyriešime jednoducho tak, že všetky obrázky máme očíslované od 0 po 10 (`0.png` až `10.png`) a podľa počtu neúspešných pokusov necháme zobraziť príslušný obrázok. Obrázok `0.png` je prázdny biely obrázok a to, aby sme sa pri pokusoch nedostali nad hranicu 10 neúspešných pokusov, zabezpečíme v hernom *engine*. 
 
-Podmienka `if ($game->getGameResult() == '')` zabezpečí, že klávesnica bude zobrazená len vtedy, keď hra bude prebiehať. Inak ju nezobrazíme. Výsledný HTML súbor bude vyzerať takto:
+Podmienka `if ($game->getGameResult() == '')` zabezpečí, že klávesnica bude zobrazená len vtedy, keď hra bude prebiehať. Inak ju nezobrazíme. 
+
+Výsledný HTML súbor bude vyzerať takto:
 
 ```html
 <?php
@@ -511,36 +519,39 @@ Podmienka `if ($game->getGameResult() == '')` zabezpečí, že klávesnica bude 
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<h1>Hra Obesenec</h1>
-<h2>Hracie pole</h2>
-<div class="play_ground">
-    <?= $game->play(); ?>
-</div>
-<div class="attempts">
-    Počet neúspešných pokusov: <?= $game->getFailedAttempts() ?>
-</div>
-<div class="hangman_picture">
-    <img src="img/<?= $game->getFailedAttempts() ?>.png" alt="Obesenec">
-</div>
-<div class="results">
-    <?= $game->getGameResult() ?>
-</div>
-<?php
-    if ($game->getGameResult() == '') {
-?>
+    <h1>Hra Obesenec</h1>
+    <h2>Hracie pole</h2>
+    <div class="play_ground">
+        <?= $game->play(); ?>
+    </div>
+    <div class="attempts">
+        Počet neúspešných pokusov: <?= $game->getFailedAttempts() ?>
+    </div>
+    <div class="hangman_picture">
+        <img src="img/<?= $game->getFailedAttempts() ?>.png" alt="Obesenec">
+    </div>
+    <div class="results">
+        <?= $game->getGameResult() ?>
+    </div>
+    <?php
+        if ($game->getGameResult() == '') {
+     ?>
     <h2>Klávesnica</h2>
     <div class="keyboard_container">
         <?= $game->getKeyboard("7")->getKeyboardLayout(); ?>
     </div>
-<?php
-    }
-?>
-<div>
-    <br><a href="?">Začať znovu</a>
-</div>
+    <?php
+        }
+    ?>
+    <div>
+        <br>
+        <a href="?">Začať znovu</a>
+    </div>
 </body>
 </html>
 ```
+
+<div style="page-break-after: always;"></div>
 
 Tým je celá hra hotová a na nasledujúcom obrázku si môžeme pozrieť ukážku rozohranej hry. 
 

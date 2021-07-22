@@ -21,9 +21,17 @@
 
 ## Zadanie
 
-Vytvorte scenériu oblohy, ktorá bude roztiahnutá na celé pozadie okna prehliadača a uprostred nej bude obrázok slnka. V každom rohu obrazovky umiestnite obrázok vtáčika. Ak budete zmenšovať alebo zväčšovať okno prehliadača, obrázky musia zostať na svojom mieste a pri hocijakej veľkosti okna musia vždy zostať v strede (slnko) a na okrajoch (vtáčiky). Vtáčiky budú otočené smerom k slnku. Výsledný vzhľad stránky bude:
+Vytvorte HTML dokument, ktorý bude vyzerať ako na nasledujúcom obrázku:
 
 ![Vzhľad výsledného riešenia](images_position/task.jpg)
+
+<div style="page-break-after: always;"></div>
+Riešenie musí spĺňať nasledovné podmienky:
+
+- Obrázok oblohy bude roztiahnutý na celé okno prehliadača. 
+- Uprostred neho bude obrázok slnka a v každom rohu obrázok vtáčika. 
+- Pri zmene veľkosti okna prehliadača musia obrázky zostať na svojom mieste (slnko v strede a vtáčiky na okrajoch). 
+- Všetky vtáčiky budú otočené smerom k slnku.
 
 <div class="hidden">
 

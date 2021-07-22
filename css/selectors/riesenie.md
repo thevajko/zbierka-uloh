@@ -33,7 +33,7 @@ Tabuľka v HTML kóde mala definovaný atribút `class="data"`, preto sme na na�
 
 Bunky v tabuľke sú predstavované HTML elementmi dvoch typov: `th` (*table head*) a `td` (*table data*). Z tohto dôvodu použijeme pre ich výber CSS selektor `.data tr > *`. Ten vyberie každého (v selektore špecifikované pomocou `*`) priameho potomka (v selektore špecifikované pomocou `>`) elementu `tr` umiestneného v tabuľke. 
 
-Tento selektor by sme ale mohli napísať rôznymi spôsobmi. Jeden variant by mohla byť aj `table.data > tr > *`, kde tento selector vyberie priameho potomka elementu `tr`, ktorý sa nachádza ako priamy potomok elementu `table` s atribútom `class="data"`. Tento prípad by ale nemusel byť úplne všeobecný, pretože riadky tabuľky môžu byť ešte rozdelené do sekcií:
+Tento selektor by sme ale mohli napísať rôznymi spôsobmi. Jeden variant by mohol byť `table.data > tr > *`, kde tento selektor vyberie priameho potomka elementu `tr`, ktorý sa je priamym potomkom elementu `table` s atribútom `class="data"`. Tento prípad by ale nebol úplne všeobecný, pretože riadky tabuľky môžu byť ešte rozdelené do sekcií:
 
 ```html
 <table>
@@ -67,11 +67,13 @@ Tento selektor by sme ale mohli napísať rôznymi spôsobmi. Jeden variant by m
 }
 ```
 
-Po aplikovaní tohto štýlu tabuľka nebude ale vyzerať tak, ako sme požadovali.
+<div style="page-break-after: always;"></div>
+
+Po aplikovaní tohto štýlu tabuľka nebude ale vyzerať tak, ako sme požadovali:
 
 ![Dvojitý rámček HTML tabuľky](images_selectors/dvojite-oramovanie.png)
 
-Ako môžeme vidieť na obrázku vyššie, tabuľka má dvojité okraje, ktoré sú oddelené medzerou. Tieto medzery su definované pomocou CSS vlastnosti `border-spacing`. Mohli by sme nastaviť medzeru medzi bunkami na `0px` ale tým pádom by sme mali šírku rámčeka `2px`. Ďalšou CSS vlastnosťou, ktorú môžeme použiť je CSS vlastnosť `border-collapse`, pomocou ktorej vieme duplicitný rámček odstrániť. Pridáme preto do CSS pravidla pre tabuľku pridáme:
+Ako možeme vidieť na obrázku vyššie, tabuľka má dvojité okraje oddelené medzerou. Tieto medzery sú definované pomocou CSS vlastnosti `border-spacing`. Mohli by sme nastaviť medzeru medzi bunkami na `0px`, ale potom by sme mali šírku rámčeka `2px`. Inou CSS vlastnosťou, ktorú môžeme v tomto prípade použiť, je CSS vlastnosť `border-collapse`. Pomocou nej vieme duplicitný rámček pri tabuľkách odstrániť. Preto do CSS pravidla pridáme:
 
 ```css
 .data {
@@ -85,6 +87,8 @@ Ako môžeme vidieť na obrázku vyššie, tabuľka má dvojité okraje, ktoré 
 
 Začneme nastavením farieb a písma. Vzhľadom na to, že bunky hlavičky tvoria elementy `th` a bunky s dátami `td`, môžeme použiť nasledovný CSS selektor:
 
+<div class="end">
+
 ```css
 .data th {
     background-color: #16a085;
@@ -93,10 +97,11 @@ Začneme nastavením farieb a písma. Vzhľadom na to, že bunky hlavičky tvori
     padding: 5px;
 }
 ```
+</div>
 
-Centrovanie textu môžeme vykonať pomocou CSS vlastnosti `text-align: center;`, ale hlavička tabuľky (elementy `th`) má centrovanie nastavené automaticky, takže nemusíme pridávať žiadne dodatočné CSS vlastnosti.
+Centrovanie textu dosiahneme pomocou CSS vlastnosti `text-align: center;`. Hlavička tabuľky (elementy `th`) je centrovaná automaticky, takže nemusíme pridávať žiadne dodatočné CSS vlastnosti.
 
-Druhou časťou tejto úlohy je zmena farby prvého písmena v hlavičke tabuľky. Na toto naštýlovanie môžeme využiť selektor CSS [pseudoelemetu](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors/Pseudo-classes_and_pseudo-elements#what_is_a_pseudo-element) `::first-letter`, ktorý umožní aplikovanie štýlu na prvé písmeno.
+Druhou úlohou je zmena farby prvého písmena v hlavičke tabuľky. Tu sa hodí CSS selektor [pseudoelemetu](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors/Pseudo-classes_and_pseudo-elements#what_is_a_pseudo-element) `::first-letter`, ktorý umožní aplikáciu štýlu na prvé písmeno:
 
 ```css
 .data th::first-letter {
@@ -281,13 +286,13 @@ Poslednou časťou tejto úlohy bolo doplnenie skratky `(PDF)` k odkazom, ktoré
 }
 ```
 
-Tento selektor pridá k odkazu, ktorý končí na `.pdf` pseudoelement, ktorý bude mať obsah `(PDF)`.
+Tento selektor pridá k odkazu, ktorý končí na `.pdf`, pseudoelement s textom `(PDF)`.
 
 ### Ukotvenie záhlavia tabuľky (bod 8)
 
 *Zabezpečte, aby pri dlhej tabuľke zostávala hlavička vždy viditeľná.*
 
-Často sa stáva, že na stránke je veľa dát, a keď je tabuľka veľmi dlhá a je potrebné použiť posuvník, tak v strede tabuľky už nevieme identifikovať stĺpce. Pomocou CSS vieme ukotviť hlavičku tak, že použijeme CSS vlastnosť `position: sticky`:
+Pri dlhej tabuľke je potrebné použiť posuvník a v strede tabuľky už nevieme identifikovať stĺpce. Pomocou CSS vlastnosti `position: sticky` však vieme ukotviť hlavičku:
 
 ```css
 .data th {
@@ -296,4 +301,4 @@ Tento selektor pridá k odkazu, ktorý končí na `.pdf` pseudoelement, ktorý b
 }
 ```
 
-Pre lepší vzhľad výsledku sme ešte nastavili aj pozíciu `top: -1px;`, aby hore neostával biely pásik. 
+Na záver, pre lepší vzhľad výsledného riešenia, sme ešte nastavili aj pozíciu hlavičky tabuľky na `top: -1px;`, aby medzi hlavičkou tabuľky a vrchom okna prehliadača nezostával biely pásik. 

@@ -54,18 +54,20 @@ Naštýlujte pomocou CSS túto galériu nasledovne:
 
 ### Zobrazenie galérií na rôzne veľkých zariadeniach
 
-Zariadenie s malým displejom:
+Na nasledujúcich obrázkoch vidíte správanie sa galérie na dispejoch rôznych zariadení a spôsob zobrazenia informácií o obrázku pri prechode kurzora myši ponad obrázok.
+
+<div class="hidden">Zariadenie s malým displejom:</div>
 
 ![Zobrazenie galérie na malom zariadení](images_gallery/zadanie-s.jpg)
 
-Zariadenie so stredne veľkým displejom:
+<div class="hidden">Zariadenie so stredne veľkým displejom:</div>
 
 ![Zobrazenie galérie na strednom veľkom zariadení](images_gallery/zadanie-m.jpg)
 
-Zariadenie s veľkým displejom:
+<div class="hidden">Zariadenie s veľkým displejom:</div>
 
 ![Zobrazenie galérie na veľkom zariadení](images_gallery/zadanie-l.jpg)
 
-Informácie o obrázku:
+<div class="hidden">Informácie o obrázku:</div>
 
 ![Zobrazenie informácie o obrázku](images_gallery/zadanie-hover.jpg)

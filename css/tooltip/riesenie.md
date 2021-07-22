@@ -21,7 +21,7 @@ Nakoľko CSS selektor definuje skupinu elementov, najprv vytvoríme selektor, kt
 
 Preto budeme musieť HTML kód upraviť nasledovne:
 
-```HTML
+```html
 <div class="text">
     Lorem ipsum dolor sit amet,
     <div class="has-tooltip">
@@ -81,12 +81,13 @@ Pre zobrazenie popisku budeme používať CSS vlastnosť `position`. Ako prvé m
 
 Pre umiestnenie popisku mu nastavíme `position: absolute;`. To spôsobí, že element s popiskom začne "plávať" nad ostatnými elementmi. Teraz potrebujeme element s popiskom správne umiestniť. To docielime nastavením CSS vlastností `left` a `top`:
 
->- `left` definuje vzdialenosť elementu od ľavej strany rodičovského elementu. 
->- `top` definuje vzdialenosť elementu od vrchu rodičovského elementu.
+- `left` definuje vzdialenosť elementu od ľavej strany rodičovského elementu. 
+- `top` definuje vzdialenosť elementu od vrchu rodičovského elementu.
 
 Pri nastavení `position: absolute;` nejakého elementu sa za jeho "rodičovský element" považuje hierarchicky najbližší vyšší element, ktorý má nastavený CSS atribút `position` na `relative` alebo `absolute`. V našom prípade je to prvý element. Tým pádom môžeme nastaviť hodnoty `left: 0;` a `top: 120%;`. Popisok bude zarovnaný naľavo a bude sa nachádzať kúsok pod prvým elementom.
 
-Kvôli korektnému zobrazeniu popisku pridáme ešte CSS vlastnosť `z-index: 1;`. Tým dosiahneme to, že sa element s textom popisku zobrazí vždy vo vrstve nad aktuálnymi elementmi; t.j. zobrazí sa vždy nad nimi.
+Pridaná CSS vlastnosť `z-index: 1;` zabezpečí, že sa element s textom popisku zobrazí vždy vo vrstve nad aktuálnymi elementmi; t.j. nad nimi.
+<div class="end">
 
 ```css
 div.has-tooltip {
@@ -98,7 +99,7 @@ div.has-tooltip .tooltip {
     z-index: 1;
 }
 ```
-
+</div>
 Na záver ešte k popisku pridáme automatický text na začiatok, aby sme zvýraznili, že ide o popisok (*tooltip*), pomocou pseudoelementu `::before`:
 
 ```css

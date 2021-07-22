@@ -84,9 +84,11 @@ V konštruktore definujeme atribút `$label`, čo predstavuje text, ktorý bude 
 
 Ďalej sa pozrieme na triedu `AFormField`. Táto trieda je abstraktným predkom všetkých formulárových prvkov a vyzerá nasledovne:
 
-```php
-abstract class AFormField extends AFormElement {
+<div class="end">
 
+```php
+abstract class AFormField extends AFormElement 
+{
     protected $value;
     private string $label;
     protected Form $form;
@@ -105,6 +107,7 @@ abstract class AFormField extends AFormElement {
     protected abstract function renderElement(): void;
 }
 ```
+</div>
 
 Trieda si pamätá hodnotu formulárového prvku v atribúte `value`. Ak bol formulár odoslaný, tak nastavíme túto hodnotu z poľa `$_POST`. V opačnom prípade tam nastavíme východziu hodnotu, ktorú sme dostali ako parameter konštruktora. Okrem konštrukora si deklarujeme abstraktnú metódu `renderElement()`, pomocou ktorej budú potomkovia definovať konkrétny formulárový prvok.
 
@@ -126,6 +129,8 @@ abstract class AFormField extends AFormElement {
 
 Konkrétna definícia textového poľa v triede `TextInputField` už nebude zložitá. Jediné, čo potrebujeme implementovať, je metóda `renderElement()`, ktorá vypíše HTML `input` element a doplní príslušné dáta:
 
+<div class="end">
+
 ```php
 class TextInputField extends AFormField {
 
@@ -140,6 +145,7 @@ class TextInputField extends AFormField {
   }
 }
 ```
+</div>
 
 Názov a `id` elementu sme implementovali rovnakým spôsobom ako pri tlačidle typu `submit`. Do atribútu `value` sme nastavili aktuálnu hodnotu prvku formulárového poľa. Tá môže byť východzia, alebo už získaná z `$_POST`. Táto hodnota pochádza od používateľa, takže ju musíme vhodne upraviť (cez *escaping*), aby nám nemohol "rozbiť" formulár. Na úpravu hodnoty sme použili PHP funkciu [`htmlentities()`](https://www.php.net/manual/en/function.htmlentities).
 
@@ -194,6 +200,8 @@ Táto metóda prejde všetky formulárové prvky. Najskôr ich ale prefiltruje p
 
 Vyššie spomenutý kód by sa dal prepísať aj pomocou jednoduchého `foreach` cyklu nasledovne:
 
+<div class="end">
+
 ```php
 class Form {
     // ...
@@ -209,6 +217,7 @@ class Form {
     }
 }
 ```
+</div>
 
 Výsledkom tejto metódy bude asociatívne pole, ktoré bude obsahovať hodnoty vyplnené vo formulári vo formáte `"názovPrvku" => "hodnota"`.
 
@@ -231,6 +240,8 @@ class Form
 
 Pred implementáciou metódy na pridanie textového poľa si ešte pripravíme pomocnú metódu, ktorá sa pokúsi načítať východziu hodnotu pre daný prvok formulára.
 
+<div class="end">
+
 ```php
 class Form 
 {
@@ -242,6 +253,7 @@ class Form
     // ...
 }
 ```
+</div>
 
 Táto metóda sa pokúsi nájsť hodnotu v atribúte `$defaultValues` a v prípade, že sa tam nenachádza, vráti prázdny reťazec.
 
@@ -260,9 +272,11 @@ class Form
 }
 ```
 
-Vytvoríme novú inštanciu triedy `TextInputField`. Uložíme si ju pod kľúčom `$name` do zoznamu prvkov `$this->formFields` a vrátime vytvorenú inštanciu. Táto metóda vráti inštanciu z toho dôvodu, aby sme mohli ešte v prípade potreby s ňou ďalej pracovať cez tzv. zreťazené volanie metód (*fluent style methods chaining*), z ktorých každá vráti `$this`.
+Vytvoríme novú inštanciu triedy `TextInputField`. Uložíme si ju pod kľúčom `$name` do zoznamu prvkov `$this->formFields` a vrátime vytvorenú inštanciu. Táto metóda vráti inštanciu preto, aby sme mohli ešte v prípade potreby s ňou ďalej pracovať cez tzv. zreťazené volanie metód (angl. *fluent style methods chaining*), z ktorých každá vráti `$this`.
 
 Pridanie tlačidla na odosielanie formulára bude vyzerať veľmi podobne. Najskôr si ale deklarujeme konštantu, pod ktorou budeme tento prvok vkladať do formulára. Typicky sa používa názov `submit`.
+
+<div class="end">
 
 ```php
 class Form {
@@ -275,10 +289,10 @@ class Form {
     $this->formFields[self::FORM_SUBMIT_NAME] = $field;
     return $field;
   }
-  
   //...
 }
 ```
+</div>
 
 Pridanie tlačidla je rovnaké ako v prípade textového poľa, len v tomto prípade vytvoríme inštanciu `SubmitButton`.
 
@@ -484,11 +498,14 @@ abstract class AFormField extends AFormElement {
 
 Následné použitie tejto metódy môže vyzerať takto:
 
+<div class="end">
+
 ```php
 $form->addText("meno", "Krstné meno")
   ->required("Položka krstné meno je vyžadovaná")
   ->addRule(new Validator2());
 ```
+</div>
 
 Ako môžeme vidieť, metóda `required()` umožňuje definovať vlastnú chybovú správu, takže namiesto východzieho `Položka musí byť vyplnená` sa pri nevyplnení poľa vypíše správa `Položka krstné meno je vyžadovaná`.
 
@@ -668,7 +685,9 @@ class SelectField extends AFormField
 }
 ```
 
-Nakoniec ešte pridáme do triedy `Form` pomocnú metódu na pridanie výberového zoznamu:
+<div style="page-break-after: always;"></div>
+
+Nakoniec ešte pridáme do triedy `Form` metódu na pridanie výberového zoznamu:
 
 ```php
 class Form {
@@ -684,6 +703,8 @@ class Form {
 ```
 
 Deklarácia komplexného formuláru by mohla vyzerať nasledovne:
+
+<div class="end">
 
 ```php
 $form = new Form(["meno" => "test"]);
@@ -710,3 +731,4 @@ else {
     $form->render();
 }
 ```
+</div>

@@ -44,11 +44,13 @@ window.onload = function() {
 }
 ```
 
-Kreslenie kružnice realizujeme použitím metódy kontextu [`CanvasRenderingContext2D.arc()`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc). Táto metóda potrebuje dostať *polohu stredu*, *polomer*, *začiatočný* a *koncový uhol* kreslenia. Pred volaním metódy `arc()` je potrebné definovať začiatok postupnosti krokov pre vykreslenie pomocou metódy [`CanvasRenderingContext2D.beginPath()`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/beginPath). Následne môžeme definovať, čo chceme kresliť. 
+Kreslenie kružnice realizujeme metódou kontextu [`CanvasRenderingContext2D.arc()`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc). Metóda má parametre *poloha stredu*, *polomer*, *začiatočný* a *koncový uhol* kreslenia. Pred volaním metódy `arc()` je potrebné definovať začiatok postupnosti krokov pre vykreslenie pomocou metódy [`CanvasRenderingContext2D.beginPath()`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/beginPath). Následne môžeme definovať, čo chceme kresliť. 
 
 Nakoľko sme len zostavili postupnosť krokov kreslenia, musíme pre ich vykreslenie zavolať metódu [`CanvasRenderingContext2D.stroke()`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/stroke). Až potom sa vykreslí požadovaná grafika do elementu `canvas`.
 
 V našom prípade bude kód, ktorý nakreslí kružnicu, vyzerať nasledovne:
+
+<div class="end">
 
 ```javascript
 window.onload = function() {
@@ -60,6 +62,8 @@ window.onload = function() {
   ctx.stroke();
 }
 ```
+</div>
+
 Výsledkom skriptu je takáto kružnica:
 
 ![Vykreslenie kružnice](images_analog-clock/aclock-01.png)
@@ -115,6 +119,8 @@ window.onload = function() {
 }
 ```
 
+<div style="page-break-after: always;"></div>
+
 Výsledná kresba by mala vyzerať nasledovne:
 
 ![Vykreslené ručičky hodiniek](images_analog-clock/aclock-02.png)
@@ -131,10 +137,8 @@ Funkcia `drawLineMarker()` bude vyzerať nasledovne:
 
 ```javascript
 function drawLineMarker(ctx, uhol, markerLength) {
-
     let angl = degToRad(uhol + 270);
     let r = 250 - markerLength;
-
     let sx = 250  + r * Math.cos(angl);
     let sy = 250 + r * Math.sin(angl);
 
@@ -190,6 +194,9 @@ function makeTick(ctx) {
     }
 }
 ```
+
+<div style="page-break-after: always;"></div>
+
 Ciferník bude vyzerať takto:
 
 ![Vykreslený celý ciferník](images_analog-clock/aclock-04.png) 
@@ -259,6 +266,8 @@ function makeTick(ctx) {
 
 A na záver pridáme spúšťanie v `window.onload`:
 
+<div class="end">
+
 ```javascript
 window.onload = function(){
     let canvas = document.querySelector("canvas");
@@ -270,6 +279,7 @@ window.onload = function(){
     makeTick(ctx);
 }
 ```
+</div>
 
 Výsledok:
 

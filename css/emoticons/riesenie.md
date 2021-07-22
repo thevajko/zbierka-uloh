@@ -17,7 +17,6 @@ Na úvod riešenia začneme s analýzou problému. V zadaní máme štyri rôzne
 V zadaní máme základnú kostru emotikona, do ktorej si môžeme pridať ďalšie prvky. Vzhľadom na potrebu troch ďalších častí si upravíme pripravené HTML nasledovne:
 
 ```html
-
 <div class="smiley">
     <span class="eye"></span>
     <span class="eye"></span>
@@ -50,7 +49,7 @@ Výsledkom tejto úpravy bude nasledovný štvorec o rozmeroch `50px` x `50px`.
 
 ![Základný štvorec](images_emoticons/stvorcek.png)
 
-V ďalšom kroku potrebujeme z tohto štvorčeka spraviť kruh. To vieme v CSS docieliť pomocou zaoblenia rámčekov - použitím CSS vlastnosti `border-radius`. Okrem toho by bolo vhodné pridať aj čierne orámovanie, ktoré môžeme aplikovať pomocou CSS vlastnosti `border`.
+V ďalšom kroku potrebujeme zo štvorčeka spraviť kruh. To docielime pomocou zaoblenia rámčekov - použitím CSS vlastnosti `border-radius`. Okrem toho by bolo vhodné pridať aj čierne orámovanie, ktoré môžeme aplikovať pomocou CSS vlastnosti `border`.
 
 ```css
 .smiley {
@@ -59,13 +58,13 @@ V ďalšom kroku potrebujeme z tohto štvorčeka spraviť kruh. To vieme v CSS d
 }
 ```
 
-CSS vlastnosť `border-radius` nastavuje veľkosť zaoblenia elementu. Táto veľkosť môže byť uvedená v pixeloch alebo v relatívnych hodnotách vzhľadom na veľkosť elementu. V našom prípade nastavením tejto hodnoty na `50%` dosiahneme požadované zobrazenie elementu `div` ako kruhu.
+CSS vlastnosť `border-radius` nastavuje zaoblenie rámčeka. Hodnota môže byť uvedená v pixeloch alebo v relatívnych hodnotách vzhľadom na veľkosť elementu. V našom prípade nastavením hodnoty na `50%` dosiahneme zobrazenie elementu `div` ako kruhu.
 
 ![Vzniknutý kruh po nastavení zaoblenia rámčekov](images_emoticons/kruh.png)
 
 #### Zobrazenie očí
 
-Po tom, ako sme vytvorili kruh, sa pustíme do štýlovania očí emotikona. Pre oči máme v HTML kóde pripravené dva elementy `span` s atribútom `class="eye"`. Začneme tým, že ich zobrazíme.
+Po vytvorení kruhu sa pustíme do štýlovania očí emotikona. Pre oči máme v HTML kóde pripravené dva elementy `span` s atribútom `class="eye"`. Začneme tým, že ich zobrazíme.
 
 ```css
 .smiley .eye {
@@ -79,7 +78,7 @@ Po tom, ako sme vytvorili kruh, sa pustíme do štýlovania očí emotikona. Pre
 
 CSS pre naštýlovanie očí je veľmi podobné ako pri celom tele emotikona. Obsahuje nastavenie farby pozadia, veľkosti a zaoblenia okrajov. 
 
-Prvá odlišnosť, ktorú si môžete všimnúť, je nastavenie CSS vlastnosti `display` na hodnotu `block`. Ako sme už v predchádzajúcej časti spomínali, šírka a výška sa aplikuje len na blokové elementy. Oko emotikona používa HTML element `span`, ktorý je riadkovým elementom. Ak chceme, aby sa aj inline element zobrazil ako blokový, musíme mu zmeniť vlastnosť `display`.
+Prvá odlišnosť, ktorú si môžete všimnúť, je nastavenie CSS vlastnosti `display` na hodnotu `block`. Ako sme už spomínali, šírka a výška sa aplikuje len na blokové elementy. Oko emotikona používa HTML element `span`, ktorý je riadkovým elementom. Ak chceme, aby sa aj inline element zobrazil ako blokový, musíme mu zmeniť vlastnosť `display`.
 
 Ďalšou odlišnosťou je nastavenie veľkosti očí. Pre nastavenie sme použili relatívne hodnoty pomocou percent. Toto nám umožní v budúcnosti jednoduchšiu zmenu veľkosti celého prvku. Veľkosť očí sme nastavili na `10%` a `15%`, vďaka čomu oči nebudú mať úplne kruhový tvar, ale budú zvislo natiahnuté.
 
@@ -176,7 +175,7 @@ Tento kód naštýluje zelený obdĺžnik o rozmeroch `50px` x `50px`. Tento obd
 
 ![Ukážka rôznych možností nastavenia rámčekov](images_emoticons/border-demo.png)
 
-V našom emotikonovi potrebujeme nastaviť zvyšné rámčeky na rovnakú šírku ako má spodný, ale s tým, že tieto budú priesvitné:
+V našom emotikone potrebujeme nastaviť zvyšné rámčeky na rovnakú šírku ako má spodný, ale s tým, že tieto budú priesvitné:
 
 ```css
 .smiley .mouth {
@@ -234,6 +233,7 @@ Druhou možnosťou je využitie CSS transformácií, kde je potrebné element ot
     transform: rotate(180deg) translateY(-80%);
 }
 ```
+<div style="page-break-after: always;"></div>
 
 Výsledok oboch príkladov je totožný:
 
@@ -242,7 +242,6 @@ Výsledok oboch príkladov je totožný:
 HTML kód pre zobrazenie tohto emotikona je podľa zadania nasledovný:
 
 ```html
-
 <div class="smiley sad">
     <span class="eye"></span>
     <span class="eye"></span>
@@ -250,7 +249,7 @@ HTML kód pre zobrazenie tohto emotikona je podľa zadania nasledovný:
 </div>
 ```
 
-Na to, aby sme upravili ústa len pri emotikonovi, ktorý má aj triedu `sad`, sme použili selektor `.smiley.sad .mouth`. Všimnite si, že medzi `.smiley` a `.sad` nie je medzera, takže tento selektor sa aplikuje len na emotikona, ktorý bude mať nastavené obe tieto triedy.
+Na to, aby sme upravili ústa len pri emotikone, ktorý má aj triedu `sad`, sme použili selektor `.smiley.sad .mouth`. Všimnite si, že medzi `.smiley` a `.sad` nie je medzera, takže tento selektor sa aplikuje len na emotikona, ktorý bude mať nastavené obe tieto triedy.
 
 ### Vytvorenie emotikona s líčkami
 
@@ -260,14 +259,16 @@ Jedným z riešení by bola úprava HTML štruktúry emotikona, ale chceme dodr�
 
 HTML kód nášho emotikona s líčkami musí vyzerať nasledovne:
 
-```html
+<div class="end">
 
+```html
 <div class="smiley cheeks">
     <span class="eye"></span>
     <span class="eye"></span>
     <span class="mouth"></span>
 </div>
 ```
+</div>
 
 Pre zobrazenie líčok môžeme využiť pseudoelementy `::before` a `::after`, ktoré nám umožňujú formátovať virtuálne elementy pridané na začiatok a koniec určitého elementu.
 
@@ -293,7 +294,6 @@ V CSS si môžeme všimnúť jednu zaujímavú vlastnosť. Vlastnosť `content` 
 Problémom tohto riešenia je to, že líčko nám prekrýva ústa, preto by sme chceli zmeniť poradie týchto elementov. Keď vytvoríme nejaký peseudoelement pomocou `::before` alebo `::after`, tak tento element je potomkom elementu, pre ktorý ho vytvárame.
 
 ```html
-
 <div class="smiley cheeks">
     <i class="eye"></i>
     <i class="eye"></i>
@@ -319,6 +319,8 @@ Po aplikovaní týchto pravidiel dosiahneme správne zobrazenie líčka.
 ![Presunutie líčka do vrstvy za ústa](images_emoticons/kruh_licka2.png)
 
 Posledným krokom bude zobrazenie druhého líčka pomocou pseudoelementu `::after`. Obe líčka majú veľa spoločných pravidiel. Výsledný kód upravíme tak, že spoločné pravidlá definujeme len raz a pozíciu nastavíme každému samostatne.
+
+<div style="page-break-after: always;"></div>
 
 ```css
 .smiley.cheeks .mouth::before, .smiley.cheeks .mouth::after {
@@ -347,9 +349,9 @@ Výsledok bude vyzerať nasledovne:
 
 ### Vytvorenie veselého emotikona
 
-Pri vytváraní veselého emotikona musíme zmeniť viacero vecí. Prvou z nich je vykreslenie úst. V predchádzajúcich príkladoch sme používali na vykreslenie úst zaoblené rámčeky, ktoré zobrazili štvrťkruh s daným polomerom. Pri veselom emotikonovi potrebujeme polkruh, navyše ešte aj vyplnený. 
+Pri vytváraní veselého emotikona musíme zmeniť viacero vecí. Prvou z nich je vykreslenie úst. V predchádzajúcich príkladoch sme používali na vykreslenie úst zaoblené rámčeky, ktoré zobrazili štvrťkruh s daným polomerom. Pri veselom emotikone potrebujeme polkruh, navyše ešte aj vyplnený. 
 
-Ak chceme získať vyplnený polkruh, tak už nám nebude stačiť vykresliť vhodne ohnutý rámček, ale budeme musieť celý element transformovať na polkruh. Na túto transformáciu využijeme CSS vlastnosti `border-bottom-left-radius` a `border-bottom-right-radius`. Tie umožňujú presnejšie špecifikovať oblúk na okrajoch elementu.
+Ak chceme vytvoriť vyplnený polkruh, tak už nám nebude stačiť vykresliť vhodne ohnutý rámček, ale budeme musieť celý element transformovať na polkruh. Na túto transformáciu využijeme CSS vlastnosti `border-bottom-left-radius` a `border-bottom-right-radius`. Tie umožňujú presnejšie špecifikovať spôsob vykreslenia oblúka na okrajoch elementu.
 
 Začneme teda s CSS, ktoré vyzerá nasledovne:
 
@@ -365,11 +367,15 @@ Začneme teda s CSS, ktoré vyzerá nasledovne:
 }
 ```
 
-Pomocou tohto CSS kódu nastavíme elementu čiernu farbu pozadia. Následne upravíme primerane veľkosť a pozíciu týchto úst. Posledné dve pravidlá nastavujú nové zaoblenie úst. Aj pravý aj ľavý spodný roh má nastavené zaoblenie na `100% 200%`. Výsledok bude nasledovný:
+Pomocou tohto CSS kódu najskôr nastavíme elementu čiernu farbu pozadia. Následne primerane upravíme veľkosť a pozíciu úst emitikona. Posledné dve nastavenia definujú nový tvar zaoblenia úst. Pravý aj ľavý spodný roh bude mať teraz nastavené zaoblenie na `100% 200%`. 
+
+Výsledok bude nasledovný:
 
 ![Základná úprava úst emotikona](images_emoticons/smajlik_stastny_1.png)
 
 Ako vidíme, ústa sú zaoblené aj zvrchu. Toto zaoblenie je spôsobené pravidlami pre ústa pôvodného emotikona. Pomocou `border-radius: 0;` odstránime pôvodné zaoblenie úst. Pozor, toto pravidlo musí byť vo výslednom CSS umiestnené pred pravidlami `border-bottom-left-radius` a `border-bottom-right-radius`.
+
+<div style="page-break-after: always;"></div>
 
 ```css
 .smiley.happy .mouth {
@@ -398,6 +404,7 @@ V ďalšom kroku sa pokúsime emotikonu pridať zuby. Na to môžeme použiť op
     height: 45%;
 }
 ```
+<div style="page-break-after: always;"></div>
 
 Po aplikovaní štýlu bude náš emotikon vyzerať nasledovne:
 
@@ -408,6 +415,8 @@ Emotikon síce zuby má, ale tie sa vykreslujú nad ústami. Pokiaľ chceme, aby
 ![Umiestnenie zubov na správne miesto](images_emoticons/smajlik_stastny_4.png)
 
 Posledným krokom je pridanie jazyka. Jazyk môžeme implementovať ako polkruh, ktorý umiestnime na spodnú stranu. Pri jazyku môžeme využiť to, že celé ústa majú nastavené `overflow` na `hidden` a nemusíme sa tak trápiť s polkruhom, ale môžeme použiť plný kruh, ktorého spodná čas bude skrytá.
+
+<div class="end">
 
 ```css
 .smiley.happy .mouth::after {
@@ -422,6 +431,7 @@ Posledným krokom je pridanie jazyka. Jazyk môžeme implementovať ako polkruh,
     bottom: -25%;
 }
 ```
+</div>
 
 ![Pridanie jazyka](images_emoticons/smajlik_stastny_final.png)
 
@@ -445,12 +455,13 @@ Posledným typom emotikona je emotikon otočený o 180 stupňov. Túto úpravu m
     height: 250px;
 }
 ```
+<div style="page-break-after: always;"></div>
 
 Výsledok vyzerá takto:
 
 ![Rôzne veľkosti emotikona](images_emoticons/smajlik_velkosti1.png)
 
-Veľkosť emotikona je v poriadku, ale veľký emotikon má tenké rámčeky. Keď sa bližšie pozrieme na CSS pravidlá, ktoré deklarujú rámčeky, môžeme vidieť nasledovné:
+Veľkosť emotikona je v poriadku, ale veľký emotikon má tenké rámčeky. Keď sa bližšie pozrieme na CSS pravidlá, ktoré definujú rámčeky, môžeme vidieť nasledovné:
 
 ```css
 .smiley {
@@ -458,15 +469,16 @@ Veľkosť emotikona je v poriadku, ale veľký emotikon má tenké rámčeky. Ke
 }
 ```
 
-Pri vlastnosti `border` sme nepoužili relatívne jednotky, ale pixely. Je to z toho dôvodu, že `border` nepodporuje percentá. Zmena veľkosti tým pádom nepôjde realizovať len zmenou rozmerov emotikona.
+Pri vlastnosti `border` sme nepoužili relatívne jednotky, ale pixely. Je to z toho dôvodu, že vlastnosť `border` nepodporuje percentá. Zmena veľkosti tým pádom nepôjde realizovať len zmenou rozmerov emotikona.
 
-Namiesto zmeny rozmerov môžeme použiť CSS transformácie, v našom prípade `scale`.
+Namiesto zmeny rozmerov môžeme použiť CSS transformácie, v našom prípade vlastnosť `transform` s hodnotou `scale`.
 
 ```css
 .smiley.s-100 {
     transform: scale(2);
 }
 ```
+<div style="page-break-after: always;"></div>
 
 Výsledok bude vyzerať nasledovne:
 
@@ -478,12 +490,15 @@ Najväčší emotikon má správnu veľkosť rámčeka, ale ako môžeme vidieť
 
 CSS transformácie síce menia výzor elementu, ale nemenia jeho pozíciu a rozmer vzhľadom na iné elementy. To znamená, že ak aj zmeníme veľkosť druhého emotikona dvakrát, tak z pohľadu tretieho sa javí nezmenený, a preto ho prekryje. Tento problém sa dá vyriešiť pridaním okrajov.
 
+<div class="end">
+
 ```css
 .smiley.s-100 {
     transform: scale(2);
     margin: 25px;
 }
 ```
+</div>
 
 V tomto prípade už nepotrebujeme nastaviť `transform-origin`, pretože jeho východzia hodnota je `center center`. Ak teda zväčšíme emotikona `50px` x `50px` dvakrát, tak na každej strane bude potrebné pridať okraj `25px`. Výsledný obrázok vyzerá nasledovne:
 
@@ -531,10 +546,9 @@ Definícia jednotlivých veľkostí bude spočívať v jednoduchom prepísaní h
 }
 ```
 
-Dokonca môžeme spraviť emotikona ľubovolnej veľkosti aj priamo v HTML kóde:
+Dokonca môžeme vytvoriť emotikona ľubovolnej veľkosti aj priamo v HTML kóde pomocou atribútu `style`:
 
 ```html
-
 <div class="smiley" style="--size: 25px">
     <i class="eye"></i>
     <i class="eye"></i>

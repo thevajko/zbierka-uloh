@@ -65,6 +65,7 @@ Ako môžeme vidieť na obrázku, posledný obrázok sa nám zobrazuje zdeformov
     object-fit: cover;
 }
 ```
+<div style="page-break-after: always;"></div>
 
 Po aplikovaní tejto vlastnosti na obrázok dostaneme:
 
@@ -78,7 +79,9 @@ Momentálne sa nám obrázky zobrazujú pod sebou. Potrebovali by sme ale, aby s
 
 Prvým spôsobom je využitie toho, že HTML element môžeme zobraziť ako [`inline-block`](https://www.w3schools.com/css/css_inline-block.asp), čo znamená, že sa v zobrazení chová ako riadkový element, ale je mu možné pridať hodnotu pre jeho šírku a výšku.
 
-Okrem pridania CSS vlastnosti `display` sme zmenili aj šírku elementov. Využili sme tu funkciu [`calc()`](https://developer.mozilla.org/en-US/docs/Web/CSS/calc()), pretože 1/3 zo 100 je v skutočnosti 33.3333 periodických a `calc()` to spočíta presne.
+Okrem pridania vlastnosti `display` sme zmenili aj šírku elementov. Funkcia [`calc()`](https://developer.mozilla.org/en-US/docs/Web/CSS/calc()) to spočíta presne, aj keď 1/3 zo 100 je v skutočnosti 33.333 periodických.
+
+<div class="end">
 
 ```css
 .photo {
@@ -88,8 +91,9 @@ Okrem pridania CSS vlastnosti `display` sme zmenili aj šírku elementov. Využi
     padding-top: calc(75% / 3);
 }
 ```
+</div>
 
-> Ako si môžete všimnúť, aj `padding-top` bolo potrebné zmenšiť na 1/3 pôvodnej hodnoty.
+Ako si môžete všimnúť, aj `padding-top` bolo potrebné zmenšiť na 1/3 pôvodnej hodnoty.
 
 Po aplikovaní tohto štýlu zostaneme prekvapení:
 
@@ -99,6 +103,8 @@ Namiesto troch predpokladaných obrázkov na riadok máme len dva. Navyše oprot
 
 Ak v pôvodnom HTML kóde odstránime medzery medzi obrázkami, tak tento problém zmizne. Toto ale nie je správne riešenie, nakoľko by sme sa pri deklarácii CSS pravidiel nemali spoliehať na medzery medzi HTML elementmi.
 
+<div class="end">
+
 ```html
 <div class="photo">
     ...
@@ -107,6 +113,7 @@ Ak v pôvodnom HTML kóde odstránime medzery medzi obrázkami, tak tento probl�
     ...
 </div>
 ```
+</div>
 
 #### Riešenie cez `float: left`
 
@@ -147,6 +154,8 @@ Okrem `display: flex` musíme nastaviť aj CSS vlastnosť `flex-wrap` na hodnotu
 
 Po nastavení `flex-wrap: wrap;` je už všetko v poriadku. Výhodou *flexboxu* oproti riešeniu s obtekaním je to, že *flexbox* má veľké množstvo ďalších možností. Predstavte si, že nemáme presný počet obrázkov tak, aby sme vyplnili všetky riadky. V prípade riešenia s obtekaním nám posledný obrázok zostane na ľavom okraji. Ak použijeme *flexbox*, môžeme pomocou vlastnosti `justify-content` v `.gallery` nastaviť, čo sa má stať v prípade, že nebude dostatok obrázkov na riadku.
 
+<div style="page-break-after: always;"></div>
+
 Ak nastavíme `justify-content` na `center`, tak sa nám obrázky vycentrujú do stredu:
 
 ![Vycentrovanie obrázkov pomocou vlastnosti `justify-content`](images_gallery/riesenie6.jpg)
@@ -154,6 +163,8 @@ Ak nastavíme `justify-content` na `center`, tak sa nám obrázky vycentrujú do
 Môžeme vyskúšať aj hodnotu `space-between`, ktorá nám obrázky umiestni na okraje:
 
 ![Zmena vlastnosti `justify-content` na hodnotu `space-between`](images_gallery/riesenie7.jpg)
+
+<div style="page-break-after: always;"></div>
 
 Alebo hodnotu `space-evenly`, ktorá nám ich umiestni s rovnomernými medzerami:
 
@@ -172,7 +183,9 @@ Ak nám nevyhovuje prázdne miesto v spodnom riadku, môžeme nastaviť obrázku
 }
 ```
 
-Pri tomto zobrazení ale už nebudú mať všetky obrázky pomer strán 4:3.
+<div style="page-break-after: always;"></div>
+
+Pri tomto zobrazení ale už nebudú mať všetky obrázky pomer strán 4:3:
 
 ![Roztiahnutie obrázka pomocou vlastnosti `flex-grow`](images_gallery/riesenie9.jpg)
 
@@ -202,7 +215,9 @@ V zadaní požadujeme tri spôsoby prispôsobenia zobrazenia obrázkov. Jeden z 
 
 Prvý z nich bude platiť pre šírku okna prehliadača do `600px` a druhý do `1000px`. Veľmi závisí na poradí, v akom jednotlivé pravidlá v `@media()` zapíšeme, nakoľko posledne zadefinované pravidlo prepisuje rovnaké CSS predchádzajúceho. Ako prvé preto musíme zadefinovať štýlovanie pre najmenšie zobrazenie, nasledovať musí štýlovanie pre rozmer okna prehliadača `1000px` a ako posledné pre rozmer `600px`.
 
-Podmienku platnosti daného bloku CSS štýlov definujeme pomocou pravidla `max-width`, ktorá je pravdivá, pokiaľ šírka okna nepresiahne uvedenú hodnotu. 
+Podmienku platnosti daného bloku CSS štýlov definujeme pomocou pravidla `max-width`, ktorá je pravdivá, pokiaľ šírka okna nepresiahne uvedenú hodnotu.
+
+<div style="page-break-after: always;"></div>
 
 Nasledujúce riadky dopíšeme za definíciu pravidla `.photo`:
 
@@ -305,6 +320,8 @@ Pomocou prvého pravidla skryjeme oba elementy a pomocou druhého ich zobrazíme
 ### Animácie pri prechode kurzora myši ponad obrázok
 
 Aktuálne riešenie funguje, výsledný dojem ale nie je najlepší. Skúsime teda pridať zopár animácií pre zlepšenie používateľského zážitku. Začneme dynamickým stmavovaním obrázku. Najjednoduchší spôsob bude využitie CSS vlastnosť `transition`. Výhoda `transition` oproti vlastnej CSS animácii je v jednoduchšom zápise. Pri `transition` definujeme len vlastnosť, ktorej sa to týka a dobu zmeny.
+
+<div style="page-break-after: always;"></div>
 
 Túto vlastnosť použijeme pre element `img`:
 

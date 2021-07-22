@@ -19,7 +19,7 @@
 </div>
 
 ## Zadanie
-Vytvorte PHP triedu, ktorá umožní programovo (z PHP) deklarovať ľubovolný formulár. Formulár sa bude vedieť vykresliť a automaticky spracovať a vykonať validáciu.
+Vytvorte PHP triedu, ktorá umožní programovo (z PHP) deklarovať ľubovolný HTML formulár. Formulár sa bude vedieť zobraziť, automaticky spracovať a vykonať validáciu.
 
 Trieda umožní:
 - definovať formulár,
@@ -27,11 +27,9 @@ Trieda umožní:
 - pridať validačné pravidlá,
 - získať vyplnené hodnoty.
 
-
 Použitie formuláru by mohlo byť nasledovné:
 
 ```php
-
 // Deklarácia
 $form = new Form($defaults);
 $form->addText("meno", "Meno")

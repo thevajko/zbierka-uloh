@@ -15,13 +15,15 @@
 
 **Obťažnosť**: 1/5
 
-**Obsah príkladu**: Výber elementov pomocou metódy `querySelectorAll()`, skrývanie a zobrazovanie elementov, kolekcie elementov, hierarchia elementov, DOM udalosti, zmena kurzoru. 
+**Obsah príkladu**: Výber elementov metódou `querySelectorAll()`, skrývanie a zobrazovanie elementov, kolekcie elementov, hierarchia elementov, DOM udalosti. 
 </div>
 
 ## Zadanie
-Vytvorte skript, ktorý po kliknutí na element `h1` zobrazí text v elemente `p`. Naopak, ak je text zobrazený, tak ho skryje. 
+Vytvorte skript, ktorý po kliknutí na element `h1` zobrazí alebo skryje text v nasledujúcom elemente `p`. 
 
 Skript by mal fungovať na takejto štruktúre HTML kódu:
+
+<div class="end">
 
 ```html
 <div>
@@ -40,5 +42,6 @@ Skript by mal fungovať na takejto štruktúre HTML kódu:
         Cras elementum egestas massa, eu finibus nulla convallis se...
     </p>
 </div>
-....
+...
 ```
+</div>

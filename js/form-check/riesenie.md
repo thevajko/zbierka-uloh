@@ -67,9 +67,9 @@ Selektor `:invalid:not(form)` vyberá všetky prvky, ktoré majú priradenú pse
 
 Týmto sme vyčerpali možnosti, ktoré máme pre validáciu s použitím výlučne HTML5 bez JavaScriptu. Ešte by sme chceli poznamenať:
 
->- V súčasnosti neexistuje spôsob, ktorým vieme iba pomocou HTML zadefinovať obsah chybových hlášok.
->- Nie je možné zablokovať tlačítko pre odoslanie.
->- Neexistuje spôsob, akým zobrazíme všetky chybové hlášky súčasne.
+- V súčasnosti neexistuje spôsob, ktorým vieme iba pomocou HTML zadefinovať obsah chybových hlášok.
+- Nie je možné zablokovať tlačítko pre odoslanie.
+- Neexistuje spôsob, akým zobrazíme všetky chybové hlášky súčasne.
 
 ### Validácia pomocou JavaScriptu
 
@@ -140,11 +140,14 @@ V prípade, že chyba nenastala, môžeme element `errorEle` vymazať z DOM `err
 
 Zvyčajne by sme kontrolu, či je nejaká premenná `null` robili nasledovne:
 
+<div class="end">
+
 ```javascript
 if (nieco == null) {
     nieco.ahoj();
 }
 ```
+</div>
 
 Tento zápis vieme zjednodušiť na `nieco?.ahoj()` pomocou [*optional chaining* operátora](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining).
 
@@ -211,7 +214,9 @@ CSS pre chybovú hlášku bude nasledovné:
 }
 ```
 
-Teraz musíme po načítaní HTML pridať validačné funkcie. Ako prvú pridáme validáciu toho, či je pole `Meno` zadané. V nej budeme kontrolovať, či je hodnota tohto vstupného elementu `null` alebo dĺžka väčšia ako `0` znakov. Tu je HTML kód v kombinácii s JavaScriptom:
+Po načítaní HTML musíme pridať validačné funkcie. Ako prvú pridáme validáciu toho, či je pole `Meno` zadané. V nej budeme kontrolovať, či je hodnota tohto vstupného elementu `null` alebo dĺžka väčšia ako `0` znakov. Tu je HTML a JavaScript kód:
+
+<div class="end">
 
 ```html
 <label for="meno">Meno:</label>
@@ -229,18 +234,24 @@ Teraz musíme po načítaní HTML pridať validačné funkcie. Ako prvú pridám
     });
 }
 ```
+</div>
 
-Validácia sa nebude chovať úplne podľa nášho zámeru, nakoľko ku kontrole dôjde až pri zmene hodnoty daného vstupného elementu. Fungovanie bude nasledovne:
+Validácia sa nebude chovať úplne podľa nášho zámeru, nakoľko ku kontrole dôjde až pri zmene hodnoty daného vstupného elementu. 
+
+<div style="page-break-after: always;"></div>
+
+Fungovať to bude nasledovne:
 
 ![Kontrola formulára nastane až pri zmene hodnoty](images_form-check/form-check-01.gif)
 
 Najjednoduchším spôsobom ako spustiť validáciu po jej pridaní je umelo vyvolať `oninput` udalosť. To zrealizujeme volaním `element.dispatchEvent(new Event('input'));`. Kód funkcie `validateInput()` bude upravený na nasledovný:
 
+<div class="end">
+
 ```javascript
 function validateInput(element, validationFunction) {
     element.oninput = function (event) {
         let result = validationFunction(event.target.value);
-
         let erId = "er-" + element.id;
         let errorEle = document.getElementById(erId);
 
@@ -261,6 +272,7 @@ function validateInput(element, validationFunction) {
     element.dispatchEvent(new Event('input'));
 }
 ```
+</div>
 
 Pre vytvorenie lepšieho používateľského komfortu našej validácie doplníme vizuálne označenie, ktoré zmení farbu elementu `label` a rámčeka `input` na červenú farbu. Budeme musieť ale upraviť aj HTML kód. Každú dvojicu `label` a `input` vložíme do `div` elementu. Budeme tak mať kontrolu nad tým, pre ktoré elementy chceme zobrazenie upraviť:
 
@@ -328,7 +340,7 @@ Ako ďalšie doplníme nad tlačidlo `Odoslať` hlášku informujúcu používat
 <input type="submit" value="Odoslať" id="submit">
 ```
 
-a CSS:
+a CSS kód:
 
 ```css
 #submit-info {
@@ -339,9 +351,9 @@ a CSS:
 }
 ```
 
-Kontrolu stavu formulára budeme vykonávať po každej rozpoznanej zmene vstupu s validáciou, preto pre lepšiu prehľadnosť kódu vytvoríme novú funkciu `checkFormState()`. Najprv skontrolujeme, či `form` obsahuje chybové hlášky a ak áno, tak zablokujeme tlačidlo pre odoslanie a zobrazíme hlášku. V opačnom prípade tlačidlo odblokujeme a hlášku skryjeme.
+Kontrolu stavu formulára budeme vykonávať po každej zmene vstupu s validáciou, preto vytvoríme novú funkciu `checkFormState()`. Najprv skontrolujeme, či `form` obsahuje chybové hlášky a ak áno, tak zablokujeme tlačidlo pre odoslanie a zobrazíme hlášku. V opačnom prípade tlačidlo odblokujeme a hlášku skryjeme.
 
-> Element sa dá zablokovať, resp. odblokovať nastavením jeho atribútu `disabled=true`, resp. `disabled=false`.
+Element sa dá zablokovať, resp. odblokovať nastavením jeho atribútu `disabled=true`, resp. `disabled=false`.
 
 Funkcia `checkFormState()` bude obsahovať nasledovný kód:
 
@@ -452,6 +464,8 @@ validateInput(document.getElementById("sprava"), function (value = null) {
     }
 });
 ```
+
+<div style="page-break-after: always;"></div>
 
 Výsledok bude vyzerať nasledovne:
 

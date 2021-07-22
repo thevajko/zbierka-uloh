@@ -1,5 +1,5 @@
 body {
-    background-image: url("../img/sky.jpg");
+    background-image: url("img/sky.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
@@ -8,7 +8,7 @@ body {
 }
 
 .sun {
-    background-image: url("../img/sun.png");
+    background-image: url("img/sun.png");
     background-repeat: no-repeat;
     width: 256px;
     height: 256px;
@@ -19,7 +19,7 @@ body {
 }
 
 .bird{
-    background-image: url("../img/bird.png");
+    background-image: url("img/bird.png");
     background-repeat: no-repeat;
     background-size: contain;
     width: 150px;

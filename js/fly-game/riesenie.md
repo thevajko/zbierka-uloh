@@ -35,12 +35,15 @@ Najprv si vytvoríme hraciu plochu. Tento súbor bude veľmi jednoduchý, nebude
 
 Najprv nastavíme vnútorné a vonkajšie odsadenie na `0`, aby hracia plocha tvorila celé klientske okno prehliadača a všetky elementy mali tieto hodnoty nastavené na `0`.
 
+<div class="end">
+
 ```css
 * {
     padding: 0;
     margin: 0;
 }
 ```
+</div>
 
 Pomocou CSS štýlu si vytvoríme aj hraciu plochu, ktorú roztiahneme na celú šírku klientskeho okna prehliadača. Použijeme na to jednotky `vw` a `vh`, ktoré sa používajú na určenie relatívnej veľkosti elementu voči oknu prehliadača (*viewport*). 100% šírky okna je `100vw` a 100% výšky je `100vh`.
 
@@ -103,6 +106,8 @@ Ostatné použité štýly len formátujú zobrazenie skóre a času hry. Výsle
 }
 ```
 
+<div style="page-break-after: always;"></div>
+
 Výsledková tabuľa bude vyzerať nasledovne:
 
 ![Výsledková tabuľa hry](images_fly-game/score.png)
@@ -154,6 +159,8 @@ constructor(interval = 1000)
 
 V tejto triede budeme potrebovať dve metódy. Jednu na spustenie časovača a druhú na jeho zastavenie. Spustenie časovača je jednoduchá operácia, ktorá zavolá metódu `window.setInterval()` s parametrami `handler`, čo je buď názov metódy, alebo funkcie, ktorá sa má zavolať, ale v princípe to môže byť ľubovolný JavaScript kód a *čas v milisekundách*, v akom sa pravidelne bude tento kód spúšťať. Pred tým však ešte časovač vypneme, aby sme eliminovali viacnásobné spustenie toho istého časovača. Do atribútu `timerId` si uložíme vytvorený časovač na neskoršie použitie. Pri tomto zápise si môžeme všimnúť, že na definíciu metód v JavaScripte sa nepoužíva kľúčové slovo `function`.
 
+<div class="end">
+
 ```javascript
 start()
 {
@@ -161,6 +168,7 @@ start()
     this.timerId = window.setInterval(this._callback, this.interval);
 }
 ```
+</div>
 
 Metóda `stop()` bude mať za úlohu zastavenie časovača. Obsahom metódy je len kontrola, či časovač beží (vtedy nemá atribút `timerId` nastavenú hodnotu na `null`) a ak beží, tak ho volaním metódy `clearInterval()` zastavíme a atribút `timerId` nastavíme na `null`.
 
@@ -450,11 +458,14 @@ Celá štruktúra príkladu je zobrazená na tomto obrázku:
 
 ![Adresárová štruktúra riešenia](images_fly-game/structure.png)
 
-> **Pozor!** Pokiaľ použijeme riešenie s modulmi, skript v HTML musíme naimportovať s atribútom `type="module"`. Inak sa skript obsahujúci moduly nenaimportuje. Na spustenie hry budeme potrebovať okrem prehliadača aj nejaký webový server. Pri použití modulov **nie je možné** JavaScript spúšťať bez použitia webového servera.
+**Pozor!** Pokiaľ použijeme riešenie s modulmi, skript v HTML musíme naimportovať s atribútom `type="module"`. Inak sa skript obsahujúci moduly nenaimportuje. Na spustenie hry budeme potrebovať okrem prehliadača aj nejaký webový server. Pri použití modulov **nie je možné** JavaScript spúšťať bez použitia webového servera.
+
+<div class="end">
 
 ```html
 <script type="module" src="js/main.js"></script>
 ```
+</div>
 
 Hru v prehliadači spustíme kliknutím na tlačidlo `Start`. Po spustení hry uvidíme muchy na hracej ploche, kurzor sa zmení na mucholapku a môžeme začať hrať:
 

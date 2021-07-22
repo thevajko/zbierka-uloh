@@ -173,6 +173,8 @@ class Uploader
 
 V metóde `sendZipFile()` vymažeme nahraté súbory a nastavíme odpoveď servera tak, aby prehliadač ponúkol používateľovi dialógové okno na uloženie alebo otvorenie komprimovaného archívu. Toto dosiahneme nastavením HTTP hlavičiek tak, že súbor posielaný zo servera bude MIME typu `application/zip`. Hlavička `Content-Disposition` prehliadaču pošle názov súboru. V ďalšom kroku vytvorený archív vypíšeme príkazom `echo`, čím zabezpečíme, že sa dostane tok dát cez webový server na prehliadač. Nakoniec dočasný súbor s archívom vymažeme.
 
+<div class="end">
+
 ```php
 class Uploader
 {
@@ -190,6 +192,7 @@ class Uploader
     }
 }
 ```
+</div>
 
 ### Integrácia riešenia do `index.php`
 
@@ -279,6 +282,8 @@ Tým je aplikácia hotová. Na nasledovnom obrázku je možné vidieť jej vzhľ
 
 ![Počiatočný stav aplikácie (žiadne súbory neboli nahraté)](images_zipper/no_files.png)
 
+<div style="page-break-after: always;"></div>
+
 Používateľ postupne pridal 5 súborov do archívu:
 
 ![Používateľ nahral 5 súborov na server](images_zipper/5_files_uploaded.png)
@@ -300,7 +305,7 @@ Existuje však jednoduchšie riešenie. Základným problémom webových apliká
 
 Riešením je nájsť spôsob, ako označiť žiadosť z prehliadača tak, aby serveru bolo jasné, že žiadosť súvisí z inou žiadosťou z toho istého prehliadača. Tento spôsob však netreba nanovo vymýšľať, pretože už existuje a nazýva sa **cookies**.
 
-> *Cookies* sú HTTP hlavičky, ktoré vieme zo servera poslať na prehliadač, ten si ich zapamätá a s každou požiadavkou nám ich pošle späť na server, kde ich vieme spracovať. 
+*Cookies* sú HTTP hlavičky, ktoré vieme zo servera poslať na prehliadač, ten si ich zapamätá a s každou požiadavkou nám ich pošle späť na server, kde ich vieme spracovať. 
 
 Ak si do takéhoto *cookie* napr. vložíme jednoznačný identifikátor používateľa, na serveri vždy budeme vedieť, od koho súbory pochádzajú.
 
@@ -353,6 +358,8 @@ V podobnom duchu budeme musieť upraviť aj metódu `getFilesList()`, aby vracal
 
 Nakoniec zostávajúce názvy súborov zbavíme identifikátora a pomlčky, aby sme dostali pôvodné názvy (funkcia `array_map()` vykoná definovanú operáciu nad každým prvkom poľa). Pri obidvoch funkciách využijeme **arrow funkcie** z jazyka PHP, aby sme kód zjednodušili. Ako parameter obe majú jeden prvok poľa, ktorý pri danej iterácii spracujú. Vyhneme sa tak písaniu cyklu, v ktorom by sme obidve operácie riešili.
 
+<div class="end">
+
 ```php
 class Uploader
 {
@@ -366,6 +373,7 @@ class Uploader
     // ...
 }
 ```
+</div>
 
 Pretože sme si oddelili prístup k názvom súborov do samostatnej metódy `getFullFileNameWithDir()` zostávajúce `saveUploadedFile()`, `zipAndDownload()` a `sendZipFile()` nemusíme meniť.
 
