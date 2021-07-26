@@ -352,7 +352,7 @@ class Uploader
 }
 ```
 
-Výsledný názov súbor potom, napr. pre súbor `1.txt`, bude `3ee22b7b69591e19406b001137397953ac882d5e-1.txt`.
+Po zavolaní metódy sa vygeneruje jedinečný názov súboru. Napr. pre súbor `1.txt` to bude `3ee22b7b69591e19406b001137397953ac882d5e-1.txt`.
 
 V podobnom duchu budeme musieť upraviť aj metódu `getFilesList()`, aby vracala len zoznam súborov, ktorý má predponu zhodnú s identifikátorom používateľa (využijeme funkciu `array_filter()`, ktorá vstupné pole prefiltruje a vráti len tie prvky, ktoré spĺňajú zadané kritérium). 
 

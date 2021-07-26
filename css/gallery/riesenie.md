@@ -363,13 +363,13 @@ Posledným problémom, ktorý musíme vyriešiť je, že akonáhle sme posunuli 
 
 ![Zobrazený posuvník pri animácii textu](images_gallery/riesenie14.jpg)
 
-Na obrázku vyššie môžeme vidieť, ako sa v pravom dolnom obrázku postupne nasúva text a počas tejto animácie vidíme zobrazený posuvník napravo. Po skončení animácie posuvník zmizne.
+Na obrázku vyššie vidno, ako sa v pravom dolnom rohu obrázku postupne nasúva text a zároveň vidíme zobrazený posuvník napravo. Po skončení animácie posuvník zmizne.
 
 Ak nastavíme pozadie stránky na tmavú farbu, môžeme presne vidieť, čo sa deje:
 
 ![Dôvod zobrazenia posuvníka](images_gallery/riesenie15.jpg)
 
-Text sa zobrazuje v skutočnosti mimo elementu obrázku. Tento problém môžeme vyriešiť tak, že hlavnému elementu obrázku nastavíme hodnotu CSS parametra `overflow` na `hidden`. To spôsobí, že ak obsah elementu presahuje jeho veľkosť, tak sa posuvníky nezobrazia.
+Text sa zobrazuje v skutočnosti mimo elementu obrázku. Tento vyriešime tak, že hlavnému elementu obrázku nastavíme hodnotu CSS parametra `overflow` na `hidden`. To spôsobí, že ak obsah elementu presahuje jeho veľkosť, tak sa posuvníky nezobrazia.
 
 ```css
 .photo {
