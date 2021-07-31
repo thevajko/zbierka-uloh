@@ -42,6 +42,7 @@ Následne je potrebné tieto elementy naštýlovať, aby sa zobrazili ako biliar
 
 Okrem farby sme elementom nastavili aj CSS vlastnosť `position`. Guľa má nastavenú hodnotu na `absolute`, aby sme ju pomocou CSS vlastností `top` a `left` mohli umiestniť na ľubovolné miesto v rámci stola. Stolu sme museli nastaviť hodnotu na `relative`, aby sme mohli guľu umiestňovať absolútne vzhľadom na stôl.
 <div style="page-break-after: always;"></div>
+
 Výsledok bude vyzerať nasledovne:
 
 ![Zobrazenie gule a stola](images_pool/riesenie1.png)
@@ -71,7 +72,7 @@ Jednotlivé hodnoty v tomto zápise majú nasledovný význam:
 
 - `y-axis` - názov animácie, ktorú sme si zadeklarovali pomocou kľúčového slovíčka `@keyframes`.
 - `3.3s` - čas trvania animácie. Počas tohto času bude guľa plynule meniť svoju pozíciu na osi `Y`.
-- `linear` - takzvaná *timing* funkcia. Táto funkcia popisuje spôsob, akým sa v čase bude meniť hodnota. Funkcia `linear` bude meniť hodnotu lineárne. Pre zaujímavejšie animácie sa dajú použiť definície *timing* funkcie pomocou *kubickej beziérovej krivky*. Takúto funkciu si môžete vygenerovať napríklad na stránke [cubic-bezier.com](https://cubic-bezier.com).
+- `linear` - tzv. *timing* funkcia. Táto funkcia popisuje spôsob, akým sa v čase bude meniť hodnota. Funkcia `linear` bude meniť hodnotu lineárne. Pre zaujímavejšie animácie sa dajú použiť definície *timing* funkcie pomocou *kubickej beziérovej krivky*. Takúto funkciu si môžete vygenerovať napríklad na stránke [cubic-bezier.com](https://cubic-bezier.com).
 - `alternate` - definuje smer animácie (`animation-direction`). Tento smer môže byť od začiatku po koniec, od konca po začiatok, alebo v našom prípade `alternate` bude animáciu prehrávať tam a späť.
 - `infinite` - definuje počet opakovaní animácie. V našom prípade chceme, aby sa guľa odrážala, dokým neopustíme stránku.
 
@@ -99,4 +100,4 @@ Pokiaľ chceme jednému elementu pridať viacero animácií, tak ich v zápise p
 }
 ```
 
-Ako vidno z CSS pravidla vyššie, aj druhá animácia používa rovnaké parametre. Jediným rozdielom je trvanie animácie. Animácia na vodorovnej osi trvá 2s a animácia na zvislej osi trvá 3.3s. Ak chceme experimentovať, tieto časy môžeme meniť. Zmení sa nám tým uhol, pod ktorým sa bude guľa odrážať od hrán stola.
+Ako vidno z CSS pravidla vyššie, aj druhá animácia používa rovnaké parametre. Jediným rozdielom je trvanie animácie. Animácia na vodorovnej osi trvá 2s a animácia na zvislej osi trvá 3.3s. Ak chceme experimentovať, môžeme tieto časy meniť. Zmení sa nám tým uhol, pod ktorým sa bude guľa odrážať od hrán stola.

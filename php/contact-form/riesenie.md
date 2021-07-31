@@ -42,7 +42,7 @@ Kontaktný formulár si pripravíme v HTML súbore `index.php`. Bude obsahovať 
 </div>
 ```
 
-Meno je textové pole. Email je tiež textové pole, ktorému sme nastavili atribút `type="email"`. Na text správy sme použili element `textarea`, ktorý umožní napísať viac riadkov textu. Ďalšou časťou je definícia základného CSS, ktoré umožní zobraziť formulár tak, ako bol definovaný v zadaní. Samotný formulár má nastavený atribút `method="POST"`, čo znamená, že dáta budú odosielané HTTP metódou POST. Okrem toho sme nikde nešpecifikovali atribút `action`, takže tento formulár sa odošle na rovnakú URL adresu, na ktorej sa aktuálne nachádza formulár.
+Meno je textové pole. Email je tiež textové pole, ktorému sme nastavili atribút `type="email"`. Na text správy sme použili element `textarea`, ktorý umožňuje napísať viac riadkov textu. Ďalšou časťou je definícia základného CSS, ktoré umožní zobraziť formulár tak, ako bol definovaný v zadaní. Samotný formulár má nastavený atribút `method="POST"`, čo znamená, že dáta budú odosielané HTTP metódou POST. Okrem toho sme nikde nešpecifikovali atribút `action`, takže tento formulár sa odošle na rovnakú URL adresu, na ktorej sa nachádza.
 
 ```css
 .contact-form input, .contact-form label, .contact-form textarea {
@@ -59,6 +59,7 @@ Meno je textové pole. Email je tiež textové pole, ktorému sme nastavili atri
 Každému prvku tohto nášho formulára sme nastavili `display: block` preto, aby sme mali jednotlivé elementy zobrazené pekne pod sebou. Okrem toho sme pridali ďalšie štýlovanie, nastavili sme pomocou `margin-top` rozostup medzi prvkami a pomocou `height` sme nastavili predvolenú výšku poľa na text správy.
 
 ### Validácia formulára na strane servera
+
 Pri nesprávnych hodnotách je potrebné preskočiť posielanie emailu a vrátiť používateľovi formulár späť, aj s informáciou o chybách. Keďže formulár odosielame na rovnakú adresu, kde sa aktuálne nachádza, môžeme pridať validáciu na začiatok tohto súboru.
 
 Pre jednoduchosť príkladu budeme uvažovať, že nasledovný kód je v súbore `index.php`, v ktorom sa aktuálne nachádza aj HTML kód formuláru. Pri zložitejšej aplikácii je vhodné určité spoločné funkcionality oddeliť do samostatných súborov, a tieto vkladať do stránky pomocou príkazov `include` alebo `require`. 
@@ -238,9 +239,9 @@ Ak sme odoslali formulár a nemáme žiadnu validačnú chybu, tak zobrazíme sp
 
 ### Rady na záver
 
-Prezentovaný HTML formulár obsahuje len jednoduchú validáciu. Pre reálne nasadenie by bolo vhodné pridať ďalšie validačné pravidlá na napr. obsah správy. Aktuálny formulár neobsahuje žiadnu ochranu proti robotom (*botom*), takže takýto formulár môže spôsobiť záplavu spamu v emailovej schránke. Bolo by pre to vhodné implementovať nejakú ochranu proti robotom - napríklad zobrazenie formuláru až po prihlásení alebo použitie systému [reCAPTCHA](https://www.google.com/recaptcha/about/) od Google.
+Prezentovaný HTML formulár obsahuje len jednoduchú validáciu. Pre reálne nasadenie by bolo vhodné pridať ďalšie validačné pravidlá napr. na obsah správy. Aktuálny formulár neobsahuje žiadnu ochranu proti robotom (*botom*), takže takýto formulár môže spôsobiť záplavu spamu v emailovej schránke. Bolo by pre to vhodné implementovať nejakú ochranu proti robotom - napríklad zobrazenie formuláru až po prihlásení alebo použitie systému [reCAPTCHA](https://www.google.com/recaptcha/about/) od Google.
 
-V našom príklade sme nastavili mail tak, že u príjemcu to vyzerá tak, že mail bol odoslaný z adresy, ktorú zadal používateľ v kontaktnom formulári. Takéto emaily ale v dnešnej dobe väčšina hostingových providerov nepodporuje, a vyžadujú, aby maily boli odosielané z domény, na ktorej daný web beží. V tomto prípade vieme upraviť odosielanie tak, aby mail odišiel z adresy, ktorá patrí danému webu, ale zároveň aby sme nestratili kontakt na odosielajúceho používateľa.
+V našom príklade sme nastavili mail tak, že u príjemcu to vyzerá tak, že mail bol odoslaný z adresy, ktorú zadal používateľ v kontaktnom formulári. Takéto emaily ale v dnešnej dobe väčšina hostingových providerov nepodporuje a vyžadujú, aby maily boli odosielané z domény, na ktorej daný web beží. V tomto prípade vieme upraviť odosielanie tak, aby mail odišiel z adresy, ktorá patrí danému webu, ale zároveň, aby sme nestratili kontakt na odosielajúceho používateľa.
 
 ```php
 mail(
@@ -256,4 +257,4 @@ Takto odoslaná správa bude vyzerať nasledovne:
 
 ![Upravený odosielateľ v hlavičke mailu](images_contact-form/mail2.png)
 
-Do tela správy sme doplnili meno odosielateľa a pomocou hlavičky `Reply-To` sme špecifikovali adresu pre odpoveď. Vďaka tomu, keď nám príde správa z kontaktného formulára a v mail klientovi naň odpovieme, tak táto odpoveď pôjde automaticky na adresu nášho používateľa a nie na adresu nášho servera (`my@myserver.sk`), ktorý je špecifikovaný ako odosielateľ.
+Do tela správy sme doplnili meno odosielateľa a pomocou hlavičky `Reply-To` sme špecifikovali adresu pre odpoveď. Vďaka tomu, keď nám príde správa z kontaktného formulára a v mailovom klientovi naň odpovieme, tak táto odpoveď pôjde automaticky na adresu nášho používateľa a nie na adresu nášho servera (`my@myserver.sk`), ktorý je špecifikovaný ako odosielateľ.

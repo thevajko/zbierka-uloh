@@ -21,7 +21,7 @@ Ako prvé je potrebné zistiť, ako sa počíta faktoriál. Na webe, napr. na st
 </div>
 
 
-Na stránkach Wikipédie nájdeme dva *pseudokódy* s cyklom a použitím rekurzie. V tomto riešení si vyberieme nerekurzívny pseudo-kód, ktorý vyzerá nasledovne:
+Na stránkach Wikipédie nájdeme dva *pseudokódy* s cyklom a použitím rekurzie. V tomto riešení si vyberieme nerekurzívny pseudokód, ktorý vyzerá nasledovne:
 
 ```c
 long double factorial (int n) {

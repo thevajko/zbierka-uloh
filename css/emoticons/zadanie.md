@@ -15,7 +15,7 @@
 
 **Obťažnosť**: 4/5
 
-**Obsah príkladu**: CSS vlastnosti - veľkosť, pozícia, rámčeky, transformácie, funkcia `calc()`, CSS vrstvy, CSS premenné a použitie pseudotried `::before` a `::after`.
+**Obsah príkladu**: CSS vlastnosti - veľkosť a pozícia, rámčeky, transformácie, funkcia `calc()`, CSS vrstvy, CSS premenné a použitie pseudotried `::before` a `::after`.
 </div>
 
 ## Zadanie

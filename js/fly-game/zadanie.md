@@ -33,4 +33,4 @@ Vytvorte hru, kde bude úlohou hráča triafať muchy meniace svoju pozíciu na 
 1. Skóre sa skladá z dvoch hodnôt:
     - počet trafených múch
     - celkový počet pokusov
-1. Po skončení hry, môže hráč začať novú hru. Skóre sa mu vynuluje.    
+1. Po skončení hry môže hráč začať novú hru. Skóre sa mu vynuluje.    

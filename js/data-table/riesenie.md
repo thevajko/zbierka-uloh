@@ -165,7 +165,7 @@ Pri generovaní obsahu v metóde `JsTable.renderRows()` iba rozšírime kód, kt
 
 Pre každú položku v kolekcii budeme vytvárať samostatný riadok.
 
-Na záver potrebujeme získať hodnoty z každého objektu v kolekcii v poradí, v akom sú popísané v hlavičke. V JavaScripte môžeme pristúpiť k hodnote atribútov objektu cez index. V nasledovnom kóde sú uvedené dve možnosti prístupu k hodnote atribútu:
+Na záver potrebujeme získať hodnoty z každého objektu v kolekcii v poradí, v akom sú obrazené v hlavičke. V JavaScripte môžeme pristúpiť k hodnote atribútov objektu cez index. V nasledovnom kóde sú uvedené dve možnosti prístupu k hodnote atribútu:
 
 ```javascript
 class Trieda {
@@ -212,7 +212,7 @@ Tabuľka teraz vypíše celú kolekciu nasledovne:
 
 ### Zoraďovania podla stĺpca
 
-Zoraďovanie stĺpcov bude aktivované kliknutím na hlavičku. Prvým kliknutím sa záznamy zoradia zostupne a pri opätovnom kliknutí vzostupne. Pre zjednodušenie budeme všetky hodnoty zoraďovať alfabeticky. Pracovať budeme priamo s HTML elementmi, ktoré budeme vytvárať pomocou `document.createElement()`.
+Zoraďovanie stĺpcov bude aktivované kliknutím na hlavičku tabuľky. Prvým kliknutím sa záznamy zoradia zostupne a pri opätovnom kliknutí vzostupne. Pre zjednodušenie budeme všetky hodnoty zoraďovať alfabeticky. Pracovať budeme priamo s HTML elementmi, ktoré budeme vytvárať pomocou `document.createElement()`.
 
 Z tohto dôvodu upravíme metódu `JsTable.renderHeader()` tak, že vytvoríme element `tr` pomocou `document.createElement("tr")`, ktorý definuje riadok tabuľky a budeme do neho následne pridávať `th` podobne ako predtým. Pre pridanie elementu do predka budeme používať metódu `appendChild()`, ktorá vloží element ako posledného potomka. Text, ktorý sa má zobraziť v hlavičke, môžeme vložiť cez atribút `innerHTML` alebo `innerText`. Kód bude vyzerať nasledovne:
 
@@ -270,7 +270,7 @@ Zoraďovanie bude realizované zavolaním metódy `JsTable.sortCollection()`, kd
 
 V JavaScripte vieme zoradiť pole pomocou metódy [`Array.prototype.sort()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort), kde ako voliteľný parameter vložíme funkciu pre porovnanie, ktorá vracia číselný výsledok porovnania.
 
-Pre uľahčenie porovnávania reťazcov obsahuje metódu JavaScript [`String.prototype.localeCompare()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare), ktorá vracia presne výstup vhodný pre naše účely.
+Pre uľahčenie porovnávania reťazcov JavaScript obsahuje metódu [`String.prototype.localeCompare()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare), ktorá vracia presne výstup vhodný pre naše účely.
 
 Pre získanie požadovanej hodnoty atribútu opäť použijeme prístup k atribútu objektu cez index. A ako posledné zavoláme `JsTable.renderTable()`, aby došlo k prekresleniu tabuľky a zobrazila sa zoradená.
 
@@ -289,8 +289,8 @@ sortCollection(filterBy)
 Tabuľka sa momentálne zoradí iba jedným smerom. Doplníme preto do triedy `JsTable` atribút `lastSortedBy`, ktorý bude uchovávať informáciu o tom, podľa ktorého stĺpca bola tabuľka naposledy zoradená. Zoraďovanie by sa dalo popísať nasledovne:
 
 1. Skontrolujme, či `lastSortedBy` sa rovná `null`, alebo či sa nerovná vstupnému parametru `filterBy`:
-    1. Ak *áno*, tak zoradíme stĺpce prvým spôsobom a do `lastSortedBy` vložíme hodnotu `filterBy`
-    2. Ak *nie*, tak zoradíme stĺpce druhým spôsobom a do `lastSortedBy` vložíme hodnotu `NULL`
+    1. Ak *áno*, tak zoradíme stĺpce prvým spôsobom a do `lastSortedBy` vložíme hodnotu `filterBy`.
+    2. Ak *nie*, tak zoradíme stĺpce druhým spôsobom a do `lastSortedBy` vložíme hodnotu `NULL`.
 
 Celá zmena sa týka iba metódy `JsTable.sortCollection()`, ktorá po spomínanej úprave bude vyzerať nasledovne:
 
@@ -338,7 +338,7 @@ Prvá úprava bude zmena toho, akým spôsobom sa bude tabuľka prekresľovať. 
 
 Konštruktor `JsTable` preto upravíme tak, aby sa do `JsTable.HTMLElement` pridal nový element a až do neho budeme vykresľovať tabuľku ako predtým.
 
-Aby sme mohli reagovať na zmenu hodnoty v elemente `input`, pridáme obsluhu udalosti [`oninput`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/input_event), ktorá je vyvolaná vždy, keď používateľ jeho hodnotu vstupného poľa.
+Aby sme mohli reagovať na zmenu hodnoty v elemente `input`, pridáme obsluhu udalosti [`oninput`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/input_event), ktorá je vyvolaná vždy, keď používateľ zmení hodnotu vstupného poľa.
 
 Pokiaľ táto udalosť nastane, tak dodatočné dáta budú dostupné v parametri `event`. Tieto dáta obsahujú aj referenciu na daný element `input`, ktorý potrebujeme, aby sme vedeli získať používateľom vyplnenú hodnotu. Tá je dostupná cez `event.target.value`.
 
@@ -440,10 +440,6 @@ filterCollection(expression)
 }
 ```
 
-<div class="hidden">
-
-Výsledné riešenie bude fungovať nasledovne:
-
-</div>
+Výsledné riešenie bude vyzerať nasledovne:
 
 ![Hotové riešenie s funkčným filtrovaním](images_data-table/tabulka-02.gif)

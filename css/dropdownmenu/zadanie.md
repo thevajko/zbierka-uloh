@@ -15,12 +15,12 @@
 
 **Obťažnosť**: 3/5
 
-**Obsah príkladu**: Tvorba menu, použitie CSS *Flexbox*, CSS vlastnosti `display`, `position`, pokročilé CSS selektory, pseudotrieda `:hover`, pseudoelementy  `::before` a `::after`.
+**Obsah príkladu**: Tvorba menu, použitie CSS *flexbox*, CSS vlastnosti `display`, `position`, pokročilé CSS selektory, pseudotrieda `:hover`, pseudoelementy  `::before` a `::after`.
 </div>
 
 ## Zadanie
 
-Cieľom úlohy je vytvoriť roletové menu, aké bežne obsahujú desktopové aplikácie. Menu bude možné rozbaliť smerom dolu (*drop-down menu*) alebo smerom hore (*drop-up menu*). Fungovanie menu ukazuje nasledovný obrázok:
+Cieľom úlohy je vytvoriť roletové menu, ktoré bežne používajú desktopové aplikácie. Menu bude možné rozbaliť smerom dolu (*drop-down menu*) alebo smerom hore (*drop-up menu*). Fungovanie menu ukazuje nasledovný obrázok:
 
 ![Ukážka práce s menu](images_dropdownmenu/menu-fung-00.gif)
 
@@ -29,9 +29,9 @@ Menu musí spĺňať nasledovné podmienky:
 1. Prvá úroveň menu je vždy zobrazená na vrchu stránky.
 2. Ďalšie úrovne menu sú viditeľne iba, ak ich používateľ aktivuje kurzorom.
 3. Vizuálne treba indikovať, či dané menu obsahuje podmenu.
-4. Zvýraznite, aké položky menu sú aktivované.
-5. Jednotlivé podmenu zobrazte s jemne odlišnou farbou pozadia, napr. stmavovaním.
-6. Drop-down menu musí byť jednoduchou úpravou zmeniteľné na drop-up menu.
+4. Zvýraznite, ktoré položky menu sú aktivované.
+5. Jednotlivé podmenu zobrazte s jemne odlišnou farbou pozadia, napr. budú tmavšie.
+6. Drop-down menu sa musí dať jednoduchou úpravou zmeniť na drop-up menu.
 
 Počiatočný HTML dokument obsahuje menu zadefinované pomocou štruktúry elementov a vyzerá nasledovne:
 

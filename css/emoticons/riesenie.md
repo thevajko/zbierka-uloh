@@ -78,7 +78,7 @@ Po vytvorení kruhu sa pustíme do štýlovania očí emotikona. Pre oči máme 
 
 CSS pre naštýlovanie očí je veľmi podobné ako pri celom tele emotikona. Obsahuje nastavenie farby pozadia, veľkosti a zaoblenia okrajov. 
 
-Prvá odlišnosť, ktorú si môžete všimnúť, je nastavenie CSS vlastnosti `display` na hodnotu `block`. Ako sme už spomínali, šírka a výška sa aplikuje len na blokové elementy. Oko emotikona používa HTML element `span`, ktorý je riadkovým elementom. Ak chceme, aby sa aj inline element zobrazil ako blokový, musíme mu zmeniť vlastnosť `display`.
+Prvá odlišnosť, ktorú si môžete všimnúť, je nastavenie CSS vlastnosti `display` na hodnotu `block`. Ako sme už spomínali, šírka a výška sa aplikuje len na blokové elementy. Oko emotikona používa HTML element `span`, ktorý je riadkovým elementom. Ak chceme, aby sa aj riadkový element zobrazil ako blokový, musíme mu zmeniť vlastnosť `display`.
 
 Ďalšou odlišnosťou je nastavenie veľkosti očí. Pre nastavenie sme použili relatívne hodnoty pomocou percent. Toto nám umožní v budúcnosti jednoduchšiu zmenu veľkosti celého prvku. Veľkosť očí sme nastavili na `10%` a `15%`, vďaka čomu oči nebudú mať úplne kruhový tvar, ale budú zvislo natiahnuté.
 
@@ -104,7 +104,7 @@ Opäť pri definícii použijeme relatívne jednotky. Ľavé oko bude na pozíci
 }
 ```
 
-Po aplikovaní bude náš emotikon vyzerať nasledovne:
+Po aplikovaní pravidla bude náš emotikon vyzerať:
 
 ![Pridanie oka na správne miesto](images_emoticons/kruh_oci2.png)
 
@@ -120,13 +120,13 @@ V našom prípade môžeme pomocou selektoru `:first-child` vybrať prvé oko a 
 
 Pomocou selektoru `.smiley .eye:first-child` sme zvolili prvý element s triedou `eye`, ktorý sa nachádza ľubovolne vnorený v elemente s triedou `smiley`. Tento selektor len dopĺňa (prepisuje) už doteraz definované vlastnosti pre element s triedou `eye`, takže nemusíme opakovať nastavenie veľkosti farby atď. Jediná zmena, ktorú sme urobili oproti pôvodnému nastaveniu elementu `eye`, bola pozícia zľava a tu sme nastavili na `75%`. Výsledný emotikon bude vyzerať nasledovne:
 
-![Obidbe oči na správnom mieste](images_emoticons/kruh_oci3.png)
+![Obidve oči na správnom mieste](images_emoticons/kruh_oci3.png)
 
-Nabádalo by sa aj použitie CSS pseudotriedy `:last-child`, ale tá v tomto prípade nefunguje, pretože posledný element v emotikonovi nemá triedu `.eye` ale `.mouth`, a tým pádom by sme nevybrali žiadny element.
+Nabádalo by sa aj použitie CSS pseudotriedy `:last-child`, ale tá v tomto prípade nefunguje, pretože posledný element v emotikone nemá triedu `.eye`, ale `.mouth`, a tým pádom by sme nevybrali žiadny element.
 
 #### Zobrazenie úst
 
-Pre zobrazenie úst máme k dispozícii HTML element s triedou `mouth`. Začneme tým, že si tento element zobrazíme, nastavíme mu veľkosť a pozíciu:
+Pre zobrazenie úst máme k dispozícii HTML element s triedou `mouth`. Začneme tým, že si tento element zobrazíme a nastavíme mu veľkosť a pozíciu:
 
 ```css
 .smiley .mouth {
@@ -156,7 +156,7 @@ Veľkosť sme nastavili na `60%` z rozmeru emotikona. Následne sme element umie
 
 ![Úprava úst](images_emoticons/kruh_usta2.png)
 
-Výsledok sa už takmer podobá zadaniu, ibaže naše ústa nemajú pevné ohraničenie, ale idú "dostratena". Tento efekt je spôsobený tým, ako fungujú rámčeky. Ak máme rámček len na jednej strane, tento rámček sa pri zaoblených elementoch na krajoch tzv. zlieva.
+Výsledok sa už takmer podobá zadaniu, ibaže naše ústa nemajú pevné ohraničenie, ale idú "do stratena". Tento efekt je spôsobený tým, ako fungujú rámčeky. Ak máme rámček len na jednej strane, tento rámček sa pri zaoblených elementoch na krajoch tzv. zlieva.
 
 Pre lepšie pochopenie uvedieme ďalšiu ukážku. Máme nasledovný CSS kód:
 
@@ -216,7 +216,7 @@ Okrem pridania vlastnosti `box-sizing` sme upravili pozíciu tak, že ústa sme 
 
 ### Vytvorenie smutného emotikona
 
-Smutný emotikon sa od toto základného líši len v tom, že má ústa obrátené naopak. Táto zmena bude veľmi jednoduchá, pretože nám stačí namiesto spodného rámčeka úst zobraziť horné, a posunúť ústa na správne miesto.
+Smutný emotikon sa od toto základného líši len v tom, že má ústa obrátené naopak. Táto zmena bude veľmi jednoduchá, pretože nám stačí namiesto spodného rámčeka úst zobraziť horné a posunúť ústa na správne miesto.
 
 ```css
 .smiley.sad .mouth {
@@ -447,7 +447,7 @@ Posledným typom emotikona je emotikon otočený o 180 stupňov. Túto úpravu m
 
 ### Definícia ďalších rozmerov
 
-Ďalšie rozmery emotikona budeme definovať pomocou CSS tried `s-100`, `s-250` a `s-500`. Na pri vytváraní emotikonov sme využívali relatívne rozmery, tak by mohlo stačiť jednotlivé triedy deklarovať nasledovne:
+Ďalšie rozmery emotikona budeme definovať pomocou CSS tried `s-100`, `s-250` a `s-500`. Na vytváranie emotikonov sme využívali relatívne rozmery, tak by mohlo stačiť jednotlivé triedy deklarovať nasledovne:
 
 ```css
 .smiley.s-250 {
@@ -524,7 +524,7 @@ Definíciu základného emotikona môžeme upraviť nasledovne:
 }
 ```
 
-Do deklarácie sme pridali CSS premennú `--size`, ktorej hodnotu sme nastavili na `50px`. Pokiaľ chceme použiť túto premennú ako hodnotu nejakej vlastnosti, musíme použiť funkciu `var`. Ďalšia zaujímavá funkcia, ktorú sme v tomto príklade použili, je funkcia `calc()`. Táto funkcia slúži na výpočet hodnoty. V našom prípade bude šírka rámčeka vypočítaná ako veľkosť elementu vydelená 25. Rovnakú premennú môžeme používať vo všetkých potomkoch emotikona, takže upravíme veľkosť rámčeka aj pre ústa nasledovne:
+Do deklarácie sme pridali CSS premennú `--size`, ktorej hodnotu sme nastavili na `50px`. Pokiaľ chceme použiť túto premennú ako hodnotu nejakej vlastnosti, musíme použiť funkciu `var()`. Ďalšia zaujímavá funkcia, ktorú sme v tomto príklade použili, je funkcia `calc()`. Táto funkcia slúži na výpočet hodnoty. V našom prípade bude šírka rámčeka vypočítaná ako veľkosť elementu vydelená 25. Rovnakú premennú môžeme používať vo všetkých potomkoch emotikona, takže upravíme veľkosť rámčeka aj pre ústa nasledovne:
 
 ```css
 .smiley .mouth {

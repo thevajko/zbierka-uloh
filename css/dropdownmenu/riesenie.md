@@ -43,7 +43,7 @@ Zoznam sa dá v HTML definovať dvomi značkami: `ul` (nečíslovaný zoznam) a 
 
 Začiatočníckou chybou je zmena hodnoty `display` na `display: inline-block`. Aj keď sa položky zobrazia vedľa seba, vytvára sa medzi nimi nežiadúca medzera. Ale prečo? Je to dôsledok toho, akým spôsobom prehliadač zobrazuje riadkové (*inline*) elementy. Vieme, že prehliadač ignoruje viacnásobné medzery a zalomenia. V tomto prípade, vzhľadom na štruktúru, sú medzi jednotlivými elementmi `li` znaky ako zalomenia, medzery a tabulátory interpretované ako medzery.
 
-Aby sme to názorne predviedli, stačí si niekde do kódu stránky vložiť nasledovný HTML kód <span class="hidden"> (alebo otvoriť [fiddle](https://jsfiddle.net/meshosk/Legh36td)) </span>:
+Aby sme to názorne predviedli, stačí si niekde do kódu stránky vložiť nasledovný HTML kód<span class="hidden"> (alebo otvoriť [fiddle](https://jsfiddle.net/meshosk/Legh36td)) </span>:
 
 ```html
 <div>
@@ -63,7 +63,7 @@ Výsledok bude:
 jeden dva tri styri text text text
 ```
 
-Výsledkom tejto štruktúry bude postupnosť jednotlivých textov v riadku oddelených v medzerami. Pokiaľ chceme medzeru odstrániť, musíme jednotlivé elementy dať ihneď za sebou<span class="hidden">( otvoriť [fiddle](https://jsfiddle.net/meshosk/p2atzwkd ))</span>:
+Výsledkom tejto štruktúry bude postupnosť jednotlivých textov v riadku oddelených v medzerami. Pokiaľ chceme medzeru odstrániť, musíme jednotlivé elementy dať hneď za sebou<span class="hidden">( otvoriť [fiddle](https://jsfiddle.net/meshosk/p2atzwkd ))</span>:
 
 ```html
 <div>
@@ -124,7 +124,7 @@ Teraz musíme doplniť zobrazenie zoznamu tak, aby vizuálne pripomínalo menu, 
 
 Ako prvé zmeníme farbu pozadia menu, budeme formátovať element `div` s `id="menu"`.
 
-Značky `ul` a `li` by mali definovať iba štruktúru menu. Definujeme preto farbu pozadia a odsadenie iba pre elementy `span` tak, aby bolo ľahké pre používateľa určiť, ktorý text predstavuje, ktorú položku menu.
+Značky `ul` a `li` by mali definovať iba štruktúru menu. Definujeme preto farbu pozadia a odsadenie iba pre elementy `span` tak, aby bolo ľahké pre používateľa určiť, ktorý text predstavuje ktorú položku menu.
 
 Jedinú výnimku bude tvoriť formátovanie elementu `ul` druhej a ďalšej úrovne, ktorým neskôr pridáme formátovanie v podobe rámčeka a pozadia. Samozrejme, problému sa dá predísť vytvorením obaľovacieho elementu pre ďalšie úrovne. V našom prípade sme ale chceli mať v príklade čo najjednoduchšiu štruktúru.
 
@@ -132,7 +132,7 @@ Pre odstránenie problémov s odsadením môžeme v našom prípade urobiť tzv.
 
 Následne ešte musíme upraviť zobrazenie elementov `li` tak, aby sa nezobrazovali ako položky menu a elementy `span`, aby sa zobrazovali ako blokové značky (inak im nebude možné zadefinovať rozmer a odsadenie).
 
-Vzhľadom na to, že výsledkom úlohy je menu, bude dobrý nápad zamedziť automatické zalamovanie textu v `span`. To urobíme tak, že `span` elementom doplníme CSS vlastnosť `white-space: nowrap;`.CSS bude teda nasledovné:
+Vzhľadom na to, že výsledkom úlohy je menu, bude dobrý nápad zamedziť automatické zalamovanie textu v `span`. To urobíme tak, že `span` elementom doplníme CSS vlastnosť `white-space: nowrap;`. CSS bude teda nasledovné:
 
 ```css
 * {
@@ -225,7 +225,7 @@ Ako je vidieť na nasledujúcom obrázku, menu správne funguje, ale iba po druh
 
 ## Ďalšie úrovne menu
 
-Aby sa nám správne zobrazili menu druhej úrovne, je potrebné upraviť spôsob určovania ich pozície. Nasledujúce podmenu sa má zobraziť výškovo zarovno s položkou napravo od nej. To docielime nasledovným CSS pravidlom:
+Aby sa nám správne zobrazili položky menu druhej úrovne, je potrebné upraviť spôsob určovania ich pozície. Nasledujúce podmenu sa má zobraziť výškovo zarovno s položkou napravo od nej. To docielime nasledovným CSS pravidlom:
 
 ```css
 ul ul ul {
@@ -234,7 +234,7 @@ ul ul ul {
 }
 ```
 
-Nastavenie CSS vlastnosti `top: 0` určuje, ako sa má podmenu zobraziť vertikálne zarovno s elementom `li`, v ktorom sa nachádza. Vlastnosť `left: 100%` umiestňuje podmenu o `100%` veľkosti rodičovského elementu `li` zľava. Výsledok pridania tohto pravidla je nasledovný:
+Nastavenie CSS vlastnosti `top: 0` určuje, že sa má podmenu zobraziť vertikálne zarovno s elementom `li`, v ktorom sa nachádza. Vlastnosť `left: 100%` umiestňuje podmenu o `100%` veľkosti rodičovského elementu `li` zľava. Výsledok pridania tohto pravidla je nasledovný:
 
 ![Pridané ďalšie úrovne menu](images_dropdownmenu/menu-fung-02.gif)
 
@@ -257,13 +257,13 @@ Pre zlepšenie používateľského komfortu je veľmi vhodné používateľovi n
 
 Pre doplnenie tohto indikátora existuje viacero spôsobov:
 
-- Doplnenie nového elementu do HTML, ktorý daný znak doplní 
-- Namiesto pridania elementu stačí vytvoriť CSS pravidlo a následne túto triedu doplniť do atribútu `class` daného elementu
-- Ak máme štruktúru pevne danú, môžeme doplniť tento znak CSS selektorom
+- Doplnenie nového elementu do HTML, ktorý daný znak doplní. 
+- Namiesto pridania elementu stačí vytvoriť CSS pravidlo a následne túto triedu doplniť do atribútu `class` daného elementu.
+- Ak máme štruktúru pevne danú, môžeme doplniť tento znak CSS selektorom.
 
-V našom prípade sa pokúsime o aplikovanie poslednej možnosti. Použitím selektora `ul ul span:not(:only-child)::after`, ktorý môžeme popísať nasledovne:
+V našom prípade sa pokúsime o aplikovanie poslednej možnosti, a to použitím selektora `ul ul span:not(:only-child)::after`, ktorý môžeme popísať nasledovne:
 
-- `ul ul span` - sa aplikuje na všetky elementy `span` od druhej úrovne
+- `ul ul span` - sa aplikuje na všetky elementy `span` od druhej úrovne.
 - `:not(:only-child)` - je [**pseudotrieda**](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes) `:not` urobí nad získanými elementmi `span` filter a vyberie iba tie, ktoré nie sú jedináčik. Teda, majú vedľa seba nejaké súrodenecké elementy. V našom prípade ide výlučne o položky menu, ktoré obsahujú podmenu.
 - `::after` - je [**pseudoelement**](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements), pomocou ktorého vieme definovať nejaký obsah, ktorý sa zobrazí ihneď za elementmi, ktoré sú vybrané selektorom.
 
@@ -286,7 +286,7 @@ Výsledok vyzerá takto:
 
 ## Doplnenie zvýraznenia výberu
 
-Ďalšia vec, ktorá spríjemní komfort používateľa, je vyznačenie prvkov, ktoré boli inicializované výberom. To realizujeme nasledovným CSS pravidlom:
+Ďalšia vec, ktorá spríjemní prácu používateľa, je vyznačenie prvkov, ktoré boli inicializované výberom. To realizujeme nasledovným CSS pravidlom:
 
 ```css
 li:hover > span {
@@ -400,6 +400,6 @@ ul li:hover > ul ul {
 }
 ```
 
-To je všetko, čo sme potrebovali zmeniť, aby sme drop-down menu prerobili na drop-up menu. Malo by fungovať nasledovne:
+To je všetko, čo sme potrebovali zmeniť, aby sme *drop-down* menu prerobili na *drop-up* menu. Malo by fungovať nasledovne:
 
-![Hotová funkčná verzia Drop-up menu](images_dropdownmenu/menu-up-02.gif)
+![Hotová funkčná verzia *drop-up* menu](images_dropdownmenu/menu-up-02.gif)

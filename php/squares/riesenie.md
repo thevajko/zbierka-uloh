@@ -53,7 +53,7 @@ div {
 
 Pre telo dokumentu (element `body`) nastavíme CSS vlastnosti `padding` a `margin` na `0`, aby sa mohli štvorčeky zobrazovať od úplného okraja okna. Okrem toho nastavíme veľkosť na `100%`, aby vyplnili celé okno. Ak nechceme, aby sa nám okolo okna zobrazovali posuvníky, je potrebné ešte nastaviť `overflow: hidden`.
 
-Každý štvorček bude mať nastavenú pozíciu na `absolute`, aby sme ho mohli umiestniť ľubovolne na stránku a bude mať veľkosť `50px`.
+Každý štvorček bude mať nastavenú pozíciu na `absolute`, aby sme ho mohli umiestniť ľubovolne na stránku a bude mať veľkosť `50px` x `50px`.
 
 ### PHP skript
 
@@ -78,7 +78,7 @@ function randColor()
 }
 ```
 
-V tomto prípade sme si deklarovali pole dostupných farieb. Výslednú farbu vyberáme tak, že pomocou funkcie [`rand`](https://www.php.net/manual/en/function.rand.php) vygenerujeme náhodný index do tohto poľa.
+V tomto prípade sme si deklarovali pole dostupných farieb. Výslednú farbu vyberáme tak, že pomocou funkcie [`rand()`](https://www.php.net/manual/en/function.rand.php) vygenerujeme náhodný index do tohto poľa.
 
 Výhodou tohto riešenia je to, že vieme dopredu špecifikovať, aké farby chceme. V prípade, že by sme potrebovali plne náhodné spektrum farieb, potrebujeme si danú farbu nejakým spôsobom vygenerovať.
 
