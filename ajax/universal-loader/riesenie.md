@@ -21,7 +21,7 @@ Na začiatok si pripravíme grafickú reprezentáciu nášho komponentu. Začnem
   <span id="requestCounter">Zostáva: 5</span>
 </div>
 ```
-Vytvoríme si jeden `div` element, do ktorého umiestnime vizuálny komponent (*spinner*) a miesto na zobrazenie počtu nedokončených žiadostí.
+Vytvoríme si jeden `div` element, do ktorého umiestníme vizuálny komponent (*spinner*) a miesto na zobrazenie počtu nedokončených žiadostí.
 
 Kvôli dizajnu by sme chceli docieliť, aby sa element `ajaxLoader` zobrazil roztiahnutý na celú stránku a mal polopriehľadné pozadie. Pre vizuálny komponent zobrazíme jednoduchú animáciu.
 
@@ -58,7 +58,7 @@ Pozíciu `ajaxLoader` elementu sme nastavili na `fixed` a rozmery na `100%`, aby
 
 Pre usporiadanie prvkov v tomto elemente používame *flexbox*. Kontajner `ajaxLoader` sme nastavili ako *flexbox* kontajner, ktorý obsahuje prvky zarovnané na stred a jednotlivé prvky sa budú usporadúvať do stĺpca.
 
-Pre zobrazenie *spinner* komponentu sme využili jednoduchú CSS animáciu. Je to `div` element, ktorý sme pomocou `border-radius: 50%` zobrazili ako kruh. Tomuto kruhu sme nechali priehľadné pozadie a nastavili mu `12px` rámček, čím sme dostali kružnicu. Hornému rámčeku sme zmenili farbu na modrú a zvyšným častiam rámčeka sme nechali bielu farbu. Toto spôsobilo, že dostaneme kružnicu, kde 1/4 kruhu má inú farbu ako zvyšok.
+Pre zobrazenie *spinner* komponentu sme využili jednoduchú CSS animáciu. Je to `div` element, ktorý sme pomocou `border-radius: 50%` zobrazili ako kruh. Tomuto kruhu sme nechali priehľadné pozadie a nastavili mu `12px` rámček, čím sme dostali kružnicu. Hornému rámčeku sme zmenili farbu na modrú a zvyšným častiam rámčeka sme nechali bielu farbu. To spôsobilo, že dostaneme kružnicu, kde štvrtina kruhu má inú farbu ako zvyšok.
 
 Otáčanie kruhu sme dosiahli pomocou jednoduchej animácie, ktorá tento element rotuje o 360 stupňov. Jedna rotácia trvá 2s a je lineárna - kruh sa bude otáčať konštantnou rýchlosťou a animácia sa opakuje donekonečna.
 
@@ -70,7 +70,7 @@ Výsledný *spinner* komponent vyzerá nasledovne:
 
 ### Aplikačná logika komponentu
 
-Keď sa pozrieme do zadania a východzieho kódu, môžeme vidieť, že AJAX žiadosti sa posielajú pomocou funkcie `fetch()`. Našou úlohou teda bude vytvoriť jednoduchú obaľovaciu funkciu (*wrapper*), ktorý nahradí funkciu `fetch()`.
+Keď sa pozrieme do zadania a východzieho kódu, môžeme vidieť, že AJAX žiadosti sa posielajú pomocou funkcie `fetch()`. Našou úlohou teda bude vytvoriť jednoduchú obaľovaciu funkciu (*wrapper*), ktorá nahradí funkciu `fetch()`.
 
 <div class="end">
 
@@ -143,7 +143,7 @@ function updateRequestCounter() {
 
 ### Podpora pre všetky AJAX žiadosti
 
-Pokiaľ by sme chceli, aby sa náš *AJAX loader* komponent používal pri všetkých žiadostiach, môžeme funkciu `load()` z objektu `window` nahradiť tou našou. Na to, aby sme to spravili potrebujeme vykonať nasledujúce kroky:
+Pokiaľ by sme chceli, aby sa náš *AJAX loader* komponent používal pri všetkých žiadostiach, môžeme funkciu `load()` z objektu `window` nahradiť tou našou. Na to, aby sme to spravili, potrebujeme vykonať nasledujúce kroky:
 
 1. Musíme si zapamätať pôvodnú funkciu do nejakej lokálnej premennej.
 2. Nahradiť funkciu `load()` tou našou.
@@ -174,7 +174,7 @@ Aktuálny kód má jeden vedľajší efekt. Do objektu `window` nám pridal nasl
 
 Ani jeden z týchto atribútov v princípe nemá čo robiť medzi globálnymi premennými. Riešení tohto problému je niekoľko. Môžeme napríklad použiť OOP a zaobaliť celé riešenie do nejakej triedy.
 
-V prípade takýchto menších skriptov môže byť OOP zbytočne komplikované riešenie. V JavaScripte sa zvykne používať koncept tzv. `Immediately Invoked Function Expression (IIFE)`. Táto IIFE slúži na vytvorenie lokálneho prostredia, v ktorom si môžeme deklarovať vlastné "globálne" premenné, ktoré ale nebudú dostupné mimo nášho kódu.
+V prípade takýchto menších skriptov môže byť OOP zbytočne komplikované riešenie. V JavaScripte sa zvykne používať koncept tzv. *Immediately Invoked Function Expression (IIFE)*. IIFE slúži na vytvorenie lokálneho prostredia, v ktorom si môžeme deklarovať vlastné "globálne" premenné, ktoré ale nebudú dostupné mimo nášho kódu.
 
 Hlavnou myšlienkou tohto prístupu je zaobalenie celého kódu do anonymnej funkcie, ktorá sa hneď vykoná:
 
@@ -186,7 +186,7 @@ Hlavnou myšlienkou tohto prístupu je zaobalenie celého kódu do anonymnej fun
 })();
 ```
 
-Všetky premenné definované v rámci funkcie budú k dispozícií len v danej funkcii. Tento princíp môžeme nájsť vo veľkom množstve JavaScript knižníc. Výsledný kód nášho komponentu môže vyzerať nasledovne:
+Všetky premenné definované v rámci funkcie budú k dispozícii len v danej funkcii. Tento princíp môžeme nájsť vo veľkom množstve JavaScript knižníc. Výsledný kód nášho komponentu môže vyzerať nasledovne:
 
 ```javascript
 (function() {

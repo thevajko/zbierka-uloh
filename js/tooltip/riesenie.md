@@ -85,7 +85,7 @@ div[data-tooltip] {
 }
 ```
 
-Samotný popisok pridáme ako potomok prvého `div` elementu. Vieme, že `div` je bloková značka. Je preto potrebné jej definovať šírku, aby sa popisok zobrazoval rovnako. Pridáme preto napr. `width: 200px;`. Tento element  `div` má transparentné pozadie a aby bol lepšie čitateľný, zafarbíme ho napr. na bielo pomocou nastavenia `background-color: white;`. Popisok by sa mal zobrazovať nad úrovňou bežného textu, preto ho umiestnime do vrstvy nad text pomocou `z-index: 1;`. Bolo by dobré pridať aj nejaký rámček, preto použijeme `border: 1px solid black;`. CSS teda bude vyzerať nasledovne:
+Samotný popisok pridáme ako potomok prvého `div` elementu. Vieme, že `div` je bloková značka. Je preto potrebné jej definovať šírku, aby sa popisok zobrazoval rovnako. Pridáme preto napr. `width: 200px;`. Tento element  `div` má transparentné pozadie a aby bol lepšie čitateľný, zafarbíme ho napr. na bielo pomocou nastavenia `background-color: white;`. Popisok by sa mal zobrazovať nad úrovňou bežného textu, preto ho umiestníme do vrstvy nad text pomocou `z-index: 1;`. Bolo by dobré pridať aj nejaký rámček, preto použijeme `border: 1px solid black;`. CSS teda bude vyzerať nasledovne:
 
 ```css
 .tooltip {

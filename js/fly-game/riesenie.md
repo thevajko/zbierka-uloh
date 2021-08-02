@@ -15,7 +15,7 @@ Riešenie sa bude skladať z HTML, CSS a JavaScript súboru. Vytvoríme si súbo
 
 ### HTML dokument
 
-Najprv si vytvoríme hraciu plochu. Tento súbor bude veľmi jednoduchý, nebudeme tu implementovať žiadnu aplikačnú logiku, ani dizajn. V súbore sa budú nachádzať len elementy, ktoré budú slúžiť na výpis skóre, zostávajúceho času a tlačidlo *Štart hry*. Všetky elementy, ku ktorým budeme v aplikačnej logike pristupovať, umiestnime do kontajnerov (elementy `div`) a označíme ich atribútom `id`. HTML kód bude vyzerať nasledovne:
+Najprv si vytvoríme hraciu plochu. Tento súbor bude veľmi jednoduchý, nebudeme tu implementovať žiadnu aplikačnú logiku, ani dizajn. V súbore sa budú nachádzať len elementy, ktoré budú slúžiť na výpis skóre, zostávajúceho času a tlačidlo *Štart hry*. Všetky elementy, ku ktorým budeme v aplikačnej logike pristupovať, umiestníme do kontajnerov (elementy `div`) a označíme ich atribútom `id`. HTML kód bude vyzerať nasledovne:
 
 ```html
 <div class="playground">
@@ -84,7 +84,7 @@ Na definovanie zmeny kurzora použijeme CSS vlastnosť `cursor`:
 }
 ```
 
-Ostatné použité štýly len formátujú zobrazenie skóre a času hry. Výsledkovú tabuľu umiestnime na vrch stránky do stredu:
+Ostatné použité štýly len formátujú zobrazenie skóre a času hry. Výsledkovú tabuľu umiestníme na vrch stránky do stredu:
 
 ```css
 #menu {

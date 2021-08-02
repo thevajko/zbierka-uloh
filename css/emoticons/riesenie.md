@@ -414,7 +414,7 @@ Emotikon síce zuby má, ale tie sa vykreslujú nad ústami. Pokiaľ chceme, aby
 
 ![Umiestnenie zubov na správne miesto](images_emoticons/smajlik_stastny_4.png)
 
-Posledným krokom je pridanie jazyka. Jazyk môžeme implementovať ako polkruh, ktorý umiestnime na spodnú stranu. Pri jazyku môžeme využiť to, že celé ústa majú nastavené `overflow` na `hidden` a nemusíme sa tak trápiť s polkruhom, ale môžeme použiť plný kruh, ktorého spodná čas bude skrytá.
+Posledným krokom je pridanie jazyka. Jazyk môžeme implementovať ako polkruh, ktorý umiestníme na spodnú stranu. Pri jazyku môžeme využiť to, že celé ústa majú nastavené `overflow` na `hidden` a nemusíme sa tak trápiť s polkruhom, ale môžeme použiť plný kruh, ktorého spodná čas bude skrytá.
 
 <div class="end">
 

@@ -59,7 +59,7 @@ Každý štvorček bude mať nastavenú pozíciu na `absolute`, aby sme ho mohli
 
 Implementáciu PHP časti začneme deklarovaním niekoľkých pomocných funkcií.
 
-Vzhľadom na to, že štvorčeky chceme umiestňovať náhodne na základe súradníc v percentách, definujeme si funkciu `randPosition()`, ktorú umiestnime medzi značky `<?php` a `?>`.
+Vzhľadom na to, že štvorčeky chceme umiestňovať náhodne na základe súradníc v percentách, definujeme si funkciu `randPosition()`, ktorú umiestníme medzi značky `<?php` a `?>`.
 
 ```php
 function randPosition() 
@@ -95,7 +95,7 @@ function randColor()
     return sprintf('#%06X', rand(0, 0xFFFFFF));
 }
 ```
-Keď sa rozhodneme pre jednu z týchto funkcií, jej kód umiestnime za kód funkcie `randPosition()` tak, aby zostala v bloku `<?php` a `?>`.
+Keď sa rozhodneme pre jednu z týchto funkcií, jej kód umiestníme za kód funkcie `randPosition()` tak, aby zostala v bloku `<?php` a `?>`.
 
 Samotný PHP kód na vygenerovanie štvorčekov bude obsahovať jeden cyklus, ktorý 2000 krát vygeneruje element `div` a nastaví mu pozíciu a farbu.
 

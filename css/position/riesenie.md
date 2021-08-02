@@ -10,7 +10,7 @@
 
 ## Riešenie
 
-Na riešenie úlohy vytvoríme HTML a CSS súbor. V HTML súbore budú základné elementy, ktoré budeme potrebovať pre riešenie úlohy a CSS súbor bude obsahovať všetky CSS pravidlá. Obrázky umiestnime do adresára `img`.
+Na riešenie úlohy vytvoríme HTML a CSS súbor. V HTML súbore budú základné elementy, ktoré budeme potrebovať pre riešenie úlohy a CSS súbor bude obsahovať všetky CSS pravidlá. Obrázky umiestníme do adresára `img`.
 
 ### HTML dokument
 

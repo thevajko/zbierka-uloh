@@ -238,7 +238,7 @@ Nasledujúce riadky dopíšeme za definíciu pravidla `.photo`:
 
 Prvé `@media` pravidlo prepíše prednastavenú šírku obrázku z cca `33%` na `50%` v prípade, že obrazovka má maximálnu šírku `1000px`. Druhé zas prepíše šírku obrázku na `100%` v prípade, že šírka zariadenia bude menšia, nanajvýš rovná `600px`.
 
-#### Automatická zmena veľkosti pomocou *flexbox* rozloženia.
+#### Automatická zmena veľkosti pomocou *flexbox* rozloženia
 
 V prípade, že nebudeme trvať na konštantnom pomere výšky a šírky obrázku, môžeme využiť *flexbox* automatické prispôsobovanie elementov.
 

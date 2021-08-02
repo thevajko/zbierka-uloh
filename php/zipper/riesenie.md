@@ -41,7 +41,7 @@ Keď sa formulár odošle na server, je potrebné dáta nejakým spôsobom sprac
 
 #### Limitovanie veľkosti nahrávaného súboru
 
-Ak nechceme, aby na server bol poslaný dlhší súbor ako je stanovený limit, môžeme veľkosť súboru obmedziť už na strane klienta (hoci súbor aj tak prehliadač odošle) pomocou nastavenia skrytého formulárového poľa:
+Ak nechceme, aby na server bol poslaný dlhší súbor, ako je stanovený limit, môžeme veľkosť súboru obmedziť už na strane klienta (hoci súbor aj tak prehliadač odošle) pomocou nastavenia skrytého formulárového poľa:
 
 ```html
 <input type="hidden" name="MAX_FILE_SIZE" value="1000000">
@@ -96,7 +96,7 @@ class Uploader
 
 Keď máme triedu vytvorenú, môžeme vytvoriť metódu `saveUploadedFile()`, ktorá skontroluje nahratý súbor a presunie ho z dočasného adresára do adresára k ostatným súborom. Najprv skontrolujeme, či sa nahratie súboru podarilo a či nie je v prvku `$_FILES['userfile']['error']` nejaká chyba. Ak by bola, spracovanie prerušíme výnimkou, ktorú vrátime, aby sme o nej informovali používateľa. 
 
-Na samotné kopírovanie použijeme funkciu `move_uploaded_file()`, ktorá na rozdiel od bežného kopírovania súborov, najskôr vykoná kontrolu, či bol súbor naozaj nahratý cez POST požiadavku od používateľa a potom ho presunie na jeho finálne miesto. Parametrami tejto funkcie sú zdrojový a cieľový súbor, pričom cieľový súbor zbavíme cesty, ak by ju obsahoval, volaním funkcie `basename()`. 
+Na samotné kopírovanie použijeme funkciu `move_uploaded_file()`, ktorá na rozdiel od bežného kopírovania súborov, najskôr vykoná kontrolu, či bol súbor naozaj nahratý cez POST požiadavku od používateľa a potom ho presunie na jeho finálne miesto. Parametrami tejto funkcie sú zdrojový a cieľový súbor, pričom cieľový súbor zbavíme cesty (ak by ju obsahoval) volaním funkcie `basename()`. 
 
 Ak používateľ nahrá súbor s rovnakým menom, nebudeme to nijako riešiť a súbor prepíšeme (pridaním jednoduchej podmienky kontrolujúcej, či v cieľom adresári daný súbor existuje, by sme vedeli ošetriť aj tento problém a zmeniť mu meno).
 
@@ -147,7 +147,7 @@ class Uploader
 
 Na komprimáciu použijeme triedu `ZipArchive`, ktorá je súčasťou rozšírenia `php_zip`. Toto rozšírenie je ako jedno z mála PHP rozšírení objektové, čo využijeme aj v našom príklade. Vytvoríme metódu `zipAndDownload()`, ktorá skomprimuje súbory, vytvorí archív a posunie ho na poslanie. Samotné poslanie si oddelíme do inej metódy. 
 
-Na prácu s triedou `ZipArchive` nebudeme potrebovať žiadny import (je nainštalovaná ako PHP rozšírenie). Volaním `new ZipArchive()` si vytvoríme inštanciu tejto triedy. Potom súbor otvoríme metódou `open()`. Tá, ako prvý parameter potrebuje názov súboru, kde bude nový archív (využijeme PHP funkcie `sys_get_temp_dir()` a `tmpfile()` na prácu s dočasnými súbormi). Dočasný súbor tak vznikne v systémovom `tmp` adresári. 
+Na prácu s triedou `ZipArchive` nebudeme potrebovať žiadny import (je nainštalovaná ako PHP rozšírenie). Volaním `new ZipArchive()` si vytvoríme inštanciu tejto triedy. Potom súbor otvoríme metódou `open()`. Tá ako prvý parameter potrebuje názov súboru, kde bude nový archív (využijeme PHP funkcie `sys_get_temp_dir()` a `tmpfile()` na prácu s dočasnými súbormi). Dočasný súbor tak vznikne v systémovom `tmp` adresári. 
 
 Bohužiaľ trieda neumožňuje vytvorenie komprimovaného súboru v pamäti a musíme vytvoriť archív na disku. Ďalej v cykle prejdeme aktuálny zoznam súborov a postupne ich do archívu pridáme, pričom si pomôžeme už známou metódou `getFullFileNameWithDir()`. Najskôr skontrolujeme, či súbor existuje a metódou `add()` triedy `ZipArchive` ho pridáme do archívu. Druhý parameter tejto metódy použijeme, aby súbor v archíve mal pôvodné meno. Nakoniec archív uzatvoríme a posunieme spracovanie na odoslanie archívu do metódy `sendZipFile()`.
 
@@ -196,7 +196,7 @@ class Uploader
 
 ### Integrácia riešenia do `index.php`
 
-Na začiatok súboru (pred definíciu `<!doctype html>`) umiestnime PHP časť kódu, ktorá bude našu aplikáciu riadiť. Vždy budeme potrebovať vytvoriť inštanciu triedy `Uploader`. Ak používateľ poslal súbor, bude nastavená premenná `$_FILES['userfile']` a súbor uložíme volaním metódy `saveUploadedFile()`. Ak používateľ stačil tlačidlo `Zipuj`, súbory skomprimujeme a výstup mu ponúkneme na stiahnutie (volaním metódy `zipAndDownload()`). Nesmieme zabudnúť ukončiť celý PHP skript (funkciou `exit()`) za týmto príkazom, pretože zvyšný HTML kód už nie je, ani nesmie byť súčasťou posielaného archívu.
+Na začiatok súboru (pred definíciu `<!DOCTYPE html>`) umiestníme PHP časť kódu, ktorá bude našu aplikáciu riadiť. Vždy budeme potrebovať vytvoriť inštanciu triedy `Uploader`. Ak používateľ poslal súbor, bude nastavená premenná `$_FILES['userfile']` a súbor uložíme volaním metódy `saveUploadedFile()`. Ak používateľ stačil tlačidlo `Zipuj`, súbory skomprimujeme a výstup mu ponúkneme na stiahnutie (volaním metódy `zipAndDownload()`). Nesmieme zabudnúť ukončiť celý PHP skript (funkciou `exit()`) za týmto príkazom, pretože zvyšný HTML kód už nie je, ani nesmie byť súčasťou posielaného archívu.
 
 ```php
 <?php
@@ -213,7 +213,7 @@ if (isset($_POST['zip'])) {
 ?>
  ```
 
-Doplníme nadpis `Zipovač súborov` a zaňho umiestnime kód, ktorý bude zobrazovať prípadnú chybu, ak nejaká pri nahrávaní súborov na server nastane:
+Doplníme nadpis `Zipovač súborov` a zaňho umiestníme kód, ktorý bude zobrazovať prípadnú chybu, ak nejaká pri nahrávaní súborov na server nastane:
 
 ```php
 <h1>Zipovač súborov</h1>
@@ -226,7 +226,7 @@ Doplníme nadpis `Zipovač súborov` a zaňho umiestnime kód, ktorý bude zobra
 ?>
 ```
 
-Ak budeme mať používateľ nejaké súbory na serveri, musíme umožniť mu tieto súbory skomprimovať a stiahnuť. Najskôr mu vypíšeme, aké súbory má na serveri a potom pridáme formulár s tlačidlom na odoslanie príkazu na komprimáciu súborov.
+Ak bude mať používateľ nejaké súbory na serveri, musíme umožniť mu tieto súbory skomprimovať a stiahnuť. Najskôr mu vypíšeme, aké súbory má na serveri a potom pridáme formulár s tlačidlom na odoslanie príkazu na komprimáciu súborov.
 
 Odoslanie tohoto formulára spôsobí, že bude nastavená premenná `$_POST['zip']`, ktorú testujeme na začiatku tohoto skriptu a spustíme PHP kód, ktorého úlohou je komprimácia súborov a odoslanie archívu do prehliadača. Ak žiadne súbory na serveri ešte nemáme, metóda `$uploader->getFilesList()` vráti prázdne pole a používateľovi vypíšeme, že zatiaľ neboli nahraté žiadne súbory. Celý úsek kódu vyzerá takto:
 
@@ -315,7 +315,7 @@ V prvom rade si musíme vytvoriť jednoznačný identifikátor používateľa pr
 
 Na vytvorenie náhodného identifikátora využijeme funkciu `random_bytes()`, ktorá vráti počet náhodných znakov zadaný v parametri. Znaky premeníme na hexadecimálne hodnoty (funkcia `bin2hex()`) pre lepšiu čitateľnosť. 
 
-Vytvorený identifikátor nastavíme pomocou `setcookies()`, čím zabezpečíme, že sa dostane na klienta (do prehliadača) a pri každej požiadavke ho prehliadač k žiadosti pripojí. Platnosť tejto HTTP hlavičky je možné stanoviť v extra parametroch, ale my sa uspokojíme s tým, že bude platiť až kým nezatvoríme prehliadač (všetky okná). Či *cookie* existuje zistíme zo superglobálnej premennej [`$_COOKIE`](https://www.php.net/manual/en/reserved.variables.cookies.php). 
+Vytvorený identifikátor nastavíme pomocou `setcookies()`, čím zabezpečíme, že sa dostane na klienta (do prehliadača) a pri každej požiadavke ho prehliadač k žiadosti pripojí. Platnosť tejto HTTP hlavičky je možné stanoviť v extra parametroch, ale my sa uspokojíme s tým, že bude platiť až kým nezatvoríme prehliadač (všetky okná). Či *cookie* existuje, zistíme zo superglobálnej premennej [`$_COOKIE`](https://www.php.net/manual/en/reserved.variables.cookies.php). 
 
 Ak prvok s daným kľúčom existuje, bude existovať aj daný *cookie*. Metóda `generateUniqueId()` bude veľmi jednoduchá. Jej volanie pridáme na koniec konštruktora triedy `Uploader`, čím zabezpečíme inicializáciu tohto identifikátora.
 
@@ -377,4 +377,4 @@ class Uploader
 
 Pretože sme si oddelili prístup k názvom súborov do samostatnej metódy `getFullFileNameWithDir()` zostávajúce `saveUploadedFile()`, `zipAndDownload()` a `sendZipFile()` nemusíme meniť.
 
-Výsledné riešenie môžeme otestovať napríklad pomocou súkromného okna.
+Výsledné riešenie môžeme otestovať napríklad pomocou súkromného okna prehliadača.
