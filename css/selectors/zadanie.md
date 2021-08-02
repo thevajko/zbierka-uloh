@@ -44,7 +44,7 @@ Riešenie musí spĺňať nasledovné podmienky:
 7. Odkazy v stĺpci `Link` sa budú správať nasledovne:
     1. Zabezpečené odkazy (protokol HTTPS) zobrazte zelenou farbou.
     2. Nezabezpečené odkazy (protokol HTTP) zobrazte červenou farbou.
-    3. Relatívne odkazy zobrazte ho modrou farbou.
+    3. Relatívne odkazy zobrazte modrou farbou.
     4. Pri odkazoch na súbor typu PDF (odkaz končí `.pdf`) dopíšte za text odkazu text `(PDF)`.
 8. Zabezpečte, aby pri dlhej tabuľke zostávala hlavička vždy viditeľná.
 

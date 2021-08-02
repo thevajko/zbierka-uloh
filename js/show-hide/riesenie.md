@@ -11,7 +11,7 @@
 
 ## Riešenie
 
-Táto úloha sa dá vyriešiť iba s pomocou JavaScriptu. Prvým krokom bude vytvorenie časti kódu, ktorý sa spustí až po načítaní HTML dokumentu zo servera. To sa tá docieliť nasledovným kódom:
+Táto úloha sa dá vyriešiť iba s pomocou JavaScriptu. Prvým krokom bude vytvorenie časti kódu, ktorý sa spustí až po načítaní HTML dokumentu zo servera. To sa dá docieliť nasledovným kódom:
 
 ```javascript
 window.onload = function () {

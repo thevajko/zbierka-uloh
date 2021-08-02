@@ -25,7 +25,7 @@ window.onload = function () {
 }
 ```
 
-Logika zobrazovania a skrývania popiskov je pre všetky `span` elementy v celom dokumente rovnaká. Najprv musíme získať kolekciu všetkých `span` elementov v celom dokumente a potom pre každý `span` element pripojíme obsluhu udalosti. To realizujme nasledovne:
+Logika zobrazovania a skrývania popiskov je pre všetky `span` elementy v celom dokumente rovnaká. Najprv musíme získať kolekciu všetkých `span` elementov v celom dokumente a potom pre každý `span` element pripojíme obsluhu udalosti. To realizujeme nasledovne:
 
 ```javascript
 let spans = document.querySelectorAll("span");
@@ -49,7 +49,7 @@ for (let i = 0; i < divs.length; i++) {
 }
 ```
 
-Teraz pridáme kód, ktorý sa vykoná, ak používateľ premiestni kurzor nad nejaký `div` s atribútom `data-tooltip`. Tá vytvorí nový `div` element a umiestni ho ako potomka do elementu `div`, ktorý ma popisok. To dosiahneme pridaním obsluhy udalosti `onmouseenter` a element vytvoríme modifikáciou obsahu atribútu `innerHTML` prvého `div` elementu:
+Teraz pridáme kód, ktorý sa vykoná, ak používateľ premiestni kurzor nad nejaký `div` s atribútom `data-tooltip`. Ten vytvorí nový `div` element a umiestni ho ako potomka do elementu `div`, ktorý má popisok. To dosiahneme pridaním obsluhy udalosti `onmouseenter` a element vytvoríme modifikáciou obsahu atribútu `innerHTML` prvého `div` elementu:
 
 ```javascript
 let divs = document.querySelectorAll("div[data-tooltip]");
@@ -125,4 +125,4 @@ div[data-tooltip] {
 }
 ```
 
-Prečo sme nenastavili vertikálnu polohu na `top: 100%` alebo `bottom: 0`? Dôvodom je, že náš skript používa na skrytie elementu udalosť, kedy používateľ premiestni preč kurzor z elementu `div`. Treba si uvedomiť, že pre tieto udalosti používa DOM, nie reálne zobrazenie. Preto, aj keď je popisok vizuálne umiestnený mimo prvý element, v DOM štruktúre to tak nie je. Bohužiaľ potom by popisok zostal zobrazený, keď by naň používateľ prešiel kurzorom myši, čo nechceme.
+Prečo sme nenastavili vertikálnu polohu na `top: 100%` alebo `bottom: 0`? Dôvodom je, že náš skript používa na skrytie elementu udalosť, kedy používateľ premiestni preč kurzor z elementu `div`. Treba si uvedomiť, že pre tieto udalosti používa DOM, nie reálne zobrazenie. Preto, aj keď je popisok vizuálne umiestnený mimo prvý element, v DOM štruktúre to tak nie je. Bohužiaľ potom by popisok zostal zobrazený, keď by naň používateľ prešiel kurzorom myši preč, čo nechceme.

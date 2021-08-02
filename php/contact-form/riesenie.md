@@ -42,7 +42,7 @@ Kontaktný formulár si pripravíme v HTML súbore `index.php`. Bude obsahovať 
 </div>
 ```
 
-Meno je textové pole. Email je tiež textové pole, ktorému sme nastavili atribút `type="email"`. Na text správy sme použili element `textarea`, ktorý umožní napísať viac riadkov textu. Ďalšou časťou je definícia základného CSS, ktoré umožní zobraziť formulár tak, ako bol definovaný v zadaní. Samotný formulár má nastavený atribút `method="POST"`, čo znamená, že dáta budú odosielané HTTP metódou POST. Okrem toho sme nikde nešpecifikovali atribút `action`, takže tento formulár sa odošle na rovnakú URL adresu, na ktorej sa aktuálne nachádza formulár.
+Meno je textové pole. Email je tiež textové pole, ktorému sme nastavili atribút `type="email"`. Na text správy sme použili element `textarea`, ktorý umožňuje napísať viac riadkov textu. Ďalšou časťou je definícia základného CSS, ktoré umožní zobraziť formulár tak, ako bol definovaný v zadaní. Samotný formulár má nastavený atribút `method="POST"`, čo znamená, že dáta budú odosielané HTTP metódou POST. Okrem toho sme nikde nešpecifikovali atribút `action`, takže tento formulár sa odošle na rovnakú URL adresu, na ktorej sa nachádza.
 
 ```css
 .contact-form input, .contact-form label, .contact-form textarea {
@@ -87,7 +87,7 @@ if ($isPost) {
 
 Samotná validácia pozostáva z týchto krokov. Na začiatku si deklarujeme premennú, do ktorej budeme ukladať validačné chyby. Túto premennú sme si deklarovali ako pole. V ďalšom kroku overíme, či ide o `POST` žiadosť. Na overenie môžeme použiť viacero postupov. V závislosti od použitého servera a konfigurácie nemusia všetky fungovať. Superglobálna premenná `$_SERVER` obsahuje pod kľúčom `REQUEST_METHOD` typ HTTP požiadavky. Tento spôsob bude fungovať vždy. V našom prípade overíme, či `$_SERVER['REQUEST_METHOD']` obsahuje hodnotu `POST`.
 
-Ďalej nasleduje validácia hodnôt jednotlivých častí formulára. Pri všetkých validáciách používame rovnaký vzor. Najskôr si zo superglobalného poľa `$_POST` načítame hodnotu parametra a vyfiltrujeme ju. Pri mene a obsahu používame funkciu [`trim()`](https://www.php.net/manual/en/function.trim.php), ktorá odstráni začiatočné a koncové prázdne znaky. Následne overíme, či meno, alebo správa nie sú prázdne pomocou funkcie [`empty()`](https://www.php.net/manual/en/function.empty.php). Ak je niektoré pole prázdne, tak do poľa chýb `$errors` uložíme pod kľúčom danej premennej textový popis chyby.
+Ďalej nasleduje validácia hodnôt jednotlivých častí formulára. Pri všetkých validáciach používame rovnaký vzor. Najskôr si zo superglobalného poľa `$_POST` načítame hodnotu parametra a vyfiltrujeme ju. Pri mene a obsahu používame funkciu [`trim()`](https://www.php.net/manual/en/function.trim.php), ktorá odstráni začiatočné a koncové prázdne znaky. Následne overíme či meno, alebo správa nie sú prázdne pomocou funkcie [`empty()`](https://www.php.net/manual/en/function.empty.php). Ak je niektoré pole prázdne, tak do poľa chýb `$errors` uložíme pod kľúčom danej premennej textový popis chyby.
 
 ```php
 $name = trim($_POST['name']);
@@ -104,9 +104,9 @@ Validácia emailovej adresy je trochu komplikovanejšia. V tomto prípade sme po
 /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/`
 ```
 
-Tento regulárny výraz ani zďaleka nepokrýva všetky možné prípady platnej emailovej adresy podľa [RFC2822](https://www.ietf.org/rfc/rfc2822.txt). Preto sa validácia emailovej adresy pomocou tohto prístupu vo všeobecnosti neodporúča, ak by sme chceli, aby adresa bola presne podľa štandardu.
+Tento regulárny výraz ani z ďaleka nepokrýva všetky možné prípady platnej emailovej adresy podľa [RFC2822](https://www.ietf.org/rfc/rfc2822.txt). Preto sa validácia emailovej adresy pomocou tohto prístupu vo všeobecnosti neodporúča, ak by sme chceli, aby adresa bola presne podľa štandardu.
 
-V PHP existuje funkcia [`filter_var()`](https://www.php.net/manual/en/function.filter-var), ktorá umožní pohodlnú kontrolu aj emailovej adresy. V našom prípade sme použili zápis `filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)`, ktorý zoberie hodnotu emailovej adresy z `$_POST` a zvaliduje ju ako emailovú adresu. Funkcia `filter_var()` vráti hodnotu, ktorú jej zadáme ako parameter v prípade, ak táto spĺňa všetky filtračné pravidlá. Ak nespĺňa, tak funkcia vráti `false`.
+V PHP existuje funkcia [`filter_var()`](https://www.php.net/manual/en/function.filter-var), ktorá umožní pohodlnú kontrolu aj emailovej adresy. V našom prípade sme použili zápis `filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);`, ktorý zoberie hodnotu emailovej adresy z `$_POST` a zvaliduje ju ako emailovú adresu. Funkcia `filter_var()` vráti hodnotu, ktorú jej zadáme ako parameter, v prípade ak táto spĺňa všetky filtračné pravidlá. Ak nespĺňa, tak funkcia vráti `false`.
 
 Samotnú kontrolu by sme mali hotovú. Ak je formulár nesprávne vyplnený, potrebujeme ho zobraziť znovu a pod každý element `input`, ktorý obsahuje chybu, chceme dopísať chybovú správu. Opätovné zobrazenie formulára nepredstavuje žiadny problém, nakoľko sa formulár odosiela na tú istú URL adresu, takže sa zobrazí aj v prípade `POST` žiadosti. Pre zjednodušenie výpisu chybovej hlášky si deklarujeme pomocnú funkciu `printErrorMessage()`, ktorá dostane ako parameter pole s chybami a názov `input` elementu. V prípade, že obsahuje toto pole s chybami chybovú správu pre daný `input` element, vráti HTML kód chybovej správy.
 
@@ -159,7 +159,7 @@ Celý element `input` pre meno je aktuálne rozbitý. Ak chceme vedieť prečo, 
 ">
 ```
 
-Ako môžeme vidieť, do atribútu `value` sa vygenerovala PHP chybová hláška:
+Ako môžeme vidieť, do atribútu `value` sa vygenerovala php chybová hláška:
 
 ```
 Warning: Undefined array key "name" in /var/www/html/index.php on line 74
@@ -183,7 +183,7 @@ function getParam($name) : string|null
 }
 ```
 
-Táto funkcia rieši oba spomenuté problémy. Pomocou funkcie [`isset()`](https://www.php.net/manual/en/function.isset) v nej kontrolujeme, či danú hodnotu máme k dispozícii. Ak máme, tak pomocou funkcie [`htmlspecialchars()`](https://www.php.net/manual/en/function.htmlspecialchars) zmeníme všetky HTML značky tak, aby sa správne zobrazili. Môžeme si všimnúť, že sme funkciu použili s parametrom `ENT_QUOTES`, ktorý podľa dokumentácie okrem HTML ošetruje aj úvodzovky, čo je v prípade HTML atribútov potrebné.
+Táto funkcia rieši oba spomenuté problémy. Pomocou funkcie [`isset()`](https://www.php.net/manual/en/function.isset) v nej kontrolujeme, či danú hodnotu máme k dispozícii. Ak máme, tak pomocou funkcie [`htmlspecialchars()`](https://www.php.net/manual/en/function.htmlspecialchars) zmeníme všetky HTML značky tak, aby sa právne zobrazili. Môžeme si všimnúť, že sme funkciu použili s parametrom `ENT_QUOTES`, ktorý podľa dokumentácie okrem HTML ošetruje aj úvodzovky, čo je v prípade HTML atribútov potrebné.
 
 Následné použitie už bude veľmi jednoduché:
 
@@ -191,7 +191,7 @@ Následné použitie už bude veľmi jednoduché:
 <input type="text" id="name" name="name" placeholder="Vaše meno" value="<?=getParam('name')?>">
 ```
 
-V prípade poľa na písanie správy, ktoré využíva element `textarea`, bude syntax mierne odlišná:
+V prípade poľa na písanie správy, ktoré využíva element `textarea` bude syntax mierne odlišná:
 
 ```html
 <textarea id="content" name="content" placeholder="Text správy..."><?=getParam('content')?></textarea>
@@ -213,7 +213,7 @@ if ($isPost) {
 }
 ```
 
-Prvým parametrom tejto funkcie je adresa príjemcu. V našom prípade chceme, aby správa z kontaktného formulára prišla na náš mail, tak tam vyplníme svoju adresu. Druhým parametrom je predmet správy, tretím telo a posledným sú hlavičky emailu. V našom príklade nastavíme hlavičku `From`, pomocou ktorej sa nastavuje odosielateľ emailu.
+Prvým parametrom tejto funkcie je adresa príjemcu. V našom prípade chceme, aby správa z kontaktného formulára prišla na náš mail, tak tam vyplníme svoju adresu. Druhým parametrom je predmet správy, tretím telo a posledným sú hlavičky emailu. V našom príklade tam nastavíme hlavičku `From`, pomocou ktorej sa nastavuje odosielateľ emailu.
 
 Výsledný email vyzerá po zachytení aplikáciou *MailHog* nasledovne:
 
@@ -257,4 +257,4 @@ Takto odoslaná správa bude vyzerať nasledovne:
 
 ![Upravený odosielateľ v hlavičke mailu](images_contact-form/mail2.png)
 
-Do tela správy sme doplnili meno odosielateľa a pomocou hlavičky `Reply-To` sme špecifikovali adresu pre odpoveď. Vďaka tomu, keď nám príde správa z kontaktného formulára a v mail klientovi naň odpovieme, tak táto odpoveď pôjde automaticky na adresu nášho používateľa a nie na adresu nášho servera (`my@myserver.sk`), ktorý je špecifikovaný ako odosielateľ.
+Do tela správy sme doplnili meno odosielateľa a pomocou hlavičky `Reply-To` sme špecifikovali adresu pre odpoveď. Vďaka tomu, keď nám príde správa z kontaktného formulára a v mailovom klientovi naň odpovieme, tak táto odpoveď pôjde automaticky na adresu nášho používateľa a nie na adresu nášho servera (`my@myserver.sk`), ktorý je špecifikovaný ako odosielateľ.

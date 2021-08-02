@@ -19,10 +19,9 @@
 </div>
 
 ## Zadanie 
-Vytvorte skript, ktorý počas načítavania AJAX požiadavky zobrazí cez celú stránku komponent s informáciu o sťahovaní dát (*AJAX loader*). V prípade viacerých súbežných sťahovaní dát bude zobrazovať ich počet. Implementujte riešenie pre AJAX požiadavky, ktoré používajú funkciu `fetch()`. 
+Vytvorte skript, ktorý počas načítavania AJAX požiadavky zobrazí cez celú stránku komponent s informáciou o sťahovaní dát (*AJAX loader*). V prípade viacerých súbežných sťahovaní dát bude zobrazovať ich počet. Implementujte riešenie pre AJAX požiadavky, ktoré používajú funkciu `fetch()`. 
 
-Vychádzať budeme z verzie obsahujúcej HTML kód, ktorý vytvorí tlačidlo. Tlačidlo po stlačení (obsluha udalosti 
-`onclick`) načíta pomocou metódy `fetch()` dáta zo vzdialeného API a zobrazí ich. Načítanie dát určitú dobu trvá. Počas tejto doby sa bude zobrazovať náš komponent.
+Vychádzať budeme z verzie obsahujúcej HTML kód, ktorý vytvorí tlačidlo. Tlačidlo po stlačení (obsluha udalosti `onclick`) načíta pomocou metódy `fetch()` dáta zo vzdialeného API a zobrazí ich. Načítanie dát určitú dobu trvá. Počas tejto doby sa bude zobrazovať náš komponent.
 
 ```html
 <button onclick="loadData()">Načítaj dáta</button>

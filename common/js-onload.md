@@ -148,7 +148,7 @@ onload
 ```
 
 > ### Upozornenie
-> Do `window.onload` __iba priraďujeme__, nejedná sa teda o pridávanie logiky do kontajnera. 
+> Do `window.onload` __iba priraďujeme__, nejde teda o pridávanie logiky do kontajnera. 
 
 
 > Online ukážka: [https://jsfiddle.net/meshosk/aojrt485/](https://jsfiddle.net/meshosk/aojrt485/)

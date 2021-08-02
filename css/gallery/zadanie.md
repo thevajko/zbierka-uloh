@@ -15,7 +15,7 @@
 
 **Obťažnosť**: 4/5
 
-**Obsah príkladu**:  Tvorba galérie fotografií, *Flexbox* rozloženie, pokročilejšie spôsoby zobrazovania obrázkov, priehľadnosť obrázkov, CSS funkcia `calc()`, *media queries* a animácie.
+**Obsah príkladu**: Tvorba galérie fotografií, *flexbox* rozloženie, pokročilejšie spôsoby zobrazovania obrázkov, priehľadnosť obrázkov, CSS funkcia `calc()`, *media queries* a animácie.
 </div>
 
 ## Zadanie
@@ -50,7 +50,7 @@ Naštýlujte pomocou CSS túto galériu nasledovne:
 4. Obrázky budú mať pomer strán 4:3.
 5. Názov a popisok obrázku sa zobrazí tak, že
    - po nastavení kurzora myši na obrázok, tento postupne stmavne,
-   - nadpis sa zobrazí v ľavom hornom rohu a popisok sa postupne nasunie zo spodu obrázku.
+   - nadpis sa zobrazí v ľavom hornom rohu a popisok sa postupne nasunie zospodu obrázku.
 
 ### Zobrazenie galérií na rôzne veľkých zariadeniach
 

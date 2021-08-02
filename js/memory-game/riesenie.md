@@ -23,7 +23,7 @@ Knižnicu `font-awesome` pripojíme pomocou dole uvedeného riadku. Využijeme s
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 ```
 
-Hracia plocha sa skladá z dvoch popiskov a počítadla skóre pre každého hráča, tabuľky a tlačidla na rozdanie kariet. Tabuľka bude slúžiť ako herné pole pexesa a budú v nej poukladané všetky karty. Keďže herné pole pexesa je matica, tabuľka nám dizajnovo poslúži ako základ. Samotné karty nebudeme pre pracnosť vytvárať v HTML, ale vytvoríme ich v skripte. Úvodné prostredie hry bude vyzerať takto:
+Hracia plocha sa skladá z dvoch popiskov, počítadla skóre pre každého hráča, tabuľky a tlačidla na rozdanie kariet. Tabuľka bude slúžiť ako herné pole pexesa a budú v nej poukladané všetky karty. Keďže herné pole pexesa je matica, tabuľka nám dizajnovo poslúži ako základ. Samotné karty nebudeme pre pracnosť vytvárať v HTML, ale vytvoríme ich v skripte. Úvodné prostredie hry bude vyzerať takto:
 
 ```html
 <div id="score">
@@ -44,13 +44,13 @@ Vzhľad hry pred začiatkom je na nasledovnom obrázku:
 
 ![Úvodné nastavenie hracieho poľa hry](images_memory-game/start.png)
 
-Dôležité je pridanie CSS atribútov `id` k tým atribútom, ktoré budeme neskôr v skripte nastavovať, napr. hodnoty skóre jednotlivých hráčov. Podobne označíme aj tlačidlo, aby sme mu mohli neskôr priradiť činnosť, ktorá bude nasledovať po stlačení tlačidla.
+Dôležité je pridanie atribútov `id` k tým elementom, ktoré budeme neskôr v skripte nastavovať, napr. hodnoty skóre jednotlivých hráčov. Podobne označíme aj tlačidlo, aby sme mu mohli neskôr priradiť činnosť, ktorá bude nasledovať po stlačení tlačidla.
 
 ### CSS štýl
 
 Úlohou tejto časti aplikácie, nachádzajúcej sa v súbore `style.css` je grafické nastavenie jednotlivých prvkov hry. Elementu tabuľky sme pridali atribút `id` s hodnotou `board`. Vďaka tomu môžeme vytvoriť CSS selektory, ktoré budú aplikované len na elementy vo vnútri tejto tabuľky.
 
-Ako je vidieť z nastavenia štýlu, každá karta pexesa bude mať 90 x 120 pixelov a farba pozadia bude určovať farbu chrbta karty. Druhé nastavenie štýlu bude mať za úlohu skryť obrázok (ikonu), ktorá sa na karte nachádza, aby ju nebolo vidieť:
+Ako je vidieť z nastavenia štýlu, každá karta pexesa bude mať rozmer 90 x 120 pixelov a farba pozadia bude určovať farbu chrbta karty. Druhé nastavenie štýlu bude mať za úlohu skryť obrázok (ikonu), ktorá sa na karte nachádza, aby ju nebolo vidieť:
 
 ```css
 #board td {
@@ -71,10 +71,10 @@ Ako je vidieť z nastavenia štýlu, každá karta pexesa bude mať 90 x 120 pix
 
 Celá logika hry sa bude vytvárať v JavaScript súbore `script.js`. V hre si budeme potrebovať pamätať niekoľko údajov, preto si inicializujeme viaceré globálne premenné:
 
-- `reversedCards` bude obsahovať koľko kariet je aktuálne otočených. 
-- `player1GuessedCount` a `player2GuessedCount` budú obsahovať počet toho, koľko krát daný hráč otočil nejakú kartu.
+- `reversedCards` bude obsahovať počet aktuálne otočených kariet. 
+- `player1GuessedCount` a `player2GuessedCount` budú obsahovať počet kariet otočených hráčom.
 - `card1` a `card2` budú predstavovať aktuálne odkryté karty.
-- `cardSymbols` je pole a bude obsahovať zoznam ikon, ktoré použijeme na tvorbu kariet. Bude ich presne 15, pretože máme 30 kariet (15 dvojíc). Kvôli prehľadnosti si vytvoríme pole od indexu 1 (JavaScript, podobne ako iné jazyky používa ako prvý index poľa 0), aby sa nám s ním lepšie pracovalo. To je dôvod, prečo je prvá hodnota poľa prázdny reťazec.
+- `cardSymbols` je pole a bude obsahovať zoznam ikon, ktoré použijeme na tvorbu kariet. Bude ich presne 15, pretože máme 30 kariet (15 dvojíc). Kvôli prehľadnosti si vytvoríme pole od indexu 1 (JavaScript, podobne ako iné jazyky, používa ako prvý index poľa 0), aby sa nám s ním lepšie pracovalo. To je dôvod, prečo je prvá hodnota poľa prázdny reťazec.
 
 ```javascript
 let reversedCards = 0;
@@ -109,7 +109,7 @@ function gid(elementId) {
 
 #### Inicializácia hry
 
-Na začiatku novej hry je nutné zmeniť hráča na Hráča 1 (napr. predošlú hru skončí Hráč 2). Na to slúži jednoduchá funkcia `changePlayer()`. V ďalšom kroku vynulujeme body hráčom, aby sme mohli začať počítať body odznovu. Opäť si vytvoríme jednoduchú funkciu `showScore()`, pretože ju rovnako budeme potrebovať na viacerých miestach skriptu. V ďalšom kroku rozdáme karty. Túto funkciu budeme implementovať v až ďalšom kroku.
+Na začiatku novej hry je nutné zmeniť hráča na Hráča 1 (napr. predošlú hru skončí Hráč 2). Na to slúži jednoduchá funkcia `changePlayer()`. V ďalšom kroku vynulujeme body hráčom, aby sme mohli začať počítať body odznovu. Opäť si vytvoríme jednoduchú funkciu `showScore()`, pretože ju rovnako budeme potrebovať na viacerých miestach skriptu. V ďalšom kroku rozdáme karty. Túto funkciu budeme implementovať v až neskôr.
 
 ```javascript
 function initializeGame() {
@@ -123,7 +123,7 @@ function initializeGame() {
 }
 ```
 
-Funkcia `changePlayer()` bude len meniť farbu textu. Ako parameter dostane informáciu, kto bude nový hráč. Ten hráč, ktorý bude zobrazený zelenou farbou, bude na ťahu:
+Funkcia `changePlayer()` bude len meniť farbu textu. Ako parameter dostane informáciu, ktorý hráč bude hrať. Ten hráč, ktorý bude zobrazený zelenou farbou, bude na ťahu:
 
 ```javascript
 function changePlayer(newPlayer) {
@@ -137,7 +137,7 @@ function changePlayer(newPlayer) {
 }
 ```
 
-Podobne jednoduchá je aj funkcia zobrazujúca body hráča. Jej parametrami sú identifikácia hráča a  nový počet bodov. Jej úlohou je len zobraziť nový stav hodnôt:
+Podobne jednoduchá je aj funkcia zobrazujúca body hráča. Jej parametrami sú identifikácia hráča a nový počet bodov. Jej úlohou je len zobraziť nový stav hodnôt:
 
 ```javascript
 function showScore(player, guessed) {
@@ -173,7 +173,7 @@ function distributeCards() {
 }
 ```
 
-Ak chcete zobraziť karty na ploche, v CSS súbore stačí nastaviť CSS vlastnosť `opacity: 1;`. Po tomto kroku budú karty usporiadané nasledovne:
+Ak chcete zobraziť karty na ploche, v CSS súbore stačí nastaviť vlastnosť `opacity: 1;`. Po tomto kroku budú karty usporiadané nasledovne:
 
 ![Karty pexesa poukladané za sebou pred zamiešaním](images_memory-game/sorted.png)
 
@@ -314,7 +314,7 @@ function hideCards(card1, card2) {
 }
 ```
 
-Priebeh rozohranej hry je možné vidieť na nasledovnom obrázku (hráč 2 práve odkryl 2 karty):
+Priebeh rozohranej hry je možné vidieť na nasledovnom obrázku:
 
 ![Ukážka rozohranej hry](images_memory-game/progress.gif)
 

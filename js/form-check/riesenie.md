@@ -80,7 +80,7 @@ Pri všetkých elementoch `input` a `textarea` je pri zmene ich hodnoty spusten�
 Spôsob získavania dát z vstupných elementov `form` bude rovnaký. Z tohto dôvodu vytvoríme funkciu `validateInput()`, ktorej vstupné parametre budú:
 
 1. `element` - priamo `HTMLElement`, na ktorý chceme zapojiť validačnú logiku
-2. `validationFunction()` - validačná funkcia, ktorá ma jeden vstupný parameter, a to aktuálnu hodnotu daného vstupného elementu. Jej návratová hodnota bude `null` v prípade, že je vstup v poriadku. Ak nastane chyba, tak vráti chybovú hlášku v podobe textového reťazca.
+2. `validationFunction()` - validačná funkcia, ktorá ma jeden vstupný parameter, a to aktuálnu hodnotu daného vstupného elementu. Jej návratová hodnota bude `null` v prípade, že je vstup v poriadku. Ak nastane chyba, vráti chybovú hlášku v podobe textového reťazca.
 
 Ako prvé pridáme každému elementu `input` *callback* funkciu, ktorej úlohou bude momentálne iba predať z dát udalosti `event` aktuálnu hodnotu vstupného elementu do validačnej funkcie v `validationFunction()` a odchytiť návratovú hodnotu do lokálnej premennej `result`. Kód vyzerá nasledovne:
 
@@ -171,10 +171,10 @@ function validateInput(element, validationFunction) {
 }
 ```
 
-V prípade ak nastala chyba vykonáme:
+V prípade ak nastala chyba, vykonáme:
 
 1. Skontrolujeme, či existuje element `errorEle` a ak nie, tak ho vytvoríme a pridáme mu CSS triedu `error`.
-2. Doplníme do neho chybovú hlášku nachádzajúcu sa v  premmennej `result` pomocou ` errorEle.innerText = result`.
+2. Doplníme do neho chybovú hlášku nachádzajúcu sa v premennej `result` pomocou ` errorEle.innerText = result`.
 3. Pridáme `errorEle` hneď za `element`. Pokiaľ element existuje, nič sa nestane, lebo už je pripojený za `element`.
 
 Kód bude po doplnení vyzerať nasledovne:
@@ -452,7 +452,7 @@ validateInput(document.getElementById("mobil"), function (value = null) {
 
 #### Validácia správy
 
-Správa je opäť povinná a je potrebné, aby mala aspoň 6 znakov. Validačné chyby sa zobrazujú a aktualizujú ihneď počas ich zadávania, preto si môžeme dovoliť validáciu správy rozdeliť do dvoch podmienok nasledovne:
+Správa je opäť povinné pole a je potrebné, aby mala aspoň 6 znakov. Validačné chyby sa zobrazujú a aktualizujú ihneď počas ich zadávania, preto si môžeme dovoliť validáciu správy rozdeliť do dvoch podmienok nasledovne:
 
 ```javascript
 validateInput(document.getElementById("sprava"), function (value = null) {
