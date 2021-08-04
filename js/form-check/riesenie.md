@@ -41,7 +41,11 @@ To isté bude platiť pre mobilné telefónne číslo so slovenskou predvoľbou,
 
 Problém nastáva pri elemente `textarea`, ktorý nemá atribút `pattern`, tu budeme musieť logiku validácie vstupu vytvoriť pomocou JavaScriptu. To však budeme implementovať neskôr.
 
-Teraz pridáme atribút `required` do `input` elementov pre zadávanie pre `Meno`, `Priezvisko`, `Mail`a `Vaša správa`. Pridanie atribútu `required` bude vyzerať takto:
+Teraz pridáme atribút `required` do `input` elementov pre zadávanie pre `Meno`, `Priezvisko`, `Mail`a `Vaša správa`. 
+
+<div style="page-break-after: always;"></div>
+
+Pridanie atribútu `required` bude vyzerať takto:
 
 ```html
 <input type="text" id="mail" pattern="/^\S+@\S+\.\S+$/" required>
@@ -61,26 +65,30 @@ Bolo by však dobré aj vizuálne používateľovi zobraziť, ktoré prvky formu
 </style>
 ```
 
-Selektor `:invalid:not(form)` vyberá všetky prvky, ktoré majú priradenú pseudotriedu `:invalid` a nie je to element `form` pomocou `:not(form)`. Formulár sa bude teraz zobrazovať nasledovne:
+Selektor `:invalid:not(form)` vyberá všetky prvky, ktoré majú priradenú pseudotriedu `:invalid` a nie je to element `form` pomocou `:not(form)`. 
+
+<div style="page-break-after: always;"></div>
+
+Formulár sa bude teraz zobrazovať nasledovne:
 
 ![Zvýraznenie nevyplneného povinného poľa formulára](images_form-check/form-check-02.png)
 
 Týmto sme vyčerpali možnosti, ktoré máme pre validáciu s použitím výlučne HTML5 bez JavaScriptu. Ešte by sme chceli poznamenať:
 
 - V súčasnosti neexistuje spôsob, ktorým vieme iba pomocou HTML zadefinovať obsah chybových hlášok.
-- Nie je možné zablokovať tlačítko pre odoslanie.
+- Nie je možné zablokovať tlačidlo pre odoslanie.
 - Neexistuje spôsob, akým zobrazíme všetky chybové hlášky súčasne.
 
 ### Validácia pomocou JavaScriptu
 
 Aby sme mohli vytvoriť vlastnú logiku pre validáciu, musíme najprv navrhnúť spôsob, akým budeme overovať používateľom zadané hodnoty. Najjednoduchším spôsobom je vytvoriť funkciu, do ktorej ako vstupný parameter pošleme aktuálne zadanú hodnotu elementu formulára. Tú následne vyhodnotíme podľa potreby. V prípade, že hodnota nevyhovuje, vráti sa na výstup chybová hláška. Ak sa žiadna chyba nenájde, funkcia vráti `null`.
 
-Pri všetkých elementoch `input` a `textarea` je pri zmene ich hodnoty spustená udalosť `oninput`. Objekt, ktorý nesie informáciu o udalosti, obsahuje referenciu na element, na ktorom udalosť nastala, v atribúte `target`. Aktuálnu hodnotu elementu vieme získať z jeho atribútu `value`. Ak teda budú dáta udalosti v premennej `event`, získame aktuálnu hodnotu elementu ako `event.target.data`.
+Pri všetkých elementoch `input` a `textarea` je pri zmene ich hodnoty spustená udalosť `oninput`. Objekt, ktorý nesie informáciu o udalosti, obsahuje referenciu na element, na ktorom udalosť nastala, v atribúte `target`. Aktuálnu hodnotu elementu vieme získať z&nbsp;jeho atribútu `value`. Ak teda budú dáta udalosti v premennej `event`, získame aktuálnu hodnotu elementu ako `event.target.data`.
 
 Spôsob získavania dát z vstupných elementov `form` bude rovnaký. Z tohto dôvodu vytvoríme funkciu `validateInput()`, ktorej vstupné parametre budú:
 
 1. `element` - priamo `HTMLElement`, na ktorý chceme zapojiť validačnú logiku
-2. `validationFunction()` - validačná funkcia, ktorá ma jeden vstupný parameter, a to aktuálnu hodnotu daného vstupného elementu. Jej návratová hodnota bude `null` v prípade, že je vstup v poriadku. Ak nastane chyba, vráti chybovú hlášku v podobe textového reťazca.
+2. `validationFunction()` - validačná funkcia, ktorá ma jeden vstupný parameter, a to aktuálnu hodnotu daného vstupného elementu. Jej návratová hodnota bude `null` v prípade, že je vstup v poriadku. Ak nastane chyba, vráti chybovú hlášku v&nbsp;podobe textového reťazca.
 
 Ako prvé pridáme každému elementu `input` *callback* funkciu, ktorej úlohou bude momentálne iba predať z dát udalosti `event` aktuálnu hodnotu vstupného elementu do validačnej funkcie v `validationFunction()` a odchytiť návratovú hodnotu do lokálnej premennej `result`. Kód vyzerá nasledovne:
 
@@ -104,6 +112,8 @@ Z týchto dôvodov musíme zabezpečiť ľahké a jednoznačné získanie refere
 
 Po vykonaní validačnej funkcie zostavíme `id` pre element s textom chybovej hlášky takto: `"er-"+element.id` a pokúsime sa získať z DOM element s týmto `id` pomocou `document.getElementById()`. Táto metóda vráti buď nájdený element, alebo `null`.
 
+<div style="page-break-after: always;"></div>
+
 Doplnená metóda:
 
 ```javascript
@@ -117,7 +127,7 @@ function validateInput(element, validationFunction) {
 }
 ```
 
-Teraz pridáme podmienku pre kontrolu hodnoty výstupu z validačnej funkcie uloženú v premennej `result` a budeme ju testovať na hodnotu `null`:
+Teraz pridáme podmienku pre kontrolu hodnoty výstupu z validačnej funkcie uloženú v&nbsp;premennej `result` a budeme ju testovať na hodnotu `null`:
 
 ```javascript
 function validateInput(element, validationFunction) {
@@ -238,8 +248,6 @@ Po načítaní HTML musíme pridať validačné funkcie. Ako prvú pridáme vali
 
 Validácia sa nebude chovať úplne podľa nášho zámeru, nakoľko ku kontrole dôjde až pri zmene hodnoty daného vstupného elementu. 
 
-<div style="page-break-after: always;"></div>
-
 Fungovať to bude nasledovne:
 
 ![Kontrola formulára nastane až pri zmene hodnoty](images_form-check/form-check-01.gif)
@@ -329,7 +337,7 @@ Formulár sa bude správať nasledovne:
 
 ![Zobrazenie chybovej hlášky pri nevyplnenom povinnom poli formulára](images_form-check/form-check-02.gif)
 
-Aby sme mohli zablokovať tlačidlo pre odoslanie formulára pri nájdení chyby, musíme najprv zistiť, či formulár obsahuje chybu. Najjednoduchším riešením bude vybrať všetky HTML elementy, ktoré majú CSS triedu `error` (vieme, že keď nastane chyba, elementy s touto triedou sa pridajú do DOM).
+Aby sme mohli zablokovať tlačidlo pre odoslanie formulára pri nájdení chyby, musíme najprv zistiť, či formulár obsahuje chybu. Najjednoduchším riešením bude vybrať všetky HTML elementy, ktoré majú CSS triedu `error` (vieme, že keď nastane chyba, elementy s&nbsp;touto triedou sa pridajú do DOM).
 
 Ako ďalšie doplníme nad tlačidlo `Odoslať` hlášku informujúcu používateľa o tom, že formulár obsahuje chyby a nie je možné ho odoslať. Je to veľmi dôležitý detail, ktorý výrazne spríjemňuje a uľahčuje používateľovi prácu s aplikáciou (zvlášť, ak by bol formulár tak dlhý, že by bolo nutné použiť posuvník). Samozrejme, na začiatku je potrebné hlášku skryť a vizuálne ju oddeliť od okolia, preto pridáme nasledovný HTML kód:
 
@@ -351,7 +359,7 @@ a CSS kód:
 }
 ```
 
-Kontrolu stavu formulára budeme vykonávať po každej zmene vstupu s validáciou, preto vytvoríme novú funkciu `checkFormState()`. Najprv skontrolujeme, či `form` obsahuje chybové hlášky a ak áno, tak zablokujeme tlačidlo pre odoslanie a zobrazíme hlášku. V opačnom prípade tlačidlo odblokujeme a hlášku skryjeme.
+Kontrolu stavu formulára budeme vykonávať po každej zmene vstupu s validáciou, preto vytvoríme novú funkciu `checkFormState()`. Najprv skontrolujeme, či `form` obsahuje chybové hlášky a ak áno, tak zablokujeme tlačidlo pre odoslanie a zobrazíme hlášku. V&nbsp;opačnom prípade tlačidlo odblokujeme a hlášku skryjeme.
 
 Element sa dá zablokovať, resp. odblokovať nastavením jeho atribútu `disabled=true`, resp. `disabled=false`.
 
@@ -369,7 +377,9 @@ function checkFormState() {
 }
 ```
 
-a nesmieme ju zabudnúť doplniť do funkcie `validateInput()` :
+<div style="page-break-after: always;"></div>
+
+A nesmieme ju zabudnúť doplniť do funkcie `validateInput()`:
 
 ```javascript
 function validateInput(element, validationFunction) {
@@ -419,7 +429,7 @@ validateInput(document.getElementById("priezvisko"), function (value = null) {
 
 #### Validácia mailu
 
-Mail je opäť povinná položka, ktorá navyše musí obsahovať hodnotu v špecifickom formáte. Podobne, ako pri použití validáce pomocou HTML atribútu, v atribúte `pattern` použijeme regulárny výraz. Pri použití týchto výrazov priamo kóde JavaScripte ho musíme v textovom reťazci vložiť ako parameter pri vytváraní inštancie triedy [`RegExp`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions).
+Mail je opäť povinná položka, ktorá navyše musí obsahovať hodnotu v špecifickom formáte. Podobne, ako pri použití validácie pomocou HTML atribútu, v atribúte `pattern` použijeme regulárny výraz. Pri použití týchto výrazov priamo kóde JavaScripte ho musíme v textovom reťazci vložiť ako parameter pri vytváraní inštancie triedy [`RegExp`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions).
 
 Následne otestujeme, či hodnota má požadovaný tvar pomocou metódy [`RegExp.prototype.test()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test). Tá vracia logickú hodnotu podľa toho, či vstup vyhovuje predpisu alebo nie. Kód validácie mailu bude teda nasledovný:
 
@@ -437,7 +447,11 @@ validateInput(document.getElementById("mail"), function (value = null) {
 
 #### Validácia telefónneho čísla
 
-Telefónne číslo nie je povinná položka, ale ak je zadaná, musí mať predpísaný tvar. V tomto prípade spúšťame kontrolu pomocou regulárneho výrazu iba vtedy, keď do vstupného elementu používateľ zadá nejakú hodnotu. Kód validácie bude:
+Telefónne číslo nie je povinná položka, ale ak je zadaná, musí mať predpísaný tvar. V&nbsp;tomto prípade spúšťame kontrolu pomocou regulárneho výrazu iba vtedy, keď do vstupného elementu používateľ zadá nejakú hodnotu. 
+
+<div style="page-break-after: always;"></div>
+
+Kód validácie bude:
 
 ```javascript
 validateInput(document.getElementById("mobil"), function (value = null) {

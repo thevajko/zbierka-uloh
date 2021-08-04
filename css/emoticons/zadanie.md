@@ -26,7 +26,7 @@ Vytvorte pomocou CSS bez použitia grafiky (obrázky, `svg`) nasledujúce emotik
 
 Každý emotikon bude dostupný vo veľkostiach `50px`, `100px`, `250px` a `500px`.
 
-Prvé štyri emotikony sú základné. Každý zo základných emotikonov sa bude dať otočiť o 180 stupňov. Posledný emotikon na ukážke vznikol otočením prvého emotikona.
+Prvé štyri emotikony sú základné. Každý zo základných emotikonov sa bude dať otočiť o&nbsp;180 stupňov. Posledný emotikon na ukážke vznikol otočením prvého emotikona.
 
 Základná HTML štruktúra emotikona bude nasledovná:
 
@@ -58,4 +58,4 @@ HTML kód druhého emotikona bude vyzerať nasledovne:
 </div>
 ```
 
-Pri implementácii počítajte s tým, že emotikon môže mať len jeden tvar - normálny, veselý, smutný alebo líčka, ale môže mať ľubovolnú veľkosť a otočenie.
+Pri implementácii počítajte s tým, že emotikon môže mať len jeden tvar - normálny, veselý, smutný alebo líčka, ale môže mať ľubovoľnú veľkosť a otočenie.

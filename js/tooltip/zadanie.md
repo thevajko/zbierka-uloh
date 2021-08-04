@@ -20,7 +20,7 @@
 
 ## Zadanie
 
-Vytvorte skript, ktorý zobrazí popisok, ak používateľ umiestni kurzor nad `span` element v dokumente.
+Vytvorte skript, ktorý zobrazí popisok, ak používateľ umiestni kurzor nad `span` element v&nbsp;dokumente.
 
 Skript by mal fungovať na HTML kóde, ako je tento:
 

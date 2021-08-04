@@ -13,7 +13,7 @@
 
 ### HTML dokument 
 
-Hlavným cieľom tejto úlohy je generovanie veľkého množstva štvorčekov rovnakej veľkosti a následné umiestnenie týchto štvorčekov náhodne do okna prehliadača. Na to, aby sme mohli umiestniť štvorčeky na ľubovolné miesto na stránke, potrebujeme:
+Hlavným cieľom tejto úlohy je generovanie veľkého množstva štvorčekov rovnakej veľkosti a následné umiestnenie týchto štvorčekov náhodne do okna prehliadača. Na to, aby sme mohli umiestniť štvorčeky na ľubovoľné miesto na stránke, potrebujeme:
 
 1. Roztiahnuť element `body` na celé okno prehliadača.
 2. Umiestniť štvorček pomocou napr. absolútnej pozície.
@@ -53,13 +53,13 @@ div {
 
 Pre telo dokumentu (element `body`) nastavíme CSS vlastnosti `padding` a `margin` na `0`, aby sa mohli štvorčeky zobrazovať od úplného okraja okna. Okrem toho nastavíme veľkosť na `100%`, aby vyplnili celé okno. Ak nechceme, aby sa nám okolo okna zobrazovali posuvníky, je potrebné ešte nastaviť `overflow: hidden`.
 
-Každý štvorček bude mať nastavenú pozíciu na `absolute`, aby sme ho mohli umiestniť ľubovolne na stránku a bude mať veľkosť `50px` x `50px`.
+Každý štvorček bude mať nastavenú pozíciu na `absolute`, aby sme ho mohli umiestniť ľubovoľne na stránku a bude mať veľkosť `50px` x `50px`.
 
 ### PHP skript
 
 Implementáciu PHP časti začneme deklarovaním niekoľkých pomocných funkcií.
 
-Vzhľadom na to, že štvorčeky chceme umiestňovať náhodne na základe súradníc v percentách, definujeme si funkciu `randPosition()`, ktorú umiestníme medzi značky `<?php` a `?>`.
+Vzhľadom na to, že štvorčeky chceme umiestňovať náhodne na základe súradníc v&nbsp;percentách, definujeme si funkciu `randPosition()`, ktorú umiestnime medzi značky `<?php` a `?>`.
 
 ```php
 function randPosition() 
@@ -80,14 +80,14 @@ function randColor()
 
 V tomto prípade sme si deklarovali pole dostupných farieb. Výslednú farbu vyberáme tak, že pomocou funkcie [`rand()`](https://www.php.net/manual/en/function.rand.php) vygenerujeme náhodný index do tohto poľa.
 
-Výhodou tohto riešenia je to, že vieme dopredu špecifikovať, aké farby chceme. V prípade, že by sme potrebovali plne náhodné spektrum farieb, potrebujeme si danú farbu nejakým spôsobom vygenerovať.
+Výhodou tohto riešenia je to, že vieme dopredu špecifikovať, aké farby chceme. V&nbsp;prípade, že by sme potrebovali plne náhodné spektrum farieb, potrebujeme si danú farbu nejakým spôsobom vygenerovať.
 
-Vo webových aplikáciach najčastejšie využívame RGB formát pre zápis farby. RGB kód farby sa skladá z troch zložiek R - *red*, G - *green*, B - *blue*. Každá z týchto hodnôt môže nadobúdať hodnotu `0` - `255` (`0` - `FF` hexadecimálne). Existujú dva formáty zápisu RGB farby v CSS:
+Vo webových aplikáciách najčastejšie využívame RGB formát pre zápis farby. RGB kód farby sa skladá z troch zložiek R - *red*, G - *green*, B - *blue*. Každá z týchto hodnôt môže nadobúdať hodnotu `0` - `255` (`0` - `FF` hexadecimálne). Existujú dva formáty zápisu RGB farby v CSS:
 
 1. *Hexadecimálny* - začína znakom `#` a za ním nasledujú hodnoty RGB v 16-tkovej sústave, spolu 6 číslic. Napríklad červená farba vyzerá takto: `#FF0000`. 
 2. *Decimálny* - ten sa v CSS zapisuje nasledovne `rgb(red, green, blue);`
 
-Pokiaľ chceme jednoducho vygenerovať farbu, môžeme vygenerovať náhodné číslo z rozsahu 0 - 2^24 (`0xFFFFFF`). Táto hodnota musí mať aj úvodné nuly. Ak vygenerujeme hodnotu `0xFF` musíme ju doplniť nulami - `0000FF`. Jej kód bude vyzerať nasledovne:
+Pokiaľ chceme jednoducho vygenerovať farbu, môžeme vygenerovať náhodné číslo z&nbsp;rozsahu 0 - 2^24 (`0xFFFFFF`). Táto hodnota musí mať aj úvodné nuly. Ak vygenerujeme hodnotu `0xFF` musíme ju doplniť nulami - `0000FF`. Jej kód bude vyzerať nasledovne:
 
 ```php
 function randColor()
@@ -95,7 +95,7 @@ function randColor()
     return sprintf('#%06X', rand(0, 0xFFFFFF));
 }
 ```
-Keď sa rozhodneme pre jednu z týchto funkcií, jej kód umiestníme za kód funkcie `randPosition()` tak, aby zostala v bloku `<?php` a `?>`.
+Keď sa rozhodneme pre jednu z týchto funkcií, jej kód umiestnime za kód funkcie `randPosition()` tak, aby zostala v bloku `<?php` a `?>`.
 
 Samotný PHP kód na vygenerovanie štvorčekov bude obsahovať jeden cyklus, ktorý 2000 krát vygeneruje element `div` a nastaví mu pozíciu a farbu.
 

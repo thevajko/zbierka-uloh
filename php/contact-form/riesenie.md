@@ -62,7 +62,7 @@ Každému prvku tohto nášho formulára sme nastavili `display: block` preto, a
 
 Pri nesprávnych hodnotách je potrebné preskočiť posielanie emailu a vrátiť používateľovi formulár späť, aj s informáciou o chybách. Keďže formulár odosielame na rovnakú adresu, kde sa aktuálne nachádza, môžeme pridať validáciu na začiatok tohto súboru.
 
-Pre jednoduchosť príkladu budeme uvažovať, že nasledovný kód je v súbore `index.php`, v ktorom sa aktuálne nachádza aj HTML kód formuláru. Pri zložitejšej aplikácii je vhodné určité spoločné funkcionality oddeliť do samostatných súborov, a tieto vkladať do stránky pomocou príkazov `include` alebo `require`. 
+Pre jednoduchosť príkladu budeme uvažovať, že nasledovný kód je v súbore `index.php`, v&nbsp;ktorom sa aktuálne nachádza aj HTML kód formuláru. Pri zložitejšej aplikácii je vhodné určité spoločné funkcionality oddeliť do samostatných súborov, a tieto vkladať do stránky pomocou príkazov `include` alebo `require`. 
 
 Validácia v našom prípade môže vyzerať nasledovne:
 
@@ -85,9 +85,9 @@ if ($isPost) {
 }
 ```
 
-Samotná validácia pozostáva z týchto krokov. Na začiatku si deklarujeme premennú, do ktorej budeme ukladať validačné chyby. Túto premennú sme si deklarovali ako pole. V ďalšom kroku overíme, či ide o `POST` žiadosť. Na overenie môžeme použiť viacero postupov. V závislosti od použitého servera a konfigurácie nemusia všetky fungovať. Superglobálna premenná `$_SERVER` obsahuje pod kľúčom `REQUEST_METHOD` typ HTTP požiadavky. Tento spôsob bude fungovať vždy. V našom prípade overíme, či `$_SERVER['REQUEST_METHOD']` obsahuje hodnotu `POST`.
+Samotná validácia pozostáva z týchto krokov. Na začiatku si deklarujeme premennú, do ktorej budeme ukladať validačné chyby. Túto premennú sme si deklarovali ako pole. V&nbsp;ďalšom kroku overíme, či ide o `POST` žiadosť. Na overenie môžeme použiť viacero postupov. V závislosti od použitého servera a konfigurácie nemusia všetky fungovať. Superglobálna premenná `$_SERVER` obsahuje pod kľúčom `REQUEST_METHOD` typ HTTP požiadavky. Tento spôsob bude fungovať vždy. V našom prípade overíme, či `$_SERVER['REQUEST_METHOD']` obsahuje hodnotu `POST`.
 
-Ďalej nasleduje validácia hodnôt jednotlivých častí formulára. Pri všetkých validáciach používame rovnaký vzor. Najskôr si zo superglobalného poľa `$_POST` načítame hodnotu parametra a vyfiltrujeme ju. Pri mene a obsahu používame funkciu [`trim()`](https://www.php.net/manual/en/function.trim.php), ktorá odstráni začiatočné a koncové prázdne znaky. Následne overíme či meno, alebo správa nie sú prázdne pomocou funkcie [`empty()`](https://www.php.net/manual/en/function.empty.php). Ak je niektoré pole prázdne, tak do poľa chýb `$errors` uložíme pod kľúčom danej premennej textový popis chyby.
+Ďalej nasleduje validácia hodnôt jednotlivých častí formulára. Pri všetkých validáciách používame rovnaký vzor. Najskôr si zo superglobalného poľa `$_POST` načítame hodnotu parametra a vyfiltrujeme ju. Pri mene a obsahu používame funkciu [`trim()`](https://www.php.net/manual/en/function.trim.php), ktorá odstráni začiatočné a koncové prázdne znaky. Následne overíme či meno, alebo správa nie sú prázdne pomocou funkcie [`empty()`](https://www.php.net/manual/en/function.empty.php). Ak je niektoré pole prázdne, tak do poľa chýb `$errors` uložíme pod kľúčom danej premennej textový popis chyby.
 
 ```php
 $name = trim($_POST['name']);

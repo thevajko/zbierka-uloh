@@ -15,12 +15,12 @@
 
 **Obťažnosť**: 5/5
 
-**Obsah príkladu**: Objektová architektúra aplikácie, triedy a rozhrania, PHP Data Objects (PDO), *PDO preprared statements*, GET parametre, zoraďovanie, filtrovanie a stránkovanie dát, príkaz `switch`, ochrana voči *SQL injection* útoku, ochrana voči *Cross Site Scripting* útoku.  
+**Obsah príkladu**: Objektová architektúra aplikácie, triedy a rozhrania, PHP Data Objects (PDO), *PDO prepared statements*, GET parametre, zoraďovanie, filtrovanie a stránkovanie dát, príkaz `switch`, ochrana voči *SQL injection* útoku, ochrana voči *Cross Site Scripting* útoku.  
 </div>
 
 ## Zadanie
 
-Vytvorte aplikáciu v jazyku PHP, ktorá bude schopná zobraziť obsah ľubovolnej databázovej tabuľky a bude umožňovať:
+Vytvorte aplikáciu v jazyku PHP, ktorá bude schopná zobraziť obsah ľubovoľnej databázovej tabuľky a bude umožňovať:
 
 1. načítanie a zobrazenie všetkých dát vo forme HTML tabuľky,
 1. zoradenie dát vzostupne a zostupne kliknutím na záhlavie tabuľky, 

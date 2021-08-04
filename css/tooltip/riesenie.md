@@ -79,7 +79,7 @@ div.has-tooltip .tooltip {
 
 Pre zobrazenie popisku budeme používať CSS vlastnosť `position`. Ako prvé musíme nastaviť v rodičovskom elemente túto vlastnosť na hodnotu `position: relative;`. To preto, aby sme ho mohli použiť ako plochu pre určenie pozície samotného popisku.
 
-Pre umiestnenie popisku mu nastavíme `position: absolute;`. To spôsobí, že element s popiskom začne "plávať" nad ostatnými elementmi. Teraz potrebujeme element s popiskom správne umiestniť. To docielime nastavením CSS vlastností `left` a `top`:
+Pre umiestnenie popisku mu nastavíme `position: absolute;`. To spôsobí, že element s&nbsp;popiskom začne "plávať" nad ostatnými elementmi. Teraz potrebujeme element s&nbsp;popiskom správne umiestniť. To docielime nastavením CSS vlastností `left` a `top`:
 
 - `left` definuje vzdialenosť elementu od ľavej strany rodičovského elementu. 
 - `top` definuje vzdialenosť elementu od vrchu rodičovského elementu.

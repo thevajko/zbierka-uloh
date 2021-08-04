@@ -52,7 +52,7 @@ abstract class AFormElement
 }
 ```
 
-Okrem samotnej metódy `render()` obsahuje aj konštrukor a atribút `$name`. Každý prvok vo formulári musí byť nejakým spôsobom pomenovaný, aby sme sa k nemu prípadne vedeli neskôr dostať. Aj iné ako HTML formulárové prvky budú mať v našej implementácii svoj názov. Ak to bude potrebné, je možnosť pridať *get* metódu pre atribút `$name`. My sme ho ale označili ako `protected`, takže každý z potomkov bude mať prístup k názvu elementu. Môžeme si všimnúť, že celá trieda, ale aj metóda `render()` sú označené kľúčovým slovom `abstract`.
+Okrem samotnej metódy `render()` obsahuje aj konštruktor a atribút `$name`. Každý prvok vo formulári musí byť nejakým spôsobom pomenovaný, aby sme sa k nemu prípadne vedeli neskôr dostať. Aj iné ako HTML formulárové prvky budú mať v našej implementácii svoj názov. Ak to bude potrebné, je možnosť pridať *get* metódu pre atribút `$name`. My sme ho ale označili ako `protected`, takže každý z potomkov bude mať prístup k názvu elementu. Môžeme si všimnúť, že celá trieda, ale aj metóda `render()` sú označené kľúčovým slovom `abstract`.
 
 #### Tlačidlo na odoslanie formulára
 
@@ -109,7 +109,7 @@ abstract class AFormField extends AFormElement
 ```
 </div>
 
-Trieda si pamätá hodnotu formulárového prvku v atribúte `value`. Ak bol formulár odoslaný, tak nastavíme túto hodnotu z poľa `$_POST`. V opačnom prípade tam nastavíme východziu hodnotu, ktorú sme dostali ako parameter konštruktora. Okrem konštrukora si deklarujeme abstraktnú metódu `renderElement()`, pomocou ktorej budú potomkovia definovať konkrétny formulárový prvok.
+Trieda si pamätá hodnotu formulárového prvku v atribúte `value`. Ak bol formulár odoslaný, tak nastavíme túto hodnotu z poľa `$_POST`. V opačnom prípade tam nastavíme východziu hodnotu, ktorú sme dostali ako parameter konštruktora. Okrem konštruktora si deklarujeme abstraktnú metódu `renderElement()`, pomocou ktorej budú potomkovia definovať konkrétny formulárový prvok.
 
 Ďalej si deklarujeme metódu `render()`. Tá bude spoločná pre všetky formulárové prvky. Metóda vypíše element `label` a pomocou metódy `renderElement()` vypíše telo daného elementu.
 
@@ -223,7 +223,7 @@ Výsledkom tejto metódy bude asociatívne pole, ktoré bude obsahovať hodnoty 
 
 #### Pridávanie polí do formulára
 
-Pre pridávanie jednotlivých polí do formulára si musíme upraviť triedu `Form`. Každé pole má v konštruktore ako parameter svoju východziu hodnotu. Pre lepšiu manipuláciu nastavíme všetky východzie hodnoty už priamo v parametri konštruktora triedy `Form` v podobe asociatívneho poľa `"názovPrvku" => "hodnota"`. Tieto východzie hodnoty si musíme uložiť do atribútu a následne si ich budeme pri pridávaní polí vyberať z tohto atribútu.
+Pre pridávanie jednotlivých polí do formulára si musíme upraviť triedu `Form`. Každé pole má v konštruktore ako parameter svoju východziu hodnotu. Pre lepšiu manipuláciu nastavíme všetky východzie hodnoty už priamo v parametri konštruktora triedy `Form` v&nbsp;podobe asociatívneho poľa `"názovPrvku" => "hodnota"`. Tieto východzie hodnoty si musíme uložiť do atribútu a následne si ich budeme pri pridávaní polí vyberať z tohto atribútu.
 
 ```php
 class Form 
@@ -443,7 +443,7 @@ abstract class AFormField extends AFormElement {
 
 Oproti pôvodnej implementácii pribudli dve veci. Na začiatok metódy `render()` sme pridali validáciu a do výpisu sme pridali `span` element, do ktorého vložíme jednotlivé chyby z validácie.
 
-Zaujímavá je aj podmienka na výpis chýb. Tá sa skladá z dvoch častí. Chyby vypisujeme len v prípade, že nejaké sú a zároveň, ak bol formulár odoslaný. Podmienku `$this->form->isSubmitted()` sme použili preto, aby sa validačné chyby nezobrazili hneď pri prvom vykreslení formulára, ale až po odoslaní. To je z toho dôvodu, lebo z používateľského hľadiska nie je dobré, aby prázdny formulár ešte pred vyplnením obsahoval množstvo chybových správ.
+Zaujímavá je aj podmienka na výpis chýb. Tá sa skladá z dvoch častí. Chyby vypisujeme len v prípade, že nejaké sú a zároveň, ak bol formulár odoslaný. Podmienku `$this->form->isSubmitted()` sme použili preto, aby sa validačné chyby nezobrazili hneď pri prvom vykreslení formulára, ale až po odoslaní. To je z toho dôvodu, lebo z&nbsp;používateľského hľadiska nie je dobré, aby prázdny formulár ešte pred vyplnením obsahoval množstvo chybových správ.
 
 Metóda `isSubmitted()` v triede `Form` vyzerá nasledovne:
 
@@ -566,7 +566,7 @@ $form->addText("email", "Emailová adresa")
   ->addRule(new EmailValidator());
 ```
 
-Pokiaľ by sme ale chceli pridať HTML5 validáciu, museli by sme zmeniť typ HTML `input` elementu na `email`. Upravíme pre to triedu `TextInputField` tak, aby umožňovala nastaviť ľubovolný typ elementu.
+Pokiaľ by sme ale chceli pridať HTML5 validáciu, museli by sme zmeniť typ HTML `input` elementu na `email`. Upravíme pre to triedu `TextInputField` tak, aby umožňovala nastaviť ľubovoľný typ elementu.
 
 ```php
 class TextInputField extends AFormField {
@@ -655,7 +655,7 @@ class NumberValidator extends AValidator
 
 Nakoniec si ukážeme ešte jeden formulárový prvok, a to výberový zoznam (značka `<select>`).
 
-Výberový zoznam funguje tak, že ako parameter dostane pole dostupných hodnôt, z ktorých bude môcť používateľ vybrať. Takéto pole je štandardne typu `"klúč" => "hodnota"`, kde kľúčom môže byť napr. `id` záznamu z databázy a hodnota bude text, ktorý sa bude zobrazovať používateľovi. Základnou validáciou pri každom výberovom zozname je kontrola prípustných hodnôt. Používateľ nemôže odoslať hodnotu, ktorá nie je v zozname. Celú túto požiadavku implementujeme jednoduchou kontrolou prípustných hodnôt v konštruktore triedy `SelectField`.
+Výberový zoznam funguje tak, že ako parameter dostane pole dostupných hodnôt, z&nbsp;ktorých bude môcť používateľ vybrať. Takéto pole je štandardne typu `"klúč" => "hodnota"`, kde kľúčom môže byť napr. `id` záznamu z databázy a hodnota bude text, ktorý sa bude zobrazovať používateľovi. Základnou validáciou pri každom výberovom zozname je kontrola prípustných hodnôt. Používateľ nemôže odoslať hodnotu, ktorá nie je v&nbsp;zozname. Celú túto požiadavku implementujeme jednoduchou kontrolou prípustných hodnôt v konštruktore triedy `SelectField`.
 
 ```php
 class SelectField extends AFormField 

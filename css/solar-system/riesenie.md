@@ -13,7 +13,7 @@
 
 ### HTML dokument
 
-Riešenie začneme prípravou HTML dokumentu. Na každú z planét vytvoríme vlastný HTML element. Pre lepšiu prehľadnosť a zjednodušenie zápisu CSS pravidiel ich umiestníme do spoločného elementu s triedou `system`. HTML kód bude vyzerať nasledovne:
+Riešenie začneme prípravou HTML dokumentu. Na každú z planét vytvoríme vlastný HTML element. Pre lepšiu prehľadnosť a zjednodušenie zápisu CSS pravidiel ich umiestnime do spoločného elementu s triedou `system`. HTML kód bude vyzerať nasledovne:
 
 ```html
 <div class="system">
@@ -29,7 +29,7 @@ Element `system` obsahuje všetky prvky slnečnej sústavy. Mesiac sme umiestnil
 
 ### Umiestnenie planét
 
-Začneme s deklaráciou štýlu pre slnko. Pokiaľ chceme slnko umiestniť do stredu obrazovky, máme niekoľko možností. Buď použijeme *flexbox*, alebo pomocou nastavenia typu pozície (`absolute`) umiestníme prvok do stredu. V našom príklade *flexbox* potrebovať nebudeme a vystačíme si z absolútnym poziciovaním.
+Začneme s deklaráciou štýlu pre slnko. Pokiaľ chceme slnko umiestniť do stredu obrazovky, máme niekoľko možností. Buď použijeme *flexbox*, alebo pomocou nastavenia typu pozície (`absolute`) umiestnime prvok do stredu. V našom príklade *flexbox* potrebovať nebudeme a vystačíme si z absolútnym poziciovaním.
 
 ```css
 .sun {
@@ -46,7 +46,7 @@ Začneme s deklaráciou štýlu pre slnko. Pokiaľ chceme slnko umiestniť do st
 
 Pomocou tohto štýlu sme nastavili veľkosť, pozíciu, pozadie a posunuli sme element cez CSS transformáciu do stredu obrazovky. Môžeme si všimnúť, že CSS vlastnosť `background-size` sme nastavili na `cover`, vďaka čomu sa nám obrázok prispôsobí veľkosti elementu. 
 
-Pre vycentrovanie prvku na stred obrazovky sme využívali kombináciu CSS vlastností `left` a `right` nastavených na `50%` a spätného posunu do stredu pomocou `translate(-50%, -50%)`. Túto kombináciu sme používali preto, lebo len pomocou `left` a `right` sme boli schopní vycentrovať ľavý horný roh nášho prvku. A kvôli centrovaniu na stred bolo potrebné použiť `translate(-50%, -50%)`, ktoré posunulo prvok o polovicu jeho šíky/výšky smerom doľava a hore.
+Pre vycentrovanie prvku na stred obrazovky sme využívali kombináciu CSS vlastností `left` a `right` nastavených na `50%` a spätného posunu do stredu pomocou `translate(-50%, -50%)`. Túto kombináciu sme používali preto, lebo len pomocou `left` a `right` sme boli schopní vycentrovať ľavý horný roh nášho prvku. A kvôli centrovaniu na stred bolo potrebné použiť `translate(-50%, -50%)`, ktoré posunulo prvok o&nbsp;polovicu jeho šíky/výšky smerom doľava a hore.
 
 Ďalej budeme pokračovať so štýlmi pre jednotlivé planéty. Začneme so zemou:
 
@@ -63,9 +63,9 @@ Pre vycentrovanie prvku na stred obrazovky sme využívali kombináciu CSS vlast
  }
 ```
 
-Pomocou tohto kódu sme nastavili zem veľmi podobným spôsobom ako slnko, jediný rozdiel v týchto deklaráciach je zmena veľkosti, obrázku a zem sme ešte navyše posunuli o `300px` doprava, aby sa zobrazila ďalej od slnka.
+Pomocou tohto kódu sme nastavili zem veľmi podobným spôsobom ako slnko, jediný rozdiel v týchto deklaráciách je zmena veľkosti, obrázku a zem sme ešte navyše posunuli o `300px` doprava, aby sa zobrazila ďalej od slnka.
 
-CSS kód pre ostatné planéty by bol veľmi podobný, tak môžeme skúsiť tento zápis optimalizovať. Určité CSS vlastnosti môžeme nastaviť rovnako pre všetky elementy v našej sústave. Využijeme preto selektor `.system div`. Keď však skúsime napísať spoločné pravidlá pre všetky elementy, zistíme, že budú vlastne len štyri - `position`, `left`, `top` a `background-size`. Veľkosti a transformácie sa budú meniť.
+CSS kód pre ostatné planéty by bol veľmi podobný, tak môžeme skúsiť tento zápis optimalizovať. Určité CSS vlastnosti môžeme nastaviť rovnako pre všetky elementy v&nbsp;našej sústave. Využijeme preto selektor `.system div`. Keď však skúsime napísať spoločné pravidlá pre všetky elementy, zistíme, že budú vlastne len štyri - `position`, `left`, `top` a `background-size`. Veľkosti a transformácie sa budú meniť.
 
 Pomocou [CSS premenných](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) by sme si mohli ešte viac zovšeobecniť tento zápis, pretože naše prvky majú rovnakú výšku a šírku, takže konkrétny prvok slnečnej sústavy by mohol zadeklarovať len tento rozmer.
 
@@ -100,7 +100,7 @@ Upravený kód pomocou CSS premenných by mohol vyzerať nasledovne:
 
 Pre každý element v slnečnej sústave sme zadeklarovali výšku a šírku pomocou premennej. Zápis `var(--size)` získa hodnotu premennej `--size`. Ďalšou úpravou bol spôsob centrovania elementu. V pôvodnej verzii sme využívali kombináciu `left` a `right` nastavenú na `50%` a spätného posunu do stredu pomocou `translate(-50%, -50%)`. Využitie CSS vlastnosti `transform` nie je ale úplne dobrý nápad, pretože pomocou tejto CSS vlastnosti budeme vytvárať animáciu.
  
-Využitie `translate(-50%, -50%)` je dobré vtedy, keď dopredu nepoznáme šírku prvku, ktorý chceme zarovnávať. Ak poznáme šírku zarovnávaného elementu, vystačíme si len s vlastnosťami `left` a `right` a funkciou `calc`, ktorá nám dynamicky spočíta umiestnenie elementu.
+Využitie `translate(-50%, -50%)` je dobré vtedy, keď dopredu nepoznáme šírku prvku, ktorý chceme zarovnávať. Ak poznáme šírku zarovnávaného elementu, vystačíme si len s&nbsp;vlastnosťami `left` a `right` a funkciou `calc`, ktorá nám dynamicky spočíta umiestnenie elementu.
 
 V našom konkrétnom príklade sme použili na prvý pohľad komplikovaný výpočet `calc(50% - (var(--size) / 2))`. Tento výpočet hovorí, že element bude umiestnený naľavo 50% šírky stránky mínus jeho šírka delené dva. Čím dostaneme presné umiestnenie v strede obrazovky a rovnaký kód použijeme aj na umiestnenie elementu od vrchu stránky.
 
@@ -114,7 +114,7 @@ Pokiaľ pred posun planéty vložíme otočenie, môžeme tým kontrolovať uhol
 
 ![Otočenie planéty o 45 stupňov](images_solar-system/step2-translate.png)
 
-Planétka je síce otočená okolo slnka o 45 stupňov, ale pribudol ďalší problém. Planétka sa otočila okolo svojej osi. Ak to chceme vrátiť späť, tak za posun `translateX(450px)` doplníme rotáciu v opačnom smere, ktorá otočí planétu na aktuálnej pozícii o 45 stupňov späť. Celkový zápis otočenia planétky presne o 45 stupňov bude nasledovný:
+Planéta je síce otočená okolo slnka o 45 stupňov, ale pribudol ďalší problém. Planéta sa otočila okolo svojej osi. Ak to chceme vrátiť späť, tak za posun `translateX(450px)` doplníme rotáciu v opačnom smere, ktorá otočí planétu na aktuálnej pozícii o 45 stupňov späť. Celkový zápis otočenia planéty presne o 45 stupňov bude nasledovný:
 
 ```css
 transform: rotate(45deg) translateX(450px) rotate(-45deg);
@@ -124,7 +124,7 @@ transform: rotate(45deg) translateX(450px) rotate(-45deg);
 
 #### Animácia obehu planéty
 
-Pre animáciu pohybu nám stačí jednoducho meniť uhol planétky postupne od 0 do 360 stupňov. Napíšeme si preto jednoduchú animáciu:
+Pre animáciu pohybu nám stačí jednoducho meniť uhol planéty postupne od 0 do 360 stupňov. Napíšeme si preto jednoduchú animáciu:
 
 ```css
 @keyframes circularOrbit {
@@ -164,11 +164,11 @@ Vzhľadom na univerzálnosť celého návrhu bude pridanie mesiaca úplne rovnak
 ```
 </div>
 
-Mesiac využíva rovnaké vlastnosti ako ostatné planéty, len centrum jeho obežnej dráhy nie je stred obrazovky, ale planétka zem. Ďalším rozdielom je rýchlosť animácie, v prípade saturnu trvá jeden obeh `8s` a v prípade mesiaca `2s`.
+Mesiac využíva rovnaké vlastnosti ako ostatné planéty, len centrum jeho obežnej dráhy nie je stred obrazovky, ale planéta zem. Ďalším rozdielom je rýchlosť animácie, v&nbsp;prípade saturnu trvá jeden obeh `8s` a v prípade mesiaca `2s`.
 
 ### Nerovnomerná rýchlosť obehu
 
-V zápise animácie môžeme definovať tzv. *timing* funkciu. V uvedenom príklade bola ako *timing* funkcia zvolená funkcia `linear`, ktorá sa správa tak, že planétky sa pohybujú rovnako rýchlo po celý čas obehu. Tieto *timing* funkcie sa definujú pomocou kubických bezierových kriviek. Našťastie si tieto krivky nemusíme počítať manuálne, ale môžeme využiť online nástroj - napríklad [cubic-bezier.com](https://cubic-bezier.com). Môžeme napríklad vyskúšať funkciu `cubic-bezier(.61,.11,.41,.91)`, ktorá spôsobí, že zo začiatku planétka pôjde veľmi pomaly, postupne bude zrýchlovať, v polovici otáčky pôjde najrýchlejšie a na konci zase spomalí. Spomenutá *timing* funkcia vyzerá nasledovne:
+V zápise animácie môžeme definovať tzv. *timing* funkciu. V uvedenom príklade bola ako *timing* funkcia zvolená funkcia `linear`, ktorá sa správa tak, že planéty sa pohybujú rovnako rýchlo po celý čas obehu. Tieto *timing* funkcie sa definujú pomocou kubických bezierových kriviek. Našťastie si tieto krivky nemusíme počítať manuálne, ale môžeme využiť online nástroj - napríklad [cubic-bezier.com](https://cubic-bezier.com). Môžeme napríklad vyskúšať funkciu `cubic-bezier(.61,.11,.41,.91)`, ktorá spôsobí, že zo začiatku planéta pôjde veľmi pomaly, postupne bude zrýchlovať, v polovici otáčky pôjde najrýchlejšie a na konci zase spomalí. Spomenutá *timing* funkcia vyzerá nasledovne:
 
 ![Ukážka *timing* funkcie](images_solar-system/timing-funckia.png)
 

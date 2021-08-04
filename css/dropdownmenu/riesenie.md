@@ -29,7 +29,11 @@ Riešenie je rozdelené do nasledovných podkapitol
 
 ## Prvá úroveň menu
 
-Prvý krok spočíva v skrytí všetkých vnorených elementov `ul` okrem prvej úrovne. Na skrytie všetkých vnorených `ul` elementov použijeme následnícky selektor: `ul ul`. CSS pravidlo bude vyzerať nasledovne:
+Prvý krok spočíva v skrytí všetkých vnorených elementov `ul` okrem prvej úrovne. Na skrytie všetkých vnorených `ul` elementov použijeme následnícky selektor: `ul ul`. 
+
+<div style="page-break-after: always;"></div>
+
+CSS pravidlo bude vyzerať nasledovne:
 
 ```css
 ul ul {
@@ -63,7 +67,7 @@ Výsledok bude:
 jeden dva tri styri text text text
 ```
 
-Výsledkom tejto štruktúry bude postupnosť jednotlivých textov v riadku oddelených v medzerami. Pokiaľ chceme medzeru odstrániť, musíme jednotlivé elementy dať hneď za sebou<span class="hidden">( otvoriť [fiddle](https://jsfiddle.net/meshosk/p2atzwkd ))</span>:
+Výsledkom tejto štruktúry bude postupnosť jednotlivých textov v riadku oddelených medzerami. Pokiaľ chceme medzeru odstrániť, musíme jednotlivé elementy dať hneď za sebou<span class="hidden">( otvoriť [fiddle](https://jsfiddle.net/meshosk/p2atzwkd ))</span>:
 
 ```html
 <div>
@@ -234,11 +238,11 @@ ul ul ul {
 }
 ```
 
-Nastavenie CSS vlastnosti `top: 0` určuje, že sa má podmenu zobraziť vertikálne zarovno s elementom `li`, v ktorom sa nachádza. Vlastnosť `left: 100%` umiestňuje podmenu o `100%` veľkosti rodičovského elementu `li` zľava. Výsledok pridania tohto pravidla je nasledovný:
+Nastavenie CSS vlastnosti `top: 0` určuje, že sa má podmenu zobraziť vertikálne zarovno s&nbsp;elementom `li`, v ktorom sa nachádza. Vlastnosť `left: 100%` umiestňuje podmenu o `100%` veľkosti rodičovského elementu `li` zľava. Výsledok pridania tohto pravidla je nasledovný:
 
 ![Pridané ďalšie úrovne menu](images_dropdownmenu/menu-fung-02.gif)
 
-Všimnime si však, že jednotlivé podmenu nie sú úplne zarovnané. To je dôsledok toho, že sme pri elemente `ul` druhej úrovne pridali rámček a ďalšie vnorené menu sa zobrazí až v tomto rámčeku.
+Všimnime si však, že jednotlivé podmenu nie sú úplne zarovnané. To je dôsledok toho, že sme pri elemente `ul` druhej úrovne pridali rámček a ďalšie vnorené menu sa zobrazí až v&nbsp;tomto rámčeku.
 
 ![Chybné zarovnanie menu kvôli rámčeku](images_dropdownmenu/menu-dva-03.png)
 
@@ -350,7 +354,7 @@ Finálny výsledok vyzerá nasledovne:
 
 ## Úprava na *drop-up* menu
 
-Zmena voči pôvodnému menu spočíva čisto iba v úprave toho, kde a ako sa majú jednotlivé elementy zobraziť. Začneme teda presunutím celého menu na spodok okna prehliadača. To budeme realizovať zmenou hodnoty CSS vlastnosti `position` na hodnotu `fixed`. Tým docielime to, že menu sa bude umiestňovať nad všetky vykreslené prvky v priestore okna prehliadača a ten bude tvoriť aj jeho predka pre výpočet veľkostí.
+Zmena voči pôvodnému menu spočíva čisto iba v úprave toho, kde a ako sa majú jednotlivé elementy zobraziť. Začneme teda presunutím celého menu na spodok okna prehliadača. To budeme realizovať zmenou hodnoty CSS vlastnosti `position` na hodnotu `fixed`. Tým docielime to, že menu sa bude umiestňovať nad všetky vykreslené prvky v&nbsp;priestore okna prehliadača a ten bude tvoriť aj jeho predka pre výpočet veľkostí.
 
 <div style="page-break-after: always;"></div>
 

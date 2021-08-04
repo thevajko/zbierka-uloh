@@ -56,7 +56,7 @@ Pre čítanie dát z databázy existuje v jazyku PHP niekoľko prístupov. Každ
 
 V našom príklade si ukážeme prístup cez PDO, ktoré je v súčasnosti odporúčané používať, pretože na rozdiel od ostatných prístupov, plne podporuje objektový prístup.
 
-Hlavným prístupovým bodom k databáze je trieda [`PDO`](https://www.php.net/manual/en/class.pdo.php). Táto trieda umožní vytvoriť pripojenie k databáze a následne vykonávanie SQL príkazov. Pre vytvorenie jej inštancie potrebujeme zadať nasledovné parametre [konštrukora](https://www.php.net/manual/en/pdo.construct.php):
+Hlavným prístupovým bodom k databáze je trieda [`PDO`](https://www.php.net/manual/en/class.pdo.php). Táto trieda umožní vytvoriť pripojenie k databáze a následne vykonávanie SQL príkazov. Pre vytvorenie jej inštancie potrebujeme zadať nasledovné parametre [konštruktora](https://www.php.net/manual/en/pdo.construct.php):
 
 - `connection string` - textový reťazec, ktorý obsahuje informácie o tom, kde sa nachádza databázový server, typ servera a názov použitej databázovej schémy.
 - `db_user` - textový reťazec obsahujúci meno používateľského konta pre databázu.
@@ -71,7 +71,7 @@ try {
 }
 ```
 
-Takto vytvorená inštancia PDO nás pripojí na `mysql` databázový server s názvom `db` bežiacom na porte `3306` s prihlasovacím menom `"db_user"` a heslom `"db_user_pass"`. V prípade, že sa pripojenie nepodarí (nesprávne meno heslo, nedostupný DB server), ukončíme beh celého skriptu pomocou funkcie  [`exit()`](https://www.php.net/manual/en/function.exit.php).
+Takto vytvorená inštancia PDO nás pripojí na `mysql` databázový server s názvom `db` bežiacom na porte `3306` s prihlasovacím menom `"db_user"` a heslom `"db_user_pass"`. V&nbsp;prípade, že sa pripojenie nepodarí (nesprávne meno heslo, nedostupný DB server), ukončíme beh celého skriptu pomocou funkcie  [`exit()`](https://www.php.net/manual/en/function.exit.php).
 
 Pre pohodlnejšiu prácu ešte nastavíme správanie PDO tak, že pri chybe dostaneme výnimku. Od PHP8 je toto správanie predvolené, takže na PHP8 už `$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);` nie je potrebné.
 
@@ -152,7 +152,7 @@ Začneme implementáciou metódy `UserStorage::getAll()`. Pre získanie dát z d
 
 Metóda `PDO::query()` vracia výsledok operácie z databázy v podobe inštancie triedy [`PDOStatement`](https://www.php.net/manual/en/class.pdostatement.php) v prípade, ak databáza nájde výsledok, alebo `false`, ak nenájde nič.
 
-Ak chceme získať dáta v podobe, ktorú je možné ľahko iterovať, musíme použiť metódu [`PDOStatement::fetchAll()`](https://www.php.net/manual/en/pdostatement.fetchall.php). Tá má vstupný parameter, ktorý upresňuje spôsob, akým sú jednotlivé riadky tabuľky transformované. PDO podporuje rôzne módy, napr. štandardne používaný `PDO::FETCH_ASSOC` vráti dáta v asociatívnom poli, kde kľúčom bude názov stĺpca a hodnotou príslušná hodnota v danom riadku. V našom prípade ale môžeme využiť to, že máme k dispozícii entitnú triedu a prinútiť PDO, aby nám dáta vrátilo v týchto entitných triedach použitím módu `PDO::FETCH_CLASS` a uvedením príslušnej triedy `User::class`.
+Ak chceme získať dáta v podobe, ktorú je možné ľahko iterovať, musíme použiť metódu [`PDOStatement::fetchAll()`](https://www.php.net/manual/en/pdostatement.fetchall.php). Tá má vstupný parameter, ktorý upresňuje spôsob, akým sú jednotlivé riadky tabuľky transformované. PDO podporuje rôzne módy, napr. štandardne používaný `PDO::FETCH_ASSOC` vráti dáta v asociatívnom poli, kde kľúčom bude názov stĺpca a hodnotou príslušná hodnota v danom riadku. V našom prípade ale môžeme využiť to, že máme k dispozícii entitnú triedu a prinútiť PDO, aby nám dáta vrátilo v&nbsp;týchto entitných triedach použitím módu `PDO::FETCH_CLASS` a uvedením príslušnej triedy `User::class`.
 
 Výsledná metóda na získanie všetkých používateľov bude vyzerať nasledovne:
 
@@ -215,7 +215,7 @@ public function get($id): ?User
 
 Metóda [`PDOStatement::fetch()`](https://www.php.net/manual/en/pdostatement.fetch.php) na rozdiel od [`PDOStatement::fetchAll()`](https://www.php.net/manual/en/pdostatement.fetchall.php) neumožňuje priamo definovať triedu, ktorú nám táto metóda vráti. Pre nastavenie typu, ktorý nám metóda [`PDOStatement::fetch()`](https://www.php.net/manual/en/pdostatement.fetch.php) vráti, použijeme [`PDOStatement::setFetchMode()`](https://www.php.net/manual/en/pdostatement.setfetchmode.php), kde nastavíme `PDO::FETCH_CLASS` a triedu na `User::class`.
 
-Metóda [`PDOStatement::fetch()`](https://www.php.net/manual/en/pdostatement.fetch.php) vráti `false` v prípade, že sme nenašli žiaden záznam v databáze. Preto sme pridali podmienku, ktorá v prípade, že neexistuje záznam v databáze s daným `id` vráti hodnotu `null`. Je to objektovo čistejšie riešenie, ako keď metóda `UserStorage::get()` vráti `false` v prípade nenájdenia záznamu.
+Metóda [`PDOStatement::fetch()`](https://www.php.net/manual/en/pdostatement.fetch.php) vráti `false` v prípade, že sme nenašli žiaden záznam v&nbsp;databáze. Preto sme pridali podmienku, ktorá v prípade, že neexistuje záznam v&nbsp;databáze s daným `id` vráti hodnotu `null`. Je to objektovo čistejšie riešenie, ako keď metóda `UserStorage::get()` vráti `false` v prípade nenájdenia záznamu.
 
 #### Ukladanie dát do databázy
 
@@ -241,7 +241,7 @@ public function store(User $user): void
 }
 ```
 
-Ak by sme chceli získať informáciu, či sa daná SQL operácia podarila, mohli by sme využiť to, že metóda [`PDOStatement::execute()`](https://www.php.net/manual/en/pdostatement.execute.php) vráti hodnotu typu `boolean`, ktorá signalizuje, či sa daný SQL dopyt podaril alebo nie a túto hodnotu by sme mohli vrátiť. V našom nastavení ale používame `PDO::ATTR_ERRMODE` nastavený na `PDO::ERRMODE_EXCEPTION`, takže každá chyba spôsobí výnimku, ktorú môžeme následne ošetriť a nemusíme tým pádom riešiť návratovú hodnotu metódy `UserStorage::store()`. Ak všetko prebehne v poriadku, nestane sa nič. Ak sa SQL dopyt nepodarí vykonať, dostaneme výnimku.
+Ak by sme chceli získať informáciu, či sa daná SQL operácia podarila, mohli by sme využiť to, že metóda [`PDOStatement::execute()`](https://www.php.net/manual/en/pdostatement.execute.php) vráti hodnotu typu `boolean`, ktorá signalizuje, či sa daný SQL dopyt podaril alebo nie a túto hodnotu by sme mohli vrátiť. V&nbsp;našom nastavení ale používame `PDO::ATTR_ERRMODE` nastavený na `PDO::ERRMODE_EXCEPTION`, takže každá chyba spôsobí výnimku, ktorú môžeme následne ošetriť a nemusíme tým pádom riešiť návratovú hodnotu metódy `UserStorage::store()`. Ak všetko prebehne v poriadku, nestane sa nič. Ak sa SQL dopyt nepodarí vykonať, dostaneme výnimku.
 
 #### Mazanie záznamov z databázy
 
@@ -321,11 +321,11 @@ require "model/UserStorage.php";
 </html>
 ```
 
-Na začiatku tohto súboru vložíme súbor `UserStorage.php`, aby sme danú triedu mali v ďalších častiach aplikácie dostupnú. Hlavnú časť súboru `index.php` tvorí smerovač, ktorý na základe hodnoty GET parametra `p` rozhoduje, ktorý komponent sa použije.
+Na začiatku tohto súboru vložíme súbor `UserStorage.php`, aby sme danú triedu mali v&nbsp;ďalších častiach aplikácie dostupnú. Hlavnú časť súboru `index.php` tvorí smerovač, ktorý na základe hodnoty GET parametra `p` rozhoduje, ktorý komponent sa použije.
 
 Tento smerovač je implementovaný jednoduchým `switch` konštruktom. Ako môžeme vidieť, pri URL adrese `?p=users/add`, ale aj `?p=users/edit` nám vloží ten istý komponent - formulár na editáciu používateľov.
 
-Celá logika tohto jednoduchého smerovača by sa dala spraviť aj univerzálnejšie. Napríklad by sa dal automaticky načítať súbor podľa hodnoty parametra `p`. Pri takejto implementácii treba mať ale na pamäti bezpečnosť. Je potrebné zabezpečiť aplikáciu pred útokom typu *local file inclusion*. Pre komplexnosť tohto problému radšej zostaneme v našom príklade pri jednoduchej implementácii smerovača pomocou príkazu `switch`.
+Celá logika tohto jednoduchého smerovača by sa dala spraviť aj univerzálnejšie. Napríklad by sa dal automaticky načítať súbor podľa hodnoty parametra `p`. Pri takejto implementácii treba mať ale na pamäti bezpečnosť. Je potrebné zabezpečiť aplikáciu pred útokom typu *local file inclusion*. Pre komplexnosť tohto problému radšej zostaneme v&nbsp;našom príklade pri jednoduchej implementácii smerovača pomocou príkazu `switch`.
 
 ### Implementácia výpisu používateľov
 
@@ -387,7 +387,7 @@ V tomto kóde nemáme takmer žiadny HTML kód. Jediný HTML kód, ktorý sa tu 
 
 ![Informácia o odstránení záznamu používateľa](images_crud/delete-result.png)
 
-Aktuálne implementované mazanie používateľov má ale jeden malý nedostatok. Z používateľského hľadiska nie je dobré zmazať údaje bez toho, aby používateľ túto akciu potvrdil. Môže sa totižto stať, že používateľ aplikácie omylom klikne na tlačidlo `Delete` a týmto spôsobom záznam nechcene odstráni.
+Aktuálne implementované mazanie používateľov má ale jeden malý nedostatok. Z&nbsp;používateľského hľadiska nie je dobré zmazať údaje bez toho, aby používateľ túto akciu potvrdil. Môže sa totižto stať, že používateľ aplikácie omylom klikne na tlačidlo `Delete` a týmto spôsobom záznam nechcene odstráni.
 
 Túto ochranu môžeme implementovať jedným z dvoch spôsobov.
 

@@ -40,7 +40,7 @@ Následne je potrebné tieto elementy naštýlovať, aby sa zobrazili ako biliar
 }
 ```
 
-Okrem farby sme elementom nastavili aj CSS vlastnosť `position`. Guľa má nastavenú hodnotu na `absolute`, aby sme ju pomocou CSS vlastností `top` a `left` mohli umiestniť na ľubovolné miesto v rámci stola. Stolu sme museli nastaviť hodnotu na `relative`, aby sme mohli guľu umiestňovať absolútne vzhľadom na stôl.
+Okrem farby sme elementom nastavili aj CSS vlastnosť `position`. Guľa má nastavenú hodnotu na `absolute`, aby sme ju pomocou CSS vlastností `top` a `left` mohli umiestniť na ľubovoľné miesto v rámci stola. Stolu sme museli nastaviť hodnotu na `relative`, aby sme mohli guľu umiestňovať absolútne vzhľadom na stôl.
 <div style="page-break-after: always;"></div>
 
 Výsledok bude vyzerať nasledovne:

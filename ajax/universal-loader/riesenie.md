@@ -21,7 +21,7 @@ Na začiatok si pripravíme grafickú reprezentáciu nášho komponentu. Začnem
   <span id="requestCounter">Zostáva: 5</span>
 </div>
 ```
-Vytvoríme si jeden `div` element, do ktorého umiestníme vizuálny komponent (*spinner*) a miesto na zobrazenie počtu nedokončených žiadostí.
+Vytvoríme si jeden `div` element, do ktorého umiestnime vizuálny komponent (*spinner*) a miesto na zobrazenie počtu nedokončených žiadostí.
 
 Kvôli dizajnu by sme chceli docieliť, aby sa element `ajaxLoader` zobrazil roztiahnutý na celú stránku a mal polopriehľadné pozadie. Pre vizuálny komponent zobrazíme jednoduchú animáciu.
 
@@ -60,7 +60,7 @@ Pre usporiadanie prvkov v tomto elemente používame *flexbox*. Kontajner `ajaxL
 
 Pre zobrazenie *spinner* komponentu sme využili jednoduchú CSS animáciu. Je to `div` element, ktorý sme pomocou `border-radius: 50%` zobrazili ako kruh. Tomuto kruhu sme nechali priehľadné pozadie a nastavili mu `12px` rámček, čím sme dostali kružnicu. Hornému rámčeku sme zmenili farbu na modrú a zvyšným častiam rámčeka sme nechali bielu farbu. To spôsobilo, že dostaneme kružnicu, kde štvrtina kruhu má inú farbu ako zvyšok.
 
-Otáčanie kruhu sme dosiahli pomocou jednoduchej animácie, ktorá tento element rotuje o 360 stupňov. Jedna rotácia trvá 2s a je lineárna - kruh sa bude otáčať konštantnou rýchlosťou a animácia sa opakuje donekonečna.
+Otáčanie kruhu sme dosiahli pomocou jednoduchej animácie, ktorá tento element rotuje o&nbsp;360 stupňov. Jedna rotácia trvá 2s a je lineárna - kruh sa bude otáčať konštantnou rýchlosťou a animácia sa opakuje donekonečna.
 
 Na deklaráciu animácie sa používa definícia `@keyframes`. Určuje stav elementu v určitých záchytných bodoch. V našom prípade máme definované, že na začiatku animácie bude element otočený o 0 stupňov a na konci o 360 stupňov.
 
@@ -98,7 +98,7 @@ Ak deklarujeme parameter funkcie ako `...parametre`, tak v premennej `parametre`
 
 Najprv vytvoríme DOM element, ktorý predstavuje HTML reprezentáciu celého komponentu. Pomocou `document.getElementsByTagName("body")[0].append(loader);` tento vytvorený element vložíme do DOM stránky.
 
-V ďalšej časti máme blok `try / finally`, ktorý používame preto, lebo vždy po skončení asynchrónneho volania potrebujeme skryť celý komponent *AJAX loader* bez ohľadu na to, či sa operácia podarí, alebo nastane výnimka. Vo vetve `try` sa pokúsime zavolať funkciu `fetch()` a asynchrónne počkáme na skončenie žiadosti. Po skončení vrátime odpoveď. V prípade, že sa stiahnutie nepodarí a nastane výnimka, táto sa znovu vyhodí. Vo vetve `finally` odstránime element z DOM.
+V ďalšej časti máme blok `try / finally`, ktorý používame preto, lebo vždy po skončení asynchrónneho volania potrebujeme skryť celý komponent *AJAX loader* bez ohľadu na to, či sa operácia podarí, alebo nastane výnimka. Vo vetve `try` sa pokúsime zavolať funkciu `fetch()` a asynchrónne počkáme na skončenie žiadosti. Po skončení vrátime odpoveď. V&nbsp;prípade, že sa stiahnutie nepodarí a nastane výnimka, táto sa znovu vyhodí. Vo vetve `finally` odstránime element z DOM.
 
 Ak chceme našu funkciu otestovať, nahradíme vo funkcii `nacitajZdroj()` volanie `fetch()` za `loaderFetch()`.
 
@@ -174,7 +174,7 @@ Aktuálny kód má jeden vedľajší efekt. Do objektu `window` nám pridal nasl
 
 Ani jeden z týchto atribútov v princípe nemá čo robiť medzi globálnymi premennými. Riešení tohto problému je niekoľko. Môžeme napríklad použiť OOP a zaobaliť celé riešenie do nejakej triedy.
 
-V prípade takýchto menších skriptov môže byť OOP zbytočne komplikované riešenie. V JavaScripte sa zvykne používať koncept tzv. *Immediately Invoked Function Expression (IIFE)*. IIFE slúži na vytvorenie lokálneho prostredia, v ktorom si môžeme deklarovať vlastné "globálne" premenné, ktoré ale nebudú dostupné mimo nášho kódu.
+V prípade takýchto menších skriptov môže byť OOP zbytočne komplikované riešenie. V&nbsp;JavaScripte sa zvykne používať koncept tzv. *Immediately Invoked Function Expression (IIFE)*. IIFE slúži na vytvorenie lokálneho prostredia, v ktorom si môžeme deklarovať vlastné "globálne" premenné, ktoré ale nebudú dostupné mimo nášho kódu.
 
 Hlavnou myšlienkou tohto prístupu je zaobalenie celého kódu do anonymnej funkcie, ktorá sa hneď vykoná:
 

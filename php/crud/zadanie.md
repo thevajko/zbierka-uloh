@@ -15,7 +15,7 @@
 
 **Obťažnosť**: 5/5
 
-**Obsah príkladu**: Štruktúra aplikácie vo viacerých súboroch, operácie čítania, pridávanie, zmeny a mazanie dát v DB, PHP Data Objects (PDO), *PDO preprare statement*, ochrana voči XSS útoku.
+**Obsah príkladu**: Štruktúra aplikácie vo viacerých súboroch, operácie čítania, pridávanie, zmeny a mazanie dát v DB, PHP Data Objects (PDO), *PDO prepare statements*, ochrana voči XSS útoku.
 </div>
 
 ## Zadanie

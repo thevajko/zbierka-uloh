@@ -10,7 +10,7 @@
 
 ## Riešenie
 
-Na riešenie úlohy vytvoríme HTML a CSS súbor. V HTML súbore budú základné elementy, ktoré budeme potrebovať pre riešenie úlohy a CSS súbor bude obsahovať všetky CSS pravidlá. Obrázky umiestníme do adresára `img`.
+Na riešenie úlohy vytvoríme HTML a CSS súbor. V HTML súbore budú základné elementy, ktoré budeme potrebovať pre riešenie úlohy a CSS súbor bude obsahovať všetky CSS pravidlá. Obrázky umiestnime do adresára `img`.
 
 ### HTML dokument
 
@@ -44,7 +44,7 @@ CSS súbor bude obsahovať všetky pravidlá. Najskôr si pripravíme pozadie. N
 
 Obrázok roztiahneme na celú plochu tela HTML dokumentu pomocou CSS vlastnosti `background-size`. Nastavenie `cover` zabezpečí, že sa obrázok roztiahne na celú plochu kontajnera (v tomto prípade okna prehliadača), aj keby sa mal obrázok roztiahnutím deformovať, alebo orezať. 
 
-Presnejšie by bolo v zmysle pojmu okno prehliadača použiť pojem *viewport*, ktorý je síce v mnohých situáciach rovnaký ako viditeľná klientska plocha okna prehliadača, ale bez potenciálnych posuvníkov a takisto bez ostatných častí, ako sú nástrojové lišty prehliadača a podobne. V našom príklade, ak zameníme pojem *viewport* za okno prehliadača, dopustíme sa istej nepresnosti, ale pre riešenie príkladu (a rovnako aj ďalších v tejto knihe) to nebude mať zásadný vplyv.
+Presnejšie by bolo v zmysle pojmu okno prehliadača použiť pojem *viewport*, ktorý je síce v mnohých situáciách rovnaký ako viditeľná klientska plocha okna prehliadača, ale bez potenciálnych posuvníkov a takisto bez ostatných častí, ako sú nástrojové lišty prehliadača a podobne. V našom príklade, ak zameníme pojem *viewport* za okno prehliadača, dopustíme sa istej nepresnosti, ale pre riešenie príkladu (a rovnako aj ďalších v tejto knihe) to nebude mať zásadný vplyv.
 
 Element `body` má štandardne v prehliadači nastavené vonkajšie odsadenie na `8px` z každej strany, a aby sme tento okraj zrušili a obrázok mali roztiahnutý na celé okno, nastavíme túto hodnotu na `0`. Na záver musíme ešte nastaviť výšku na `100%`, inak sa pozadie neroztiahne na celú vertikálnu výšku okna prehliadača. Výsledné pravidlo bude vyzerať takto:
 
@@ -64,7 +64,7 @@ Druhým krokom bude umiestnenie slnka doprostred okna prehliadača. Pomocou sele
 
 Dôležitým nastavením je hodnota `absolute` CSS vlastnosti `position`. Týmto nastavením získame možnosť nastavovať pozíciu prvku kdekoľvek v okne prehliadača pomocou CSS vlastností `top` a `left`. Tieto CSS vlastnosti určujú vzdialenosť od vrchu a ľavej strany okraja, v našom prípade elementu `body`. Obrázok chceme mať vždy uprostred, preto zvolíme hodnotu `50%`, a tak bude pri každej zmene veľkosti okna slnko v strede.
 
-Ak však máme byť úplne presní, v strede bude pravý horný roh obrázku. Ak by sme chceli, aby v strede okna bol stred obrázku slnka, potrebujeme obrázok posunúť o polovicu jeho veľkosti vľavo a hore. Pomôžeme si CSS vlastnosťou `transform` a obrázok pomocou CSS funkcie `translate()` posunieme o `50%` jeho výšky, resp. šírky. Pravidlo bude vyzerať takto:
+Ak však máme byť úplne presní, v strede bude pravý horný roh obrázku. Ak by sme chceli, aby v strede okna bol stred obrázku slnka, potrebujeme obrázok posunúť o&nbsp;polovicu jeho veľkosti vľavo a hore. Pomôžeme si CSS vlastnosťou `transform` a obrázok pomocou CSS funkcie `translate()` posunieme o `50%` jeho výšky, resp. šírky. Pravidlo bude vyzerať takto:
 
 ```css
 .sun {
@@ -123,7 +123,7 @@ Tieto pravidlá potom skombinujeme v HTML atribúte `class`:
 <div class="bird bottom right"></div>
 ```
 
-Takto dosiahneme, že pravidlá sa nebudú zbytočne opakovať a celé riešenie bude prehľadné. Podobným spôsobom vytvoríme aj efekt otočenia obrázku vtáčika a aplikujeme ho len na tie obrázky, ktoré potrebujeme otočiť. Využijeme na to opäť CSS vlastnosť `transform`, ktorá pomocou CSS funkcie `scaleX()` dokáže otočiť obrázok v požadovanej osi:
+Takto dosiahneme, že pravidlá sa nebudú zbytočne opakovať a celé riešenie bude prehľadné. Podobným spôsobom vytvoríme aj efekt otočenia obrázku vtáčika a aplikujeme ho len na tie obrázky, ktoré potrebujeme otočiť. Využijeme na to opäť CSS vlastnosť `transform`, ktorá pomocou CSS funkcie `scaleX()` dokáže otočiť obrázok v&nbsp;požadovanej osi:
 
 ```css
 .flip {

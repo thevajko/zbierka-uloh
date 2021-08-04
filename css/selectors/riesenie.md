@@ -73,7 +73,7 @@ Po aplikovaní tohto štýlu tabuľka nebude ale vyzerať tak, ako sme požadova
 
 ![Dvojitý rámček HTML tabuľky](images_selectors/dvojite-oramovanie.png)
 
-Ako možeme vidieť na obrázku vyššie, tabuľka má dvojité okraje oddelené medzerou. Tieto medzery sú definované pomocou CSS vlastnosti `border-spacing`. Mohli by sme nastaviť medzeru medzi bunkami na `0px`, ale potom by sme mali šírku rámčeka `2px`. Inou CSS vlastnosťou, ktorú môžeme v tomto prípade použiť, je CSS vlastnosť `border-collapse`. Pomocou nej vieme duplicitný rámček pri tabuľkách odstrániť. Preto do CSS pravidla pridáme:
+Ako môžeme vidieť na obrázku vyššie, tabuľka má dvojité okraje oddelené medzerou. Tieto medzery sú definované pomocou CSS vlastnosti `border-spacing`. Mohli by sme nastaviť medzeru medzi bunkami na `0px`, ale potom by sme mali šírku rámčeka `2px`. Inou CSS vlastnosťou, ktorú môžeme v tomto prípade použiť, je CSS vlastnosť `border-collapse`. Pomocou nej vieme duplicitný rámček pri tabuľkách odstrániť. Preto do CSS pravidla pridáme:
 
 ```css
 .data {
@@ -160,9 +160,9 @@ Pomocou tohto pravidla nastavíme šedú farbu pozadia každej bunke v riadku, n
 
 #### Formátovanie stĺpca s menom (bod 5.2)
 
-*Text v stĺpci `Meno` bude mať červenú farbu, ale iba pokiaľ nebude kurzor myši v bunke s menom. Ak bude  kurzor myši v bunke s menom, text bude mať štandardnú čiernu farbu.*
+*Text v stĺpci `Meno` bude mať červenú farbu, ale iba pokiaľ nebude kurzor myši v bunke s&nbsp;menom. Ak bude  kurzor myši v bunke s&nbsp;menom, text bude mať štandardnú čiernu farbu.*
 
-Pre vyriešenie tohto bodu zadania potrebujeme napísať selektor, ktorý vyberie prvý stĺpec v tabuľke v prípade, že sa kurzor myši nachádza na riadku, ale nie na stĺpci s menom. Pokiaľ chceme v riadku vybrať prvý stĺpec, môžeme využiť pseudotriedu `:nth-child()` s parametrom `1`. Môžeme využiť ale aj skrátenú verziu `:first-child`, ktorá robí presne to isté ako `:nth-child(1)`.
+Pre vyriešenie tohto bodu zadania potrebujeme napísať selektor, ktorý vyberie prvý stĺpec v tabuľke v prípade, že sa kurzor myši nachádza na riadku, ale nie na stĺpci s menom. Pokiaľ chceme v riadku vybrať prvý stĺpec, môžeme využiť pseudotriedu `:nth-child()` s&nbsp;parametrom `1`. Môžeme využiť ale aj skrátenú verziu `:first-child`, ktorá robí presne to isté ako `:nth-child(1)`.
 
 Tento problém sa dá vyriešiť aj dvoma pravidlami. Prvé pravidlo nastaví farbu prvému stĺpcu v prípade, že bude kurzor myši nad daným riadkom. Druhé pravidlo prepíše farbu späť na čiernu, v prípade, že kurzor myši bude nad konkrétnou bunkou. Pravidlá sú nasledovné:
 
@@ -175,7 +175,7 @@ Tento problém sa dá vyriešiť aj dvoma pravidlami. Prvé pravidlo nastaví fa
 }
 ```
 
-Toto riešenie sa dá aj zjednodušiť. Okrem duplicity tohto riešenia je ešte aj problém s tým, že ak by sme zmenili farbu textu v tabuľke, tak ju musíme zmeniť aj na tomto mieste, čo prináša ďalšiu duplicitu.
+Toto riešenie sa dá aj zjednodušiť. Okrem duplicity tohto riešenia je ešte aj problém s&nbsp;tým, že ak by sme zmenili farbu textu v tabuľke, tak ju musíme zmeniť aj na tomto mieste, čo prináša ďalšiu duplicitu.
 
 Pre zjednodušenie môžeme využiť pseudotriedu `:not()` ktorá umožňuje negovať určitú časť selektoru. V našom prípade chceme vybrať prvú bunku v riadku, kde je kurzor myši, ak kurzor myši nie je práve na tejto bunke.
 
@@ -278,7 +278,7 @@ Pre relatívne odkazy môžeme pre jednoduchosť použiť pravidlo, ktoré pomoc
 }
 ```
 
-Poslednou časťou tejto úlohy bolo doplnenie skratky `(PDF)` k odkazom, ktoré smerujú na `.pdf` súbor. Toto môžeme dosiahnuť kombináciou podobného selektora ako v predchádzajúcom prípade a pseudoelementu `::after`. Na rozdiel od predchádzajúceho prípadu nepoužijeme `^=`, ktoré kontroluje začiatok hodnoty, ale použijeme `$=`, ktoré kontroluje koniec hodnoty atribútu.
+Poslednou časťou tejto úlohy bolo doplnenie skratky `(PDF)` k odkazom, ktoré smerujú na `.pdf` súbor. Toto môžeme dosiahnuť kombináciou podobného selektora ako v&nbsp;predchádzajúcom prípade a pseudoelementu `::after`. Na rozdiel od predchádzajúceho prípadu nepoužijeme `^=`, ktoré kontroluje začiatok hodnoty, ale použijeme `$=`, ktoré kontroluje koniec hodnoty atribútu.
 
 ```css
 .data td a[href$=".pdf"]::after {

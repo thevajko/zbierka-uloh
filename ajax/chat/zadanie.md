@@ -15,7 +15,7 @@
 
 **Obťažnosť**: 5/5
 
-**Obsah príkladu**: Objektové programovanie v PHP, spracovanie výnimiek v PHP, *session*, tvorba serverového API rozhrania, PHP Data Objects (PDO), *PDO preprare statements*, databázová vrstva, HTTP stavové kódy, AJAX volania, JSON formát, JavaScript API klient, prísľuby (*promises*), asynchrónne programovanie v JavaScripte, časovače v JavaScripte, kľúčové slová `async`, `await`, použitie *arrow* funkcií, manipulácia s DOM, CSS *flexbox*.
+**Obsah príkladu**: Objektové programovanie v PHP, spracovanie výnimiek v PHP, *session*, tvorba serverového API rozhrania, PHP Data Objects (PDO), *PDO prepare statements*, databázová vrstva, HTTP stavové kódy, AJAX volania, JSON formát, JavaScript API klient, prísľuby (*promises*), asynchrónne programovanie v JavaScripte, časovače v&nbsp;JavaScripte, kľúčové slová `async`, `await`, použitie *arrow* funkcií, manipulácia s DOM, CSS *flexbox*.
 </div>
 
 ## Zadanie

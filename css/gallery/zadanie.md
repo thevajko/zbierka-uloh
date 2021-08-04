@@ -54,7 +54,7 @@ Naštýlujte pomocou CSS túto galériu nasledovne:
 
 ### Zobrazenie galérií na rôzne veľkých zariadeniach
 
-Na nasledujúcich obrázkoch vidíte správanie sa galérie na dispejoch rôznych zariadení a spôsob zobrazenia informácií o obrázku pri prechode kurzora myši ponad obrázok.
+Na nasledujúcich obrázkoch vidíte správanie sa galérie na displejoch rôznych zariadení a spôsob zobrazenia informácií o obrázku pri prechode kurzora myši ponad obrázok.
 
 <div class="hidden">Zariadenie s malým displejom:</div>
 

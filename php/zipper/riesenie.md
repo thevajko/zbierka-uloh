@@ -79,7 +79,7 @@ class Uploader
 }
 ```
 
-Na implementáciu metódy `getFilesList()`, využijeme PHP funkciu [`scandir()`](https://www.php.net/manual/en/function.scandir.php), ktorá vráti zoznam všetkých súborov v adresári, ktorý dostane ako svoj paramater. Vráti aj špeciálne súbory `.` a `..`, ktoré zo zoznamu musíme odstrániť, preto použijeme funkciu [`array_diff()`](https://www.php.net/manual/en/function.array-diff.php) vracajúcu rozdiel medzi dvomi poľami a tým dostaneme pole "očistené" o tieto neželané záznamy:
+Na implementáciu metódy `getFilesList()`, využijeme PHP funkciu [`scandir()`](https://www.php.net/manual/en/function.scandir.php), ktorá vráti zoznam všetkých súborov v adresári, ktorý dostane ako svoj parameter. Vráti aj špeciálne súbory `.` a `..`, ktoré zo zoznamu musíme odstrániť, preto použijeme funkciu [`array_diff()`](https://www.php.net/manual/en/function.array-diff.php) vracajúcu rozdiel medzi dvomi poľami a tým dostaneme pole "očistené" o&nbsp;tieto neželané záznamy:
 
 ```php
 class Uploader
@@ -147,7 +147,7 @@ class Uploader
 
 Na komprimáciu použijeme triedu [`ZipArchive`](https://www.php.net/manual/en/class.ziparchive.php), ktorá je súčasťou rozšírenia `php_zip`. Toto rozšírenie je ako jedno z mála PHP rozšírení objektové, čo využijeme aj v našom príklade. Vytvoríme metódu `zipAndDownload()`, ktorá skomprimuje súbory, vytvorí archív a posunie ho na poslanie. Samotné poslanie si oddelíme do inej metódy. 
 
-Na prácu s triedou `ZipArchive` nebudeme potrebovať žiadny import (je nainštalovaná ako PHP rozšírenie). Volaním `new ZipArchive()` si vytvoríme inštanciu tejto triedy. Potom súbor otvoríme metódou `open()`. Tá ako prvý parameter potrebuje názov súboru, kde bude nový archív (využijeme PHP funkcie [`sys_get_temp_dir()`](https://www.php.net/manual/en/function.sys-get-temp-dir.php) a [`tmpfile()`](https://www.php.net/manual/en/function.tmpfile.php) na prácu s dočasnými súbormi). Dočasný súbor tak vznikne v systémovom `tmp` adresári. 
+Na prácu s triedou `ZipArchive` nebudeme potrebovať žiadny import (je nainštalovaná ako PHP rozšírenie). Volaním `new ZipArchive()` si vytvoríme inštanciu tejto triedy. Potom súbor otvoríme metódou `open()`. Tá ako prvý parameter potrebuje názov súboru, kde bude nový archív (využijeme PHP funkcie [`sys_get_temp_dir()`](https://www.php.net/manual/en/function.sys-get-temp-dir.php) a [`tmpfile()`](https://www.php.net/manual/en/function.tmpfile.php) na prácu s&nbsp;dočasnými súbormi). Dočasný súbor tak vznikne v systémovom `tmp` adresári. 
 
 Bohužiaľ trieda neumožňuje vytvorenie komprimovaného súboru v pamäti a musíme vytvoriť archív na disku. Ďalej v cykle prejdeme aktuálny zoznam súborov a postupne ich do archívu pridáme, pričom si pomôžeme už známou metódou `getFullFileNameWithDir()`. Najskôr skontrolujeme, či súbor existuje a metódou [`addFile()`](https://www.php.net/manual/en/ziparchive.addfile) triedy `ZipArchive` ho pridáme do archívu. Druhý parameter tejto metódy použijeme, aby súbor v archíve mal pôvodné meno. Nakoniec archív uzatvoríme a posunieme spracovanie na odoslanie archívu do metódy `sendZipFile()`.
 
@@ -196,7 +196,7 @@ class Uploader
 
 ### Integrácia riešenia do `index.php`
 
-Na začiatok súboru (pred definíciu `<!DOCTYPE html>`) umiestníme PHP časť kódu, ktorá bude našu aplikáciu riadiť. Vždy budeme potrebovať vytvoriť inštanciu triedy `Uploader`. Ak používateľ poslal súbor, bude nastavená premenná `$_FILES['userfile']` a súbor uložíme volaním metódy `saveUploadedFile()`. Ak používateľ stačil tlačidlo `Zipuj`, súbory skomprimujeme a výstup mu ponúkneme na stiahnutie (volaním metódy `zipAndDownload()`). Nesmieme zabudnúť ukončiť celý PHP skript (funkciou [`exit()`](https://www.php.net/manual/en/function.exit.php)) za týmto príkazom, pretože zvyšný HTML kód už nie je, ani nesmie byť súčasťou posielaného archívu.
+Na začiatok súboru (pred definíciu `<!DOCTYPE html>`) umiestnime PHP časť kódu, ktorá bude našu aplikáciu riadiť. Vždy budeme potrebovať vytvoriť inštanciu triedy `Uploader`. Ak používateľ poslal súbor, bude nastavená premenná `$_FILES['userfile']` a súbor uložíme volaním metódy `saveUploadedFile()`. Ak používateľ stačil tlačidlo `Zipuj`, súbory skomprimujeme a výstup mu ponúkneme na stiahnutie (volaním metódy `zipAndDownload()`). Nesmieme zabudnúť ukončiť celý PHP skript (funkciou [`exit()`](https://www.php.net/manual/en/function.exit.php)) za týmto príkazom, pretože zvyšný HTML kód už nie je, ani nesmie byť súčasťou posielaného archívu.
 
 ```php
 <?php
@@ -213,7 +213,7 @@ if (isset($_POST['zip'])) {
 ?>
  ```
 
-Doplníme nadpis `Zipovač súborov` a zaňho umiestníme kód, ktorý bude zobrazovať prípadnú chybu, ak nejaká pri nahrávaní súborov na server nastane:
+Doplníme nadpis `Zipovač súborov` a zaňho umiestnime kód, ktorý bude zobrazovať prípadnú chybu, ak nejaká pri nahrávaní súborov na server nastane:
 
 ```php
 <h1>Zipovač súborov</h1>
@@ -297,7 +297,7 @@ Na tomto obrázku je aplikácia v stave, keď používateľ klikol na tlačidlo 
 
 Aktuálne implementovaná aplikácia má ale jedno obmedzenie. Keby nám súbory na túto stránku nahrávalo viacero používateľov, súbory by všetci videli a archív by sa vytvoril zo všetkých súborov a stiahol by ho prvý z používateľov, ktorý by sa o to pokúsil. Potom by sa súbory, ako aj archív vymazali. 
 
-Potrebujeme teda nejako zabezpečiť, aby sa súbory medzi používateľmi nemiešali. Jedným z riešení by bolo vytvorenie prihlasovania a každý používateľ by mal vlastný adresár so súbormi. Riešenie by si vyžadovalo pridanie celkom rozsiahleho kódu, najmä ak by sme chceli užívateľa aj overovať (jeho meno a heslo).
+Potrebujeme teda nejako zabezpečiť, aby sa súbory medzi používateľmi nemiešali. Jedným z riešení by bolo vytvorenie prihlasovania a každý používateľ by mal vlastný adresár so súbormi. Riešenie by si vyžadovalo pridanie celkom rozsiahleho kódu najmä, ak by sme chceli užívateľa aj overovať (jeho meno a heslo).
 
 #### *Cookies*
 
@@ -335,9 +335,9 @@ class Uploader
 }
 ```
 
-Vygenerovaný identifikátor môže vyzerať napr. takto: `3ee22b7b69591e19406b001137397953ac882d5e`. Je možné si ho pozrieť v prehliadači po stlačení klávesy F12 (*Vývojárske nástroje*) v záložke *Úložisko* pod položkou *Cookies*.
+Vygenerovaný identifikátor, ktorý vráti metóda, môže vyzerať napr. takto: `3ee22b7b69591e19406b001137397953ac882d5e`. Je možné si ho pozrieť v prehliadači po stlačení klávesy F12 (*Vývojárske nástroje*) v záložke *Úložisko* pod položkou *Cookies*.
 
-Ďalšou úlohou bude vyriešiť to, aby sme vedeli, ktoré súbory patria používateľovi. Toto jednoducho vyriešime tak, že k názvu súboru prilepíme predponu pozostávajúcu z identifikátora a pomlčky. Identifikátor bude mať fixnú dĺžku, preto bude jednoduché zas vrátiť názov súboru do pôvodného stavu. 
+Ďalšou úlohou bude vyriešiť to, aby sme vedeli, ktoré súbory patria používateľovi. Toto jednoducho vyriešime tak, že k názvu súboru prilepíme predponu pozostávajúcu z&nbsp;identifikátora a pomlčky. Identifikátor bude mať fixnú dĺžku, preto bude jednoduché zas vrátiť názov súboru do pôvodného stavu. 
 
 Toto riešenie bude mať ešte ďalšiu výhodu. Pri základnom riešení mohla nastať situácia, že by si používatelia svoje súbory navzájom prepisovali. Ak ku každému súboru pridáme jednoznačný identifikátor používateľa, názvy súborov sa tiež stanú unikátnymi. Úprava metódy `getFullFileNameWithDir()` bude vyzerať nasledovne:
 

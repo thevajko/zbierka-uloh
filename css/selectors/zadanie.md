@@ -52,7 +52,7 @@ Riešenie musí spĺňať nasledovné podmienky:
 
 ### Štruktúra HTML kódu
 
-Štruktúra základného HTML vyzerá nasledovne (všimnite si 7. stĺpec `Výsledok`, ktorý sa v zobrazenej tabuľke nachádzať nemá) :
+Štruktúra základného HTML vyzerá nasledovne (všimnite si 7. stĺpec `Výsledok`, ktorý sa v&nbsp;zobrazenej tabuľke nachádzať nemá) :
 
 ```html
 <table class="data">
