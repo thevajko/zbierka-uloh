@@ -17,7 +17,7 @@ Celé riešenie sa bude skladať z troch súborov: `index.html`, `style.css`, `s
 
 Táto časť aplikácie je veľmi jednoduchá, tvorí ju súbor `index.html`, v ktorom importujeme ostatné časti aplikácie (CSS a JS) a vykresľujeme len začiatočné nastavenie celej hry. Žiadny grafický dizajn ani logika aplikácie sa tu nenachádza, aby sme dodržali pravidlo, že každý typ súboru obsahuje len to, čo je jeho úlohou.
 
-Knižnicu `font-awesome` pripojíme pomocou dole uvedeného riadku. Využijeme súbor dostupný na internete bez nutnosti sťahovania z webu. Ten spôsob pripojovania využíva *Content delivery network* (CDN). Kód pre pripojenie `font-awesome` ikon vyzerá nasledovne:
+Knižnicu [`font-awesome`](https://fontawesome.com) pripojíme pomocou dole uvedeného riadku. Využijeme súbor dostupný na internete bez nutnosti sťahovania z webu. Ten spôsob pripojovania využíva *Content delivery network* (CDN). Kód pre pripojenie `font-awesome` ikon vyzerá nasledovne:
 
 ```html
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -88,7 +88,7 @@ let cardSymbols = ['', 'tractor', 'truck-monster', 'truck', 'truck-pickup', 'tru
 
 #### Nastavenie obsluhy udalosti pre tlačidlo *Rozdaj karty*
 
-Na začiatku si nastavíme obsluhu udalosti kliknutia na tlačidlo `Rozdaj karty`, pričom toto priradenie sa musí uskutočniť až potom, ako sú všetky elementy nahraté v prehliadači. Využijeme na to udalosť `onload`, ktorá nastane, keď je už kód stránky v prehliadači načítaný. Všimnite si, že priradenie udalosti sa vykoná priradením názvu funkcie, nie jej zavolaním (v kóde nie sú zátvorky za `initialize`). Celý kód bude vyzerať nasledovne:
+Na začiatku si nastavíme obsluhu udalosti kliknutia na tlačidlo `Rozdaj karty`, pričom toto priradenie sa musí uskutočniť až potom, ako sú všetky elementy nahraté v prehliadači. Využijeme na to udalosť [`onload`](https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onload), ktorá nastane, keď je už kód stránky v prehliadači načítaný. Všimnite si, že priradenie udalosti sa vykoná priradením názvu funkcie, nie jej zavolaním (v kóde nie sú zátvorky za `initialize`). Celý kód bude vyzerať nasledovne:
 
 ```javascript
 function initialize() {
@@ -99,7 +99,7 @@ window.onload = initialize;
 
 #### Pomocná funkcia `gid()`
 
-Keďže DOM metóda `document.getElementById()` má veľmi dlhý názov a bolo by otravné ju neustále celú písať, preto si vytvoríme pomocnú funkciu s parametrom ID elementu, ktorý chceme získať. V skripte je budeme často používať.
+Keďže DOM metóda [`Document.getElementById()`](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById) má veľmi dlhý názov a bolo by otravné ju neustále celú písať, preto si vytvoríme pomocnú funkciu s parametrom ID elementu, ktorý chceme získať. V skripte je budeme často používať.
 
 ```javascript
 function gid(elementId) {
@@ -149,9 +149,9 @@ function showScore(player, guessed) {
 
 V HTML súbore sme si vytvorili prázdnu tabuľku a teraz si ju naplníme. Pomocou DOM dynamicky vytvoríme jednotlivé elementy. Najskôr vymažeme obsah tabuľky príkazom `board.innerHTML = "";` a potom v cykle poukladáme karty vedľa seba.
 
-Keďže kariet je 15, musíme ich uložiť 2x za sebou. Na to využijeme ternárny operátor `?:`, a ak už sme rozdali 15 kariet, začneme znovu od prvej. Rozdávanie kariet je vlastne vytváranie buniek tabuľky postupne po riadkoch (na to slúžia dva vnorené cykly) a pomocou DOM metódy `document.createElement()` vytvoríme riadky a stĺpce tabuľky. 
+Keďže kariet je 15, musíme ich uložiť 2x za sebou. Na to využijeme ternárny operátor `?:`, a ak už sme rozdali 15 kariet, začneme znovu od prvej. Rozdávanie kariet je vlastne vytváranie buniek tabuľky postupne po riadkoch (na to slúžia dva vnorené cykly) a pomocou DOM metódy [`Document.createElement()`](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement) vytvoríme riadky a stĺpce tabuľky. 
 
-Obsahom bunky bude ikona z `font-awesome`, ktorá na zobrazenie ikony využíva značku `<i class="fas fa-car"></i>`. Každej bunke nastavíme obsluhu `onclick`, kde budeme riešiť, čo sa má stať, keď hráč klikne na nejakú kartu. Táto obsluha bude spoločná pre všetky karty. Výsledná funkcia bude vyzerať takto:
+Obsahom bunky bude ikona z `font-awesome`, ktorá na zobrazenie ikony využíva značku `<i class="fas fa-car"></i>`. Každej bunke nastavíme obsluhu [`onclick`](https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onclick), kde budeme riešiť, čo sa má stať, keď hráč klikne na nejakú kartu. Táto obsluha bude spoločná pre všetky karty. Výsledná funkcia bude vyzerať takto:
 
 ```javascript
 function distributeCards() {
@@ -177,7 +177,7 @@ Ak chcete zobraziť karty na ploche, v CSS súbore stačí nastaviť vlastnosť 
 
 ![Karty pexesa poukladané za sebou pred zamiešaním](images_memory-game/sorted.png)
 
-Takáto hra by však bola veľmi jednoduchá, preto potrebujeme karty premiešať. Tento problém vyriešime presne tak, ako keby sme hrali pexeso s papierovými kartami. Presne definovaný počet krát vymeníme pozície náhodne vybratých kariet. Tým dosiahneme, že karty už nebudú usporiadané za sebou. Funkcia využije DOM metódu `querySelectorAll()`, ktorá vráti pole všetkých elementov rodiča uvedeného ako parameter. Potom v cykle 100 krát vymeníme vnútorný obsah dvoch náhodne vybraných elementov a tým karty zamiešame. Kód funkcie bude vyzerať nasledovne:
+Takáto hra by však bola veľmi jednoduchá, preto potrebujeme karty premiešať. Tento problém vyriešime presne tak, ako keby sme hrali pexeso s papierovými kartami. Presne definovaný počet krát vymeníme pozície náhodne vybratých kariet. Tým dosiahneme, že karty už nebudú usporiadané za sebou. Funkcia využije DOM metódu [`Element.querySelectorAll()`](https://developer.mozilla.org/en-US/docs/Web/API/Element/querySelectorAll), ktorá vráti pole všetkých elementov rodiča uvedeného ako parameter. Potom v cykle 100 krát vymeníme vnútorný obsah dvoch náhodne vybraných elementov a tým karty zamiešame. Kód funkcie bude vyzerať nasledovne:
 
 ```javascript
 function shuffleCards() {
@@ -196,7 +196,7 @@ Zamiešané karty sa môžu zobraziť napr. takto:
 
 #### Implementácia hernej logiky 
 
-Po zamiešaní kariet, získame hracie pole a znovu nastavíme `opacity: 0;`, aby karty skryli. Teraz musíme vytvoriť logiku hry. Akcia v hre sa vykonáva, keď nejaký hráč klikne myšou na kartu. Pri rozdávaní kariet sme každej bunke definovali ako obsluhu udalosti `onclick` funkciu `turnCard()`. V tejto funkcii musíme najskôr zistiť, či sa karta má vôbec otočiť, keď na ňu klikneme. Kartu neotočíme, ak:
+Po zamiešaní kariet, získame hracie pole a znovu nastavíme `opacity: 0;`, aby karty skryli. Teraz musíme vytvoriť logiku hry. Akcia v hre sa vykonáva, keď nejaký hráč klikne myšou na kartu. Pri rozdávaní kariet sme každej bunke definovali ako obsluhu udalosti [`onclick`](https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onclick) funkciu `turnCard()`. V tejto funkcii musíme najskôr zistiť, či sa karta má vôbec otočiť, keď na ňu klikneme. Kartu neotočíme, ak:
 
 - počet už otočených kariet je 2,
 - hráč klikne na kartu, ktorá je práve vybratá,
@@ -222,7 +222,7 @@ if (reversedCards == 1) {
 }
 ```
 
-Ak máme dve karty, môžeme začať vyhodnocovanie, či sú karty rovnaké. Karty sú rovnaké, keď obsahujú tú istú ikonu, preto nám stačí kontrolovať DOM vlastnosť `innerHTML`.
+Ak máme dve karty, môžeme začať vyhodnocovanie, či sú karty rovnaké. Karty sú rovnaké, keď obsahujú tú istú ikonu, preto nám stačí kontrolovať DOM vlastnosť [`innerHTML`](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML).
 
 <div class="end">
 
@@ -303,7 +303,7 @@ function turnCard() {
 }
 ```
 
-Poslednou funkciou je funkcia `hideCards()`, ktorej úlohou je len skryť odkryté karty. Upozorniť by sme hlavne chceli na použitie vlastnosti `firstChild`, keďže priehľadnosť musíme nastaviť prvku, ktorý bezprostredne nasleduje až po prvku, na ktorý sme klikli. Funkcia je jednoduchá a nastaví okrem priehľadnosti aj farbu pozadia na farbu chrbta karty:
+Poslednou funkciou je funkcia `hideCards()`, ktorej úlohou je len skryť odkryté karty. Upozorniť by sme hlavne chceli na použitie vlastnosti [`firstChild`](https://developer.mozilla.org/en-US/docs/Web/API/Node/firstChild), keďže priehľadnosť musíme nastaviť prvku, ktorý bezprostredne nasleduje až po prvku, na ktorý sme klikli. Funkcia je jednoduchá a nastaví okrem priehľadnosti aj farbu pozadia na farbu chrbta karty:
 
 ```javascript
 function hideCards(card1, card2) {

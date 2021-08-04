@@ -79,7 +79,7 @@ class Uploader
 }
 ```
 
-Na implementáciu metódy `getFilesList()`, využijeme PHP funkciu `scandir()`, ktorá vráti zoznam všetkých súborov v adresári, ktorý dostane ako svoj paramater. Vráti aj špeciálne súbory `.` a `..`, ktoré zo zoznamu musíme odstrániť, preto použijeme funkciu `array_diff()` vracajúcu rozdiel medzi dvomi poľami a tým dostaneme pole "očistené" o tieto neželané záznamy:
+Na implementáciu metódy `getFilesList()`, využijeme PHP funkciu [`scandir()`](https://www.php.net/manual/en/function.scandir.php), ktorá vráti zoznam všetkých súborov v adresári, ktorý dostane ako svoj paramater. Vráti aj špeciálne súbory `.` a `..`, ktoré zo zoznamu musíme odstrániť, preto použijeme funkciu [`array_diff()`](https://www.php.net/manual/en/function.array-diff.php) vracajúcu rozdiel medzi dvomi poľami a tým dostaneme pole "očistené" o tieto neželané záznamy:
 
 ```php
 class Uploader
@@ -96,7 +96,7 @@ class Uploader
 
 Keď máme triedu vytvorenú, môžeme vytvoriť metódu `saveUploadedFile()`, ktorá skontroluje nahratý súbor a presunie ho z dočasného adresára do adresára k ostatným súborom. Najprv skontrolujeme, či sa nahratie súboru podarilo a či nie je v prvku `$_FILES['userfile']['error']` nejaká chyba. Ak by bola, spracovanie prerušíme výnimkou, ktorú vrátime, aby sme o nej informovali používateľa. 
 
-Na samotné kopírovanie použijeme funkciu `move_uploaded_file()`, ktorá na rozdiel od bežného kopírovania súborov, najskôr vykoná kontrolu, či bol súbor naozaj nahratý cez POST požiadavku od používateľa a potom ho presunie na jeho finálne miesto. Parametrami tejto funkcie sú zdrojový a cieľový súbor, pričom cieľový súbor zbavíme cesty (ak by ju obsahoval) volaním funkcie `basename()`. 
+Na samotné kopírovanie použijeme funkciu [`move_uploaded_file()`](https://www.php.net/manual/en/function.move-uploaded-file.php), ktorá na rozdiel od bežného kopírovania súborov, najskôr vykoná kontrolu, či bol súbor naozaj nahratý cez POST požiadavku od používateľa a potom ho presunie na jeho finálne miesto. Parametrami tejto funkcie sú zdrojový a cieľový súbor, pričom cieľový súbor zbavíme cesty (ak by ju obsahoval) volaním funkcie [`basename()`](https://www.php.net/manual/en/function.basename.php). 
 
 Ak používateľ nahrá súbor s rovnakým menom, nebudeme to nijako riešiť a súbor prepíšeme (pridaním jednoduchej podmienky kontrolujúcej, či v cieľom adresári daný súbor existuje, by sme vedeli ošetriť aj tento problém a zmeniť mu meno).
 
@@ -145,11 +145,11 @@ class Uploader
 
 ### Komprimácia súborov a stiahnutie .zip súboru
 
-Na komprimáciu použijeme triedu `ZipArchive`, ktorá je súčasťou rozšírenia `php_zip`. Toto rozšírenie je ako jedno z mála PHP rozšírení objektové, čo využijeme aj v našom príklade. Vytvoríme metódu `zipAndDownload()`, ktorá skomprimuje súbory, vytvorí archív a posunie ho na poslanie. Samotné poslanie si oddelíme do inej metódy. 
+Na komprimáciu použijeme triedu [`ZipArchive`](https://www.php.net/manual/en/class.ziparchive.php), ktorá je súčasťou rozšírenia `php_zip`. Toto rozšírenie je ako jedno z mála PHP rozšírení objektové, čo využijeme aj v našom príklade. Vytvoríme metódu `zipAndDownload()`, ktorá skomprimuje súbory, vytvorí archív a posunie ho na poslanie. Samotné poslanie si oddelíme do inej metódy. 
 
-Na prácu s triedou `ZipArchive` nebudeme potrebovať žiadny import (je nainštalovaná ako PHP rozšírenie). Volaním `new ZipArchive()` si vytvoríme inštanciu tejto triedy. Potom súbor otvoríme metódou `open()`. Tá ako prvý parameter potrebuje názov súboru, kde bude nový archív (využijeme PHP funkcie `sys_get_temp_dir()` a `tmpfile()` na prácu s dočasnými súbormi). Dočasný súbor tak vznikne v systémovom `tmp` adresári. 
+Na prácu s triedou `ZipArchive` nebudeme potrebovať žiadny import (je nainštalovaná ako PHP rozšírenie). Volaním `new ZipArchive()` si vytvoríme inštanciu tejto triedy. Potom súbor otvoríme metódou `open()`. Tá ako prvý parameter potrebuje názov súboru, kde bude nový archív (využijeme PHP funkcie [`sys_get_temp_dir()`](https://www.php.net/manual/en/function.sys-get-temp-dir.php) a [`tmpfile()`](https://www.php.net/manual/en/function.tmpfile.php) na prácu s dočasnými súbormi). Dočasný súbor tak vznikne v systémovom `tmp` adresári. 
 
-Bohužiaľ trieda neumožňuje vytvorenie komprimovaného súboru v pamäti a musíme vytvoriť archív na disku. Ďalej v cykle prejdeme aktuálny zoznam súborov a postupne ich do archívu pridáme, pričom si pomôžeme už známou metódou `getFullFileNameWithDir()`. Najskôr skontrolujeme, či súbor existuje a metódou `add()` triedy `ZipArchive` ho pridáme do archívu. Druhý parameter tejto metódy použijeme, aby súbor v archíve mal pôvodné meno. Nakoniec archív uzatvoríme a posunieme spracovanie na odoslanie archívu do metódy `sendZipFile()`.
+Bohužiaľ trieda neumožňuje vytvorenie komprimovaného súboru v pamäti a musíme vytvoriť archív na disku. Ďalej v cykle prejdeme aktuálny zoznam súborov a postupne ich do archívu pridáme, pričom si pomôžeme už známou metódou `getFullFileNameWithDir()`. Najskôr skontrolujeme, či súbor existuje a metódou [`addFile()`](https://www.php.net/manual/en/ziparchive.addfile) triedy `ZipArchive` ho pridáme do archívu. Druhý parameter tejto metódy použijeme, aby súbor v archíve mal pôvodné meno. Nakoniec archív uzatvoríme a posunieme spracovanie na odoslanie archívu do metódy `sendZipFile()`.
 
 ```php
 class Uploader
@@ -196,7 +196,7 @@ class Uploader
 
 ### Integrácia riešenia do `index.php`
 
-Na začiatok súboru (pred definíciu `<!DOCTYPE html>`) umiestníme PHP časť kódu, ktorá bude našu aplikáciu riadiť. Vždy budeme potrebovať vytvoriť inštanciu triedy `Uploader`. Ak používateľ poslal súbor, bude nastavená premenná `$_FILES['userfile']` a súbor uložíme volaním metódy `saveUploadedFile()`. Ak používateľ stačil tlačidlo `Zipuj`, súbory skomprimujeme a výstup mu ponúkneme na stiahnutie (volaním metódy `zipAndDownload()`). Nesmieme zabudnúť ukončiť celý PHP skript (funkciou `exit()`) za týmto príkazom, pretože zvyšný HTML kód už nie je, ani nesmie byť súčasťou posielaného archívu.
+Na začiatok súboru (pred definíciu `<!DOCTYPE html>`) umiestníme PHP časť kódu, ktorá bude našu aplikáciu riadiť. Vždy budeme potrebovať vytvoriť inštanciu triedy `Uploader`. Ak používateľ poslal súbor, bude nastavená premenná `$_FILES['userfile']` a súbor uložíme volaním metódy `saveUploadedFile()`. Ak používateľ stačil tlačidlo `Zipuj`, súbory skomprimujeme a výstup mu ponúkneme na stiahnutie (volaním metódy `zipAndDownload()`). Nesmieme zabudnúť ukončiť celý PHP skript (funkciou [`exit()`](https://www.php.net/manual/en/function.exit.php)) za týmto príkazom, pretože zvyšný HTML kód už nie je, ani nesmie byť súčasťou posielaného archívu.
 
 ```php
 <?php
@@ -261,7 +261,7 @@ $fileList = $uploader->getFilesList();
 
 Po odoslaní pokynu na komprimáciu súborov a stiahnutie archívu by sme však potrebovali, aby sa zoznam súborov vymazal a mohli sme začať odznova. Aj keď sa zdá, že toto by mohol byť jednoduchý problém, nie je tomu tak. Odoslanie archívu zo servera sme dosiahli vytvorením novej odpovede, ktorá je typu `application/zip` a nemá nič spoločné so stránkou, ktorú máme zobrazenú v prehliadači, preto stránku nemôže len tak jednoducho zmeniť. Museli by sme ju celú znovu načítať, ale to vieme spraviť opäť len na tejto stránke. 
 
-Preto si pomôžeme krátkym kódom v JavaScripte, ktorý vymaže všetky existujúce elementy vo vnútri kontajnera s `id=files`. A pridá do neho nový odstavec, kde používateľovi vypíše, že súbory boli stiahnuté. Túto funkciu nastavíme ako obsluhu udalosti `onsubmit` vo formulári s tlačidlom. Funkcia sa zavolá tesne pred odoslaním formulára.
+Preto si pomôžeme krátkym kódom v JavaScripte, ktorý vymaže všetky existujúce elementy vo vnútri kontajnera s `id=files`. A pridá do neho nový odstavec, kde používateľovi vypíše, že súbory boli stiahnuté. Túto funkciu nastavíme ako obsluhu udalosti [`onsubmit`](https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onsubmit) vo formulári s tlačidlom. Funkcia sa zavolá tesne pred odoslaním formulára.
 
 ```javascript
 function deleteFiles() {
@@ -305,7 +305,7 @@ Existuje však jednoduchšie riešenie. Základným problémom webových apliká
 
 Riešením je nájsť spôsob, ako označiť žiadosť z prehliadača tak, aby serveru bolo jasné, že žiadosť súvisí z inou žiadosťou z toho istého prehliadača. Tento spôsob však netreba nanovo vymýšľať, pretože už existuje a nazýva sa **cookies**.
 
-*Cookies* sú HTTP hlavičky, ktoré vieme zo servera poslať na prehliadač, ten si ich zapamätá a s každou požiadavkou nám ich pošle späť na server, kde ich vieme spracovať. 
+[*Cookies*](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/cookies) sú HTTP hlavičky, ktoré vieme zo servera poslať na prehliadač, ten si ich zapamätá a s každou požiadavkou nám ich pošle späť na server, kde ich vieme spracovať. 
 
 Ak si do takéhoto *cookie* napr. vložíme jednoznačný identifikátor používateľa, na serveri vždy budeme vedieť, od koho súbory pochádzajú.
 
@@ -313,9 +313,9 @@ Ak si do takéhoto *cookie* napr. vložíme jednoznačný identifikátor použí
 
 V prvom rade si musíme vytvoriť jednoznačný identifikátor používateľa pri prvej komunikácii s ním. Ak už takýto identifikátor existuje, nebudeme ho vytvárať, ale použijeme existujúci. Tento identifikátor uložíme v atribúte `$uniqueId` v triede `Uploader`.
 
-Na vytvorenie náhodného identifikátora využijeme funkciu `random_bytes()`, ktorá vráti počet náhodných znakov zadaný v parametri. Znaky premeníme na hexadecimálne hodnoty (funkcia `bin2hex()`) pre lepšiu čitateľnosť. 
+Na vytvorenie náhodného identifikátora využijeme funkciu [`random_bytes()`](https://www.php.net/manual/en/function.random-bytes.php), ktorá vráti počet náhodných znakov zadaný v parametri. Znaky premeníme na hexadecimálne hodnoty (funkcia [`bin2hex()`](https://www.php.net/manual/en/function.bin2hex.php)) pre lepšiu čitateľnosť. 
 
-Vytvorený identifikátor nastavíme pomocou `setcookies()`, čím zabezpečíme, že sa dostane na klienta (do prehliadača) a pri každej požiadavke ho prehliadač k žiadosti pripojí. Platnosť tejto HTTP hlavičky je možné stanoviť v extra parametroch, ale my sa uspokojíme s tým, že bude platiť až kým nezatvoríme prehliadač (všetky okná). Či *cookie* existuje, zistíme zo superglobálnej premennej [`$_COOKIE`](https://www.php.net/manual/en/reserved.variables.cookies.php). 
+Vytvorený identifikátor nastavíme pomocou [`setcookie()`](https://www.php.net/manual/en/function.setcookie.php), čím zabezpečíme, že sa dostane na klienta (do prehliadača) a pri každej požiadavke ho prehliadač k žiadosti pripojí. Platnosť tejto HTTP hlavičky je možné stanoviť v extra parametroch, ale my sa uspokojíme s tým, že bude platiť až kým nezatvoríme prehliadač (všetky okná). Či *cookie* existuje, zistíme zo superglobálnej premennej [`$_COOKIE`](https://www.php.net/manual/en/reserved.variables.cookies.php). 
 
 Ak prvok s daným kľúčom existuje, bude existovať aj daný *cookie*. Metóda `generateUniqueId()` bude veľmi jednoduchá. Jej volanie pridáme na koniec konštruktora triedy `Uploader`, čím zabezpečíme inicializáciu tohto identifikátora.
 
@@ -354,9 +354,9 @@ class Uploader
 
 Po zavolaní metódy sa vygeneruje jedinečný názov súboru. Napr. pre súbor `1.txt` to bude `3ee22b7b69591e19406b001137397953ac882d5e-1.txt`.
 
-V podobnom duchu budeme musieť upraviť aj metódu `getFilesList()`, aby vracala len zoznam súborov, ktorý má predponu zhodnú s identifikátorom používateľa (využijeme funkciu `array_filter()`, ktorá vstupné pole prefiltruje a vráti len tie prvky, ktoré spĺňajú zadané kritérium). 
+V podobnom duchu budeme musieť upraviť aj metódu `getFilesList()`, aby vracala len zoznam súborov, ktorý má predponu zhodnú s identifikátorom používateľa (využijeme funkciu [`array_filter()`](https://www.php.net/manual/en/function.array-filter.php), ktorá vstupné pole prefiltruje a vráti len tie prvky, ktoré spĺňajú zadané kritérium). 
 
-Nakoniec zostávajúce názvy súborov zbavíme identifikátora a pomlčky, aby sme dostali pôvodné názvy (funkcia `array_map()` vykoná definovanú operáciu nad každým prvkom poľa). Pri obidvoch funkciách využijeme **arrow funkcie** z jazyka PHP, aby sme kód zjednodušili. Ako parameter obe majú jeden prvok poľa, ktorý pri danej iterácii spracujú. Vyhneme sa tak písaniu cyklu, v ktorom by sme obidve operácie riešili.
+Nakoniec zostávajúce názvy súborov zbavíme identifikátora a pomlčky, aby sme dostali pôvodné názvy (funkcia [`array_map()`](https://www.php.net/manual/en/function.array-map.php) vykoná definovanú operáciu nad každým prvkom poľa). Pri obidvoch funkciách využijeme **arrow funkcie** z jazyka PHP, aby sme kód zjednodušili. Ako parameter obe majú jeden prvok poľa, ktorý pri danej iterácii spracujú. Vyhneme sa tak písaniu cyklu, v ktorom by sme obidve operácie riešili.
 
 <div class="end">
 

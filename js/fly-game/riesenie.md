@@ -15,7 +15,7 @@ Riešenie sa bude skladať z HTML, CSS a JavaScript súboru. Vytvoríme si súbo
 
 ### HTML dokument
 
-Najprv si vytvoríme hraciu plochu. Tento súbor bude veľmi jednoduchý, nebudeme tu implementovať žiadnu aplikačnú logiku, ani dizajn. V súbore sa budú nachádzať len elementy, ktoré budú slúžiť na výpis skóre, zostávajúceho času a tlačidlo *Štart hry*. Všetky elementy, ku ktorým budeme v aplikačnej logike pristupovať, umiestníme do kontajnerov (elementy `div`) a označíme ich atribútom `id`. HTML kód bude vyzerať nasledovne:
+Najprv si vytvoríme hraciu plochu. Tento súbor bude veľmi jednoduchý, nebudeme tu implementovať žiadnu aplikačnú logiku, ani dizajn. V súbore sa budú nachádzať len elementy, ktoré budú slúžiť na výpis skóre, zostávajúceho času a tlačidlo `START`. Všetky elementy, ku ktorým budeme v aplikačnej logike pristupovať, umiestníme do kontajnerov (elementy `div`) a označíme ich atribútom `id`. HTML kód bude vyzerať nasledovne:
 
 ```html
 <div class="playground">
@@ -140,7 +140,7 @@ class Timer {
 
 Najskôr si nastavíme všetky atribúty, ktoré bude trieda `Timer` využívať. Atribúty sa zapisujú do vnútra definície triedy. Pre túto triedu budeme potrebovať atribút `interval`, čo bude čas v milisekundách definujúci, ako často bude časovač spúšťať funkciu (alebo metódu triedy), ktorú mu nastavíme. Atribút `timerId` bude identifikátor časovača, ktorý budeme používať na identifikáciu časovača pri jeho rušení, keďže nám v hre bude bežať viac časovačov. Nakoniec atribút `_callback` bude obsahovať funkciu (alebo metódu triedy), ktorú bude časovač spúšťať.
 
-Všimnite si znak `_` pre začiatkom atribútu. Keďže k atribútu budeme vytvárať `set` metódu (angl. *setter*), nemôže sa atribút volať rovnako ako metóda. Implementáciu *set* metódy si ukážeme neskôr. Všetky atribúty sa zapisujú bez kľúčového slova `let` alebo `var`. Atribúty je možné aj inicializovať, v našom prípade bude stačiť iba `null` pri atribútoch `timerId` a `_callback`.
+Všimnite si znak `_` pre začiatkom atribútu. Keďže k atribútu budeme vytvárať *set* metódu (angl. *setter*), nemôže sa atribút volať rovnako ako metóda. Implementáciu *set* metódy si ukážeme neskôr. Všetky atribúty sa zapisujú bez kľúčového slova `let` alebo `var`. Atribúty je možné aj inicializovať, v našom prípade bude stačiť iba `null` pri atribútoch `timerId` a `_callback`.
 
 ```javascript
 interval;
@@ -148,7 +148,7 @@ timerId = null;
 _callback = null;
 ```
 
-Všetky metódy tejto triedy (sú to bežné funkcie v JavaScripte) musíme pridať do vnútra triedy. Každá trieda by mala mať svoj **konštruktor**, čo je metóda, ktorá za zavolá pri vzniku inštancie danej triedy a vykoná nastavenie tejto inštancie. V našom prípade len nastavíme interval v milisekundách. Na zápis konštruktora v JavaScripte sa používa kľúčové slovo `constructor` a ako parameter mu pri volaní nastavíme hodnotu intervalu. Hodnota `1000` sa použije, ak konštruktor zavoláme bez nastavenia hodnoty.
+Všetky metódy tejto triedy (sú to bežné funkcie v JavaScripte) musíme pridať do vnútra triedy. Každá trieda by mala mať svoj **konštruktor**, čo je metóda, ktorá za zavolá pri vzniku inštancie danej triedy a vykoná nastavenie tejto inštancie. V našom prípade len nastavíme interval v milisekundách. Na zápis konštruktora v JavaScripte sa používa kľúčové slovo [`constructor`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/constructor) a ako parameter mu pri volaní nastavíme hodnotu intervalu. Hodnota `1000` sa použije, ak konštruktor zavoláme bez nastavenia hodnoty.
 
 ```javascript
 constructor(interval = 1000)
@@ -157,7 +157,7 @@ constructor(interval = 1000)
 }
 ```
 
-V tejto triede budeme potrebovať dve metódy. Jednu na spustenie časovača a druhú na jeho zastavenie. Spustenie časovača je jednoduchá operácia, ktorá zavolá metódu `window.setInterval()` s parametrami `handler`, čo je buď názov metódy, alebo funkcie, ktorá sa má zavolať, ale v princípe to môže byť ľubovolný JavaScript kód a *čas v milisekundách*, v akom sa pravidelne bude tento kód spúšťať. Pred tým však ešte časovač vypneme, aby sme eliminovali viacnásobné spustenie toho istého časovača. Do atribútu `timerId` si uložíme vytvorený časovač na neskoršie použitie. Pri tomto zápise si môžeme všimnúť, že na definíciu metód v JavaScripte sa nepoužíva kľúčové slovo `function`.
+V tejto triede budeme potrebovať dve metódy. Jednu na spustenie časovača a druhú na jeho zastavenie. Spustenie časovača je jednoduchá operácia, ktorá zavolá metódu [`window.setInterval()`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval) s parametrami `handler`, čo je buď názov metódy, alebo funkcie, ktorá sa má zavolať, ale v princípe to môže byť ľubovolný JavaScript kód a *čas v milisekundách*, v akom sa pravidelne bude tento kód spúšťať. Pred tým však ešte časovač vypneme, aby sme eliminovali viacnásobné spustenie toho istého časovača. Do atribútu `timerId` si uložíme vytvorený časovač na neskoršie použitie. Pri tomto zápise si môžeme všimnúť, že na definíciu metód v JavaScripte sa nepoužíva kľúčové slovo [`function`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function).
 
 <div class="end">
 
@@ -170,7 +170,7 @@ start()
 ```
 </div>
 
-Metóda `stop()` bude mať za úlohu zastavenie časovača. Obsahom metódy je len kontrola, či časovač beží (vtedy nemá atribút `timerId` nastavenú hodnotu na `null`) a ak beží, tak ho volaním metódy `clearInterval()` zastavíme a atribút `timerId` nastavíme na `null`.
+Metóda `stop()` bude mať za úlohu zastavenie časovača. Obsahom metódy je len kontrola, či časovač beží (vtedy nemá atribút `timerId` nastavenú hodnotu na `null`) a ak beží, tak ho volaním metódy [`clearInterval()`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/clearInterval) zastavíme a atribút `timerId` nastavíme na `null`.
 
 ```javascript
 stop()
@@ -199,9 +199,9 @@ Táto trieda bude predstavovať jednu muchu v hre. Na obrazovke bude súčasne z
 element = null;
 ```
 
-Konštruktor v tejto triede má za úlohu vytvoriť muchu a nastaviť jej, aby v definovanom čase menila svoju pozíciu. Parameter `interval` definuje, ako často sa zmena polohy bude vykonávať. Na to potrebujeme vytvoriť novú inštanciu triedy `Timer`, vytvoriť DOM element (pozor toto nie je rovnaká metóda ako `document.createElement()`) a nastaviť časovaču, že v pravidelne definovanom intervale má volať metódu `changePosition()` tejto inštancie triedy. Tu je vidieť použitie `set` metódy, ktoré sa líši od volania bežnej metódy v tom, že je realizovaná ako priradenie. Na priradenie metódy, ktorá sa bude volať, použijeme **arrow funkciu**, ktorá celý zápis zjednoduší a sprehľadní. Navyše vo vnútri volania sprístupní odkaz `this`, inak by sme nemali prístup k inštancii triedy `Fly`. 
+Konštruktor v tejto triede má za úlohu vytvoriť muchu a nastaviť jej, aby v definovanom čase menila svoju pozíciu. Parameter `interval` definuje, ako často sa zmena polohy bude vykonávať. Na to potrebujeme vytvoriť novú inštanciu triedy `Timer`, vytvoriť DOM element (pozor toto nie je rovnaká metóda ako [`Document.createElement()`](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement) a nastaviť časovaču, že v pravidelne definovanom intervale má volať metódu `changePosition()` tejto inštancie triedy. Tu je vidieť použitie `set` metódy, ktoré sa líši od volania bežnej metódy v tom, že je realizovaná ako priradenie. Na priradenie metódy, ktorá sa bude volať, použijeme **arrow funkciu**, ktorá celý zápis zjednoduší a sprehľadní. Navyše vo vnútri volania sprístupní odkaz `this`, inak by sme nemali prístup k inštancii triedy `Fly`. 
 
-*Arrow funkcia** je alternatívny spôsob zápisu funkčných výrazov v JavaScripte. Zápis je jednoduchší ako v prípade zápisu anonymných funkcií. Pred šípkou (**arrow**) sa nachádza zoznam parametrov funkcie, ktorý môže byť prázdny. Za šípkou je telo funkcie, ktoré môže obsahovať jeden alebo viac príkazov. Záasadným rozdielom oproti anonymným funkciám je význam kľúčového slova `this`. Na rozdiel od bežných, resp. anonymných funkcií, kde `this` predstavuje objekt, ktorý funkciu zavolal, v *arrow* funkciách toto kľúčové slovo **vždy** reprezentuje objekt, ktorý funkciu definoval.       
+[**Arrow funkcia**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) je alternatívny spôsob zápisu funkčných výrazov v JavaScripte. Zápis je jednoduchší ako v prípade zápisu anonymných funkcií. Pred šípkou (*arrow*) sa nachádza zoznam parametrov funkcie, ktorý môže byť prázdny. Za šípkou je telo funkcie, ktoré môže obsahovať jeden alebo viac príkazov. Záasadným rozdielom oproti anonymným funkciám je význam kľúčového slova `this`. Na rozdiel od bežných, resp. anonymných funkcií, kde `this` predstavuje objekt, ktorý funkciu zavolal, v *arrow* funkciách toto kľúčové slovo **vždy** reprezentuje objekt, ktorý funkciu definoval.       
 
 Výsledná implementácia konštruktora bude vyzerať nasledovne:
 
@@ -214,7 +214,7 @@ constructor(interval = 1000)
 }
 ```
 
-Keďže budeme vytvárať viacero elementov muchy súčasne, musíme vytvoriť metódu, ktorá bude vykresľovať element muchy na obrazovku. Metóda bude volať DOM metódu `document.createElement()`, vytvorenému elementu nastaví CSS triedu `fly` a vygeneruje mu náhodnú pozíciu na obrazovke. Túto metódu budeme volať pri vytváraní a novom spúšťaní hry, preto muchy najskôr skryjeme a zobrazíme ich, až keď sa hra začne (metóda `hideElement()`). Vytvorený element pripojíme do dokumentu DOM metódou `document.body.appendChild()`.
+Keďže budeme vytvárať viacero elementov muchy súčasne, musíme vytvoriť metódu, ktorá bude vykresľovať element muchy na obrazovku. Metóda bude volať DOM metódu [`Document.createElement()`](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement), vytvorenému elementu nastaví CSS triedu `fly` a vygeneruje mu náhodnú pozíciu na obrazovke. Túto metódu budeme volať pri vytváraní a novom spúšťaní hry, preto muchy najskôr skryjeme a zobrazíme ich, až keď sa hra začne (metóda `hideElement()`). Vytvorený element pripojíme do dokumentu DOM metódou [`document.body.appendChild()`](https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild).
 
 ```javascript
 createElement()
@@ -310,7 +310,7 @@ constructor()
 }
 ```
 
-Ďalším krokom v konštruktore je vytvorenie obsluhy udalostí `DOMContentLoaded`. Táto udalosť nastane vtedy, keď je v okne prehliadača už stiahnutý celý HTMl kód príslušnej stránky a teda máme istotu, že všetky DOM elementy sú už na stránke k dispozícii. Je to obdoba k implementácii obsluhy udalosti `window.onload`.
+Ďalším krokom v konštruktore je vytvorenie obsluhy udalostí [`DOMContentLoaded`](https://developer.mozilla.org/en-US/docs/Web/API/Window/DOMContentLoaded_event). Táto udalosť nastane vtedy, keď je v okne prehliadača už stiahnutý celý HTML kód príslušnej stránky a teda máme istotu, že všetky DOM elementy sú už na stránke k dispozícii. Je to obdoba k implementácii obsluhy udalosti `window.onload`.
 
 V tejto chvíli môžeme zadefinovať obsluhu tlačidla `Start` slúžiaceho na spustenie hry. To opäť vykonáme s pomocou *arrow funkcie*, aby sme referenciu `this` dostali do obsluhy v tejto udalosti. 
 
@@ -335,7 +335,7 @@ constructor()
 }
 ```
 
-Poslednou časťou konštruktora je cyklus, ktorý pre definovaný počet múch v poli `flies` vytvorí inštancie triedy `Fly`. Každej muche nastaví náhodný interval zmeny polohy, aby bola hra zaujímavejšia. Okrem toho muche nastaví obsluhu udalosti `onclick` (na volanie metódy `flyHit()`).
+Poslednou časťou konštruktora je cyklus, ktorý pre definovaný počet múch v poli `flies` vytvorí inštancie triedy `Fly`. Každej muche nastaví náhodný interval zmeny polohy, aby bola hra zaujímavejšia. Okrem toho muche nastaví obsluhu udalosti [`onclick`](https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onclick) (na volanie metódy `flyHit()`).
 
 ```javascript
 constructor()
@@ -385,7 +385,7 @@ gameTick()
 }
 ```
 
-Na konci konštruktora je cyklus, kde vytvárame muchy. Každej muche nastavíme obsluhu udalosti `onclick`. Jednu časť tejto obsluhy delegujeme na metódu triedy `Fly` a zvyšnú časť súvisiacu skóre obslúžime v tejto triede. Táto metóda zvýši skóre hráča, pretože sme trafili muchu a okrem toho zvýši aj celkový počet pokusov. Nakoniec zavolá metódu `redrawScore()`, aby aktualizované skóre a počet pokusov vypísala:
+Na konci konštruktora je cyklus, kde vytvárame muchy. Každej muche nastavíme obsluhu udalosti [`onclick`](https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onclick). Jednu časť tejto obsluhy delegujeme na metódu triedy `Fly` a zvyšnú časť súvisiacu skóre obslúžime v tejto triede. Táto metóda zvýši skóre hráča, pretože sme trafili muchu a okrem toho zvýši aj celkový počet pokusov. Nakoniec zavolá metódu `redrawScore()`, aby aktualizované skóre a počet pokusov vypísala:
 
 ```javascript
 flyHit()
@@ -398,7 +398,7 @@ flyHit()
 
 Na záver sme si nechali metódu `start()`, ktorá je obsluhou udalosti kliknutia na tlačidlo `Start`. Má za úlohu inicializovať novú hru a nastaviť všetky jej parametre. Na úvod metódy nastavíme čas trvania hry, potom vynulujeme skóre a celkové pokusy, vypíšeme ich a prestavíme kurzor myši na mucholapku. 
 
-Posledný cyklus slúži na to, aby zobrazili všetky muchy. Všimnite si, že tento cyklus nie je realizovaný niektorým z bežných cyklov, ale metódou poľa `forEach()`, ktorá sa používa na postupnú iteráciu po jednotlivých prvkoch poľa:
+Posledný cyklus slúži na to, aby zobrazili všetky muchy. Všimnite si, že tento cyklus nie je realizovaný niektorým z bežných cyklov, ale metódou poľa [`forEach()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach), ktorá sa používa na postupnú iteráciu po jednotlivých prvkoch poľa:
 
 ```javascript
 start()
@@ -434,7 +434,7 @@ Jazyk JavaScript nepozná príkaz `include`, preto sme všetky tieto triedy ukla
 
 Toto riešenie by bolo funkčné, ale opäť, ak by sme mali takých súborov viac, museli by sme každý z nich vložiť do HTML a prehľadnosť by sme vyriešili len čiastočne. Na tento problém existuje lepšie riešenie a tým je použitie modulov. 
 
-**Moduly** používajú kľúčové slovo `import` na to, aby sprístupnili kód v inom JavaScript súbore. Úprava nášho príkladu bude veľmi jednoduchá. Keďže sme programovali objektovo, na konci každého JavaScript súboru bude stačiť vyexportovať celú triedu pomocou kľúčového slova `export`. Tým sa stane prístupná pre súbory, v ktorých ju budeme potrebovať importovať. Na začiatok každého súboru naimportujeme triedy, ktoré v danom súbore budeme používať. Napríklad, v triede `Fly` budeme potrebovať metódy triedy `Timer`, preto si pred deklaráciou triedy najskôr naimportujeme triedu `Timer` a na konci súboru triedu `Fly` vyexportujeme, aby bola k dispozícii ostatným triedam:
+**Moduly** používajú kľúčové slovo [`import`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) na to, aby sprístupnili kód v inom JavaScript súbore. Úprava nášho príkladu bude veľmi jednoduchá. Keďže sme programovali objektovo, na konci každého JavaScript súboru bude stačiť vyexportovať celú triedu pomocou kľúčového slova [`export`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export). Tým sa stane prístupná pre súbory, v ktorých ju budeme potrebovať importovať. Na začiatok každého súboru naimportujeme triedy, ktoré v danom súbore budeme používať. Napríklad, v triede `Fly` budeme potrebovať metódy triedy `Timer`, preto si pred deklaráciou triedy najskôr naimportujeme triedu `Timer` a na konci súboru triedu `Fly` vyexportujeme, aby bola k dispozícii ostatným triedam:
 
 ```javascript
 import {Timer} from "./timer.js";
