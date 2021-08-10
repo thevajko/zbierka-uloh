@@ -248,6 +248,8 @@ renderTable()
 
 Ďalej potrebujeme pridať akciu, ktorá po kliknutí na element `th` zoradí a nanovo vykreslí tabuľku. Vytvorenému elementu `th` pridáme preto obsluhu udalosti `onclick`, ktorá zavolá novú metódu `JsTable.sortCollection()`. Tá bude mať jeden vstupný parameter, a to meno stĺpca, na základe ktorého sa má zoraďovať. Doplníme CSS pre zmenu kurzora myši, aby indikoval možnosť zoraďovania pomocou `cursor: pointer`. Výsledný kód metódy `JsTable.renderHeader()` bude nasledovný:
 
+<div class="end">
+
 ```javascript
 renderHeader()
 {
@@ -265,6 +267,8 @@ renderHeader()
     return headerRow;
 }
 ```
+
+</div>
 
 Zoraďovanie bude realizované zavolaním metódy `JsTable.sortCollection()`, kde jej vstupný parameter nesie informáciu o tom, ktorý stĺpec sa použije na zoraďovanie. Zoraďovať sa bude obsah kolekcie dát, ktorá je uložená v atribúte `JsTable.dataCollection`.
 
@@ -401,7 +405,7 @@ sortCollection(filterBy)
 }
 ```
 
-V metóde `renderTable()` upravíme element z `HTMLElement` na `TableWrapperElement` takto:
+V metóde `renderTable()` upravíme element z `HTMLElement` na `TableWrapperElement`:
 
 ```javascript
 renderTable()

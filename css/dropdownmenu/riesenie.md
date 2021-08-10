@@ -186,7 +186,11 @@ Menu bude zobrazovať staticky prvú a druhú úroveň takto:
 
 Teraz potrebujeme upraviť CSS vlastnosť `position` pre všetky `li` elementy prvej úrovne na `relative`, aby sme vytvorili základnú plochu pre prípadne elementy `ul` ďalších úrovní.
 
-Všetkým elementom `ul` druhej a ďalších úrovní nastavíme vlastnosť `position` na `absolute`. Tým docielime to, že elementy `ul` sa zobrazia "plávajúco" nad ostatnými elementmi<span class="hidden">(viac o [position tu](../../common/css-position.md) )</span>. Upravené CSS pravidlá sú nasledovné:
+Všetkým elementom `ul` druhej a ďalších úrovní nastavíme vlastnosť `position` na `absolute`. Tým docielime to, že elementy `ul` sa zobrazia "plávajúco" nad ostatnými elementmi<span class="hidden">(viac o [position tu](../../common/css-position.md) )</span>. 
+
+<div style="page-break-after: always;"></div>
+
+Upravené CSS pravidlá sú nasledovné:
 
 ```css
 li {
@@ -202,13 +206,17 @@ ul ul ul {
 }
 ```
 
-Zobrazenie menu v tomto kroku bude nasledovné:
+Zobrazenie menu v tomto kroku bude:
 
 ![Menu prvej a druhej úrovne po úpravách](images_dropdownmenu/menu-dva-02.png)
 
 Ako prvé teraz doplníme zobrazovanie a skrývanie druhej úrovne, pokiaľ používateľ umiestni kurzor nad daný element `li`, ktorý obsahuje priamo podmenu. Zvolenie priameho potomka je v selektore dôležité, lebo chceme, aby sa zobrazil iba priamy potomok a nie všetky elementy `ul` v danej vetve DOM. Môžeme ešte pridať formátovanie pre elementy `ul` úrovne dva a viac.
 
-Pre zobrazenie opäť použijeme *flexbox* a upravíme zobrazenie prvkov na vertikálne pomocou `flex-direction: column;`. Vo východzom stave sú podmenu skryté. CSS bude teda nasledovné:
+Pre zobrazenie opäť použijeme *flexbox* a upravíme zobrazenie prvkov na vertikálne pomocou `flex-direction: column;`. Vo východzom stave sú podmenu skryté. 
+
+<div style="page-break-after: always;"></div>
+
+CSS bude teda nasledovné:
 
 ```css
 ul ul {
@@ -238,11 +246,11 @@ ul ul ul {
 }
 ```
 
-Nastavenie CSS vlastnosti `top: 0` určuje, že sa má podmenu zobraziť vertikálne zarovno s&nbsp;elementom `li`, v ktorom sa nachádza. Vlastnosť `left: 100%` umiestňuje podmenu o `100%` veľkosti rodičovského elementu `li` zľava. Výsledok pridania tohto pravidla je nasledovný:
+Nastavenie CSS vlastnosti `top: 0` určuje, že sa má podmenu zobraziť vertikálne zarovno s&nbsp;elementom `li`, v ktorom sa nachádza. Vlastnosť `left: 100%` umiestňuje podmenu o `100%` veľkosti rodičovského elementu `li` zľava. Výsledok pridania tohto pravidla je:
 
 ![Pridané ďalšie úrovne menu](images_dropdownmenu/menu-fung-02.gif)
 
-Všimnime si však, že jednotlivé podmenu nie sú úplne zarovnané. To je dôsledok toho, že sme pri elemente `ul` druhej úrovne pridali rámček a ďalšie vnorené menu sa zobrazí až v&nbsp;tomto rámčeku.
+Vidíme však, že podmenu nie sú úplne zarovnané. Je to preto, že sme pri elemente `ul` druhej úrovne pridali rámček a ďalšie vnorené menu sa zobrazí až v&nbsp;tomto rámčeku.
 
 ![Chybné zarovnanie menu kvôli rámčeku](images_dropdownmenu/menu-dva-03.png)
 

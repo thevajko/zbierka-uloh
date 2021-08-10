@@ -375,12 +375,12 @@ if (isset($_GET["id"])) {
 }
 
 if ($user == null) {
-    echo "Užívateľ nenájdený.<br><a href='?'>Späť</a>";
+    echo "Záznam používateľa nenájdený.<br><a href='?'>Späť</a>";
     return;
 }
 
 $userStorage->delete($user);
-echo "Uživateľ {$user->getFullname()} ostránený.<br><a href='?'>Späť</a>";
+echo "Záznam požívateľa {$user->getFullname()} bol odstránený.<br><a href='?'>Späť</a>";
 ```
 
 V tomto kóde nemáme takmer žiadny HTML kód. Jediný HTML kód, ktorý sa tu nachádza, je výpis správy o odstránení / neodstránení záznamu používateľa. Jedna zaujímavosť, ktorú si tu môžeme všimnúť, je použitie kľúčového slova `return`. Tento príkaz spôsobí ukončenie spracovávania tohto skriptu, akoby sme boli v nejakej metóde / funkcii, ale spracovávanie súboru `index.php`, do ktorého sme tento skript vložili, bude pokračovať ďalej.
@@ -395,7 +395,9 @@ Túto ochranu môžeme implementovať jedným z dvoch spôsobov.
 
 Prvým spôsobom je úprava komponentu `pages/users/delete.php` tak, že je potrebné pred zmazaním ešte dodatočné potvrdenie. Toto potvrdenie môžeme implementovať ako jednoduchý formulár s jedným potvrdzovacím tlačidlom.
 
-```php
+<div class="end">
+
+```html
 <?php
 $userStorage = new UserStorage();
 $user = null;
@@ -404,18 +406,18 @@ if (isset($_GET["id"])) {
 }
 
 if ($user == null) {
-    echo "Užívateľ nenájdený.<br><a href='?'>Späť</a>";
+    echo "Záznam používateľa nenájdený.<br><a href='?'>Späť</a>";
     return;
 }
 
 if (isset($_POST['delete'])) {
     $userStorage->delete($user);
-    echo "Uživateľ {$user->getFullname()} ostránený.<br><a href='?'>Späť</a>";
+    echo "Záznam používateľa {$user->getFullname()} bol odstránený.<br><a href='?'>Späť</a>";
     return;
 }
 ?>
 
-Skutočne chcete odstrániť používateľa <?=$user->getFullname()?>?
+Skutočne chcete odstrániť záznam používateľa <?=$user->getFullname()?>?
 <form method="post">
     <input type="submit" name="delete" value="Áno">
 </form>
@@ -423,7 +425,9 @@ Skutočne chcete odstrániť používateľa <?=$user->getFullname()?>?
 <a href="?">Späť</a>
 ```
 
-![Potvrdenie mazania záznamu na strane servera](images_crud/backed-confirm.png)
+</div>
+
+![Potvrdenie zmazania záznamu na strane servera](images_crud/backed-confirm.png)
 
 #### Implementácia na strane klienta
 
@@ -452,7 +456,7 @@ $user = new User();
 if (isset($_GET["id"])) {
     $user = $userStorage->get($_GET["id"]);
     if ($user == null) {
-        echo "Užívateľ nenájdený.<br><a href='?'>Späť</a>";
+        echo "Záznam požívateľa nenájdený.<br><a href='?'>Späť</a>";
         return;
     }
 }
@@ -463,7 +467,7 @@ if (isset($_POST['save'])) {
     $user->mail = $_POST['mail'];
     $user->country = $_POST['country'];
     $userStorage->store($user);
-    echo "Užívateľ ".htmlentities($user->getFullname())." bol uložený.<br><a href='?'>Späť</a>";
+    echo "Záznam používateľa ".htmlentities($user->getFullname())." bol uložený.<br><a href='?'>Späť</a>";
     return;
 }
 

@@ -370,7 +370,7 @@ redrawScore()
 }
 ```
 
-Na počítanie času v hre sme si vytvorili metódu `gameTick()`. Táto metóda bude odpočítavať čas zostávajúci pre hráča. Po uplynutí každej sekundy zobrazí v paneli hry zostávajúci čas. Na konci hry zastaví časovač, skryje všetky muchy a zmení kurzor na jeho bežný tvar:
+Na počítanie času v hre slúži metóda `gameTick()`. Bude odpočítavať čas zostávajúci pre hráča. Po uplynutí každej sekundy zobrazí v paneli hry zostávajúci čas. Na konci hry zastaví časovač, skryje všetky muchy a zmení kurzor na jeho bežný tvar:
 
 ```javascript
 gameTick()
@@ -401,6 +401,8 @@ Na záver sme si nechali metódu `start()`, ktorá je obsluhou udalosti kliknuti
 
 Posledný cyklus slúži na to, aby zobrazili všetky muchy. Všimnite si, že tento cyklus nie je realizovaný niektorým z bežných cyklov, ale metódou poľa [`forEach()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach), ktorá sa používa na postupnú iteráciu po jednotlivých prvkoch poľa:
 
+<div class="end">
+
 ```javascript
 start()
 {
@@ -414,6 +416,8 @@ start()
     });
 }
 ```
+
+</div>
 
 Spustenie celej aplikácie (pozor, nie hry) sa vykoná vytvorením inštancie triedy `Game` príkazom:
 
@@ -461,12 +465,14 @@ Celá štruktúra príkladu je zobrazená na tomto obrázku:
 
 **Pozor!** Pokiaľ použijeme riešenie s modulmi, skript v HTML musíme naimportovať s&nbsp;atribútom `type="module"`. Inak sa skript obsahujúci moduly nenaimportuje. Na spustenie hry budeme potrebovať okrem prehliadača aj nejaký webový server. Pri použití modulov **nie je možné** JavaScript spúšťať bez použitia webového servera.
 
-<div class="end">
+<div style="page-break-after: always;"></div>
+
+Skript musíme teda pripojiť:
 
 ```html
 <script type="module" src="js/main.js"></script>
 ```
-</div>
+
 
 Hru v prehliadači spustíme kliknutím na tlačidlo `Start`. Po spustení hry uvidíme muchy na hracej ploche, kurzor sa zmení na mucholapku a môžeme začať hrať:
 
