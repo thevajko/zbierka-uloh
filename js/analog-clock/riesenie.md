@@ -27,7 +27,7 @@ Pri riešení tejto úlohy budeme používať iba JavaScript a vykresľovanie po
 
 Kreslenie na plátne používa uhly v radiánoch. Pre nás bude lepšie, ak budeme môcť zadávať uhly v stupňoch.
 
-Konverziu zo stupňov na radiány realizujeme prepočtom: *uhol v radiánoch = uhol v&nbsp;stupňoch * &pi / 180*.  Presnú hodnotu &pi; nájdeme v `Math.PI`. Môžeme si preto vytvoriť nasledovnú konverznú funkciu:
+Konverziu zo stupňov na radiány realizujeme prepočtom: *uhol v radiánoch = uhol v&nbsp;stupňoch * &pi; / 180*.  Presnú hodnotu &pi; nájdeme v `Math.PI`. Môžeme si preto vytvoriť nasledovnú konverznú funkciu:
 
 ```javascript
 function degToRad(degrees) {
