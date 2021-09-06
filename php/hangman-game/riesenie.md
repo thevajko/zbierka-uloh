@@ -13,6 +13,13 @@
 
 Riešenie si rozdelíme do niekoľkých častí a a použijeme objektový prístup.
 
+<div class="hidden">
+
+> Všetky potrebné služby sú v `docker-compose.yml`. Po ich spustení sa vytvorí:
+> - webový server, ktorý do __document root__ namapuje adresár tejto úlohy s modulom __PDO__. Port __80__ a bude dostupný na adrese [http://localhost/](http://localhost/). Server má pridaný modul pre ladenie [__Xdebug 3__](https://xdebug.org/) nastavený na port __9000__.
+
+</div>
+
 ### HTML dokument
 
 Ak vytvárame celú hru od úplného začiatku, vytvoríme si adresár `img` a nakopírujeme si do neho obrázky `0.png` až `10.png`. 

@@ -16,6 +16,14 @@
 **Obťažnosť**: 3/5
 
 **Obsah príkladu**: Objektové programovanie v PHP, generovanie HTML kódu pomocou PHP, vkladanie PHP súborov pomocou `include` a `require`, *session*, polia, práca s&nbsp;reťazcami. 
+
+</div>
+
+<div class="hidden">
+
+> Všetky potrebné služby sú v `docker-compose.yml`. Po ich spustení sa vytvorí:
+> - webový server, ktorý do __document root__ namapuje adresár tejto úlohy s modulom __PDO__. Port __80__ a bude dostupný na adrese [http://localhost/](http://localhost/). Server má pridaný modul pre ladenie [__Xdebug 3__](https://xdebug.org/) nastavený na port __9000__.
+
 </div>
 
 ## Zadanie

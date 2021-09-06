@@ -13,6 +13,13 @@
 
 Riešenie si rozdelíme do dvoch častí. Prvá časť, ktorá bude vstupným bodom do aplikácie, bude obsahovať HTML formulár, cez ktorý je možné poslať súbor. Keď bude súbor odoslaný, činnosť prevezme trieda `Uploader`, ktorá sa postará o to, aby sa súbor dostal do správneho adresára a bol pripravený na neskoršiu komprimáciu.
 
+<div class="hidden">
+
+> Toto riešenie obsahuje všetky potrebné služby v `docker-compose.yml`. Po ich spustení sa vytvorí:
+> - webový server, ktory do __document root__ namapuje adresár tejto úlohy s modulom __PDO__. Port __80__ a bude dostupný na adrese [http://localhost/](http://localhost/). Server má pridaný modul pre ladenie [__Xdebug 3__](https://xdebug.org/) nastavený na port __9000__.
+
+</div>
+
 ### HTML formulár
 
 Formulár bude obsahovať dva vstupné prvky: prvý typu `file` a druhý typu `submit`. Keďže je formulár bude použitý na odosielanie súborov, musí používať metódu `POST` a je nutné, aby mal nastavený atribút `enctype="multipart/form-data"`, inak prehliadač súbor neodošle. Atribút `action` nenastavíme, pretože formulár bude odoslaný tomu istému skriptu, v ktorom sa nachádza.

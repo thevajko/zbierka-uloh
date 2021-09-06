@@ -16,6 +16,14 @@
 **Obťažnosť**: 1/5
 
 **Obsah príkladu**: Základná syntax jazyka PHP, mixovanie HTML a PHP, premenné, cyklus `while`, tvorba a volanie funkcií, návratová hodnota funkcie. 
+
+</div>
+
+<div class="hidden">
+
+> Všetky potrebné služby sú v `docker-compose.yml`. Po ich spustení sa vytvorí:
+> - webový server, ktorý do __document root__ namapuje adresár tejto úlohy s modulom __PDO__. Port __80__ a bude dostupný na adrese [http://localhost/](http://localhost/). Server má pridaný modul pre ladenie [__Xdebug 3__](https://xdebug.org/) nastavený na port __9000__.
+
 </div>
 
 ## Zadanie
@@ -35,3 +43,4 @@ Vytvorte skript v jazyku PHP, ktorý bude schopný zobraziť a vypočítať [fak
     <li>9! = 362880</li>
 </ul>
 ```
+

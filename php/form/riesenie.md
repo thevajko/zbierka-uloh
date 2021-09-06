@@ -11,6 +11,13 @@
 
 ## Riešenie
 
+<div class="hidden">
+
+> Všetky potrebné služby sú v `docker-compose.yml`. Po ich spustení sa vytvorí:
+> - webový server, ktorý do __document root__ namapuje adresár tejto úlohy s modulom __PDO__. Port __80__ a bude dostupný na adrese [http://localhost/](http://localhost/). Server má pridaný modul pre ladenie [__Xdebug 3__](https://xdebug.org/) nastavený na port __9000__.
+
+</div>
+
 ### Analýza a návrh riešenia
 
 Na riešenie tejto úlohy bude potrebné navrhnúť objektovú štruktúru. Zo zadania vyplýva, že budeme potrebovať triedu `Form`. Táto trieda bude mať metódy na pridávanie formulárových prvkov pomocou metód `addXXX()` (kde `XXX` je názov formulárového poľa). Okrem iného táto trieda bude schopná vrátiť vyplnené hodnoty v asociatívnom poli pomocou metódy `getData()`. Ďalšou funkcionalitou bude detekcia odoslania formulára `isSubmitted()` a kontrola správnosti vyplnených údajov metódou `isValid()`.

@@ -11,6 +11,13 @@
 
 ## Riešenie
 
+<div class="hidden">
+
+> Všetky potrebné služby sú v `docker-compose.yml`. Po ich spustení sa vytvorí:
+> - webový server, ktorý do __document root__ namapuje adresár tejto úlohy s modulom __PDO__. Port __80__ a bude dostupný na adrese [http://localhost/](http://localhost/). Server má pridaný modul pre ladenie [__Xdebug 3__](https://xdebug.org/) nastavený na port __9000__.
+
+</div>
+
 ### HTML dokument 
 
 Hlavným cieľom tejto úlohy je generovanie veľkého množstva štvorčekov rovnakej veľkosti a následné umiestnenie týchto štvorčekov náhodne do okna prehliadača. Na to, aby sme mohli umiestniť štvorčeky na ľubovoľné miesto na stránke, potrebujeme:
