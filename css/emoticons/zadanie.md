@@ -2,8 +2,8 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/css/emoticons), [Riešenie](/../../tree/solution/css/emoticons).
-    [Zobraziť riešenie](riesenie.md)
+> - Repo: [Štartér](/../../tree/main/css/emoticons), [Riešenie](/../../tree/solution/css/emoticons)
+> - [Zobraziť riešenie](riesenie.md)
 </div>
 
 # Emotikony
