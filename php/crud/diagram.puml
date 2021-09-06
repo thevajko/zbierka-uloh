@@ -1,0 +1,32 @@
+@startuml
+
+class UserStorage {
+  +User[] getAll()
+  +?User get($id)
+  +void store(User $user)
+  +void delete(User $user)
+}
+
+class User {
+  +int $id
+  +string $name
+  +string $surname
+  +string $mail
+  +string $country
+}
+
+class Db {
+  -{static} string DB_HOST
+  -{static} string DB_NAME
+  -{static} string DB_USER
+  -{static} string DB_PASS
+  -{static} PDO $connection
+  +{static} PDO conn()
+  -{static} void connect()
+}
+
+
+UserStorage --> Db
+UserStorage --> User
+
+@enduml

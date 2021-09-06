@@ -1,0 +1,34 @@
+version: '3'
+services:
+  web:
+    build: .
+    volumes:
+      - ./:/var/www/html/
+    ports:
+      - "80:80"
+    stdin_open: true
+    tty: true
+  db:
+    image: mariadb
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: heslo
+      MYSQL_DATABASE: dbtable
+      MYSQL_USER: db_user
+      MYSQL_PASSWORD: db_user_pass
+    ports:
+      - "3306:3306"
+  phpmyadmin:
+    links:
+      - db
+    depends_on:
+      - db
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      MYSQL_ROOT_PASSWORD: heslo
+      PMA_HOST: db
+      PMA_USER: db_user
+      PMA_PASSWORD: db_user_pass
