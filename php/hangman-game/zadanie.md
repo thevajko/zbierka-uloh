@@ -16,8 +16,8 @@
 **Obťažnosť**: 3/5
 
 **Obsah príkladu**: Objektové programovanie v PHP, generovanie HTML kódu pomocou PHP, vkladanie PHP súborov pomocou `include` a `require`, *session*, polia, práca s&nbsp;reťazcami. 
-</div>
 
+</div>
 
 <div class="hidden">
 
@@ -27,8 +27,7 @@
 </div>
 
 ## Zadanie
-docker-compose.yml
-Dockerfile
+
 Vytvorte jednoduchú hru v jazyku PHP, ktorá bude umožňovať hádať písmená v slove. Ak hráč uhádne, písmeno sa zobrazí na správnom mieste, ak neuhádne, započíta sa mu pokus a písmeno zmizne z klávesnice. Klávesnica bude zobrazená na hracej ploche a písmená, ktoré budú uhádnuté sa na nej viac nebudú zobrazovať. Hra končí, keď hráč uhádne celé slovo, alebo keď minie 10 pokusov. Po každom pokuse sa postupne zobrazí obrázok obesenca:
 
 ![Obrázky pre hru Obesenec](images_hangman-game/hangman_pictures.png)

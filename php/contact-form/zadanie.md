@@ -16,6 +16,16 @@
 **Obťažnosť**: 2/5
 
 **Obsah príkladu**: Tvorba, spracovanie a validácia formulárov, vkladanie PHP súborov, testovanie a odosielanie emailov v jazyku PHP.
+
+</div>
+
+<div class="hidden">
+
+> Všetky potrebné služby sú v `docker-compose.yml`. Po ich spustení sa vytvorí:
+> - webový server, ktorý do __document root__ namapuje adresár tejto úlohy a nastaví php mail funkciu tak, aby odosielala maily do pripraveného MailHog servera. Port __80__ bude dostupný na adrese [http://localhost/](http://localhost/). Server má pridaný modul pre ladenie [__Xdebug 3__](https://xdebug.org/) nastavený na port __9000__.
+> - MailHog server, ktorý sa automaticky prepojí s PHP na porte __8025__ a bude dostupný na adrese [http://localhost:8025/](http://localhost:8025/)
+> - V prípade potreby priamého prístupu na SMTP server je tento dostupný na adrese __mailhog:1025__
+
 </div>
 
 ## Zadanie
@@ -33,13 +43,3 @@ Formulár by mohol vyzerať nasledovne:
 
 ![Navrhovaný vzhľad kontaktného formulára](images_contact-form/zadanie.png)
 
-<div class="hidden">
-
-> Všetky potrebné služby sú v `docker-compose.yml`. Po ich spustení sa vytvorí:
-> - webový server, ktorý do __document root__ namapuje adresár tejto úlohy a nastaví php mail funkciu tak, aby odosielala maily do pripraveného MailHog servera. Port __80__ bude dostupný na adrese [http://localhost/](http://localhost/). Server má pridaný modul pre ladenie [__Xdebug 3__](https://xdebug.org/) nastavený na port __9000__.
-> - MailHog server, ktorý sa automaticky prepojí s PHP na porte __8025__ a bude dostupný na adrese [http://localhost:8025/](http://localhost:8025/)
-> - V prípade potreby priamého prístupu na SMTP server je tento dostupný na adrese __mailhog:1025__
-
-
-[Zobraziť riešenie](riesenie.md).
-</div>

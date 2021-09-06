@@ -16,8 +16,8 @@
 **Obťažnosť**: 3/5
 
 **Obsah príkladu**: Objektové programovanie v PHP, nahrávanie (*upload*) súborov na server a ich spracovanie, práca so súbormi a adresármi, komprimácia súborov, posielanie súborov na klienta, externé rozšírenia jazyka PHP, identifikáciu používateľa, práca s&nbsp;*cookies* V PHP, pokročilejšia práca s poliami, výnimky.
-</div>
 
+</div>
 
 <div class="hidden">
 
