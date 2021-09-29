@@ -30,6 +30,7 @@ Samozrejme, pre spustenie potrebných služieb môžete použiť ľubovoľným s
 Úlohy sú rozdelené podľa toho, ktorú technológiu používajú a obsahujú označenie náročnosti (stupnica od 1 po 5, kde 5 je najväčšia náročnosť)
 
 ## CSS
+1. [Obloha](css/position/zadanie.md) (CSS) - Obťažnosť 1
 1. [Gulečník](css/pool/zadanie.md) (CSS) - Obťažnosť 1
 1. [Selektory](css/selectors/zadanie.md) (CSS) - Obťažnosť 2
 1. [Tooltip](css/tooltip/zadanie.md) (CSS) - Obťažnosť 2
