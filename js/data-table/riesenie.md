@@ -165,7 +165,7 @@ Pri generovaní obsahu v metóde `JsTable.renderRows()` iba rozšírime kód, kt
 
 Pre každú položku v kolekcii budeme vytvárať samostatný riadok.
 
-Na záver potrebujeme získať hodnoty z každého objektu v kolekcii v poradí, v akom sú obrazené v hlavičke. V JavaScripte môžeme pristúpiť k hodnote atribútov objektu cez index. V nasledujúcom kóde sú uvedené dve možnosti prístupu k hodnote atribútu:
+Na záver potrebujeme získať hodnoty z každého objektu v kolekcii v poradí, v akom sú zobrazené v hlavičke. V JavaScripte môžeme pristúpiť k hodnote atribútov objektu cez index. V nasledujúcom kóde sú uvedené dve možnosti prístupu k hodnote atribútu:
 
 ```javascript
 class Trieda {
@@ -210,7 +210,7 @@ Tabuľka teraz vypíše celú kolekciu:
 
 ![Tabuľka s dátami](images_data-table/table-03.png)
 
-### Zoraďovania podla stĺpca
+### Zoraďovania podľa stĺpca
 
 Zoraďovanie stĺpcov bude aktivované kliknutím na hlavičku tabuľky. Prvým kliknutím sa záznamy zoradia zostupne a pri opätovnom kliknutí vzostupne. Pre zjednodušenie budeme všetky hodnoty zoraďovať alfabeticky. Pracovať budeme priamo s HTML elementmi, ktoré budeme vytvárať pomocou `document.createElement()`.
 
@@ -248,6 +248,8 @@ renderTable()
 
 Ďalej potrebujeme pridať akciu, ktorá po kliknutí na element `th` zoradí a nanovo vykreslí tabuľku. Vytvorenému elementu `th` pridáme preto obsluhu udalosti `onclick`, ktorá zavolá novú metódu `JsTable.sortCollection()`. Tá bude mať jeden vstupný parameter, a to meno stĺpca, na základe ktorého sa má zoraďovať. Doplníme CSS pre zmenu kurzora myši, aby indikoval možnosť zoraďovania pomocou `cursor: pointer`. Výsledný kód metódy `JsTable.renderHeader()` bude:
 
+<div class="end">
+
 ```javascript
 renderHeader()
 {
@@ -265,6 +267,8 @@ renderHeader()
     return headerRow;
 }
 ```
+
+</div>
 
 Zoraďovanie bude realizované zavolaním metódy `JsTable.sortCollection()`, kde jej vstupný parameter nesie informáciu o tom, ktorý stĺpec sa použije na zoraďovanie. Zoraďovať sa bude obsah kolekcie dát, ktorá je uložená v atribúte `JsTable.dataCollection`.
 
@@ -330,7 +334,7 @@ A nesmieme zabudnúť doplniť predvolenú hodnotu do konštruktora:
 
 Tabuľka sa bude teraz dať zoradiť oboma smermi.
 
-![Zoraďovanie tabulky kliknutím na názov atribútu](images_data-table/tabulka-01.gif)
+![Zoraďovanie tabuľky kliknutím na názov atribútu](images_data-table/tabulka-01.gif)
 
 ### Filtrovanie tabuľky
 
@@ -367,7 +371,7 @@ constructor(dataCollection, HTMLElement)
 }
 ```
 
-Ešte musíme vymeniť zdrojovú kolekciu z `dataCollection` na `filtedDataCollection` v metódach `sortCollection()` a `renderRows()` nasledujúco:
+Ešte musíme vymeniť zdrojovú kolekciu z `dataCollection` na `filtedDataCollection` v&nbsp;metódach `sortCollection()` a `renderRows()` nasledujúco:
 
 ```javascript
 renderRows()
@@ -401,7 +405,7 @@ sortCollection(filterBy)
 }
 ```
 
-V metóde `renderTable()` upravíme element z `HTMLElement` na `TableWrapperElement` takto:
+V metóde `renderTable()` upravíme element z `HTMLElement` na `TableWrapperElement`:
 
 ```javascript
 renderTable()

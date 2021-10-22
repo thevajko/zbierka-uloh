@@ -58,9 +58,9 @@ Pozíciu `ajaxLoader` elementu sme nastavili na `fixed` a rozmery na `100%`, aby
 
 Na usporiadanie prvkov v tomto elemente používame *flexbox*. Kontajner `ajaxLoader` sme nastavili ako *flexbox* kontajner, ktorý obsahuje prvky zarovnané na stred a jednotlivé prvky sa budú usporadúvať do stĺpca.
 
-Na zobrazenie *spinner* komponentu sme využili jednoduchú CSS animáciu. Je to `div` element, ktorý sme pomocou `border-radius: 50%` zobrazili ako kruh. Tomuto kruhu sme nechali priehľadné pozadie a nastavili mu `12px` rámček, čím sme dostali kružnicu. Hornému rámčeku sme zmenili farbu na modrú a zvyšným častiam rámčeka sme nechali bielu farbu. Toto spôsobilo, že dostaneme kružnicu, kde 1/4 kruhu má inú farbu ako zvyšok.
+Na zobrazenie *spinner* komponentu sme využili jednoduchú CSS animáciu. Je to `div` element, ktorý sme pomocou `border-radius: 50%` zobrazili ako kruh. Tomuto kruhu sme nechali priehľadné pozadie a nastavili mu `12px` rámček, čím sme dostali kružnicu. Hornému rámčeku sme zmenili farbu na modrú a zvyšným častiam rámčeka sme nechali bielu farbu. To spôsobilo, že dostaneme kružnicu, kde štvrtina kruhu má inú farbu ako zvyšok.
 
-Otáčanie kruhu sme dosiahli pomocou jednoduchej animácie, ktorá tento element rotuje o 360 stupňov. Jedna rotácia trvá 2s a je lineárna - kruh sa bude otáčať konštantnou rýchlosťou a animácia sa opakuje donekonečna.
+Otáčanie kruhu sme dosiahli pomocou jednoduchej animácie, ktorá tento element rotuje o&nbsp;360 stupňov. Jedna rotácia trvá 2s a je lineárna - kruh sa bude otáčať konštantnou rýchlosťou a animácia sa opakuje donekonečna.
 
 Na deklaráciu animácie sa používa definícia `@keyframes`. Určuje stav elementu v určitých záchytných bodoch. V našom prípade máme definované, že na začiatku animácie bude element otočený o 0 stupňov a na konci o 360 stupňov.
 
@@ -70,7 +70,7 @@ Výsledný *spinner* komponent vyzerá nasledujúco:
 
 ### Aplikačná logika komponentu
 
-Keď sa pozrieme do zadania a východzieho kódu, môžeme vidieť, že AJAX žiadosti sa posielajú pomocou funkcie `fetch()`. Našou úlohou teda bude vytvoriť jednoduchú obaľovaciu funkciu (*wrapper*), ktorý nahradí funkciu `fetch()`.
+Keď sa pozrieme do zadania a východzieho kódu, môžeme vidieť, že AJAX žiadosti sa posielajú pomocou funkcie `fetch()`. Našou úlohou teda bude vytvoriť jednoduchú obaľovaciu funkciu (*wrapper*), ktorá nahradí funkciu `fetch()`.
 
 <div class="end">
 
@@ -98,7 +98,7 @@ Ak deklarujeme parameter funkcie ako `...parametre`, tak v premennej `parametre`
 
 Najprv vytvoríme DOM element, ktorý predstavuje HTML reprezentáciu celého komponentu. Pomocou `document.getElementsByTagName("body")[0].append(loader);` tento vytvorený element vložíme do DOM stránky.
 
-V ďalšej časti máme blok `try / finally`, ktorý používame preto, lebo vždy po skončení asynchrónneho volania potrebujeme skryť celý komponent *AJAX loader* bez ohľadu na to, či sa operácia podarí, alebo nastane výnimka. Vo vetve `try` sa pokúsime zavolať funkciu `fetch()` a asynchrónne počkáme na skončenie žiadosti. Po skončení vrátime odpoveď. V prípade, že sa stiahnutie nepodarí a nastane výnimka, táto sa znovu vyhodí. Vo vetve `finally` odstránime element z DOM.
+V ďalšej časti máme blok `try / finally`, ktorý používame preto, lebo vždy po skončení asynchrónneho volania potrebujeme skryť celý komponent *AJAX loader* bez ohľadu na to, či sa operácia podarí, alebo nastane výnimka. Vo vetve `try` sa pokúsime zavolať funkciu `fetch()` a asynchrónne počkáme na skončenie žiadosti. Po skončení vrátime odpoveď. V&nbsp;prípade, že sa stiahnutie nepodarí a nastane výnimka, táto sa znovu vyhodí. Vo vetve `finally` odstránime element z DOM.
 
 Ak chceme našu funkciu otestovať, nahradíme vo funkcii `nacitajZdroj()` volanie `fetch()` za `loaderFetch()`.
 
@@ -143,7 +143,7 @@ function updateRequestCounter() {
 
 ### Podpora pre všetky AJAX žiadosti
 
-Pokiaľ by sme chceli, aby sa náš *AJAX loader* komponent používal pri všetkých žiadostiach, môžeme funkciu `load()` z objektu `window` nahradiť tou našou. Na to, aby sme to spravili potrebujeme vykonať nasledujúce kroky:
+Pokiaľ by sme chceli, aby sa náš *AJAX loader* komponent používal pri všetkých žiadostiach, môžeme funkciu `load()` z objektu `window` nahradiť tou našou. Na to, aby sme to spravili, potrebujeme vykonať nasledujúce kroky:
 
 1. Musíme si zapamätať pôvodnú funkciu do nejakej lokálnej premennej.
 2. Nahradiť funkciu `load()` tou našou.
@@ -174,7 +174,7 @@ Aktuálny kód má jeden vedľajší efekt. Do objektu `window` nám pridal nasl
 
 Ani jeden z týchto atribútov v princípe nemá čo robiť medzi globálnymi premennými. Riešení tohto problému je niekoľko. Môžeme napríklad použiť OOP a zaobaliť celé riešenie do nejakej triedy.
 
-V prípade takýchto menších skriptov môže byť OOP zbytočne komplikované riešenie. V JavaScripte sa zvykne používať koncept tzv. `Immediately Invoked Function Expression (IIFE)`. Táto IIFE slúži na vytvorenie lokálneho prostredia, v ktorom si môžeme deklarovať vlastné "globálne" premenné, ktoré ale nebudú dostupné mimo nášho kódu.
+V prípade takýchto menších skriptov môže byť OOP zbytočne komplikované riešenie. V&nbsp;JavaScripte sa zvykne používať koncept tzv. *Immediately Invoked Function Expression (IIFE)*. IIFE slúži na vytvorenie lokálneho prostredia, v ktorom si môžeme deklarovať vlastné "globálne" premenné, ktoré ale nebudú dostupné mimo nášho kódu.
 
 Hlavnou myšlienkou tohto prístupu je zaobalenie celého kódu do anonymnej funkcie, ktorá sa hneď vykoná:
 
@@ -186,7 +186,7 @@ Hlavnou myšlienkou tohto prístupu je zaobalenie celého kódu do anonymnej fun
 })();
 ```
 
-Všetky premenné definované v rámci funkcie budú k dispozícií len v danej funkcii. Tento princíp môžeme nájsť vo veľkom množstve JavaScript knižníc. Výsledný kód nášho komponentu môže vyzerať nasledujúco:
+Všetky premenné definované v rámci funkcie budú k dispozícii len v danej funkcii. Tento princíp môžeme nájsť vo veľkom množstve JavaScript knižníc. Výsledný kód nášho komponentu môže vyzerať nasledujúco:
 
 ```javascript
 (function() {

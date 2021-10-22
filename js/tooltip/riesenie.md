@@ -49,7 +49,7 @@ for (let i = 0; i < divs.length; i++) {
 }
 ```
 
-Teraz pridáme kód, ktorý sa vykoná, ak používateľ premiestni kurzor nad nejaký `div` s atribútom `data-tooltip`. Ten vytvorí nový `div` element a umiestni ho ako potomka do elementu `div`, ktorý má popisok. To dosiahneme pridaním obsluhy udalosti `onmouseenter` a element vytvoríme modifikáciou obsahu atribútu `innerHTML` prvého `div` elementu:
+Teraz pridáme kód, ktorý sa vykoná, ak používateľ premiestni kurzor nad nejaký `div` s&nbsp;atribútom `data-tooltip`. Ten vytvorí nový `div` element a umiestni ho ako potomka do elementu `div`, ktorý má popisok. To dosiahneme pridaním obsluhy udalosti `onmouseenter` a element vytvoríme modifikáciou obsahu atribútu `innerHTML` prvého `div` elementu:
 
 ```javascript
 let divs = document.querySelectorAll("div[data-tooltip]");
@@ -76,7 +76,7 @@ for (let i = 0; i < divs.length; i++) {
 }
 ```
 
-Ešte zostáva správne doplniť CSS. Ako prvé musíme upraviť zobrazenie popisku. Naša úprava ich zmení na `div` elementy, ktoré sa správajú ako blokové značky. Taktiež pridáme nejaké vizuálne oddelenie od okolitého textu. Selektor štýlu pre element `div` s popiskom opäť použijeme selektor, ktorý sme použili v skripte (tentoraz v CSS):
+Ešte zostáva správne doplniť CSS. Ako prvé musíme upraviť zobrazenie popisku. Naša úprava ich zmení na `div` elementy, ktoré sa správajú ako blokové značky. Taktiež pridáme nejaké vizuálne oddelenie od okolitého textu. Selektor štýlu pre element `div` s&nbsp;popiskom opäť použijeme selektor, ktorý sme použili v skripte (tentoraz v CSS):
 
 ```css
 div[data-tooltip] {
@@ -99,7 +99,7 @@ Samotný popisok pridáme ako potomok prvého `div` elementu. Vieme, že `div` j
 
 Na zobrazenie popisku budeme používať CSS vlastnosť `position`. Najprv musíme nastaviť v prvom elemente tento atribút na hodnotu `position: relative;` pre prvý `div` element. To preto, aby sme ho mohli použiť ako plochu pre umiestnenie samotného popisku.
 
-Pre umiestnenie popisku nastavíme `position: absolute;`. To spôsobí, že element s popiskom začne "plávať" nad ostatnými elementmi. Teraz potrebujeme element s popiskom správne umiestniť. To docielime nastavením CSS atribútov`left` a `top`.
+Pre umiestnenie popisku nastavíme `position: absolute;`. To spôsobí, že element s&nbsp;popiskom začne "plávať" nad ostatnými elementmi. Teraz potrebujeme element s&nbsp;popiskom správne umiestniť. To docielime nastavením CSS atribútov `left` a `top`.
 
 - `left` definuje vzdialenosť elementu od ľavej strany rodičovského elementu.
 - `top` definuje vzdialenosť elementu od vrchu rodičovského elementu.
@@ -125,4 +125,4 @@ div[data-tooltip] {
 }
 ```
 
-Prečo sme nenastavili vertikálnu polohu na `top: 100%` alebo `bottom: 0`? Dôvodom je, že náš skript používa na skrytie elementu udalosť, kedy používateľ premiestni preč kurzor z elementu `div`. Treba si uvedomiť, že pre tieto udalosti používa DOM, nie reálne zobrazenie. Preto, aj keď je popisok vizuálne umiestnený mimo prvého elementu, v DOM štruktúre to tak nie je. Bohužiaľ potom by popisok zostal zobrazený, keď by naň používateľ prešiel kurzorom myši preč, čo nechceme.
+Prečo sme nenastavili vertikálnu polohu na `top: 100%` alebo `bottom: 0`? Dôvodom je, že náš skript používa na skrytie elementu udalosť, kedy používateľ premiestni preč kurzor z&nbsp;elementu `div`. Treba si uvedomiť, že pre tieto udalosti používa DOM, nie reálne zobrazenie. Preto, aj keď je popisok vizuálne umiestnený mimo prvého elementu, v DOM štruktúre to tak nie je. Bohužiaľ potom by popisok zostal zobrazený, keď by naň používateľ prešiel kurzorom myši preč, čo nechceme.

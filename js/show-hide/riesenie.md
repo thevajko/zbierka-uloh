@@ -19,7 +19,7 @@ window.onload = function () {
 }
 ```
 
-Ako prvé po stiahnutí stránky zo servera skript získa kolekciu všetkých `h1` elementov v celom dokumente:
+Ako prvé po stiahnutí stránky zo servera skript získa kolekciu všetkých `h1` elementov v&nbsp;celom dokumente:
 
 ```javascript
 window.onload = function () {
@@ -45,7 +45,7 @@ window.onload = function () {
 
 Na to, aby sme daný element `p` mohli skrývať a zobrazovať, potrebujeme získať jeho inštanciu. Pre jej získanie môžeme využiť fakt, že všetky elementy HTML dokumentu sú zoradené v hierarchickej stromovej [štruktúre DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction).
 
-Keď sa pozrieme na HTML štruktúru úlohy vidíme, že ako element `h1`, tak element `p` sú potomkami práve vždy jedného rodičovského elementu `div`. Existuje viacero prístupov, ako prechádzať elementy v DOM štruktúre. Vzhľadom na to, že v našom prípade jeden `div` obsahuje vždy iba jeden element `h1` a `p`, stačí, ak získame ďalšieho súrodenca elementu `h1` (bude to vždy element `p`). Referencia na [susedný element](https://developer.mozilla.org/en-US/docs/Web/API/Element/nextElementSibling) sa nachádza v atribúte `HTMLElement.nextElementSibling`.
+Keď sa pozrieme na HTML štruktúru úlohy vidíme, že ako element `h1`, tak element `p` sú potomkami práve vždy jedného rodičovského elementu `div`. Existuje viacero prístupov, ako prechádzať elementy v DOM štruktúre. Vzhľadom na to, že v našom prípade jeden `div` obsahuje vždy iba jeden element `h1` a `p`, stačí, ak získame ďalšieho súrodenca elementu `h1` (bude to vždy element `p`). Referencia na [susedný element](https://developer.mozilla.org/en-US/docs/Web/API/Element/nextElementSibling) sa nachádza v&nbsp;atribúte `HTMLElement.nextElementSibling`.
 
 ```javascript
 window.onload = function () {

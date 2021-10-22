@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/css/position), [Riešenie](/../../tree/solution/css/position).
+> - Repo: [Štartér](/../../tree/main/css/position), [Riešenie](/../../tree/solution/css/position)
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 

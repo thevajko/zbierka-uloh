@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/css/selectors), [Riešenie](/../../tree/solution/css/selectors).
+> - Repo: [Štartér](/../../tree/main/css/selectors), [Riešenie](/../../tree/solution/css/selectors)
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 
@@ -52,7 +52,7 @@ Riešenie musí spĺňať nasledujúce podmienky:
 
 ### Štruktúra HTML kódu
 
-Štruktúra základného HTML vyzerá nasledujúco (všimnite si 7. stĺpec `Výsledok`, ktorý sa v zobrazenej tabuľke nachádzať nemá) :
+Štruktúra základného HTML vyzerá nasledujúco (všimnite si 7. stĺpec `Výsledok`, ktorý sa v&nbsp;zobrazenej tabuľke nachádzať nemá) :
 
 ```html
 <table class="data">

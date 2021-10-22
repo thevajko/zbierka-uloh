@@ -52,11 +52,11 @@ Do databázy pre testovacie účely vložíme niekoľko záznamov. Tieto záznam
 
 ### Pripojenie k databáze
 
-Na čítanie dát z databázy existuje v jazyku PHP niekoľko prístupov. Každý DB systém môže mať vlastnú sadu tried alebo funkcií (napr. [`mysqli`](https://www.php.net/manual/en/book.mysqli.php) pre MySQL/MariaDB alebo [`pgsql`](https://www.php.net/manual/en/book.pgsql.php) pre PostgreSQL). Okrem toho v PHP existuje unifikované rozhranie *PHP Data Objects* ([`PDO`](https://www.php.net/manual/en/book.pdo.php)), ktoré sa používa ako unifikovaná nadstavba nad rôznymi DBS.
+Na čítanie dát z databázy existuje v jazyku PHP niekoľko prístupov. Každý DB systém môže mať vlastnú sadu tried alebo funkcií (napr. [`mysqli`](https://www.php.net/manual/en/book.mysqli.php) pre MySQL/MariaDB alebo [`pgsql`](https://www.php.net/manual/en/book.pgsql.php) pre PostgreSQL). Okrem toho v PHP existuje rozhranie *PHP Data Objects* ([`PDO`](https://www.php.net/manual/en/book.pdo.php)), ktoré sa používa ako unifikovaná nadstavba nad rôznymi DBS.
 
-V našom príklade si ukážeme prístup cez PDO, ktoré je v súčasnosti odporúčané využívať, pretože na rozdiel od ostatných prístupov, plne podporuje objektový prístup.
+V našom príklade si ukážeme prístup cez PDO, ktoré je v súčasnosti odporúčané používať, pretože na rozdiel od ostatných prístupov, plne podporuje objektový prístup.
 
-Hlavným prístupovým bodom k databáze je trieda [`PDO`](https://www.php.net/manual/en/class.pdo.php). Táto trieda umožní vytvoriť pripojenie k databáze a následne vykonávanie SQL príkazov. Na vytvorenie jej inštancie potrebujeme zadať nasledujúce parametre [konštrukora](https://www.php.net/manual/en/pdo.construct.php):
+Hlavným prístupovým bodom k databáze je trieda [`PDO`](https://www.php.net/manual/en/class.pdo.php). Táto trieda umožní vytvoriť pripojenie k databáze a následne vykonávanie SQL príkazov. Na vytvorenie jej inštancie potrebujeme zadať nasledujúce parametre [konštruktora](https://www.php.net/manual/en/pdo.construct.php):
 
 - `connection string` - textový reťazec, ktorý obsahuje informácie o tom, kde sa nachádza databázový server, typ servera a názov použitej databázovej schémy.
 - `db_user` - textový reťazec obsahujúci meno používateľského konta pre databázu.
@@ -71,7 +71,7 @@ try {
 }
 ```
 
-Takto vytvorená inštancia PDO nás pripojí na `mysql` databázový server s názvom `db` bežiacom na porte `3306` s prihlasovacím menom `"db_user"` a heslom `"db_user_pass"`. V prípade, že sa pripojenie nepodarí (nesprávne meno heslo, nedostupný DB server), ukončíme beh celého skriptu pomocou funkcie  [`exit()`](https://www.php.net/manual/en/function.exit.php).
+Takto vytvorená inštancia PDO nás pripojí na `mysql` databázový server s názvom `db` bežiacom na porte `3306` s prihlasovacím menom `"db_user"` a heslom `"db_user_pass"`. V&nbsp;prípade, že sa pripojenie nepodarí (nesprávne meno heslo, nedostupný DB server), ukončíme beh celého skriptu pomocou funkcie  [`exit()`](https://www.php.net/manual/en/function.exit.php).
 
 Pre pohodlnejšiu prácu ešte nastavíme správanie PDO tak, že pri chybe dostaneme výnimku. Od PHP8 je toto správanie predvolené, takže na PHP8 už `$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);` nie je potrebné.
 
@@ -133,8 +133,8 @@ class User
 Trieda `UserStorage` bude mať metódy na:
 
 - získanie zoznamu používateľov,
-- uloženie používateľa,
-- odstránenie používateľa.
+- uloženie záznamu používateľa,
+- odstránenie záznamu používateľa.
 
 <div style="page-break-after: always;"></div>
 
@@ -152,7 +152,7 @@ Začneme implementáciou metódy `UserStorage::getAll()`. Pre získanie dát z d
 
 Metóda `PDO::query()` vracia výsledok operácie z databázy v podobe inštancie triedy [`PDOStatement`](https://www.php.net/manual/en/class.pdostatement.php) v prípade, ak databáza nájde výsledok, alebo `false`, ak nenájde nič.
 
-Ak chceme získať dáta v podobe, ktorú je možné ľahko iterovať, musíme použiť metódu [`PDOStatement::fetchAll()`](https://www.php.net/manual/en/pdostatement.fetchall.php). Tá má vstupný parameter, ktorý upresňuje spôsob, akým sú jednotlivé riadky tabuľky transformované. PDO podporuje rôzne módy, napr. štandardne používaný `PDO::FETCH_ASSOC` vráti dáta v asociatívnom poli, kde kľúčom bude názov stĺpca a hodnotou príslušná hodnota v danom riadku. V našom prípade ale môžeme využiť to, že máme k dispozícii entitnú triedu a prinútiť PDO, aby nám dáta vrátilo v týchto entitných triedach použitím módu `PDO::FETCH_CLASS` a uvedením príslušnej triedy `User::class`.
+Ak chceme získať dáta v podobe, ktorú je možné ľahko iterovať, musíme použiť metódu [`PDOStatement::fetchAll()`](https://www.php.net/manual/en/pdostatement.fetchall.php). Tá má vstupný parameter, ktorý upresňuje spôsob, akým sú jednotlivé riadky tabuľky transformované. PDO podporuje rôzne módy, napr. štandardne používaný `PDO::FETCH_ASSOC` vráti dáta v asociatívnom poli, kde kľúčom bude názov stĺpca a hodnotou príslušná hodnota v danom riadku. V našom prípade ale môžeme využiť to, že máme k dispozícii entitnú triedu a prinútiť PDO, aby nám dáta vrátilo v&nbsp;týchto entitných triedach použitím módu `PDO::FETCH_CLASS` a uvedením príslušnej triedy `User::class`.
 
 Výsledná metóda na získanie všetkých používateľov bude vyzerať takto:
 
@@ -182,7 +182,7 @@ Db::conn()->query("SELECT * FROM users WHERE id = " . $id);
 
 Tento **prístup je nebezpečný a takéto použitie umožňuje vykonať útok typu SQL injection**. Pre bezpečnejší prístup využijeme *prepared statements*. Tie nám umožnia bezpečne vykonávať SQL príkazy s parametrami, ktoré pochádzajú od používateľov.
 
-Na vytvorenie parametrizovaného SQL dopytu slúži metóda [`PDO::prepare()`](https://www.php.net/manual/en/pdostatement.prepare.php). Ako parameter dostane SQL príkaz, kde sú jednotlivé parametre nahradené špeciálnym znakom. Parametre môžu byť pomenované, v tom prípade sa zapisujú s dvojbodkou na začiatku - napr. `:id`. Druhým spôsobom sú nepomenované parametre, ktoré sa zapisujú pomocou znaku `?`. Náš SQL príkaz na získanie záznamu konkrétneho používateľa môžeme zapísať takto:
+Na vytvorenie parametrizovaného SQL dopytu slúži metóda [`PDO::prepare()`](https://www.php.net/manual/en/pdostatement.prepare.php). Ako parameter dostane SQL príkaz, kde sú jednotlivé parametre nahradené špeciálnym znakom. Parametre môžu byť *pomenované*, v tom prípade sa zapisujú s dvojbodkou na začiatku - napr. `:id`. Druhým spôsobom sú *nepomenované* parametre, ktoré sa zapisujú pomocou znaku `?`. Náš SQL príkaz na získanie záznamu konkrétneho používateľa môžeme zapísať takto:
 
 ```php
 $statement = Db::conn()->prepare("SELECT * FROM users WHERE id = ?");
@@ -215,7 +215,7 @@ public function get($id): ?User
 
 Metóda [`PDOStatement::fetch()`](https://www.php.net/manual/en/pdostatement.fetch.php) na rozdiel od [`PDOStatement::fetchAll()`](https://www.php.net/manual/en/pdostatement.fetchall.php) neumožňuje priamo definovať triedu, ktorú nám táto metóda vráti. Na nastavenie typu, ktorý nám metóda [`PDOStatement::fetch()`](https://www.php.net/manual/en/pdostatement.fetch.php) vráti, použijeme [`PDOStatement::setFetchMode()`](https://www.php.net/manual/en/pdostatement.setfetchmode.php), kde nastavíme `PDO::FETCH_CLASS` a triedu na `User::class`.
 
-Metóda [`PDOStatement::fetch()`](https://www.php.net/manual/en/pdostatement.fetch.php) vráti `false` v prípade, že sme nenašli žiaden záznam v databáze. Preto sme pridali podmienku, ktorá v prípade, že neexistuje záznam v databáze s daným `id`, vráti hodnotu `null`. Je to objektovo čistejšie riešenie, ako keď metóda `UserStorage::get()` vráti `false` v prípade nenájdenia záznamu.
+Metóda [`PDOStatement::fetch()`](https://www.php.net/manual/en/pdostatement.fetch.php) vráti `false` v prípade, že sme nenašli žiaden záznam v&nbsp;databáze. Preto sme pridali podmienku, ktorá v prípade, že neexistuje záznam v&nbsp;databáze s daným `id`, vráti hodnotu `null`. Je to objektovo čistejšie riešenie, ako keď metóda `UserStorage::get()` vráti `false` v prípade nenájdenia záznamu.
 
 #### Ukladanie dát do databázy
 
@@ -241,7 +241,7 @@ public function store(User $user): void
 }
 ```
 
-Ak by sme chceli získať informáciu, či sa daná SQL operácia podarila, mohli by sme využiť to, že metóda [`PDOStatement::execute()`](https://www.php.net/manual/en/pdostatement.execute.php) vráti hodnotu typu `boolean`, ktorá signalizuje, či sa daný SQL dopyt podaril alebo nie a túto hodnotu by sme mohli vrátiť. V našom nastavení ale používame `PDO::ATTR_ERRMODE` nastavený na `PDO::ERRMODE_EXCEPTION`, takže každá chyba spôsobí výnimku, ktorú môžeme následne ošetriť a nemusíme tým pádom riešiť návratovú hodnotu metódy `UserStorage::store()`. Ak všetko prebehne v poriadku, nestane sa nič. Ak sa SQL dopyt nepodarí vykonať, dostaneme výnimku.
+Ak by sme chceli získať informáciu, či sa daná SQL operácia podarila, mohli by sme využiť to, že metóda [`PDOStatement::execute()`](https://www.php.net/manual/en/pdostatement.execute.php) vráti hodnotu typu `boolean`, ktorá signalizuje, či sa daný SQL dopyt podaril alebo nie a túto hodnotu by sme mohli vrátiť. V&nbsp;našom nastavení ale používame `PDO::ATTR_ERRMODE` nastavený na `PDO::ERRMODE_EXCEPTION`, takže každá chyba spôsobí výnimku, ktorú môžeme následne ošetriť a nemusíme tým pádom riešiť návratovú hodnotu metódy `UserStorage::store()`. Ak všetko prebehne v poriadku, nestane sa nič. Ak sa SQL dopyt nepodarí vykonať, dostaneme výnimku.
 
 #### Mazanie záznamov z databázy
 
@@ -271,19 +271,19 @@ add.php
 delete.php
 ```
 
-Ak by sme chceli vidieť zoznam užívateľov, zadali by sme si do prehliadača URL adresu: `https://stranka.sk/index.php`. Pre editáciu používateľa by sme mali adresu, ktorá by mohla vyzerať takto: `https://stranka.sk/edit.php?id=6`. 
+Ak by sme chceli vidieť zoznam užívateľov, zadali by sme si do prehliadača URL adresu: `https://stranka.sk/index.php`. Pre editáciu záznamu používateľa by sme mali adresu, ktorá by mohla vyzerať takto: `https://stranka.sk/edit.php?id=6`. 
 
 Tento prístup nie je najvhodnejší, pretože sa časom stane neprehľadným a vedie k veľkej duplicite kódu. Každý zo súborov `index.php`, `edit.php` atď. bude obsahovať rovnaký kód na zobrazenie hlavičky HTML stránky, prípadného menu a ďalších častí. Táto duplicita sa síce dá odstrániť pomocou PHP príkazu [`include`](https://www.php.net/manual/en/function.include.php), ale kód bude aj tak neprehľadný.
 
 Opakom spomenutého prístupu je využitie návrhového vzoru MVC, ktorý rozdelí logiku aplikácie do niekoľkých vrstiev a aplikácia bude mať jeden prístupový bod (`index.php`).
 
-V našom jednoduchom prípade ale nebudeme implementovať MVC a ani iný existujúci framework. Navrhneme si jednoduchú štruktúru súborov, kde jednotlivé časti aplikácie rozdelíme na komponenty a v `index.php` ich budeme spojíme dokopy.
+V našom jednoduchom prípade ale nebudeme implementovať MVC a ani iný existujúci framework. Navrhneme si jednoduchú štruktúru súborov, kde jednotlivé časti aplikácie rozdelíme na komponenty a v `index.php` ich spojíme dokopy.
 
 Naša štruktúra aplikácie by mohla vyzerať nasledujúco:
 
 ![Adresárová štruktúra projektu](images_crud/file-structure.png)
 
-Modelové triedy sme uložili do zložky `model`. V koreňovom adresári projektu sa nachádza len súbor `index.php` a v zložke `pages` máme jednotlivé komponenty našej stránky. Pre CRUD operácie nad entitou `User` budeme potrebovať stránku, ktorá nám zobrazí zoznam používateľov - `list.php`. Ďalej potrebujeme formulár na pridávanie a editáciu používateľov - `form.php` a v poslednom rade potrebujeme komponent na vymazanie používateľa.
+Modelové triedy sme uložili do adresára `model`. V koreňovom adresári projektu sa nachádza len súbor `index.php` a v adresári `pages` máme jednotlivé komponenty našej stránky. Pre CRUD operácie nad entitou `User` budeme potrebovať stránku, ktorá nám zobrazí zoznam používateľov - `list.php`. Ďalej potrebujeme formulár na pridávanie a editáciu používateľov - `form.php` a v poslednom rade potrebujeme komponent na vymazanie záznamu používateľa.
 
 ### Implementácia vstupného bodu aplikácie
 
@@ -321,11 +321,11 @@ require "model/UserStorage.php";
 </html>
 ```
 
-Na začiatku tohto súboru vložíme súbor `UserStorage.php`, aby sme danú triedu mali v ďalších častiach aplikácie dostupnú. Hlavnú časť súboru `index.php` tvorí smerovač, ktorý na základe hodnoty GET parametra `p` rozhoduje, ktorý komponent sa použije.
+Na začiatku tohto súboru vložíme súbor `UserStorage.php`, aby sme danú triedu mali v&nbsp;ďalších častiach aplikácie dostupnú. Hlavnú časť súboru `index.php` tvorí smerovač, ktorý na základe hodnoty GET parametra `p` rozhoduje, ktorý komponent sa použije.
 
 Tento smerovač je implementovaný jednoduchým `switch` konštruktom. Ako môžeme vidieť, pri URL adrese `?p=users/add`, ale aj `?p=users/edit` nám vloží ten istý komponent - formulár na editáciu používateľov.
 
-Celá logika tohto jednoduchého smerovača by sa dala spraviť aj univerzálnejšie. Napríklad by sa dal automaticky načítať súbor podľa hodnoty parametra `p`. Pri takejto implementácii treba mať ale na pamäti bezpečnosť. Je potrebné zabezpečiť aplikáciu pred útokom typu *local file inclusion*. Pre komplexnosť tohto problému radšej zostaneme v našom príklade pri jednoduchej implementácii smerovača pomocou príkazu `switch`.
+Celá logika tohto jednoduchého smerovača by sa dala spraviť aj univerzálnejšie. Napríklad by sa dal automaticky načítať súbor podľa hodnoty parametra `p`. Pri takejto implementácii treba mať ale na pamäti bezpečnosť. Je potrebné zabezpečiť aplikáciu pred útokom typu *local file inclusion*. Pre komplexnosť tohto problému radšej zostaneme v&nbsp;našom príklade pri jednoduchej implementácii smerovača pomocou príkazu `switch`.
 
 ### Implementácia výpisu používateľov
 
@@ -358,9 +358,9 @@ $userStorage = new UserStorage();
 </table>
 ```
 
-Na úvod si vytvoríme inštanciu triedy `UserStorage`. Následne pridáme odkaz na pridanie novej položky, ktorý bude smerovať na URL adresu `?p=users/add`. Potom deklarujeme HTML tabuľku so stĺpcami, ktoré obsahuje naša entita. V cykle `foreach` prejdeme jednotlivé záznamy a vypíšeme ich. Úplne do posledného stĺpca sme pridali dva odkazy. Jeden na editáciu daného záznamu, ktorý vyzerá takto `?p=users/edit&id=`, pričom za hodnotu parametra `id` sa doplní databázové `id` daného riadku. Rovnakým spôsobom sme vytvorili aj odkaz na odstránenie súboru.
+Na úvod si vytvoríme inštanciu triedy `UserStorage`. Následne pridáme odkaz na pridanie nového záznamu, ktorý bude smerovať na URL adresu `?p=users/add`. Potom deklarujeme HTML tabuľku so stĺpcami, ktoré obsahuje naša entita. V cykle `foreach` prejdeme jednotlivé záznamy a vypíšeme ich. Úplne do posledného stĺpca sme pridali dva odkazy. Jeden na editáciu daného záznamu, ktorý vyzerá takto `?p=users/edit&id=`, pričom za hodnotu parametra `id` sa doplní databázové `id` daného riadku. Rovnakým spôsobom sme vytvorili aj odkaz na odstránenie záznamu.
 
-![Zoznam použivateľov](images_crud/list.png)
+![Zoznam používateľov](images_crud/list.png)
 
 ### Implementácia mazania záznamov
 
@@ -375,19 +375,19 @@ if (isset($_GET["id"])) {
 }
 
 if ($user == null) {
-    echo "Užívateľ nenájdený.<br><a href='?'>Späť</a>";
+    echo "Záznam používateľa nenájdený.<br><a href='?'>Späť</a>";
     return;
 }
 
 $userStorage->delete($user);
-echo "Uživateľ {$user->getFullname()} ostránený.<br><a href='?'>Späť</a>";
+echo "Záznam požívateľa {$user->getFullname()} bol odstránený.<br><a href='?'>Späť</a>";
 ```
 
 V tomto kóde nemáme takmer žiadny HTML kód. Jediný HTML kód, ktorý sa tu nachádza, je výpis správy o odstránení / neodstránení záznamu používateľa. Jedna zaujímavosť, ktorú si tu môžeme všimnúť, je použitie kľúčového slova `return`. Tento príkaz spôsobí ukončenie spracovávania tohto skriptu, akoby sme boli v nejakej metóde / funkcii, ale spracovávanie súboru `index.php`, do ktorého sme tento skript vložili, bude pokračovať ďalej.
 
 ![Informácia o odstránení záznamu používateľa](images_crud/delete-result.png)
 
-Aktuálne implementované mazanie používateľov má ale jeden malý nedostatok. Z používateľského hľadiska nie je dobré zmazať údaje bez toho, aby používateľ túto akciu potvrdil. Môže sa totižto stať, že používateľ aplikácie omylom klikne na tlačidlo `Delete` a týmto spôsobom záznam nechcene odstráni.
+Aktuálne implementované mazanie používateľov má ale jeden malý nedostatok. Z&nbsp;používateľského hľadiska nie je dobré zmazať údaje bez toho, aby používateľ túto akciu potvrdil. Môže sa totižto stať, že používateľ aplikácie omylom klikne na tlačidlo `Delete` a týmto spôsobom záznam nechcene odstráni.
 
 Túto ochranu môžeme implementovať jedným z dvoch spôsobov.
 
@@ -395,7 +395,9 @@ Túto ochranu môžeme implementovať jedným z dvoch spôsobov.
 
 Prvým spôsobom je úprava komponentu `pages/users/delete.php` tak, že je potrebné pred zmazaním ešte dodatočné potvrdenie. Toto potvrdenie môžeme implementovať ako jednoduchý formulár s jedným potvrdzovacím tlačidlom.
 
-```php
+<div class="end">
+
+```html
 <?php
 $userStorage = new UserStorage();
 $user = null;
@@ -404,18 +406,18 @@ if (isset($_GET["id"])) {
 }
 
 if ($user == null) {
-    echo "Užívateľ nenájdený.<br><a href='?'>Späť</a>";
+    echo "Záznam používateľa nenájdený.<br><a href='?'>Späť</a>";
     return;
 }
 
 if (isset($_POST['delete'])) {
     $userStorage->delete($user);
-    echo "Uživateľ {$user->getFullname()} ostránený.<br><a href='?'>Späť</a>";
+    echo "Záznam používateľa {$user->getFullname()} bol odstránený.<br><a href='?'>Späť</a>";
     return;
 }
 ?>
 
-Skutočne chcete odstrániť používateľa <?=$user->getFullname()?>?
+Skutočne chcete odstrániť záznam používateľa <?=$user->getFullname()?>?
 <form method="post">
     <input type="submit" name="delete" value="Áno">
 </form>
@@ -423,11 +425,13 @@ Skutočne chcete odstrániť používateľa <?=$user->getFullname()?>?
 <a href="?">Späť</a>
 ```
 
-![Potvrdenie mazania záznamu na backende](images_crud/backed-confirm.png)
+</div>
+
+![Potvrdenie zmazania záznamu na strane servera](images_crud/backed-confirm.png)
 
 #### Implementácia na strane klienta
 
-Druhým spôsobom je implementácia pomocou jednoduchého *confirm* dialógu v jazyku JavaScript. Tento JavaScript je potrebné aplikovať na tlačidlo `Delete` v zozname používateľov. Funkcia `confirm()` má ako parameter správu, ktorú zobrazí a poď ňou zobrazí tlačidla `Yes` a `Cancel`. 
+Druhým spôsobom je implementácia jednoduchého *confirm* dialógu v jazyku JavaScript. Tento JavaScript je potrebné aplikovať na tlačidlo `Delete` v zozname používateľov. Funkcia `confirm()` má ako parameter správu, ktorú zobrazí a poď ňou zobrazí tlačidlá `Yes` a `Cancel`. 
 
 Pokiaľ chceme túto funkciu skombinovať s odkazom na odstránenie používateľa, môžeme použiť udalosť `onclick`. Pokiaľ funkcia, ktorá je v definovaná v udalosti `onclick`, vráti návratovú hodnotu `false`, tak prehliadač zablokuje presmerovanie definované príslušným odkazom.
 
@@ -435,7 +439,7 @@ Pokiaľ chceme túto funkciu skombinovať s odkazom na odstránenie používate�
 <a href="?p=users/delete&id=<?=$user->id?>" onclick="return confirm('Skutočne chcete odstrániť tento záznam?')">Delete</a>
 ```
 
-![Potvrdenie mazania záznamu v JS](images_crud/js-confirm.png)
+![Potvrdenie mazania záznamu strane klienta](images_crud/js-confirm.png)
 
 ### Implementácia pridávania a editácie používateľov
 
@@ -452,7 +456,7 @@ $user = new User();
 if (isset($_GET["id"])) {
     $user = $userStorage->get($_GET["id"]);
     if ($user == null) {
-        echo "Užívateľ nenájdený.<br><a href='?'>Späť</a>";
+        echo "Záznam požívateľa nenájdený.<br><a href='?'>Späť</a>";
         return;
     }
 }
@@ -463,7 +467,7 @@ if (isset($_POST['save'])) {
     $user->mail = $_POST['mail'];
     $user->country = $_POST['country'];
     $userStorage->store($user);
-    echo "Užívateľ ".htmlentities($user->getFullname())." bol uložený.<br><a href='?'>Späť</a>";
+    echo "Záznam používateľa ".htmlentities($user->getFullname())." bol uložený.<br><a href='?'>Späť</a>";
     return;
 }
 

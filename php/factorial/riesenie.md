@@ -11,6 +11,13 @@
 
 ## Riešenie
 
+<div class="hidden">
+
+> Všetky potrebné služby sú v `docker-compose.yml`. Po ich spustení sa vytvorí:
+> - webový server, ktorý do __document root__ namapuje adresár tejto úlohy s modulom __PDO__. Port __80__ a bude dostupný na adrese [http://localhost/](http://localhost/). Server má pridaný modul pre ladenie [__Xdebug 3__](https://xdebug.org/) nastavený na port __9000__.
+
+</div>
+
 Ako prvé je potrebné zistiť, ako sa počíta faktoriál. Na webe, napr. na stránkach [Wikipédie](https://sk.wikipedia.org/wiki/Faktori%C3%A1l), je možné nájsť tento vzorec pre výpočet faktoriálu čísla 5:
 
 <div class="end">

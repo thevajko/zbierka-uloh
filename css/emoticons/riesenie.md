@@ -2,7 +2,7 @@
 
 > ## Rozcestník
 > - [Späť na úvod](../../README.md)
-> - Repo: [Štartér](/../../tree/main/css/emoticons), [Riešenie](/../../tree/solution/css/emoticons).
+> - Repo: [Štartér](/../../tree/main/css/emoticons), [Riešenie](/../../tree/solution/css/emoticons)
 > - [Zobraziť zadnie](zadanie.md)
 # Emotikony (CSS)
 
@@ -24,7 +24,7 @@ V zadaní máme základnú kostru emotikona, do ktorej si môžeme pridať ďal�
 </div>
 ```
 
-Do kostry sme pridali ďalšie tri elementy. Tieto elementy sú typu `span` a majú priradený atribút `class`. Prvé dva budú použité na zobrazenie očí a posledný bude slúžiť na zobrazenie úst. Element typu `span` je možné nahradiť aj iným elementom - napr. `div`. Z pohľadu funkčnosti samotného riešenia na konkrétnom type elementu nezáleží, nakoľko pomocou CSS je možné každý jeden element ľubovolne prispôsobiť.
+Do kostry sme pridali ďalšie tri elementy. Tieto elementy sú typu `span` a majú priradený atribút `class`. Prvé dva budú použité na zobrazenie očí a posledný bude slúžiť na zobrazenie úst. Element typu `span` je možné nahradiť aj iným elementom - napr. `div`. Z&nbsp;pohľadu funkčnosti samotného riešenia na konkrétnom type elementu nezáleží, nakoľko pomocou CSS je možné každý jeden element ľubovoľne prispôsobiť.
 
 Po spustení aktuálneho kódu však zatiaľ nič neuvidíme, nakoľko elementy neobsahujú žiaden textový obsah a cez CSS sme im ešte nepriradili žiadne pravidlá.
 
@@ -58,7 +58,7 @@ V ďalšom kroku potrebujeme zo štvorčeka spraviť kruh. To docielime pomocou 
 }
 ```
 
-CSS vlastnosť `border-radius` nastavuje zaoblenie rámčeka. Hodnota môže byť uvedená v pixeloch alebo v relatívnych hodnotách vzhľadom na veľkosť elementu. V našom prípade nastavením hodnoty na `50%` dosiahneme zobrazenie elementu `div` ako kruhu.
+CSS vlastnosť `border-radius` nastavuje zaoblenie rámčeka. Hodnota môže byť uvedená v&nbsp;pixeloch alebo v relatívnych hodnotách vzhľadom na veľkosť elementu. V našom prípade nastavením hodnoty na `50%` dosiahneme zobrazenie elementu `div` ako kruhu.
 
 ![Vzniknutý kruh po nastavení zaoblenia rámčekov](images_emoticons/kruh.png)
 
@@ -270,9 +270,9 @@ HTML kód nášho emotikona s líčkami musí vyzerať takto:
 ```
 </div>
 
-Na zobrazenie líčok môžeme využiť pseudoelementy `::before` a `::after`, ktoré nám umožňujú formátovať virtuálne elementy pridané na začiatok a koniec určitého elementu.
+Pre zobrazenie líčok môžeme využiť pseudoelementy `::before` a `::after`, ktoré nám umožňujú formátovať virtuálne elementy pridané na začiatok a koniec určitého elementu.
 
-Líčko naľavo zobrazíme cez pseudoelement `::before` a nastavíme mu veľkosť rovnú `30%` z veľkosti úst. Okrem toho mu nastavíme farbu, `border-radius` a pozíciu podobne ako pri ostatných prvkoch.
+Líčko naľavo zobrazíme cez pseudoelement `::before` a nastavíme mu veľkosť rovnú `30%` z&nbsp;veľkosti úst. Okrem toho mu nastavíme farbu, `border-radius` a pozíciu podobne ako pri ostatných prvkoch.
 
 ```css
 .smiley.cheeks .mouth::before {
@@ -341,7 +341,7 @@ Posledným krokom bude zobrazenie druhého líčka pomocou pseudoelementu `::aft
 }
 ```
 
-Môžeme si všimnúť, že prvý selektor obsahuje dve časti oddelené čiarkou. Tento zápis v CSS znamená, že pravidlo platí pre každý z daných selektorov.
+Môžeme si všimnúť, že prvý selektor obsahuje dve časti oddelené čiarkou. Tento zápis v&nbsp;CSS znamená, že pravidlo platí pre každý z daných selektorov.
 
 Výsledok bude vyzerať takto:
 
@@ -410,7 +410,7 @@ Po aplikovaní štýlu bude náš emotikon vyzerať nasledujúco:
 
 ![Pridanie zubov](images_emoticons/smajlik_stastny_3.png)
 
-Emotikon síce zuby má, ale tie sa vykreslujú nad ústami. Pokiaľ chceme, aby boli zuby "vo vnútri", môžeme použiť CSS vlastnosť `overflow`, ktorú pre `.smiley.happy .mouth` nastavíme na `hidden`.
+Emotikon síce zuby má, ale tie sa vykresľujú nad ústami. Pokiaľ chceme, aby boli zuby "vo vnútri", môžeme použiť CSS vlastnosť `overflow`, ktorú pre `.smiley.happy .mouth` nastavíme na `hidden`.
 
 ![Umiestnenie zubov na správne miesto](images_emoticons/smajlik_stastny_4.png)
 
@@ -546,7 +546,7 @@ Definícia jednotlivých veľkostí bude spočívať v jednoduchom prepísaní h
 }
 ```
 
-Dokonca môžeme vytvoriť emotikona ľubovolnej veľkosti aj priamo v HTML kóde pomocou atribútu `style`:
+Dokonca môžeme vytvoriť emotikona ľubovoľnej veľkosti aj priamo v HTML kóde pomocou atribútu `style`:
 
 ```html
 <div class="smiley" style="--size: 25px">

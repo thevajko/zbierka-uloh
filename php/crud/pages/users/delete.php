@@ -6,18 +6,18 @@ if (isset($_GET["id"])) {
 }
 
 if ($user == null) {
-    echo "Užívateľ nenájdený.<br><a href='?'>Späť</a>";
+    echo "Záznam používateľa nenájdený.<br><a href='?'>Späť</a>";
     return;
 }
 
 if (isset($_POST['delete'])) {
     $userStorage->delete($user);
-    echo "Uživateľ {$user->getFullname()} ostránený.<br><a href='?'>Späť</a>";
+    echo "Záznam používateľa {$user->getFullname()} bol odstránený.<br><a href='?'>Späť</a>";
     return;
 }
 ?>
 
-Skutočne chcete odstrániť používateľa <?=$user->getFullname()?>?
+Skutočne chcete odstrániť záznam používateľa <?=$user->getFullname()?>?
 <form method="post">
     <input type="submit" name="delete" value="Áno">
 </form>
