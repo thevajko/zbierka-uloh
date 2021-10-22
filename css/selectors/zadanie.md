@@ -24,7 +24,7 @@ Naštýlujte pomocou CSS tabuľku podľa priloženého obrázku:
 
 ![Zadanie príkladu](images_selectors/zadanie1.png)
 
-Riešenie musí spĺňať nasledovné podmienky:
+Riešenie musí spĺňať nasledujúce podmienky:
 
 1. Tabuľka bude mať čierny rámček medzi bunkami a okolo celej tabuľky.
 2. Záhlavie tabuľky bude mať zelenú farbu pozadia, text bude tučným písmom a bude centrovaný, prvé písmeno bude mať žltú farbu.
@@ -33,7 +33,7 @@ Riešenie musí spĺňať nasledovné podmienky:
 5. Pri umiestnení kurzora myši nad riadkom tabuľky sa stane:
     1. Celý riadok bude mať sivé pozadie.
     2. Text v stĺpci `Meno` bude mať červenú farbu, ale iba pokiaľ nebude kurzor myši v bunke s menom. Ak bude kurzor myši v bunke s menom, text bude mať štandardnú čiernu farbu.
-    3. Bunky v stĺpcoch `Číslo 1` až `Číslo 3` budú mať nasledovné správanie:
+    3. Bunky v stĺpcoch `Číslo 1` až `Číslo 3` budú mať nasledujúce správanie:
         1. Vždy budú zarovnané na stred.
         2. Ak na nich nebude kurzor myši, tak budú mať modré pozadie.
         3. Ak bude kurzor myši na niektorom z nich, tak daná bunka bude mať zelené pozadie a bunka (bunky) s číslami za ním budú mať pozadie žlté. Pozor, bunke s odkazom nemeníme farbu pozadia.
@@ -41,7 +41,7 @@ Riešenie musí spĺňať nasledovné podmienky:
 ![Zobrazenie stĺpcov s číslami](images_selectors/zadanie2.png)    
 
 6. V HTML je definovaný aj stĺpec `Výsledok`, ten vo výslednej tabuľke nezobrazujte.
-7. Odkazy v stĺpci `Link` sa budú správať nasledovne:
+7. Odkazy v stĺpci `Link` sa budú správať takto:
     1. Zabezpečené odkazy (protokol HTTPS) zobrazte zelenou farbou.
     2. Nezabezpečené odkazy (protokol HTTP) zobrazte červenou farbou.
     3. Relatívne odkazy zobrazte modrou farbou.
@@ -52,7 +52,7 @@ Riešenie musí spĺňať nasledovné podmienky:
 
 ### Štruktúra HTML kódu
 
-Štruktúra základného HTML vyzerá nasledovne (všimnite si 7. stĺpec `Výsledok`, ktorý sa v zobrazenej tabuľke nachádzať nemá) :
+Štruktúra základného HTML vyzerá nasledujúco (všimnite si 7. stĺpec `Výsledok`, ktorý sa v zobrazenej tabuľke nachádzať nemá) :
 
 ```html
 <table class="data">
@@ -82,4 +82,4 @@ Riešenie musí spĺňať nasledovné podmienky:
 </table>
 ```
 
-Štruktúru dokumentu neupravujte. Pre vypracovanie použite výlučne CSS.
+Štruktúru dokumentu neupravujte. Na vypracovanie použite výlučne CSS.

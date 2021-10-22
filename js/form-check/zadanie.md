@@ -20,7 +20,7 @@
 
 ## Zadanie
 
-Vytvorte skript v jazyku JavaScript, ktorý bude kontrolovať správne vyplnenie formulára. Riešenie musí spĺňať nasledovné podmienky:
+Vytvorte skript v jazyku JavaScript, ktorý bude kontrolovať správne vyplnenie formulára. Riešenie musí spĺňať nasledujúce podmienky:
 
 1. Hodnoty polí `Meno`, `Priezvisko`, `Mail` a `Vaša správa` nesmú byť pri odoslaní prázdne.
 1. Pole `Mail` musí obsahovať e-mailovú adresu v platnom formáte.

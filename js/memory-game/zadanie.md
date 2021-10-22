@@ -20,4 +20,4 @@
 </div>
 
 ## Zadanie
-Vytvorte hru Pesexo, ktorá bude určená pre dvoch hráčov. Hráči sa budú striedať pri ťahaní kariet na tom istom počítači. Hra bude používať rovnaké pravidlá ako bežné pexeso. Počet kariet bude 30 (5x6), t.j. 15 dvojíc. Ako obrázky kariet zvoľte vybrané ikony *font-awesome*. Riešenie implementujte pomocou JavaScriptu.
+Vytvorte hru Pesexo, ktorá bude určená pre dvoch hráčov. Hráči sa budú striedať pri ťahaní kariet na tom istom počítači. Hra bude používať rovnaké pravidlá ako bežné pexeso. Počet kariet bude 30 (5x6), t. j. 15 dvojíc. Ako obrázky kariet zvoľte vybrané ikony *font-awesome*. Riešenie implementujte pomocou JavaScriptu.

@@ -20,5 +20,5 @@
 </div>
 
 ## Zadanie
-Zobrazte analógové hodiny, ktoré budú zobrazovať hodiny, minúty a sekundy naživo; t.j. ich zobrazenie sa bude po sekunde obnovovať tak, aby vytvorili dojem, že hodiny idú.
+Zobrazte analógové hodiny, ktoré budú zobrazovať hodiny, minúty a sekundy naživo; t. j. ich zobrazenie sa bude po sekunde obnovovať tak, aby vytvorili dojem, že hodiny idú.
 

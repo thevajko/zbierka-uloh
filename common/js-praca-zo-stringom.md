@@ -1,6 +1,6 @@
 ## String v JS
 
-Textový reťazec môžeme definovať v `JS` nasledovne:
+Textový reťazec môžeme definovať v `JS` nasledujúco:
 
 ```javascript
 let text1 = "Toto je text";
@@ -8,7 +8,7 @@ let text2 = 'Toto je text';
 ```
 Pre každý zápis je použitý iný znak, ktorým anotujeme začiatok a koniec textového reťazca. Z pohľadu `JS` je úplne jedno, ktorú variantu zvolíme. To, ktorý znak použijeme závisí predovšetkým od kontextu. 
 
-Pokiaľ chceme do premennej uložiť text, ktorý obsahuje ako hodnotu znak, ktorým sme anotovali začiatok stingu, musíme pred jeho použitím uviest __escape__ znak ``` \ ```. Takýto zápis by vyzeral nasledovne:
+Pokiaľ chceme do premennej uložiť text, ktorý obsahuje ako hodnotu znak, ktorým sme anotovali začiatok stingu, musíme pred jeho použitím uviest __escape__ znak ``` \ ```. Takýto zápis by vyzeral nasledujúco:
 
 ```javascript
 let text1 = "Toto \"je\" text"; // Toto "je" text
@@ -34,7 +34,7 @@ let html2 = "<a class=\"red link\" title=\"Späť na úvod\">Späť</a>";
 
 Obsah textového reťazca sa tak stáva pre prográmatora čiteľnejším, lebo nemusíme použiť __escape__ znak.
 
-Ak chceme do textového reťazca vložiť hodnotu premennej, dá sa to realizovať nasledovne pomocou operátora `+`;
+Ak chceme do textového reťazca vložiť hodnotu premennej, dá sa to realizovať nasledujúco pomocou operátora `+`;
 
 ```javascript
 let pocet = 5;

@@ -6,7 +6,7 @@
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 
-# Komponent pre zobrazenie spracovania AJAX žiadostí
+# Komponent na zobrazenie spracovania AJAX žiadostí
 <div class="info"> 
 
 **Hlavný jazyk príkladu**: AJAX
@@ -28,7 +28,7 @@ Vychádzať budeme z verzie obsahujúcej HTML kód, ktorý vytvorí tlačidlo. T
 <pre id="results"></pre>
 ```
 
-Funkcia `loadData()`, ktorá využíva `loadUrl()` je definovaná nasledovne:
+Funkcia `loadData()`, ktorá využíva `loadUrl()` je definovaná nasledujúco:
 
 ```javascript
 function loadUrl(url) {

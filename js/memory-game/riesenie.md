@@ -17,7 +17,7 @@ Celé riešenie sa bude skladať z troch súborov: `index.html`, `style.css`, `s
 
 Táto časť aplikácie je veľmi jednoduchá, tvorí ju súbor `index.html`, v ktorom importujeme ostatné časti aplikácie (CSS a JS) a vykresľujeme len začiatočné nastavenie celej hry. Žiadny grafický dizajn ani logika aplikácie sa tu nenachádza, aby sme dodržali pravidlo, že každý typ súboru obsahuje len to, čo je jeho úlohou.
 
-Knižnicu `font-awesome` pripojíme pomocou dole uvedeného riadku. Využijeme súbor dostupný na internete bez nutnosti sťahovania z webu. Ten spôsob pripojovania využíva *Content delivery network* (CDN). Kód pre pripojenie `font-awesome` ikon vyzerá nasledovne:
+Knižnicu `font-awesome` pripojíme pomocou dole uvedeného riadku. Využijeme súbor dostupný na internete bez nutnosti sťahovania z webu. Ten spôsob pripojovania využíva *Content delivery network* (CDN). Kód pre pripojenie `font-awesome` ikon vyzerá nasledujúco:
 
 ```html
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -40,7 +40,7 @@ Hracia plocha sa skladá z dvoch popiskov, počítadla skóre pre každého hrá
 <button id="start">Rozdaj karty</button>
 ```
 
-Vzhľad hry pred začiatkom je na nasledovnom obrázku:
+Vzhľad hry pred začiatkom je na nasledujúcom obrázku:
 
 ![Úvodné nastavenie hracieho poľa hry](images_memory-game/start.png)
 
@@ -48,7 +48,7 @@ Dôležité je pridanie atribútov `id` k tým elementom, ktoré budeme neskôr 
 
 ### CSS štýl
 
-Úlohou tejto časti aplikácie, nachádzajúcej sa v súbore `style.css` je grafické nastavenie jednotlivých prvkov hry. Elementu tabuľky sme pridali atribút `id` s hodnotou `board`. Vďaka tomu môžeme vytvoriť CSS selektory, ktoré budú aplikované len na elementy vo vnútri tejto tabuľky.
+Úlohou tejto časti aplikácie, nachádzajúcej sa v súbore `style.css`, je grafické nastavenie jednotlivých prvkov hry. Elementu tabuľky sme pridali atribút `id` s hodnotou `board`. Vďaka tomu môžeme vytvoriť CSS selektory, ktoré budú aplikované len na elementy vo vnútri tejto tabuľky.
 
 Ako je vidieť z nastavenia štýlu, každá karta pexesa bude mať rozmer 90 x 120 pixelov a farba pozadia bude určovať farbu chrbta karty. Druhé nastavenie štýlu bude mať za úlohu skryť obrázok (ikonu), ktorá sa na karte nachádza, aby ju nebolo vidieť:
 
@@ -88,7 +88,7 @@ let cardSymbols = ['', 'tractor', 'truck-monster', 'truck', 'truck-pickup', 'tru
 
 #### Nastavenie obsluhy udalosti pre tlačidlo *Rozdaj karty*
 
-Na začiatku si nastavíme obsluhu udalosti kliknutia na tlačidlo `Rozdaj karty`, pričom toto priradenie sa musí uskutočniť až potom, ako sú všetky elementy nahraté v prehliadači. Využijeme na to udalosť `onload`, ktorá nastane, keď je už kód stránky v prehliadači načítaný. Všimnite si, že priradenie udalosti sa vykoná priradením názvu funkcie, nie jej zavolaním (v kóde nie sú zátvorky za `initialize`). Celý kód bude vyzerať nasledovne:
+Na začiatku si nastavíme obsluhu udalosti kliknutia na tlačidlo `Rozdaj karty`, pričom toto priradenie sa musí uskutočniť až potom, ako sú všetky elementy nahraté v prehliadači. Využijeme na to udalosť `onload`, ktorá nastane, keď je už kód stránky v prehliadači načítaný. Všimnite si, že priradenie udalosti sa vykoná priradením názvu funkcie, nie jej zavolaním (v kóde nie sú zátvorky za `initialize`). Celý kód bude vyzerať nasledujúco:
 
 ```javascript
 function initialize() {
@@ -99,7 +99,7 @@ window.onload = initialize;
 
 #### Pomocná funkcia `gid()`
 
-Keďže DOM metóda `document.getElementById()` má veľmi dlhý názov a bolo by otravné ju neustále celú písať, preto si vytvoríme pomocnú funkciu s parametrom ID elementu, ktorý chceme získať. V skripte je budeme často používať.
+Keďže DOM metóda `document.getElementById()` má veľmi dlhý názov a bolo by otravné ju neustále celú písať, preto si vytvoríme pomocnú funkciu s parametrom ID elementu, ktorý chceme získať. V skripte ju budeme často používať.
 
 ```javascript
 function gid(elementId) {
@@ -109,7 +109,7 @@ function gid(elementId) {
 
 #### Inicializácia hry
 
-Na začiatku novej hry je nutné zmeniť hráča na Hráča 1 (napr. predošlú hru skončí Hráč 2). Na to slúži jednoduchá funkcia `changePlayer()`. V ďalšom kroku vynulujeme body hráčom, aby sme mohli začať počítať body odznovu. Opäť si vytvoríme jednoduchú funkciu `showScore()`, pretože ju rovnako budeme potrebovať na viacerých miestach skriptu. V ďalšom kroku rozdáme karty. Túto funkciu budeme implementovať v až neskôr.
+Na začiatku novej hry je nutné zmeniť hráča na Hráča 1 (napr. predošlú hru skončí Hráč 2). Na to slúži jednoduchá funkcia `changePlayer()`. V ďalšom kroku vynulujeme body hráčom, aby sme mohli začať počítať body odznovu. Opäť si vytvoríme jednoduchú funkciu `showScore()`, pretože ju rovnako budeme potrebovať na viacerých miestach skriptu. V ďalšom kroku rozdáme karty. Túto funkciu budeme implementovať až neskôr.
 
 ```javascript
 function initializeGame() {
@@ -173,11 +173,11 @@ function distributeCards() {
 }
 ```
 
-Ak chcete zobraziť karty na ploche, v CSS súbore stačí nastaviť vlastnosť `opacity: 1;`. Po tomto kroku budú karty usporiadané nasledovne:
+Ak chcete zobraziť karty na ploche, v CSS súbore stačí nastaviť vlastnosť `opacity: 1;`. Po tomto kroku budú karty usporiadané nasledujúco:
 
 ![Karty pexesa poukladané za sebou pred zamiešaním](images_memory-game/sorted.png)
 
-Takáto hra by však bola veľmi jednoduchá, preto potrebujeme karty premiešať. Tento problém vyriešime presne tak, ako keby sme hrali pexeso s papierovými kartami. Presne definovaný počet krát vymeníme pozície náhodne vybratých kariet. Tým dosiahneme, že karty už nebudú usporiadané za sebou. Funkcia využije DOM metódu `querySelectorAll()`, ktorá vráti pole všetkých elementov rodiča uvedeného ako parameter. Potom v cykle 100 krát vymeníme vnútorný obsah dvoch náhodne vybraných elementov a tým karty zamiešame. Kód funkcie bude vyzerať nasledovne:
+Takáto hra by však bola veľmi jednoduchá, preto potrebujeme karty premiešať. Tento problém vyriešime presne tak, ako keby sme hrali pexeso s papierovými kartami. Presne definovaný počet krát vymeníme pozície náhodne vybratých kariet. Tým dosiahneme, že karty už nebudú usporiadané za sebou. Funkcia využije DOM metódu `querySelectorAll()`, ktorá vráti pole všetkých elementov rodiča uvedeného ako parameter. Potom v cykle 100-krát vymeníme vnútorný obsah dvoch náhodne vybraných elementov a tým karty zamiešame. Kód funkcie bude vyzerať takto:
 
 ```javascript
 function shuffleCards() {
@@ -260,7 +260,7 @@ setTimeout(function () {
 }, 1000);
 ```
 
-Celá funkcia bude vyzerať nasledovne:
+Celá funkcia bude vyzerať takto:
 
 ```javascript
 function turnCard() {
@@ -314,7 +314,7 @@ function hideCards(card1, card2) {
 }
 ```
 
-Priebeh rozohranej hry je možné vidieť na nasledovnom obrázku:
+Priebeh rozohranej hry je možné vidieť na nasledujúcom obrázku:
 
 ![Ukážka rozohranej hry](images_memory-game/progress.gif)
 

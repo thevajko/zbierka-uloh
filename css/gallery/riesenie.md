@@ -21,15 +21,15 @@ Pri riešení tohto príkladu budeme postupovať po jednotlivých krokoch:
 
 Vo všeobecnosti môžeme predpokladať, že obrázky v galérii môžu mať rôzne rozmery. Niektoré môžu byť fotené na výšku, iné na šírku, byť širokouhlé až panoramatické. Ak teda chceme zobraziť obrázky rôznych rozmerov v nejakom unifikovanom rozmere, vieme to docieliť dvomi spôsobmi: buď na strane servera vygenerujeme náhľady s rovnakým rozmerom, alebo si ich prispôsobíme pomocou CSS. V tomto príklade si ukážeme riešenie pomocou CSS.
 
-V CSS je problematické zadefinovať veľkosť nejakého elementu vzhľadom na veľkosť jeho predka v percentuálnych hodnotách, ak chceme zachovať pomer strán veľkosti.
+V CSS je problematické definovať veľkosť nejakého elementu vzhľadom na veľkosť jeho predka v percentuálnych hodnotách, ak chceme zachovať pomer strán veľkosti.
 
 Problém tu nevytvára nastavenie CSS vlastnosti potomka na `width: 100%` (tu chceme, aby potomok vypĺňal jeho celú šírku), ale nastavenie jeho výšky. Výška zadaná v percentuálnej hodnote sa vyrátava z výšky predka, a to nechceme (pomer strán bude nesprávny). Čo sa dá v tejto situácii použiť, je malý trik s použitím CSS vlastnosti [`padding-top`](https://developer.mozilla.org/en-US/docs/Web/CSS/padding-top). Tá totiž, pri použití percentuálnej hodnoty, nastavuje vertikálne odsadenie, ale ako základ používa **šírku rodičovského elementu NIE svoju výšku**.
 
-V našom prípade chceme dosiahnuť pomer `4:3`. Ak je šírka `100%`, výška bude musieť mať hodnotu `75%` aby bol dodržaný stanovený pomer. Tieto vlastnosti pridáme do CSS pravidla pre obaľovací element obrázku s atribútom `class="photo"`. Toto však samo o sebe nebude stačiť. Aktuálnymi CSS vlastnosťami sme len zadefinovali veľkosť tohto prvku pomocou vnútorného odsadenia. 
+V našom prípade chceme dosiahnuť pomer `4:3`. Ak je šírka `100%`, výška bude musieť mať hodnotu `75%` aby bol dodržaný stanovený pomer. Tieto vlastnosti pridáme do CSS pravidla pre obaľovací element obrázku s atribútom `class="photo"`. Toto však samo o sebe nebude stačiť. Aktuálnymi CSS vlastnosťami sme len definovali veľkosť tohto prvku pomocou vnútorného odsadenia. 
 
 Potomkovia obaľovacieho elementu budú posunutí dolu vnútorným odsadením. Tieto elementy majú zobrazovať samotný obrázok, popisok a názov obrázka. Aby sa zobrazili správne, musíme im upraviť hodnotu CSS vlastnosti `position` na `absolute`. 
 
-To docielime pre všetkých potomkov pomocou selektoru `.photo > *`. Túto vlastnosť upravíme aj predkovi na hodnotu `relative`, aby v rámci jeho vnútra bolo možné umiestňovať potomkov.
+To docielime pre všetkých potomkov pomocou selektora `.photo > *`. Túto vlastnosť upravíme aj predkovi na hodnotu `relative`, aby v rámci jeho vnútra bolo možné umiestňovať potomkov.
 
 Pri hodnote `position: absolute` elementy "nezaberajú" svoje miesto a "vyplávajú" nad ostatné. Rozmer obaľovacieho elementu tak bude definovaný čisto iba vlastnosťami `width` a `padding-top`.
 
@@ -53,7 +53,7 @@ Pri hodnote `position: absolute` elementy "nezaberajú" svoje miesto a "vypláva
 
 Ďalej sme pre element `img` pridali CSS štýl, ktorý obrázok prispôsobuje a roztiahne na rozmery rodičovského elementu `photo`. Po aplikovaní tohto CSS dostaneme stránku, kde budú jednotlivé obrázky roztiahnuté na celú šírku stránky a zobrazené budu vždy bez ohľadu na veľkosť okna v pomere 4:3. Toto CSS však nezobrazuje všetky obrázky korektne:
 
-![Deformácia obrázku po zmene rozmerov](images_gallery/riesenie1.jpg)
+![Deformácia obrázka po zmene rozmerov](images_gallery/riesenie1.jpg)
 
 Ako môžeme vidieť na obrázku, posledný obrázok sa nám zobrazuje zdeformovane. Pôvodný obrázok bol totižto odfotený *na výšku* a keď obrázku nastavíme rozmery na `100%`, tak sa roztiahne a zdeformuje. Túto deformáciu môžeme opraviť pridaním CSS vlastnosti [`object-fit: cover`](https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit) (CSS pravidlo `.photo img`), ktorá definuje spôsob, akým sa obrázok prispôsobí pri zmene veľkosti. 
 
@@ -69,7 +69,7 @@ Ako môžeme vidieť na obrázku, posledný obrázok sa nám zobrazuje zdeformov
 
 Po aplikovaní tejto vlastnosti na obrázok dostaneme:
 
-![Zachovanie pomeru strán obrázku](images_gallery/riesenie2.jpg)
+![Zachovanie pomeru strán obrázka](images_gallery/riesenie2.jpg)
 
 ### Zobrazenie obrázkov v mriežke
 
@@ -117,7 +117,7 @@ Ak v pôvodnom HTML kóde odstránime medzery medzi obrázkami, tak tento probl�
 
 #### Riešenie cez `float: left`
 
-Druhým spôsobom je ponechanie CSS vlastnosti `display: inline-block` a pridáme ďalšiu CSS vlastnosť `float` nastavujúcu obtekanie. Môžeme teda uvažovať nasledovný kód:
+Druhým spôsobom je ponechanie CSS vlastnosti `display: inline-block` a pridáme ďalšiu CSS vlastnosť `float` nastavujúcu obtekanie. Môžeme teda uvažovať nasledujúci kód:
 
 ```css
 .photo {
@@ -148,7 +148,7 @@ Posledným spôsobom (a odporúčaným) je riešenie pomocou *flexbox* rozložen
 }
 ```
 
-Okrem `display: flex` musíme nastaviť aj CSS vlastnosť `flex-wrap` na hodnotu `wrap`, aby sa *flexbox* nepokúšal o zobrazenie všetkých elementov na jednom riadku, ako môžeme vidieť v nasledovnom obrázku:
+Okrem `display: flex` musíme nastaviť aj CSS vlastnosť `flex-wrap` na hodnotu `wrap`, aby sa *flexbox* nepokúšal o zobrazenie všetkých elementov na jednom riadku, ako môžeme vidieť v nasledujúcom obrázku:
 
 ![Zobrazenie troch obrázkov vedľa seba pomocou CSS *flexbox*](images_gallery/riesenie5.jpg)
 
@@ -209,11 +209,11 @@ Najjednoduchším spôsobom je pridanie vonkajšieho odsadenia pomocou CSS vlast
 
 ### Rôzny počet obrázkov na riadku na základe veľkosti zariadenia
 
-Pokiaľ trváme na zachovaní pomeru strán musíme využiť tzv. [**media queries**](https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries) anotácia `@media()`. Tie nám umožňujú aplikovať štýl na základe určitej vlastnosti. V našom prípade potrebujeme kontrolovať celkovú šírku okna prehliadača. Použijeme preto *media query* `max-width`. 
+Pokiaľ trváme na zachovaní pomeru strán, musíme využiť tzv. [**media queries**](https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries) anotácia `@media()`. Tie nám umožňujú aplikovať štýl na základe určitej vlastnosti. V našom prípade potrebujeme kontrolovať celkovú šírku okna prehliadača. Použijeme preto *media query* `max-width`. 
 
 V zadaní požadujeme tri spôsoby prispôsobenia zobrazenia obrázkov. Jeden z nich bude východzí a ostatné sa budu meniť na základe aktuálnej šírky okna prehliadača. Za východzie môžeme považovať zobrazenie pre malé okno, kde sa obrázky zobrazia pod sebou. Pre ďalšie typy usporiadania potrebujeme preto definovať v `@media()` dva body zlomu, v ktorých sa bude meniť počet obrázkov na riadku. 
 
-Prvý z nich bude platiť pre šírku okna prehliadača do `600px` a druhý do `1000px`. Veľmi závisí na poradí, v akom jednotlivé pravidlá v `@media()` zapíšeme, nakoľko posledne zadefinované pravidlo prepisuje rovnaké CSS predchádzajúceho. Ako prvé preto musíme zadefinovať štýlovanie pre najmenšie zobrazenie, nasledovať musí štýlovanie pre rozmer okna prehliadača `1000px` a ako posledné pre rozmer `600px`.
+Prvý z nich bude platiť pre šírku okna prehliadača do `600px` a druhý do `1000px`. Veľmi závisí od poradia, v akom jednotlivé pravidlá v `@media()` zapíšeme, nakoľko posledne definované pravidlo prepisuje rovnaké CSS predchádzajúceho. Ako prvé preto musíme definovať štýlovanie pre najmenšie zobrazenie, nasledovať musí štýlovanie pre rozmer okna prehliadača `1000px` a ako posledné pre rozmer `600px`.
 
 Podmienku platnosti daného bloku CSS štýlov definujeme pomocou pravidla `max-width`, ktoré je pravdivé, pokiaľ šírka okna nepresiahne uvedenú hodnotu.
 
@@ -242,7 +242,7 @@ Prvé `@media` pravidlo prepíše prednastavenú šírku obrázku z cca `33%` na
 
 V prípade, že nebudeme trvať na konštantnom pomere výšky a šírky obrázku, môžeme využiť *flexbox* automatické prispôsobovanie elementov.
 
-Môžeme si vyskúšať nasledovné pravidlo:
+Môžeme si vyskúšať nasledujúce pravidlo:
 
 ```css
 .photo {
@@ -285,7 +285,7 @@ Doplnenie pre správne umiestnenie ďalších prvkov:
 }
 ```
 
-Pri nastavovaní popisu obrázkov sme museli prepísať CSS vlastnosť `top`, pretože sme ju nastavili všetkým elementom v obrázku pomocou selektoru `.photo > *`.
+Pri nastavovaní popisu obrázkov sme museli prepísať CSS vlastnosť `top`, pretože sme ju nastavili všetkým elementom v obrázku pomocou selektora `.photo > *`.
 
 ![Úprava popisu obrázkov](images_gallery/riesenie12.jpg)
 
@@ -300,11 +300,11 @@ Pri nastavovaní popisu obrázkov sme museli prepísať CSS vlastnosť `top`, pr
 }
 ```
 
-CSS vlastnosť `opacity` sme nastavili pomocou selektoru `:hover`, takže pozadie stmavne až po prechode kurzora myši ponad obrázok.
+CSS vlastnosť `opacity` sme nastavili pomocou selektora `:hover`, takže pozadie stmavne až po prechode kurzora myši ponad obrázok.
 
-![Stmavenie obrázku po prechode kurzorom myši ponad obrázok](images_gallery/riesenie13.jpg)
+![Stmavenie obrázka po prechode kurzorom myši ponad obrázok](images_gallery/riesenie13.jpg)
 
-Pokiaľ chceme, aby sa aj texty zobrazili až po premiestnení kurzora myši na obrázok, tak musíme upraviť ich CSS nasledovne:
+Pokiaľ chceme, aby sa aj texty zobrazili až po premiestnení kurzora myši na obrázok, tak musíme upraviť ich CSS nasledujúco:
 
 ```css
 .photo p, .photo h3 {
@@ -333,7 +333,7 @@ Túto vlastnosť použijeme pre element `img`:
 
 Táto definícia zabezpečí, že zmena nebude okamžitá (bude trvať 0.5 sekundy), vždy keď sa bude meniť CSS vlastnosť `opacity` (napríklad po prechode myšou).
 
-Druhú animáciu, ktorú pridáme je "príchod" popisu zdola. Tento "príchod" budeme animovať pomocou transformácie y-pozície. Najskôr si pripravíme `keyframes` animácie:
+Druhú animáciu, ktorú pridáme, je "príchod" popisu zdola. Tento "príchod" budeme animovať pomocou transformácie y-pozície. Najskôr si pripravíme `keyframes` animácie:
 
 ```css
 @keyframes description-in {
@@ -359,7 +359,7 @@ Pre aplikovanie animácie následne stačí použiť:
 
 Celková animácia "príchodu" bude trvať 1 sekundu s tým, že sme jej začiatok posunuli o pol sekundy, aby sme dosiahli krajší efekt príchodu popisu.
 
-Posledným problémom, ktorý musíme vyriešiť je, že akonáhle sme posunuli popis o `1000%` v smere osi Y, tak počas animácie sa nám môže stať, že sa na stránke objaví posuvník.
+Posledným problémom, ktorý musíme vyriešiť je, že len čo sme posunuli popis o `1000%` v smere osi Y, tak počas animácie sa nám môže stať, že sa na stránke objaví posuvník.
 
 ![Zobrazený posuvník pri animácii textu](images_gallery/riesenie14.jpg)
 
@@ -377,6 +377,6 @@ Text sa zobrazuje v skutočnosti mimo elementu obrázku. Toto vyriešime tak, ž
 }
 ```
 
-Výsledná galéria bude vyzerať nasledovne:
+Výsledná galéria bude vyzerať takto:
 
 ![Výsledný vzhľad riešenia príkladu Galéria](images_gallery/zadanie-final.jpg)

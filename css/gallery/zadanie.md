@@ -20,7 +20,7 @@
 
 ## Zadanie
 
-Máme definované HTML, ktoré vyzerá nasledovne:
+Máme definované HTML, ktoré vyzerá nasledujúco:
 
 ```html
 <div class="gallery">
@@ -39,7 +39,7 @@ Máme definované HTML, ktoré vyzerá nasledovne:
 </div>
 ```
 
-Naštýlujte pomocou CSS túto galériu nasledovne:
+Naštýlujte pomocou CSS túto galériu nasledujúco:
 
 1. Obrázky budú zobrazené v mriežke.
 2. Mriežka sa bude prispôsobovať veľkosti obrazovky:

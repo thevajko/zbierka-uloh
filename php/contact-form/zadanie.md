@@ -29,7 +29,7 @@ Formulár bude mať implementované základné validačné pravidlá, ktoré bud
 
 <div style="page-break-after: always;"></div>
 
-Formulár by mohol vyzerať nasledovne: 
+Formulár by mohol vyzerať nasledujúco: 
 
 ![Navrhovaný vzhľad kontaktného formulára](images_contact-form/zadanie.png)
 

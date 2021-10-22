@@ -18,7 +18,7 @@ Hlavným cieľom tejto úlohy je generovanie veľkého množstva štvorčekov ro
 1. Roztiahnuť element `body` na celé okno prehliadača.
 2. Umiestniť štvorček pomocou napr. absolútnej pozície.
 
-Uvažujme, že HTML kód stránky by mohol vyzerať nasledovne:
+Uvažujme, že HTML kód stránky by mohol vyzerať nasledujúco:
 
 ```html
 <body>
@@ -85,9 +85,9 @@ Výhodou tohto riešenia je to, že vieme dopredu špecifikovať, aké farby chc
 Vo webových aplikáciach najčastejšie využívame RGB formát pre zápis farby. RGB kód farby sa skladá z troch zložiek R - *red*, G - *green*, B - *blue*. Každá z týchto hodnôt môže nadobúdať hodnotu `0` - `255` (`0` - `FF` hexadecimálne). Existujú dva formáty zápisu RGB farby v CSS:
 
 1. *Hexadecimálny* - začína znakom `#` a za ním nasledujú hodnoty RGB v 16-tkovej sústave, spolu 6 číslic. Napríklad červená farba vyzerá takto: `#FF0000`. 
-2. *Decimálny* - ten sa v CSS zapisuje nasledovne `rgb(red, green, blue);`
+2. *Decimálny* - ten sa v CSS zapisuje nasledujúco: `rgb(red, green, blue);`
 
-Pokiaľ chceme jednoducho vygenerovať farbu, môžeme vygenerovať náhodné číslo z rozsahu 0 - 2^24 (`0xFFFFFF`). Táto hodnota musí mať aj úvodné nuly. Ak vygenerujeme hodnotu `0xFF` musíme ju doplniť nulami - `0000FF`. Jej kód bude vyzerať nasledovne:
+Pokiaľ chceme jednoducho vygenerovať farbu, môžeme vygenerovať náhodné číslo z rozsahu 0 - 2^24 (`0xFFFFFF`). Táto hodnota musí mať aj úvodné nuly. Ak vygenerujeme hodnotu `0xFF` musíme ju doplniť nulami - `0000FF`. Jej kód bude vyzerať takto:
 
 ```php
 function randColor()
@@ -97,7 +97,7 @@ function randColor()
 ```
 Keď sa rozhodneme pre jednu z týchto funkcií, jej kód umiestnime za kód funkcie `randPosition()` tak, aby zostala v bloku `<?php` a `?>`.
 
-Samotný PHP kód na vygenerovanie štvorčekov bude obsahovať jeden cyklus, ktorý 2000 krát vygeneruje element `div` a nastaví mu pozíciu a farbu.
+Samotný PHP kód na vygenerovanie štvorčekov bude obsahovať jeden cyklus, ktorý 2000-krát vygeneruje element `div` a nastaví mu pozíciu a farbu.
 
 ```php
 <?php for ($i = 0; $i < 2000; $i++) { ?>

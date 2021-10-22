@@ -15,7 +15,7 @@
 
 Na riešenie tejto úlohy bude potrebné navrhnúť objektovú štruktúru. Zo zadania vyplýva, že budeme potrebovať triedu `Form`. Táto trieda bude mať metódy na pridávanie formulárových prvkov pomocou metód `addXXX()` (kde `XXX` je názov formulárového poľa). Okrem iného táto trieda bude schopná vrátiť vyplnené hodnoty v asociatívnom poli pomocou metódy `getData()`. Ďalšou funkcionalitou bude detekcia odoslania formulára `isSubmitted()` a kontrola správnosti vyplnených údajov metódou `isValid()`.
 
-Vzhľadom na to, že formulár má byť univerzálny, jednotlivé časti formuláru budú riešené pomocou ďalšej objektovej štruktúry. Formulár bude obsahovať prvky typu `AFormElement`. Elementom formuláru môže byť tlačidlo, text, textové pole, výberový zoznam, atď. Z tohto dôvodu usporiadame elementy ešte do hlbšej hierarchie. Základné elementy, ktoré nebudú poskytovať dáta (napr. tlačidlo, text, ...) budú potomkami triedy `AFormElement`, ktorá bude mať jedinú metódu `render()`. Elementy, ktoré budú slúžiť na zadávanie vstupov budú dediť od triedy `AFormField`. Táto trieda bude potomkom triedy `AFormElement` - takže sa budú dať vypísať. Trieda `AFormField` pridá k základnému elementu ďalšiu funkcionalitu: pridanie možnosť získať vyplnenú hodnotu a pridanie validačných pravidiel. Výpis väčšiny formulárových polí je veľmi podobný:
+Vzhľadom na to, že formulár má byť univerzálny, jednotlivé časti formulára budú riešené pomocou ďalšej objektovej štruktúry. Formulár bude obsahovať prvky typu `AFormElement`. Elementom formulára môže byť tlačidlo, text, textové pole, výberový zoznam atď. Z tohto dôvodu usporiadame elementy ešte do hlbšej hierarchie. Základné elementy, ktoré nebudú poskytovať dáta (napr. tlačidlo, text, ...), budú potomkami triedy `AFormElement`, ktorá bude mať jedinú metódu `render()`. Elementy, ktoré budú slúžiť na zadávanie vstupov, budú dediť od triedy `AFormField`. Táto trieda bude potomkom triedy `AFormElement` - takže sa budú dať vypísať. Trieda `AFormField` pridá k základnému elementu ďalšiu funkcionalitu: pridanie možnosť získať vyplnenú hodnotu a pridanie validačných pravidiel. Výpis väčšiny formulárových polí je veľmi podobný:
 
 ```˙html
 <label>Nazov</label>
@@ -26,7 +26,7 @@ Metóda `render()` pripraví štruktúru, vypíše popisok (element `label`) a p
 
 Validácia bude prebiehať tak, že ku každému prvku pridáme tzv. validátory. **Validátor** bude trieda, ktorá bude dediť od `AValidator` a bude sa pridávať k jednotlivým `AFormElement` pomocou metódy `addRule()`.
 
-Výsledný UML diagram celého riešenia je nasledovný:
+Výsledný UML diagram celého riešenia je nasledujúci:
 
 ![UML diagram tried](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/thevajko/zbierka-uloh/solution/php/form/diagram.puml)
 
@@ -52,11 +52,11 @@ abstract class AFormElement
 }
 ```
 
-Okrem samotnej metódy `render()` obsahuje aj konštrukor a atribút `$name`. Každý prvok vo formulári musí byť nejakým spôsobom pomenovaný, aby sme sa k nemu prípadne vedeli neskôr dostať. Aj iné ako HTML formulárové prvky budú mať v našej implementácii svoj názov. Ak to bude potrebné, je možnosť pridať *get* metódu pre atribút `$name`. My sme ho ale označili ako `protected`, takže každý z potomkov bude mať prístup k názvu elementu. Môžeme si všimnúť, že celá trieda, ale aj metóda `render()` sú označené kľúčovým slovom `abstract`.
+Okrem samotnej metódy `render()` obsahuje aj konštrukor a atribút `$name`. Každý prvok vo formulári musí byť nejakým spôsobom pomenovaný, aby sme sa k nemu prípadne vedeli neskôr dostať. Aj iné ako HTML formulárové prvky budú mať v našej implementácii svoj názov. Ak to bude potrebné, je možnosť pridať *get* metódu pre atribút `$name`. My sme ho ale označili ako `protected`, takže každý z potomkov bude mať prístup k názvu elementu. Môžeme si všimnúť, že celá trieda, ale aj metóda `render()`, sú označené kľúčovým slovom `abstract`.
 
 #### Tlačidlo na odoslanie formulára
 
-Ďalšou triedou, na ktorú sa pozrieme je trieda `SubmitButton`. Táto trieda reprezentuje tlačidlo typu `submit`.
+Ďalšou triedou, na ktorú sa pozrieme, je trieda `SubmitButton`. Táto trieda reprezentuje tlačidlo typu `submit`.
 
 ```php
 class SubmitButton extends AFormElement
@@ -82,7 +82,7 @@ V konštruktore definujeme atribút `$label`, čo predstavuje text, ktorý bude 
 
 #### Základný formulárový prvok
 
-Ďalej sa pozrieme na triedu `AFormField`. Táto trieda je abstraktným predkom všetkých formulárových prvkov a vyzerá nasledovne:
+Ďalej sa pozrieme na triedu `AFormField`. Táto trieda je abstraktným predkom všetkých formulárových prvkov a vyzerá nasledujúco:
 
 <div class="end">
 
@@ -149,7 +149,7 @@ class TextInputField extends AFormField {
 
 Názov a `id` elementu sme implementovali rovnakým spôsobom ako pri tlačidle typu `submit`. Do atribútu `value` sme nastavili aktuálnu hodnotu prvku formulárového poľa. Tá môže byť východzia, alebo už získaná z `$_POST`. Táto hodnota pochádza od používateľa, takže ju musíme vhodne upraviť (cez *escaping*), aby nám nemohol "rozbiť" formulár. Na úpravu hodnoty sme použili PHP funkciu [`htmlentities()`](https://www.php.net/manual/en/function.htmlentities).
 
-#### Implementácia zobrazenia formuláru
+#### Implementácia zobrazenia formulára
 
 Poslednou triedou, ktorá nám zostáva, je trieda `Form`. Tá bude obsahovať zoznam formulárových prvkov a bude vedieť vypísať formulár a získať z neho dáta.
 
@@ -198,7 +198,7 @@ class Form {
 
 Táto metóda prejde všetky formulárové prvky. Najskôr ich ale prefiltruje pomocou metódy [`array_filter()`](https://www.php.net/manual/en/function.array_filter). Pri získavaní hodnôt chceme len inštancie typu `AFormField`, pretože len tie obsahujú "hodnotu". Po prefiltrovaní aplikujeme funkciu [`array_map()`](https://www.php.net/manual/en/function.array_map), pomocou ktorej z `AFormField` prvkov vytiahneme vyplnenú hodnotu.
 
-Vyššie spomenutý kód by sa dal prepísať aj pomocou jednoduchého `foreach` cyklu nasledovne:
+Vyššie spomenutý kód by sa dal prepísať aj pomocou jednoduchého `foreach` cyklu takto:
 
 <div class="end">
 
@@ -223,7 +223,7 @@ Výsledkom tejto metódy bude asociatívne pole, ktoré bude obsahovať hodnoty 
 
 #### Pridávanie polí do formulára
 
-Pre pridávanie jednotlivých polí do formulára si musíme upraviť triedu `Form`. Každé pole má v konštruktore ako parameter svoju východziu hodnotu. Pre lepšiu manipuláciu nastavíme všetky východzie hodnoty už priamo v parametri konštruktora triedy `Form` v podobe asociatívneho poľa `"názovPrvku" => "hodnota"`. Tieto východzie hodnoty si musíme uložiť do atribútu a následne si ich budeme pri pridávaní polí vyťahovať z tohto atribútu.
+Kvôli pridávaniu jednotlivých polí do formulára si musíme upraviť triedu `Form`. Každé pole má v konštruktore ako parameter svoju východziu hodnotu. Na lepšiu manipuláciu nastavíme všetky východzie hodnoty už priamo v parametri konštruktora triedy `Form` v podobe asociatívneho poľa `"názovPrvku" => "hodnota"`. Tieto východzie hodnoty si musíme uložiť do atribútu a následne si ich budeme pri pridávaní polí vyťahovať z tohto atribútu.
 
 ```php
 class Form 
@@ -257,7 +257,7 @@ class Form
 
 Táto metóda sa pokúsi nájsť hodnotu v atribúte `$defaultValues` a v prípade, že sa tam nenachádza, vráti prázdny reťazec.
 
-Metóda na pridanie textového poľa by mohla vyzerať nasledovne:
+Metóda na pridanie textového poľa by mohla vyzerať nasledujúco:
 
 ```php
 class Form 
@@ -302,7 +302,7 @@ Aktuálne implementovaný formulár obsahuje len vkladanie základných textový
 
 #### Základná trieda pre všetky validátory
 
-Všetky validačné pravidlá budú potomkom triedy `AValidator`, ktorá vyzerá nasledovne:
+Všetky validačné pravidlá budú potomkom triedy `AValidator`, ktorá vyzerá nasledujúco:
 
 ```php
 abstract class AValidator
@@ -338,7 +338,7 @@ Typickým príkladom môže byť číselný vstup, kedy je potrebné transformov
 
 #### Validátor povinnej položky
 
-Najzákladnejším validátorom je validácia vyplnenia položky. Pre tento účel si implementujeme validátor s názvom `RequiredValudator`:
+Najzákladnejším validátorom je validácia vyplnenia položky. Na tento účel si implementujeme validátor s názvom `RequiredValudator`:
 
 ```php
 class RequiredValidator extends AValidator
@@ -421,7 +421,7 @@ abstract class AFormField extends AFormElement {
 
 Metóda `isValid()` vráti `true` v prípade, že po validácii nemáme žiadne validačné chyby. Volanie validácie v metóde `getValue()` sme pridali preto, aby sa nám upravili vyplnené hodnoty (napr. aby nám `getValue()` v prípade číselného poľa vrátilo číslo po aplikovaní daného validátora).
 
-Metódu `render()` upravíme tak, aby vypisovala nájdené validačné chyby nasledovne:
+Metódu `render()` upravíme tak, aby vypisovala nájdené validačné chyby nasledujúco:
 
 ```php
 abstract class AFormField extends AFormElement {
@@ -445,7 +445,7 @@ Oproti pôvodnej implementácii nám pribudli dve veci. Na začiatok metódy `re
 
 Zaujímavá je aj podmienka na vykreslenie chýb. Tá sa skladá z dvoch častí. Chyby vypisujeme len v prípade, že nejaké sú a zároveň, ak bol formulár odoslaný. Podmienku `$this->form->isSubmitted()` sme použili preto, aby sa validačné chyby nezobrazili hneď pri prvom vykreslení formulára, ale až po odoslaní. To je z toho dôvodu, lebo z používateľského hľadiska nie je dobré, aby prázdny formulár ešte pred vyplnením obsahoval množstvo chybových správ.
 
-Metóda `isSubmitted()` v triede `Form` vyzerá nasledovne:
+Metóda `isSubmitted()` v triede `Form` vyzerá nasledujúco:
 
 ```php
 class Form {
@@ -460,7 +460,7 @@ class Form {
 
 Kontrolujeme v nej, či v poli `$_POST` máme informáciu o tom, že bolo stlačené tlačidlo na odoslanie formuláru.
 
-Pridávanie pravidiel k položkám formulára zabezpečuje metóda `addRule()` v triede `AFormField`, ktorá vyzerá nasledovne:
+Pridávanie pravidiel k položkám formulára zabezpečuje metóda `addRule()` v triede `AFormField`, ktorá vyzerá takto:
 
 ```php
 abstract class AFormField extends AFormElement {
@@ -474,7 +474,7 @@ abstract class AFormField extends AFormElement {
 }
 ```
 
-Táto metóda len pridá validátor, ktorý dostane ako parameter, do zoznamu validátorov. Zaujímavé na tejto metóde zaujímavé je to, že ako návratovú hodnotu má `self`, t.j. metóda vráti objekt, na ktorom bola táto metóda volaná. Toto sa využíva pri zjednodušenom volaní metód, kde pridávanie validátorov môžeme pekne zreťaziť.
+Táto metóda len pridá validátor, ktorý dostane ako parameter, do zoznamu validátorov. Zaujímavé na tejto metóde zaujímavé je to, že ako návratovú hodnotu má `self`, t. j. metóda vráti objekt, na ktorom bola táto metóda volaná. Toto sa využíva pri zjednodušenom volaní metód, kde pridávanie validátorov môžeme pekne zreťaziť.
 
 ```php
 $form->addText("meno", "Krstné meno")
@@ -511,7 +511,7 @@ Ako môžeme vidieť, metóda `required()` umožňuje definovať vlastnú chybov
 
 #### Validácia celého formulára
 
-Keď máme definovaný mechanizmus na validáciu jednotlivých položiek, môžeme pristúpiť k implementácii metódy na validáciu celého formulára. Na to, aby bol formulár valídny, musí byť v prvom rade odoslaný a v druhom rade všetky jeho položky musia byť valídne. Túto kontrolu môžeme implementovať nasledovne:
+Keď máme definovaný mechanizmus na validáciu jednotlivých položiek, môžeme pristúpiť k implementácii metódy na validáciu celého formulára. Na to, aby bol formulár valídny, musí byť v prvom rade odoslaný a v druhom rade všetky jeho položky musia byť valídne. Túto kontrolu môžeme implementovať nasledujúcim spôsobom:
 
 ```php
 class Form 
@@ -537,9 +537,9 @@ Opäť, ako aj v prípade metódy `getData()`, kontrolujeme validitu len pri pol
 
 #### Pridanie ďalších validátorov, validácia na klientovi
 
-Pre ukážku môžeme demonštrovať niekoľko ďalších základných validátorov. Začneme klasickou validáciou emailových adries.
+Na ukážku môžeme demonštrovať niekoľko ďalších základných validátorov. Začneme klasickou validáciou emailových adries.
 
-Na začiatok si pripravíme triedu `EmailValidator`, ktorá môže vyzerať nasledovne:
+Na začiatok si pripravíme triedu `EmailValidator`, ktorá môže vyzerať nasledujúco:
 
 ```php
 class EmailValidator extends AValidator
@@ -558,7 +558,7 @@ class EmailValidator extends AValidator
 
 Platnosť emailovej adresy kontrolujeme pomocou už spomínanej funkcie [`filter-var()`](https://www.php.net/manual/en/function.filter-var.php).
 
-Základné použitie by mohlo vyzerať nasledovne:
+Základné použitie by mohlo vyzerať nasledujúco:
 
 ```php
 $form->addText("email", "Emailová adresa")
@@ -592,7 +592,7 @@ class TextInputField extends AFormField {
 
 Pridali sme atribút `$type`, ktorý bude uchovávať typ `input` prvku. Tento atribút nastavíme v konštruktore a v metóde `renderElement()` zmeníme pôvodné `type="text"` na `type="<?=$this->type?>"`.
 
-Pre lepšie pridávanie týchto elementov môžeme upraviť triedu `Form` nasledovne:
+Kvôli lepšiemu pridávaniu týchto elementov môžeme upraviť triedu `Form` nasledujúco:
 
 ```php
 class Form {
@@ -630,7 +630,7 @@ class Form {
 
 Metóda `addText()` umožňuje pridať typ textového elementu. Ďalej môžeme na základe typu pridať určité validačné pravidlá, napr. ak máme email, tak sa môže automaticky validovať ako email. Ďalej sme si pripravili pomocné metódy `addEmail()`, `addPassword()` a `addNumber()`, ktoré nám zjednodušia pridávanie ďalších typov elementov.
 
-Pre úplnosť `NumberValidator` vyzerá nasledovne:
+Pre úplnosť `NumberValidator` vyzerá nasledujúco:
 
 ```php
 class NumberValidator extends AValidator
@@ -702,7 +702,7 @@ class Form {
 }
 ```
 
-Deklarácia komplexného formuláru by mohla vyzerať nasledovne:
+Deklarácia komplexného formuláru by mohla vyzerať nasledujúco:
 
 <div class="end">
 

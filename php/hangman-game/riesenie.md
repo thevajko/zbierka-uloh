@@ -112,7 +112,7 @@ class Keyboard
 }
 ```
 
-Najskôr zadeklarujeme všetky atribúty, ktoré bude trieda potrebovať. Privátny atribút `$cols` predstavuje počet stĺpcov, na ktorých bude klávesnica zobrazená. Odkaz na triedu `Hangman` budeme potrebovať, keď budeme vypisovať jednotlivé písmená klávesnice a budeme potrebovať informáciu, ktoré písmená už boli hádané. Odkaz dostaneme v konštruktore. Konštanta `KEYS_NUMBER` obsahuje počet znakov z abecedy, ktoré budeme používať na tvorbu klávesnice. Pre jednoduchosť, nebudeme uvažovať slovenské znaky s diakritikou, ale použijeme len znaky od `A` po `Z`, čo je presne 26 znakov.
+Najskôr deklarujeme všetky atribúty, ktoré bude trieda potrebovať. Privátny atribút `$cols` predstavuje počet stĺpcov, na ktorých bude klávesnica zobrazená. Odkaz na triedu `Hangman` budeme potrebovať, keď budeme vypisovať jednotlivé písmená klávesnice a budeme potrebovať informáciu, ktoré písmená už boli hádané. Odkaz dostaneme v konštruktore. Konštanta `KEYS_NUMBER` obsahuje počet znakov z abecedy, ktoré budeme používať na tvorbu klávesnice. Pre jednoduchosť, nebudeme uvažovať slovenské znaky s diakritikou, ale použijeme len znaky od `A` po `Z`, čo je presne 26 znakov.
 
 ```php
 class Keyboard
@@ -137,7 +137,7 @@ class Keyboard
 
 Kľúčové slovo `$this` budeme používať na priradenie hodnoty do atribútu objektu. Hlavnou metódou triedy `Keyboard` je metóda, ktorá vráti HTML kód klávesnice, aby sme ho mohli vložiť do hry. 
 
-Metóda najskôr vypočíta, koľko riadkov bude klávesnica zaberať. Ak chceme pristupovať k nejakej konštante definovanej v triede, používame kľúčové slovo `self`, pretože konštanta nie je závislá na konkrétnej inštancii triedy, ale platí pre celú triedu. Potom klávesnicu vypíšeme ako HTML tabuľku pomocou dvoch vnorených `for` cyklov, pričom do každej bunky tabuľky vložíme práve jeden znak.
+Metóda najskôr vypočíta, koľko riadkov bude klávesnica zaberať. Ak chceme pristupovať k nejakej konštante definovanej v triede, používame kľúčové slovo `self`, pretože konštanta nie je závislá od konkrétnej inštancii triedy, ale platí pre celú triedu. Potom klávesnicu vypíšeme ako HTML tabuľku pomocou dvoch vnorených `for` cyklov, pričom do každej bunky tabuľky vložíme práve jeden znak.
 
 Na prevod znaku z jeho ACSII hodnoty na znak použijeme funkciu `chr()`. Pre každé písmeno tak vytvoríme element `a`, ktorému nastavíme GET parameter `char` a ako hodnotu mu priradíme dané písmeno. Kód elementu `a` pre písmeno `A` bude teda: `<a href="?char=A">A</a>`.
 
@@ -211,7 +211,7 @@ A v elemente `div` s `class="keyboard_container"` si vyžiadame zobrazenie kláv
 
 Všimnite si použitie `<?= ?>`, čo je len skratka pre `<?php echo ... ?>`. Po spustení súboru `index.php` v prehliadači vidíme vytvorenú klávesnicu:
 
-![Klávesnica vytvorená pre účely hry](images_hangman-game/keyboard.png)
+![Klávesnica vytvorená na účely hry](images_hangman-game/keyboard.png)
 
 Po kliknutí na ktorékoľvek písmeno v riadku sa odošle GET požiadavka s parameterom `char` rovnajúcim sa znaku, na ktorý sme klikli. Túto vlastnosť neskôr využijeme v hre.
 
@@ -309,7 +309,7 @@ class Hangman
 }
 ```
 
-Jadrom celej hry je zisťovanie, či písmeno poslané od hráča sa nachádza v hľadanom slove, alebo nie. Tento test má zmysel robiť len, keď hra prebieha. Ak sa poslané písmeno nachádza v hľadanom slove, písmeno je potrebné uložiť na správne miesto v slove. Ak by sa písmeno v slovo nachádzalo viackrát, je potrebné ho vložiť na každé miesto. Vložené písmeno nahradí v slove hráča pomlčku na danom mieste. 
+Jadrom celej hry je zisťovanie, či písmeno poslané od hráča sa nachádza v hľadanom slove, alebo nie. Tento test má zmysel robiť, len keď hra prebieha. Ak sa poslané písmeno nachádza v hľadanom slove, písmeno je potrebné uložiť na správne miesto v slove. Ak by sa písmeno v slovo nachádzalo viackrát, je potrebné ho vložiť na každé miesto. Vložené písmeno nahradí v slove hráča pomlčku na danom mieste. 
 
 Metóda `testChar()` prejde všetky písmená v hľadanom slove pomocou cyklu `for`, ak sa nájde zhoda, písmeno zaznačí do slova hráča (atribúr `$playedWord`). Ak nebol pokus úspešný a hra ešte stále prebieha, inkrementujeme počet chybných pokusov, aby sme mohli zobraziť príslušný obrázok. Nesmieme zabudnúť tieto hodnoty vložiť do *session*, aby boli k dispozícii po opätovnom spustení skriptu.
 

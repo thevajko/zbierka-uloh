@@ -27,7 +27,7 @@
     </body>
 </html>
 ```
-Bude v konzole prehliadača nasledovný výstup:
+Bude v konzole prehliadača nasledujúci výstup:
 
 ```
 A
@@ -70,7 +70,7 @@ V praxi to znamená, že v dobe vykonania skriptov s výpisom `A`, `B` a `C` v _
     </body>
 </html>
 ```
-Keď si stránku po úprave otvoríme v konzole prehliadača bude výstup nasledovný:
+Keď si stránku po úprave otvoríme v konzole prehliadača bude výstup nasledujúci:
 ```
 A
 0
@@ -95,7 +95,7 @@ Pri použití čistého `JS` existujú dve možnosti ako spustiť logiku až po 
 1. Skript, ktorý spúšťa alebo vykonáva logiku je potrebné umiestniť ako posledný tag pred uzatváracím tagom elementu `<body>`. Prípadne pridať `<script>` ihneď na koniec alebo za požadovaný element. Tu ale nie je úplne zaručené, že skript spustíte až po "naozajstnej" inicializácií _DOM_.
 2. Využiť udalosť `onload` na objekte `window`
 
-Zápis teda umiestníme do ľubovolného relevantného `<script>` a zápis vyzerá nasledovne:
+Zápis teda umiestníme do ľubovolného relevantného `<script>` a zápis vyzerá nasledujúco:
 
 ```javascript
 window.onload = function()  {

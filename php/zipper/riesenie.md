@@ -31,7 +31,7 @@ Keď sa formulár odošle na server, je potrebné dáta nejakým spôsobom sprac
 
 - `$_FILES['userfile']['name']` - Pôvodné meno súboru, aké bolo na lokálnom počítači používateľa.
 
-- `$_FILES['userfile']['type']` - *Mime typ* súboru vo formáte typ/podtyp, napr. `application/zip`. Táto informácia je závislá na prehliadači, preto nie je možné sa spoliehať na jej správnosť.
+- `$_FILES['userfile']['type']` - *MIME typ* súboru vo formáte typ/podtyp, napr. `application/zip`. Táto informácia je závislá od prehliadača, preto nie je možné sa spoliehať na jej správnosť.
 
 - `$_FILES['userfile']['size']` - Veľkosť súboru v bajtoch. 
 
@@ -149,7 +149,7 @@ Na komprimáciu použijeme triedu `ZipArchive`, ktorá je súčasťou rozšíren
 
 Na prácu s triedou `ZipArchive` nebudeme potrebovať žiadny import (je nainštalovaná ako PHP rozšírenie). Volaním `new ZipArchive()` si vytvoríme inštanciu tejto triedy. Potom súbor otvoríme metódou `open()`. Tá, ako prvý parameter potrebuje názov súboru, kde bude nový archív (využijeme PHP funkcie `sys_get_temp_dir()` a `tmpfile()` na prácu s dočasnými súbormi). Dočasný súbor tak vznikne v systémovom `tmp` adresári. 
 
-Bohužiaľ trieda neumožňuje vytvorenie komprimovaného súboru v pamäti a musíme vytvoriť archív na disku. Ďalej v cykle prejdeme aktuálny zoznam súborov a postupne ich do archívu pridáme, pričom si pomôžeme už známou metódou `getFullFileNameWithDir()`. Najskôr skontrolujeme, či súbor existuje a metódou `add()` triedy `ZipArchive` ho pridáme do archívu. Druhý parameter tejto metódy použijeme, aby súbor v archíve mal pôvodné meno. Nakoniec archív uzatvoríme a posunieme spracovanie na odoslanie archívu do metódy `sendZipFile()`.
+Bohužiaľ, trieda neumožňuje vytvorenie komprimovaného súboru v pamäti a musíme vytvoriť archív na disku. Ďalej v cykle prejdeme aktuálny zoznam súborov a postupne ich do archívu pridáme, pričom si pomôžeme už známou metódou `getFullFileNameWithDir()`. Najskôr skontrolujeme, či súbor existuje a metódou `add()` triedy `ZipArchive` ho pridáme do archívu. Druhý parameter tejto metódy použijeme, aby súbor v archíve mal pôvodné meno. Nakoniec archív uzatvoríme a posunieme spracovanie na odoslanie archívu do metódy `sendZipFile()`.
 
 ```php
 class Uploader
@@ -261,7 +261,7 @@ $fileList = $uploader->getFilesList();
 
 Po odoslaní pokynu na komprimáciu súborov a stiahnutie archívu by sme však potrebovali, aby sa zoznam súborov vymazal a mohli sme začať odznova. Aj keď sa zdá, že toto by mohol byť jednoduchý problém, nie je tomu tak. Odoslanie archívu zo servera sme dosiahli vytvorením novej odpovede, ktorá je typu `application/zip` a nemá nič spoločné so stránkou, ktorú máme zobrazenú v prehliadači, preto stránku nemôže len tak jednoducho zmeniť. Museli by sme ju celú znovu načítať, ale to vieme spraviť opäť len na tejto stránke. 
 
-Preto si pomôžeme krátkym kódom v JavaScripte, ktorý vymaže všetky existujúce elementy vo vnútri kontajnera s `id=files`. A pridá do neho nový odstavec, kde používateľovi vypíše, že súbory boli stiahnuté. Túto funkciu nastavíme ako obsluhu udalosti `onsubmit` vo formulári s tlačidlom. Funkcia sa zavolá tesne pred odoslaním formulára.
+Preto si pomôžeme krátkym kódom v JavaScripte, ktorý vymaže všetky existujúce elementy vo vnútri kontajnera s `id=files`. A pridá do neho nový odsek, kde používateľovi vypíše, že súbory boli stiahnuté. Túto funkciu nastavíme ako obsluhu udalosti `onsubmit` vo formulári s tlačidlom. Funkcia sa zavolá tesne pred odoslaním formulára.
 
 ```javascript
 function deleteFiles() {
@@ -278,7 +278,7 @@ function deleteFiles() {
 </form>
 ```
 
-Tým je aplikácia hotová. Na nasledovnom obrázku je možné vidieť jej vzhľad pred nahratím súborov:
+Tým je aplikácia hotová. Na nasledujúcom obrázku je možné vidieť jej vzhľad pred nahratím súborov:
 
 ![Počiatočný stav aplikácie (žiadne súbory neboli nahraté)](images_zipper/no_files.png)
 
@@ -295,7 +295,7 @@ Na tomto obrázku je aplikácia v stave, keď používateľ klikol na tlačidlo 
 
 ### Úprava aplikácie pre viacerých používateľov
 
-Aktuálne implementovaná aplikácia má ale jedno obmedzenie. Keby nám súbory na túto stránku nahrávalo viacero používateľov, súbory by všetci videli a archív by sa vytvoril zo všetkých súborov a stiahol by ho prvý z používateľov, ktorý by sa o to pokúsil. Potom by sa súbory, ako aj archív vymazali. 
+Aktuálne implementovaná aplikácia má ale jedno obmedzenie. Keby nám súbory na túto stránku nahrávalo viacero používateľov, súbory by všetci videli a archív by sa vytvoril zo všetkých súborov a stiahol by ho prvý z používateľov, ktorý by sa o to pokúsil. Potom by sa súbory, ako aj archív, vymazali. 
 
 Potrebujeme teda nejako zabezpečiť, aby sa súbory medzi používateľmi nemiešali. Jedným z riešení by bolo vytvorenie prihlasovania a každý používateľ by mal vlastný adresár so súbormi. Riešenie by si vyžadovalo pridanie celkom rozsiahleho kódu, najmä ak by sme chceli užívateľa aj overovať (jeho meno a heslo).
 
@@ -303,7 +303,7 @@ Potrebujeme teda nejako zabezpečiť, aby sa súbory medzi používateľmi nemie
 
 Existuje však jednoduchšie riešenie. Základným problémom webových aplikácií je, že HTTP protokol je *bezstavový*. To v praxi znamená, že všetky žiadosti sú navzájom nezávislé a server nevie o tom, že dve žiadosti z toho istého prehliadača sú od toho istého používateľa. To by v našom konkrétnom prípade znamenalo, že by sme nevedeli určiť, ktoré súbory patria tomu istému používateľovi. 
 
-Riešením je nájsť spôsob, ako označiť žiadosť z prehliadača tak, aby serveru bolo jasné, že žiadosť súvisí z inou žiadosťou z toho istého prehliadača. Tento spôsob však netreba nanovo vymýšľať, pretože už existuje a nazýva sa **cookies**.
+Riešením je nájsť spôsob, ako označiť žiadosť z prehliadača tak, aby serveru bolo jasné, že žiadosť súvisí s inou žiadosťou z toho istého prehliadača. Tento spôsob však netreba nanovo vymýšľať, pretože už existuje a nazýva sa **cookies**.
 
 *Cookies* sú HTTP hlavičky, ktoré vieme zo servera poslať na prehliadač, ten si ich zapamätá a s každou požiadavkou nám ich pošle späť na server, kde ich vieme spracovať. 
 
@@ -339,7 +339,7 @@ Vygenerovaný identifikátor môže vyzerať napr. takto: `3ee22b7b69591e19406b0
 
 Ďalšou úlohou bude vyriešiť to, aby sme vedeli, ktoré súbory patria používateľovi. Toto jednoducho vyriešime tak, že k názvu súboru prilepíme predponu pozostávajúcu z identifikátora a pomlčky. Identifikátor bude mať fixnú dĺžku, preto bude jednoduché zas vrátiť názov súboru do pôvodného stavu. 
 
-Toto riešenie bude mať ešte ďalšiu výhodu. Pri základnom riešení mohla nastať situácia, že by si používatelia svoje súbory navzájom prepisovali. Ak ku každému súboru pridáme jednoznačný identifikátor používateľa, názvy súborov sa tiež stanú unikátnymi. Úprava metódy `getFullFileNameWithDir()` bude vyzerať nasledovne:
+Toto riešenie bude mať ešte ďalšiu výhodu. Pri základnom riešení mohla nastať situácia, že by si používatelia svoje súbory navzájom prepisovali. Ak ku každému súboru pridáme jednoznačný identifikátor používateľa, názvy súborov sa tiež stanú unikátnymi. Úprava metódy `getFullFileNameWithDir()` bude vyzerať:
 
 ```php
 class Uploader

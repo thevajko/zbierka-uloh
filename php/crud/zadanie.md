@@ -22,6 +22,6 @@
 
 1. Vytvorte jednu databázovú entitu (napríklad zoznam osôb). 
 2. Pre túto entitu implementujte v PHP operácie Create, Read, Update a Delete (CRUD operácie).
-3. Pre zobrazenie dát využite HTML tabuľku. 
-4. Pre vytvorenie nového záznamu a editáciu navrhnite formulár. 
+3. Na zobrazenie dát využite HTML tabuľku. 
+4. Na vytvorenie nového záznamu a editáciu navrhnite formulár. 
 5. Možnosť editácie a odstránenia bude dostupná z tabuľky so zoznamom osôb.

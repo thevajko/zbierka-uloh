@@ -6,7 +6,7 @@
 > - [Zobraziť riešenie](riesenie.md)
 </div>
 
-# Gulečník
+# Biliard
 <div class="info"> 
 
 **Hlavný jazyk príkladu**: CSS

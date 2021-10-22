@@ -21,7 +21,7 @@ Ako prvé je potrebné zistiť, ako sa počíta faktoriál. Na webe, napr. na st
 </div>
 
 
-Na stránkach Wikipédie nájdeme dva *pseudokódy* s cyklom a použitím rekurzie. V tomto riešení si vyberieme nerekurzívny pseudokód, ktorý vyzerá nasledovne:
+Na stránkach Wikipédie nájdeme dva *pseudokódy* s cyklom a použitím rekurzie. V tomto riešení si vyberieme nerekurzívny pseudokód, ktorý vyzerá nasledujúco:
 
 ```c
 long double factorial (int n) {
@@ -45,7 +45,7 @@ function factorial($number)
 }
 ```
 
-V zadaní je uvedené, že máme vypísať postupne faktoriál od čísla 0 po 10. To vieme urobiť vytvorením cyklu, ktorý sa spustí 11x a práve tu použijeme cyklus `for`. Všimnite si, ako sa navzájom mixuje HTML a PHP kód. Táto časť kódu bude vyzerať nasledovne:
+V zadaní je uvedené, že máme vypísať postupne faktoriál od čísla 0 po 10. To vieme urobiť vytvorením cyklu, ktorý sa spustí 11x a práve tu použijeme cyklus `for`. Všimnite si, ako sa navzájom mixuje HTML a PHP kód. Táto časť kódu bude vyzerať takto:
 
 ```php
 <ul>

@@ -26,7 +26,7 @@ Vytvorte HTML dokument, ktorý bude vyzerať ako na nasledujúcom obrázku:
 ![Vzhľad výsledného riešenia](images_position/task.jpg)
 
 <div style="page-break-after: always;"></div>
-Riešenie musí spĺňať nasledovné podmienky:
+Riešenie musí spĺňať nasledujúce podmienky:
 
 - Obrázok oblohy bude roztiahnutý na celé okno prehliadača. 
 - Uprostred neho bude obrázok slnka a v každom rohu obrázok vtáčika. 

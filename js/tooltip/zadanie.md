@@ -39,7 +39,7 @@ Skript by mal fungovať na HTML kóde, ako je tento:
 </div>
 ```
 
-Kód obsahuje element `div`, ktorého obsah je tvorený textom generovaným pomocou [*Lorem ipsum generátora*](https://www.lipsum.com/). V tomto texte sa ďalej nachádzajú elementy `span`, kde prvý `span` označuje výraz a druhý `span` s triedou `tooltip` obsahuje text popisku, ktorý sa má používateľovi zobraziť, ak nad prvý `span` umiestni kurzor myši. Akonáhle používateľ kurzor z prvého elementu `span` premiestni preč, popisok sa skryje. Samozrejme, pri otvorení dokumentu nesmú byť popisky zobrazené.
+Kód obsahuje element `div`, ktorého obsah je tvorený textom generovaným pomocou [*Lorem ipsum generátora*](https://www.lipsum.com/). V tomto texte sa ďalej nachádzajú elementy `span`, kde prvý `span` označuje výraz a druhý `span` s triedou `tooltip` obsahuje text popisku, ktorý sa má používateľovi zobraziť, ak nad prvý `span` umiestni kurzor myši. Len čo používateľ kurzor z prvého elementu `span` premiestni preč, popisok sa skryje. Samozrejme, pri otvorení dokumentu nesmú byť popisky zobrazené.
 
 <div class="hidden">
 

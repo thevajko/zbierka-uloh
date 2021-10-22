@@ -1,6 +1,6 @@
 ## CSS position
 
-Konečné umiestnenie vykreslenia HTML elementov sa dá ovplyvniť CSS vlastnosťou `position`. Pre korektne pochopenie chovania je dôležité vedieť, čo je [viewport](https://developer.mozilla.org/en-US/docs/Web/CSS/Viewport_concepts). Tá môže obsahovať nasledovné hodnoty:
+Konečné umiestnenie vykreslenia HTML elementov sa dá ovplyvniť CSS vlastnosťou `position`. Pre korektne pochopenie chovania je dôležité vedieť, čo je [viewport](https://developer.mozilla.org/en-US/docs/Web/CSS/Viewport_concepts). Tá môže obsahovať nasledujúce hodnoty:
 
 - `static` - je predvolené zobrazenie. Element sa zobrazuje podľa toho ako je zadefinovaný v _DOM štruktúre_.
 - `relative` - element "zaberá" svoje pôvodné miesto ale je možné ho z jeho miesta "posunúť".
@@ -53,7 +53,7 @@ Viac informácií o z-index nájdete [napríklad tu](https://www.w3schools.com/c
 
 > ### Odkazy
 >
-> Pre lepšiu predstavu si prejdite nasledovné stránky s príkladmi:
+> Pre lepšiu predstavu si prejdite nasledujúce stránky s príkladmi:
 >
 >1. [https://www.w3schools.com/css/css_positioning.asp](https://www.w3schools.com/css/css_positioning.asp)
 >2. [https://developer.mozilla.org/en-US/docs/Web/CSS/position](https://developer.mozilla.org/en-US/docs/Web/CSS/position)

@@ -62,9 +62,9 @@ Každému prvku tohto nášho formulára sme nastavili `display: block` preto, a
 
 Pri nesprávnych hodnotách je potrebné preskočiť posielanie emailu a vrátiť používateľovi formulár späť, aj s informáciou o chybách. Keďže formulár odosielame na rovnakú adresu, kde sa aktuálne nachádza, môžeme pridať validáciu na začiatok tohto súboru.
 
-Pre jednoduchosť príkladu budeme uvažovať, že nasledovný kód je v súbore `index.php`, v ktorom sa aktuálne nachádza aj HTML kód formuláru. Pri zložitejšej aplikácii je vhodné určité spoločné funkcionality oddeliť do samostatných súborov, a tieto vkladať do stránky pomocou príkazov `include` alebo `require`. 
+Pre jednoduchosť príkladu budeme uvažovať, že nasledujúci kód je v súbore `index.php`, v ktorom sa aktuálne nachádza aj HTML kód formuláru. Pri zložitejšej aplikácii je vhodné určité spoločné funkcionality oddeliť do samostatných súborov, a tieto vkladať do stránky pomocou príkazov `include` alebo `require`. 
 
-Validácia v našom prípade môže vyzerať nasledovne:
+Validácia v našom prípade môže vyzerať nasledujúco:
 
 ```php
 $errors = [];
@@ -98,13 +98,13 @@ if (empty($name)) {
 
 Takýmto spôsobom môžeme postupne validovať aj ďalšie požiadavky. Ak by sme napríklad chceli, aby meno začínalo veľkým písmenom, môžeme dopísať ďalšiu podmienku, ktorá pomocou funkcie [`ctype-upper()`](https://www.php.net/manual/en/function.ctype-upper.php) skontroluje prvý znak mena, a ak to nie je veľké písmeno, tak priradí chybovú hlášku.
 
-Validácia emailovej adresy je trochu komplikovanejšia. V tomto prípade sme potrebovali overiť, či ide o skutočný email. Možností je niekoľko. Môžeme využiť napríklad regulárne výrazy. V PHP existuje funkcia [`preg_match()`](https://www.php.net/manual/en/function.preg-match.php), pomocou ktorej vieme skontrolovať, či reťazec spĺňa regulárny výraz. Samotný regulárny výraz na kontrolu emailovej adresy by mohol vyzerať nasledovne:  
+Validácia emailovej adresy je trochu komplikovanejšia. V tomto prípade sme potrebovali overiť, či ide o skutočný email. Možností je niekoľko. Môžeme využiť napríklad regulárne výrazy. V PHP existuje funkcia [`preg_match()`](https://www.php.net/manual/en/function.preg-match.php), pomocou ktorej vieme skontrolovať, či reťazec spĺňa regulárny výraz. Samotný regulárny výraz na kontrolu emailovej adresy by mohol vyzerať takto:  
 
 ```regexp
 /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/`
 ```
 
-Tento regulárny výraz ani z ďaleka nepokrýva všetky možné prípady platnej emailovej adresy podľa [RFC2822](https://www.ietf.org/rfc/rfc2822.txt). Preto sa validácia emailovej adresy pomocou tohto prístupu vo všeobecnosti neodporúča, ak by sme chceli, aby adresa bola presne podľa štandardu.
+Tento regulárny výraz ani zďaleka nepokrýva všetky možné prípady platnej emailovej adresy podľa [RFC2822](https://www.ietf.org/rfc/rfc2822.txt). Preto sa validácia emailovej adresy pomocou tohto prístupu vo všeobecnosti neodporúča, ak by sme chceli, aby adresa bola presne podľa štandardu.
 
 V PHP existuje funkcia [`filter_var()`](https://www.php.net/manual/en/function.filter-var), ktorá umožní pohodlnú kontrolu aj emailovej adresy. V našom prípade sme použili zápis `filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);`, ktorý zoberie hodnotu emailovej adresy z `$_POST` a zvaliduje ju ako emailovú adresu. Funkcia `filter_var()` vráti hodnotu, ktorú jej zadáme ako parameter, v prípade ak táto spĺňa všetky filtračné pravidlá. Ak nespĺňa, tak funkcia vráti `false`.
 
@@ -120,7 +120,7 @@ function printErrorMessage($errors, $key) : string
 }
 ```
 
-Následné použitie tejto funkcie na výpis chybových hlásení bude nasledovné:
+Následné použitie tejto funkcie na výpis chybových hlásení bude nasledujúce:
 
 ```html
 <label for="name">Meno</label>
@@ -137,11 +137,11 @@ Pre úplnosť uvedieme ešte CSS pravidlo pre naštýlovanie tejto chybovej hlá
 }
 ```
 
-Toto riešenie zobrazí chyby v nasledovnom formáte:
+Toto riešenie zobrazí chyby v nasledujúcom formáte:
 
 ![Zobrazenie chýb pri nekompletne vyplnenom formulári](images_contact-form/riesenie-errorMessages.png)
 
-Veľkým problémom tohto riešenia je to, že po odoslaní formuláru sa stratia vyplnené údaje, to znamená, že ak náhodou zle vyplníme emailovú adresu, tak prídeme nie len o tú, ale aj o celú správu. Takéto správanie aplikácie je neprípustné. Tento problém sa ale dá celkom jednoducho vyriešiť. HTML `input` element má atribút `value`, pomocou ktorého mu môžeme nastaviť hodnotu. Základný kód by mohol vyzerať nasledovne:
+Veľkým problémom tohto riešenia je to, že po odoslaní formulára sa stratia vyplnené údaje, to znamená, že ak náhodou zle vyplníme emailovú adresu, tak prídeme nie len o tú, ale aj o celú správu. Takéto správanie aplikácie je neprípustné. Tento problém sa ale dá celkom jednoducho vyriešiť. HTML `input` element má atribút `value`, pomocou ktorého mu môžeme nastaviť hodnotu. Základný kód by mohol vyzerať:
 
 ```html
 <input type="text" id="name" name="name" placeholder="Vaše meno" value="<?=$_POST['name']?>">
@@ -159,7 +159,7 @@ Celý element `input` pre meno je aktuálne rozbitý. Ak chceme vedieť prečo, 
 ">
 ```
 
-Ako môžeme vidieť, do atribútu `value` sa vygenerovala php chybová hláška:
+Ako môžeme vidieť, do atribútu `value` sa vygenerovala PHP chybová hláška:
 
 ```
 Warning: Undefined array key "name" in /var/www/html/index.php on line 74
@@ -215,7 +215,7 @@ if ($isPost) {
 
 Prvým parametrom tejto funkcie je adresa príjemcu. V našom prípade chceme, aby správa z kontaktného formulára prišla na náš mail, tak tam vyplníme svoju adresu. Druhým parametrom je predmet správy, tretím telo a posledným sú hlavičky emailu. V našom príklade tam nastavíme hlavičku `From`, pomocou ktorej sa nastavuje odosielateľ emailu.
 
-Výsledný email vyzerá po zachytení aplikáciou *MailHog* nasledovne:
+Výsledný email vyzerá po zachytení aplikáciou *MailHog* nasledujúco:
 
 ![Ukážka zachyteného e-mailu v aplikácii *MailHog*](images_contact-form/mail.png)
 
@@ -239,7 +239,7 @@ Ak sme odoslali formulár a nemáme žiadnu validačnú chybu, tak zobrazíme sp
 
 ### Rady na záver
 
-Prezentovaný HTML formulár obsahuje len jednoduchú validáciu. Pre reálne nasadenie by bolo vhodné pridať ďalšie validačné pravidlá napr. na obsah správy. Aktuálny formulár neobsahuje žiadnu ochranu proti robotom (*botom*), takže takýto formulár môže spôsobiť záplavu spamu v emailovej schránke. Bolo by pre to vhodné implementovať nejakú ochranu proti robotom - napríklad zobrazenie formuláru až po prihlásení alebo použitie systému [reCAPTCHA](https://www.google.com/recaptcha/about/) od Google.
+Prezentovaný HTML formulár obsahuje len jednoduchú validáciu. Pre reálne nasadenie by bolo vhodné pridať ďalšie validačné pravidlá napr. na obsah správy. Aktuálny formulár neobsahuje žiadnu ochranu proti robotom (*botom*), takže takýto formulár môže spôsobiť záplavu spamu v emailovej schránke. Bolo by pre to vhodné implementovať nejakú ochranu proti robotom - napríklad zobrazenie formulára až po prihlásení alebo použitie systému [reCAPTCHA](https://www.google.com/recaptcha/about/) od Google.
 
 V našom príklade sme nastavili mail tak, že u príjemcu to vyzerá tak, že mail bol odoslaný z adresy, ktorú zadal používateľ v kontaktnom formulári. Takéto emaily ale v dnešnej dobe väčšina hostingových providerov nepodporuje a vyžadujú, aby maily boli odosielané z domény, na ktorej daný web beží. V tomto prípade vieme upraviť odosielanie tak, aby mail odišiel z adresy, ktorá patrí danému webu, ale zároveň, aby sme nestratili kontakt na odosielajúceho používateľa.
 
@@ -253,7 +253,7 @@ mail(
 
 <div style="page-break-after: always;"></div>
 
-Takto odoslaná správa bude vyzerať nasledovne:
+Takto odoslaná správa bude vyzerať takto:
 
 ![Upravený odosielateľ v hlavičke mailu](images_contact-form/mail2.png)
 

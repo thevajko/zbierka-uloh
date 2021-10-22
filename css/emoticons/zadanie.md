@@ -28,7 +28,7 @@ Každý emotikon bude dostupný vo veľkostiach `50px`, `100px`, `250px` a `500p
 
 Prvé štyri emotikony sú základné. Každý zo základných emotikonov sa bude dať otočiť o 180 stupňov. Posledný emotikon na ukážke vznikol otočením prvého emotikona.
 
-Základná HTML štruktúra emotikona bude nasledovná:
+Základná HTML štruktúra emotikona bude takáto:
 
 ```html
 <div class="smiley">
@@ -40,7 +40,7 @@ Túto štruktúru je potrebné dodržať. Obsah elementu `div` si prispôsobte p
 
 Rotácia emotikona bude realizovaná pridaním CSS triedy `upside-down` do hlavného elementu `div`.
 
-Pokiaľ budeme požadovať emotikona s veľkosťou `100px` obráteného o 180 stupňov, deklarácia HTML kódu bude nasledovná:
+Pokiaľ budeme požadovať emotikona s veľkosťou `100px` obráteného o 180 stupňov, deklarácia HTML kódu bude takáto:
 
 ```html
 <div class="smiley s-100 upside-down">
@@ -50,7 +50,7 @@ Pokiaľ budeme požadovať emotikona s veľkosťou `100px` obráteného o 180 st
 
 Iné podoby emotikona budú realizované pridaním ďalšej triedy do hlavného `div` elementu emotikona. Druhý emotikon na obrázku bude mať triedu `happy`, tretí `cheeks` a posledný `sad`.
 
-HTML kód druhého emotikona bude vyzerať nasledovne:
+HTML kód druhého emotikona bude vyzerať nasledujúco:
 
 ```html
 <div class="smiley s-250 happy">

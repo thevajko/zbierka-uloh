@@ -27,7 +27,7 @@ Trieda umožní:
 - pridať validačné pravidlá,
 - získať vyplnené hodnoty.
 
-Použitie formuláru by mohlo byť nasledovné:
+Použitie formuláru by mohlo byť nasledujúce:
 
 ```php
 // Deklarácia

@@ -20,20 +20,20 @@
 
 ## Zadanie
 
-Cieľom úlohy je vytvoriť roletové menu, ktoré bežne používajú desktopové aplikácie. Menu bude možné rozbaliť smerom dolu (*drop-down menu*) alebo smerom hore (*drop-up menu*). Fungovanie menu ukazuje nasledovný obrázok:
+Cieľom úlohy je vytvoriť roletové menu, ktoré bežne používajú desktopové aplikácie. Menu bude možné rozbaliť smerom dolu (*drop-down menu*) alebo smerom hore (*drop-up menu*). Fungovanie menu ukazuje nasledujúci obrázok:
 
 ![Ukážka práce s menu](images_dropdownmenu/menu-fung-00.gif)
 
-Menu musí spĺňať nasledovné podmienky:
+Menu musí spĺňať nasledujúce podmienky:
 
 1. Prvá úroveň menu je vždy zobrazená na vrchu stránky.
-2. Ďalšie úrovne menu sú viditeľne iba, ak ich používateľ aktivuje kurzorom.
+2. Ďalšie úrovne menu sú viditeľné iba, ak ich používateľ aktivuje kurzorom.
 3. Vizuálne treba indikovať, či dané menu obsahuje podmenu.
 4. Zvýraznite, ktoré položky menu sú aktivované.
 5. Jednotlivé podmenu zobrazte s jemne odlišnou farbou pozadia, napr. budú tmavšie.
 6. Drop-down menu sa musí dať jednoduchou úpravou zmeniť na drop-up menu.
 
-Počiatočný HTML dokument obsahuje menu zadefinované pomocou štruktúry elementov a vyzerá nasledovne:
+Počiatočný HTML dokument obsahuje menu zadefinované pomocou štruktúry elementov a vyzerá nasledujúco:
 
 ```html
 
@@ -62,4 +62,4 @@ Počiatočný HTML dokument obsahuje menu zadefinované pomocou štruktúry elem
 
 Všimnite si však, že samotné elementy `ul` a `li` definujú iba štruktúru menu. Textový obsah položky menu je definovaný ako obsah elementu `span`. Vnorenie jednotlivých elementov `ul` v `li` definuje hierarchiu menu.
 
-Pre riešenie použite výlučne iba jazyk CSS.
+Na riešenie použite výlučne iba jazyk CSS.

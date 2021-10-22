@@ -13,13 +13,13 @@
 
 V prvom kroku si musíme upraviť štruktúru zdrojového súboru tak, aby sme dosiahli stanovený cieľ len pomocou CSS. Budeme používať [*CSS pseudotriedu*](https://www.w3schools.com/css/css_pseudo_classes.asp) `:hover`. Tá je priradená k elementu automaticky webovým prehliadačom, pokiaľ sa nad daným prvkom nachádza kurzor myši. 
 
-Aby sme mohli pseudotriedu `:hover` použiť, musíme upraviť štruktúru zdrojového HTML kódu. Umiestnime preto element s popiskom ako potomka elementu, ku ktorému sa vzťahuje. Podľa [štandardu HTML](https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-span-element), ale nemôžeme vložiť do elementu `span` ďalší `span` alebo `div` element, takže zmeníme element `span` obsahujúci popisok na element `div`.
+Aby sme mohli pseudotriedu `:hover` použiť, musíme upraviť štruktúru zdrojového HTML kódu. Umiestnime preto element s popiskom ako potomka elementu, na ktorý sa vzťahuje. Podľa [štandardu HTML](https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-span-element), ale nemôžeme vložiť do elementu `span` ďalší `span` alebo `div` element, takže zmeníme element `span` obsahujúci popisok na element `div`.
 
 Dôvodom pre zmenu štruktúry je spôsob, akým budeme používať CSS pre zobrazenie popiskov. Predvolene sú popisky skryté a zobraziť sa majú iba, ak nad textom, ktorý má popisok, je kurzor myši. 
 
 Nakoľko CSS selektor definuje skupinu elementov, najprv vytvoríme selektor, ktorý vyberie všetky elementy popiskov v elementoch, ktoré majú popisok a tie skryjeme. Ďalšie pravidlo zadefinujeme pre všetky elementy popiskov v elementoch, ktoré majú popisok a *je nad nimi kurzor myši* a tie zobrazíme.
 
-Preto budeme musieť HTML kód upraviť nasledovne:
+Preto budeme musieť HTML kód upraviť takto:
 
 ```html
 <div class="text">
@@ -53,9 +53,9 @@ div.has-tooltip .tooltip {
 }
 ```
 
-Teraz potrebujeme vytvoriť CSS štýl, ktorý bude popisok zobrazovať a skrývať. Chceme docieliť, aby sa text popisku zobrazil iba, ak bude kurzor nad elementom, ktorý označuje, že úsek textu bude mať popisok. Použijeme pseudotriedu `:hover` pomocou selektoru `div.has-tooltip:hover .tooltip`.
+Teraz potrebujeme vytvoriť CSS štýl, ktorý bude popisok zobrazovať a skrývať. Chceme docieliť, aby sa text popisku zobrazil iba, ak bude kurzor nad elementom, ktorý označuje, že úsek textu bude mať popisok. Použijeme pseudotriedu `:hover` pomocou selektora `div.has-tooltip:hover .tooltip`.
 
-Predvolený text popisku skryjeme tak, že mu nastavíme hodnotu CSS vlastnosti `display` na hodnotu `none`. V našom prípade pre opätovné zobrazenie vložíme hodnotu `block`. CSS bude vyzerať nasledovne:
+Predvolený text popisku skryjeme tak, že mu nastavíme hodnotu CSS vlastnosti `display` na hodnotu `none`. V našom prípade pre opätovné zobrazenie vložíme hodnotu `block`. CSS bude vyzerať nasledujúco:
 
 ```css
 div.has-tooltip:hover .tooltip {
@@ -63,7 +63,7 @@ div.has-tooltip:hover .tooltip {
 }
 ```
 
-Ak chceme, aby sa text popiskov zobrazoval vždy rovnako, musíme najprv zadefinovať jeho šírku (`width: 200px;`). Element má transparentné pozadie a kvôli lepšej čitateľnosti je potrebné ho zafarbiť, napr. na bielo `background-color: white;`. Ďalej by bolo dobré pridať nejaký rámček pomocou `border: 1px solid black;`. CSS upravíme nasledovne:
+Ak chceme, aby sa text popiskov zobrazoval vždy rovnako, musíme najprv definovať jeho šírku (`width: 200px;`). Element má transparentné pozadie a kvôli lepšej čitateľnosti je potrebné ho zafarbiť, napr. na bielo `background-color: white;`. Ďalej by bolo dobré pridať nejaký rámček pomocou `border: 1px solid black;`. CSS upravíme nasledujúco:
 
 ```css
 div.has-tooltip .tooltip {
@@ -86,7 +86,7 @@ Pre umiestnenie popisku mu nastavíme `position: absolute;`. To spôsobí, že e
 
 Pri nastavení `position: absolute;` nejakého elementu sa za jeho "rodičovský element" považuje hierarchicky najbližší vyšší element, ktorý má nastavený CSS atribút `position` na `relative` alebo `absolute`. V našom prípade je to prvý element. Tým pádom môžeme nastaviť hodnoty `left: 0;` a `top: 120%;`. Popisok bude zarovnaný naľavo a bude sa nachádzať kúsok pod prvým elementom.
 
-Pridaná CSS vlastnosť `z-index: 1;` zabezpečí, že sa element s textom popisku zobrazí vždy vo vrstve nad aktuálnymi elementmi; t.j. nad nimi.
+Pridaná CSS vlastnosť `z-index: 1;` zabezpečí, že sa element s textom popisku zobrazí vždy vo vrstve nad aktuálnymi elementmi; t. j. nad nimi.
 <div class="end">
 
 ```css

@@ -19,7 +19,7 @@
 </div>
 
 ## Zadanie
-Vytvorte skript v jazyku PHP, ktorý bude schopný zobraziť a vypočítať [faktoriál](https://sk.wikipedia.org/wiki/Faktori%C3%A1l) pre čísla od 0 po 10. Výsledky zobrazte nasledovne:
+Vytvorte skript v jazyku PHP, ktorý bude schopný zobraziť a vypočítať [faktoriál](https://sk.wikipedia.org/wiki/Faktori%C3%A1l) pre čísla od 0 po 10. Výsledky zobrazte nasledujúco:
 
 ```html
 <ul>

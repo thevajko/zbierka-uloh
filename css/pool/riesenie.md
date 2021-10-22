@@ -5,7 +5,7 @@
 > - Repo: [Štartér](/../../tree/main/css/pool), [Riešenie](/../../tree/solution/css/pool).
 > - [Zobraziť zadanie](zadanie.md)
 
-# Gulečník (CSS)
+# Biliard (CSS)
 
 </div>
 
@@ -43,7 +43,7 @@ Následne je potrebné tieto elementy naštýlovať, aby sa zobrazili ako biliar
 Okrem farby sme elementom nastavili aj CSS vlastnosť `position`. Guľa má nastavenú hodnotu na `absolute`, aby sme ju pomocou CSS vlastností `top` a `left` mohli umiestniť na ľubovolné miesto v rámci stola. Stolu sme museli nastaviť hodnotu na `relative`, aby sme mohli guľu umiestňovať absolútne vzhľadom na stôl.
 <div style="page-break-after: always;"></div>
 
-Výsledok bude vyzerať nasledovne:
+Výsledok bude vyzerať takto:
 
 ![Zobrazenie gule a stola](images_pool/riesenie1.png)
 
@@ -60,7 +60,7 @@ Pre pohyb gule v zvislom smere pripravíme animáciu:
 }
 ```
 
-Táto animácia bude presúvať guľu zhora dole. Animáciu na guľu aplikujeme nasledovne:
+Táto animácia bude presúvať guľu zhora dole. Animáciu na guľu aplikujeme nasledujúco:
 
 ```css
 .ball {
@@ -68,7 +68,7 @@ Táto animácia bude presúvať guľu zhora dole. Animáciu na guľu aplikujeme 
 }
 ```
 
-Jednotlivé hodnoty v tomto zápise majú nasledovný význam:
+Jednotlivé hodnoty v tomto zápise majú nasledujúci význam:
 
 - `y-axis` - názov animácie, ktorú sme si zadeklarovali pomocou kľúčového slovíčka `@keyframes`.
 - `3.3s` - čas trvania animácie. Počas tohto času bude guľa plynule meniť svoju pozíciu na osi `Y`.

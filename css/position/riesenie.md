@@ -79,7 +79,7 @@ Ak však máme byť úplne presní, v strede bude pravý horný roh obrázku. Ak
 }
 ```
 <div style="page-break-after: always;"></div>
-Po aplikovaní tohto pravidla bude čiastkové riešenie vyzerať nasledovne:
+Po aplikovaní tohto pravidla bude čiastkové riešenie vyzerať nasledujúco:
 
 ![Umiestnenie slnka do stredu](images_position/sun.jpg)
 
