@@ -1292,6 +1292,8 @@ class Chat {
 
 Upravíme metódu `postMessage()` tak, aby v prípade písania súkromnej správu poslala informáciu o tom, komu je správa určená. Túto informáciu získame z elementu `span` s&nbsp;atribútom `id="private"`. Ak tento element bude obsahovať hodnotu v atribúte `innerText`, vložíme ju POST parametru `private`. Úprava tejto metódy bude takáto:
 
+<div class="end">
+
 ```javascript
 class Chat {
     // ...
