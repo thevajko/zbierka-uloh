@@ -319,7 +319,7 @@ Pomocou prvého pravidla skryjeme oba elementy a pomocou druhého ich zobrazíme
 
 ### Animácie pri prechode kurzora myši ponad obrázok
 
-Aktuálne riešenie funguje, výsledný dojem ale nie je najlepší. Skúsime teda pridať zopár animácií pre zlepšenie používateľského zážitku. Začneme dynamickým stmavovaním obrázku. Najjednoduchší spôsob bude využitie CSS vlastnosť `transition`. Výhoda `transition` oproti vlastnej CSS animácii je v jednoduchšom zápise. Pri `transition` definujeme len vlastnosť, ktorej sa to týka a dobu zmeny.
+Aktuálne riešenie funguje, výsledný dojem ale nie je najlepší. Skúsime teda pridať zopár animácií na zlepšenie používateľského zážitku. Začneme dynamickým stmavovaním obrázku. Najjednoduchší spôsob bude využitie CSS vlastnosť `transition`. Výhoda `transition` oproti vlastnej CSS animácii je v jednoduchšom zápise. Pri `transition` definujeme len vlastnosť, ktorej sa to týka a dobu zmeny.
 
 <div style="page-break-after: always;"></div>
 
@@ -348,7 +348,7 @@ Druhú animáciu, ktorú pridáme, je "príchod" popisu zdola. Tento "príchod" 
 
 Táto animácia na začiatku umiestni element o `1000%` nižšie (táto hodnota je veľká, aby bol element na začiatku animácie skutočne mimo obrázku). Ak by sme dali len `100%`, tak by animácia začala už z obrázku.
 
-Pre aplikovanie animácie následne stačí použiť:
+Na aplikovanie animácie následne stačí použiť:
 
 ```css
 .photo:hover p {
@@ -359,7 +359,7 @@ Pre aplikovanie animácie následne stačí použiť:
 
 Celková animácia "príchodu" bude trvať 1 sekundu s tým, že sme jej začiatok posunuli o&nbsp;pol sekundy, aby sme dosiahli krajší efekt príchodu popisu.
 
-Posledným problémom, ktorý musíme vyriešiť je, že len čo sme posunuli popis o `1000%` v smere osi Y, tak počas animácie sa nám môže stať, že sa na stránke objaví posuvník.
+Posledným problémom, ktorý musíme vyriešiť je, že len čo sme posunuli popis o `1000%` v&nbsp;smere osi Y, tak počas animácie sa nám môže stať, že sa na stránke objaví posuvník.
 
 ![Zobrazený posuvník pri animácii textu](images_gallery/riesenie14.jpg)
 

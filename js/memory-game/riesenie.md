@@ -177,7 +177,9 @@ Ak chcete zobraziť karty na ploche, v CSS súbore stačí nastaviť vlastnosť 
 
 ![Karty pexesa poukladané za sebou pred zamiešaním](images_memory-game/sorted.png)
 
-Takáto hra by však bola veľmi jednoduchá, preto potrebujeme karty premiešať. Tento problém vyriešime presne tak, ako keby sme hrali pexeso s papierovými kartami. Presne definovaný počet krát vymeníme pozície náhodne vybratých kariet. Tým dosiahneme, že karty už nebudú usporiadané za sebou. Funkcia využije DOM metódu [`Element.querySelectorAll()`](https://developer.mozilla.org/en-US/docs/Web/API/Element/querySelectorAll), ktorá vráti pole všetkých elementov rodiča uvedeného ako parameter. Potom v cykle 100-krát vymeníme vnútorný obsah dvoch náhodne vybraných elementov a tým karty zamiešame. Kód funkcie bude vyzerať takto:
+Takáto hra by však bola veľmi jednoduchá, preto potrebujeme karty premiešať. Tento problém vyriešime presne tak, ako keby sme hrali pexeso s papierovými kartami. Presne definovaný počet krát vymeníme pozície náhodne vybratých kariet. Tým dosiahneme, že karty už nebudú usporiadané za sebou. Funkcia využije DOM metódu [`Element.querySelectorAll()`](https://developer.mozilla.org/en-US/docs/Web/API/Element/querySelectorAll), ktorá vráti pole všetkých elementov rodiča uvedeného ako parameter. Potom v cykle 100-krát vymeníme vnútorný obsah dvoch náhodne vybraných elementov a tým karty zamiešame. 
+
+Kód funkcie bude vyzerať takto:
 
 ```javascript
 function shuffleCards() {

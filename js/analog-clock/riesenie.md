@@ -46,7 +46,7 @@ window.onload = function() {
 
 Kreslenie kružnice realizujeme metódou kontextu [`CanvasRenderingContext2D.arc()`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc). Metóda má parametre *poloha stredu*, *polomer*, *začiatočný* a *koncový uhol kreslenia*. Pred volaním metódy `arc()` je potrebné definovať začiatok postupnosti krokov na vykreslenie pomocou metódy [`CanvasRenderingContext2D.beginPath()`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/beginPath). Potom môžeme definovať, čo chceme kresliť. 
 
-Nakoľko sme len zostavili postupnosť krokov kreslenia, musíme pre ich vykreslenie zavolať metódu [`CanvasRenderingContext2D.stroke()`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/stroke). Až potom sa vykreslí požadovaná grafika do elementu `canvas`.
+Nakoľko sme len zostavili postupnosť krokov kreslenia, musíme na ich vykreslenie zavolať metódu [`CanvasRenderingContext2D.stroke()`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/stroke). Až potom sa vykreslí požadovaná grafika do elementu `canvas`.
 
 V našom prípade bude kód, ktorý nakreslí kružnicu, vyzerať nasledujúco:
 

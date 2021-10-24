@@ -11,7 +11,7 @@
 
 ## Riešenie
 
-V prvom kroku je potrebné vyriešiť skrytie textu popiskov. Jedným zo spôsobov ako to dosiahnuť, je premiestniť tento text do ([`data-*` *atribútov*](https://www.w3schools.com/tags/att_global_data.asp)). Tým pádom bude HTML kód vyzerať nasledujúco:
+V prvom kroku je potrebné vyriešiť skrytie textu popiskov. Jedným zo spôsobov, ako to dosiahnuť, je premiestniť tento text do ([`data-*` *atribútov*](https://www.w3schools.com/tags/att_global_data.asp)). Tým pádom bude HTML kód vyzerať nasledujúco:
 
 ```html
 <span data-tooltip="Tooltip: In mollis accumsan sodales.">consectetur</span>

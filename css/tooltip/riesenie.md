@@ -15,9 +15,9 @@ V prvom kroku si musíme upraviť štruktúru zdrojového súboru tak, aby sme d
 
 Aby sme mohli pseudotriedu `:hover` použiť, musíme upraviť štruktúru zdrojového HTML kódu. Umiestnime preto element s popiskom ako potomka elementu, na ktorý sa vzťahuje. Podľa [štandardu HTML](https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-span-element), ale nemôžeme vložiť do elementu `span` ďalší `span` alebo `div` element, takže zmeníme element `span` obsahujúci popisok na element `div`.
 
-Dôvodom pre zmenu štruktúry je spôsob, akým budeme používať CSS pre zobrazenie popiskov. Predvolene sú popisky skryté a zobraziť sa majú iba, ak nad textom, ktorý má popisok, je kurzor myši. 
+Dôvodom pre zmenu štruktúry je spôsob, akým budeme používať CSS na zobrazenie popiskov. Predvolene sú popisky skryté a zobraziť sa majú iba, ak nad textom, ktorý má popisok, je kurzor myši. 
 
-Nakoľko CSS selektor definuje skupinu elementov, najprv vytvoríme selektor, ktorý vyberie všetky elementy popiskov v elementoch, ktoré majú popisok a tie skryjeme. Ďalšie pravidlo zadefinujeme pre všetky elementy popiskov v elementoch, ktoré majú popisok a *je nad nimi kurzor myši* a tie zobrazíme.
+Nakoľko CSS selektor definuje skupinu elementov, najprv vytvoríme selektor, ktorý vyberie všetky elementy popiskov v elementoch, ktoré majú popisok a tie skryjeme. Ďalšie pravidlo definujeme pre všetky elementy popiskov v elementoch, ktoré majú popisok a *je nad nimi kurzor myši* a tie zobrazíme.
 
 Preto budeme musieť HTML kód upraviť takto:
 
@@ -55,7 +55,7 @@ div.has-tooltip .tooltip {
 
 Teraz potrebujeme vytvoriť CSS štýl, ktorý bude popisok zobrazovať a skrývať. Chceme docieliť, aby sa text popisku zobrazil iba, ak bude kurzor nad elementom, ktorý označuje, že úsek textu bude mať popisok. Použijeme pseudotriedu `:hover` pomocou selektora `div.has-tooltip:hover .tooltip`.
 
-Predvolený text popisku skryjeme tak, že mu nastavíme hodnotu CSS vlastnosti `display` na hodnotu `none`. V našom prípade pre opätovné zobrazenie vložíme hodnotu `block`. CSS bude vyzerať nasledujúco:
+Predvolený text popisku skryjeme tak, že mu nastavíme hodnotu CSS vlastnosti `display` na hodnotu `none`. V našom prípade na opätovné zobrazenie vložíme hodnotu `block`. CSS bude vyzerať nasledujúco:
 
 ```css
 div.has-tooltip:hover .tooltip {
@@ -77,7 +77,7 @@ div.has-tooltip .tooltip {
 }
 ```
 
-Pre zobrazenie popisku budeme používať CSS vlastnosť `position`. Ako prvé musíme nastaviť v rodičovskom elemente túto vlastnosť na hodnotu `position: relative;`. To preto, aby sme ho mohli použiť ako plochu pre určenie pozície samotného popisku.
+Na zobrazenie popisku budeme používať CSS vlastnosť `position`. Ako prvé musíme nastaviť v rodičovskom elemente túto vlastnosť na hodnotu `position: relative;`. To preto, aby sme ho mohli použiť ako plochu pre určenie pozície samotného popisku.
 
 Pre umiestnenie popisku mu nastavíme `position: absolute;`. To spôsobí, že element s&nbsp;popiskom začne "plávať" nad ostatnými elementmi. Teraz potrebujeme element s&nbsp;popiskom správne umiestniť. To docielime nastavením CSS vlastností `left` a `top`:
 

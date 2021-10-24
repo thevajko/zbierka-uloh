@@ -36,7 +36,7 @@ Riešenie musí spĺňať nasledujúce podmienky:
     3. Bunky v stĺpcoch `Číslo 1` až `Číslo 3` budú mať nasledujúce správanie:
         1. Vždy budú zarovnané na stred.
         2. Ak na nich nebude kurzor myši, tak budú mať modré pozadie.
-        3. Ak bude kurzor myši na niektorom z nich, tak daná bunka bude mať zelené pozadie a bunka (bunky) s číslami za ním budú mať pozadie žlté. Pozor, bunke s odkazom nemeníme farbu pozadia.
+        3. Ak bude kurzor myši na niektorom z nich, tak daná bunka bude mať zelené pozadie a bunka (bunky) s číslami za ním budú mať žlté pozadie. Pozor, bunke s odkazom nemeníme farbu pozadia.
            
 ![Zobrazenie stĺpcov s číslami](images_selectors/zadanie2.png)    
 

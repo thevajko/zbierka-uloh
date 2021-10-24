@@ -126,7 +126,7 @@ Nabádalo by sa aj použitie CSS pseudotriedy `:last-child`, ale tá v tomto pr�
 
 #### Zobrazenie úst
 
-Pre zobrazenie úst máme k dispozícii HTML element s triedou `mouth`. Začneme tým, že si tento element zobrazíme a nastavíme mu veľkosť a pozíciu:
+Na zobrazenie úst máme k dispozícii HTML element s triedou `mouth`. Začneme tým, že si tento element zobrazíme a nastavíme mu veľkosť a pozíciu:
 
 ```css
 .smiley .mouth {
@@ -158,7 +158,7 @@ Veľkosť sme nastavili na `60%` z rozmeru emotikona. Následne sme element umie
 
 Výsledok sa už takmer podobá zadaniu, ibaže naše ústa nemajú pevné ohraničenie, ale idú "do stratena". Tento efekt je spôsobený tým, ako fungujú rámčeky. Ak máme rámček len na jednej strane, tento rámček sa pri zaoblených elementoch na krajoch tzv. zlieva.
 
-Pre lepšie pochopenie uvedieme ďalšiu ukážku. Máme nasledujúci CSS kód:
+Na lepšie pochopenie uvedieme ďalšiu ukážku. Máme nasledujúci CSS kód:
 
 ```css
 .demo {
@@ -270,7 +270,7 @@ HTML kód nášho emotikona s líčkami musí vyzerať takto:
 ```
 </div>
 
-Pre zobrazenie líčok môžeme využiť pseudoelementy `::before` a `::after`, ktoré nám umožňujú formátovať virtuálne elementy pridané na začiatok a koniec určitého elementu.
+Na zobrazenie líčok môžeme využiť pseudoelementy `::before` a `::after`, ktoré nám umožňujú formátovať virtuálne elementy pridané na začiatok a koniec určitého elementu.
 
 Líčko naľavo zobrazíme cez pseudoelement `::before` a nastavíme mu veľkosť rovnú `30%` z&nbsp;veľkosti úst. Okrem toho mu nastavíme farbu, `border-radius` a pozíciu podobne ako pri ostatných prvkoch.
 
@@ -461,8 +461,8 @@ Výsledok vyzerá takto:
 
 ![Rôzne veľkosti emotikona](images_emoticons/smajlik_velkosti1.png)
 
-Veľkosť emotikona je v poriadku, ale veľký emotikon má tenké rámčeky. Keď sa bližšie pozrieme na CSS pravidlá, ktoré definujú rámčeky, môžeme vidieť tu:
-
+Veľkosť emotikona je v poriadku, ale veľký emotikon má tenké rámčeky. Keď sa bližšie pozrieme na CSS pravidlá, ktoré definujú rámčeky, uvidíme toto:
+F
 ```css
 .smiley {
     border: black 2px solid;

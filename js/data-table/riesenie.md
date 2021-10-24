@@ -212,7 +212,7 @@ Tabuľka teraz vypíše celú kolekciu:
 
 ### Zoraďovania podľa stĺpca
 
-Zoraďovanie stĺpcov bude aktivované kliknutím na hlavičku tabuľky. Prvým kliknutím sa záznamy zoradia zostupne a pri opätovnom kliknutí vzostupne. Pre zjednodušenie budeme všetky hodnoty zoraďovať alfabeticky. Pracovať budeme priamo s HTML elementmi, ktoré budeme vytvárať pomocou `document.createElement()`.
+Zoraďovanie stĺpcov bude aktivované kliknutím na hlavičku tabuľky. Prvým kliknutím sa záznamy zoradia zostupne a pri opätovnom kliknutí vzostupne. Na zjednodušenie budeme všetky hodnoty zoraďovať alfabeticky. Pracovať budeme priamo s HTML elementmi, ktoré budeme vytvárať pomocou `document.createElement()`.
 
 Z tohto dôvodu upravíme metódu `JsTable.renderHeader()` tak, že vytvoríme element `tr` pomocou `document.createElement("tr")`, ktorý definuje riadok tabuľky a budeme do neho následne pridávať `th` podobne ako predtým. Pre pridanie elementu do predka budeme používať metódu `appendChild()`, ktorá vloží element ako posledného potomka. Text, ktorý sa má zobraziť v hlavičke, môžeme vložiť cez atribút `innerHTML` alebo `innerText`. Kód bude vyzerať nasledujúco:
 
@@ -274,9 +274,9 @@ Zoraďovanie bude realizované zavolaním metódy `JsTable.sortCollection()`, kd
 
 V JavaScripte vieme zoradiť pole pomocou metódy [`Array.prototype.sort()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort), kde ako voliteľný parameter vložíme funkciu pre porovnanie, ktorá vracia číselný výsledok porovnania.
 
-Na uľahčenie porovnávania reťazcov JavaScript obsahuje metódu [`String.prototype.localeCompare()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare), ktorá vracia presne výstup vhodný pre naše účely.
+Na uľahčenie porovnávania reťazcov JavaScript obsahuje metódu [`String.prototype.localeCompare()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare), ktorá vracia presne výstup vhodný na naše účely.
 
-Pre získanie požadovanej hodnoty atribútu opäť použijeme prístup k atribútu objektu cez index. A ako posledné zavoláme `JsTable.renderTable()`, aby došlo k prekresleniu tabuľky a zobrazila sa zoradená.
+Na získanie požadovanej hodnoty atribútu opäť použijeme prístup k atribútu objektu cez index. A ako posledné zavoláme `JsTable.renderTable()`, aby došlo k prekresleniu tabuľky a zobrazila sa zoradená.
 
 Všimnite si však, že získané hodnoty z objektov v kolekcii sú konvertované do reťazca použitím konverznej globálnej funkcie [`String()`](https://www.w3schools.com/jsref/jsref_string.asp). Bez nej by toto zoraďovanie nefungovalo.
 
@@ -338,7 +338,7 @@ Tabuľka sa bude teraz dať zoradiť oboma smermi.
 
 ### Filtrovanie tabuľky
 
-Prvá úprava bude zmena toho, akým spôsobom sa bude tabuľka prekresľovať. Dôvodom je pridanie elementu `input`, pomocou ktorého bude môcť používateľ zadávať výraz pre filtrovanie hodnôt v tabuľke. Vyhľadávanie sa bude spúšťať automaticky hneď, ked sa zmení hodnota v elemente `input`. Momentálne sa pri prekreslení vymaže a nanovo vytvorí celá tabuľka, čo by spôsobilo aj znovu vytvorenie `input` elementu a používateľ by tak nemohol zadať celý hľadaný výraz.
+Prvá úprava bude zmena toho, akým spôsobom sa bude tabuľka prekresľovať. Dôvodom je pridanie elementu `input`, pomocou ktorého bude môcť používateľ zadávať výraz na filtrovanie hodnôt v tabuľke. Vyhľadávanie sa bude spúšťať automaticky hneď, ked sa zmení hodnota v elemente `input`. Momentálne sa pri prekreslení vymaže a nanovo vytvorí celá tabuľka, čo by spôsobilo aj znovu vytvorenie `input` elementu a používateľ by tak nemohol zadať celý hľadaný výraz.
 
 Konštruktor `JsTable` preto upravíme tak, aby sa do `JsTable.HTMLElement` pridal nový element a až do neho budeme vykresľovať tabuľku ako predtým.
 
@@ -418,11 +418,11 @@ renderTable()
 }
 ```
 
-Teraz môžeme vytvoriť kód pre samotné filtrovanie, doplníme novú metódu `filterCollection()` do našej triedy `JsTable`. Pri filtrovaní dát je možné pridať kontrolu na minimálny počet znakov potrebných na jeho spustenie. V našom prípade však budeme filtrovať, ak bude vstup dlhší ako jeden znak.
+Teraz môžeme vytvoriť kód na samotné filtrovanie, doplníme novú metódu `filterCollection()` do našej triedy `JsTable`. Pri filtrovaní dát je možné pridať kontrolu na minimálny počet znakov potrebných na jeho spustenie. V našom prípade však budeme filtrovať, ak bude vstup dlhší ako jeden znak.
 
 V JavaScripte môžeme na filtrovanie poľa použiť [`Array.prototype.filter()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter). Táto metóda pre každý prvok v poli vykoná filtračnú funkciu, ktorá vracia hodnotu typu `bool`. Ak je výsledok `true`, daný prvok zaradí do nového výstupného poľa.
 
-Pri samotnej kontrole musíme prejsť hodnotu všetkých atribútov objektov v zdrojovej kolekcii `dataCollection`. Podreťazec v reťazci vieme vyhľadať pomocou [`String.prototype.includes()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes). Tu nepoužijeme [`Array.prototype.forEach()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach), nakoľko chceme vrátiť hodnotu `true` pri prvej zhode a `forEach()` používa pre iteráciu funkciu. Vymeníme ho preto za obyčajný `for` cyklus. Taktiež nesmieme zabudnúť na konverziu na reťazec. Metóda na filtráciu bude vyzerať:
+Pri samotnej kontrole musíme prejsť hodnotu všetkých atribútov objektov v zdrojovej kolekcii `dataCollection`. Podreťazec v reťazci vieme vyhľadať pomocou [`String.prototype.includes()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes). Tu nepoužijeme [`Array.prototype.forEach()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach), nakoľko chceme vrátiť hodnotu `true` pri prvej zhode a `forEach()` používa na iteráciu funkciu. Vymeníme ho preto za obyčajný `for` cyklus. Taktiež nesmieme zabudnúť na konverziu na reťazec. Metóda na filtráciu bude vyzerať:
 
 ```javascript
 filterCollection(expression)

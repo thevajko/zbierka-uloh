@@ -141,7 +141,7 @@ class Timer {
 
 Najskôr si nastavíme všetky atribúty, ktoré bude trieda `Timer` využívať. Atribúty sa zapisujú do vnútra definície triedy. Pre túto triedu budeme potrebovať atribút `interval`, čo bude čas v&nbsp;milisekundách definujúci, ako často bude časovač spúšťať funkciu (alebo metódu triedy), ktorú mu nastavíme. Atribút `timerId` bude identifikátor časovača, ktorý budeme používať na identifikáciu časovača pri jeho rušení, keďže nám v hre bude bežať viac časovačov. Nakoniec atribút `_callback` bude obsahovať funkciu (alebo metódu triedy), ktorú bude časovač spúšťať.
 
-Všimnite si znak `_` pre začiatkom atribútu. Keďže k atribútu budeme vytvárať *set* metódu (angl. *setter*), nemôže sa atribút volať rovnako ako metóda. Implementáciu *set* metódy si ukážeme neskôr. Všetky atribúty sa zapisujú bez kľúčového slova `let` alebo `var`. Atribúty je možné aj inicializovať, v našom prípade bude stačiť iba `null` pri atribútoch `timerId` a `_callback`.
+Všimnite si znak `_` pred začiatkom atribútu. Keďže k atribútu budeme vytvárať *set* metódu (angl. *setter*), nemôže sa atribút volať rovnako ako metóda. Implementáciu *set* metódy si ukážeme neskôr. Všetky atribúty sa zapisujú bez kľúčového slova `let` alebo `var`. Atribúty je možné aj inicializovať, v našom prípade bude stačiť iba `null` pri atribútoch `timerId` a `_callback`.
 
 ```javascript
 interval;

@@ -17,7 +17,7 @@ Formulár je definovaný pomocou elementu `form`, do ktorého sa pridávajú ele
 
 Základným prvkom používateľského vstupu je element `input`, ktorého atribút [`type`](https://www.w3schools.com/html/html_form_input_types.asp) bližšie definuje druh očakávaného vstupu a jeho vzhľad.
 
-Ďalším dôležitým atribútom je `pattern`, v ktorom sa ako hodnota uvádza regulárny výraz. Ten sa následne používa pre validáciu vstupu, ktorý zadal používateľ.
+Ďalším dôležitým atribútom je `pattern`, v ktorom sa ako hodnota uvádza regulárny výraz. Ten sa následne používa na validáciu vstupu, ktorý zadal používateľ.
 
 Ako prvé budeme kontrolovať, či majú vstupy hodnotu v správnom tvare. V prípade mailu môžeme vstup definovať ako vstupné pole typu `email`, teda:
 
@@ -41,7 +41,7 @@ To isté bude platiť pre mobilné telefónne číslo so slovenskou predvoľbou,
 
 Problém nastáva pri elemente `textarea`, ktorý nemá atribút `pattern`, tu budeme musieť logiku validácie vstupu vytvoriť pomocou JavaScriptu. To však budeme implementovať neskôr.
 
-Teraz pridáme atribút `required` do `input` elementov pre zadávanie pre `Meno`, `Priezvisko`, `Mail`a `Vaša správa`. 
+Teraz pridáme atribút `required` do `input` elementov na zadávanie pre `Meno`, `Priezvisko`, `Mail`a `Vaša správa`. 
 
 <div style="page-break-after: always;"></div>
 
@@ -69,24 +69,20 @@ Selektor `:invalid:not(form)` vyberá všetky prvky, ktoré majú priradenú pse
 
 <div style="page-break-after: always;"></div>
 
-Formulár sa bude teraz zobrazovať nasledovne:
-
-<div style="page-break-after: always;"></div>
-
 Formulár sa bude teraz zobrazovať nasledujúco:
 
 ![Zvýraznenie nevyplneného povinného poľa formulára](images_form-check/form-check-02.png)
 
 
-Týmto sme vyčerpali možnosti, ktoré máme pre validáciu s použitím výlučne HTML5 bez JavaScriptu. Ešte by sme chceli poznamenať:
+Týmto sme vyčerpali možnosti, ktoré máme na validáciu s použitím výlučne HTML5 bez JavaScriptu. Ešte by sme chceli poznamenať:
 
 - V súčasnosti neexistuje spôsob, ktorým vieme iba pomocou HTML definovať obsah chybových hlášok.
-- Nie je možné zablokovať tlačidlo pre odoslanie.
+- Nie je možné zablokovať tlačidlo na odoslanie.
 - Neexistuje spôsob, akým zobrazíme všetky chybové hlášky súčasne.
 
 ### Validácia pomocou JavaScriptu
 
-Aby sme mohli vytvoriť vlastnú logiku pre validáciu, musíme najprv navrhnúť spôsob, akým budeme overovať používateľom zadané hodnoty. Najjednoduchším spôsobom je vytvoriť funkciu, do ktorej ako vstupný parameter pošleme aktuálne zadanú hodnotu elementu formulára. Tú následne vyhodnotíme podľa potreby. V prípade, že hodnota nevyhovuje, vráti sa na výstup chybová hláška. Ak sa žiadna chyba nenájde, funkcia vráti `null`.
+Aby sme mohli vytvoriť vlastnú logiku na validáciu, musíme najprv navrhnúť spôsob, akým budeme overovať používateľom zadané hodnoty. Najjednoduchším spôsobom je vytvoriť funkciu, do ktorej ako vstupný parameter pošleme aktuálne zadanú hodnotu elementu formulára. Tú následne vyhodnotíme podľa potreby. V prípade, že hodnota nevyhovuje, vráti sa na výstup chybová hláška. Ak sa žiadna chyba nenájde, funkcia vráti `null`.
 
 Pri všetkých elementoch `input` a `textarea` je pri zmene ich hodnoty spustená udalosť `oninput`. Objekt, ktorý nesie informáciu o udalosti, obsahuje referenciu na element, na ktorom udalosť nastala, v atribúte `target`. Aktuálnu hodnotu elementu vieme získať z&nbsp;jeho atribútu `value`. Ak teda budú dáta udalosti v premennej `event`, získame aktuálnu hodnotu elementu ako `event.target.data`.
 
@@ -119,7 +115,7 @@ Po vykonaní validačnej funkcie zostavíme `id` pre element s textom chybovej h
 
 <div style="page-break-after: always;"></div>
 
-Doplnená metóda:
+Doplnená metóda bude vyzerať:
 
 ```javascript
 function validateInput(element, validationFunction) {
@@ -287,7 +283,7 @@ function validateInput(element, validationFunction) {
 ```
 </div>
 
-Pre vytvorenie lepšieho používateľského komfortu našej validácie doplníme vizuálne označenie, ktoré zmení farbu elementu `label` a rámčeka `input` na červenú farbu. Budeme musieť ale upraviť aj HTML kód. Každú dvojicu `label` a `input` vložíme do `div` elementu. Budeme tak mať kontrolu nad tým, pre ktoré elementy chceme zobrazenie upraviť:
+Na vytvorenie lepšieho používateľského komfortu našej validácie doplníme vizuálne označenie, ktoré zmení farbu elementu `label` a rámčeka `input` na červenú farbu. Budeme musieť ale upraviť aj HTML kód. Každú dvojicu `label` a `input` vložíme do `div` elementu. Budeme tak mať kontrolu nad tým, pre ktoré elementy chceme zobrazenie upraviť:
 
 ```html
 <div>
@@ -364,7 +360,7 @@ a CSS kód:
 }
 ```
 
-Kontrolu stavu formulára budeme vykonávať po každej zmene vstupu s validáciou, preto vytvoríme novú funkciu `checkFormState()`. Najprv skontrolujeme, či `form` obsahuje chybové hlášky a ak áno, tak zablokujeme tlačidlo pre odoslanie a zobrazíme hlášku. V&nbsp;opačnom prípade tlačidlo odblokujeme a hlášku skryjeme.
+Kontrolu stavu formulára budeme vykonávať po každej zmene vstupu s validáciou, preto vytvoríme novú funkciu `checkFormState()`. Najprv skontrolujeme, či `form` obsahuje chybové hlášky a ak áno, tak zablokujeme tlačidlo na odoslanie a zobrazíme hlášku. V&nbsp;opačnom prípade tlačidlo odblokujeme a hlášku skryjeme.
 
 Element sa dá zablokovať, resp. odblokovať nastavením jeho atribútu `disabled=true`, resp. `disabled=false`.
 

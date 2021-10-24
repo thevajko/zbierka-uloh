@@ -18,7 +18,7 @@
 
 </div>
 
-Ako prvé je potrebné zistiť, ako sa počíta faktoriál. Na webe, napr. na stránkach [Wikipédie](https://sk.wikipedia.org/wiki/Faktori%C3%A1l), je možné nájsť tento vzorec pre výpočet faktoriálu čísla 5:
+Ako prvé je potrebné zistiť, ako sa počíta faktoriál. Na webe, napr. na stránkach [Wikipédie](https://sk.wikipedia.org/wiki/Faktori%C3%A1l), je možné nájsť tento vzorec na výpočet faktoriálu čísla 5:
 
 <div class="end">
 

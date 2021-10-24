@@ -33,7 +33,7 @@ Menu musí spĺňať nasledujúce podmienky:
 5. Jednotlivé podmenu zobrazte s odlišnou farbou pozadia, napr. budú tmavšie.
 6. Drop-down menu sa musí dať jednoduchou úpravou zmeniť na drop-up menu.
 
-Počiatočný HTML dokument obsahuje menu zadefinované pomocou štruktúry elementov a vyzerá nasledujúco:
+Počiatočný HTML dokument obsahuje menu definované pomocou štruktúry elementov a vyzerá nasledujúco:
 
 ```html
 

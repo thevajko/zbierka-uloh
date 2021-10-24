@@ -44,7 +44,7 @@ CSS súbor bude obsahovať všetky pravidlá. Najskôr si pripravíme pozadie. N
 
 Obrázok roztiahneme na celú plochu tela HTML dokumentu pomocou CSS vlastnosti `background-size`. Nastavenie `cover` zabezpečí, že sa obrázok roztiahne na celú plochu kontajnera (v tomto prípade okna prehliadača), aj keby sa mal obrázok roztiahnutím deformovať, alebo orezať. 
 
-Presnejšie by bolo v zmysle pojmu okno prehliadača použiť pojem *viewport*, ktorý je síce v mnohých situáciách rovnaký ako viditeľná klientska plocha okna prehliadača, ale bez potenciálnych posuvníkov a takisto bez ostatných častí, ako sú nástrojové lišty prehliadača a podobne. V našom príklade, ak zameníme pojem *viewport* za okno prehliadača, dopustíme sa istej nepresnosti, ale pre riešenie príkladu (a rovnako aj ďalších v tejto knihe) to nebude mať zásadný vplyv.
+Presnejšie by bolo v zmysle pojmu okno prehliadača použiť pojem *viewport*, ktorý je síce v mnohých situáciách rovnaký ako viditeľná klientska plocha okna prehliadača, ale bez potenciálnych posuvníkov a takisto bez ostatných častí, ako sú nástrojové lišty prehliadača a podobne. V našom príklade, ak zameníme pojem *viewport* za okno prehliadača, dopustíme sa istej nepresnosti, ale na riešenie príkladu (a rovnako aj ďalších v tejto knihe) to nebude mať zásadný vplyv.
 
 Element `body` má štandardne v prehliadači nastavené vonkajšie odsadenie na `8px` z každej strany, a aby sme tento okraj zrušili a obrázok mali roztiahnutý na celé okno, nastavíme túto hodnotu na `0`. Na záver musíme ešte nastaviť výšku na `100%`, inak sa pozadie neroztiahne na celú vertikálnu výšku okna prehliadača. Výsledné pravidlo bude vyzerať takto:
 

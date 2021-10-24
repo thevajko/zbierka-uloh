@@ -100,7 +100,7 @@ Upravený kód pomocou CSS premenných by mohol vyzerať nasledujúco:
 
 Pre každý element v slnečnej sústave sme deklarovali výšku a šírku pomocou premennej. Zápis `var(--size)` získa hodnotu premennej `--size`. Ďalšou úpravou bol spôsob centrovania elementu. V pôvodnej verzii sme využívali kombináciu `left` a `right` nastavenú na `50%` a spätného posunu do stredu pomocou `translate(-50%, -50%)`. Využitie CSS vlastnosti `transform` nie je ale úplne dobrý nápad, pretože pomocou tejto CSS vlastnosti budeme vytvárať animáciu.
  
-Využitie `translate(-50%, -50%)` je dobré vtedy, keď dopredu nepoznáme šírku prvku, ktorý chceme zarovnávať. Ak poznáme šírku zarovnávaného elementu, vystačíme si len s&nbsp;vlastnosťami `left` a `right` a funkciou `calc`, ktorá nám dynamicky spočíta umiestnenie elementu.
+Využitie `translate(-50%, -50%)` je dobré, keď vopred nepoznáme šírku prvku, ktorý chceme zarovnať. Ak poznáme šírku zarovnávaného elementu, vystačíme si len s&nbsp;vlastnosťami `left` a `right` a funkciou `calc()`, ktorá spočíta umiestnenie elementu.
 
 V našom konkrétnom príklade sme použili na prvý pohľad komplikovaný výpočet `calc(50% - (var(--size) / 2))`. Tento výpočet hovorí, že element bude umiestnený naľavo 50% šírky stránky mínus jeho šírka delené dva. Čím dostaneme presné umiestnenie v strede obrazovky a rovnaký kód použijeme aj na umiestnenie elementu od vrchu stránky.
 
@@ -174,7 +174,7 @@ V zápise animácie môžeme definovať tzv. *timing* funkciu. V uvedenom príkl
 
 ### Vykreslenie orbitálnych dráh
 
-Na lepšiu grafickú predstavu si môžeme pridať vykreslenie orbitálnych dráh jednotlivých planét. Pre tento účel mierne upravíme HTML:
+Na lepšiu grafickú predstavu si môžeme pridať vykreslenie orbitálnych dráh jednotlivých planét. Na tento účel mierne upravíme HTML:
 
 ```html
 <div class="system">

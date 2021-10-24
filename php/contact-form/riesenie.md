@@ -62,7 +62,7 @@ Každému prvku tohto nášho formulára sme nastavili `display: block` preto, a
 
 Pri nesprávnych hodnotách je potrebné preskočiť posielanie emailu a vrátiť používateľovi formulár späť, aj s informáciou o chybách. Keďže formulár odosielame na rovnakú adresu, kde sa aktuálne nachádza, môžeme pridať validáciu na začiatok tohto súboru.
 
-Pre jednoduchosť príkladu budeme uvažovať, že nasledujúci kód je v súbore `index.php`, v&nbsp;ktorom sa aktuálne nachádza aj HTML kód formuláru. Pri zložitejšej aplikácii je vhodné určité spoločné funkcionality oddeliť do samostatných súborov, a tieto vkladať do stránky pomocou príkazov `include` alebo `require`. 
+Pre jednoduchosť príkladu budeme uvažovať, že nasledujúci kód je v súbore `index.php`, v&nbsp;ktorom sa aktuálne nachádza aj HTML kód formulára. Pri zložitejšej aplikácii je vhodné určité spoločné funkcionality oddeliť do samostatných súborov, a tieto vkladať do stránky pomocou príkazov `include` alebo `require`. 
 
 Validácia v našom prípade môže vyzerať nasledujúco:
 
@@ -108,7 +108,7 @@ Tento regulárny výraz ani zďaleka nepokrýva všetky možné prípady platnej
 
 V PHP existuje funkcia [`filter_var()`](https://www.php.net/manual/en/function.filter-var), ktorá umožní pohodlnú kontrolu aj emailovej adresy. V našom prípade sme použili zápis `filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);`, ktorý zoberie hodnotu emailovej adresy z `$_POST` a zvaliduje ju ako emailovú adresu. Funkcia `filter_var()` vráti hodnotu, ktorú jej zadáme ako parameter, v prípade ak táto spĺňa všetky filtračné pravidlá. Ak nespĺňa, tak funkcia vráti `false`.
 
-Samotnú kontrolu by sme mali hotovú. Ak je formulár nesprávne vyplnený, potrebujeme ho zobraziť znovu a pod každý element `input`, ktorý obsahuje chybu, chceme dopísať chybovú správu. Opätovné zobrazenie formulára nepredstavuje žiadny problém, nakoľko sa formulár odosiela na tú istú URL adresu, takže sa zobrazí aj v prípade `POST` žiadosti. Pre zjednodušenie výpisu chybovej hlášky si deklarujeme pomocnú funkciu `printErrorMessage()`, ktorá dostane ako parameter pole s chybami a názov `input` elementu. V prípade, že obsahuje toto pole s chybami chybovú správu pre daný `input` element, vráti HTML kód chybovej správy.
+Samotnú kontrolu by sme mali hotovú. Ak je formulár nesprávne vyplnený, potrebujeme ho zobraziť znovu a pod každý element `input`, ktorý obsahuje chybu, chceme dopísať chybovú správu. Opätovné zobrazenie formulára nepredstavuje žiadny problém, nakoľko sa formulár odosiela na tú istú URL adresu, takže sa zobrazí aj v prípade `POST` žiadosti. Na zjednodušenie výpisu chybovej hlášky si deklarujeme pomocnú funkciu `printErrorMessage()`, ktorá dostane ako parameter pole s chybami a názov `input` elementu. V prípade, že obsahuje toto pole s chybami chybovú správu pre daný `input` element, vráti HTML kód chybovej správy.
 
 ```php
 function printErrorMessage($errors, $key) : string 

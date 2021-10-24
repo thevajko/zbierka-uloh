@@ -46,7 +46,7 @@ CREATE TABLE `users`
 ) AUTO_INCREMENT=1;
 ```
 
-Do databázy pre testovacie účely vložíme niekoľko záznamov. Tieto záznamy môžeme automaticky vygenerovať napr. pomocou online generátora [*filldb.info*](http://filldb.info/).
+Do databázy na testovacie účely vložíme niekoľko záznamov. Tieto záznamy môžeme automaticky vygenerovať napr. pomocou online generátora [*filldb.info*](http://filldb.info/).
 
 ![Ukážka záznamov v tabuľke `users`](images_crud/users-data.png)
 
@@ -73,7 +73,7 @@ try {
 
 Takto vytvorená inštancia PDO nás pripojí na `mysql` databázový server s názvom `db` bežiacom na porte `3306` s prihlasovacím menom `"db_user"` a heslom `"db_user_pass"`. V&nbsp;prípade, že sa pripojenie nepodarí (nesprávne meno heslo, nedostupný DB server), ukončíme beh celého skriptu pomocou funkcie  [`exit()`](https://www.php.net/manual/en/function.exit.php).
 
-Pre pohodlnejšiu prácu ešte nastavíme správanie PDO tak, že pri chybe dostaneme výnimku. Od PHP8 je toto správanie predvolené, takže na PHP8 už `$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);` nie je potrebné.
+Na pohodlnejšiu prácu ešte nastavíme správanie PDO tak, že pri chybe dostaneme výnimku. Od PHP8 je toto správanie predvolené, takže na PHP8 už `$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);` nie je potrebné.
 
 V aplikácii často pracujeme s rôznymi entitami, ale pripájame sa zvyčajne k rovnakej databáze. Dobrou návrhovou praxou je preto oddelenie pripojenia k databáze do samostatnej triedy, ktorú môžeme implementovať napríklad ako návrhový vzor *singleton*, aby sme si zabezpečili **len jedno** spoločné pripojenie k databáze v celom kóde. Vytvoríme teda triedu `Db`, ktorá bude zaobaľovať funkcionalitu získania *singleton* inštancie pripojenia k databáze (PDO).
 
@@ -109,11 +109,11 @@ class Db
 
 Trieda obsahuje jeden privátny statický atribút `$connection` typu `PDO`, v ktorom sa uchováva inštancia pripojenia k databáze (ak sme pripojení). Kód pripojenia k databáze sme umiestnili do privátnej statickej metódy `Db::connect()`.
 
-Pre prístup k pripojeniu využijeme statickú metódu `Db::conn()`, ktorá vráti (prípadne vytvorí) inštanciu `PDO`.
+Na prístup k pripojeniu využijeme statickú metódu `Db::conn()`, ktorá vráti (prípadne vytvorí) inštanciu `PDO`.
 
 ### Návrh objektovej štruktúry
 
-Pre lepšiu organizáciu kódu si vytvoríme triedu `UserStorage` na prácu s databázou a entitnú triedu `User`. Trieda `User` bude zodpovedať štruktúre dát v databáze. Jednotlivým atribútom nastavíme predvolené hodnoty, aby sme následne jednoducho mohli vytvárať nové záznamy pomocou formulára. Okrem toho sme pridali metódu `getFullname()`, ktorá poskladá a vráti celé meno danej osoby.
+Kvôli lepšej organizácii kódu si vytvoríme triedu `UserStorage` na prácu s databázou a entitnú triedu `User`. Trieda `User` bude zodpovedať štruktúre dát v databáze. Jednotlivým atribútom nastavíme predvolené hodnoty, aby sme následne jednoducho mohli vytvárať nové záznamy pomocou formulára. Okrem toho sme pridali metódu `getFullname()`, ktorá poskladá a vráti celé meno danej osoby.
 
 ```php
 class User
@@ -148,7 +148,7 @@ V nasledujúcej časti si postupne implementujeme metódy triedy `UserStorage` n
 
 #### Získanie dát z databázy
 
-Začneme implementáciou metódy `UserStorage::getAll()`. Pre získanie dát z databázy môžeme použiť metódu [`PDO::query()`](https://www.php.net/manual/en/pdo.query.php), ktorá dostane ako parameter SQL príkaz, ktorý vykoná. V našom prípade chceme získať všetky dáta tabuľky `users`, preto môžeme použiť jednoduchý SQL príkaz: `SELECT * FROM users`.
+Začneme implementáciou metódy `UserStorage::getAll()`. Na získanie dát z databázy môžeme použiť metódu [`PDO::query()`](https://www.php.net/manual/en/pdo.query.php), ktorá dostane ako parameter SQL príkaz, ktorý vykoná. V našom prípade chceme získať všetky dáta tabuľky `users`, preto môžeme použiť jednoduchý SQL príkaz: `SELECT * FROM users`.
 
 Metóda `PDO::query()` vracia výsledok operácie z databázy v podobe inštancie triedy [`PDOStatement`](https://www.php.net/manual/en/class.pdostatement.php) v prípade, ak databáza nájde výsledok, alebo `false`, ak nenájde nič.
 
@@ -180,7 +180,7 @@ Tento príkaz `SELECT` potrebujeme cez PDO implementovať v jazyku PHP. Na rozdi
 Db::conn()->query("SELECT * FROM users WHERE id = " . $id);
 ```
 
-Tento **prístup je nebezpečný a takéto použitie umožňuje vykonať útok typu SQL injection**. Pre bezpečnejší prístup využijeme *prepared statements*. Tie nám umožnia bezpečne vykonávať SQL príkazy s parametrami, ktoré pochádzajú od používateľov.
+Tento **prístup je nebezpečný a takéto použitie umožňuje vykonať útok typu SQL injection**. Kvôli bezpečnejšiemu prístupu využijeme *prepared statements*. Tie nám umožnia bezpečne vykonávať SQL príkazy s parametrami, ktoré pochádzajú od používateľov.
 
 Na vytvorenie parametrizovaného SQL dopytu slúži metóda [`PDO::prepare()`](https://www.php.net/manual/en/pdostatement.prepare.php). Ako parameter dostane SQL príkaz, kde sú jednotlivé parametre nahradené špeciálnym znakom. Parametre môžu byť *pomenované*, v tom prípade sa zapisujú s dvojbodkou na začiatku - napr. `:id`. Druhým spôsobom sú *nepomenované* parametre, ktoré sa zapisujú pomocou znaku `?`. Náš SQL príkaz na získanie záznamu konkrétneho používateľa môžeme zapísať takto:
 
@@ -192,7 +192,7 @@ Metóda [`PDO::prepare()`](https://www.php.net/manual/en/pdostatement.prepare.ph
 
 V ďalšom kroku je potrebné príkaz vykonať pomocou metódy [`PDOStatement::execute()`](https://www.php.net/manual/en/pdostatement.execute.php). Táto metóda vráti `true` alebo `false` podľa toho, či sa príkaz vykonal úspešne, alebo nie. Nastavenie parametrov môžeme urobiť aj rýchlejšie. Namiesto nastavovania parametrov po jednom pomocou metódy `PDOStatement::bindparam()` ich môžeme nastaviť hromadne tak, že ich pošleme v asociatívnom poli ako parameter metódy `PDOStatement::execute()`.
 
-Po vykonaní príkazu môžeme v prípade príkazu `SELECT` načítať dáta, ktoré nám príkaz vrátil. Pre toto máme k dispozícii rovnaké metódy, ako sme použili pri vykonaní SQL dopytu pomocou metódy [`PDO::query()`](https://www.php.net/manual/en/pdostatement.query.php). V našom prípade chceme získať len jeden záznam (alebo žiadny, ak taký používateľ neexistuje). Použijeme preto metódu [`PDOStatement::fetch()`](https://www.php.net/manual/en/pdostatement.fetch.php).
+Po vykonaní príkazu môžeme v prípade príkazu `SELECT` načítať dáta, ktoré nám príkaz vrátil. Na toto máme k dispozícii rovnaké metódy, ako sme použili pri vykonaní SQL dopytu pomocou metódy [`PDO::query()`](https://www.php.net/manual/en/pdostatement.query.php). V našom prípade chceme získať len jeden záznam (alebo žiadny, ak taký používateľ neexistuje). Použijeme preto metódu [`PDOStatement::fetch()`](https://www.php.net/manual/en/pdostatement.fetch.php).
 
 Výsledná metóda na získanie záznamu používateľa z databázy bude:
 
@@ -271,7 +271,7 @@ add.php
 delete.php
 ```
 
-Ak by sme chceli vidieť zoznam užívateľov, zadali by sme si do prehliadača URL adresu: `https://stranka.sk/index.php`. Pre editáciu záznamu používateľa by sme mali adresu, ktorá by mohla vyzerať takto: `https://stranka.sk/edit.php?id=6`. 
+Ak by sme chceli vidieť zoznam užívateľov, zadali by sme si do prehliadača URL adresu: `https://stranka.sk/index.php`. Na editáciu záznamu používateľa by sme mali adresu, ktorá by mohla vyzerať takto: `https://stranka.sk/edit.php?id=6`. 
 
 Tento prístup nie je najvhodnejší, pretože sa časom stane neprehľadným a vedie k veľkej duplicite kódu. Každý zo súborov `index.php`, `edit.php` atď. bude obsahovať rovnaký kód na zobrazenie hlavičky HTML stránky, prípadného menu a ďalších častí. Táto duplicita sa síce dá odstrániť pomocou PHP príkazu [`include`](https://www.php.net/manual/en/function.include.php), ale kód bude aj tak neprehľadný.
 

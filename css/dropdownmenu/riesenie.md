@@ -264,7 +264,7 @@ ul ul ul {
 
 ## Zobrazenie indikátora prítomnosti podmenu
 
-Pre zlepšenie používateľského komfortu je veľmi vhodné používateľovi nejako naznačiť, že nejaká položka menu obsahuje dodatočné podmenu. Najčastejšie sa to realizuje indikátorom, napr. znakom `»`. 
+Na zlepšenie používateľského komfortu je veľmi vhodné používateľovi nejako naznačiť, že nejaká položka menu obsahuje dodatočné podmenu. Najčastejšie sa to realizuje indikátorom, napr. znakom `»`. 
 
 Pre doplnenie tohto indikátora existuje viacero spôsobov:
 
@@ -361,7 +361,7 @@ Finálny výsledok vyzerá nasledujúco:
 
 ## Úprava na *drop-up* menu
 
-Zmena voči pôvodnému menu spočíva čisto iba v úprave toho, kde a ako sa majú jednotlivé elementy zobraziť. Začneme teda presunutím celého menu na spodok okna prehliadača. To budeme realizovať zmenou hodnoty CSS vlastnosti `position` na hodnotu `fixed`. Tým docielime to, že menu sa bude umiestňovať nad všetky vykreslené prvky v&nbsp;priestore okna prehliadača a ten bude tvoriť aj jeho predka pre výpočet veľkostí.
+Zmena voči pôvodnému menu spočíva čisto iba v úprave toho, kde a ako sa majú jednotlivé elementy zobraziť. Začneme teda presunutím celého menu na spodok okna prehliadača. To budeme realizovať zmenou hodnoty CSS vlastnosti `position` na hodnotu `fixed`. Tým docielime to, že menu sa bude umiestňovať nad všetky vykreslené prvky v&nbsp;priestore okna prehliadača a ten bude tvoriť aj jeho predka na výpočet veľkostí.
 
 <div style="page-break-after: always;"></div>
 

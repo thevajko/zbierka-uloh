@@ -113,7 +113,7 @@ Druhou úlohou je zmena farby prvého písmena v hlavičke tabuľky. Tu je vhodn
 
 *Riadky každý nepárny riadok tabuľky bude mať svetlosivé pozadie.*
 
-Pre vyriešenie tejto úlohy potrebujeme použiť selektor, ktorý vyberie len nepárne riadky. V CSS máme k dispozícii selektor CSS [pseudotriedy](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors/Pseudo-classes_and_pseudo-elements#what_is_a_pseudo-class) `:nth-child()`, pomocou ktorého môžeme vybrať n-tého potomka. 
+Na vyriešenie tejto úlohy potrebujeme použiť selektor, ktorý vyberie len nepárne riadky. V CSS máme k dispozícii selektor CSS [pseudotriedy](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors/Pseudo-classes_and_pseudo-elements#what_is_a_pseudo-class) `:nth-child()`, pomocou ktorého môžeme vybrať n-tého potomka. 
 
 Pokiaľ chceme vybrať napríklad presne tretí element, zapíšeme pseudotriedu ako `:nth-child(3)`. Okrem presného čísla môžeme použiť aj predpis na výber každého *n-tého elementu*. Pokiaľ chceme vybrať každý druhý element, zapíšeme to ako `:nth-child(2n)`. Môžeme ešte doplniť hodnotu posuvu začiatku vyberania prvkov. Ak teda chceme vybrať každý tretí prvok, ale chceme začať od piateho prvku, tak to zapíšeme ako `:nth-child(3n + 5)`. Výber párneho/nepárneho riadku je ale častým prípadom, preto v CSS je možné namiesto `2n+1` použiť výraz `odd` (z anglického *nepárne*, po prípade `even` pre *párne* riadky).
 
@@ -162,9 +162,9 @@ Pomocou tohto pravidla nastavíme sivú farbu pozadia každej bunke v riadku, na
 
 *Text v stĺpci `Meno` bude mať červenú farbu, ale iba pokiaľ nebude kurzor myši v bunke s&nbsp;menom. Ak bude kurzor myši v bunke s&nbsp;menom, text bude mať štandardnú čiernu farbu.*
 
-Pre vyriešenie tohto bodu zadania potrebujeme napísať selektor, ktorý vyberie prvý stĺpec v tabuľke v prípade, že sa kurzor myši nachádza na riadku, ale nie na stĺpci s menom. Pokiaľ chceme v riadku vybrať prvý stĺpec, môžeme využiť pseudotriedu `:nth-child()` s&nbsp;parametrom `1`. Môžeme využiť ale aj skrátenú verziu `:first-child`, ktorá robí presne to isté ako `:nth-child(1)`.
+Na vyriešenie tohto bodu zadania potrebujeme napísať selektor, ktorý vyberie prvý stĺpec v tabuľke v prípade, že sa kurzor myši nachádza na riadku, ale nie na stĺpci s menom. Pokiaľ chceme v riadku vybrať prvý stĺpec, môžeme využiť pseudotriedu `:nth-child()` s&nbsp;parametrom `1`. Môžeme využiť ale aj skrátenú verziu `:first-child`, ktorá robí presne to isté ako `:nth-child(1)`.
 
-Tento problém sa dá vyriešiť aj dvoma pravidlami. Prvé pravidlo nastaví farbu prvému stĺpcu v prípade, že bude kurzor myši nad daným riadkom. Druhé pravidlo prepíše farbu späť na čiernu, v prípade, že kurzor myši bude nad konkrétnou bunkou. Pravidlá sú nasledujúce:
+Tento problém sa dá vyriešiť dvoma pravidlami. Prvé pravidlo nastaví farbu prvému stĺpcu v prípade, že bude kurzor myši nad daným riadkom. Druhé pravidlo prepíše farbu späť na čiernu, v prípade, že kurzor myši bude nad danou bunkou. Pravidlá vyzerajú:
 
 ```css
 .data tr:hover td:first-child {
@@ -177,7 +177,7 @@ Tento problém sa dá vyriešiť aj dvoma pravidlami. Prvé pravidlo nastaví fa
 
 Toto riešenie sa dá aj zjednodušiť. Okrem duplicity tohto riešenia je ešte aj problém s&nbsp;tým, že ak by sme zmenili farbu textu v tabuľke, tak ju musíme zmeniť aj na tomto mieste, čo prináša ďalšiu duplicitu.
 
-Pre zjednodušenie môžeme využiť pseudotriedu `:not()` ktorá umožňuje negovať určitú časť selektora. V našom prípade chceme vybrať prvú bunku v riadku, kde je kurzor myši, ak kurzor myši nie je práve na tejto bunke.
+Na zjednodušenie môžeme využiť pseudotriedu `:not()` ktorá umožňuje negovať určitú časť selektora. V našom prípade chceme vybrať prvú bunku v riadku, kde je kurzor myši, ak kurzor myši nie je práve na tejto bunke.
 
 ```css
 .data tr:hover td:first-child:not(:hover) {
@@ -190,9 +190,9 @@ Ako môžeme vidieť na tejto ukážke, jednotlivé selektory sa dajú ľubovoľ
 #### Formátovanie číselných buniek tabuľky (bod 5.3)
 
 *Bunky v stĺpcoch `Číslo 1` až `Číslo 3` budú mať nasledujúce správanie:*
-*1. Vždy budú zarovnané na stred.*
-*2. Ak na nich nebude kurzor myši, tak budú mať modré pozadie.*
-*3. Ak bude kurzor myši na niektorom z nich, tak daná bunka bude mať zelené pozadie a bunka (bunky) s číslami za ním budú mať žlté pozadie. Pozor, bunke s odkazom nemeníme farbu pozadia.*
+1. *Vždy budú zarovnané na stred.*
+2. *Ak na nich nebude kurzor myši, tak budú mať modré pozadie.*
+3. *Ak bude kurzor myši na niektorom z nich, tak daná bunka bude mať zelené pozadie a bunka (bunky) s číslami za ním budú mať žlté pozadie. Pozor, bunke s odkazom nemeníme farbu pozadia.*
 
 Na riešenie tohto problému vieme využiť už známu pseudotriedu`:nth-child()`. Začneme zarovnaním čísel na stred.
 
@@ -249,12 +249,12 @@ V tomto príklade si môžete všimnúť, že opäť používame `*`. Je to kvô
 ### Formátovanie odkazov (bod 7) 
 
 *Odkazy v stĺpci `Link` sa budú správať takto:*
-*1. Ak bude odkaz zabezpečený (protokol HTTPS), zobrazte ho zelenou farbou.*
-*2. Ak bude odkaz nezabezpečený (protokol HTTP), zobrazte ho červenou farbou.*
-*3. Ak to bude relatívny odkaz, zobrazte ho modrou farbou.*
-*4. Ak to bude odkaz na súbor typu PDF (odkaz končí `.pdf`), dopíšte za text odkazu, že ide o PDF - `(PDF)`.*
+1. *Ak bude odkaz zabezpečený (protokol HTTPS), zobrazte ho zelenou farbou.*
+2. *Ak bude odkaz nezabezpečený (protokol HTTP), zobrazte ho červenou farbou.*
+3. *Ak to bude relatívny odkaz, zobrazte ho modrou farbou.*
+4. *Ak to bude odkaz na súbor typu PDF (odkaz končí `.pdf`), dopíšte zaň text `(PDF)`.*
 
-Pre riešenie tejto úlohy potrebujeme využiť [*atribútové selektory*](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors). Takýto selektor môže vyzerať takto: `element[atribut="hodnota"]`. Začneme postupne, v prvej časti potrebujeme nájsť odkazy, ktoré smerujú na zabezpečené stránky, to znamená, že ich URL adresa začína `https:`. Použijeme preto nasledujúci selektor:
+Na riešenie tejto úlohy potrebujeme využiť [*atribútové selektory*](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors). Takýto selektor môže vyzerať takto: `element[atribut="hodnota"]`. Začneme postupne, v prvej časti potrebujeme nájsť odkazy, ktoré smerujú na zabezpečené stránky, to znamená, že ich URL adresa začína `https:`. Použijeme preto nasledujúci selektor:
 
 ```css
 .data td a[href^="https:"] {

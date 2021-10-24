@@ -2,7 +2,7 @@
 
 Konečné umiestnenie vykreslenia HTML elementov sa dá ovplyvniť CSS vlastnosťou `position`. Pre korektne pochopenie chovania je dôležité vedieť, čo je [viewport](https://developer.mozilla.org/en-US/docs/Web/CSS/Viewport_concepts). Tá môže obsahovať nasledujúce hodnoty:
 
-- `static` - je predvolené zobrazenie. Element sa zobrazuje podľa toho ako je zadefinovaný v _DOM štruktúre_.
+- `static` - je predvolené zobrazenie. Element sa zobrazuje podľa toho ako je definovaný v _DOM štruktúre_.
 - `relative` - element "zaberá" svoje pôvodné miesto ale je možné ho z jeho miesta "posunúť".
 - `fixed` - element svoje miesto nezaberá a je "zobrazený vo viewporte". Čo znamená, že sa umiestňuje v ploche "viewportu" a pôsobí ako keby bol nan "prilepený", nakoľko jeho umiestnenie neovplyvňuje scrolovanie.
 - `absolute` - element nezaberá miesto a umiestňuje sa v priestore najbližšieho predka, ktorý ma nastavenú vlastnosť `position` na `relative` alebo `absolute`. 
@@ -23,7 +23,7 @@ Samozrejme je možné použiť aj percentuálne hodnoty. Ako ale zistiť, čo pr
 
 V prípade `relative` posúvate zobrazenie daného prvku relatívne od jeho normálneho miesta, pričom miesto, ktoré zaberá v zobrazení zostane obsadené.
 
-Zmena chovania ale nastáva pokiaľ chcete element posunúť o hodnotu s `%`. Vtedy sa za základ berie rozmer rodičovského elementu. __Tu ale pozor__ aby bolo aby bolo možné používať percentuálne hodnoty pre `top` a `bottom` musí mať rodič zadefinovanú výšku, inač to nebude mať žiaden efekt. 
+Zmena chovania ale nastáva pokiaľ chcete element posunúť o hodnotu s `%`. Vtedy sa za základ berie rozmer rodičovského elementu. __Tu ale pozor__ aby bolo aby bolo možné používať percentuálne hodnoty pre `top` a `bottom` musí mať rodič definovanú výšku, inač to nebude mať žiaden efekt. 
 
 ### Východzia pozícia `absolute`
 

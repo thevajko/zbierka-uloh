@@ -111,7 +111,7 @@ Keďže chybové stavy musí odchytávať súbor `api.php`, upravíme správanie
 
 Následne si ešte musíme transformovať chybový kód tak, aby zodpovedal HTTP stavovým kódom. Preto po odchytení výnimky vytvoríme novú výnimku, nastavíme jej rovnakú správu a upravíme jej kód na [`500 Internal Server Error`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500).
 
-Účelom tejto triedy je iba vrátiť tú istú inštanciu `PDO` pre komunikáciu s databázou.
+Účelom tejto triedy je iba vrátiť tú istú inštanciu `PDO` na komunikáciu s databázou.
 
 Trieda bude vyzerať nasledujúco:
 
@@ -220,7 +220,7 @@ Do elementu `body` vložíme element `div`, ktorému pridáme atribút `id="mess
 </html>
 ```
 
-Odosielanie a spracovanie asynchrónnych žiadostí budeme realizovať pomocou JavaScript funkcie [`fetch()`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). `Fetch API` používa pre spracovanie asynchrónnych volaní [`*promise*`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then) (prísľub). Namiesto reťazenia *callback* funkcií použijeme kľúčové slová [`async/await`](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Async_await). 
+Odosielanie a spracovanie asynchrónnych žiadostí budeme realizovať pomocou JavaScript funkcie [`fetch()`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). `Fetch API` používa na spracovanie asynchrónnych volaní [`*promise*`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then) (prísľub). Namiesto reťazenia *callback* funkcií použijeme kľúčové slová [`async/await`](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Async_await). 
 
 <div style="page-break-after: always;"></div>
 
@@ -363,7 +363,7 @@ class Chat {
 }
 ```
 
-Odoslaná správa sa ešte neuloží do databázy. Do triedy `MessageStorage` pridáme novú metódu `storeMessage()`, ktorej jediný vstupný parameter bude inštancia triedy `Message`. V nej si vytvoríme SQL príkaz `INSERT` s použitím triedy [`PDOStatement`](https://www.php.net/manual/en/class.pdostatement.php), následne vložíme potrebné hodnoty pre vytvorenie záznamu v databáze a SQL dopyt spustíme. Pridaná metóda bude vyzerať:
+Odoslaná správa sa ešte neuloží do databázy. Do triedy `MessageStorage` pridáme novú metódu `storeMessage()`, ktorej jediný vstupný parameter bude inštancia triedy `Message`. V nej si vytvoríme SQL príkaz `INSERT` s použitím triedy [`PDOStatement`](https://www.php.net/manual/en/class.pdostatement.php), následne vložíme potrebné hodnoty na vytvorenie záznamu v databáze a SQL dopyt spustíme. Pridaná metóda bude vyzerať:
 
 ```php
 class MessageStorage {
@@ -480,7 +480,7 @@ class Chat {
 
 ### Posielanie správ až po prihlásení
 
-Teraz upravíme posielanie správ tak, aby sa používateľ musel pre ich odosielanie prihlásiť, inak ich bude môcť iba čítať. Používateľ bude musieť zadať meno, pod ktorým bude v chate vystupovať. Aby sme nekomplikovali celú aplikáciu, heslo nebudeme vyžadovať.
+Teraz upravíme posielanie správ tak, aby sa používateľ musel na ich odosielanie prihlásiť, inak ich bude môcť iba čítať. Používateľ bude musieť zadať meno, pod ktorým bude v chate vystupovať. Aby sme nekomplikovali celú aplikáciu, heslo nebudeme vyžadovať.
 
 Ďalej nebude možné, aby používali chat súčasne dvaja používatelia s rovnakým menom. Z&nbsp;tohto dôvodu vytvoríme v databáze novú tabuľku `users`, ktorá bude obsahovať mená aktuálne prihlásených používateľov. DDL pre tabuľku bude:
 
@@ -624,7 +624,7 @@ Za prihláseného budeme používateľa považovať, ak odošle na server meno, 
 
 Samotné prihlásenie bude prebiehať tak, že pošleme HTTP POST žiadosť na adresu `api.php?method=login`, kde meno používateľa pošleme v tele ako POST parameter. Nesmieme zabudnúť, že pokiaľ už je používateľ prihlásený (existuje hodnota v&nbsp;`$_SESSION['user']`), nesmieme v procese prihlasovania pokračovať.
 
-Následne skontrolujeme, či tabuľka `users` už neobsahuje rovnaké meno používateľa. Ak ho bude obsahovať, server vráti odpoveď s chybou, že používateľ s rovnakým menom je už prihlásený. Pre zjednodušenie implementácie na strane klienta v tomto špecifickom prípade vrátime HTTP stavový kód s vlastnou hodnotou `455`. V tomto prípade si používateľ bude musieť zvoliť iné meno. Ak taký používateľ v tabuľke ešte nie je, tak sa meno používateľa uloží do databázy a v `$_SESSION` vytvoríme index `user`, kde túto hodnotu rovnako uložíme. Následne v odpovedi s HTTP stavovým kódom `200` vrátime túto hodnotu.
+Následne skontrolujeme, či tabuľka `users` už neobsahuje rovnaké meno používateľa. Ak ho bude obsahovať, server vráti odpoveď s chybou, že používateľ s rovnakým menom je už prihlásený. Kvôli zjednodušeniu implementácie na strane klienta v tomto špecifickom prípade vrátime HTTP stavový kód s vlastnou hodnotou `455`. V tomto prípade si používateľ bude musieť zvoliť iné meno. Ak taký používateľ v tabuľke ešte nie je, tak sa meno používateľa uloží do databázy a v `$_SESSION` vytvoríme index `user`, kde túto hodnotu rovnako uložíme. Následne v odpovedi s HTTP stavovým kódom `200` vrátime túto hodnotu.
 
 V príklade sa nebudeme zaoberať čo s používateľmi, ktorí sa neodhlásia, pokým majú platnú *session*. V tomto prípade je potrebné si viesť záznam o tom, kedy používateľ naposledy odoslal správu a po vypršaní platnosti jeho *session* je nutné jeho meno z&nbsp;tabuľky `users` odstrániť (inak sa týmto menom už nebude možné v chate prihlásiť).
 
@@ -796,7 +796,7 @@ body {
 
 #### Pridanie informácie o odosielateľovi správy 
 
-Prvá a najjednoduchšia úprava bude v metóde `getMessages()` triedy `Chat` pre výpis správ získaných zo servera. Pridali sme do dát informáciu o používateľovi, ktorý správu napísal, preto ju doplníme do výpisu:
+Prvá a najjednoduchšia úprava bude v metóde `getMessages()` triedy `Chat` na výpis správ získaných zo servera. Pridali sme do dát informáciu o používateľovi, ktorý správu napísal, preto ju doplníme do výpisu:
 
 <div class="end">
 
@@ -834,7 +834,7 @@ class Chat {
 
 #### Úprava chatu pre prihlásených používateľov
 
-Keďže chceme, aby kód JavaScriptu bol čo najprehľadnejší, vytvoríme novú triedu `UIHelper`, ktorá bude obsahovať iba kód na modifikáciu HTML elementov. Najprv tu presunieme kód, ktorým povolíme, alebo zablokujeme odoslanie správy. Vzhľadom na to, že nechceme neprihlásenému používateľovi umožniť odosielať správy a naopak prihlásenému používateľovi chceme zobraziť pri odosielaní správy komponent *spinner*, doplníme do metódy pre zablokovanie formulára správy parameter pre zobrazenie komponentu *spinner*. Trieda `UIHelper` bude mať nasledujúci obsah:
+Keďže chceme, aby kód JavaScriptu bol čo najprehľadnejší, vytvoríme novú triedu `UIHelper`, ktorá bude obsahovať iba kód na modifikáciu HTML elementov. Najprv tu presunieme kód, ktorým povolíme, alebo zablokujeme odoslanie správy. Vzhľadom na to, že nechceme neprihlásenému používateľovi umožniť odosielať správy a naopak prihlásenému používateľovi chceme zobraziť pri odosielaní správy komponent *spinner*, doplníme do metódy pre zablokovanie formulára správy parameter na zobrazenie komponentu *spinner*. Trieda `UIHelper` bude mať nasledujúci obsah:
 
 ```javascript
 class UIHelper {
@@ -1029,7 +1029,7 @@ class Chat {
 }
 ```
 
-Následne do konštruktora triedy `Chat` pridáme obsluhu príslušných udalostí tlačidlám pre prihlásenie a odhlásenie:
+Následne do konštruktora triedy `Chat` pridáme obsluhu príslušných udalostí tlačidlám na prihlásenie a odhlásenie:
 
 ```javascript
 class Chat {
@@ -1050,7 +1050,7 @@ class Chat {
 
 #### Indikácia odosielania AJAX žiadosti
 
-Teraz pridáme indikáciu odosielania AJAX žiadosti na pozadí pridaním komponentu *spinner* pri prihlasovaní a odhlasovaní na klientovi. Do triedy `UIHelper` pridáme metódu `showStatusBarLoading()`. Jej úlohou bude skryť prihlasovací formulár a aj element pre odhlásenie.
+Teraz pridáme indikáciu odosielania AJAX žiadosti na pozadí pridaním komponentu *spinner* pri prihlasovaní a odhlasovaní na klientovi. Do triedy `UIHelper` pridáme metódu `showStatusBarLoading()`. Jej úlohou bude skryť prihlasovací formulár a aj element na odhlásenie.
 
 Potom zobrazíme animáciu signalizujúcu načítavanie správ. Element s animáciou budeme musieť vytvoriť ako nový element a pridať ho do elementu `input` s atribútom `id="status-bar"`. 
 
@@ -1198,7 +1198,7 @@ Zoznam používateľov a chat zobrazíme vedľa seba pomocou CSS *flexbox* rozlo
 
 Potom do serverovej časti aplikácie v súbore `api.php` pridáme do bloku `switch` vetvu `users`. V nej si na začiatku vytvoríme lokálnu premennú, do ktorej priradíme prázdne pole. V prípade, ak je používateľ prihlásený, pridáme do tejto premennej pole aktívnych používateľov. Zoznam používateľov prefiltrujeme pomocou funkcie [`array_filter()`](https://www.php.net/manual/en/function.array-filter.php). Výstup tejto funkcie ale neupraví čísla indexov, preto na ich resetovanie použijeme funkciu [`array_values()`](https://www.php.net/manual/en/function.array-values.php). Tento "reset" je dôležitý pre to, aby nám funkcia `json_encode()` výsledné dáta vrátila vo formáte JSON ako pole, a nie ako objekt. Následne ho posielame na výstup v JSON formáte. V prípade, ak používateľ nie je prihlásený, klient dostane prázdne pole. Doplnený kód bude nasledujúci:
 
-Doplnený kód bude nasledovný:
+Doplnený kód bude:
 
 ```php
 // ...
@@ -1290,7 +1290,7 @@ class Chat {
 
 #### Odoslanie súkromnej správy
 
-Upravíme metódu `postMessage()` tak, aby v prípade písania súkromnej správu poslala informáciu o tom, komu je správa určená. Túto informáciu získame z elementu `span` s&nbsp;atribútom `id="private"`. Ak tento element bude obsahovať hodnotu v atribúte `innerText`, vložíme ju POST parametru `private`. Úprava tejto metódy bude takáto:
+Upravíme metódu `postMessage()` tak, aby v prípade písania súkromnej správu poslala informáciu o tom, komu je správa určená. Túto informáciu získame z elementu `span` s&nbsp;atribútom `id="private"`. Ak tento element bude obsahovať hodnotu v atribúte `innerText`, vložíme ju do POST parametra `private`. Úprava tejto metódy bude takáto:
 
 <div class="end">
 
@@ -1366,7 +1366,7 @@ Podobne upravíme metódu, ktorá vracia zoznam správ. Každému používateľo
 
 <div style="page-break-after: always;"></div>
 
-Upravený kód bude nasledovný:
+Upravený kód bude takýto:
 
 ```php
 class MessageStorage {

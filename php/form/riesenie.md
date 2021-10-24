@@ -5,7 +5,7 @@
 > - Repo: [Štartér](/../../tree/main/php/form), [Riešenie](/../../tree/solution/php/form)
 > - [Zobraziť zadanie](zadanie.md)
 
-# PHP formulár (PHP)
+# Dynamický formulár
 
 </div>
 
@@ -205,7 +205,7 @@ class Form {
 
 Táto metóda prejde všetky formulárové prvky. Najskôr ich ale prefiltruje pomocou metódy [`array_filter()`](https://www.php.net/manual/en/function.array_filter). Pri získavaní hodnôt chceme len inštancie typu `AFormField`, pretože len tie obsahujú "hodnotu". Po prefiltrovaní aplikujeme funkciu [`array_map()`](https://www.php.net/manual/en/function.array_map), pomocou ktorej z `AFormField` prvkov vytiahneme vyplnenú hodnotu.
 
-Vyššie spomenutý kód by sa dal prepísať aj pomocou jednoduchého `foreach` cyklu takto:
+Vyššie spomenutý kód by sa dal prepísať aj pomocou jednoduchého `foreach` cyklu takýmto spôsobom:
 
 <div class="end">
 
@@ -465,7 +465,7 @@ class Form {
 }
 ```
 
-Kontrolujeme v nej, či v poli `$_POST` máme informáciu o tom, že bolo stlačené tlačidlo na odoslanie formuláru.
+Kontrolujeme v nej, či v poli `$_POST` máme informáciu o tom, že bolo stlačené tlačidlo na odoslanie formulára.
 
 Pridávanie pravidiel k položkám formulára zabezpečuje metóda `addRule()` v triede `AFormField`, ktorá vyzerá takto:
 
@@ -709,7 +709,7 @@ class Form {
 }
 ```
 
-Deklarácia komplexného formuláru by mohla vyzerať nasledujúco:
+Deklarácia komplexného formulára by mohla vyzerať nasledujúco:
 
 <div class="end">
 

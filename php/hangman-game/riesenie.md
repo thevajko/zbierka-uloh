@@ -129,7 +129,7 @@ class Keyboard
 }
 ```
 
- Pre vytvorenie konštruktora sa v jazyku PHP sa používa kľúčové slovo [`__construct`](https://www.php.net/manual/en/language.oop5.decon.php). Viditeľnosť metódy nastavíme na [`public`](https://www.php.net/manual/en/language.oop5.visibility.php) a pridáme mu vstupný parameter `$cols` (počet stĺpcov). Pri jeho definícii využijeme možnosť použitia `default` parametra. Ak konštruktoru nepošleme žiadny parameter, použije sa prednastavená hodnota `6`. Konštruktor bude vyzerať:
+ Na vytvorenie konštruktora sa v jazyku PHP sa používa kľúčové slovo [`__construct`](https://www.php.net/manual/en/language.oop5.decon.php). Viditeľnosť metódy nastavíme na [`public`](https://www.php.net/manual/en/language.oop5.visibility.php) a pridáme mu vstupný parameter `$cols` (počet stĺpcov). Pri jeho definícii využijeme možnosť použitia `default` parametra. Ak konštruktoru nepošleme žiadny parameter, použije sa prednastavená hodnota `6`. Konštruktor bude vyzerať:
 
 ```php
 class Keyboard
@@ -144,7 +144,7 @@ class Keyboard
 
 Kľúčové slovo `$this` budeme používať na priradenie hodnoty do atribútu objektu. Hlavnou metódou triedy `Keyboard` je metóda, ktorá vráti HTML kód klávesnice, aby sme ho mohli vložiť do hry. 
 
-Metóda najskôr vypočíta, koľko riadkov bude klávesnica zaberať. Ak chceme pristupovať k nejakej konštante definovanej v triede, používame kľúčové slovo `self`, pretože konštanta nie je závislá od konkrétnej inštancii triedy, ale platí pre celú triedu. Potom klávesnicu vypíšeme ako HTML tabuľku pomocou dvoch vnorených `for` cyklov, pričom do každej bunky tabuľky vložíme práve jeden znak.
+Metóda najskôr vypočíta, koľko riadkov bude klávesnica zaberať. Ak chceme pristupovať k nejakej konštante definovanej v triede, používame kľúčové slovo `self`, pretože konštanta nie je závislá od konkrétnej inštancie triedy, ale platí pre celú triedu. Potom klávesnicu vypíšeme ako HTML tabuľku pomocou dvoch vnorených `for` cyklov, pričom do každej bunky tabuľky vložíme práve jeden znak.
 
 Na prevod znaku z jeho ACSII hodnoty na znak použijeme funkciu [`chr()`](https://www.php.net/manual/en/function.chr.php). Pre každé písmeno tak vytvoríme element `a`, ktorému nastavíme GET parameter `char` a ako hodnotu mu priradíme dané písmeno. Kód elementu `a` pre písmeno `A` bude teda: `<a href="?char=A">A</a>`.
 
