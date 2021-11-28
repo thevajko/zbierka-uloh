@@ -182,7 +182,7 @@ Db::conn()->query("SELECT * FROM users WHERE id = " . $id);
 
 Tento **prístup je nebezpečný a takéto použitie umožňuje vykonať útok typu SQL injection**. Kvôli bezpečnejšiemu prístupu využijeme *prepared statements*. Tie nám umožnia bezpečne vykonávať SQL príkazy s parametrami, ktoré pochádzajú od používateľov.
 
-Na vytvorenie parametrizovaného SQL dopytu slúži metóda [`PDO::prepare()`](https://www.php.net/manual/en/pdostatement.prepare.php). Ako parameter dostane SQL príkaz, kde sú jednotlivé parametre nahradené špeciálnym znakom. Parametre môžu byť *pomenované*, v tom prípade sa zapisujú s dvojbodkou na začiatku - napr. `:id`. Druhým spôsobom sú *nepomenované* parametre, ktoré sa zapisujú pomocou znaku `?`. Náš SQL príkaz na získanie záznamu konkrétneho používateľa môžeme zapísať takto:
+Na vytvorenie parametrizovaného SQL dopytu slúži metóda [`PDO::prepare()`](https://www.php.net/manual/en/pdostatement.prepare.php). Ako parameter dostane SQL príkaz, kde sú jednotlivé parametre nahradené špeciálnym znakom. Parametre môžu byť *pomenované*, v tom prípade sa zapisujú s dvojbodkou na začiatku, napr. `:id`. Druhým typom sú *nepomenované* parametre, ktoré sa zapisujú pomocou znaku `?`. SQL príkaz na získanie záznamu konkrétneho používateľa zapíšeme:
 
 ```php
 $statement = Db::conn()->prepare("SELECT * FROM users WHERE id = ?");

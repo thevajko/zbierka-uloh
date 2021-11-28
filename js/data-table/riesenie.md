@@ -281,10 +281,10 @@ Na získanie požadovanej hodnoty atribútu opäť použijeme prístup k atribú
 Všimnite si však, že získané hodnoty z objektov v kolekcii sú konvertované do reťazca použitím konverznej globálnej funkcie [`String()`](https://www.w3schools.com/jsref/jsref_string.asp). Bez nej by toto zoraďovanie nefungovalo.
 
 ```javascript
-sortCollection(filterBy)
+sortCollection(sortBy)
 {
     this.dataCollection.sort(function (a, b) {
-        return String(a[filterBy]).localeCompare(String(b[filterBy]));
+        return String(a[sortBy]).localeCompare(String(b[sortBy]));
     });
     this.renderTable();
 }
@@ -299,18 +299,18 @@ Tabuľka sa momentálne zoradí iba jedným smerom. Doplníme preto do triedy `J
 Celá zmena sa týka iba metódy `JsTable.sortCollection()`, ktorá po spomínanej úprave bude vyzerať nasledujúco:
 
 ```javascript
-sortCollection(filterBy)
+sortCollection(sortBy)
 {
-    if (this.lastSortedBy == null && this.lastSortedBy != filterBy) {
+    if (this.lastSortedBy == null && this.lastSortedBy != sortBy) {
         // prvý spôsob zoradenia
         this.dataCollection.sort(function (a, b) {
-            return String(a[filterBy]).localeCompare(String(b[filterBy]));
+            return String(a[sortBy]).localeCompare(String(b[sortBy]));
         });
-        this.lastSortedBy = filterBy;
+        this.lastSortedBy = sortBy;
     } else {
         // druhý spôsob zoradenia
         this.dataCollection.sort(function (a, b) {
-            return String(b[filterBy]).localeCompare(String(a[filterBy]));
+            return String(b[sortBy]).localeCompare(String(a[sortBy]));
         });
         this.lastSortedBy = null;
     }
@@ -353,7 +353,7 @@ constructor(dataCollection, HTMLElement)
 {
 
     this.dataCollection = dataCollection;
-    this.filtedDataCollection = dataCollection;
+    this.filteredDataCollection = dataCollection;
 
     this.HTMLElement = HTMLElement;
 
@@ -371,14 +371,14 @@ constructor(dataCollection, HTMLElement)
 }
 ```
 
-Ešte musíme vymeniť zdrojovú kolekciu z `dataCollection` na `filtedDataCollection` v&nbsp;metódach `sortCollection()` a `renderRows()` nasledujúco:
+Ešte musíme vymeniť zdrojovú kolekciu z `dataCollection` na `filteredDataCollection` v&nbsp;metódach `sortCollection()` a `renderRows()` nasledujúco:
 
 ```javascript
 renderRows()
 {
     let bodyText = "";
     let keys = Object.keys(this.dataCollection[0]);
-    this.filtedDataCollection.forEach((item, i) => {
+    this.filteredDataCollection.forEach((item, i) => {
         let rowText = "";
         keys.forEach((attributeName, i) => {
             rowText += `<td>${item[attributeName]}</td>`
@@ -391,12 +391,12 @@ renderRows()
 sortCollection(filterBy)
 {
     if (this.lastSortedBy == null && this.lastSortedBy != filterBy) {
-        this.filtedDataCollection.sort(function (a, b) {
+        this.filteredDataCollection.sort(function (a, b) {
             return String(a[filterBy]).localeCompare(String(b[filterBy]));
         });
         this.lastSortedBy = filterBy;
     } else {
-        this.filtedDataCollection.sort(function (a, b) {
+        this.filteredDataCollection.sort(function (a, b) {
             return String(b[filterBy]).localeCompare(String(a[filterBy]));
         });
         this.lastSortedBy = null;
@@ -428,10 +428,10 @@ Pri samotnej kontrole musíme prejsť hodnotu všetkých atribútov objektov v z
 filterCollection(expression)
 {
     if (expression == null || expression.length < 2) {
-        this.filtedDataCollection = this.dataCollection;
+        this.filteredDataCollection = this.dataCollection;
     } else {
         let keys = Object.keys(this.dataCollection[0]);
-        this.filtedDataCollection = this.dataCollection.filter((a) => {
+        this.filteredDataCollection = this.dataCollection.filter((a) => {
             for (let i = 0; i < keys.length; i++) {
                 if (String(a[keys[i]]).includes(expression)) {
                     return true;

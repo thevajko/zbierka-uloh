@@ -580,6 +580,8 @@ class UserStorage
 
 Pridávanie používateľa je podobné ako pridávanie správy a vyzerá nasledujúco:
 
+<div class="end">
+
 ```php
 class UserStorage {   
     // ...
@@ -595,6 +597,8 @@ class UserStorage {
     // ...
 }
 ```
+
+</div>
 
 A ako poslednú pridáme metódu, ktorou budeme na základe mena mazať záznamy používateľov:
 
@@ -630,6 +634,8 @@ V príklade sa nebudeme zaoberať čo s používateľmi, ktorí sa neodhlásia, 
 
 Do súboru `api.php` v bloku `switch` pridáme novú vetvu pre hodnotu `login`, ktorej kód bude nasledujúci:
 
+<div class="end">
+
 ```php
 // ...
 switch (@$_GET['method']) {
@@ -653,6 +659,8 @@ switch (@$_GET['method']) {
     // ...
 }
 ```
+
+</div>
 
 Kontrolu v súbore `api.php`, či je používateľ prihlásený, pridáme aj do časti, ktorá je zodpovedná za pridávanie správ. Tým podmienime poslanie správy prihlásením. Taktiež doplníme informáciu o tom, kto správu vytvoril tak, že do atribútu `$user` pridáme hodnotu z `$_SESSION['user']`:
 

@@ -13,7 +13,7 @@
 
 ### HTML dokument
 
-Riešenie začneme prípravou HTML dokumentu. Na každú z planét vytvoríme vlastný HTML element. Pre lepšiu prehľadnosť a zjednodušenie zápisu CSS pravidiel ich umiestnime do spoločného elementu s triedou `system`. HTML kód bude vyzerať takto:
+Riešenie začneme prípravou HTML dokumentu. Pre každú z planét vytvoríme vlastný HTML element. Kvôli lepšej prehľadnosti a zjednodušeniu zápisu CSS pravidiel ich umiestnime do spoločného elementu (kontajnera) s triedou `system`. HTML kód bude vyzerať takto:
 
 ```html
 <div class="system">
